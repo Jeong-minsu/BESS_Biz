@@ -1,0 +1,484 @@
+{
+  "battery": "GKS_BESS 100MW/200MWh",
+  "date": "2026-05-02",
+  "charge_hours": [
+    12,
+    13
+  ],
+  "charge_da_lmp": [
+    -8.5,
+    -6.2
+  ],
+  "discharge_hours": [
+    19,
+    20
+  ],
+  "discharge_da_lmp": [
+    58.5,
+    52.4
+  ],
+  "energy_arbitrage_revenue": 12560.0,
+  "as_revenue_total": 33040.0,
+  "total_projected_revenue": 45600.0,
+  "round_trip_eff": 0.86,
+  "stack": [
+    {
+      "hour": 0,
+      "action": "AS-only (ECRS)",
+      "da_lmp": 18.5,
+      "rt_lmp": 19.2,
+      "da_energy_revenue": 0,
+      "as_product": "ECRS",
+      "as_price": 12.5,
+      "as_revenue": 1250.0
+    },
+    {
+      "hour": 1,
+      "action": "AS-only (ECRS)",
+      "da_lmp": 16.2,
+      "rt_lmp": 15.8,
+      "da_energy_revenue": 0,
+      "as_product": "ECRS",
+      "as_price": 11.8,
+      "as_revenue": 1180.0
+    },
+    {
+      "hour": 2,
+      "action": "AS-only (ECRS)",
+      "da_lmp": 14.8,
+      "rt_lmp": 13.5,
+      "da_energy_revenue": 0,
+      "as_product": "ECRS",
+      "as_price": 11.2,
+      "as_revenue": 1120.0
+    },
+    {
+      "hour": 3,
+      "action": "AS-only (ECRS)",
+      "da_lmp": 14.1,
+      "rt_lmp": 12.9,
+      "da_energy_revenue": 0,
+      "as_product": "ECRS",
+      "as_price": 10.9,
+      "as_revenue": 1090.0
+    },
+    {
+      "hour": 4,
+      "action": "AS-only (ECRS)",
+      "da_lmp": 13.9,
+      "rt_lmp": 13.2,
+      "da_energy_revenue": 0,
+      "as_product": "ECRS",
+      "as_price": 10.8,
+      "as_revenue": 1080.0
+    },
+    {
+      "hour": 5,
+      "action": "AS-only (ECRS)",
+      "da_lmp": 14.5,
+      "rt_lmp": 15.1,
+      "da_energy_revenue": 0,
+      "as_product": "ECRS",
+      "as_price": 11.5,
+      "as_revenue": 1150.0
+    },
+    {
+      "hour": 6,
+      "action": "AS-only (ECRS)",
+      "da_lmp": 17.2,
+      "rt_lmp": 18.5,
+      "da_energy_revenue": 0,
+      "as_product": "ECRS",
+      "as_price": 13.2,
+      "as_revenue": 1320.0
+    },
+    {
+      "hour": 7,
+      "action": "AS-only (ECRS)",
+      "da_lmp": 22.8,
+      "rt_lmp": 24.8,
+      "da_energy_revenue": 0,
+      "as_product": "ECRS",
+      "as_price": 16.8,
+      "as_revenue": 1680.0
+    },
+    {
+      "hour": 8,
+      "action": "AS-only (ECRS)",
+      "da_lmp": 19.5,
+      "rt_lmp": 21.0,
+      "da_energy_revenue": 0,
+      "as_product": "ECRS",
+      "as_price": 18.5,
+      "as_revenue": 1850.0
+    },
+    {
+      "hour": 9,
+      "action": "AS-only (ECRS)",
+      "da_lmp": 12.4,
+      "rt_lmp": 13.8,
+      "da_energy_revenue": 0,
+      "as_product": "ECRS",
+      "as_price": 14.2,
+      "as_revenue": 1420.0
+    },
+    {
+      "hour": 10,
+      "action": "AS-only (ECRS)",
+      "da_lmp": 4.2,
+      "rt_lmp": 2.5,
+      "da_energy_revenue": 0,
+      "as_product": "ECRS",
+      "as_price": 8.5,
+      "as_revenue": 850.0
+    },
+    {
+      "hour": 11,
+      "action": "AS-only (ECRS)",
+      "da_lmp": -3.8,
+      "rt_lmp": -8.2,
+      "da_energy_revenue": 0,
+      "as_product": "ECRS",
+      "as_price": 4.5,
+      "as_revenue": 450.0
+    },
+    {
+      "hour": 12,
+      "action": "CHARGE 100MW",
+      "da_lmp": -8.5,
+      "rt_lmp": -12.4,
+      "da_energy_revenue": 850.0,
+      "as_product": "\u2014",
+      "as_price": 0,
+      "as_revenue": 0
+    },
+    {
+      "hour": 13,
+      "action": "CHARGE 100MW",
+      "da_lmp": -6.2,
+      "rt_lmp": -10.5,
+      "da_energy_revenue": 620.0,
+      "as_product": "\u2014",
+      "as_price": 0,
+      "as_revenue": 0
+    },
+    {
+      "hour": 14,
+      "action": "AS-only (ECRS)",
+      "da_lmp": -1.5,
+      "rt_lmp": -3.8,
+      "da_energy_revenue": 0,
+      "as_product": "ECRS",
+      "as_price": 6.8,
+      "as_revenue": 680.0
+    },
+    {
+      "hour": 15,
+      "action": "AS-only (ECRS)",
+      "da_lmp": 8.4,
+      "rt_lmp": 7.1,
+      "da_energy_revenue": 0,
+      "as_product": "ECRS",
+      "as_price": 11.5,
+      "as_revenue": 1150.0
+    },
+    {
+      "hour": 16,
+      "action": "AS-only (ECRS)",
+      "da_lmp": 18.9,
+      "rt_lmp": 21.2,
+      "da_energy_revenue": 0,
+      "as_product": "ECRS",
+      "as_price": 18.2,
+      "as_revenue": 1820.0
+    },
+    {
+      "hour": 17,
+      "action": "AS-only (ECRS)",
+      "da_lmp": 32.5,
+      "rt_lmp": 38.4,
+      "da_energy_revenue": 0,
+      "as_product": "ECRS",
+      "as_price": 28.5,
+      "as_revenue": 2850.0
+    },
+    {
+      "hour": 18,
+      "action": "AS-only (ECRS)",
+      "da_lmp": 48.2,
+      "rt_lmp": 55.6,
+      "da_energy_revenue": 0,
+      "as_product": "ECRS",
+      "as_price": 42.5,
+      "as_revenue": 4250.0
+    },
+    {
+      "hour": 19,
+      "action": "DISCHARGE 86MW (eff)",
+      "da_lmp": 58.5,
+      "rt_lmp": 68.2,
+      "da_energy_revenue": 5850.0,
+      "as_product": "\u2014",
+      "as_price": 0,
+      "as_revenue": 0
+    },
+    {
+      "hour": 20,
+      "action": "DISCHARGE 86MW (eff)",
+      "da_lmp": 52.4,
+      "rt_lmp": 56.8,
+      "da_energy_revenue": 5240.0,
+      "as_product": "\u2014",
+      "as_price": 0,
+      "as_revenue": 0
+    },
+    {
+      "hour": 21,
+      "action": "AS-only (ECRS)",
+      "da_lmp": 38.7,
+      "rt_lmp": 41.2,
+      "da_energy_revenue": 0,
+      "as_product": "ECRS",
+      "as_price": 35.8,
+      "as_revenue": 3580.0
+    },
+    {
+      "hour": 22,
+      "action": "AS-only (ECRS)",
+      "da_lmp": 28.5,
+      "rt_lmp": 30.1,
+      "da_energy_revenue": 0,
+      "as_product": "ECRS",
+      "as_price": 24.5,
+      "as_revenue": 2450.0
+    },
+    {
+      "hour": 23,
+      "action": "AS-only (ECRS)",
+      "da_lmp": 22.1,
+      "rt_lmp": 23.5,
+      "da_energy_revenue": 0,
+      "as_product": "ECRS",
+      "as_price": 18.2,
+      "as_revenue": 1820.0
+    }
+  ],
+  "dart_positions": [
+    {
+      "hour": 0,
+      "side": "STAY OUT",
+      "size_mw": 0,
+      "bid_price": null,
+      "p_da_gt_rt": 0.48,
+      "expected_spread": -0.7,
+      "rationale": "|edge| insufficient: P(DA>RT)=0.48"
+    },
+    {
+      "hour": 1,
+      "side": "STAY OUT",
+      "size_mw": 0,
+      "bid_price": null,
+      "p_da_gt_rt": 0.52,
+      "expected_spread": 0.4,
+      "rationale": "|edge| insufficient: P(DA>RT)=0.52"
+    },
+    {
+      "hour": 2,
+      "side": "STAY OUT",
+      "size_mw": 0,
+      "bid_price": null,
+      "p_da_gt_rt": 0.55,
+      "expected_spread": 1.3,
+      "rationale": "|edge| insufficient: P(DA>RT)=0.55"
+    },
+    {
+      "hour": 3,
+      "side": "STAY OUT",
+      "size_mw": 0,
+      "bid_price": null,
+      "p_da_gt_rt": 0.58,
+      "expected_spread": 1.2,
+      "rationale": "|edge| insufficient: P(DA>RT)=0.58"
+    },
+    {
+      "hour": 4,
+      "side": "STAY OUT",
+      "size_mw": 0,
+      "bid_price": null,
+      "p_da_gt_rt": 0.56,
+      "expected_spread": 0.7,
+      "rationale": "|edge| insufficient: P(DA>RT)=0.56"
+    },
+    {
+      "hour": 5,
+      "side": "STAY OUT",
+      "size_mw": 0,
+      "bid_price": null,
+      "p_da_gt_rt": 0.51,
+      "expected_spread": -0.6,
+      "rationale": "|edge| insufficient: P(DA>RT)=0.51"
+    },
+    {
+      "hour": 6,
+      "side": "STAY OUT",
+      "size_mw": 0,
+      "bid_price": null,
+      "p_da_gt_rt": 0.45,
+      "expected_spread": -1.3,
+      "rationale": "|edge| insufficient: P(DA>RT)=0.45"
+    },
+    {
+      "hour": 7,
+      "side": "STAY OUT",
+      "size_mw": 0,
+      "bid_price": null,
+      "p_da_gt_rt": 0.42,
+      "expected_spread": -2.0,
+      "rationale": "|edge| insufficient: P(DA>RT)=0.42"
+    },
+    {
+      "hour": 8,
+      "side": "STAY OUT",
+      "size_mw": 0,
+      "bid_price": null,
+      "p_da_gt_rt": 0.38,
+      "expected_spread": -1.5,
+      "rationale": "|edge| insufficient: P(DA>RT)=0.38"
+    },
+    {
+      "hour": 9,
+      "side": "STAY OUT",
+      "size_mw": 0,
+      "bid_price": null,
+      "p_da_gt_rt": 0.42,
+      "expected_spread": -1.4,
+      "rationale": "|edge| insufficient: P(DA>RT)=0.42"
+    },
+    {
+      "hour": 10,
+      "side": "STAY OUT",
+      "size_mw": 0,
+      "bid_price": null,
+      "p_da_gt_rt": 0.55,
+      "expected_spread": 1.7,
+      "rationale": "|edge| insufficient: P(DA>RT)=0.55"
+    },
+    {
+      "hour": 11,
+      "side": "DA SELL / RT BUY (short DART spread)",
+      "size_mw": 25,
+      "bid_price": -4.8,
+      "p_da_gt_rt": 0.68,
+      "expected_spread": 4.4,
+      "rationale": "P(DA>RT)=0.68 \u2265 0.65 \u2014 high midday solar suppression risk, RT likely lower"
+    },
+    {
+      "hour": 12,
+      "side": "DA SELL / RT BUY (short DART spread)",
+      "size_mw": 25,
+      "bid_price": -9.5,
+      "p_da_gt_rt": 0.72,
+      "expected_spread": 3.9,
+      "rationale": "P(DA>RT)=0.72 \u2265 0.65 \u2014 high midday solar suppression risk, RT likely lower"
+    },
+    {
+      "hour": 13,
+      "side": "DA SELL / RT BUY (short DART spread)",
+      "size_mw": 25,
+      "bid_price": -7.2,
+      "p_da_gt_rt": 0.7,
+      "expected_spread": 4.3,
+      "rationale": "P(DA>RT)=0.7 \u2265 0.65 \u2014 high midday solar suppression risk, RT likely lower"
+    },
+    {
+      "hour": 14,
+      "side": "STAY OUT",
+      "size_mw": 0,
+      "bid_price": null,
+      "p_da_gt_rt": 0.62,
+      "expected_spread": 2.3,
+      "rationale": "|edge| insufficient: P(DA>RT)=0.62"
+    },
+    {
+      "hour": 15,
+      "side": "STAY OUT",
+      "size_mw": 0,
+      "bid_price": null,
+      "p_da_gt_rt": 0.48,
+      "expected_spread": 1.3,
+      "rationale": "|edge| insufficient: P(DA>RT)=0.48"
+    },
+    {
+      "hour": 16,
+      "side": "DA BUY / RT SELL (long DART spread)",
+      "size_mw": 25,
+      "bid_price": 19.9,
+      "p_da_gt_rt": 0.35,
+      "expected_spread": -2.3,
+      "rationale": "P(DA<RT)=0.65 \u2265 0.65 \u2014 RT scarcity expected (evening peak / morning ramp)"
+    },
+    {
+      "hour": 17,
+      "side": "DA BUY / RT SELL (long DART spread)",
+      "size_mw": 25,
+      "bid_price": 33.5,
+      "p_da_gt_rt": 0.3,
+      "expected_spread": -5.9,
+      "rationale": "P(DA<RT)=0.7 \u2265 0.65 \u2014 RT scarcity expected (evening peak / morning ramp)"
+    },
+    {
+      "hour": 18,
+      "side": "DA BUY / RT SELL (long DART spread)",
+      "size_mw": 25,
+      "bid_price": 49.2,
+      "p_da_gt_rt": 0.28,
+      "expected_spread": -7.4,
+      "rationale": "P(DA<RT)=0.72 \u2265 0.65 \u2014 RT scarcity expected (evening peak / morning ramp)"
+    },
+    {
+      "hour": 19,
+      "side": "DA BUY / RT SELL (long DART spread)",
+      "size_mw": 25,
+      "bid_price": 59.5,
+      "p_da_gt_rt": 0.25,
+      "expected_spread": -9.7,
+      "rationale": "P(DA<RT)=0.75 \u2265 0.65 \u2014 RT scarcity expected (evening peak / morning ramp)"
+    },
+    {
+      "hour": 20,
+      "side": "DA BUY / RT SELL (long DART spread)",
+      "size_mw": 25,
+      "bid_price": 53.4,
+      "p_da_gt_rt": 0.32,
+      "expected_spread": -4.4,
+      "rationale": "P(DA<RT)=0.68 \u2265 0.65 \u2014 RT scarcity expected (evening peak / morning ramp)"
+    },
+    {
+      "hour": 21,
+      "side": "STAY OUT",
+      "size_mw": 0,
+      "bid_price": null,
+      "p_da_gt_rt": 0.42,
+      "expected_spread": -2.5,
+      "rationale": "|edge| insufficient: P(DA>RT)=0.42"
+    },
+    {
+      "hour": 22,
+      "side": "STAY OUT",
+      "size_mw": 0,
+      "bid_price": null,
+      "p_da_gt_rt": 0.48,
+      "expected_spread": -1.6,
+      "rationale": "|edge| insufficient: P(DA>RT)=0.48"
+    },
+    {
+      "hour": 23,
+      "side": "STAY OUT",
+      "size_mw": 0,
+      "bid_price": null,
+      "p_da_gt_rt": 0.5,
+      "expected_spread": -1.4,
+      "rationale": "|edge| insufficient: P(DA>RT)=0.5"
+    }
+  ]
+}

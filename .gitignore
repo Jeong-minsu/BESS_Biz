@@ -1,0 +1,81 @@
+# =============================================================
+# CRITICAL — Secrets that must NEVER be committed
+# =============================================================
+.env
+.env.*
+!.env.example
+
+# Token / endpoint cache (Tenaska bearer 토큰, viewport mapping 등)
+shared/scripts/.cache/
+**/.cache/
+
+# AWS credentials, profiles
+.aws/
+credentials
+
+# =============================================================
+# Vendor raw data (re-fetchable; can be large; possibly licensed)
+# =============================================================
+shared/data/raw/
+
+# 산출물 데이터 (Tenaska 실적 등은 사외 공개 X)
+shared/data/pnl/gks/hourly/*.json
+shared/data/pnl/gks/daily/*.parquet
+shared/data/benchmarks/smartbidder/
+
+# CRR 옥션 결과 / basis 히스토리 (벤더 데이터)
+shared/data/crr/auction-results/
+shared/data/crr/basis-history/
+
+# =============================================================
+# Python
+# =============================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# venv
+venv/
+.venv/
+env/
+ENV/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# =============================================================
+# Jupyter / notebooks
+# =============================================================
+.ipynb_checkpoints/
+
+# =============================================================
+# Editor / OS
+# =============================================================
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =============================================================
+# Logs & temp
+# =============================================================
+*.log
+*.tmp
+*.bak
+tmp/
+temp/
+
+# =============================================================
+# Reports — keep .md (review-able), gitignore .html (large, generated)
+# =============================================================
+reports/**/*.html

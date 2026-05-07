@@ -1,0 +1,1809 @@
+AG2 Trader API Documentation 
+Last Updated: Jan 21, 2026
+The Following document describes how to use the AG2 Trader API to download data from the AG2
+Trader website. These services provide the means to automate the downloading of data that is available 
+within the AG2 Trader platform. 
+Note: The documentation below includes quotes around some of the options simply for clarity. In no 
+case, should quotes be used in the API calls. 
+Quick Links 
+1. Homepage – Forecast Table
+2. Hourly Forecast
+3. Weighted Forecast – ISO/Country
+4. Weighted Forecast – Degree Days 
+5. 1-5, 6-10 & 11-15 Day Forecast Graphics
+6. 1-5, 6-10 & 11-15 Day Headlines
+7. Seasonal Forecast Graphics
+8. Sub-Seasonal Forecast Graphics
+9. European Solar/Wind Power Forecasts
+10. Historical Observations – Available for North America, Europe and Asia
+11. Premium Weather - Forecast Analysis – Currently only available for North America and Europe
+12. Premium Weather – Teleconnections
+13. Load – Hourly Forecasts
+14. Load – Daily Forecasts
+15. Load - Observations
+16. Natural Gas Demand Forecasts – Currently only available for North America
+17. WindCast IQ Hourly Forecasts
+18. WindCast IQ Hourly Observations
+19. North America Solar Power Forecasts
+20. Probabilistic Forecasts – Discrete Probability
+21. Probabilistic Forecasts – Threshold Exceedance
+22. Probabilistic Forecasts – FRisk
+23. 1-15 Day Forecast Temperature Graphics
+24. 1-15 Day Forecast Precip Graphics
+25. Weather Model Graphics
+26. Weighted Forecast = Individual City Forecasts
+1.) Homepage – Forecast Table 
+Returns a .csv file with AG2 forecast data from the Forecast City Table on the Trader homepage for a 
+given Region or Custom List 
+Base URL: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetCityTableForecast
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader 
+Password – The password used to login to WSI Trader 
+SiteId – the Id of the region or custom list you would like the forecast data for. For the complete list of 
+available Region IDs run the following API URL: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetForecastTableIds?Account={USERNA
+ME}&Profile={PROFILE}&Password={PASSWORD}
+There are 2 types of region ids returned, one with simply the region name, for example NEISO or 
+GERMANY, and the other with the region name followed by “-pool” 
+Entering just the region name, for example NEISO or GERMANY, will return the forecast data for all the 
+individual cities in that region. Entering the region name followed by “-pool”, for example NEISO-pool or 
+GERMANY-pool, will return both the forecast data for all the individual cities in that region as well as the 
+aggregate forecast for the region. 
+* To return the forecast for all cities in which you are provisioned, use the value allcities for the SiteId
+parameter. 
+IsCustom – Indicates if the name of the region entered is a user-defined custom list. Accepted values 
+are: 
+True – region name entered is a user-defined custom list 
+False – region name entered is not a user-defined custom list 
+CurrentTabName – Indicates the parameter you would like to get forecast information for. Accepted 
+values are: 
+ MinMax – 12am-12am Min and Max Temperature 
+Peak – Off Peak/On Peak Min and Max Temperature 
+AverageTemp – 12am-12am Average Temperature 
+DegreeDays – Cooling Degree Day (CDD) and Heating Degree Day (HDD) calculated from 12am-
+12am Average Temperature 
+GasDay – Min and Max Temperature based on the Gas Day Definition. In North America it is 
+defined as 10am-10am and in all other regions defined as 6am-6am. 
+POP – Probability of Precipitation 
+TempUnits – The units you want the temperature data displayed in. Accepted values are: 
+F – Fahrenheit 
+C – Celsius 
+Region – The region in which the SiteId is located. Accepted values are: 
+NA – North America 
+MEX - Mexico
+EUR – Europe 
+ASIA – Asia 
+AUS – Australia 
+* For “Custom Lists”, you must set the IsCustom parameter to “true” and use the exact name of your 
+customer list for the Id parameter. 
+Example URLs: 
+Return the AG2 Gas Day Min and Max Temperature forecast in degrees Celsius for all cities in 
+Germany 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetCityTableForecast?Account=usernam 
+e&Profile={PROFILE}&Password={PASSWORD}&IsCustom=false&CurrentTabName=GasDay&TempUni 
+ts=C&Id=GERMANY&Region=EUR
+Return the AG2 Average Temperature forecast in degrees Fahrenheit for all cities in the region 
+NYISO as well as the aggregate forecast for NYISO 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetCityTableForecast?Account=usernam 
+e&Profile={PROFILE}&Password={PASSWORD}&IsCustom=false&CurrentTabName=AverageTemp&Temp
+Units=F&Id=NYISO-pool&Region=NA
+Return the AG2 Average Temperature forecast in degrees Celsius for all available cities in North America 
+that your account is provisioned for: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetCityTableForecast?Account=usernam 
+e&Profile={PROFILE}&Password={PASSWORD}&IsCustom=false&CurrentTabName=AverageTemp&Te 
+mpUnits=C&Id=allcities&Region=NA
+Return the AG2 Average Temperature forecast in degrees Celsius for a user-defined custom list with the 
+name “mycities” for cities located in Europe: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetCityTableForecast?Account=userna
+m e&Profile={PROFILE}&Password={PASSWORD}&IsCustom=false&CurrentTabName=AverageTemp&Te 
+mpUnits=C&Id=mycities&Region=EUR
+2.) Hourly Forecast 
+Returns a .csv file with the data provided in the Hourly Forecast product 
+Base URL:
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetHourlyForecast
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader 
+Password – The password used to login to WSI Trader 
+SiteId – The ID for the station you would like to download data for. Use this parameter only when 
+requesting one station
+Or 
+SiteIds[] – The IDs for the stations you would like to download data for. You can retrieve data for up to 
+10 stations in one API call. Use this parameter only when requesting multiple stations 
+For the complete list of available station IDs run the following API URL: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetCityIds?Account={USERNAME}&Profi
+lePROFILE&Password={PASSWORD}
+Region – Enter the Region in which the station is located. Accepted values are: 
+ NA – North America 
+ MEX - Mexico
+ EUR – Europe 
+AUS - Australia 
+ASIA – Asia 
+TempUnits – The units you want the temperature data displayed in: Accepted values are: 
+F – Fahrenheit 
+C - Celsius 
+Optional Parameter:
+timeutc – The timezone to express the data in. By default, the Date and Time will be expressed in the 
+local prevailing timezone of the station being retrieved
+false – Date and Time are returned in local prevailing timezone (Default)
+true – Date and Time are returned in UTC format
+Example URL: 
+Return the data from the AG2 Hourly Forecast for the European city London Heathrow (EGLL) in 
+degrees Celsius
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetHourlyForecast?Account={USERNAM
+E}&Profile={PROFILE}&Password={PASSWORD}&region=EUR&SiteId=EGLL&TempUnits=C
+Return the data from the AG2 Hourly Forecast for multiple cities in North America in degrees 
+Fahrenheit
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetHourlyForecast?Account={USERNAM
+E}&Profile={PROFILE}&Password={PASSWORD}&region=NA&SiteIds[]=KBOS&SiteIds[]=KLAX&TempUnits
+=F
+3.) Weighted Forecast – ISO/Country 
+Returns a .csv file with the Weighted Temperature Forecasts for the ISOs or Countries you have 
+configured to view on the Trader website, 
+https://www.wsitrader.com/WeightedForecast/PowerGas/RegionWeighted, for the selected Region 
+Base URL: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetModelForecast
+Required Parameters: 
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader 
+Password – The password used to login to WSI Trader 
+Region – Enter the desired region for which your account has access to. Accepted values are: 
+ NA – North America 
+ MEX - Mexico
+ EUR – Europe 
+ForecastType – The data resolution desired. Accepted values are: 
+Period 
+Daily 
+Model – The desired data source. Users can retrieve the latest AG2 forecast or the latest forecasts from 
+the GFS and ECMWF models. Accepted values are: 
+WSI – Latest AG2 Forecast 
+GFS_OP – GFS Operational 
+GFS_ENS – GFS Ensemble 
+ECMWF_OP – ECMWF Operational 
+ECMWF_ENS – ECMWF Ensemble
+AIFS – ECMWF AIFS
+AIFS_ENS – ECMWF AIFS Ensemble
+TempUnits – The units you want the temperature data displayed in. Accepted values are: 
+F – Fahrenheit 
+C - Celsius 
+showdecimals – Controls the precision of the data. Accepted values are: 
+true – Data is provided with one decimal precision 
+false – Data is provided as a whole number 
+BiasCorrected – The GFS and ECMWF Data can be returned either with the interpolation biases removed 
+or in the raw interpolated format. This parameter is not relevant to AG2 forecasts in which case any 
+accepted value can be entered. Accepted values are: 
+true – Forecasts calculated using data in which the interpolation errors have been removed 
+false – Forecasts calculated using raw interpolated model data 
+Optional Parameters:
+allregions – Return the desired ISOs/Countries. By Default, if the parameter is not entered only the 
+ISOs/Countries that were selected in the WSI Trader website will be returned. Accepted values are:
+true – All available ISOs/Countries for the entered Region will be returned 
+false – Only the ISOs/Countries selected in the WSI Trader website will be returned 
+ShowDifferences – Return the differences between the latest forecast and the previous forecast(s). By 
+Default, if the parameter is not entered differences will be provided. Accepted values are: 
+true – Differences are provided (Default) 
+false – Differences are not provided 
+DataTypes[] – Return the desired parameter. By Default, if the parameter is not entered all available 
+parameters will be returned. Accepted values are: 
+Temp – Min/Max Temperature 
+HDD – Heating Degree Days (Only available for the NA region) 
+CDD – Cooling Degree Days (Only available for the NA region) 
+Heat - Heat Index (Only available for the NA region and for the AG2 Forecast) 
+You can provide multiple values in one request. 
+For example, DataTypes[]=Temp&DataTypes[]=Heat 
+Example URLs: 
+Return the latest AG2 Temperature Period Forecast for North America in degrees Fahrenheit:
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetModelForecast?Account={USERNAM
+E}&Profile={PROFILE}&Password={PASSWORD}&Region=NA&forecasttype=Period&Model=WSI&TempU
+nits=F&BiasCorrected=true
+Return the latest GFS Ensemble Daily Forecast for Europe in degrees Celsius with the data bias 
+corrected:
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetModelForecast?Account={USERNAM
+E}&Profile={PROFILE}&Password={PASSWORD}&Region=EUR&forecasttype=Daily&Model=GFS_ENS&Te
+mpUnits=C&BiasCorrected=true
+4.) Weighted Forecast – Degree Days 
+Returns a .csv file with the Weighted Degree Day Forecasts for the available sub-regions based on the 
+Region entered in the API call. For North America, both the original and new EIA regions are provided,
+while for Europe forecasts for individual countries and sub-regions is provided. 
+Base URL: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetWeightedDegreeDayForecast
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader 
+Password – The password used to login to WSI Trader 
+ForecastType – The data resolution desired. Accepted values are: 
+Period 
+Daily 
+Model – The desired data source. Users can retrieve the latest AG2 forecast or the latest forecasts from 
+the GFS and ECMWF models. Accepted values are: 
+WSI – Latest AG2 Forecast 
+GFS_OP – GFS Operational 
+GFS_ENS – GFS Ensemble 
+ECMWF_OP – ECMWF Operational 
+ECMWF_ENS – ECMWF Ensemble
+AIFS – ECMWF AIFS 
+AIFS_ENS – ECMWF AIFS Ensemble
+BiasCorrected – The GFS and ECMWF Data can be returned either with the interpolation biases removed 
+or in the raw interpolated format. This parameter is not relevant to AG2 forecasts in which case any 
+accepted value can be entered. Accepted values are: 
+true – Forecasts calculated using data in which the interpolation errors have been removed 
+false – Forecasts calculated using raw interpolated model data 
+DataTypes[] – Return the desired parameter. 
+gas_hdd – Gas Weighted HDD (North America Only)
+gas_cdd – Gas Weighted CDD (North America Only)
+oil_hdd – Oil Weighted HDD (North America Only)
+oil_cdd – Oil Weighted CDD (North America Only)
+electric_hdd – Electric Weighted HDD (North America Only)
+electric_cdd – Electric Weighted CDD (North America Only)
+population_hdd – Population Weighted HDD 
+population_cdd – Population Weighted CDD 
+You can provide multiple values in one request. 
+For example, DataTypes[]=gas_hdd&DataTypes[]=population_cdd 
+You can provide multiple values in one request. 
+For example, Stations[]=CONUS&Stations[]=EAST 
+Region – Enter the Region in which data is desired for. Accepted values are: 
+ NA – North America (Default)
+ EUR – Europe
+Stations[] – Return the desired sub-regions based on the Region value entered
+ North America:
+CONUS 
+EAST 
+MIDWEST 
+SOUTHCENTRAL 
+MOUNTAIN 
+PACIFIC 
+GASCONSEAST 
+GASPRODUCING 
+GASCONSWEST 
+ Europe:
+ BELGIUM
+ CZECH_REPUBLIC
+ DENMARK
+ FRANCE
+ GERMANY
+ GREECE
+ ITALY
+ NORWAY
+ SERBIA
+ SPAIN
+ SWITZERLAND
+ TURKEY
+ UNITED_KINGDOM
+Example URLs: 
+Return the latest AG2 Gas Weighted HDD and Population Weighted CDD Daily Forecast for the 5 new EIA 
+regions and CONUS: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetWeightedDegreeDayForecast?Accou
+nt={USERNAME}&Profile={PROFILE}&Password={PASSWORD}&forecasttype=Daily&Model=WSI&BiasCor
+rected=false&stations[]=EAST&stations[]=MIDWEST&stations[]=MOUNTAIN&stations[]=PACIFIC&station
+s[]=SOUTHCENTRAL&stations[]=CONUS&datatypes[]=gas_hdd&datatypes[]=population_cdd&Region=N
+A
+Return the latest ECMWF Op Gas Weighted HDD and Population Weighted CDD Daily Forecast for the 5 
+new EIA regions and CONUS: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetWeightedDegreeDayForecast?Accou
+nt={USERNAME}&Profile={PROFILE}&Password={PASSWORD}&forecasttype=Daily&Model=ECMWF_OP
+&BiasCorrected=true&stations[]=EAST&stations[]=MIDWEST&stations[]=MOUNTAIN&stations[]=PACIFIC
+&stations[]=SOUTHCENTRAL&stations[]=CONUS&datatypes[]=gas_hdd&datatypes[]=population_cdd&R
+egion=NA
+Return the latest ECMWF Op Population Weighted HDD Daily Forecast for the Germany:
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetWeightedDegreeDayForecast?Accou
+nt={USERNAME}&Profile={PROFILE}&Password={PASSWORD}&forecasttype=Daily&Model=ECMWF_OP
+&BiasCorrected=true&stations[]=GERMANY&datatypes[]=population_hdd&Region=EUR
+5.) 1-5, 6-10 & 11-15 Day Forecast Graphics 
+Returns the latest version of the AG2 Period Forecast Graphic
+Base URL: 
+https://www.wsitrader.com/Services/GraphicDownloadService.svc/GetForecastGraphics
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader 
+Password – The password used to login to WSI Trader 
+ForecastRange – The desired forecast period. Accepted values are: 
+1-5 
+6-10 
+11-15
+Region – Enter the Region in which the station is located. Accepted values are: 
+ NA – North America 
+ MEX - Mexico
+ EUR – Europe 
+AUS - Australia 
+ASIA – Asia 
+Optional Parameter:
+Stream – The desired means for obtaining the graphic. Accepted values are:
+false – Graphic will be downloaded to your system (Default)
+true – Graphic will be streamed into the application making the call. For example, you can insert 
+the graphic in a PowerPoint slide via the API call and the graphic will appear within the slide.
+Example URLs:
+Download the latest AG2 6-10 Day forecast graphic for North America 
+https://www.wsitrader.com/Services/GraphicDownloadService.svc/GetForecastGraphics?Account={USE
+RNAME}&profile={PROFILE}&Password={PASSWORD}&ForecastRange=6-10&Region=NA&Stream=false
+Stream the latest AG2 11-15 Day forecast graphic for Europe 
+https://www.wsitrader.com/Services/GraphicDownloadService.svc/GetForecastGraphics?Account={USE
+RNAME}&profile={PROFILE}&Password={PASSWORD}&ForecastRange=11-15&Region=EUR&stream=true
+6.) 1-5, 6-10 & 11-15 Day Forecast Headlines 
+Returns the latest version of the AG2 Headlines located on the AG2 Trader homepage covering the 1-15 
+Day Period
+Base URL: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetForecastDiscussions
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader 
+Password – The password used to login to WSI Trader
+Region – Enter the Region in which the station is located. Accepted values are: 
+ NA – North America 
+ MEX - Mexico
+ EUR – Europe 
+ ASIA - Asia
+ForecastRange – The desire forecast period. Accepted values are: 
+1-5 
+6-10 
+11-15
+Example URL:
+Return the latest AG2 1-5 Day Headline for North America 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetForecastDiscussions?Account=usern
+ame&profile={PROFILE}&Password={PASSWORD}&ForecastRange=1-5&Region=NA
+7.) Seasonal Forecast Graphics 
+Returns the latest version of the seasonal forecast graphic requested
+Base URL:
+https://www.wsitrader.com/Services/GraphicDownloadService.svc/GetSeasonalForecastGraphics 
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader 
+Password – The password used to login to WSI Trader
+Model – The desired forecast source. Accepted values are: 
+WSI – Graphics depicting the latest AG2 seasonal forecast 
+ECMWF – Graphics depicting the latest ECMWF seasonal forecast 
+ForecastType – The desired forecast parameter. Accepted values are: 
+Temp – Graphics depicting the latest Temperature forecast 
+Precip – Graphics depicting the latest Precipitation forecast 
+ForecastMonth – The desired forecast period. Accepted values are: 
+If WSI is the desired forecast source 
+Month 1 
+Month 2 
+Month 3 
+Month 1-3 
+Month 2-4 
+If ECMWF is the desired forecast source 
+Month 1 
+Month 2 
+Month 3 
+Month 4 
+Month 5 
+Month 6 
+Climatology (WSI Model Only) – The desired climatological period for which to view the AG2 forecast 
+against. Accepted values are: 
+10 – Past 10yr Climatology 
+30 – Std 30yr Climatology 
+Region – Enter the Region in which the station is located. Accepted values are: 
+ NA – North America 
+ MEX - Mexico
+ EUR – Europe 
+AUS – Australia (ECMWF only) 
+ASIA – Asia (ECMWF only) 
+Optional Parameter:
+Stream – The desired means for obtaining the graphic. Accepted values are:
+false – Graphic will be downloaded to your system (Default)
+true – Graphic will be streamed into the application making the call. For example, you can insert 
+the graphic in a PowerPoint slide via the API call and the graphic will appear within the slide.
+Example URLs: 
+Download the Month 1 AG2 Temperature Forecast for North America against the Std 30yr climatology
+https://www.wsitrader.com/Services/GraphicDownloadService.svc/GetSeasonalForecastGraphics?Acco
+unt={USERNAME}&profile={PROFILE}&Password={PASSWORD}&model=wsi&forecasttype=Temp&Forec
+astMonth=Month 1&Climatology=30&region=NA&Stream=false 
+Stream the Month 5 ECMWF Precipitation forecast for Europe 
+https://www.wsitrader.com/Services/GraphicDownloadService.svc/GetSeasonalForecastGraphics?Acco
+unt={USERNAME}&profile={PROFILE}&Password={PASSWORD}&model=ecmwf&forecasttype=Precip&Fo
+recastMonth=Month 5&Climatology=30&region=EUR&Stream=true
+8.) Sub-Seasonal Forecast Graphics 
+Allows for retrieving the AG2 and ECMWF Sub-Seasonal forecast graphics
+Base URL:
+https://www.wsitrader.com/Services/GraphicDownloadService.svc/GetSubSeasonalForecastGraphics 
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader 
+Password – The password used to login to WSI Trader
+model – The desired forecast source. Accepted values are: 
+WSI – Graphics depicting the latest AG2 seasonal forecast 
+ECMWF – Graphics depicting the latest ECMWF seasonal forecast 
+forecasttype – The desired forecast parameter. Accepted values are: 
+Temp – Graphics depicting the Temperature forecast 
+Precip – Graphics depicting the Precipitation forecast (Only available for the ECMWF)
+Wind - Graphics depicting the Wind forecast (Only available for the ECMWF)
+Solar - Graphics depicting the Solar forecast (Only available for the ECMWF)
+issuedate– The specific date the forecast graphics of interest were released. Graphics are available for 
+issue dates up to a month in the past. Check the Trader site to get the list of current issue dates
+Expressed in YYMMDD format
+WSI: https://www.wsitrader.com/LongRange/Subseasonal/SubseasonalWSIGraphics
+ECMWF: https://www.wsitrader.com/LongRange/Subseasonal/SubseasonalECMWFGraphics
+forecastweek – The specific forecast week for the graphics of interest
+If WSI is the desired forecast source 
+Week3
+Week4
+Week5
+If ECMWF is the desired forecast source 
+Week3
+Week4
+Region – Enter the Region of interest. Accepted values are: 
+ NA – North America
+ EUR – Europe 
+AUS – Australia (ECMWF only) 
+ASIA – Asia (ECMWF only) 
+Optional Parameter:
+Stream – The desired means for obtaining the graphic. Accepted values are:
+false – Graphic will be downloaded to your system (Default)
+true – Graphic will be streamed into the application making the call. For example, you can insert 
+the graphic in a PowerPoint slide via the API call and the graphic will appear within the slide.
+Example URLs: 
+Download the Week 3 AG2 Temperature Forecast for North America from the forecast issued on Dec 
+14th, 2022
+https://www.wsitrader.com/Services/GraphicDownloadService.svc/GetSubSeasonalForecastGraphics?A
+ccount={USERNAME}&profile={PROFILE}&Password={PASSWORD}&model=wsi&forecasttype=Temp&For
+ecastWeek=Week3&IssueDate=221214&region=NA&Stream=false 
+Stream the Week 4 ECMWF Solar forecast for Europe from the forecast issued on Dec 5th, 2022
+https://www.wsitrader.com/Services/GraphicDownloadService.svc/GetSubSeasonalForecastGraphics?A
+ccount={USERNAME}&profile={PROFILE}&Password={PASSWORD}&model=ecmwf&forecasttype=Solar&
+ForecastWeek=Week4&IssueDate=221205&region=EUR&Stream=true 
+9.) European Solar/Wind Power Forecasts
+Returns a csv file with the solar or wind power forecast for the desired country. The Models currently 
+provide forecasts based on the ECMWF Op, GFS Op, GFS Ensemble, ECMWF Ensemble and 4km GRAF. 
+Currently the ECM and GFS Solar and Wind Power forecasts are only available for subscribers of Trader
+Europe. The GRAF Solar and Wind Power Forecasts are only available for subscribers of the GRAF 
+Renewable Forecast Add-on service
+Base URL:
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetWindSolarForecast
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader 
+Password – The password used to login to WSI Trader
+regionId – The country for which forecasts are desired. Accepted values are:
+ AT - Austria
+ BE - Belgium
+ CZ - Czech Republic
+ DE - Germany
+ DE50hertz - Germany 50 Hertz
+ DEAmprion - Germany Amprion
+ DETennet - Germany Tennet
+ DETransnetBW - Germany Transnet BW
+ DK - Denmark
+ ES - Spain
+ FI - Finland
+ FR - France
+ IT - Italy
+ ITCNOR - Italy CNOR
+ ITCSUD - Italy CSUD
+ ITNORD - Italy NORD
+ ITSUD - Italy SUD
+ NL - Netherlands
+ NO - Norway
+ PL - Poland
+ PT - Portugal
+ RO - Romania
+ SE - Sweden
+ TR - Turkey
+ UK - United Kingdom
+renewableType – Returns the desired forecast type. Accepted values are:
+ 
+wind – Wind Power Forecasts
+ solar – Solar Power Forecasts
+ total – Sum of the Wind and Solar Power Forecasts
+model – The desired model to view forecasts for. Accepted values are:
+GFS_OP – Forecasts generated utilizing data from the GFS Operational Model
+ ECMWF_OP – Forecasts generated utilizing data from the ECMW Operational Model
+GFS_ENS – Forecasts generated utilizing data from the GFS Operational Model
+ ECMWF_ENS – Forecasts generated utilizing data from the ECMW Operational Model
+Optional Parameters:
+modelDate and modelRun – These 2 parameters MUST both be used together in the API call for them 
+to be recognized. If only one of them is defined in the API call then the Latest run will be returned. Data 
+is available for the past 5 days of model runs.
+modelDate - The date in which the forecast was issued that you want to retrieve. Format of the 
+date must be in YYYYMMDD format. If modelDate is not specified you will receive data from the 
+most recent Model Date.
+modelRun – The model run you want to retrieve the forecast data for. If modelRun is not 
+specified you will receive data from the most recent modelRun. Accepted values, except for the 
+3km_GRAF, are:
+00 – 00Z
+ 06 – 06Z
+ 12 – 12Z
+ 18 – 18Z
+forecastType – Specific format the data is returned
+megawatts – Returns the forecast data expressed in absolute megawatts (Default) 
+percentcapacity – Returns the forecast data expressed in percent capacity
+Timezone – Data can either be returned in UTC or in localtime based on the time zone of each country
+lwt – Return data in localtime (Default)
+utc – Return all data expressed in UTC
+ensembleMembers – When requesting data for an Ensemble model, just the ensemble mean can be 
+returned or forecast data for all ensemble members
+false – Returns just the ensemble mean data (Default)
+true – Returns forecast data for all ensemble members for the entered model
+Example URLs: 
+Return the most recent GFS OP wind power forecast for Germany
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetWindSolarForecast?Account={USER
+NAME}&profile={PROFILE}&Password={PASSWORD}&regionId=DE&renewableType=wind&model=GFS_
+OP
+Return the ECMWF OP solar power forecast for the UK from 2025-03-08 00Z
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetWindSolarForecast?Account={USER
+NAME}&profile={PROFILE}&Password={PASSWORD}&regionId=UK&renewableType=solar&model=ECM
+WF_OP&modelDate=20250308&modelRun=00
+Return the ECMWF ENS wind power forecast for Germany from 2025-12-25 00Z, returning all the 
+ensemble members
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetWindSolarForecast?Account={USER
+NAME}&profile={PROFILE}&Password={PASSWORD}&regionId=DE&renewableType=solar&model=ECM
+WF_ENS&modelDate=20250308&modelRun=00&ensembleMembers=true
+10.) Historical Observations 
+Returns a csv file with the requested historical data. Currently Historical Observations are only available 
+for subscribers of AG2 Trader North America Complete, AG2 Trader North America Standard, AG2 
+Trader Europe and AG2 Trader Asia
+Base URL: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetHistoricalObservations
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader 
+Password – The password used to login to WSI Trader
+TempUnits – The units you want the temperature data displayed in: Accepted values are:
+F – Fahrenheit 
+C – Celsius 
+StartDate – The beginning date for which to retrieve data. Format as MM/DD/YYYY 
+EndDate - The final date for which to retrieve data. Format as MM/DD/YYYY
+HistoricalProductId – The specific dataset you would like to retrieve. Accepted values are: 
+HISTORICAL_MONTHLY_AVERAGE – Returns the average monthly Min & Max Temperature for 
+each of the 12 months calculated based on the StartDate and EndDate entered 
+HISTORICAL_DAILY_OBSERVED– Returns the observed Temperature and Precipitation data for 
+each day between the StartDate and EndDate entered 
+HISTORICAL_DAILY_AVERAGE - Returns the average daily Min & Max Temperature for each day 
+between the StartDate and EndDate entered 
+HISTORICAL_HOURLY_OBSERVED – Returns the observed data for each hour of each day 
+between the StartDate and EndDate entered 
+HISTORICAL_NORMALS – Returns the Std 30yr climatological Temperatures between the 
+StartDate and EndDate entered. Use the isDaily Special Parameter to choose between downloading 
+daily or hourly data 
+HISTORICAL_WEIGHTED_TEMPERATURE – Returns either the Daily or Weekly (M-F) observed 
+Temperature for the entered North America Power Region for each day between the StartDate and 
+EndDate entered. 
+HISTORICAL_WEIGHTED_GAS – Returns either the Daily or EIA Week observed CDD and HDD for 
+the entered Gas Region for each day between the StartDate and EndDate entered. Provides access to 
+the original and current EIA regions.
+HISTORICAL_WEIGHTED_DEGREEDAYS – Returns either the Daily or EIA Week observed CDD 
+and HDD for the entered North America Gas Region for each day between the StartDate and EndDate
+entered 
+CityIds[]– The ID for the station(s)/region(s) you would like to download data for. 
+For the complete list of available individual station IDs run the following API URL: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetCityIds?Account={USERNAME}&Profi
+le={PROFILE}&Password={PASSWORD}
+For the HISTORICAL_WEIGHTED_DEGREEDAYS product the following North America Gas regions are 
+available as options: 
+CONUS 
+EAST 
+MIDWEST 
+SOUTHCENTRAL 
+MOUNTAIN 
+PACIFIC 
+GASCONSEAST 
+GASPRODUCING 
+GASCONSWEST 
+You can provide multiple values in one request, for example: 
+CityIds[]=KBOS&CityIds []=NEISO 
+CityIds[]=CONUS&CityIds[]=MOUNTAIN
+Special Parameters:
+timeutc – This parameter is only applicable for the HISTORICAL_HOURLY_OBSERVED product
+false – Date and Time are returned in local standard timezone of the respective station (Default)
+true – Date and Time are returned in UTC format of the respective station
+IsDisplayDates – This parameter is only applicable for the HISTORICAL_MONTHLY_AVERAGE product. 
+• Setting this value to true, will return the Dates for when the Highest Max Temperature and 
+Lowest Min Temperature occurred between the StartDate and EndDate entered. 
+• Setting this value to false will ensure only the Monthly Average Temperatures are returned. 
+For all other HistoricalProductId values, you can enter either true or false, as the same data will be 
+returned in either case. 
+IsTemp – This parameter is only applicable for the HISTORICAL_DAILY_OBSERVED product. 
+• Setting this value to true, will return the following parameters: Min Temp, Max Temp, Avg 
+Temp & Precip. 
+• Setting this value to false, will return the following parameters: HDD & CDD 
+For all other HistoricalProductId values, you can enter either true or false, as the same data will be 
+returned in either case. 
+IsDaily – This parameter is only applicable for the HISTORICAL_NORMALS , 
+HISTORICAL_WEIGHTED_TEMPERATURE, HISTORICAL_WEIGHTED_GAS & 
+HISTORICAL_WEIGHTED_DEGREEDAYS products. 
+For HISTORICAL_NORMALS queries,
+• Setting this value to true, will return the daily climatological Min & Max Temperature
+• Setting this value to false, will return the hourly climatological Temperature
+For HISTORICAL_WEIGHTED queries,
+• Setting this value to true, will return the weighted forecasts only for individual days.
+• Setting this value to false, will return the weighted forecasts as a weekly average. In the case of 
+the Gas observations it would be returned as the value for the EIA week and in the case of the 
+Temperature observations it would be returned as the average value for Monday-Friday. 
+For all other HistoricalProductId values, you can enter either true or false, as the same data will be 
+returned in either case. 
+DataTypes[] – This parameter is only applicable for the HISTORICAL_HOURLY_OBSERVED and 
+HISTORICAL_WEIGHTED_DEGREEDAYS products. Accepted values are for each product is outlined 
+below: 
+HISTORICAL_HOURLY_OBSERVED: 
+temperature – Temperature 
+dewpoint - Dewpoint 
+cloudCover - % Cloud Cover 
+windDirection – Wind Direction in Degrees 
+windSpeed – Wind Speed in mph
+feelsLike – Feels Like Temp
+heatIndex – Heat Index 
+windChill – Wind Chill 
+relativeHumidity – Relative Humidity
+precipitation – Precipitation
+HISTORICAL_WEIGHTED_DEGREEDAYS: 
+gas_hdd – Gas Weighted HDD 
+gas_cdd – Gas Weighted CDD 
+oil_hdd – Oil Weighted HDD 
+oil_cdd – Oil Weighted CDD 
+electric_hdd – Electric Weighted HDD 
+electric_cdd – Electric Weighted CDD 
+population_hdd – Population Weighted HDD 
+population_cdd – Population Weighted CDD 
+You can provide multiple values in one request, for example: 
+DataTypes[]=cloudCover&DataTypes[]=windDirection 
+DataTypes[]=gas_hdd&DataTypes[]=population_cdd
+For all other HistoricalProductId values this parameter does not have to be entered. 
+Example URLs:
+Return the daily gas weighted HDDs and population weighted CDDs for the 5 new EIA regions and 
+CONUS between Jan 1, 2010 and Dec 31, 2025
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetHistoricalObservations?Account={US
+ERNAME}&profile={PROFILE}&Password={PASSWORD}&HistoricalProductID=HISTORICAL_WEIGHTED_D
+E 
+GREEDAYS&DataTypes[]=gas_hdd&DataTypes[]=population_cdd&StartDate=01/01/2010&EndDate=12/ 
+31/2025&IsDaily=true&CityIds[]=CONUS&CityIds[]=EAST&CityIds[]=MOUNTAIN&CityIds[]=PACIFIC&CityI 
+ds[]=SOUTHCENTRAL&CityIds[]=MIDWEST
+Return the Monthly Average temperature in degrees Fahrenheit for Boston (KBOS) calculated on the 
+years between 1981 and 2010 and do not display the dates of the highest Max Temp and lowest Min 
+Temp: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetHistoricalObservations?Account={US
+ERNAME}&profile={PROFILE}&Password={PASSWORD}&TempUnits=F&HistoricalProductID=HISTORICAL
+_ 
+MONTHLY_AVERAGE&StartDate=01/01/1981&EndDate=12/31/2010&IsDisplayDates=false&IsTemp=tru 
+e&IsDaily=true&CityIds[]=KBOS
+Return the Daily Observed Temperature and Precipitation in degrees Fahrenheit for Los Angeles Intl 
+Airport (KLAX) for all days between Jan 1, 1990 and Jan 1, 2000: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetHistoricalObservations?Account={US
+ERNAME}&profile={PROFILE}&Password={PASSWORD}&TempUnits=F&HistoricalProductID=HISTORICAL
+_ 
+DAILY_OBSERVED&StartDate=01/01/1990&EndDate=01/01/2000&IsDisplayDates=false&IsTemp=true&I 
+sDaily=true&CityIds[]=KLAX
+Return the Daily Average Temperature for NEISO in degrees Fahrenheit for the days between Jan 1 and 
+March 1 calculated based on the years between 1990 and 2000: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetHistoricalObservations?Account=use
+rname&profile={PROFILE}&Password={PASSWORD}&TempUnits=F&HistoricalProductID=HISTORICAL_
+DAILY_AVERAGE&StartDate=01/01/1990&EndDate=03/01/2000&IsDisplayDates=false&IsTemp=true&Is 
+Daily=true&CityIds[]=NEISO
+Return the observed hourly data for both Miami (KMIA) and Orlando (KMCO) between Jan 1, 2010 and 
+Mar 1, 2010 in degrees Fahrenheit specifically requesting the following parameters: temperature and 
+dewpoint: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetHistoricalObservations?Account={US
+ERNAME}&Profile={PROFILE}&Password={PASSWORD}&HistoricalProductID=HISTORICAL_HOURLY_OBSE
+RVED&DataTypes[]=dewpoint&DataTypes[]=temperature&TempUnits=F&StartDate=01/01/2010&EndD
+ate=03/01/2010&CityIds[]=KMIA&CityIds[]=KMCO
+Return the Observed Daily Gas/Pop Weighted Degree Days for the 4 Gas regions between Sep 1, 2012 
+and Mar 31, 2013: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetHistoricalObservations?Account={US
+ERNAME}&profile={PROFILE}&Password={PASSWORD}&TempUnits=F&HistoricalProductID=HISTORICAL
+_ 
+WEIGHTED_GAS&DataTypes[]=temperature&StartDate=09/01/2012&EndDate=03/31/2013&IsDisplayD 
+ates=true&IsTemp=true&IsDaily=true&CityIds[]=CONUS&CityIds[]=GASCONSEAST&CityIds[]=GASCONS 
+WEST&CityIds[]=GASPRODUCING
+Return the Observed Gas/Pop Weighted Degree Days by EIA Week for the 4 Gas Regions between Sep 1, 
+2012 and Mar 31, 2013: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetHistoricalObservations?Account={US
+ERNAME}&profile={PROFILE}&Password={PASSWORD}&TempUnits=F&HistoricalProductID=HISTORICAL
+_ 
+WEIGHTED_GAS&DataTypes[]=temperature&StartDate=09/01/2012&EndDate=03/31/2013&IsDisplayD 
+ates=true&IsTemp=true&IsDaily=false&CityIds[]=CONUS&CityIds[]=GASCONSEAST&CityIds[]=GASCONS 
+WEST&CityIds[]=GASPRODUCING
+Return the daily Observed Weighted Temperature for NEISO and PJM between Apr 1, 2010 and Apr 1, 
+2011 in degrees Fahrenheit: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetHistoricalObservations?Account={US
+ERNAME}&profile={PROFILE}&Password={PASSWORD}&TempUnits=F&HistoricalProductID=HISTORICAL
+_ 
+WEIGHTED_TEMPERATURE&DataTypes[]=temperature&StartDate=04/01/2010&EndDate=04/01/2011& 
+IsDisplayDates=true&IsTemp=true&IsDaily=true&CityIds[]=NEISO&CityIds[]=PJM
+Return the Observed Weighted Temperature for NEISO and PJM between Apr 1, 2010 and Apr 1, 2011 in 
+degrees Fahrenheit in weekly format: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetHistoricalObservations?Account={US
+ERNAME}&profile={PROFILE}&Password={PASSWORD}&TempUnits=F&HistoricalProductID=HISTORICAL
+_ 
+WEIGHTED_TEMPERATURE&DataTypes[]=temperature&StartDate=04/01/2010&EndDate=04/01/2011&
+IsDisplayDates=true&IsTemp=true&IsDaily=false&CityIds[]=NEISO&CityIds[]=PJM
+11.) Premium Weather - Forecast Analysis 
+Returns a csv file with the requested forecast data. Data can be retrieved for forecasts issued as far back 
+as 15 days in the past. Currently the Forecast Analysis data is only available for subscribers of an AG2 
+Trader Complete version of the product.
+Base URL: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetForecastAnalysis
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader 
+Password – The password used to login to WSI Trader
+SiteIds[]– The ID for the station(s) you would like to download data for. 
+For the complete list of available station IDs run the following API URL: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetCityIds?Account={USERNAME}&Profi
+le={PROFILE}&Password={PASSWORD}
+You can provided multiple values in one request, for example: SiteIds[]=KBOS&SiteIds[]=KORD
+Region – Enter the desired region for which your account has access to. Accepted values are: 
+ NA – North America 
+ MEX - Mexico
+ EUR – Europe 
+TempUnits – The units you want the temperature data displayed in. Accepted values are: 
+F – Fahrenheit 
+C - Celsius 
+ModelDate – The date in which the forecast was issued that you want to retrieve. Format of the date 
+must be in YYYYMMDD format 
+ModelRun – The model run you want to retrieve the forecast data for. Accepted values are: 
+00 – 00Z 
+12 – 12Z 
+Example URLs: 
+Return the Forecast data for Chicago O’Hare in Fahrenheit for the 00Z model cycle that was issued on 
+Oct 20th
+, 2025. 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetForecastAnalysis?Account={USERNA
+ME}
+&Profile={PROFILE}&Password={PASSWORD}&Region=NA&SiteIds[]=KORD&ModelDate=20251020& 
+ModelRun=00&TempUnits=F
+Return the Forecast data for London Heathrow in Celsius for the 12Z model cycle that was issued on Oct 
+15th
+, 2025. 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetForecastAnalysis?Account={USERNA
+ME}
+&Profile={PROFILE}&Password={PASSWORD}&Region=EUR&SiteIds[]=EGLL&ModelDate=20251015& 
+ModelRun=12&TempUnits=C
+Return the Forecast data for Chicago O’Hare and Boston Logan in Fahrenheit for the 00Z model cycle 
+that was issued on Oct 20th
+, 2025. 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetForecastAnalysis?Account={USERNA
+ME}
+&Profile={PROFILE}&Password={PASSWORD}&Region=NA&SiteIds[]=KORD&SiteIds[]=KBOS&ModelDate
+=202510 20&ModelRun=00&TempUnits=F
+12.) Premium Weather - Teleconnections 
+Returns a csv file with either the observed or forecasted data for each of the teleconnections currently 
+offered in the Premium Weather Package. Data can be retrieved for forecasts issued as far back as 15 
+days in the past as well as observations for up to 90 days in the past. Currently the Teleconnections data 
+is only available for subscribers of an AG2 Trader Complete version of the product.
+Base URLs: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetTeleconnectionFcstData
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetTeleconnectionObsData
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader 
+Password – The password used to login to WSI Trader 
+TeleconnID – Teleconnection for which you want to retrieve data for
+AO
+EPO
+EUDXSUM – AG2 European Summer Demandex
+EUDXWTR – AG2 European Winter Demandex
+NADXSUM – AG2 North America Summer Demandex
+NADXWTR – AG2 North America Winter Demandex
+NAO
+PNA
+SOI
+WPO
+Forecast Parameters:
+InitDate – The date in which the forecast was issued that you want to retrieve. Format of the date must 
+be in YYYYMMDD format 
+InitHour – The model run you want to retrieve the forecast data for. Accepted values are: 
+00 – 00Z 
+12 – 12Z 
+Model – Which model sources you want to retrieve data for. Accepted values are: 
+ECMWF, GFS, or GEM (pulls ensemble member, ensemble mean and deterministic runs for that 
+model) 
+Observation Parameters:
+InitDate – The start date in which you want to retrieve observations. Format of the date must be in 
+YYYYMMDD format 
+EndDate – The end date in which you want to retrieve observations. Format of the date must be in 
+YYYYMMDD format 
+Example URLs: 
+The InitDate value below is strictly for demonstration purposes and will not work in an actual query. 
+You must enter a value within the past 15 days. 
+Return the AO forecast data for the GFS 00Z model cycle that was issued on Dec 31, 2021
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetTeleconnectionFcstData?Account={U
+SERNAME}&Profile={PROFILE}&Password={PASSWORD}&TeleconnID=AO&Model=GFS&InitDate=202112
+31&InitHour=00
+The InitDate and EndDate values below are strictly for demonstration purposes and will not work in an 
+actual query. You must enter values within the past 90 days. 
+Return the AO observation data for the past 30 days
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetTeleconnectionObsData?Account={U
+SERNAME}&Profile={PROFILE}&Password={PASSWORD}&TeleconnID=AO&InitDate=20220806&EndDate
+=20220906
+13.) Load – Hourly Forecasts 
+Returns a csv file with the latest hourly load forecast. Currently the Load Forecast data is only available 
+for subscribers of the AG2 Trader Load Forecast service. 
+Base URL: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetHourlyLoadData
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader 
+Password – The password used to login to WSI Trader 
+ISO – The specific market you want to retrieve data for. You can only retrieve data for the specific 
+markets you are subscribing to. Currently accepted values are: 
+PJM 
+ ERCOT
+ MISO
+ CAISO
+ NYISO
+ ISONE
+ SPP
+Regions[] – The specific regions in the selected ISO that you want to retrieve data for. Multiple regions 
+can be entered within the API call. Accepted values are listed below for each ISO: 
+PJM Regions:
+RTO – PJM Aggregate 
+MIDATL – MidAtlantic sub-region 
+WEST – West sub-region 
+SOUTH – South sub-region 
+ ERCOT Regions:
+RTO – ERCOT Aggregate 
+Houston
+West
+North
+South
+ MISO Regions:
+RTO – MISO Aggregate 
+Central
+ North
+South
+ CAISO Regions:
+RTO – CAISO Aggregate 
+NP15
+ SP15
+ NYISO Regions:
+RTO – NYISO Aggregate 
+Capital
+ Central
+Dunwoodie
+Genese
+HudsonVL
+LongIsland
+Millwood
+Mohawk
+North
+NYC
+West
+ ISONE Regions:
+RTO – ISONE Aggregate 
+CT - Connecticut
+ ME - Maine
+NEMA – Northeast Massachusetts
+NH – New Hampshire
+RI – Rhode Island
+SEMA – Southeast Massachusetts
+VT - Vermont
+WCMA – West-Central Massachusetts
+ SPP Regions:
+RTO – SPP Aggregate 
+CSWS – CSWS-AEPW
+ EDE – Empire District
+GRDA – Grand River Dam
+INDN – Independence P&L
+KACY – Kansas City BPU
+KCPL – Kansas City P&L
+LES – Lincoln Electric
+MPS – KCP&L Greater MO
+NPPD – Nebraska PPD
+OKGE – Oklahoma GE
+OPPD – Omaha PPD
+SECI – Sunflower Electric
+SPRM – City of Springfield
+SPS – Southwestern PSC
+WAUE – WAP-UGPE
+WEFC – Western Farmers
+WR – Westar Energy
+Subzones[] – The specific sub-zones in the selected ISO that you want to retrieve data for. Multiple 
+subzones can be entered within the API call. Accepted values are listed below for each ISO 
+PJM sub-zones:
+AE – Atlantic City Electric 
+AEP – AEP 
+AP – Allegheny Power 
+ATSI – American Transmission 
+BC – Baltimore Gas & Electric 
+CE – ComEd 
+DAY – Dayton Power & Light 
+DEOK – Duke Energy 
+DOM – Dominion 
+DPL – Delmarva Power & Light 
+DUQ – Duquesne Light 
+EKPC – East Kentucky Power 
+JC – Jersey Central Power 
+ME – Metropolitan Edison 
+PE – PECO Energy 
+PEP – Pepco 
+PL – PPL Electric 
+PN – Pennsylvania Electric 
+PS – PSEG 
+RECO – Rockland Electric 
+ERCOT sub-zones: 
+Coast 
+East 
+FarWest 
+North 
+South 
+SouthCentral 
+West 
+NorthCentral
+CAISO sub-zones: 
+PGE
+SDGE
+VEA
+FARWEST
+SCE
+Sources[] – Which model sources you want to retrieve data for. Accepted values are provided below. 
+Each option will return the latest forecast for entered Source. 
+WSI 
+PJM 
+PJM_DAY_AHEAD 
+GFS_OP 
+GFS_ENS 
+ECMWF_OP 
+ECMWF_ENS 
+GFS_OP 
+GFS_ENS 
+Optional Parameter:
+timeutc – The timezone to express the data in. By default, the Date and Time will be expressed in the 
+local prevailing timezone of the station being retrieved
+false – Date and Time are returned in local prevailing timezone (Default)
+true – Date and Time are returned in UTC format
+ForecastType – Applicable only to CAISO. This parameter allows for retrieving forecasts including 
+battery storage or excluding battery charging
+totaldemand – Will return the forecast that includes battery charging (Default)
+totaldemand_mbc – Will return the forecast that excludes battery charging
+Notes:
+Due to concerns with processing time there are some restrictions on the amount of data that can be 
+requested. The restrictions are outlined below. 
+1.) You cannot specify more than 1 Source if you have either multiple Regions or multiple 
+Subzones specified. You can specify multiple Sources if you specify only one Region and 
+one Subzone 
+2.) You cannot specify more than 1 Subzone if you specified multiple Subregions 
+Example URLs: 
+Return the latest AG2 PJM Forecast for the PJM RTO 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetHourlyLoadData?
+Account={USERNAME}&Profile={PROFILE}&Password={PASSWORD}&ISO=PJM&Regions[]=RTO&Sources[
+]=WSI
+Return the latest forecast for all sources for the PJM RTO 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetHourlyLoadData?
+Account={USERNAME}&Profile={PROFILE}&Password={PASSWORD}&ISO=PJM&Regions[]=RTO&Sources[
+]=WSI&Sources[]=GFS_OP&Sources[]=GFS_ENS&Sources[]=ECMWF_OP&Sources[]=ECMWF_ENS&Sourc
+es[]=PJM &Sources[]=PJM_DAY_AHEAD
+Return the latest AG2 PJM Forecast for the PJM sub-zone AEP 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetHourlyLoadData?Account={USERNA
+ME}&Profile={PROFILE}&Password={PASSWORD}&regions=RTO&ISO=PJM&Subzones[]=AEP&Sources[]=
+WSI
+14.) Load – Daily Forecasts 
+Returns a csv file with the requested forecast data. Data can be retrieved for forecasts issued as far back 
+as 15 days in the past. Currently the Load Forecast data is only available for subscribers of the AG2 
+Trader Load Forecast service. 
+Base URL: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetDailyLoadData
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader 
+Password – The password used to login to WSI Trader 
+ISO – The specific market you want to retrieve data for. You can only retrieve data for the specific 
+markets you are subscribing to. Currently accepted values are: 
+PJM 
+ ERCOT
+ MISO
+ CAISO
+NYISO
+Regions[] – The specific regions in the selected ISO that you want to retrieve data for. Multiple regions 
+can be entered within the API call. Accepted values are listed below for each ISO: 
+PJM Regions:
+RTO – PJM Aggregate 
+MIDATL – MidAtlantic sub-region 
+WEST – West sub-region 
+SOUTH – South sub-region 
+ ERCOT Regions:
+RTO – ERCOT Aggregate 
+Houston
+West
+North
+South
+ MISO Regions:
+RTO – MISO Aggregate 
+Central
+ North
+South
+ CAISO Regions:
+RTO – CAISO Aggregate 
+NP15
+ SP15
+ NYISO Regions:
+RTO – NYISO Aggregate 
+Capital
+ Central
+Dunwoodie
+Genese
+HudsonValley
+LongIsland
+Millwood
+Mohawk
+North
+NYC
+West
+ ISONE Regions:
+RTO – ISONE Aggregate 
+CT - Connecticut
+ ME - Maine
+NEMA – Northeast Massachusetts
+NH – New Hampshire
+RI – Rhode Island
+SEMA – Southeast Massachusetts
+VT - Vermont
+WCMA – West-Central Massachusetts
+ SPP Regions:
+RTO – SPP Aggregate 
+CSWS – CSWS-AEPW
+ EDE – Empire District
+GRDA – Grand River Dam
+INDN – Independence P&L
+KACY – Kansas City BPU
+KCPL – Kansas City P&L
+LES – Lincoln Electric
+MPS – KCP&L Greater MO
+NPPD – Nebraska PPD
+OKGE – Oklahoma GE
+OPPD – Omaha PPD
+SECI – Sunflower Electric
+SPRM – City of Springfield
+SPS – Southwestern PSC
+WAUE – WAP-UGPE
+WEFC – Western Farmers
+WR – Westar Energy
+Subzones[] – The specific sub-zones in the selected ISO that you want to retrieve data for. Multiple 
+subzones can be entered within the API call. Accepted values are listed below for each ISO 
+PJM sub-zones:
+AE – Atlantic City Electric 
+AEP – AEP 
+AP – Allegheny Power 
+ATSI – American Transmission 
+BC – Baltimore Gas & Electric 
+CE – ComEd 
+DAY – Dayton Power & Light 
+DEOK – Duke Energy 
+DOM – Dominion 
+DPL – Delmarva Power & Light 
+DUQ – Duquesne Light 
+EKPC – East Kentucky Power 
+JC – Jersey Central Power 
+ME – Metropolitan Edison 
+PE – PECO Energy 
+PEP – Pepco 
+PL – PPL Electric 
+PN – Pennsylvania Electric 
+PS – PSEG 
+RECO – Rockland Electric 
+ERCOT sub-zones: 
+Coast 
+East 
+FarWest 
+North 
+South 
+SouthCentral 
+West 
+NorthCentral
+CAISO sub-zones: 
+PGE
+SDGE
+VEA
+FARWEST
+SCE
+ModelDate – The date in which the forecast was issued that you want to retrieve. Format of the date 
+must be in YYYYMMDD format 
+ModelRun – The model run you want to retrieve the forecast data for. Accepted values are: 
+00 – 00Z 
+12 – 12Z 
+CalcType – The forecast type you want to retrieve. Accepted values are: 
+PEAK – Peak Daily Load 
+AVERAGE – Average Daily Load 
+Example URLs: 
+The ModelDate value is strictly for demonstration purposes and will not work in an actual query. You 
+must enter a value within the past 15 days. 
+Return for PJM, the RTO, West sub-region and AE sub-zone Peak load forecast for the 12Z model cycle 
+that was issued on Dec 31st, 1999 
+ 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetDailyLoadData?
+Account={USERNAME}&Profile={PROFILE}&Password={PASSWORD}&Regions[]=RTO&Regions[]=WEST&S
+ubzones[]=AE&ISO=PJM&ModelDate=19991231&ModelRun=00&CalcType=PEAK
+Return for PJM, the RTO, West sub-region and all West sub-zones Average load forecast for the 12Z 
+model cycle that was issued on Dec 31st, 1999 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetHourlyLoadData?
+Account={USERNAME}&Profile={PROFILE}&Password={PASSWORD}&Regions[]=WEST&Subzones=ALL&IS
+O=PJM&ModelDate=19991231&ModelRun=00&CalcType=AVERAGE
+Return for PJM, the forecast for the RTO and all sub-regions and sub-zones Peak load forecast for the 
+12Z model cycle that was issued on Dec 31st, 1999 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetHourlyLoadData?
+Account={USERNAME}&Profile={PROFILE}&Password={PASSWORD}&Regions=ALL&subzones=ALL&ISO=
+PJM&ModelDate=1991231&ModelRun=12&CalcType=PEAK
+15.) Load – Observations 
+Returns a csv file with hourly load observations. Currently the Load Forecast data is only available for 
+subscribers of the AG2 Trader Load Forecast service. 
+Base URL: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetLoadObsData
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader 
+Password – The password used to login to WSI Trader 
+ISO – The specific market you want to retrieve data for. You can only retrieve data for the specific 
+markets you are subscribing to. Currently accepted values are: 
+PJM 
+ ERCOT
+ MISO
+ CAISO
+ NYISO
+ ISONE
+ SPP
+Regions[] – The specific regions in the selected ISO that you want to retrieve data for. Multiple regions 
+can be entered within the API call. Accepted values are listed below for each ISO: 
+PJM Regions:
+RTO – PJM Aggregate 
+MIDATL – MidAtlantic sub-region 
+WEST – West sub-region 
+SOUTH – South sub-region 
+ ERCOT Regions:
+RTO – ERCOT Aggregate 
+Houston
+West
+North
+South
+ MISO Regions:
+RTO – MISO Aggregate 
+Central
+ North
+South
+ CAISO Regions:
+RTO – CAISO Aggregate 
+NP15
+ SP15
+ NYISO Regions:
+RTO – NYISO Aggregate 
+Capital
+ Central
+Dunwoodie
+Genese
+HudsonValley
+LongIsland
+Millwood
+Mohawk
+North
+NYC
+West
+ ISONE Regions:
+RTO – ISONE Aggregate 
+CT - Connecticut
+ ME - Maine
+NEMA – Northeast Massachusetts
+NH – New Hampshire
+RI – Rhode Island
+SEMA – Southeast Massachusetts
+VT - Vermont
+WCMA – West-Central Massachusetts
+ SPP Regions:
+RTO – SPP Aggregate 
+CSWS – CSWS-AEPW
+ EDE – Empire District
+GRDA – Grand River Dam
+INDN – Independence P&L
+KACY – Kansas City BPU
+KCPL – Kansas City P&L
+LES – Lincoln Electric
+MPS – KCP&L Greater MO
+NPPD – Nebraska PPD
+OKGE – Oklahoma GE
+OPPD – Omaha PPD
+SECI – Sunflower Electric
+SPRM – City of Springfield
+SPS – Southwestern PSC
+WAUE – WAP-UGPE
+WEFC – Western Farmers
+WR – Westar Energy
+Subzones[] – The specific sub-zones in the selected ISO that you want to retrieve data for. Multiple 
+subzones can be entered within the API call. Accepted values are listed below for each ISO 
+PJM sub-zones:
+AE – Atlantic City Electric 
+AEP – AEP 
+AP – Allegheny Power 
+ATSI – American Transmission 
+BC – Baltimore Gas & Electric 
+CE – ComEd 
+DAY – Dayton Power & Light 
+DEOK – Duke Energy 
+DOM – Dominion 
+DPL – Delmarva Power & Light 
+DUQ – Duquesne Light 
+EKPC – East Kentucky Power 
+JC – Jersey Central Power 
+ME – Metropolitan Edison 
+PE – PECO Energy 
+PEP – Pepco 
+PL – PPL Electric 
+PN – Pennsylvania Electric 
+PS – PSEG 
+RECO – Rockland Electric 
+ALL – Returns data for all sub-zones for the entered ISO
+ERCOT sub-zones: 
+Coast 
+East 
+FarWest 
+North 
+South 
+SouthCentral 
+West 
+NorthCentral
+ALL – Returns data for all sub-zones for the entered ISO
+CAISO sub-zones: 
+PGE
+SDGE
+VEA
+FARWEST
+SCE
+ALL – Returns data for all sub-zones for the entered ISO
+Obstype – Period of time to retrieve data. Accepted values are: 
+latest – Retrieve the latest hourly observation 
+previous – Retrieve all observations between now and midnight the previous day 
+Optional Parameter:
+timeutc – The timezone to express the data in. By default, the Date and Time will be expressed in the 
+local prevailing timezone of the station being retrieved
+false – Date and Time are returned in local prevailing timezone (Default)
+true – Date and Time are returned in UTC format
+Example URLs: 
+Return the latest hourly observation for the PJM RTO 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetLoadObsData?
+Account={USERNAME}&Profile={PROFILE}&Password={PASSWORD}&ISO=PJM&Regions[]=RTO&Obstype
+=latest
+Return the latest hourly observation for all Sub-zones 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetLoadObsData?
+Account={USERNAME}&Profile={PROFILE}&Password={PASSWORD}&ISO=PJM&Subzones[]=ALL&Obstyp
+e=latest
+Return the previous observations for all Sub-zones and the RTO 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetLoadObsData?
+Account={USERNAME}&Profile={PROFILE}&Password={PASSWORD}&ISO=PJM&Regions[]=RTO&Subzone
+s[]=ALL&O bstype=previous
+16.) Natural Gas Demand Forecasts 
+Returns a csv file with the Natural Gas Demand forecast expressed in BCF for the requested forecast 
+source. Currently the BCF forecast is only available for subscribers of an AG2 Trader Complete version of 
+the product.
+Base URL: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetModelBCFForecast
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader 
+Password – The password used to login to WSI Trader 
+ForecastType – The data resolution desired. Accepted values are: 
+Period 
+Daily 
+Model – The desired data source. Users can retrieve the latest AG2 forecast or the latest forecasts from 
+the GFS and ECMWF models. Accepted values are: 
+WSI – Latest AG2 Forecast 
+GFS_OP – GFS Operational 
+GFS_ENS – GFS Ensemble 
+ECMWF_OP – ECMWF Operational 
+ECMWF_ENS – ECMWF Ensemble 
+Example URLs: 
+Return the BCF forecast based on the latest AG2 forecast in Daily format. 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetModelBCFForecast?Account={USERN
+AME}&Profile={PROFILE}&Password={PASSWORD}&forecasttype=Daily&Model=WSI
+Return the BCF forecast based on the GFS Operational forecast in Period format. 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetModelBCFForecast?Account={USERN
+AME}&Profile={PROFILE}&Password={PASSWORD}&forecasttype=Period&Model=GFS_OP
+17.) WindCast IQ – Hourly Wind Power Forecasts 
+Returns a csv file with the requested hourly AG2 wind power forecast. Currently the Wind Power 
+Forecast data is only available for subscribers of the WindCast IQ service.
+Base URL: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetWindcastIQHourlyForecast
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader
+Password – The password used to login to WSI Trader 
+ForecastDate – The date in which the forecast was issued that you want to retrieve. Format of the date 
+must be in YYYY-MM-DD format 
+Forecasts are available for the current day and back to 5 days in the past.
+ForecastType – The specific forecast to be retrieved. Available options are:
+Latest – Returns the most recent AG2 forecast for the entered Forecast Date
+Primary – Returns the AG2 forecast issued at 7:45am ET for the entered Forecast Date
+Update – Returns the AG2 forecast issued at 10:30am ET for the entered Forecast Date
+All - Returns all the forecasts issued for the entered Forecast Date
+SiteIds – The ID for the wind farm or regional aggregate that you would like to download data for. 
+For the complete list of available station IDs run the following API URL passing in the region the wind 
+farm or aggregate is located in. You can only enter regions for which you currently have an active 
+subscription for. Available regions are:
+caiso
+bpa
+pjm
+ercot
+spp
+miso
+nyiso
+neiso
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetWindcastIQMetaData?Account={USE
+RNAME}&Profile={PROFILE}&Password={PASSWORD}&Region=region
+Up to 10 SiteIds can be passed into the HourlyForecast API with the ids being separated by commas.
+Optional Parameter:
+timeutc – The timezone to express the data in. By default, the Date and Time will be expressed in the 
+local prevailing timezone of the station being retrieved
+false – Date and Time are returned in local prevailing timezone (Default)
+true – Date and Time are returned in UTC format
+Example URLs: 
+Retrieve the Primary AG2 forecast made on Aug 8, 2025 for the ERCOT Aggregate.
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetWindcastIQHourlyForecast?Account
+={USERNAME}&Profile={PROFILE}&Password={PASSWORD}&ForecastDate=2025-08-
+08&ForecastType=Primary&SiteIds=89b6bb6e-fdc5-11e5-8259-0019b9b47402
+Retrieve the Latest AG2 forecast made on Aug 8, 2025 for the CAISO Aggregate and the CAISO subregion NP-15
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetWindcastIQHourlyForecast?Account
+={USERNAME}&Profile={PROFILE}&Password={PASSWORD}&ForecastDate=2025-08-
+08&ForecastType=Latest&SiteIds=8a3c2e87-fdc5-11e5-8259-0019b9b47402,8a3ae57e-fdc5-11e5-8259-
+0019b9b47402
+18.) WindCast IQ – Hourly Wind Power Observations
+Returns a csv file with the requested hourly Wind Power observations. Observations are only available 
+for the aggregate ISO. Data is available back to Jan 24, 2025.
+Currently the Wind Power observation data is only available for subscribers of the WindCast IQ service.
+Base URL: https://www.wsitrader.com/Services/CSVDownloadService.svc/GetWindcastIQHourlyObs
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader
+Password – The password used to login to WSI Trader 
+ObsDate – The date for which you want to retrieve data. Format of the date must be in YYYY-MM-DD 
+format 
+Hourly observations are available back to Jan 24, 2025
+SiteIds – The ID for the regional aggregate that you would like to download data for. The ids for each of 
+the supported ISOs is listed below. Data can only be retrieved for regions for which you have an active 
+provision.
+ERCOT: 89b6bb6e-fdc5-11e5-8259-0019b9b47402
+BPA: 8a4d1ae3-fdc5-11e5-8259-0019b9b47402
+PJM: 8a5c2ff7-fdc5-11e5-8259-0019b9b47402
+CAISO: 8a3ae57e-fdc5-11e5-8259-0019b9b47402
+SPP: 8a6df093-fdc5-11e5-8259-0019b9b47402
+MISO: 13050b40-0000-11e6-8259-0019b9b47402
+NYISO: 50fe542e-f7cc-11e7-a01e-0eb97403cff2
+NEISO: 63c52b27-fae8-11e7-a01e-0eb97403cff2
+Optional Parameter:
+timeutc – The timezone to express the data in. By default, the Date and Time will be expressed in the 
+local prevailing timezone of the station being retrieved
+false – Date and Time are returned in local prevailing timezone (Default)
+true – Date and Time are returned in UTC format
+Example URLs: 
+Retrieve the hourly observations for the ERCOT Aggregate valid on 2025-08-04
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetWindcastIQHourlyObs?Acc
+ount={USERNAME}&Profile={PROFILE}&Password={PASSWORD}&ObsDate=2025-08-
+04&SiteIds=89b6bb6e-fdc5-11e5-8259-0019b9b47402
+Retrieve the hourly observations for both the MISO and PJM Aggregate valid on 2025-08-04
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetWindcastIQHourlyObs?Acc
+ount={USERNAME}&Profile={PROFILE}&Password={PASSWORD}&ObsDate=2025-08-
+04&SiteIds=13050b40-0000-11e6-8259-0019b9b47402,8a5c2ff7-fdc5-11e5-8259-0019b9b47402
+19.) North America Solar Power Forecasts
+Returns a csv file with the requested hourly AG2 Solar Power forecast. Currently the Solar Power 
+Forecast data is only available for subscribers of the AG2 Solar Power Forecast Service
+Base URL: https://www.wsitrader.com/Services/CSVDownloadService.svc/GetSolarHourlyForecast
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader
+Password – The password used to login to WSI Trader 
+ForecastDate – The date in which the forecast was issued that you want to retrieve. Format of the date 
+must be in YYYY-MM-DD format 
+Forecasts are available for the current day and back to 5 days in the past.
+ForecastType – The specific forecast to be retrieved. Available options are:
+Latest – Returns the most recent AG2 forecast for the entered Forecast Date
+Primary – Returns the AG2 forecast issued at 7:00am Local Time for the entered Forecast Date
+All - Returns all the forecasts issued for the entered Forecast Date
+SiteIds[] – The ID(s) that you would like to download data for. 
+You can only enter SiteIds for regions for which you currently have an active subscription for. Available 
+regions currently are:
+ERCOT
+The list of available SiteIds for reach region is listed below 
+ERCOT Regions:
+• ERCOT_TOTAL
+• ERCOT_SZ_FARWEST
+• ERCOT_SZ_NORTHWEST
+• ERCOT_SZ_SOUTHEAST
+• ERCOT_SZ_FAREAST
+• ERCOT_SZ_CENTEREAST
+• ERCOT_SZ_CENTERWEST
+You can provided multiple values in one request, for example: 
+SiteIds[]=ERCOT_TOTAL&SiteIds[]=ERCOT_SZ_FAREAST
+Optional Parameter:
+timeutc – The timezone to express the data in. By default, the Date and Time will be expressed in the 
+local prevailing timezone of the station being retrieved
+false – Date and Time are returned in local prevailing timezone (Default)
+true – Date and Time are returned in UTC format
+Example URLs: 
+Retrieve the Primary AG2 forecast made on May 8, 2024 for the ERCOT Aggregate.
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetSolarHourlyForecast?Account={USER
+NAME}&Profile={PROFILE}&Password={PASSWORD}&ForecastDate=2024-05-
+08&ForecastType=Primary&SiteIds[]=ERCOT_TOTAL
+Retrieve the Primary AG2 forecast made on May 8, 2024 for 2 regions
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetSolarHourlyForecast?Account={USER
+NAME}&Profile={PROFILE}&Password={PASSWORD}&ForecastDate=2024-05-
+08&ForecastType=Primary&SiteIds[]=ERCOT_TOTAL&SiteIds[]=ERCOT_SZ_FAREST
+20.) Probabilistic Forecasts – Discrete Probability
+Returns a .csv file with the discrete probability data provided as part of the Probabilistic Forecast 
+product 
+Base URL: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetProbabilityForecastDiscre
+te
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader 
+Password – The password used to login to WSI Trader 
+siteId – The ID for the station you would like to download data for. 
+ For the complete list of available station IDs run the following API URL: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetCityIds?Account={USERNAME}&Profi
+le ={PROFILE}&Password={PASSWORD}
+region – Enter the Region in which the station is located. Accepted values are: 
+ NA – North America 
+ MEX - Mexico
+ EUR – Europe 
+AUS - Australia 
+ASIA – Asia 
+parameter – Enter the desired parameter for which you want to download data. Accepted values are:
+max_temp – Max Temperature
+min_temp – Min Temperature
+precip – Precipitation
+units – The units you want the data returned in: Accepted values are: 
+If you are requesting either Min or Max Temperature the accepted Units values are:
+F – Fahrenheit
+C - Celsius
+If you are requesting Precipitation the accepted Units values are:
+in – Inches
+mm - Millimeters
+Example URL: 
+Return the Discrete Probability Max Temperature data for the European city London Heathrow 
+(EGLL) in degrees Celsius
+https://www.wsitrader.com/services/CSVDownloadService.svc/GetProbabilityForecastDiscrete?Account
+={USERNAME}&Password={PASSWORD}&profile={PROFILE}&Region=EUR&SiteId=EGLL&parameter=max
+_temp&unit=C
+21.) Probabilistic Forecasts – Threshold Exceedance
+Returns a .csv file with the threshold exceedance data provided as part of the Probabilistic Forecast 
+product 
+Base URL: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetProbabilityForecastExcee
+dence
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader 
+Password – The password used to login to WSI Trader 
+SiteId – The ID for the station you would like to download data for. 
+ For the complete list of available station IDs run the following API URL: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetCityIds?Account={USERNAME}&Profi
+le={PROFILE}&Password={PASSWORD}
+Region – Enter the Region in which the station is located. Accepted values are: 
+ NA – North America 
+ MEX - Mexico
+ EUR – Europe 
+AUS - Australia 
+ASIA – Asia 
+Parameter – Enter the desired parameter for which you want to download data. Accepted values are:
+max_temp – Max Temperature
+min_temp – Min Temperature
+precip – Precipitation
+Units – The units you want the data returned in: Accepted values are: 
+If you are requesting either Min or Max Temperature the accepted Units values are:
+F – Fahrenheit
+C - Celsius
+If you are requesting Precipitation the accepted Units values are:
+in – Inches
+mm - Millimeters
+Example URL: 
+Return the Threshold Exceedance Min Temperature data for the North American city Boston 
+(KBOS) in degrees Fahrenheit
+https://www.wsitrader.com/services/CSVDownloadService.svc/GetProbabilityForecastExceedence?Acco
+unt={USERNAME}&Profile={PROFILE}&Password={PASSWORD}&region=NA&siteId=KBOS&parameter=m
+ax_temp&unit=F
+22.) Probabilistic Forecasts – FRisk
+Returns a .csv file with the FRisk data provided as part of the Probabilistic Forecast service 
+Base URL: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetFRiskData
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader 
+Password – The password used to login to WSI Trader 
+Stations[] – The ID for the station(s) you would like to download data for. Multiple stations can be 
+entered within the API call
+For the complete list of available station IDs run the following API URL: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetCityIds?Account={USERNAME}&Profi
+le ={PROFILE}&Password={PASSWORD}
+Region – Enter the Region in which the station is located. Accepted values are: 
+ NA – North America 
+ EUR – Europe 
+AUS - Australia 
+ASIA – Asia 
+Parameter – Enter the desired parameter for which you want to download data. The only currently 
+accepted value is listed below:
+avgtempfrisk – FRisk values derived from Average Temperature
+Example URLs: 
+Return the Average Temperature FRisk data for the North American city Boston (KBOS) 
+https://www.wsitrader.com/services/CSVDownloadService.svc/GetFRiskData?Account={USERNAME}&P
+rofile={PROFILE}&Password={PASSWORD}&region=NA&Stations[]=KBOS&parameter=avgtempfrisk
+Return the Average Temperature FRisk data for multiple European cities
+https://www.wsitrader.com/services/CSVDownloadService.svc/GetFRiskData?Account={USERNAME}&Pr
+ofile={PROFILE}&Password={PASSWORD}&region=EUR&Stations[]=EGLL&Stations[]=EDDI&parameter=a
+vgtempfrisk
+23.) 1-15 Day AG2 Temperature Forecast Graphics 
+Returns the latest version of 1-15 Day AG2 Temperature Forecast Graphics. The requested graphics will 
+be returned in a zip file.
+Base URL:
+https://www.wsitrader.com/Services/GraphicDownloadService.svc/GetDailyTempFcstGraphics 
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader 
+Password – The password used to login to WSI Trader
+Region – The Region for which graphics are desired and which you have a valid subscription for
+Accepted values are: 
+NA – North America 
+ MEX - Mexico
+ EUR – Europe 
+AUS - Australia 
+ASIA – Asia 
+Subregion – The desired Sub-Region for which graphics are desired 
+Accepted values for each of the respective Regions are: 
+ North America Region:
+NA – North America
+SE - Southest
+NE - Northeast
+SW - Southwest
+NW - Northwest
+MW - Midwest
+SC – South Central
+ Europe Region:
+EUR – Europe
+Asia Region:
+ASIA – Asia
+ Australia Region:
+AUS - Australia
+ 
+Mexico Region:
+MEX – Mexico
+NA – North America
+Parameter – The specific parameter of interest. Accepted values are: 
+MAX – Max Temperature
+MIN – Min Temperature
+AVG – Avg Temperature
+Optional Parameters:
+ForecastDiff – This parameter will dictate if the Difference graphics are returned instead of the Forecast 
+graphics. Accepted values are:
+NO – Do not return the Difference graphics (Default)
+YES – Return the Difference graphics
+Stream – The desired means for obtaining the graphic. Accepted values are listed below. A value of 
+“true” is only accepted when downloading a single graphic. If multiple graphics are being downloaded 
+and the Stream parameter is set to a value of true, the graphics will still be downloaded to your system.
+false – Graphic will be downloaded to your system (Default)
+true – Graphic will be streamed into the application making the call. For example, you can insert 
+the graphic in a PowerPoint slide via the API call and the graphic will appear within the slide.
+Range – The graphic(s) for the time period of interest. If this parameter is not used in the API call, all 
+graphics will be returned
+day1 – Graphic for Day 1
+day2 – Graphic for Day 2
+day3 – Graphic for Day 3
+day4 – Graphic for Day 4
+day5 – Graphic for Day 5
+day6 – Graphic for Day 6
+day7 – Graphic for Day 7
+day8 – Graphic for Day 8
+day9 – Graphic for Day 9
+day10 – Graphic for Day 10
+day11 – Graphic for Day 11
+day12 – Graphic for Day 12
+day13 – Graphic for Day 13
+day14 – Graphic for Day 14
+day15 – Graphic for Day 15
+Optional Parameter:
+climoperiod – Graphics are created showing the forecast versus both the 30yr and 10yr normals. 
+Accepted values are:
+10yr – Graphics visualized against the 10yr normals
+30yr – Graphics visualized against the 30yr Normals (Default)
+Example URLs: 
+Download the North America, Southwest sub-region Max Temperature Graphics visualized against the 
+30yr normals
+https://www.wsitrader.com/Services/GraphicDownloadService.svc/GetDailyTempFcstGraphics?Account={USERNA
+ME}&Profile={PROFILE}&Password={PASSWORD}&Region=NA&SubRegion=SW&Parameter=MAX
+Stream into your application the Day 1 European Min Temperature Graphic visualized against the 30yr 
+normals
+https://www.wsitrader.com/Services/GraphicDownloadService.svc/GetDailyTempFcstGraphics?Account={USERNA
+ME}&Profile={PROFILE}&Password={PASSWORD}&Region=EUR&SubRegion=EUR&Parameter=MIN&Range=day1&S
+tream=true
+Download the North America, Northeast sub-region Day 1 Max Temperature Forecast Difference 
+Graphic 
+https://www.wsitrader.com/Services/GraphicDownloadService.svc/GetDailyTempFcstGraphics?Account={USERNA
+ME}&Profile={PROFILE}&Password={PASSWORD}&Region=NA&SubRegion=NE&Range=day1&Parameter=MAX&Fo
+recastDiff=yes
+Download the North America, Northeast sub-region Day 1 Max Temperature Graphic visualized against 
+the 10yr normals
+https://www.wsitrader.com/Services/GraphicDownloadService.svc/GetDailyTempFcstGraphics?Account={USERNA
+ME}&Profile={PROFILE}&Password={PASSWORD}&Region=NA&SubRegion=NE&Range=day1&Parameter=MAX&Fo
+recastDiff=yes&climoperiod=10yr
+24.) 1-15 Day AG2 Precipitation Forecast Graphics 
+Returns the latest version of 1-15 Day AG2 Temperature Forecast Graphics. The requested graphics will 
+be returned in a zip file.
+Base URL:
+https://www.wsitrader.com/Services/GraphicDownloadService.svc/GetDaily1to15FcstPrecipGraphics
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader 
+Password – The password used to login to WSI Trader
+Region – The Region for which graphics are desired and which you have a valid subscription for. 
+Accepted values are: 
+NA – North America 
+ MEX - Mexico
+ EUR – Europe 
+AUS - Australia 
+ASIA – Asia 
+Subregion – The desired Sub-Region for which graphics are desired 
+Accepted values for each of the respective Regions are: 
+ North America Region:
+NA – North America
+PN – Pacific Northwest
+QO – Quebec/Ontario
+ Europe Region:
+EUR – Europe
+SCN – Scandinavia
+ALP – Alps
+SE – SE Europe
+Asia Region:
+ASIA – Asia
+SE – SE Asia
+ Australia Region:
+AUS - Australia
+ Mexico Region:
+MEX – Mexico
+NA – North America
+DataType – The specific graphic type of interest. Accepted values are: 
+DepFromNormal – Graphics depicting data as Departure from Normal 
+TotalPrecip – Graphics depicting the actual forecast precipitation amounts
+Range – The graphic(s) for the time period of interest. Accepted values are based on the value you 
+entered for the “DataType” parameter described above: 
+Accepted values based on entering the “DepFromNormal” DataType are:
+1-5 – Graphic for the 1-5 day period
+1-10 – Graphic for the 1-10 day period
+1-15 – Graphic for the 1-15 day period
+6-10 – Graphic for the 6-10 day period
+11-15 – Graphic for the 11-15 day period
+week1 – Graphic for the Week 1 period
+week2 – Graphic for the Week 2 period
+all – A zip file is provided containing all the graphics for the above periods
+Accepted values based on entering the “TotalPrecip” DataType are:
+day1 – Graphic for Day 1
+day2 – Graphic for Day 2
+day3 – Graphic for Day 3
+day4 – Graphic for Day 4
+day5 – Graphic for Day 5
+day6 – Graphic for Day 6
+day7 – Graphic for Day 7
+day8 – Graphic for Day 8
+day9 – Graphic for Day 9
+day10 – Graphic for Day 10
+day11 – Graphic for Day 11
+day12 – Graphic for Day 12
+day13 – Graphic for Day 13
+day14 – Graphic for Day 14
+day15 – Graphic for Day 15
+1-5 – Graphic for the 1-5 day period
+1-10 – Graphic for the 1-10 day period
+1-15 – Graphic for the 1-15 day period
+6-10 – Graphic for the 6-10 day period
+11-15 – Graphic for the 11-15 day period
+week1 – Graphic for the Week 1 period
+week2 – Graphic for the Week 2 period
+all – A zip file is provided containing all the graphics for the above 
+Optional Parameters:
+Stream – The desired means for obtaining the graphic. Accepted values are listed below. A value of 
+“true” is only accepted when downloading a single graphic. If multiple graphics are being downloaded 
+and the Stream parameter is set to a value of True, the graphics will still be downloaded to your system.
+false – Graphic will be downloaded to your system (Default)
+true – Graphic will be streamed into the application making the call. For example, you can insert 
+the graphic in a PowerPoint slide via the API call and the graphic will appear within the slide.
+Example URLs: 
+Download the North America, Pacific Northwest sub-region 1-5 Day Departure From Normal Precip 
+Graphic
+https://www.wsitrader.com/Services/GraphicDownloadService.svc/GetDaily1to15FcstPrecipGraphics?Account={U
+SERNAME}&Profile={PROFILE}&Password={PASSWORD}&Region=NA&SubRegion=PN&DataType=DepFromNormal
+&Range=1-5
+Stream the North America, Pacific Northwest sub-region Day 10 Total Precip Graphic 
+https://www.wsitrader.com/Services/GraphicDownloadService.svc/GetDaily1to15FcstPrecipGraphics?Account={U
+SERNAME}&Profile={PROFILE}&Password={PASSWORD}&Region=NA&SubRegion=PN&DataType=TotalPrecip&Rang
+e=day10&Stream=true
+Download all the Europe Departure From Normal Precip Graphics
+https://www.wsitrader.com/Services/GraphicDownloadService.svc/GetDaily1to15FcstPrecipGraphics?Account={U
+SERNAME}&Profile={PROFILE}&Password={PASSWORD}&Region=EUR&SubRegion= EUR&DataType=DepFromNorm
+al&Range=all
+25.) Weather Model Graphics
+Returns the requested graphics for the weather model, parameter, view and run selected. If only one 
+graphic is requested, it will be returned directly. If multiple graphics are requested, the graphics will be 
+returned in a zip file.
+Base URL:
+https://www.wsitrader.com/Services/GraphicDownloadService.svc/GetModelGraphics
+Metadata API:
+https://www.wsitrader.com/Services/GraphicDownloadService.svc/GetModelGraphicsMetaData?Accou
+nt={USERNAME}&profile={PROFILE}&Password={PASSWORD}&ModelName=model
+Use the Metadata API to retrieve the complete list of available Views and Parameters for the 
+ModelName entered in the API call. The list is returned in JSON format.
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader 
+Password – The password used to login to WSI Trader
+ModelName – The Weather Model for which graphics are desired 
+Accepted values are: 
+ gfs_op – GFS Operational – 0.25 Degree Resolution
+ gfs_op_priority – 1.0 Degree Resolution
+ gfs_ens – GFS Ensemble
+ gfs_ens_extended – GFS Ensemble Weekly 
+ ecmwf_op – ECMWF Operational – 1.5 Degree Resolution
+ ecmwf_op_hires – ECMWF Operational – 1/8 Degree Resolution
+ecmwf_ens – ECMWF Ensemble
+ ecmwf_weekly – ECMWF Weekly 
+ gem_op – Canadian Operational
+ gem_ens – Canadian Ensemble
+ nam – NAM
+ graflr_4km – GRAF
+ ecmwf_aifs – ECMWF AIFS AI Model
+ ecmwf_aifs_ens – ECMWF AIFS Ensemble AI Model
+Run – The Model Run of interest
+Format of the date must be in YYYYMMDDHH format. For example, if you were interested in graphics 
+from the May 21, 2021 00Z run you would use a value of 2021052100
+View – The geographic view of interest. 
+Use the Metadata API call outlined above to retrieve the complete list of available “View” options for 
+the ModelName of interest
+PeriodType – The timescale of graphics that are of interest
+Accepted values are: 
+ hour – Use this value when desiring to retrieve individual forecast hours
+ period – Use this value when desiring to retrieve period mean graphics, i.e. 6-10
+ week – Use this value when desiring to retrieve the graphics from the ECMWF Weekly or GFS 
+ Extended
+Optional Parameters:
+StartPeriod – The first time period for which to retrieve graphics
+EndPeriod – The last time period for which to retrieve graphics
+• If neither of these options are used in the API call, all available forecast time periods will be 
+returned
+• If only the StartPeriod is used in the API call, all forecast time periods (inclusive) after the 
+provided value will be returned 
+• If both StartPeriod and EndPeriod are used in the API call, all forecast time periods (inclusive) 
+will be returned
+• An error will be returned if only EndPeriod is used in the API call
+• If only 1 graphic is requested or found, the graphic will be returned in PNG format. 
+• If 2 or more graphics are requested or found, the graphics are returned in a single zip file 
+containing all the images
+Stream – The desired means for obtaining the graphic. Accepted values are listed below. A value of 
+“true” is only accepted when downloading a single graphic. If multiple graphics are being downloaded 
+and the Stream parameter is set to a value of true, the graphics will still be downloaded to your system.
+false – Graphic will be downloaded to your system (Default)
+true – Graphic will be streamed into the application making the call. For example, you can insert the 
+graphic in a PowerPoint slide via the API call and the graphic will appear within the slide.
+Example URLs: 
+Download the entire run of individual forecast hours from the GFS Operational from 2021-01-19 12z, 
+North America view, 850mb temp anomaly
+https://www.wsitrader.com/Services/GraphicDownloadService.svc/GetModelGraphics?Account={USERNAME}&pr
+ofile={PROFILE}&Password={PASSWORD}&ModelName=gfs_op&View=AF&Parameter=850t_dif&Run=2021011912
+&PeriodType=hour
+Download only forecast hour 12 from the GFS Ensemble run from 2021-01-25 00z, Europe view, mean 
+surface temp
+https://www.wsitrader.com/Services/GraphicDownloadService.svc/GetModelGraphics?Account={USERNAME}&pr
+ofile={PROFILE}&Password={PASSWORD}&ModelName=gfs_ens&View=NA&PeriodType=hour&Parameter=m850ta
+&Run=2021052412&StartPeriod=12&EndPeriod=12
+Download between hour 120 and the end of the run from the ECMWF Op run from 2021-01-25 00z, 
+Europe view, mean surface temp
+https://www.wsitrader.com/Services/GraphicDownloadService.svc/GetModelGraphics?Account={USERNAME}&pr
+ofile={PROFILE}&Password={PASSWORD}&ModelName=ecmwf_op&View=NA&PeriodType=hour&Parameter=850t
+a&Run=2021052412&StartPeriod=120
+Download the 1-5 Mean graphic from the ECMWF Ensemble from 2021-01-19 12z, North America view, 
+850mb Temp anomaly
+https://www.wsitrader.com/Services/GraphicDownloadService.svc/GetModelGraphics?Account={USERNAME}&pr
+ofile={PROFILE}&Password={PASSWORD}&ModelName=ecmwf_ens&View=NA&PeriodType=period&Parameter=m
+850ta&Run=2021052412&StartPeriod=1-5&EndPeriod=1-5
+26.) Weighted Forecast – Individual City Forecasts
+Returns a .csv file with the 1-15 Day Min/Max/Avg Temp & CDD/HDD forecast for each of the 198 cities 
+that are used within the Weighted Degree model. This product is only available for North America and 
+for those clients who subscribe to the Trader North America Complete National package.
+Base URL: 
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetWsiForecastForDDModelCities
+Required Parameters:
+Account – The username used to login to WSI Trader 
+Profile – The email address used to login to WSI Trader 
+Password – The password used to login to WSI Trader 
+ForecastType – The specific forecast to be retrieved. Available options are:
+Primary
+Latest
+TempUnits – The units you want the temperature data displayed in. Accepted values are: 
+F – Fahrenheit 
+C – Celsius 
+Region – The region for which to receive forecast data for. Accepted values are: 
+NA – North America 
+Example URL: 
+Download the forecast data from the Primary forecast issued at 6:30am ET in degrees Fahrenheit
+https://www.wsitrader.com/Services/CSVDownloadService.svc/GetWsiForecastForDDModelCities?Account={USER
+NAME}&Profile={PROFILE}&Password={PASSWORD}&Region=NA&ForecastType=Primary&TempUnits=F&ForecastT
+ype=Primary

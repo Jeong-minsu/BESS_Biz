@@ -1,0 +1,1 @@
+- [Adhoc AS Strategy Working Notes](NOTES.md) — Q1/Q2/Q3 분석. 2026-01-01~03-06. D-1 08:30 CT decision time.

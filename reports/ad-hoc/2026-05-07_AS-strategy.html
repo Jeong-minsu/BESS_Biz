@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERCOT BESS — 최적 보조서비스 전략 분석 (v4)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg-base:#f7f8fa; --bg-panel:#fff; --bg-panel-2:#f0f2f5; --bg-row-alt:#fafbfc;
+  --border-soft:#e0e3eb; --border-strong:#c8ccd4;
+  --text-primary:#131722; --text-secondary:#5d606b; --text-muted:#9598a1;
+  --accent-up:#089981; --accent-down:#f23645; --accent-blue:#2962ff;
+  --accent-amber:#ff9800; --accent-purple:#9c27b0;
+  --grid-line:#eceff3; --shadow-card:0 1px 2px rgba(16,24,40,0.04);
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+body { background:var(--bg-base); color:var(--text-primary);
+  font-family:'Inter','Noto Sans KR',-apple-system,system-ui,sans-serif;
+  font-size:13px; line-height:1.5; padding:24px; min-height:100vh; }
+.dashboard { max-width:1400px; margin:0 auto; display:flex; flex-direction:column; gap:12px; }
+.header { display:flex; justify-content:space-between; align-items:flex-end;
+  padding-bottom:16px; border-bottom:1px solid var(--border-soft); margin-bottom:8px; }
+.header h1 { font-size:22px; font-weight:600; letter-spacing:-0.01em; }
+.header .subtitle { color:var(--text-secondary); font-size:12px; margin-top:4px;
+  font-variant-numeric:tabular-nums; }
+.status-pill { display:inline-flex; align-items:center; gap:6px;
+  padding:4px 10px; border:1px solid var(--border-soft); border-radius:4px;
+  font-size:11px; text-transform:uppercase; letter-spacing:0.08em;
+  color:var(--text-secondary); background:var(--bg-panel); }
+.status-pill::before { content:''; width:6px; height:6px; border-radius:50%;
+  background:var(--accent-up); }
+.panel { background:var(--bg-panel); border:1px solid var(--border-soft);
+  border-radius:6px; overflow:hidden; box-shadow:var(--shadow-card); }
+.panel-header { padding:12px 16px; border-bottom:1px solid var(--border-soft);
+  display:flex; justify-content:space-between; align-items:center; }
+.panel-title { font-size:11px; text-transform:uppercase; letter-spacing:0.08em;
+  color:var(--text-secondary); font-weight:500; }
+.panel-body { padding:16px; }
+.kpi-row { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:12px; }
+.kpi { background:var(--bg-panel); border:1px solid var(--border-soft);
+  border-radius:6px; padding:16px 18px; box-shadow:var(--shadow-card); }
+.kpi-label { font-size:10px; text-transform:uppercase; letter-spacing:0.1em;
+  color:var(--text-secondary); margin-bottom:8px; }
+.kpi-value { font-family:'JetBrains Mono','SF Mono',monospace; font-size:28px;
+  font-weight:500; color:var(--text-primary); font-variant-numeric:tabular-nums;
+  line-height:1.1; }
+.kpi-change { font-family:'JetBrains Mono',monospace; font-size:11px; margin-top:6px;
+  font-variant-numeric:tabular-nums; }
+.up {color:var(--accent-up);} .down {color:var(--accent-down);}
+.neutral {color:var(--text-secondary);}
+.section-title { font-size:14px; font-weight:600; margin-top:8px; margin-bottom:4px;
+  padding:8px 0 4px; border-bottom:1px dashed var(--border-soft); }
+.section-title small { font-size:11px; font-weight:400; color:var(--text-secondary);
+  margin-left:8px; }
+.main-grid { display:grid; grid-template-columns:2fr 1fr; gap:12px; }
+.half-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+@media (max-width:1000px) { .main-grid, .half-grid { grid-template-columns:1fr; } }
+.chart-wrap { height:320px; padding:12px; }
+.chart-wrap.tall { height:380px; }
+.heatmap-grid { display:grid; gap:2px; padding:12px;
+  grid-template-columns:60px repeat(24, 1fr); }
+.heatmap-cell { aspect-ratio:1; display:flex; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-size:9px;
+  font-variant-numeric:tabular-nums; color:var(--text-primary);
+  border-radius:2px; cursor:default; }
+.heatmap-axis { font-size:9px; color:var(--text-secondary); text-transform:uppercase;
+  letter-spacing:0.05em; display:flex; align-items:center; justify-content:center; }
+.heatmap-axis.row-label { justify-content:flex-end; padding-right:8px; font-size:10px; }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+thead th { text-align:left; padding:10px 16px; font-size:10px;
+  text-transform:uppercase; letter-spacing:0.08em; color:var(--text-secondary);
+  font-weight:500; border-bottom:1px solid var(--border-soft); background:var(--bg-panel); }
+thead th.num { text-align:right; }
+tbody td { padding:9px 16px; border-bottom:1px solid var(--grid-line); }
+tbody td.num { text-align:right; font-family:'JetBrains Mono',monospace;
+  font-variant-numeric:tabular-nums; }
+tbody tr:nth-child(even) { background:var(--bg-row-alt); }
+tbody tr:hover { background:var(--bg-panel-2); }
+.ticker { font-weight:600; letter-spacing:0.02em; }
+.callout { padding:12px 16px; background:var(--bg-panel-2);
+  border-left:3px solid var(--accent-amber); border-radius:4px;
+  font-size:12px; margin:8px 0; }
+.callout.green { border-left-color:var(--accent-up); }
+.callout.red { border-left-color:var(--accent-down); }
+.callout.blue { border-left-color:var(--accent-blue); }
+.callout strong { font-weight:600; }
+ul.findings { list-style:none; padding-left:0; }
+ul.findings li { padding:6px 0 6px 18px; position:relative;
+  font-size:13px; line-height:1.6; }
+ul.findings li::before { content:'▸'; position:absolute; left:0;
+  color:var(--accent-blue); font-weight:600; }
+ul.findings li.warn::before { color:var(--accent-down); }
+ul.findings li.good::before { color:var(--accent-up); }
+.method-block { font-size:11px; color:var(--text-secondary); line-height:1.7;
+  background:var(--bg-panel-2); padding:14px; border-radius:4px;
+  border-left:3px solid var(--accent-blue); }
+.method-block strong { color:var(--text-primary); }
+.method-block code { font-family:'JetBrains Mono',monospace; background:var(--bg-panel);
+  padding:1px 4px; border-radius:3px; font-size:10px; }
+</style>
+</head>
+<body>
+<div class="dashboard">
+
+  <div class="header">
+    <div>
+      <h1>ERCOT BESS — 최적 보조서비스 전략 분석 (v4)</h1>
+      <div class="subtitle">
+        2026-01-01 ~ 2026-03-06 (60일, post-RTC+B, <strong>Winter Storm Fern 1/24-28 제외</strong>) |
+        GKS_BESS_RN 100MW/200MWh |
+        D-1 08:30 CT decision |
+        DAM AS는 SoC telemetry 검사 없음 (RT only)
+      </div>
+    </div>
+    <div class="status-pill">v4 · 2026-05-07 · DA+RT split LP</div>
+  </div>
+
+  <!-- ==================== KPI ==================== -->
+  <div class="kpi-row">
+<div class="kpi">
+  <div class="kpi-label">AS Optimal (DAM vs RT 시간별 best)</div>
+  <div class="kpi-value">$979K</div>
+  <div class="kpi-change neutral">100MW × 5종 × 60일 ex-post</div>
+</div>
+<div class="kpi">
+  <div class="kpi-label">Always-DAM 전략</div>
+  <div class="kpi-value up">89.4%</div>
+  <div class="kpi-change up">$875K (Optimal의 89.4%)</div>
+</div>
+<div class="kpi">
+  <div class="kpi-label">Always-RT 전략</div>
+  <div class="kpi-value down">38.4%</div>
+  <div class="kpi-change down">$376K — RT 우선은 손해</div>
+</div>
+<div class="kpi">
+  <div class="kpi-label">DAM &gt; RT 시간 (5종 평균)</div>
+  <div class="kpi-value">~85%</div>
+  <div class="kpi-change neutral">대다수 시간에 DAM 우세</div>
+</div>
+<div class="kpi">
+  <div class="kpi-label">RT &gt; DAM driver</div>
+  <div class="kpi-value">Wind Bust</div>
+  <div class="kpi-change neutral">NSPIN/ECRS/RRS corr -0.13~-0.22</div>
+</div>
+</div>
+
+  <!-- ==================== LP Methodology ==================== -->
+  <div class="section-title">LP Optimal — 정의 + 방법론</div>
+  <div class="method-block">
+    <strong>정의:</strong> 60일간 매일 24시간 ex-post (가격 perfect foresight) 100MW/200MWh BESS의 수익 상한.<br><br>
+    <strong>Decision variables (HE 별):</strong>
+    <code>discharge[h]</code> ∈ [0,100], <code>charge[h]</code> ∈ [0,100],
+    <code>discharge_DA[h]</code> ∈ [0, discharge], <code>charge_DA[h]</code> ∈ [0, charge],
+    <code>a_p[h]</code> for p ∈ &#123;REGUP, REGDN, RRS, ECRS, NSPIN&#125;, <code>soc[h]</code> ∈ [0, 200].<br><br>
+    <strong>제약:</strong>
+    (1) Capacity gen: <code>discharge + a_REGUP + a_RRS + a_ECRS + a_NSPIN ≤ 100 MW</code> ·
+    (2) Capacity load: <code>charge + a_REGDN ≤ 100 MW</code> ·
+    (3) SoC dynamics: <code>soc[h] = soc[h-1] + 0.922×charge − discharge/0.922</code> (RTE 85%) ·
+    (4) <strong>SoC reservation 미적용</strong> (사용자 정정 2026-05-07):
+    DAM AS commit은 ERCOT가 SoC telemetry 검사 안 함 (RT만 telemetry 기반 award 제한). 본 LP는 DAM AS만 모델링하므로 SoC reservation 제약 없음.
+    예: DAM에서 100 MW NSpin 입찰 가능 (SoC 무관). 단 RT NSpin은 telemetry 기반 — SoC 100 MWh이면 RT NSpin award 최대 25 MW (4hr sustain 기준).<br>
+    (5) Init <code>soc[0]=100</code>, terminal <code>soc[24]≥50</code>.<br><br>
+    <strong>Objective:</strong>
+    max Σh [<code>discharge_DA × DA_LMP − charge_DA × DA_LMP + (discharge−discharge_DA) × RT_LMP − (charge−charge_DA) × RT_LMP + Σp a_p × DAM_AS_MCPC_p</code>].<br><br>
+    <strong>Solver:</strong> <code>scipy.optimize.linprog</code> (HiGHS), 일별 60회 풀이.<br>
+    <strong>주의:</strong> 현 LP는 <em>DAM AS만 가정</em> — RT AS commit option은 미반영. 따라서 LP의 AS 부분은 always-DAM의 ex-post optimal 수준.
+  </div>
+
+  <!-- ==================== Q1: Optimal AS Product ==================== -->
+  <div class="section-title">
+    Q1 · 최적 AS 상품 (Hourly, SoC-aware)
+    <small>NSpin 4× / RRS 2× / ECRS 1× SoC 제약 반영</small>
+  </div>
+
+  <div class="callout green">
+    <strong>요약 (정정 v3):</strong> DAM AS commit은 ERCOT가 SoC를 검사하지 않으므로 (RT만 telemetry 적용)
+    LP는 SoC reservation 제약 없이 capacity 한도 (100 MW) 내에서 자유롭게 AS 배분.
+    LP optimal AS = <strong>$234K</strong>
+    (NSPIN $103K · REGDN $89K · REGUP $22K · ECRS $17K · RRS $2K).
+    GKS 실적 <strong>$190K</strong> = LP의
+    <strong>81%</strong> capture.
+    GKS는 NSpin에서 LP 대비 추가 50% 더 commit ($156K vs $103K) — 에너지 기회 비용을 감수하고 NSpin 우선 전략.
+  </div>
+
+  <div class="main-grid">
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">Mean DAM MCPC ($/MW) · HE × Product Heatmap</span></div>
+      <div class="panel-body">
+        <div id="damHeatmap" class="heatmap-grid"></div>
+        <div style="font-size:10px;color:var(--text-muted);padding:8px 0 0;">색이 짙을수록 시간대별 mean MCPC 高. 새벽/저녁 NSpin, 오전(7-10) ECRS·RRS·REGUP, 오후(14-17) REGDN.</div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">Ex-post LP vs GKS 실적 (AS 별)</span></div>
+      <div class="panel-body" style="padding:0;">
+        <table>
+          <thead><tr>
+            <th>Product</th>
+            <th class="num">LP (DAM only)</th>
+            <th class="num">GKS Actual</th>
+            <th class="num">Capture %</th>
+            <th class="num">Award Hrs</th>
+          </tr></thead>
+          <tbody>
+    <tr>
+      <td><span class="ticker">REGUP</span></td>
+      <td class="num">$22K</td>
+      <td class="num">$0</td>
+      <td class="num down">0%</td>
+      <td class="num">0</td>
+    </tr>
+    
+    <tr>
+      <td><span class="ticker">REGDN</span></td>
+      <td class="num">$89K</td>
+      <td class="num">$0</td>
+      <td class="num down">0%</td>
+      <td class="num">0</td>
+    </tr>
+    
+    <tr>
+      <td><span class="ticker">RRS</span></td>
+      <td class="num">$2K</td>
+      <td class="num">$5K</td>
+      <td class="num up">207%</td>
+      <td class="num">46</td>
+    </tr>
+    
+    <tr>
+      <td><span class="ticker">ECRS</span></td>
+      <td class="num">$17K</td>
+      <td class="num">$29K</td>
+      <td class="num up">169%</td>
+      <td class="num">159</td>
+    </tr>
+    
+    <tr>
+      <td><span class="ticker">NSPIN</span></td>
+      <td class="num">$103K</td>
+      <td class="num">$156K</td>
+      <td class="num up">151%</td>
+      <td class="num">1210</td>
+    </tr>
+    </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-header"><span class="panel-title">LP Optimal AS Allocation (SoC-aware) · Mean MW per HE</span></div>
+    <div class="panel-body chart-wrap"><canvas id="lpAsAlloc"></canvas></div>
+  </div>
+
+  <!-- ==================== Q2: DAM vs RT split per product ==================== -->
+  <div class="section-title">
+    Q2 · AS 상품별 DAM vs RT 시장 비중
+    <small>"어디에 capacity 할당해야 유리한가?"</small>
+  </div>
+
+  <div class="callout green">
+    <strong>핵심 답:</strong> 5종 모두 DAM이 RT 대비 평균 1.8~3.3× 비싸고, <strong>DAM &gt; RT 빈도가 70-96%</strong>.
+    "Always-DAM" 단순 전략이 ex-post optimal의 <strong>89.4%</strong>를 capture (perfect-foresight switching 대비 +11%만 손해).
+    "Always-RT"는 38.4%만 capture 손해 큼.<br>
+    <strong>예외</strong>: REGDN의 HE 7-8 + 18-20 (solar ramp), REGUP의 HE 18 (저녁 peak) — DAM win share 0.12-0.40으로 RT 우세 빈도 높음.
+  </div>
+
+  <div class="panel">
+    <div class="panel-header"><span class="panel-title">Level Comparison: DAM vs RT MCPC per Product (60일)</span></div>
+    <div class="panel-body" style="padding:0;">
+      <table>
+        <thead><tr>
+          <th>Product</th>
+          <th class="num">DAM mean</th>
+          <th class="num">RT mean</th>
+          <th class="num">DAM/RT</th>
+          <th class="num">DAM &gt; RT (hrs)</th>
+          <th class="num">RT &gt; DAM (hrs)</th>
+          <th class="num">DAM win %</th>
+        </tr></thead>
+        <tbody>
+    <tr>
+      <td><span class="ticker">REGUP</span></td>
+      <td class="num">$1.24</td>
+      <td class="num">$0.70</td>
+      <td class="num up">1.8×</td>
+      <td class="num">1,140</td>
+      <td class="num">300</td>
+      <td class="num up">79%</td>
+    </tr>
+    
+    <tr>
+      <td><span class="ticker">REGDN</span></td>
+      <td class="num">$1.15</td>
+      <td class="num">$0.60</td>
+      <td class="num up">1.9×</td>
+      <td class="num">1,012</td>
+      <td class="num">425</td>
+      <td class="num up">70%</td>
+    </tr>
+    
+    <tr>
+      <td><span class="ticker">RRS</span></td>
+      <td class="num">$0.89</td>
+      <td class="num">$0.27</td>
+      <td class="num up">3.3×</td>
+      <td class="num">1,389</td>
+      <td class="num">51</td>
+      <td class="num up">96%</td>
+    </tr>
+    
+    <tr>
+      <td><span class="ticker">ECRS</span></td>
+      <td class="num">$1.02</td>
+      <td class="num">$0.34</td>
+      <td class="num up">3.0×</td>
+      <td class="num">1,367</td>
+      <td class="num">73</td>
+      <td class="num up">95%</td>
+    </tr>
+    
+    <tr>
+      <td><span class="ticker">NSPIN</span></td>
+      <td class="num">$1.78</td>
+      <td class="num">$0.70</td>
+      <td class="num up">2.6×</td>
+      <td class="num">1,362</td>
+      <td class="num">77</td>
+      <td class="num up">95%</td>
+    </tr>
+    </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== Q2 v4: DA/RT split LP — 사용자 핵심 질문에 대한 직접 답 ===== -->
+  <div class="callout red">
+    <strong>★ Q2 핵심 답 (DA + RT commit + buyback LP):</strong> 모든 5종 AS에 대해 <strong>DA commit 비중 73-99%</strong>가 평균적 최적.
+    REGDN/REGUP에서만 RT 18-27% 의미있고, RRS/ECRS/NSPIN은 95%+ DA 권장.
+    Trade-off 모델: DA paid DAM_MCPC, RT 이행 못하면 RT_MCPC buyback. SoC capability 한도 (NSpin soc/4, RRS 2×soc, etc.) 반영.
+    <br><strong>전체 평균 DA share ≈ 87% (revenue-weighted)</strong>. 즉 평소 DA 우선, RT는 backstop으로 ~13%.
+  </div>
+
+  <div class="panel">
+    <div class="panel-header"><span class="panel-title">★ 사용자 질문 답: 평균 최적 DA/RT split per product (delivery-required LP)</span></div>
+    <div class="panel-body" style="padding:0;">
+      <table>
+        <thead><tr>
+          <th>Product</th>
+          <th class="num">a_DA mean (MW)</th>
+          <th class="num">a_RT mean (MW)</th>
+          <th class="num">★ DA share (deliverable)</th>
+          <th class="num">Net Rev (deliv-LP)</th>
+          <th class="num">DA share (pure-arb)</th>
+          <th class="num">Net Rev (arb-LP)</th>
+        </tr></thead>
+        <tbody>
+    <tr>
+      <td><span class="ticker">REGUP</span></td>
+      <td class="num">16.0</td>
+      <td class="num">4.1</td>
+      <td class="num up"><strong>80%</strong></td>
+      <td class="num">$    36,265</td>
+      <td class="num neutral">86%</td>
+      <td class="num neutral">$   118,958</td>
+    </tr>
+    
+    <tr>
+      <td><span class="ticker">REGDN</span></td>
+      <td class="num">23.1</td>
+      <td class="num">8.7</td>
+      <td class="num up"><strong>73%</strong></td>
+      <td class="num">$    65,270</td>
+      <td class="num neutral">82%</td>
+      <td class="num neutral">$   127,514</td>
+    </tr>
+    
+    <tr>
+      <td><span class="ticker">RRS</span></td>
+      <td class="num">7.1</td>
+      <td class="num">0.1</td>
+      <td class="num up"><strong>99%</strong></td>
+      <td class="num">$    15,411</td>
+      <td class="num neutral">99%</td>
+      <td class="num neutral">$   103,689</td>
+    </tr>
+    
+    <tr>
+      <td><span class="ticker">ECRS</span></td>
+      <td class="num">7.5</td>
+      <td class="num">0.2</td>
+      <td class="num up"><strong>98%</strong></td>
+      <td class="num">$    20,191</td>
+      <td class="num neutral">99%</td>
+      <td class="num neutral">$   115,165</td>
+    </tr>
+    
+    <tr>
+      <td><span class="ticker">NSPIN</span></td>
+      <td class="num">11.3</td>
+      <td class="num">0.5</td>
+      <td class="num up"><strong>96%</strong></td>
+      <td class="num">$    32,472</td>
+      <td class="num neutral">98%</td>
+      <td class="num neutral">$   187,556</td>
+    </tr>
+    </tbody>
+      </table>
+      <div style="font-size:11px;color:var(--text-secondary);padding:12px 16px;line-height:1.6;">
+        <strong>Delivery-LP</strong>: BESS가 commit한 모든 물량을 RT에서 이행할 수 있어야 (s_DA = 0 강제). 컴플라이언스 친화 시나리오.<br>
+        <strong>Pure-arb LP</strong>: DA에 무한정 commit 가능, 부족분만 RT_MCPC로 buyback. 수학적 상한선 (real-world에서는 ERCOT 컴플라이언스로 제약).<br>
+        둘 다 결론은 같음: <strong>DA 우선 commit</strong>. 차이는 절대 commit 양 (delivery는 SoC capability 한도, arb는 100MW 풀 활용).
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-header"><span class="panel-title">전략 비교 · 100 MW capacity per product, 60일 ($)</span></div>
+    <div class="panel-body" style="padding:0;">
+      <table>
+        <thead><tr>
+          <th>Product</th>
+          <th class="num">Always-DAM</th>
+          <th class="num">Always-RT</th>
+          <th class="num">Optimal (Switch)</th>
+          <th class="num">DAM %</th>
+          <th class="num">RT %</th>
+        </tr></thead>
+        <tbody>
+    <tr>
+      <td><span class="ticker">REGUP</span></td>
+      <td class="num">$178K</td>
+      <td class="num">$101K</td>
+      <td class="num">$203K</td>
+      <td class="num up">88%</td>
+      <td class="num down">50%</td>
+    </tr>
+    
+    <tr>
+      <td><span class="ticker">REGDN</span></td>
+      <td class="num">$166K</td>
+      <td class="num">$87K</td>
+      <td class="num">$194K</td>
+      <td class="num up">86%</td>
+      <td class="num down">45%</td>
+    </tr>
+    
+    <tr>
+      <td><span class="ticker">RRS</span></td>
+      <td class="num">$129K</td>
+      <td class="num">$39K</td>
+      <td class="num">$141K</td>
+      <td class="num up">91%</td>
+      <td class="num down">28%</td>
+    </tr>
+    
+    <tr>
+      <td><span class="ticker">ECRS</span></td>
+      <td class="num">$146K</td>
+      <td class="num">$49K</td>
+      <td class="num">$162K</td>
+      <td class="num up">91%</td>
+      <td class="num down">30%</td>
+    </tr>
+    
+    <tr>
+      <td><span class="ticker">NSPIN</span></td>
+      <td class="num">$256K</td>
+      <td class="num">$100K</td>
+      <td class="num">$279K</td>
+      <td class="num up">92%</td>
+      <td class="num down">36%</td>
+    </tr>
+    </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-header"><span class="panel-title">HE × Product · DAM이 우세한 시간 비율 (heatmap)</span></div>
+    <div class="panel-body">
+      <div id="damWinHeatmap" class="heatmap-grid"></div>
+      <div style="font-size:10px;color:var(--text-muted);padding:8px 0 0;">
+        진한 녹색일수록 DAM commit이 거의 항상 우세. <strong>REGDN HE 7-8 + 18-20</strong>이 짙은 회색~빨강 (RT가 자주 이김 — solar ramp 시간대).
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== Q3: RT > DAM characterization ==================== -->
+  <div class="section-title">
+    Q3 · RT &gt; DAM 시간대 특성 + D-1 예측 가능성
+    <small>"언제 DAM commit을 보류하고 RT 잔류해야 하는가?"</small>
+  </div>
+
+  <div class="callout blue">
+    <strong>요약:</strong> Wind forecast bust가 <strong>NSPIN/ECRS/RRS/REGUP</strong>의 RT 우세 시간대 driver
+    (Pearson corr -0.13~-0.22 · spike 시 wind err 평균 -2~-3 GW).
+    <strong>REGDN은 다른 구조</strong> — wind err corr 거의 0 — solar ramp (HE 7-8, 18-20) 시간대에 패턴화.
+    이는 D-1 morning에 일정 부분 사전 인지 가능 (날씨 예보 + 시간대 패턴).
+  </div>
+
+  <div class="main-grid">
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">RT &gt; DAM Frequency &amp; Driver per Product</span></div>
+      <div class="panel-body" style="padding:0;">
+        <table>
+          <thead><tr>
+            <th>Product</th>
+            <th class="num">RT≥DAM hrs</th>
+            <th class="num">% of 1440h</th>
+            <th class="num">Spike (&gt;$5)</th>
+            <th class="num">Avg RT-DAM gap</th>
+            <th class="num">Wind err (spike)</th>
+          </tr></thead>
+          <tbody>
+    <tr>
+      <td><span class="ticker">REGUP</span></td>
+      <td class="num">300</td>
+      <td class="num">20.8%</td>
+      <td class="num">4</td>
+      <td class="num">$0.84</td>
+      <td class="num down">-2,249</td>
+    </tr>
+    
+    <tr>
+      <td><span class="ticker">REGDN</span></td>
+      <td class="num">428</td>
+      <td class="num">29.7%</td>
+      <td class="num">4</td>
+      <td class="num">$0.65</td>
+      <td class="num down">+358</td>
+    </tr>
+    
+    <tr>
+      <td><span class="ticker">RRS</span></td>
+      <td class="num">51</td>
+      <td class="num">3.5%</td>
+      <td class="num">6</td>
+      <td class="num">$2.48</td>
+      <td class="num down">-2,283</td>
+    </tr>
+    
+    <tr>
+      <td><span class="ticker">ECRS</span></td>
+      <td class="num">73</td>
+      <td class="num">5.1%</td>
+      <td class="num">12</td>
+      <td class="num">$2.07</td>
+      <td class="num down">-3,140</td>
+    </tr>
+    
+    <tr>
+      <td><span class="ticker">NSPIN</span></td>
+      <td class="num">78</td>
+      <td class="num">5.4%</td>
+      <td class="num">18</td>
+      <td class="num">$2.92</td>
+      <td class="num down">-3,060</td>
+    </tr>
+    </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">상관계수 (RT-DAM gap vs Features)</span></div>
+      <div class="panel-body chart-wrap"><canvas id="corrChart"></canvas></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-header"><span class="panel-title">Top 12 RT &gt;&gt; DAM Spike Hours (5종 중 max spread)</span></div>
+    <div class="panel-body" style="padding:0;">
+      <table>
+        <thead><tr>
+          <th>Date</th>
+          <th class="num">HE</th>
+          <th>Product</th>
+          <th class="num">RT-DAM gap</th>
+          <th class="num">DA LMP</th>
+          <th class="num">RT LMP</th>
+          <th class="num">Load FC Err</th>
+          <th class="num">Wind FC Err</th>
+        </tr></thead>
+        <tbody>
+    <tr>
+      <td>2026-01-20</td>
+      <td class="num">9</td>
+      <td><span class="ticker">RRS</span></td>
+      <td class="num down">+$31.7</td>
+      <td class="num">$35</td>
+      <td class="num">$99</td>
+      <td class="num">-1,169</td>
+      <td class="num down">-1,526</td>
+    </tr>
+    
+    <tr>
+      <td>2026-02-09</td>
+      <td class="num">20</td>
+      <td><span class="ticker">NSPIN</span></td>
+      <td class="num down">+$10.8</td>
+      <td class="num">$16</td>
+      <td class="num">$23</td>
+      <td class="num">+384</td>
+      <td class="num down">-2,105</td>
+    </tr>
+    
+    <tr>
+      <td>2026-02-15</td>
+      <td class="num">17</td>
+      <td><span class="ticker">REGDN</span></td>
+      <td class="num down">+$10.7</td>
+      <td class="num">$10</td>
+      <td class="num">$1</td>
+      <td class="num">+58</td>
+      <td class="num down">-98</td>
+    </tr>
+    
+    <tr>
+      <td>2026-01-09</td>
+      <td class="num">8</td>
+      <td><span class="ticker">NSPIN</span></td>
+      <td class="num down">+$10.6</td>
+      <td class="num">$37</td>
+      <td class="num">$51</td>
+      <td class="num">+359</td>
+      <td class="num down">-2,836</td>
+    </tr>
+    
+    <tr>
+      <td>2026-02-09</td>
+      <td class="num">19</td>
+      <td><span class="ticker">NSPIN</span></td>
+      <td class="num down">+$10.5</td>
+      <td class="num">$19</td>
+      <td class="num">$18</td>
+      <td class="num">-133</td>
+      <td class="num down">-1,252</td>
+    </tr>
+    
+    <tr>
+      <td>2026-02-28</td>
+      <td class="num">19</td>
+      <td><span class="ticker">NSPIN</span></td>
+      <td class="num down">+$10.0</td>
+      <td class="num">$28</td>
+      <td class="num">$35</td>
+      <td class="num">-843</td>
+      <td class="num down">-1,996</td>
+    </tr>
+    
+    <tr>
+      <td>2026-02-22</td>
+      <td class="num">17</td>
+      <td><span class="ticker">REGDN</span></td>
+      <td class="num down">+$9.9</td>
+      <td class="num">$-2</td>
+      <td class="num">$-3</td>
+      <td class="num">+425</td>
+      <td class="num down">-1,982</td>
+    </tr>
+    
+    <tr>
+      <td>2026-01-09</td>
+      <td class="num">9</td>
+      <td><span class="ticker">NSPIN</span></td>
+      <td class="num down">+$9.1</td>
+      <td class="num">$30</td>
+      <td class="num">$56</td>
+      <td class="num">-18</td>
+      <td class="num down">-2,902</td>
+    </tr>
+    
+    <tr>
+      <td>2026-02-19</td>
+      <td class="num">22</td>
+      <td><span class="ticker">ECRS</span></td>
+      <td class="num down">+$9.0</td>
+      <td class="num">$21</td>
+      <td class="num">$61</td>
+      <td class="num">+651</td>
+      <td class="num down">-3,988</td>
+    </tr>
+    
+    <tr>
+      <td>2026-02-26</td>
+      <td class="num">19</td>
+      <td><span class="ticker">NSPIN</span></td>
+      <td class="num down">+$8.6</td>
+      <td class="num">$35</td>
+      <td class="num">$54</td>
+      <td class="num">+264</td>
+      <td class="num down">-1,278</td>
+    </tr>
+    
+    <tr>
+      <td>2026-03-03</td>
+      <td class="num">19</td>
+      <td><span class="ticker">NSPIN</span></td>
+      <td class="num down">+$8.3</td>
+      <td class="num">$10</td>
+      <td class="num">$18</td>
+      <td class="num">-706</td>
+      <td class="num down">-4,933</td>
+    </tr>
+    
+    <tr>
+      <td>2026-02-03</td>
+      <td class="num">17</td>
+      <td><span class="ticker">REGDN</span></td>
+      <td class="num down">+$7.6</td>
+      <td class="num">$22</td>
+      <td class="num">$2</td>
+      <td class="num">+86</td>
+      <td class="num down">+1,673</td>
+    </tr>
+    </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==================== Daily P&L (Energy + AS) ==================== -->
+  <div class="section-title">
+    참고 · 일별 P&amp;L (Energy + AS 통합 LP vs GKS Actual)
+    <small>SoC-aware LP, Storm Fern 제외</small>
+  </div>
+
+  <div class="callout">
+    <strong>참고:</strong> 통합 LP optimal $1.30M / GKS actual $460K (35.5%).
+    Energy 부분 capture 25.4% — 진짜 개선 영역.
+    AS 부분은 LP 대비 over-perform (위 Q1 참조).
+  </div>
+
+  <div class="panel">
+    <div class="panel-header"><span class="panel-title">Daily P&amp;L Trajectory · LP vs Actual</span></div>
+    <div class="panel-body chart-wrap tall"><canvas id="dailyPnlChart"></canvas></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-header"><span class="panel-title">Worst Gap Days · GKS가 LP 대비 가장 많이 놓친 날 (Top 10)</span></div>
+    <div class="panel-body" style="padding:0;">
+      <table>
+        <thead><tr>
+          <th>Date</th>
+          <th class="num">LP Optimal</th>
+          <th class="num">GKS Actual</th>
+          <th class="num">Gap</th>
+        </tr></thead>
+        <tbody>
+    <tr>
+      <td>2026-01-23</td>
+      <td class="num">$37K</td>
+      <td class="num">$-14K</td>
+      <td class="num down">$51K</td>
+    </tr>
+    
+    <tr>
+      <td>2026-01-20</td>
+      <td class="num">$29K</td>
+      <td class="num">$-9K</td>
+      <td class="num down">$38K</td>
+    </tr>
+    
+    <tr>
+      <td>2026-03-04</td>
+      <td class="num">$25K</td>
+      <td class="num">$-9K</td>
+      <td class="num down">$34K</td>
+    </tr>
+    
+    <tr>
+      <td>2026-01-09</td>
+      <td class="num">$29K</td>
+      <td class="num">$-3K</td>
+      <td class="num down">$32K</td>
+    </tr>
+    
+    <tr>
+      <td>2026-02-04</td>
+      <td class="num">$38K</td>
+      <td class="num">$14K</td>
+      <td class="num down">$24K</td>
+    </tr>
+    
+    <tr>
+      <td>2026-02-10</td>
+      <td class="num">$30K</td>
+      <td class="num">$7K</td>
+      <td class="num down">$23K</td>
+    </tr>
+    
+    <tr>
+      <td>2026-01-30</td>
+      <td class="num">$40K</td>
+      <td class="num">$17K</td>
+      <td class="num down">$23K</td>
+    </tr>
+    
+    <tr>
+      <td>2026-02-02</td>
+      <td class="num">$26K</td>
+      <td class="num">$4K</td>
+      <td class="num down">$23K</td>
+    </tr>
+    
+    <tr>
+      <td>2026-02-01</td>
+      <td class="num">$35K</td>
+      <td class="num">$13K</td>
+      <td class="num down">$22K</td>
+    </tr>
+    
+    <tr>
+      <td>2026-01-10</td>
+      <td class="num">$26K</td>
+      <td class="num">$5K</td>
+      <td class="num down">$21K</td>
+    </tr>
+    </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==================== Recommendations ==================== -->
+  <div class="section-title">전략 시사점 (Strategic Recommendations)</div>
+
+  <div class="panel">
+    <div class="panel-body">
+      <ul class="findings">
+        <li class="good"><strong>Q2 답: AS는 DAM에 commit이 default 정답</strong> — Always-DAM이 ex-post optimal의 89.4% capture. 매번 정확히 DAM/RT 선택해도 추가 +11% — 의사결정 비용 대비 ROI 낮음. GKS의 NSPIN-DAM 전략은 이 측면에서 합리적.</li>
+        <li class="warn"><strong>Q2 예외 — REGDN의 HE 7-8 + 18-20 (solar ramp)</strong>은 RT 우세 빈도 높음 (DAM win share 0.12-0.40). Solar 예보가 높은 날에는 해당 시간대 REGDN을 RT에 잔류 검토. 단 REGDN 자체가 가격 낮아 ($1.15/MW) 절대값 기여는 작음.</li>
+        <li><strong>Q3 답: RT &gt; DAM의 driver는 wind bust</strong> (NSPIN/ECRS/RRS corr -0.13~-0.22). D-1 08:30 CT wind STWPF&lt;5 GW 또는 Net-load FC&gt;50 GW 시간대는 (i) AS DAM commit 신중 (ii) 일부 RT 잔류 — 단 표본 적어 정밀 예측 어려움.</li>
+        <li class="good"><strong>NSpin "수수께끼" 해소 (v3 정정)</strong> — 사용자 정정에 따라 DAM AS commit은 ERCOT가 SoC telemetry 검사 안 함 (RT only 적용). LP에서 SoC reservation 제약 제거 후 NSpin LP optimal $20K → $103K로 정상화. GKS NSpin $156K는 LP 대비 50% 추가 — energy 기회 비용 감수하고 NSpin commit 우선 전략. RT AS는 별도 모델링 필요 (현재 미구현).</li>
+        <li class="good"><strong>핵심 개선 영역은 Energy round-trip</strong> — Q2 분석은 AS-only지만, 통합 LP에서 Energy gap이 전체 gap의 대부분 (95%). GKS DA Energy +$596K / RT Energy −$327K → DA 과다 commit 후 RT 손실 패턴. 우선순위: (i) DA commit volume 점검 (ii) HSL 변동 모니터링 (iii) RT dispatch 응답성.</li>
+        <li><strong>다음 단계 데이터 needs</strong>: (a) ERCOT NSpin actual deployment 빈도 (post-RTC), (b) 60-day SCED disclosure로 GKS RT base point 추적, (c) ORDC adder 5-min — 실제로 NSpin SoC가 strict하게 적용되는지 검증.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-header"><span class="panel-title">Methodology Notes</span></div>
+    <div class="panel-body" style="font-size:11px;color:var(--text-secondary);line-height:1.7;">
+      <strong>데이터:</strong> Yes Energy DataSignals (DA/RT LMP @ GKS_BESS_RN, HB_HOUSTON, hourly forecasts),
+      ERCOT Public API NP4-188-CD (DAM AS MCPC) + <strong>NP6-331-CD (RT 15-min AS MCPC)</strong>,
+      Tenaska PTP (GKS hourly Energy &amp; AS detail).
+      <br><strong>RT AS aggregation:</strong> 15-min settlement intervals → hourly mean (4 intervals).
+      <br><strong>SoC reservation (v3 정정 2026-05-07):</strong> DAM AS는 SoC 검사 없음 → LP에서 제약 미적용. RT AS는 telemetry 기반 award 제한 (4hr NSpin / 0.5hr RRS / 1hr ECRS / 1hr Reg) — 별도 모델링 필요, 본 LP에서는 미구현.
+      <br><strong>제외:</strong> Winter Storm Fern 5일 (2026-01-24~28) tail-event 영향 분리.
+      <br><strong>한계:</strong> ex-post perfect foresight LP는 상한선 — 실전 30-50% capture가 typical;
+      AS deployment income 비계산; NSpin SoC 4× 가정의 실제 적용 여부 미검증;
+      60-day SCED disclosure / ORDC adder 미포함.
+    </div>
+  </div>
+
+</div>
+
+<script>
+const D = {"mean_mcpc_dam": {"he": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], "REGUP": [0.47, 0.55, 0.58, 0.61, 0.66, 0.58, 1.45, 3.47, 3.3, 1.67, 0.9, 0.66, 0.58, 0.61, 0.62, 0.69, 0.96, 1.4, 2.59, 1.78, 1.42, 1.46, 1.3, 1.34], "REGDN": [0.52, 0.66, 0.79, 0.87, 0.75, 0.66, 0.15, 0.1, 1.76, 0.93, 0.87, 0.76, 0.8, 1.03, 1.68, 3.26, 5.97, 1.49, 0.43, 0.51, 0.86, 0.94, 0.92, 1.0], "RRS": [0.32, 0.25, 0.27, 0.3, 0.36, 0.43, 1.19, 2.95, 2.8, 1.38, 0.67, 0.43, 0.33, 0.32, 0.29, 0.32, 0.41, 0.75, 2.0, 1.4, 1.07, 1.1, 1.08, 1.03], "ECRS": [0.39, 0.32, 0.34, 0.36, 0.39, 0.45, 1.19, 3.23, 3.29, 1.79, 0.82, 0.56, 0.45, 0.46, 0.43, 0.47, 0.53, 0.86, 2.11, 1.43, 1.16, 1.17, 1.13, 1.04], "NSPIN": [1.46, 1.38, 1.22, 1.18, 1.33, 1.38, 2.13, 3.3, 2.4, 1.37, 1.21, 1.15, 1.03, 0.98, 0.91, 0.95, 1.06, 2.0, 4.41, 3.5, 2.19, 2.1, 1.93, 2.12]}, "mean_mcpc_rt": {"he": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], "REGUP": [0.39, 0.24, 0.28, 0.3, 0.33, 0.37, 0.68, 2.08, 1.72, 0.64, 0.34, 0.35, 0.31, 0.4, 0.42, 0.43, 0.6, 1.92, 2.03, 0.95, 0.59, 0.66, 0.48, 0.36], "REGDN": [0.25, 0.25, 0.22, 0.22, 0.22, 0.27, 0.38, 0.51, 0.51, 0.3, 0.29, 0.27, 0.31, 0.43, 0.7, 1.8, 3.16, 0.72, 0.95, 0.9, 0.58, 0.51, 0.42, 0.35], "RRS": [0.06, 0.05, 0.04, 0.03, 0.04, 0.05, 0.16, 1.36, 1.03, 0.11, 0.04, 0.02, 0.01, 0.01, 0.0, 0.01, 0.01, 0.43, 1.63, 0.51, 0.23, 0.36, 0.22, 0.08], "ECRS": [0.09, 0.08, 0.06, 0.06, 0.07, 0.09, 0.22, 1.6, 1.0, 0.2, 0.08, 0.04, 0.02, 0.01, 0.01, 0.01, 0.01, 0.46, 1.86, 0.79, 0.38, 0.59, 0.32, 0.12], "NSPIN": [0.45, 0.38, 0.28, 0.28, 0.31, 0.37, 0.56, 2.0, 0.97, 0.22, 0.22, 0.16, 0.09, 0.04, 0.02, 0.01, 0.03, 0.66, 3.25, 2.62, 1.3, 1.21, 0.76, 0.52]}, "dam_win_share_by_he": {"he": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], "REGUP": [0.633, 0.917, 0.917, 0.9, 0.85, 0.667, 0.833, 0.75, 0.8, 0.8, 0.867, 0.767, 0.8, 0.75, 0.7, 0.75, 0.767, 0.4, 0.75, 0.817, 0.85, 0.9, 0.9, 0.917], "REGDN": [0.833, 0.9, 0.933, 0.933, 0.917, 0.75, 0.183, 0.117, 0.867, 0.933, 0.917, 0.833, 0.783, 0.75, 0.783, 0.733, 0.817, 0.35, 0.15, 0.283, 0.65, 0.817, 0.817, 0.817], "RRS": [1.0, 0.983, 1.0, 1.0, 0.983, 0.983, 1.0, 0.967, 0.967, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.8, 0.767, 0.883, 0.967, 0.917, 0.933, 1.0], "ECRS": [0.917, 0.967, 0.967, 0.983, 0.983, 0.983, 1.0, 0.933, 0.967, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.817, 0.75, 0.817, 0.9, 0.9, 0.933, 0.967], "NSPIN": [0.95, 0.967, 0.967, 0.983, 0.983, 0.983, 0.983, 0.933, 0.967, 0.983, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.9, 0.75, 0.8, 0.8, 0.883, 0.933, 0.933]}, "lp_as_alloc": {"he": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], "REGUP": [0.0, 1.7, 1.7, 0.2, 0.0, 0.0, 3.9, 6.4, 26.2, 36.3, 12.0, 5.7, 0.5, 5.2, 4.8, 4.3, 23.0, 7.7, 2.7, 3.8, 7.0, 11.3, 10.2, 12.7], "REGDN": [48.7, 46.6, 44.2, 50.9, 44.3, 58.1, 69.0, 73.8, 49.0, 44.6, 41.9, 28.0, 29.4, 33.3, 24.4, 24.4, 59.1, 56.7, 71.7, 58.6, 55.5, 49.3, 47.3, 30.9], "RRS": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.9, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.7, 0.0], "ECRS": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.7, 3.6, 24.1, 17.4, 6.7, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.2, 1.9, 0.0], "NSPIN": [55.2, 67.2, 70.9, 69.7, 62.4, 52.2, 15.3, 10.8, 0.2, 22.7, 55.8, 59.3, 60.7, 50.9, 51.4, 45.2, 42.6, 15.1, 25.0, 45.9, 38.8, 40.7, 38.8, 53.3]}, "energy_da_share": {"he": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], "discharge_da": [0.483, 0.545, 0.526, 0.476, 0.5, 0.636, 0.58, 0.633, 0.576, 0.75, 0.556, 0.692, 0.704, 0.667, 0.5, 0.353, 0.28, 0.604, 0.417, 0.312, 0.333, 0.419, 0.581, 0.5], "charge_da": [0.4, 0.512, 0.474, 0.405, 0.371, 0.385, 0.407, 0.118, 0.382, 0.314, 0.333, 0.306, 0.283, 0.372, 0.447, 0.489, 0.56, 0.409, 0.524, 0.621, 0.714, 0.581, 0.455, 0.396]}, "daily_pnl": {"date": ["2026-01-01", "2026-01-02", "2026-01-03", "2026-01-04", "2026-01-05", "2026-01-06", "2026-01-07", "2026-01-08", "2026-01-09", "2026-01-10", "2026-01-11", "2026-01-12", "2026-01-13", "2026-01-14", "2026-01-15", "2026-01-16", "2026-01-17", "2026-01-18", "2026-01-19", "2026-01-20", "2026-01-21", "2026-01-22", "2026-01-23", "2026-01-29", "2026-01-30", "2026-01-31", "2026-02-01", "2026-02-02", "2026-02-03", "2026-02-04", "2026-02-05", "2026-02-06", "2026-02-07", "2026-02-08", "2026-02-09", "2026-02-10", "2026-02-11", "2026-02-12", "2026-02-13", "2026-02-14", "2026-02-15", "2026-02-16", "2026-02-17", "2026-02-18", "2026-02-19", "2026-02-20", "2026-02-21", "2026-02-22", "2026-02-23", "2026-02-24", "2026-02-25", "2026-02-26", "2026-02-27", "2026-02-28", "2026-03-01", "2026-03-02", "2026-03-03", "2026-03-04", "2026-03-05", "2026-03-06"], "lp_total": [12805.0, 20778.0, 20011.0, 18947.0, 16739.0, 16866.0, 14642.0, 24219.0, 28746.0, 25995.0, 13670.0, 14352.0, 12306.0, 20571.0, 20713.0, 17093.0, 17590.0, 28048.0, 23010.0, 29226.0, 13718.0, 15127.0, 36766.0, 48818.0, 39756.0, 49379.0, 34734.0, 26264.0, 30080.0, 37813.0, 21073.0, 20856.0, 15822.0, 16077.0, 19358.0, 29844.0, 16553.0, 21496.0, 13617.0, 16619.0, 15675.0, 14079.0, 15741.0, 20990.0, 24433.0, 26318.0, 22695.0, 17846.0, 16247.0, 29867.0, 23389.0, 19223.0, 13147.0, 11277.0, 15541.0, 16116.0, 16322.0, 24949.0, 15548.0, 15622.0], "actual_total": [1572.0, 2633.0, 9661.0, -844.0, -2173.0, 3751.0, 2706.0, 7512.0, -2800.0, 5251.0, 6090.0, 3350.0, 8670.0, 7840.0, 12076.0, 10808.0, 6958.0, 17307.0, 11805.0, -8907.0, 6966.0, 8897.0, -13838.0, 48966.0, 17160.0, 41148.0, 12967.0, 3728.0, 9490.0, 13849.0, 12054.0, 528.0, 733.0, 5502.0, 7373.0, 6963.0, 7257.0, 4978.0, 2240.0, 2080.0, 7915.0, 4666.0, 1556.0, 3943.0, 9054.0, 31003.0, 7762.0, 6697.0, 13029.0, 19383.0, 8690.0, 7457.0, 3291.0, 6736.0, 2537.0, 11469.0, 6300.0, -9495.0, 7249.0, 8089.0]}, "corr_table": {"REGUP": {"load_fc_err": 0.01924230017945077, "wind_fc_err": -0.158568954744131, "RTLMP_GKS_BESS_RN": 0.04196172024114399, "DALMP_GKS_BESS_RN": -0.15619490638124275, "RTLOAD": -0.1486023545481859, "WIND_RTI": -0.0030490495215104406}, "REGDN": {"load_fc_err": 0.03110368202137188, "wind_fc_err": -0.02787049048422349, "RTLMP_GKS_BESS_RN": 0.05215567580293362, "DALMP_GKS_BESS_RN": 0.028535295408254065, "RTLOAD": -0.048601118327054375, "WIND_RTI": 0.05728641782448729}, "RRS": {"load_fc_err": -0.02498259442450672, "wind_fc_err": -0.13197629142973272, "RTLMP_GKS_BESS_RN": 0.0043244259678904984, "DALMP_GKS_BESS_RN": -0.1991264851681588, "RTLOAD": -0.24322861735762058, "WIND_RTI": 0.011103195579268777}, "ECRS": {"load_fc_err": 0.014789396465993865, "wind_fc_err": -0.15772543647047194, "RTLMP_GKS_BESS_RN": 0.020171824253726846, "DALMP_GKS_BESS_RN": -0.18726905609601727, "RTLOAD": -0.2697568883530388, "WIND_RTI": 0.020864780410364058}, "NSPIN": {"load_fc_err": -0.008246261194443981, "wind_fc_err": -0.2196578360383211, "RTLMP_GKS_BESS_RN": 0.10554416201918353, "DALMP_GKS_BESS_RN": -0.12607718832877807, "RTLOAD": -0.07566907297115077, "WIND_RTI": -0.02290025765791733}}};
+const c_up='#089981', c_down='#f23645', c_blue='#2962ff', c_amber='#ff9800', c_purple='#9c27b0';
+Chart.defaults.color='#5d606b'; Chart.defaults.borderColor='#eceff3';
+Chart.defaults.font.family="'Inter',sans-serif"; Chart.defaults.font.size=11;
+
+function heatColor(v) {
+  v = Math.max(0, Math.min(1, v));
+  return `rgba(8, 153, 129, ${0.10 + v * 0.75})`;
+}
+function divergingColor(v) {
+  // v in [0,1]: 0=red, 0.5=neutral, 1=green
+  if (v >= 0.5) return `rgba(8, 153, 129, ${0.10 + (v-0.5) * 1.5})`;
+  return `rgba(242, 54, 69, ${0.10 + (0.5-v) * 1.5})`;
+}
+const products = ['REGUP','REGDN','RRS','ECRS','NSPIN'];
+
+// ============= DAM MCPC heatmap =============
+function buildHeatmap(containerId, dataObj, products, colorFn, valueFmt) {
+  const c = document.getElementById(containerId);
+  c.innerHTML = '';
+  const corner = document.createElement('div');
+  corner.className='heatmap-axis row-label'; corner.textContent='';
+  c.appendChild(corner);
+  for (let h=1; h<=24; h++) {
+    const lbl = document.createElement('div');
+    lbl.className='heatmap-axis'; lbl.textContent=h;
+    c.appendChild(lbl);
+  }
+  products.forEach(p => {
+    const arr = dataObj[p];
+    const allVals = products.flatMap(pp => dataObj[pp]);
+    const maxv = Math.max(...allVals) || 1;
+    const lbl = document.createElement('div');
+    lbl.className='heatmap-axis row-label'; lbl.textContent=p;
+    c.appendChild(lbl);
+    arr.forEach((v, i) => {
+      const cell = document.createElement('div');
+      cell.className='heatmap-cell';
+      cell.style.background = colorFn(v / maxv, v);
+      cell.textContent = valueFmt(v);
+      cell.title = `${p} HE${i+1}: ${v}`;
+      c.appendChild(cell);
+    });
+  });
+}
+
+buildHeatmap('damHeatmap', D.mean_mcpc_dam,
+  products,
+  (norm, v) => heatColor(norm),
+  v => v >= 10 ? Math.round(v) : v.toFixed(1));
+
+// DAM win share (0=RT wins, 1=DAM wins) — diverging color
+const dwsObj = {};
+products.forEach(p => dwsObj[p] = D.dam_win_share_by_he[p]);
+buildHeatmap('damWinHeatmap', dwsObj,
+  products,
+  (norm, v) => divergingColor(v),  // use raw v (already in [0,1])
+  v => Math.round(v*100));
+
+// ============= LP AS Allocation (stacked bar) =============
+new Chart(document.getElementById('lpAsAlloc'), {
+  type:'bar',
+  data:{
+    labels:D.lp_as_alloc.he,
+    datasets:[
+      {label:'NSPIN', data:D.lp_as_alloc.NSPIN, backgroundColor:c_up, borderWidth:0},
+      {label:'REGDN', data:D.lp_as_alloc.REGDN, backgroundColor:c_blue, borderWidth:0},
+      {label:'REGUP', data:D.lp_as_alloc.REGUP, backgroundColor:c_amber, borderWidth:0},
+      {label:'ECRS',  data:D.lp_as_alloc.ECRS,  backgroundColor:c_purple, borderWidth:0},
+      {label:'RRS',   data:D.lp_as_alloc.RRS,   backgroundColor:c_down, borderWidth:0},
+    ]
+  },
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{position:'bottom', labels:{usePointStyle:true, font:{size:10}} } },
+    scales:{
+      x:{ stacked:true, grid:{display:false}, title:{display:true, text:'HE', font:{size:10}} },
+      y:{ stacked:true, grid:{color:'#eceff3'}, title:{display:true, text:'Mean MW', font:{size:10}} }
+    }
+  }
+});
+
+// ============= Correlation chart =============
+const corrLabels = ['load_fc_err','wind_fc_err','RTLMP_GKS_BESS_RN','DALMP_GKS_BESS_RN','RTLOAD','WIND_RTI'];
+new Chart(document.getElementById('corrChart'), {
+  type:'bar',
+  data:{
+    labels:corrLabels,
+    datasets: products.map((p, i) => ({
+      label:p,
+      data:corrLabels.map(f => D.corr_table[p][f]),
+      backgroundColor:[c_up,c_blue,c_amber,c_purple,c_down][i],
+      borderWidth:0,
+    }))
+  },
+  options:{ responsive:true, maintainAspectRatio:false, indexAxis:'y',
+    plugins:{ legend:{position:'top', labels:{usePointStyle:true, font:{size:9}} } },
+    scales:{
+      x:{ min:-0.3, max:0.3, grid:{color:'#eceff3'},
+           title:{display:true, text:'Pearson corr', font:{size:10}} },
+      y:{ grid:{display:false}, ticks:{font:{size:9}} }
+    }
+  }
+});
+
+// ============= Daily P&L =============
+new Chart(document.getElementById('dailyPnlChart'), {
+  type:'line',
+  data:{
+    labels:D.daily_pnl.date,
+    datasets:[
+      {label:'LP Optimal', data:D.daily_pnl.lp_total, borderColor:c_up,
+        backgroundColor:'rgba(8,153,129,0.08)', borderWidth:1.5, fill:false,
+        tension:0.2, pointRadius:0},
+      {label:'GKS Actual', data:D.daily_pnl.actual_total, borderColor:c_down,
+        backgroundColor:'rgba(242,54,69,0.08)', borderWidth:1.5, fill:false,
+        tension:0.2, pointRadius:0},
+    ]
+  },
+  options:{ responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{position:'top', labels:{usePointStyle:true, font:{size:10}} } },
+    scales:{
+      x:{ grid:{display:false}, ticks:{maxTicksLimit:12, font:{size:9}} },
+      y:{ grid:{color:'#eceff3'}, title:{display:true, text:'$ per day', font:{size:10}},
+           ticks:{callback:v=>'$'+(v/1000).toFixed(0)+'K'} }
+    },
+    interaction:{ mode:'index', intersect:false }
+  }
+});
+</script>
+</body>
+</html>

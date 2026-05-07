@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERCOT Daily Briefing — 2026-05-02 · GKS_BESS</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --panel-2: #1c2330;
+    --border: #30363d;
+    --text: #c9d1d9;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --green: #3fb950;
+    --red: #f85149;
+    --amber: #d29922;
+    --purple: #bc8cff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo",
+                 "Malgun Gothic", "Noto Sans KR", Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+  }
+  header {
+    padding: 20px 28px; border-bottom: 1px solid var(--border);
+    background: linear-gradient(90deg, #161b22, #0d1117);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  }
+  header h1 { margin: 0; font-size: 22px; font-weight: 600; }
+  header .meta { font-size: 13px; color: var(--muted); }
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+  .badge.warn { background: #422006; color: #d29922; border: 1px solid #d29922; }
+
+  .container { max-width: 1400px; margin: 0 auto; padding: 24px 28px; }
+  .row { display: grid; gap: 18px; margin-bottom: 18px; }
+  .row.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .row.cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .row.cols-2 { grid-template-columns: 1fr 1fr; }
+  @media (max-width: 1100px) { .row.cols-4 { grid-template-columns: repeat(2,1fr); } .row.cols-3 { grid-template-columns: 1fr; } .row.cols-2 { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .card h3 { margin: 0 0 10px; font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  .kpi { font-size: 26px; font-weight: 700; }
+  .kpi small { font-size: 13px; font-weight: 400; color: var(--muted); margin-left: 6px; }
+  .kpi.neg { color: var(--red); }
+  .kpi.pos { color: var(--green); }
+  .sub { color: var(--muted); font-size: 12px; margin-top: 4px; }
+
+  .chart-card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 18px; }
+  .chart-card h2 { margin: 0 0 12px; font-size: 16px; font-weight: 600; }
+  .chart-wrap { position: relative; height: 320px; }
+  .chart-wrap.tall { height: 380px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  table th, table td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--border); }
+  table th { color: var(--muted); font-weight: 600; text-transform: uppercase; font-size: 10.5px; letter-spacing: 0.04em; }
+  table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .dispatch-charge { color: var(--accent); font-weight: 600; }
+  .dispatch-discharge { color: var(--green); font-weight: 600; }
+  .dispatch-as { color: var(--muted); }
+  .dart-short { color: var(--purple); font-weight: 600; }
+  .dart-long { color: var(--amber); font-weight: 600; }
+
+  .summary-text { font-size: 13.5px; line-height: 1.7; }
+  .summary-text ul { padding-left: 18px; margin: 8px 0; }
+  .summary-text li { margin-bottom: 8px; }
+  .legend-dot { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: middle; }
+  footer { padding: 24px 28px; border-top: 1px solid var(--border); color: var(--muted); font-size: 12px; text-align: center; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>ERCOT Daily Briefing · 2026-05-02 (Sat)</h1>
+    <div class="meta">GKS_BESS 100MW/200MWh · prepared 2026-05-01 07:30 CT</div>
+  </div>
+  <div>
+    <span class="badge warn">SYNTHETIC BASELINE — live connectors not yet wired</span>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- KPI ROW -->
+  <div class="row cols-4">
+    <div class="card">
+      <h3>일 매출 추정</h3>
+      <div class="kpi pos">$45,600</div>
+      <div class="sub">Energy $12,560 + AS $33,040</div>
+    </div>
+    <div class="card">
+      <h3>DA Spread (Top2 − Bottom2)</h3>
+      <div class="kpi pos">$67.7<small>/MWh</small></div>
+      <div class="sub">HE20 $58.5 ↔ HE13 −$8.5</div>
+    </div>
+    <div class="card">
+      <h3>DART Avg (DA − RT)</h3>
+      <div class="kpi neg">−$0.89<small>/MWh</small></div>
+      <div class="sub">RT slight premium overall</div>
+    </div>
+    <div class="card">
+      <h3>Net Load Trough</h3>
+      <div class="kpi">15.2<small>GW @ HE12</small></div>
+      <div class="sub">Solar 22.8 GW + Wind 10.2 GW</div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="row cols-2">
+    <div class="card summary-text">
+      <h3 style="margin-bottom:4px">Market Briefing — 5 bullets</h3>
+      <ul>
+        <li><b>봄 shoulder 토요일, 한낮 음전환·저녁 텐트의 명확한 하루.</b> 솔라가 정오 전후로 빠르게 차오르며 net-load를 끌어내려 HE13–HE14 DA가 한 자릿수 마이너스로 진입, 저녁 ramp에서 HE20을 정점으로 회복. 일중 스프레드 약 <b>$67/MWh</b>.</li>
+        <li><b>DART는 RT 우위지만 시간대별로 방향이 다름.</b> 한낮(HE12–HE15) 추가 음전환 → short DART 4건, 저녁(HE18–HE21) RT 추가 spike → long DART 4건. 시간당 25 MW 보수 사이즈.</li>
+        <li><b>AS는 ECRS 단일 풀-캡이 가장 깨끗.</b> 봄 shoulder + 토요일 환경에서 deploy 확률이 낮아 idle 20시간을 ECRS 100 MW로 묶어도 일 매출의 약 <b>73%</b>를 AS에서 확보.</li>
+        <li><b>신규 BESS·DC·outage가 north-south basis 확대.</b> 정기점검 시즌으로 outage가 평년 대비 +800 MW, 데이터센터 추가 부하 + YTD ~3.8 GW 신규 BESS 결합 → NORTH↔HOUSTON CRR 점검 가치.</li>
+        <li><b>단기 리스크:</b> West 풍속 1σ 확대(ECRS 조기 deploy↑), HE16–HE18 transition RT spike, 음전환 LMP 충전 중 self-curtailment.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-bottom:4px">핵심 평균치 (HE01–HE24)</h3>
+      <table>
+        <thead><tr><th>지표</th><th class="num">평균</th></tr></thead>
+        <tbody>
+          <tr><td>WZ_ERCOT Load (BIDCLOSE)</td><td class="num">44,607 MW</td></tr>
+          <tr><td>NET_LOAD_FORECAST</td><td class="num">24,440 MW</td></tr>
+          <tr><td>SOLAR_COPHSL</td><td class="num">7,608 MW</td></tr>
+          <tr><td>WIND_COPHSL (ERCOT)</td><td class="num">12,558 MW</td></tr>
+          <tr><td>GR_WEST WIND_STWPF</td><td class="num">5,662 MW</td></tr>
+          <tr><td>GR_NORTH WIND_COPHSL</td><td class="num">2,525 MW</td></tr>
+          <tr><td>GR_COASTAL WIND_STWPF</td><td class="num">2,513 MW</td></tr>
+          <tr><td>GR_SOUTH WIND_STWPF</td><td class="num">1,887 MW</td></tr>
+          <tr><td>TOTAL_RESOURCE_CAP_OUT (latest)</td><td class="num">11,500 MW</td></tr>
+          <tr><td>DA Energy LMP</td><td class="num">$19.0</td></tr>
+          <tr><td>RT Energy LMP</td><td class="num">$19.9</td></tr>
+          <tr><td>P(DA&gt;RT) avg</td><td class="num">0.46</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CHARTS -->
+  <div class="row cols-2">
+    <div class="chart-card">
+      <h2>Load · Net Load · Solar · Wind (Forecast HE01–HE24)</h2>
+      <div class="chart-wrap tall"><canvas id="chartLoad"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h2>DA vs RT Energy LMP (HB_NORTH, $/MWh)</h2>
+      <div class="chart-wrap tall"><canvas id="chartLMP"></canvas></div>
+    </div>
+  </div>
+
+  <div class="row cols-2">
+    <div class="chart-card">
+      <h2>DA Ancillary Services Prices ($/MW-h)</h2>
+      <div class="chart-wrap"><canvas id="chartAS"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h2>P(DA&gt;RT) vs P(DA&lt;RT)</h2>
+      <div class="chart-wrap"><canvas id="chartProb"></canvas></div>
+    </div>
+  </div>
+
+  <div class="row cols-2">
+    <div class="chart-card">
+      <h2>BESS Dispatch Plan (MW · 양수=방전, 음수=충전)</h2>
+      <div class="chart-wrap"><canvas id="chartDispatch"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h2>Wind by Region (GR_WEST / NORTH / COASTAL / SOUTH)</h2>
+      <div class="chart-wrap"><canvas id="chartWind"></canvas></div>
+    </div>
+  </div>
+
+  <!-- TABLES -->
+  <div class="row cols-2">
+    <div class="card">
+      <h3>Revenue Stack — 24h Plan</h3>
+      <table id="stackTable">
+        <thead><tr><th>HE</th><th>Action</th><th class="num">DA LMP</th><th>AS</th><th class="num">AS $/MW-h</th><th class="num">Hour Rev</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3>DART Virtual Position 추천</h3>
+      <table id="dartTable">
+        <thead><tr><th>HE</th><th>Side</th><th class="num">Size MW</th><th class="num">Bid $</th><th class="num">P(DA&gt;RT)</th><th class="num">Exp Δ</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  ERCOT 전력 트레이딩 Biz · Daily Briefing Pipeline · GKS_BESS<br>
+  데이터 소스: 합성 baseline (Yes Energy / Enverus / AG2 / Smartbidder / Tenaska 커넥터 미연결).
+  실 라이브 운영 시 동일 양식으로 자동 갱신.
+</footer>
+
+<script>
+const fc = {"date":"2026-05-02","hours":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],"load_forecast_mw":[38509,37294,36177,35387,35490,35438,36719,39293,41713,44053,46289,48168,49483,50837,51496,52028,51588,50013,49291,50040,50854,50459,47133,42805],"net_load_forecast_mw":[24009,22494,21077,20087,20090,20238,21719,22793,20713,17753,15789,15168,15583,17437,19796,23128,28088,32013,35691,37840,37654,36459,32733,28205],"solar_cophsl_mw":[0,0,0,0,0,0,200,2400,7800,14200,19500,22800,24100,23900,22500,19800,14200,8200,2800,200,0,0,0,0],"wind_cophsl_mw":[14500,14800,15100,15300,15400,15200,14800,14100,13200,12100,11000,10200,9800,9500,9200,9100,9300,9800,10800,12000,13200,14000,14400,14600],"gr_west_wind":[6394,6855,6850,7054,7051,6987,6827,6506,6076,5467,4767,4443,4277,4260,4017,4132,4180,4468,4873,5317,5742,6474,6395,6482],"gr_north_wind":[2878,2998,2999,2994,3165,3100,2977,2799,2719,2502,2168,2039,2028,1824,1880,1804,1921,1906,2138,2494,2684,2843,2845,2906],"gr_coastal_wind":[2836,2910,3025,3152,3087,3014,2933,2798,2644,2485,2266,2038,2028,1958,1801,1720,1814,1921,2179,2417,2714,2736,2927,2902],"gr_south_wind":[2197,2151,2334,2294,2334,2292,2161,2042,1893,1864,1718,1598,1477,1494,1376,1448,1410,1566,1535,1744,1997,2038,2140,2189],"da_lmp":[18.5,16.2,14.8,14.1,13.9,14.5,17.2,22.8,19.5,12.4,4.2,-3.8,-8.5,-6.2,-1.5,8.4,18.9,32.5,48.2,58.5,52.4,38.7,28.5,22.1],"rt_lmp":[19.2,15.8,13.5,12.9,13.2,15.1,18.5,24.8,21.0,13.8,2.5,-8.2,-12.4,-10.5,-3.8,7.1,21.2,38.4,55.6,68.2,56.8,41.2,30.1,23.5],"ecrs":[12.5,11.8,11.2,10.9,10.8,11.5,13.2,16.8,18.5,14.2,8.5,4.5,3.2,4.1,6.8,11.5,18.2,28.5,42.5,55.2,48.5,35.8,24.5,18.2],"rrs":[7.75,7.32,6.94,6.76,6.7,7.13,8.18,10.42,11.47,8.8,5.27,2.79,1.98,2.54,4.22,7.13,11.28,17.67,26.35,34.22,30.07,22.2,15.19,11.28],"nonspin":[4.0,3.78,3.58,3.49,3.46,3.68,4.22,5.38,5.92,4.54,2.72,1.44,1.02,1.31,2.18,3.68,5.82,9.12,13.6,17.66,15.52,11.46,7.84,5.82],"regup":[10.62,10.03,9.52,9.27,9.18,9.78,11.22,14.28,15.72,12.07,7.22,3.82,2.72,3.48,5.78,9.78,15.47,24.22,36.12,46.92,41.23,30.43,20.82,15.47],"regdn":[6.88,6.49,6.16,6.0,5.94,6.33,7.26,9.24,10.18,7.81,4.68,2.48,1.76,2.25,3.74,6.33,10.01,15.68,23.38,30.36,26.68,19.69,13.48,10.01],"p_da_gt_rt":[0.48,0.52,0.55,0.58,0.56,0.51,0.45,0.42,0.38,0.42,0.55,0.68,0.72,0.7,0.62,0.48,0.35,0.3,0.28,0.25,0.32,0.42,0.48,0.5],"p_da_lt_rt":[0.52,0.48,0.45,0.42,0.44,0.49,0.55,0.58,0.62,0.58,0.45,0.32,0.28,0.3,0.38,0.52,0.65,0.7,0.72,0.75,0.68,0.58,0.52,0.5]};
+
+// Hour Ending convention: HE01 covers 00:00-01:00, ..., HE24 covers 23:00-24:00
+// fc.hours[i] holds the data for HE(i+1)
+const labels = fc.hours.map(h => "HE" + String(h+1).padStart(2,"0"));
+const COLORS = {
+  load: "#58a6ff", netload:"#79c0ff", solar:"#d29922", wind:"#3fb950",
+  da:"#bc8cff", rt:"#f85149",
+  ecrs:"#58a6ff", rrs:"#3fb950", nonspin:"#d29922", regup:"#f85149", regdn:"#bc8cff",
+  charge:"#58a6ff", discharge:"#3fb950",
+  west:"#bc8cff", north:"#58a6ff", coastal:"#3fb950", south:"#d29922",
+  pgt:"#f85149", plt:"#3fb950"
+};
+
+Chart.defaults.color = "#c9d1d9";
+Chart.defaults.borderColor = "#30363d";
+Chart.defaults.font.family = "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+const commonScales = (yLabel) => ({
+  scales: {
+    x: { grid: { color: "#21262d" }, ticks: { maxRotation: 0, autoSkip: true, maxTicksLimit: 12 } },
+    y: { grid: { color: "#21262d" }, title: { display: !!yLabel, text: yLabel } }
+  },
+  plugins: { legend: { position: "bottom", labels: { boxWidth: 12, padding: 10 } }, tooltip: { mode: "index", intersect: false } },
+  interaction: { mode: "index", intersect: false },
+  maintainAspectRatio: false, responsive: true
+});
+
+// Chart 1: Load / NetLoad / Solar / Wind
+new Chart(document.getElementById("chartLoad"), {
+  type: "line",
+  data: { labels, datasets: [
+    { label: "Load (MW)", data: fc.load_forecast_mw, borderColor: COLORS.load, backgroundColor: "transparent", tension: 0.3, pointRadius: 0 },
+    { label: "Net Load (MW)", data: fc.net_load_forecast_mw, borderColor: COLORS.netload, backgroundColor: "transparent", borderDash: [4,4], tension: 0.3, pointRadius: 0 },
+    { label: "Solar (MW)", data: fc.solar_cophsl_mw, borderColor: COLORS.solar, backgroundColor: "rgba(210,153,34,0.15)", fill: true, tension: 0.3, pointRadius: 0 },
+    { label: "Wind (MW)", data: fc.wind_cophsl_mw, borderColor: COLORS.wind, backgroundColor: "rgba(63,185,80,0.15)", fill: true, tension: 0.3, pointRadius: 0 }
+  ]},
+  options: commonScales("MW")
+});
+
+// Chart 2: DA vs RT LMP
+new Chart(document.getElementById("chartLMP"), {
+  type: "line",
+  data: { labels, datasets: [
+    { label: "DA LMP", data: fc.da_lmp, borderColor: COLORS.da, backgroundColor: "transparent", tension: 0.3, pointRadius: 2 },
+    { label: "RT LMP", data: fc.rt_lmp, borderColor: COLORS.rt, backgroundColor: "transparent", tension: 0.3, pointRadius: 2 }
+  ]},
+  options: commonScales("$/MWh")
+});
+
+// Chart 3: AS prices
+new Chart(document.getElementById("chartAS"), {
+  type: "line",
+  data: { labels, datasets: [
+    { label: "ECRS", data: fc.ecrs, borderColor: COLORS.ecrs, backgroundColor:"transparent", tension:0.3, pointRadius:0 },
+    { label: "RRS", data: fc.rrs, borderColor: COLORS.rrs, backgroundColor:"transparent", tension:0.3, pointRadius:0 },
+    { label: "Non-Spin", data: fc.nonspin, borderColor: COLORS.nonspin, backgroundColor:"transparent", tension:0.3, pointRadius:0 },
+    { label: "Reg-Up", data: fc.regup, borderColor: COLORS.regup, backgroundColor:"transparent", tension:0.3, pointRadius:0 },
+    { label: "Reg-Dn", data: fc.regdn, borderColor: COLORS.regdn, backgroundColor:"transparent", tension:0.3, pointRadius:0 }
+  ]},
+  options: commonScales("$/MW-h")
+});
+
+// Chart 4: P(DA>RT) vs P(DA<RT)
+new Chart(document.getElementById("chartProb"), {
+  type: "bar",
+  data: { labels, datasets: [
+    { label: "P(DA>RT)", data: fc.p_da_gt_rt, backgroundColor: "rgba(248,81,73,0.7)" },
+    { label: "P(DA<RT)", data: fc.p_da_lt_rt, backgroundColor: "rgba(63,185,80,0.7)" }
+  ]},
+  options: { ...commonScales(""), scales: { x: { grid: {color:"#21262d"}, stacked: true }, y: { grid:{color:"#21262d"}, stacked: true, max: 1, title: { display: true, text:"Probability" } } } }
+});
+
+// Build dispatch + AS plan
+const POWER = 100, ENERGY = 200;
+const sortedDA = fc.hours.slice().sort((a,b)=>fc.da_lmp[a]-fc.da_lmp[b]);
+const charge2 = sortedDA.slice(0,2);
+const discharge2 = sortedDA.slice(-2);
+
+const dispatch = fc.hours.map(h => {
+  if (charge2.includes(h)) return -POWER;
+  if (discharge2.includes(h)) return POWER;
+  return 0;
+});
+
+// Best AS each non-charge/discharge hour
+const stack = fc.hours.map(h => {
+  let action, asProduct = "—", asPrice = 0, asRev = 0, daRev = 0;
+  if (charge2.includes(h)) { action = "CHARGE 100MW"; daRev = -100 * fc.da_lmp[h]; }
+  else if (discharge2.includes(h)) { action = "DISCHARGE 100MW"; daRev = 100 * fc.da_lmp[h]; }
+  else {
+    const cands = { "ECRS": fc.ecrs[h], "RRS": fc.rrs[h], "NonSpin": fc.nonspin[h], "RegUp": fc.regup[h], "RegDn": fc.regdn[h] };
+    asProduct = Object.keys(cands).reduce((a,b) => cands[a] >= cands[b] ? a : b);
+    asPrice = cands[asProduct];
+    asRev = asPrice * 100;
+    action = "AS-only (" + asProduct + ")";
+  }
+  return { h, action, daRev, asProduct, asPrice, asRev, total: daRev + asRev };
+});
+
+// Chart 5: Dispatch
+new Chart(document.getElementById("chartDispatch"), {
+  type: "bar",
+  data: { labels, datasets: [{
+    label: "Dispatch (MW, +방전 / −충전)",
+    data: dispatch,
+    backgroundColor: dispatch.map(v => v > 0 ? COLORS.discharge : v < 0 ? COLORS.charge : "#30363d"),
+    borderColor: dispatch.map(v => v > 0 ? COLORS.discharge : v < 0 ? COLORS.charge : "#30363d")
+  }, {
+    label: "DA LMP ($/MWh, RHS)", type:"line", data: fc.da_lmp, yAxisID: "y2",
+    borderColor: COLORS.da, backgroundColor:"transparent", tension:0.3, pointRadius:2
+  }]},
+  options: {
+    scales: {
+      x: { grid: {color:"#21262d"} },
+      y: { grid: {color:"#21262d"}, position:"left", title: { display: true, text:"MW" }, suggestedMin:-120, suggestedMax:120 },
+      y2: { grid: { drawOnChartArea: false }, position:"right", title: { display: true, text:"$/MWh" } }
+    },
+    plugins: { legend: { position: "bottom" }, tooltip: { mode:"index", intersect: false } },
+    maintainAspectRatio: false, responsive: true
+  }
+});
+
+// Chart 6: Wind by region
+new Chart(document.getElementById("chartWind"), {
+  type: "line",
+  data: { labels, datasets: [
+    { label: "GR_WEST", data: fc.gr_west_wind, borderColor: COLORS.west, backgroundColor:"rgba(188,140,255,0.2)", fill:true, tension:0.3, pointRadius:0 },
+    { label: "GR_NORTH", data: fc.gr_north_wind, borderColor: COLORS.north, backgroundColor:"rgba(88,166,255,0.2)", fill:true, tension:0.3, pointRadius:0 },
+    { label: "GR_COASTAL", data: fc.gr_coastal_wind, borderColor: COLORS.coastal, backgroundColor:"rgba(63,185,80,0.2)", fill:true, tension:0.3, pointRadius:0 },
+    { label: "GR_SOUTH", data: fc.gr_south_wind, borderColor: COLORS.south, backgroundColor:"rgba(210,153,34,0.2)", fill:true, tension:0.3, pointRadius:0 }
+  ]},
+  options: { ...commonScales("MW"), scales: { x: { grid: {color:"#21262d"}, stacked:true }, y: { grid:{color:"#21262d"}, stacked:true, title: {display:true, text:"MW"} } } }
+});
+
+// Stack table
+const tbody = document.querySelector("#stackTable tbody");
+stack.forEach(r => {
+  const tr = document.createElement("tr");
+  const cls = r.action.startsWith("CHARGE") ? "dispatch-charge" : r.action.startsWith("DISCHARGE") ? "dispatch-discharge" : "dispatch-as";
+  tr.innerHTML = `<td>HE${String(r.h+1).padStart(2,"0")}</td>
+                  <td class="${cls}">${r.action}</td>
+                  <td class="num">$${fc.da_lmp[r.h].toFixed(1)}</td>
+                  <td>${r.asProduct}</td>
+                  <td class="num">${r.asPrice ? "$"+r.asPrice.toFixed(2) : "—"}</td>
+                  <td class="num">$${r.total.toLocaleString(undefined,{maximumFractionDigits:0})}</td>`;
+  tbody.appendChild(tr);
+});
+
+// DART table
+const dartTbody = document.querySelector("#dartTable tbody");
+fc.hours.forEach(h => {
+  const pgt = fc.p_da_gt_rt[h];
+  const plt = fc.p_da_lt_rt[h];
+  let side = "STAY OUT", size = 0, bid = "—", cls = "";
+  if (pgt >= 0.65) { side = "DA SELL / RT BUY"; size = 25; bid = "$" + (fc.da_lmp[h]-1).toFixed(2); cls="dart-short"; }
+  else if (plt >= 0.65) { side = "DA BUY / RT SELL"; size = 25; bid = "$" + (fc.da_lmp[h]+1).toFixed(2); cls="dart-long"; }
+  if (size === 0) return;  // skip
+  const expDelta = (fc.da_lmp[h] - fc.rt_lmp[h]).toFixed(2);
+  const tr = document.createElement("tr");
+  tr.innerHTML = `<td>HE${String(h+1).padStart(2,"0")}</td>
+                  <td class="${cls}">${side}</td>
+                  <td class="num">${size}</td>
+                  <td class="num">${bid}</td>
+                  <td class="num">${pgt.toFixed(2)}</td>
+                  <td class="num">${expDelta}</td>`;
+  dartTbody.appendChild(tr);
+});
+</script>
+</body>
+</html>

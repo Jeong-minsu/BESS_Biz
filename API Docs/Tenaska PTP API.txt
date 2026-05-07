@@ -1,0 +1,1619 @@
+
+Table of Contents
+1 Introductions
+1.1 Housekeeping
+2 Recommended Tools
+3 API Managed Endpoints
+4 Authentication
+4.1 Basic
+4.2 Bearer
+5 Dynamic Documentation
+5.1 A Commentary on Our Endpoints
+5.2 HATEOAS
+5.3 PT Portal - Data Exchange
+5.4 OpenAPI Specification (OAS)
+5.5 Self-Hosted Swagger
+6 API Health
+7 PTP Endpoints
+7.1 PTP
+7.2 Root
+7.3 Endpoint
+7.4 Elements
+7.5 Options
+7.6 Querying
+7.7 Submitting
+7.8 Deleting Values
+8 Glossary
+8.1 DataAndElementsQuery
+8.2 ElementQueryMode
+8.3 SequenceOptions
+8.4 Response Validation Codes
+8.5 DataPoints
+8.6 Dimensionality
+8.7 Elements
+8.8 Query String Data Type Reference
+Introductions
+Welcome to the PowerTools Platform API. This document serves as a comprehensive getting started guide for software engineers to analysts to those who just want to explore. Should you have any technical questions or encounter any issues along the way, please email customersupport@tnsk.com. Please provide any relevant info, such as the endpoint you are trying to hit, sample code/payload, and any other additional info. A member from our API team will assist you as soon as possible.
+
+Housekeeping
+The API is hosted at https://api.ptp.energy/.
+
+There is a glossary provided at the end to define terms in more detail.
+
+All date times are ISO 8601 and UTC unless otherwise noted.
+
+The API implements sliding window based rate limiting per User, averaging more than 1 call per second over a small
+time period will result in 429 Too Many Requests responses.
+
+In addition to the info reflected in this document, you can see the high-level routes available at the API by
+accessing the hosted Swagger page here.
+
+Recommended Tools
+These are free tools you can utilize to assist in exploring the API. The API supports Hypermedia as the Engine of Application State (HATEOAS) so having a tool that allows you to quickly parse and navigate the result is useful.
+
+Google Chrome
+We recommend using Chrome. Others can be used though your experience may differ from the intended behavior that has been built. We use a Chrome plugin to make links clickable and results pretty printed, called JSON Formatter by callumlocke.
+
+Microsoft Edge
+Now that Edge is built on Chromium, the behavior to Google's Chrome is very similar. Edge has built in pretty print features for JSON as well, but lacks the very useful feature of generating clickable links within the browser. Installing the JSON Formatter plugin is still recommended.
+
+Postman
+An intuitive, full-featured API development suite that allows you go test simple queries with hardcoded values or automate workflows with runtime variable replacement, environments, tests, and much more.
+
+Visual Studio Code
+A lightweight code editor that supports a variety of languages and frameworks. Designed to run with plugins to support the language of your choice. You can use this to rapidly write and debug code.
+
+AI
+Web requests are very common tasks and AI can help you write and debug requests. You can use a service like OpenAI's ChatGPT, Microsoft Copilot, Google Gemini, or other AI tools to help you write code in the language of your choice.
+
+Command Line
+Using a CLI alongside your fully developed solution allows for rapid prototyping or debugging. Because they're fairly low level, they allow you to fine tune parameters to understand how various changes affect the request or response.
+
+If using Windows:
+
+WSL - Windows Subsystem for Linux. This allows you to run a full Linux environment on Windows. You can install Ubuntu or any other distribution of your choice. CPU virtualization must be turned on to use this option. You can find instructions on how to install WSL here.
+
+Git Bash (MINGW64) - This is a lightweight shell that comes with the Git for Windows package. It allows you to run bash commands and scripts on Windows. CPU virtualization is not required. You can download it from git-scm.com.
+
+Alternatively you can use PowerShell; the power of .NET in a console. While powershell doesn't support bash, PowerShell aliases commands like curl and wget to Invoke-WebRequest, which is a native PowerShell cmdlet.
+
+If using unix, just open your terminal!
+
+API Managed Endpoints
+When navigating to the root of the api, you will be presented with the following paths. The “Link” column directs you to the relevant section that details the endpoint. 
+
+Path
+
+Action
+
+Description
+
+Link
+
+/authentication/token 
+
+Get    
+
+Hit this endpoint to get a JWT, valid for the next 24 hours.                                           
+
+Authentication
+
+/status               
+
+Get    
+
+An endpoint to verify the availability of our API. If healthy, you will see a response that says "We're live!".      
+
+API Health
+
+/oas                  
+
+Get    
+
+Generates an OpenAPI Specification specific to your role(s).
+
+OpenAPI Specification (OAS)
+
+/ptp                  
+
+Get    
+
+Root endpoint for PowerTools requests. See below for more info about PTP endpoints.                           
+
+PTP Endpoints
+
+Authentication
+The API supports both Basic and Bearer authorization schemes.
+
+Basic
+Basic requires a username and password concatenated together using a colon, then base 64 encoded.
+
+To ensure your encoding functioned, you can use this example: username:password when encoded is dXNlcm5hbWU6cGFzc3dvcmQ=.
+
+
+Basic Auth - Code Samples
+
+
+
+Bearer
+In order to get a Bearer token, you need to make a Basic request to the token endpoint:
+
+
+
+curl -X GET -H "Authorization: Basic $(echo -n 'username:password' | base64)" https://api.ptp.energy/authentication/token
+The token is enclosed within the response json.
+
+
+
+{
+    "data": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzaWQiOiJlMjk3MmJhZi00N2I5LTRkNzItOGVmZi1kNzE2MmJjMzk2NDMiLCJ2ZnIiOiI2Mzg4ODgxNjUxNDIyNjIxNTkiLCJ2dG8iOiI2Mzg4ODkwMjkxNDIyNjIxNTkiLCJ0aWQiOiJfNzNkZjJkZmEtMWZjYy00ZjkxLTkzYmYtNTdiZjdhZWU0NGE3IiwibmJmIjoxNzUzMjE5NzE0LCJleHAiOjE3NTMzMDYxMTQsImlhdCI6MTc1MzIxOTcxNH0.CMD9BmCSeyD3twfmYrzQeKaFXkGJiXozUtwcPOjzY7M"
+}
+To use the token in future requests, change the Scheme used in the Authorization header.
+
+
+
+- $ curl -X GET {url} -h 'Authorization: Basic $(echo -n 'username:password' | base64)'
++ $ curl -X GET {url} -h 'Authorization: Bearer {token}'
+Tokens retrieved via the token endpoint are valid for 24 hours from time of issue. Clients should cache and use this token until near expiration then generate a new one, rather than fetching a new token on every request. 
+
+
+Token Details
+
+
+
+
+Bearer Auth - Code Samples
+
+
+
+
+Bearer Auth - Refresh Token Example - Python
+
+
+
+
+
+Dynamic Documentation
+A Commentary on Our Endpoints
+In a typical API, endpoints are statically defined routes. They often map one to one with a backend controller that has bespoke logic to manage the resource. Endpoints such as GET /accounts and PUT /books/{bookId} are common patterns. These would be mapped to various HTTP Verbs such as GET, POST, PUT, and DELETE to indicate the behavior available for the resource. Each endpoint would also possibly have its own set of query string parameters, body schema, response schema, etc. 
+
+Our APIs have this same layer of routes defined, which facilitate acts of querying and submitting data, however an additional layer exists that is dynamically driven by PowerTools schema. Various departments internal to Tenaska are able to create what is known as a “Viewport”, which houses a collection of DataPoints, and ultimately expose that through our API. This means that the API itself does not have any logic tied to market-specific endpoints such as MarketPrices or CurrentOperatingPlan, there is only a query controller which then fetches the schema and data from PTP and normalizes the response. Our API needs to respond with and receive a common payload structure, regardless of the underlying market fundamental being interacted with. 
+
+HATEOAS
+The API was developed with what is known as Hypermedia as the Engine of Application State, or HATEOAS, in mind. In essence, this defines that each response of the API should in turn inform you of what additional actions can be done from that endpoint. 
+
+Expand below for a more detailed view of this in action.
+
+
+PTP API HATEOAS Examples
+
+
+
+
+
+PT Portal - Data Exchange
+This is where understanding the delineation between controller based endpoints and PTP schema endpoints comes in handy. It reasons that there would be 2 sets of documentation, one for how to fundamentally use the api, such as the data structures and query strings involved. The other would be for detailing the various dynamically generated endpoints that reside within PTP. 
+
+In an effort to satisfy both desires, we have worked on a few different implementations of OpenAPI specifications. The hosted, rendered version will be accessible on Tenaska’s PT Portal via a page called Data Exchange, which has curated data sets with samples, live data, descriptions of the data within an endpoint, and much more. The features available are outside the scope of this document, however it’s important to note that API endpoints specifically will have a tab that takes you directly to the rendered OpenAPI definition. Expand below to see an example.
+
+
+Data Exchange - Open API Render
+
+
+
+
+OpenAPI Specification (OAS)
+It may be desirable for a customer to independently utilize this specification though, whether it be for self-hosted documentation, creating clients, quick reference, or as a playground. Therefore, we have provided the /oas endpoint that generates the OAS specific to the user’s roles. This json can then be imported into tools such as https://editor.swagger.io.
+
+https://editor.swagger.io has the ability to generate client code from the specification. Tenaska is not affiliated in any way with SmartBear, OpenAPI, Swagger, etc, and therefore cannot troubleshoot or provide suggestions on how to use these generated clients. We are referencing a tool that may be beneficial in jump starting development.
+
+Self-Hosted Swagger
+There is additionally a rendered swagger page hosted at the API itself that details each of the developer managed controllers. This can be found by navigating to https://api.ptp.energy/swagger/ui/index#/. This page is supported at time of writing this document, but may not remain as OAS specifications continue to develop, and as our technologies behind the API progress.
+
+API Health
+You can query https://api.ptp.energy/status to get a binary up or down indicator. If the service is up and responding to requests, you will receive a message that says ”We’re live!”, otherwise the request will fail. Discussions to expand this functionality to report more detailed system health are under way.
+
+PTP Endpoints
+The /ptp resource is the most extensive, as this is where you will access the data for your assets. Requests to these endpoints follow standard HTTP verbs and supply proper response codes (200, 400, 401, 404, 429, 500).
+
+The API will default to production unless otherwise specified via the environment query string parameter detailed below.
+
+For the root (aka market or ISO), you may either provide the name or the identifier if known.
+
+path
+
+Action
+
+description
+
+/ptp                                                  
+
+Get        
+
+Returns all accessible markets.                                                          
+
+/ptp/{rootNameOrId}                                   
+
+Get        
+
+Detailed information regarding a specific market including all accessible PTP endpoints. 
+
+/ptp/{rootNameOrId}/{endpointNameOrId}                
+
+Get        
+
+Detailed information regarding the specific PTP endpoint given.                          
+
+/ptp/{rootNameOrId}/{endpointNameOrId}/elements       
+
+Get / Post 
+
+All accessible elements live on the given date range. Only queries elements.             
+
+/ptp/{rootNameOrId}/{endpointNameOrId}/options        
+
+Get        
+
+Returns elements related to reference or list source backed datapoints.                  
+
+/ptp/{rootNameOrId}/{endpointNameOrId}/query          
+
+Get / Post 
+
+Use this endpoint to make a specific query.                                              
+
+/ptp/{rootNameOrId}/{endpointNameOrId}/query-columnar 
+
+Get / Post 
+
+Use this endpoint to make a specific query, normalized to intervallic / columnar format. 
+
+/ptp/{rootNameOrId}/{endpointNameOrId}/commit         
+
+Post       
+
+Commits data to the Power Tools Platform.                                                
+
+PTP
+The /ptp endpoint will return all accessible markets available to your user account. This includes the name of the root (market), the identifier, and a link to the endpoint for the root.
+
+GET https://api.ptp.energy/ptp 
+
+
+Sample Response
+
+Response Schema Reference
+
+
+
+
+
+
+
+
+Root
+The /ptp/{rootNameOrId} endpoint will return additional properties about the root, as well as what endpoints are available. 
+
+GET https://api.ptp.energy/SampleMarket1/ 
+
+
+Sample Response
+
+Response Schema Reference
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Endpoint
+Providing a specific endpoint name /ptp/{rootNameOrId}/{endpointNameOrId} will give you relevant info for that resource. 
+
+This is where the distinction between developer managed code and business user generated endpoints occurs. Review A Commentary on Our Endpoints. 
+
+GET https://api.ptp.energy/ptp/SampleMarket1/SampleEndpoint1 
+
+
+Sample Response
+
+Response Schema Reference
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Elements
+/ptp/{rootNameOrId}/{endpointNameOrId}/elements 
+
+Query Parameters
+parameter
+
+required
+
+type
+
+description
+
+begin              
+
+true     
+
+string        
+
+The date that represents the start of data. This should be either yyyy-MM-dd, for begin flowday inclusive, or yyyy-MM-ddTHH:mmZ for begin interval exclusive.                                       
+
+end                
+
+false    
+
+string        
+
+The date that represents the end of data. This should be either yyyy-MM-dd, for end flowday inclusive, or yyyy-MM-ddTHH:mmZ for end interval inclusive.                                             
+
+elementQueryMode	  
+
+false    
+
+string        
+
+The Element query Options to use when querying for elements, use ByParentAndFilter if you want elementIdentifiers to be interpreted as parent elements. See elementQueryMode below for more info. 
+
+elementIdentifiers 
+
+false    
+
+Array[string] 
+
+List of elementIdentifiers or parent element identifiers (Guids) to query by. Meaning depends on elementQueryMode.                                                                                  
+
+elementDefinitions 
+
+false    
+
+Array[string] 
+
+Can query a subset of elements by element definition if specified.                                                                                                                                      
+
+environment        
+
+false    
+
+string        
+
+Allows user to override the PowerTools environment that is supplying the schema and data. Default is production. stage can also be provided.                                                          
+
+Sample GET Elements Request:
+GET api.ptp.energy/ptp/SampleMarket1/SampleEndpoint1/elements?begin=2025-05-22
+
+GET api.ptp.energy/ptp/SampleMarket1/SampleEndpoint1/elements?begin=2025-05-22&elementQueryMode=ByParentAndFilter&elementIdentifiers=beea482d-3ee0-46a7-8eb3-003eee0ece8b
+
+GET api.ptp.energy/ptp/SampleMarket1/SampleEndpoint1/elements?begin=2025-05-22&end=2025-05-23&elementDefinitions=Generator
+
+GET api.ptp.energy/ptp/SampleMarket1/SampleEndpoint1/elements?begin=2025-05-22&environment=stage
+
+
+Sample GET Elements Response
+
+Response Schema Reference
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Elements | POST DataAndElementsQuery
+If the query string parameters are not sufficient to filter the results, you can POST to /elements with a DataAndElementsQuery payload. The data format and behavior should remain the same, but this provides additional ability to refine your query.
+
+
+
+{
+  "begin": "2025-07-07",
+  "end": "2025-07-10",
+  "elementQueryMode": "ByParentAndFilter",
+  "elementFilter": [
+    {
+      "elementProperty": "CreatedUtc",
+      "expression": ">=2025-07-07T05:00:00Z",
+      "elementDefinition": "DA Energy Only Offer"
+    },
+    {
+      "elementProperty": "CreatedUtc",
+      "expression": "<=2025-07-07T13:00:00Z",
+      "elementDefinition": "DA Energy Only Offer"
+    }
+  ]
+}
+If we execute that request against our theoretical endpoint, we get 2 results that were created within the constraints of our query.
+
+
+
+{
+  "data": [
+    {
+      "elementDefinitionIdentifier": 56,
+      "parentElementIdentifier": "f8e2d9c1-4b7a-4f3e-9d6c-2a8f5e1b9c4d",
+      "identifier": "7c4a9f2e-8d1b-4e6f-a3c8-5f9d2e7a1b4c",
+      "name": "Premium Offer 247",
+      "goLive": "2025-07-08T00:00:00",
+      "expiration": "2025-07-08T00:00:00"
+    },
+    {
+      "elementDefinitionIdentifier": 56,
+      "parentElementIdentifier": "3e8f1d4c-9a2b-4f7e-8c5d-1f6a9e3b2c8f",
+      "identifier": "6b9e4f1a-2c8d-4a7f-9e3b-8f1d6c4a2e9b",
+      "name": "Standard Element 156",
+      "goLive": "2025-07-09T00:00:00",
+      "expiration": "2025-07-09T00:00:00"
+    }
+  ],
+  "info": {
+    "parameters": {
+      "begin": "2025-07-07",
+      "end": "2025-07-10",
+      "elementQueryMode": "ByParentAndFilter",
+      "elementFilter": [
+        {
+          "expression": ">=2025-07-07T05:00:00Z",
+          "elementProperty": "CreatedUtc",
+          "elementDefinition": "DA Energy Only Offer"
+        },
+        {
+          "expression": "<=2025-07-07T13:00:00Z",
+          "elementProperty": "CreatedUtc",
+          "elementDefinition": "DA Energy Only Offer"
+        }
+      ],
+      "sequenceOptions": "AllEnabled"
+    },
+    "route": {
+      "rootName": "SampleMarket1",
+      "rootIdentifier": 1,
+      "endpointName": "SampleEndpoint1",
+      "endpointIdentifier": "51d4dd74-8efb-400f-b6eb-06554fcb8e9d",
+      "url": "https://api.ptp.energy/ptp/SampleMarket1/SampleEndpoint1/elements"
+    },
+    "session": {
+      "received": "2025-12-31T22:18:33.450Z",
+      "complete": "2025-12-31T22:18:33.450Z",
+      "duration": 0,
+      "username": "your username",
+      "sessionId": "e843720f-2cc4-431f-8886-4af1e2942abf"
+    }
+  }
+}
+Options
+There are certain endpoints that use a more sophisticated approach for their values vs a decimal or date. Items like a settlement point may need to be referenced for purposes of submitting a virtual bid for instance. Some collections are small enough that they can be listed directly in the response (example below), while others are very lengthy lists. The /options endpoint was created specifically for the latter scenario.
+
+When you navigate to the self link for an endpoint, you’re presented with what’s effectively the schema of the endpoint: what asset types we can expect (generator, bid, market participant, etc), the various datapoints, any dimensions (keys to some types of data) and additional links.
+
+
+/ptp/demo/api-endpoint response
+If we extract the datapoints section, we see these two items:
+
+
+
+{
+    "elementDefinitionIdentifier": 57,
+    "dataPointType": "Meta",
+    "dataType": "Reference",
+    "options": [
+        "Canada",
+        "China",
+        "France",
+        "India",
+        "Mexico",
+        "United States"
+    ],
+    "name": "Country of Origin",
+    "identifier": "64109a2d-136c-49f7-b669-a82ba08270b4",
+    "links": {}
+}
+
+
+{
+    "elementDefinitionIdentifier": 57,
+    "dataPointType": "Meta",
+    "dataType": "Reference",
+    "options": [
+        "Too many values. Please visit the provided link to see possibilities"
+    ],
+    "name": "Location",
+    "identifier": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+    "links": {
+        "options": "https://api.ptp.energy/ptp/demo/api-endpoint/options?definition=54"
+    }
+}
+These are both “Meta Reference” datapoints, meaning their value is tied to an object within PowerTools, granting the ability to create a list of items to choose from. 
+
+The object on the left has a defined set of options to pick from, but the set is small so we can include them in the result. On the right however, the number of possibilities exceeded our limit so we need to query a separate endpoint to get our options. This is done for brevity, otherwise the self payload may become exceedingly large, as it is entirely possible there are multiple datapoints that reference the same lists. 
+
+Query Parameters
+/ptp/{rootNameOrId}/{endpointNameOrId}/options
+
+parameter
+
+required
+
+type
+
+description
+
+elementDefinitions
+
+false    
+
+integer 
+
+The identifier of the element definition to query. These can be found at the self link of the endpoint as defined above.
+
+environment 
+
+false    
+
+string  
+
+Allows user to override the PowerTools environment that is supplying the schema and data. Default is production. stage and production environments can be provided. 
+
+Sample GET Options Request:
+GET api.ptp.energy/ptp/SampleMarket1/SampleEndpoint1/options?elementDefinitions=54
+
+
+Sample GET Options Response
+As mentioned, the “list” is actually referencing objects within PowerTools. Therefore we have more detailed information such as the GUID identifiers for each object, and when they’re alive in our system.
+
+Querying
+/ptp/{rootNameOrId}/{endpointNameOrId}/query has quite a few parameters, detailed below. These parameters also apply to /query-columnar.
+
+parameter
+
+required
+
+type
+
+description
+
+begin              
+
+true     
+
+string        
+
+The date that represents the start of data. This should be either yyyy-MM-dd, for begin flowday inclusive, or yyyy-MM-ddTHH:mmZ for begin interval exclusive.                                                
+
+end                
+
+false    
+
+string        
+
+The date that represents the end of data. This should be either yyyy-MM-dd, for end flowday inclusive, or yyyy-MM-ddTHH:mmZ for end interval inclusive.                                                      
+
+elementQueryMode	  
+
+false    
+
+string        
+
+The Element query Options to use when querying for elements, use ByParentAndFilter if you want elementIdentifiers to be interpreted as parent elements.          
+
+elementNames
+
+false
+
+Array[string]
+
+List of elementNames to filter the query by. 
+
+elementIdentifiers 
+
+false    
+
+Array[string]
+
+List of elementIdentifiers or parent element identifiers (Guids) to query by. Meaning depends on elementQueryMode.                                                                                           
+
+elementDefinitions 
+
+false    
+
+Array[string]
+
+Can query a subset of elements by element definition if specified.                                                                                                                                               
+
+sequenceOptions
+
+false    
+
+string        
+
+When querying sequenced intervallic data, the options on what sequences to include.
+
+By default, all enabled sequenced data is returned.
+
+dataPoints         
+
+false    
+
+Array[string]
+
+Limit query to a subset of datapoints that exist in the viewport by specifying keynames.                                                                                                                         
+
+fillNulls          
+
+false    
+
+boolean       
+
+Display null for all possibly queried intervallic values.                                                                                                                                                        
+
+environment        
+
+false    
+
+string        
+
+Allows user to override the PowerTools environment that is supplying the schema and data. Default is production. stage and production are the valid values.
+
+Sample GET Query Request:
+GET api.ptp.energy/ptp/SampleMarket1/SampleEndpoint1/query?begin=2025-05-22
+
+
+Sample GET Query Response
+Sample GET Query Columnar Request:
+GET api.ptp.energy/ptp/SampleMarket/SampleEndpoint/query-columnar?begin=2025-05-22
+
+
+Sample GET Query Columnar Response
+Response Schema Reference
+After executing a successful query against the endpoint, you'll be presented with the following data structure.
+
+At the root of the payload are two properties: data and validations. data contains the response to your request; any elements and the data pertaining to those elements. validations is a set of known violations to a system rule, and can be reported as a warning or error.
+
+data
+property
+
+type
+
+description
+
+element          
+
+string      
+
+The friendly name of the element.                                  
+
+identifier       
+
+string      
+
+The unique identifier of the element.                              
+
+definition       
+
+string      
+
+The type of the element.                                           
+
+goLiveDate       
+
+string      
+
+The first date the element is alive within PowerTools. (inclusive) 
+
+expirationDate   
+
+string      
+
+The last date the element is alive within PowerTools. (inclusive)  
+
+parent
+
+string
+
+The name of the element’s parent.
+
+parentDefinition
+
+string
+
+The type of the element’s parent.
+
+parentIdentifier 
+
+string      
+
+The identifier of the element's parent.                            
+
+dataPoints       
+
+DataPoint[] 
+
+A collection of data relevant to the element.                      
+
+DataPoint
+property
+
+type
+
+description
+
+keyName  
+
+string  
+
+The friendly name of the datapoint.                       
+
+values   
+
+Value[] 
+
+A collection of intervals for this datapoint and element. 
+
+Value
+property
+
+type
+
+description
+
+intervalStartUtc 
+
+datetime    
+
+The starting interval.                    
+
+intervalEndUtc   
+
+datetime    
+
+The ending interval.                      
+
+data             
+
+DataValue[] 
+
+A collection of values for this interval. 
+
+DataValue
+Depending on the context of the dataset, PowerTools data can be represented as a single value or as a complex key-value type. This complex key-value type is called "dimensionality" and the key for this data is coords.
+
+property
+
+type
+
+description
+
+value    
+
+any        
+
+The value for this interval.     
+
+coords   
+
+dictionary 
+
+Key to complex data.             
+
+sequence 
+
+integer    
+
+The sequence value for the data. 
+
+
+DataValue Examples
+
+
+
+validations
+Validations are provided to give insight into potential issues with your request. For instance, when supplying invalid query string parameters such as begin=20-948-12&end=20931939, the API will return the following:
+
+
+
+{
+  "validations": [
+    {
+      "severity": "Error",
+      "statusCode": 2101,
+      "parameter": "Begin",
+      "message": "Invalid DateTime"
+    },
+    {
+      "severity": "Error",
+      "statusCode": 2102,
+      "parameter": "End",
+      "message": "Invalid DateTime"
+    }
+  ]
+}
+As a general rule, a Warning will not prevent the process from completing, while an Error will stop the process completely. As more features are added to the API, more validations are created. We will maintain this document as necessary, or create a more suitable approach such as an endpoint to query possible validations.
+
+See the glossary for a list of possible validations.
+
+Query | POST DataAndElementQuery
+If the query string parameters are not sufficient to filter the results, you can POST to /query and /query-columnar with a DataAndElementsQuery payload. The data format and behavior should remain the same, but this provides additional ability to refine your query.
+
+Submitting
+The PowerTools API allows you to write data to PowerTools, given the datasets are not read only of course. The payload for a submission is the same as the body received from a response, they are round-trippable. 
+
+
+Sample POST Payload
+This payload "body" is posted to /ptp/{rootNameOrId}/{endpointNameOrId}/commit, with a header of Content-Type: application/json. The only query string parameter that applies here is environment.
+
+Creating or Updating?
+The API also allows you to create what are referred to as "dynamic" elements. These elements represent an ephemeral item, such as a transaction, bid, or offer. When an endpoint is configured to allow such behavior, the API can either update or create a new element. 
+
+Any supplied identifier is not used during creation. PowerTools creates it’s own unique identifier during the commit process.
+
+To update an existing element, you can supply the identifier if you have it, or the API will lookup the element by name, as there cannot be two duplicately named elements of the same type (transaction, bid, offer, etc) on the same flowday. The API will attempt to find the element on the flowdays provided (goLiveDate and expirationDate). 
+
+A general rule of thumb for naming is to follow a template that suits your needs. Something like {Company}_VirtualBid_{SubmissionFlowday}_{InternalID}, where InternalID is an identifier generated on your side to keep track of the object, may suffice. It can be as simple or complex as you need it to be for your purposes.
+
+
+Sample POST Payload - Creating a new Dynamic
+Deleting Values
+Often times you will need to update hours that remove data from our system. In order to do so, you simply provide null for the “data” array.
+
+There are two categories of input datapoints within PowerTools: “Intervallic” and “Scoped”. These have slightly different implementations for deleting values as shown in the snippets below. 
+
+When viewing datapoints within the endpoint’s schema (described here), you will see 3 possible values for input data. The API will return a message indicating whether the correct deletion method was used, but you can reference the below table for guidance in development.
+
+Type
+
+Category
+
+Input
+
+Intervallic
+
+Meta
+
+Scoped
+
+ScopedInput
+
+Scoped
+
+
+Sample POST Payload - Deleting Intervallic Values
+
+Sample POST Payload - Deleting Scoped Values
+Glossary
+DataAndElementsQuery
+This is a JSON body used for certain POST requests at the API. It can be used at 
+
+/query
+
+/query-columnar
+
+/elements
+
+The purpose of this object is to provide more options for filtering beyond what the query string parameters can provide. 
+
+Examples
+ByParentAndFilter is required here due to a bug that will be addressed in an upcoming release. If you specify None, an explicit list of element identifiers must be supplied. ByParentAndFilter will actually search all elements.
+
+The following will simply return data as expected, with no filtering. 
+
+
+
+{
+  "begin": "2025-07-08",
+  "elementQueryMode": "ByParentAndFilter"
+}
+The following will return data for a Settlement Point whose name contains hick. 
+
+External Customers cannot currently use elementFilter with certain endpoints because of how security rights are applied within PowerTools in particular scenarios. This will be addressed in an upcoming release. 
+
+
+
+{
+  "begin": "2025-07-08",
+  "elementQueryMode": "ByParentAndFilter",
+  "elementFilter": [
+    {
+      "elementProperty": "Name",
+      "expression": "contains 'hick'",
+      "elementDefinition": "Settlement Point"
+    }
+  ]
+}
+The following will return all elements within the endpoint that are children of the specified identifier
+
+
+
+{
+  "begin": "2025-07-08",
+  "elementQueryMode": "ByParentAndFilter",
+  "elementIdentifiers": ["95dd2bdc-d09f-41e4-8494-33cc2f0aeec2"]
+}
+The use case here is: you are interested in finding bids that were created by Lastname, and you know was created on 2025-07-07 for the Day Ahead market. 
+
+
+
+{
+  "begin": "2025-07-08",
+  "end": "2025-07-10"
+  "elementQueryMode": "ByParentAndFilter",
+  "elementFilter": [
+    {
+      "elementProperty": "CreatedUtc",
+      "expression": ">=2025-07-07T05:00:00Z",
+      "elementDefinition": "DA Energy Only Offer"
+    },
+    {
+      "elementProperty": "CreatedUtc",
+      "expression": "<=2025-07-08T05:00:00Z",
+      "elementDefinition": "DA Energy Only Offer"
+    },
+    {
+      "elementProperty": "CreatedBy",
+      "expression": "contains 'lastname'",
+      "elementDefinition": "DA Energy Only Offer"
+    }
+  ]
+}
+DataAndElementQuery schema
+Property
+
+Type
+
+Format or Options
+
+Default
+
+Description
+
+begin
+
+string
+
+yyyy-MM-dd
+
+yyyy-MM-ddTHH:mmZ
+
+null
+
+TODO: Grab description from query param
+
+end
+
+string
+
+yyyy-MM-dd
+
+yyyy-MM-ddTHH:mmZ
+
+null
+
+TODO: Grab description from query param
+
+elementQueryMode
+
+string
+
+None
+
+AllStaticElements_NoData
+
+ElementsByElementDefinition_NoData
+
+ByParentAndFilter
+
+None
+
+The mode to use when querying for elements. 
+
+Use ByParentAndFilter if you want elementIdentifiers to be interpreted as parent elements.
+
+elementOption_IncludeChildrenOfFiltered
+
+boolean
+
+true
+
+false
+
+null
+
+null
+
+If true, include children of elements selected by MetaFilters to have data queried
+
+elementOption_IncludeParentOfFiltered
+
+boolean
+
+true
+
+false
+
+null
+
+null
+
+If true, include parent chain of elements selected by MetaFilters to have data queried
+
+fillNulls
+
+boolean
+
+true
+
+false
+
+null
+
+null
+
+Fill data with nulls to force all possible DataPoint and Element combinations to appear in the results
+
+sequenceOptions
+
+string
+
+GreatestEnabled
+
+PreviousEnabled
+
+FirstEnabled
+
+AllEnabled
+
+AllPreviousEnabled
+
+AllNumbers
+
+AllEnabled
+
+This is used when querying sequenced intervallic data. It defines which version of the data to return.
+
+elementIdentifiers
+
+array<string>
+
+UUID (aka GUID)
+
+[]
+
+List of element identifiers or parent element identifiers to query by, depending on elementQueryMode.
+
+dataPoints
+
+array<string>
+
+ 
+
+[]
+
+Limit query to a subset of datapoints that exist in the viewport by specifying keynames
+
+elementDefinitions
+
+array<string>
+
+ 
+
+[]
+
+Can query a subset of datapoints that exist in the viewport by specifying element definitions. 
+
+This is an alternative to having to list each datapoint keyname to query.
+
+elementFilter
+
+array<ElementFilter>
+
+ 
+
+[]
+
+Filter elements by meta datapoints or properties
+
+ElementFilter Schema
+Property
+
+Type
+
+Options
+
+Description
+
+dataPoint
+
+string
+
+Example: “Bid_ID”
+
+DataPoint KeyName of a meta datapoint to filter by.
+
+This applies to dynamic properties of an element, such as a Bid ID. It is distinct from the static properties such as Name or CreatedBy as listed in elementProperty.
+
+expression
+
+string
+
+=
+
+!=
+
+<
+
+<=
+
+>
+
+>=
+
+contains
+
+!contains
+
+not null
+
+Filter expression, such as ">= 0" or "!= 'foo'" or "contains 'bar'". 
+
+elementProperty
+
+string
+
+None
+
+Name
+
+GoLiveDate
+
+ExpirationDate
+
+CreatedUtc
+
+CreatedBy
+
+ModifiedUtc
+
+ModifiedBy
+
+Used instead of DataPoint to specify that this filter applies to a special element property
+
+elementDefinition
+
+string
+
+Example: “SettlementPoint”
+
+When specifying ElementProperty or a duplicated DataPoint name, must also specify the ElementDefinition this filter applies to
+
+ElementQueryMode
+name
+
+description
+
+None                               
+
+No special options, just a normal query is executed                                                                                                                                                         
+
+AllStaticElements_NoData           
+
+Query Elements and DataPoints are ignored, only list of all static elements that are alive in the flowday range specified by the query are returned in the queried Elements.                                
+
+ElementsByElementDefinition_NoData 
+
+Query Elements and DataPoints are ignored, only elements for the given element definitions that are alive in the flowday range specified by the query are returned. Can include static or dynamic elements. 
+
+ByParentAndFilter                  
+
+Elements are treated as a list of element parents. All children live in flowday range are returned in the query.                                                                                            
+
+SequenceOptions
+Sequences represent a snapshot of data in time. The PowerTools API supports using a predefined list of sequence filter options. By default, all sequences are returned.
+
+This only applies to a small number of data sets.
+
+name
+
+description
+
+AllEnabled         
+
+All available data will be returned. This is the default behavior                                       
+
+AllPreviousEnabled 
+
+All available data except GreatestEnabled will be returned.                                             
+
+AllNumbers         
+
+Retrieve all sequence numbers for the given sequence and flowday, even if they are disabled or enabled. 
+
+GreatestEnabled    
+
+Only data with the highest enabled sequence will be returned                                            
+
+PreviousEnabled    
+
+Only data with the second highest enabled sequence value will be returned.                              
+
+FirstEnabled       
+
+Only return previous enabled IF there is more than one enabled.                                         
+
+Response Validation Codes
+code
+
+severity
+
+action
+
+general description
+
+1101 
+
+Warning  
+
+Query          
+
+Begin falls outside of viewport constraint.                                                              
+
+1102 
+
+Warning  
+
+Query          
+
+End falls outside of viewport constraint.                                                                
+
+2101 
+
+Error    
+
+Query          
+
+Query did not contain a valid begin date.                                                                
+
+2102 
+
+Error    
+
+Query          
+
+Query did not contain a valid end date.                                                                  
+
+2103 
+
+Error    
+
+Query          
+
+Query did not contain a valid viewport.                                                                  
+
+2104 
+
+Error    
+
+Query          
+
+Query range falls outside of viewport constraint.                                                        
+
+2105 
+
+Error    
+
+Query          
+
+Query is invalid given current context.                                                                  
+
+2106 
+
+Error    
+
+Query          
+
+Supplied filters resulted in no datapoints to query.                                                     
+
+1201 
+
+Warning  
+
+Submit         
+
+Submit range falls outside of viewport constraint.                                                       
+
+1202 
+
+Warning  
+
+Submit         
+
+Submit payload passed validations, but the resultant DataStore was empty                                 
+
+2200 
+
+Error    
+
+Submit         
+
+General submission error. We return this in case our service catches an error that wasn't accounted for. 
+
+2201 
+
+Error    
+
+Submit         
+
+Submission tried to create new element, no definition was provided.                                      
+
+2202 
+
+Error    
+
+Submit         
+
+Submission tried to create new element, no definition was provided.                                      
+
+2203 
+
+Error    
+
+Submit         
+
+Submission tried to create new element and was given a bad go live date.                                 
+
+2204 
+
+Error    
+
+Submit         
+
+Submission tried to create new element and was given a bad go live date.                                 
+
+2205 
+
+Error    
+
+Submit         
+
+Submission tried to create new element and was given a bad parent.                                       
+
+2206 
+
+Error    
+
+Submit         
+
+Submission tried to create new element and was given an invalid parent for an element definition.        
+
+2207 
+
+Error    
+
+Submit         
+
+Submission tried to create new element and was missing required meta.                                    
+
+2208 
+
+Error    
+
+Submit         
+
+Submission tried to create new element and tried to set the same meta multiple times.                    
+
+2209 
+
+Error    
+
+Submit         
+
+Submission contained an element that could not be found given the name, definition, and flowday.         
+
+2210 
+
+Error    
+
+Submit         
+
+Submission has invalid keyName                                                                           
+
+2211 
+
+Error    
+
+Submit         
+
+Submissions data was not dimensioned correctly.                                                          
+
+2212 
+
+Error    
+
+Submit         
+
+Submission intervallic data was malformed.                                                               
+
+2213 
+
+Error    
+
+Submit         
+
+Submission made to read-only viewport.                                                                   
+
+2301 
+
+Error    
+
+Schema         
+
+Unknown dimension in schema request.                                                                     
+
+2302 
+
+Error    
+
+Schema         
+
+No date range provided when required in schema request.                                                  
+
+2303 
+
+Error    
+
+Schema         
+
+Tried to access inaccessible schema.                                                                     
+
+2304 
+
+Error    
+
+Schema         
+
+Unknown element definition in schema request.                                                            
+
+2401 
+
+Error    
+
+Authentication 
+
+User tried to authenticate with an invalid authorization scheme.                                         
+
+2402 
+
+Error    
+
+Authentication 
+
+A given user tried to make too many calls and exceeded rate limit.                                       
+
+DataPoints
+A container of data, defined by a combination of Element Definition, interval, data point type, and data type.
+
+DataPoint Type
+name
+
+description
+
+input      
+
+Accepts input from external sources.                           
+
+calculated 
+
+Readonly data.                                                 
+
+meta       
+
+Typically represents long-standing information, such as an ID. 
+
+scoped*
+
+Represents intervallic data across large spans of time.  Very niche use cases present in the API.
+
+Input and calculated are represented by specific intervals, while meta is defined by larger spans of time. "Full scope", or a value that exists for a long as possible in PowerTools, ranges from 1753-01-01 to 9998-12-31. If updating a meta value for “all time”, these are the intervals used.
+
+
+
+[
+  {
+    "intervalStartUtc": "1753-01-01T00:00:00Z",
+    "intervalEndUtc": "9998-12-31T00:00:00Z",
+    "data": [
+      {
+        "value": "ID123"
+      }
+    ]
+  }
+]
+Data Type
+name
+
+bool     
+
+DateTime 
+
+decimal  
+
+guid     
+
+string   
+
+Dimensionality
+Dimensionality in PowerTools is a defining characteristic, or set of characteristics, of an Element or Data Point that allows users to Aggregate or filter data based on a specific characteristic.
+
+Think of this as a dictionary of key-value pairs that can be used to filter or aggregate data. For example, a datapoint may have element dimensionality with a "Segment" with values like "1", "2", etc. This allows users to query data based on specific segments.
+
+Elements
+Element Definition
+Represents the type of object. They can represent a physical thing (a corporation, a store) or a virtual thing (a sale, a purchase order). Element definitions do NOT represent a specific instance of a thing (an object), but define the nature of a thing (object). For instance, if we have an element definition called "Store," the customer will use that definition to construct what PTP's usage of a Store--and its data--will look like. Element definitions are templates for the "object(s)" they define. This parallels the concept of a class in object-oriented programming.
+
+Element
+An Element is an instance of an element definition, and is used in for object modeling. Elements represent actual business assets, entities, and processes that are related to each other within the boundaries of valid element definition relationships. Represents an instance of an Element Definition. User Generator A is a Generator for example. This parallels the concept of an object in object-oriented programming.
+
+Element Dimensionality
+Refers to the dimensionality that can be defined at an element definition and is applied to an element.
+
+Query String Data Type Reference
+Array[T]
+The API supports two methods of passing collections. 
+
+Using a semi-colon (;) as a delimiter for using multiple values. This was done to allow element and datapoint names to include special characters such as , or :. 
+
+Example: {path}/query?begin=2025-01-01&dataPoints=DA_LMP;RT_LMP;Status
+
+Using repeated query string parameters
+
+Example: {path}/query?begin=2025-01-01&dataPoints=DA_LMP&dataPoints=RT_LMP&dataPoints=Status

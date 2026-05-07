@@ -1,0 +1,111 @@
+Using the S3 Data Lake in Python
+
+This article shows how to get a subset of objects (data files) from S3, save them locally and read them into a pandas dataframe. For an example on how to stream S3 objects into a dataframe without locally saving them, see the integration script on our GitLab code repository (link coming soon). If you are a DataSignals user and would like to join the code repository, follow the instructions here.
+Before using the S3 data in Python, you will need to install the boto3 library. You can do this using your preferred Python package manager, e.g., pip, conda, Anaconda, etc.
+
+pip install boto3
+
+# or
+
+conda install -c anaconda boto3
+Here we create a local file, config.py, of variables containing authentication information.  Note there are multiple ways to configure AWS credentials.  The code on GitLab describes these alternatives.
+
+aws_access_key_id = YOUR_ACCESS_KEY
+aws_secret_access_key = YOUR_SECRET_KEY
+Import the config.py file that contains the above credentials.
+
+import config
+Instantiate the Boto3 client. This creates the connection to S3.
+
+s3 = boto3.client('s3', aws_access_key_id=config.accesskey, aws_secret_access_key=config.secretkey)
+Return the list of buckets available.
+
+response = s3.list_buckets()
+
+# Output the bucket names
+print("Existing buckets:")
+
+for bucket in response['Buckets']:
+    print(f'{bucket["Name"]}')
+Identify the folders or prefixes (also known as paths) available in the bucket (this bucket is named yedatalake).  A variable for the s3 ISO is created as well.  
+
+s3iso = 'ercot'
+
+result = s3.list_objects(Bucket='yedatalake',
+                             Prefix= s3iso +'/',
+                             Delimiter='/'
+                             )
+
+for path_ in result.get('CommonPrefixes'):
+    print(path_.get('Prefix'))
+Narrow the data down to an additional layer of prefix (variable set with ercot + ancillary) to find all of the data types that are in the ancillary service prefix or folder.
+
+s3prefix = 'ercot/ancillary'
+
+folder_list = []
+
+result = s3.list_objects(Bucket='yedatalake',
+                             Prefix= s3prefix +'/',
+                             Delimiter='/'
+                             )
+for path_ in result.get('CommonPrefixes'):
+    folder_list.append(path_.get('Prefix'))
+
+print(folder_list)
+Next, we'll download data for a set of dates.  For this we'll load date, timedelta from the datetime library.  Then we will create a function that returns the files within the start and end dates specified.  This date range includes just a week of data in April 2021.
+
+from datetime import timedelta, date  
+def daterange(start_date, end_date):
+    for i in range(int((end_date - start_date).days)):
+        yield start_date + timedelta(i)
+
+
+start_date = date(2021, 4, 23)
+end_date = date(2021, 4, 30)
+Then we will download physical responsive capability data for ERCOT.  Any datatype returned in the above selection can be used (try other ISOs and categories!).
+
+iso = 'ercot'
+category = 'ancillary'
+datatype = 'phys_resp_cap'
+The data will download to a location on Sonya's C drive.  Update the location to your own directory.  
+
+for single_date in daterange(start_date, end_date):
+    #print(str(single_date.strftime("%Y%m%d")))
+    s3.download_file('yedatalake',iso+'/'+category+'/'+datatype+'/'+str(single_date.strftime("%Y%m%d"))+'.csv.gz','C:/Users/Sonya/Documents/s3_data/ts/'+datatype+'_'+str(single_date.strftime("%Y%m%d"))+'.csv.gz')
+We can now see what was downloaded with the following block.  This will also need an updated location (update to wherever you downloaded the data).  The OS library is loaded so you can work with the operating system to review data in the downloaded directory.  
+
+import os
+
+filelist = []
+
+for root, dirs, files in os.walk(r'C:/Users/Sonya/Documents/s3_data/ts/'):
+    for file in files:
+        if file.endswith('.gz'):
+            filelist.append(file)
+
+print (filelist)
+Next we'll load the files into a pandas dataframe.  For this we will need the gzip library to read gzip files.  
+
+# load gzip library and pandas
+import gzip
+import pandas as pd
+
+# Create data frame from data within files
+dfs = []
+
+for files in filelist:
+    with gzip.open('C:/Users/Sonya/Documents/s3_data/ts/'+files) as f:
+        data = pd.read_csv(f,header=None)
+    if data.empty == False:
+        tempDF = data
+        print (data)
+        dfs.append(tempDF)
+
+fulldf = pd.concat(dfs, ignore_index=True)
+
+fulldf.head()
+Refer to the ddl.json file in the final directory to identify the column names and rename the columns based on this information.  Finally, a chart is created to visualize the week of PRC data.
+
+fulldf.columns= ['OBJECTID', 'DATATYPEID','DATETIME','TIMEZONE','PRC','LOADID']
+
+fulldf.plot(kind='line',x='DATETIME',y='PRC',color='red')

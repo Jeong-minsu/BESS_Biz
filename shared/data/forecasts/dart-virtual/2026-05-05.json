@@ -1,0 +1,104 @@
+{
+  "flow_date": "2026-05-05",
+  "issued_at_kst": "2026-05-04T07:30:00+09:00",
+  "agent": "dart-virtual-trader",
+  "agent_version": "v0-heuristic",
+  "vintage": {
+    "smartbidder_forecast_run_cdt": "2026-05-04T09:37:14",
+    "leakage_safe_vs_dam_bidclose": true
+  },
+  "summary": {
+    "net_direction": "SHORT_DA bias",
+    "active_hours": 14,
+    "skipped_hours": 10,
+    "total_mw_committed": 360,
+    "notional_mwh": 1450,
+    "expected_gross_pnl_usd_conservative": 2349,
+    "expected_gross_pnl_usd_full_thesis": 10580,
+    "confidence_weighted_pnl_usd": 5860,
+    "max_drawdown_if_all_wrong_usd": -11200,
+    "max_single_hour_mw": 30
+  },
+  "top_conviction_trades": [
+    {
+      "rank": 1,
+      "category": "GKS_BESS_RN",
+      "node": "GKS_BESS_RN",
+      "hour_band": "HE10-12",
+      "position": "SHORT_DA",
+      "mw_per_hour": 30,
+      "limit_price_usd_per_mwh": 14.0,
+      "expected_payoff_usd": 1260,
+      "win_prob_qual": "high",
+      "win_prob_pct_estimate": 70,
+      "thesis": "Triple-confirmed: 5/3 settlement +$17-22 realized; congestion-analyst HIGH binding West-to-North; Smartbidder forecast spread positive. Limit DA offer $14."
+    },
+    {
+      "rank": 2,
+      "category": "hub_pair",
+      "node": "HUB_HOUSTON",
+      "hour_band": "HE21",
+      "position": "SHORT_DA",
+      "mw_per_hour": 25,
+      "limit_price_usd_per_mwh": 41.0,
+      "expected_payoff_usd": 125,
+      "win_prob_qual": "med-high",
+      "win_prob_pct_estimate": 60,
+      "thesis": "DA premium +$7.57 fc; past wind-bust risk hour. 5/3 realized +$8.59 at GKS as proxy."
+    },
+    {
+      "rank": 3,
+      "category": "off_hub_node",
+      "node": "GKS_BESS_RN",
+      "hour_band": "HE16",
+      "position": "SHORT_DA",
+      "mw_per_hour": 15,
+      "limit_price_usd_per_mwh": 22.0,
+      "expected_payoff_usd": 60,
+      "win_prob_qual": "med",
+      "win_prob_pct_estimate": 58,
+      "thesis": "Tail end of west-export binding window; cleanest off-hub trade outside the high-conviction block."
+    }
+  ],
+  "positions": [
+    {"he": 1, "node": null, "position": "skip", "mw": 0, "limit": null, "da_fc": 16.89, "rt_fc": 17.48, "fc_spread": -0.59, "win_prob": "low", "exp_per_mw": 0.0, "exp_total": 0.0, "risk_note": "Signal too weak"},
+    {"he": 2, "node": null, "position": "skip", "mw": 0, "limit": null, "da_fc": 15.16, "rt_fc": 15.32, "fc_spread": -0.16, "win_prob": "low", "exp_per_mw": 0.0, "exp_total": 0.0, "risk_note": "Flat"},
+    {"he": 3, "node": null, "position": "skip", "mw": 0, "limit": null, "da_fc": 14.40, "rt_fc": 13.96, "fc_spread": 0.44, "win_prob": "low", "exp_per_mw": 0.0, "exp_total": 0.0, "risk_note": "Flat"},
+    {"he": 4, "node": null, "position": "skip", "mw": 0, "limit": null, "da_fc": 14.72, "rt_fc": 14.61, "fc_spread": 0.11, "win_prob": "low", "exp_per_mw": 0.0, "exp_total": 0.0, "risk_note": "Flat"},
+    {"he": 5, "node": null, "position": "skip", "mw": 0, "limit": null, "da_fc": 16.28, "rt_fc": 15.77, "fc_spread": 0.51, "win_prob": "low", "exp_per_mw": 0.0, "exp_total": 0.0, "risk_note": "Flat"},
+    {"he": 6, "node": "HUB_NORTH", "position": "SHORT_DA", "mw": 10, "limit": 21.00, "da_fc": 20.47, "rt_fc": 18.89, "fc_spread": 1.58, "win_prob": "low-med", "exp_per_mw": 0.95, "exp_total": 9.5, "risk_note": "Pre-solar bump small; half-size starter"},
+    {"he": 7, "node": null, "position": "skip", "mw": 0, "limit": null, "da_fc": 22.32, "rt_fc": 23.01, "fc_spread": -0.69, "win_prob": "low", "exp_per_mw": 0.0, "exp_total": 0.0, "risk_note": "Flat morning shoulder"},
+    {"he": 8, "node": null, "position": "skip", "mw": 0, "limit": null, "da_fc": 21.43, "rt_fc": 21.99, "fc_spread": -0.56, "win_prob": "low", "exp_per_mw": 0.0, "exp_total": 0.0, "risk_note": "Flat"},
+    {"he": 9, "node": "GKS_BESS_RN", "position": "SHORT_DA", "mw": 15, "limit": 16.00, "da_fc": 12.77, "rt_fc": 12.92, "fc_spread": -0.15, "win_prob": "med", "exp_per_mw": 6.00, "exp_total": 90.0, "risk_note": "Node basis play; hub fc understates GKS spread"},
+    {"he": 10, "node": "GKS_BESS_RN", "position": "SHORT_DA", "mw": 30, "limit": 14.00, "da_fc": 13.39, "rt_fc": 13.97, "fc_spread": -0.59, "win_prob": "high", "exp_per_mw": 12.00, "exp_total": 360.0, "risk_note": "West-export HIGH binding; GKS RT likely <= $0"},
+    {"he": 11, "node": "GKS_BESS_RN", "position": "SHORT_DA", "mw": 30, "limit": 14.00, "da_fc": 13.00, "rt_fc": 14.42, "fc_spread": -1.42, "win_prob": "high", "exp_per_mw": 14.00, "exp_total": 420.0, "risk_note": "Deepest west surplus hour; 5/3 realized +$18.66"},
+    {"he": 12, "node": "GKS_BESS_RN", "position": "SHORT_DA", "mw": 30, "limit": 14.00, "da_fc": 16.11, "rt_fc": 16.91, "fc_spread": -0.80, "win_prob": "high", "exp_per_mw": 16.00, "exp_total": 480.0, "risk_note": "5/3 realized +$21.90; same setup"},
+    {"he": 13, "node": "GKS_BESS_RN", "position": "SHORT_DA", "mw": 20, "limit": 17.00, "da_fc": 18.39, "rt_fc": 18.29, "fc_spread": 0.10, "win_prob": "med", "exp_per_mw": 6.00, "exp_total": 120.0, "risk_note": "West-export still binding but tapering"},
+    {"he": 14, "node": "GKS_BESS_RN", "position": "SHORT_DA", "mw": 15, "limit": 19.00, "da_fc": 21.72, "rt_fc": 18.75, "fc_spread": 2.96, "win_prob": "med", "exp_per_mw": 5.00, "exp_total": 75.0, "risk_note": "Hub fc spread small; node thesis still alive"},
+    {"he": 15, "node": "GKS_BESS_RN", "position": "SHORT_DA", "mw": 15, "limit": 22.00, "da_fc": 22.26, "rt_fc": 18.19, "fc_spread": 4.07, "win_prob": "med", "exp_per_mw": 4.00, "exp_total": 60.0, "risk_note": "West-export tail end"},
+    {"he": 16, "node": "HUB_NORTH", "position": "SHORT_DA", "mw": 20, "limit": 23.00, "da_fc": 22.69, "rt_fc": 19.13, "fc_spread": 3.56, "win_prob": "med", "exp_per_mw": 3.50, "exp_total": 70.0, "risk_note": "Hub-level DA-rich"},
+    {"he": 17, "node": "HUB_NORTH", "position": "SHORT_DA", "mw": 20, "limit": 23.00, "da_fc": 22.69, "rt_fc": 19.13, "fc_spread": 3.56, "win_prob": "med", "exp_per_mw": 3.00, "exp_total": 60.0, "risk_note": "Pre-ramp; mild DA premium"},
+    {"he": 18, "node": "HUB_NORTH", "position": "SHORT_DA", "mw": 25, "limit": 28.00, "da_fc": 27.24, "rt_fc": 21.82, "fc_spread": 5.43, "win_prob": "med-high", "exp_per_mw": 4.50, "exp_total": 112.5, "risk_note": "Ramp begins; DA premium widens but RT volatility upside risk"},
+    {"he": 19, "node": "HUB_HOUSTON", "position": "SHORT_DA", "mw": 25, "limit": 32.00, "da_fc": 31.36, "rt_fc": 27.24, "fc_spread": 4.12, "win_prob": "med", "exp_per_mw": 2.50, "exp_total": 62.5, "risk_note": "HALF-SIZE: wind-bust risk HE17-20"},
+    {"he": 20, "node": "HUB_HOUSTON", "position": "SHORT_DA", "mw": 25, "limit": 42.00, "da_fc": 42.16, "rt_fc": 33.01, "fc_spread": 9.15, "win_prob": "med", "exp_per_mw": 4.00, "exp_total": 100.0, "risk_note": "HALF-SIZE: largest fc spread but highest RT-spike risk"},
+    {"he": 21, "node": "HUB_HOUSTON", "position": "SHORT_DA", "mw": 25, "limit": 41.00, "da_fc": 41.50, "rt_fc": 33.93, "fc_spread": 7.57, "win_prob": "med-high", "exp_per_mw": 5.00, "exp_total": 125.0, "risk_note": "Conviction up - past wind risk hour"},
+    {"he": 22, "node": "HUB_NORTH", "position": "SHORT_DA", "mw": 25, "limit": 37.00, "da_fc": 37.56, "rt_fc": 30.92, "fc_spread": 6.64, "win_prob": "med-high", "exp_per_mw": 5.00, "exp_total": 125.0, "risk_note": "Risk window passed; clean DA premium"},
+    {"he": 23, "node": "HUB_NORTH", "position": "SHORT_DA", "mw": 20, "limit": 34.00, "da_fc": 34.33, "rt_fc": 29.67, "fc_spread": 4.66, "win_prob": "med", "exp_per_mw": 3.50, "exp_total": 70.0, "risk_note": "Off-peak transition"},
+    {"he": 24, "node": "HUB_NORTH", "position": "SHORT_DA", "mw": 10, "limit": 28.00, "da_fc": 28.05, "rt_fc": 26.83, "fc_spread": 1.22, "win_prob": "low-med", "exp_per_mw": 1.00, "exp_total": 10.0, "risk_note": "Tail; small size"}
+  ],
+  "key_risk_hour": "HE19-20 wind-bust frontal passage W/N TX (half-sized for this reason)",
+  "self_feedback_5_3_counterfactual_usd": 2460,
+  "memory_history_existed_prior": false,
+  "caveats": [
+    "Stage 0 heuristic - no calibrated P(DA>RT) model",
+    "Yes Energy bidclose data unavailable - cannot quantitatively monitor wind-bust kill condition",
+    "Smartbidder forecast is hub-anchored; GKS_BESS_RN node basis applied via 5/3 settlement extrapolation",
+    "AS forecast 404 - irrelevant for energy-only DART",
+    "5/5 Tuesday vs 5/3 Sunday analog - higher load could compress GKS midday basis depth"
+  ],
+  "files": {
+    "report": "reports/daily/dart-virtual/2026-05-05.md",
+    "memory": "memory/dart-virtual-trader/history/2026-05-05.md",
+    "machine_readable": "shared/data/forecasts/dart-virtual/2026-05-05.json"
+  }
+}
