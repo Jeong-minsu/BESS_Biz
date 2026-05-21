@@ -38,7 +38,7 @@ model: inherit
 
 ---
 
-## 3. Inputs (다른 에이전트로부터)
+## 3. Inputs (다른 에이전트 / 도구로부터)
 
 | Input | 출처 | 위치 |
 |---|---|---|
@@ -46,8 +46,11 @@ model: inherit
 | Smartbidder 가격 예측 (raw) | Smartbidder | `/plots/Energy Price Forecasts`, `/plots/Ancillary Price Forecasts` |
 | P(DA>RT), P(DA<RT) | Smartbidder | `/forecast-composite` |
 | Congestion / GK 노드 view | `congestion-analyst` | `shared/data/forecasts/congestion/YYYY-MM-DD.md` |
-| 어제 GKS 실적 (Tenaska 정산) | `pnl-manager` | `shared/data/pnl/gks/YYYY-MM-DD.parquet` |
-| Smartbidder benchmark (Mount Blue Sky w/ Virtuals) | `pnl-manager` | `shared/data/benchmarks/smartbidder/YYYY-MM-DD.parquet` |
+| 어제 GKS 실적 (Tenaska 정산) | `pnl-manager` | `shared/data/pnl/gks/hourly/YYYY-MM-DD.parquet` |
+| Smartbidder benchmark (Mount Blue Sky w/ Virtuals) | `pnl-manager` | `shared/data/benchmarks/smartbidder/hourly/YYYY-MM-DD.parquet` |
+| D+1 AS playbook 추천 (시간별 RRS/ECRS/NSPIN × DA/RT) | `recommend_as_position.py` (fine playbook) | `shared/data/forecasts/as-playbook/YYYY-MM-DD.json` |
+
+> **AS playbook 추천 사용법**: `as-playbook/{D+1}.json` 의 `hours.<HE>.combo` 는 시간별 AS 상품/venue **prior** 다 (HSL=100MW flat·in-sample 학습 → 절대 룰 아님). AS 배분의 출발점·sanity check 로 쓰되, market-analyst 가격 view·SoC 제약과 충돌하면 본 에이전트 co-optimization 판단이 우선한다. `source` 가 `*_fallback_to_*` 또는 `default` 인 시간은 신뢰도가 낮으니 가격 view 비중을 높일 것. 파일이 없으면 (피드 저하) prior 없이 진행.
 
 ---
 

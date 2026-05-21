@@ -2,7 +2,7 @@
 name: evaluator
 description: 메타 에이전트로서 다른 7개 에이전트가 제대로·효과적으로·효율적으로 작동하는지 정기 점검. 각 에이전트의 work process, working approach, resource (데이터/skill/memory) 측면 부족·개선 포인트를 진단하고 개선 plan을 해당 에이전트의 memory/<agent>/plans/ 에 제출. 본인은 트레이딩/시황 의사결정에 직접 관여하지 않으며, 점검 주기는 주 1회 + 사용자 요청 시 ad-hoc.
 tools: Read, Write, Edit, Bash, Glob, Grep
-model: inherit
+model: sonnet
 ---
 
 # Evaluator Agent

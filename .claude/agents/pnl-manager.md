@@ -26,9 +26,9 @@ model: inherit
 
 ### 데이터 소스: Tenaska PTP (`api.ptp.energy`)
 
-Skill: `skills/fetch-tenaska-ptp-data/SKILL.md` 호출.
+**데이터 입수 (재-fetch 금지)**: daily cycle에서는 `fetch_pnl_data.py`가 이미 Tenaska PTP를 호출해 `shared/data/raw/` 에 저장한다 — pnl-manager는 그 결과를 **읽어** 가공한다 (API 재호출 시 Tenaska 1 call/sec 제한 위반·이중 호출 발생). `raw/` 가 없거나 stale 한 **ad-hoc 단독 실행** 시에만 `skills/fetch-tenaska-ptp-data/SKILL.md` 를 직접 호출.
 
-가져오는 데이터셋 4종:
+`fetch_pnl_data.py` / 위 skill이 가져오는 데이터셋 4종:
 1. **Energy & AS Details** — 시간당 energy throughput + AS-cleared MW per product
 2. **DA Energy Bid Market Result** — DA energy bid clearing
 3. **DA Energy Only Offer Market Result** — DA energy-only offer clearing
@@ -55,7 +55,7 @@ Skill: `skills/fetch-tenaska-ptp-data/SKILL.md` 호출.
 
 ## 3. Daily Benchmark — Smartbidder Mount Blue Sky w/ Virtuals (RTC Version)
 
-Skill: `skills/fetch-smartbidder-data/SKILL.md`.
+**데이터 입수 (재-fetch 금지)**: daily cycle에서는 `fetch_pnl_data.py`가 Smartbidder benchmark revenue도 함께 `shared/data/raw/` 에 저장한다 — pnl-manager는 그것을 읽는다. ad-hoc 단독 실행 시에만 `skills/fetch-smartbidder-data/SKILL.md` 를 직접 호출. 요청 형태:
 
 ```
 GET /revenue?strategy=Mount Blue Sky with Virtuals (RTC Version)
@@ -110,9 +110,21 @@ GET /revenue?strategy=Mount Blue Sky with Virtuals (RTC Version)
 
 ## 5. Weekly — ERCOT 全 BESS Dashboard (주 1회)
 
-> ❗ 데이터 소스 미확정: ERCOT 全 BESS 단위 수익은 60-day disclosure / settlement data로 산출 가능. 외부 BESS revenue agent (예: Modo Energy, Grid Status, ERCOT 60-day disclosure 직접 처리 등)와 연동 필요. **Stage 1**에서는 60-day disclosure 기반 자체 산출, **Stage 2**에서 외부 agent 연동.
+> **데이터 소스**: ERCOT 공개 60-day disclosure 기반 자체 산출 (Stage 1 구현 완료).
+> 아래 두 estimation skill을 **반드시 호출**해 산출한다 — 추정 코드를 직접 작성하지 말 것
+> (skill `scripts/run_estimate.py`가 vendored pipeline을 실행).
+>
+> | 산출 | Skill (Read 후 실행) | 실행 커맨드 (repo root 기준) |
+> |---|---|---|
+> | Energy + AS 수익 / TB index / opt-rate | `skills/estimate-bess-energy-as/SKILL.md` | `python skills/estimate-bess-energy-as/scripts/run_estimate.py --start 2026-01-01 --end <latest>` |
+> | DART Virtual 수익 (win rate·손익비·participation) | `skills/estimate-bess-dart-virtual/SKILL.md` | `python skills/estimate-bess-dart-virtual/scripts/run_estimate.py --start 2026-01-01 --end <latest>` |
+>
+> 두 skill 모두 ERCOT 60-day disclosure를 쓰므로 `<latest>`는 **today − 약 62일**까지만 가능.
+> 산출물은 `shared/data/pnl/all_bess/{energy_as,dart_virtual}/` 에 parquet+csv로 저장 → dashboard 입력.
+> ⚠️ settlement 아닌 **estimate** — 모든 산출물에 명시. (Stage 2: 외부 BESS revenue agent 연동 시 교체)
 
 ### Dashboard 1: 全 BESS Energy + AS Revenue
+- 데이터: `estimate-bess-energy-as` skill 산출 (`summary_*.csv` / `revenue_hourly_*.parquet` / `tb_index_*.parquet`)
 - 기간: '26.01.01 ~ latest
 - Granularity: monthly + weekly
 - 차원: BESS resource × product (DA Energy, RT Energy, RRS, ECRS, NonSpin, RegUp/Dn)
@@ -120,6 +132,7 @@ GET /revenue?strategy=Mount Blue Sky with Virtuals (RTC Version)
 - GKS / Raven 위치 highlight
 
 ### Dashboard 2: 全 BESS DART Virtual Revenue
+- 데이터: `estimate-bess-dart-virtual` skill 산출 (`dart_daily_*.csv` / `dart_hourly_*.parquet`)
 - 동일 기간 / granularity
 - BESS resource별 DART virtual realized PnL ranking
 - GKS 위치 highlight

@@ -1,0 +1,6 @@
+# estimate-bess-dart-virtual skill — deps for the vendored ERCOT-Dart-Tracker pipeline
+pandas>=2.0.0
+numpy>=1.24.0
+requests>=2.31.0       # ERCOT Public API + Yes Energy DataSignals API
+pyarrow>=14.0.0        # parquet output
+python-dotenv>=1.0.0

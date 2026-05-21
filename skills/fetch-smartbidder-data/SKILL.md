@@ -17,11 +17,16 @@ OAuth2 client-credentials via Microsoft Entra ID (MSAL). Token expires in minute
 
 ```python
 from msal import ConfidentialClientApplication
+from _env_loader import load_env_sections      # shared/scripts/_env_loader.py
 
-APPLICATION_ID  = "https://dataascendanalyticscom.azurewebsites.net"
-CLIENT_ID       = os.environ["SMARTBIDDER_CLIENT_ID"]
-CLIENT_SECRET   = os.environ["SMARTBIDDER_CLIENT_SECRET"]
-AUTHORITY_URL   = "https://login.microsoftonline.com/onascend.com"
+# Smartbidder creds live in the '# Smartbidder' .env section. The key names are
+# generic (CLIENT_ID / CLIENT_SECRET / APPLICATION_ID) and collide with other
+# vendors under a flat python-dotenv load — always read section-aware.
+sb = load_env_sections()["smartbidder"]
+APPLICATION_ID  = sb.get("APPLICATION_ID", "https://dataascendanalyticscom.azurewebsites.net")
+CLIENT_ID       = sb["CLIENT_ID"]
+CLIENT_SECRET   = sb["CLIENT_SECRET"]
+AUTHORITY_URL   = f"https://login.microsoftonline.com/{sb.get('_TENANT', 'onascend.com')}"
 
 def get_token():
     auth = ConfidentialClientApplication(CLIENT_ID, CLIENT_SECRET, AUTHORITY_URL)
@@ -178,8 +183,10 @@ from zoneinfo import ZoneInfo
 
 CPT = ZoneInfo("America/Chicago")
 BASE = "https://data.ascendanalytics.com"
-CLIENT = os.environ["SMARTBIDDER_CLIENT"]      # e.g. "apex"
-RESOURCE = os.environ["SMARTBIDDER_RESOURCE"]  # e.g. "Kiskadee Storage"
+from _env_loader import load_env_sections
+sb        = load_env_sections()["smartbidder"]
+CLIENT    = sb.get("SMARTBIDDER_CLIENT", "apex")
+RESOURCE  = sb.get("Resource") or sb.get("SMARTBIDDER_RESOURCE", "Kiskadee Storage")
 BENCHMARK = "Mount Blue Sky with Virtuals (RTC Version)"
 
 today  = datetime.now(CPT).replace(hour=0, minute=0, second=0, microsecond=0)

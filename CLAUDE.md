@@ -54,7 +54,9 @@ BESS_Biz/
 ├── agensts/CONGESTION_PROJECT.md ← Congestion 모델 명세 (오타 폴더명 보존)
 ├── API Docs/                     ← AG2 / Smartbidder / Tenaska / S3 원문
 ├── skills/                       ← fetch-ercot-data, fetch-smartbidder-data,
-│                                   fetch-tenaska-ptp-data, dashboard-report
+│                                   fetch-tenaska-ptp-data, dashboard-report,
+│                                   estimate-bess-energy-as,     ← 全 BESS energy/AS 수익 추정 (vendored SCED)
+│                                   estimate-bess-dart-virtual   ← 全 BESS DART virtual 수익 추정 (vendored)
 ├── memory/<agent>/{history,learnings,plans}/   ← 에이전트별 메모리 (정의와 분리)
 ├── shared/
 │   ├── config.md                 ← 데이터 소스 우선순위 / 시간·단위 컨벤션
@@ -89,12 +91,13 @@ python shared/scripts/_env_loader.py
 > 07:30 CT 시작 → DAM bid cutoff 10:00 CT 까지 2.5h 검토 버퍼.
 
 ```
-1. python shared/scripts/fetch_pnl_data.py     ← 어제 실적 (Tenaska + Smartbidder)
-2. python shared/scripts/fetch_market_data.py  ← 내일 시황 (Yes Energy + Smartbidder)
-3. Task → pnl-manager   "어제 실적 정리"
-4. Task → market-analyst, congestion-analyst   (병렬)
-5. Task → bess-optimizer, dart-virtual-trader  (병렬, 위 결과 input)
-6. Task → reporter      "Daily Report 통합"
+1. python shared/scripts/fetch_pnl_data.py        ← 어제 실적 (Tenaska + Smartbidder)
+2. python shared/scripts/fetch_market_data.py     ← 내일 시황 (Yes Energy + Smartbidder)
+3. python shared/scripts/recommend_as_position.py ← D+1 AS playbook 추천 (fine, bess-optimizer prior)
+4. Task → pnl-manager   "어제 실적 정리"
+5. Task → market-analyst, congestion-analyst   (병렬)
+6. Task → bess-optimizer, dart-virtual-trader  (병렬, 위 결과 input)
+7. Task → reporter      "Daily Report 통합"
 ```
 
 상세 시퀀스 / 의존성: [`orchestration/daily-0730-workflow.md`](./orchestration/daily-0730-workflow.md).

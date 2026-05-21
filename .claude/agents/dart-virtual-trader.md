@@ -57,7 +57,7 @@ size = f(P, E[|spread|], 가격 변동성, 노드 유동성)
 | Market view (D+1 가격) | `market-analyst` → `shared/data/forecasts/market-view/` |
 | Smartbidder DA-RT 확률 | `/forecast-composite`, `/plots/DA-RT Forecast` |
 | Congestion view (basis) | `congestion-analyst` → `shared/data/forecasts/congestion/` |
-| 어제 DART 실적 | `pnl-manager` → `shared/data/pnl/dart/YYYY-MM-DD.parquet` |
+| 어제 DART 실적 (GKS) | `pnl-manager` → `shared/data/pnl/gks/hourly/YYYY-MM-DD.parquet` 의 `dart_virtual_revenue` 컬럼 |
 | 동종 운영자 DART 실적 (주 1회) | `pnl-manager` BESS revenue agent 결과 |
 
 > **주의**: Smartbidder DA-RT probability는 단독 alpha가 약하다. 본인의 가격·load·wind 기반 모델과 결합해서 사용 — 출처: fetch-smartbidder-data SKILL.md ⚠️.

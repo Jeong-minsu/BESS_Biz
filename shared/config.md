@@ -6,18 +6,28 @@
 
 ## 1. 자격 증명 (.env)
 
-위치: 프로젝트 루트의 **`.env`** (= `BESS_Biz/.env`)
+위치: 프로젝트 루트의 **`.env`** (= `BESS_Biz/.env`). 다른 폴더에 복제하지 않는다 (단일 source of truth).
 
-각 에이전트가 인증이 필요한 skill을 호출할 때, skill 내부 코드가 같은 루트의 `.env`에서 환경변수를 읽는다. 다른 폴더에 .env를 복제하지 않는다 (단일 source of truth).
+`.env`는 `# <Vendor> Credentials` 헤더로 섹션화돼 있고, 여러 벤더가 generic 키 이름(`USERNAME`/`PASSWORD`/`CLIENT_ID` 등)을 재사용한다. flat `python-dotenv` 로딩은 섹션 간 동명 키를 덮어쓰므로 **반드시 `shared/scripts/_env_loader.py` (section-aware 파서)로 읽는다 — 키↔섹션 매핑의 single source of truth.**
 
-`.env`에 들어있는 키 (skill 문서 기반):
-- Yes Energy: `YES_ENERGY_USERNAME`, `YES_ENERGY_PASSWORD`
-- Yes Energy S3: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`
-- ERCOT API: `ERCOT_USERNAME`, `ERCOT_PASSWORD`, `ERCOT_SUBSCRIPTION_KEY`
-- AG2 (WSI Trader): `USER`, `PASSWORD`, `Profile`
-- Enverus: `USERNAME`, `PASSWORD`
-- Smartbidder: `SMARTBIDDER_CLIENT_ID`, `SMARTBIDDER_CLIENT_SECRET`, `SMARTBIDDER_CLIENT`, `SMARTBIDDER_RESOURCE`
-- Tenaska: `TENASKA_USERNAME`, `TENASKA_PASSWORD`
+```python
+from _env_loader import load_env_sections, first
+sec = load_env_sections()                     # {section: {KEY: VALUE}}
+ye  = sec["yes_energy"];  ye["YES_ENERGY_USERNAME"]
+sb  = sec["smartbidder"]; sb["CLIENT_ID"]
+```
+
+섹션별 필수 키 (optional 키 전체는 `_env_loader.py` docstring + 각 fetch skill 참조):
+
+| 섹션 (`_env_loader` 키) | `.env` 헤더 키워드 | 필수 키 |
+|---|---|---|
+| `yes_energy` | Yes Energy API | `YES_ENERGY_USERNAME`, `YES_ENERGY_PASSWORD` |
+| `yes_energy_s3` | Yes Energy Datalake | `YES_ENERGY_ACCESS_KEY`, `YES_ENERGY_SECRET_KEY` |
+| `ercot` | ERCOT | `ERCOT_USERNAME`, `ERCOT_PASSWORD`, `ERCOT_SUBSCRIPTION_KEY` |
+| `ag2` | AG2 | `USER`, `PASSWORD`, `Profile` |
+| `enverus` | Enverus | `USERNAME`, `PASSWORD` |
+| `smartbidder` | Smartbidder | `CLIENT_ID`, `CLIENT_SECRET`, `APPLICATION_ID` |
+| `tenaska` | Tenaska | `TENASKA_USERNAME`, `TENASKA_PASSWORD` |
 
 ---
 
@@ -91,9 +101,12 @@ shared/data/
 │   └── congestion/              ← congestion-analyst가 매일 작성
 │       └── YYYY-MM-DD.md
 ├── pnl/
-│   └── gks/
-│       ├── hourly/YYYY-MM-DD.parquet
-│       └── daily/YYYY-MM.parquet
+│   ├── gks/
+│   │   ├── hourly/YYYY-MM-DD.parquet
+│   │   └── daily/YYYY-MM.parquet
+│   └── all_bess/                    ← estimate-bess-* skill 산출 (pnl-manager 주 1회)
+│       ├── energy_as/               ← summary / revenue_hourly / tb_index parquet
+│       └── dart_virtual/            ← dart_daily / dart_hourly parquet
 ├── benchmarks/
 │   └── smartbidder/
 │       ├── hourly/YYYY-MM-DD.parquet
@@ -126,6 +139,6 @@ shared/data/
 | 자산 | 위치 | 본 프로젝트와의 관계 |
 |---|---|---|
 | API Docs (4종) | `API Docs/*.txt` | Read-only reference |
-| skills (4종) | `skills/` | 호출 only |
+| skills (6종) | `skills/` | 호출 only (`<name>/SKILL.md` Read 후 실행) |
 | CONGESTION_PROJECT | `agensts/CONGESTION_PROJECT.md` | `congestion-analyst`가 수정 가능 |
 | `.env` | `.env` | Skill이 읽음 (절대 노출 X) |

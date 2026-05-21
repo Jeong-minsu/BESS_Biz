@@ -39,8 +39,10 @@ CONGESTION_PROJECT 핵심:
 
 ## 3. Daily 산출물 (D+1 view)
 
+> ⚠️ **Stage 0/1 한정**: 현재 daily 산출물은 hub-pair basis 히스토리 기반 **간이(provisional) view** 다. constraint-level binding/λ 모델은 Stage 2부터 가동 — 그 전까지 산출물 헤더에 `provisional` 을 명시하고, downstream 에이전트(bess-optimizer / dart-virtual-trader)는 본 input의 의사결정 가중치를 낮게 둔다.
+
 ```markdown
-# Congestion Outlook — D+1 (YYYY-MM-DD)
+# Congestion Outlook — D+1 (YYYY-MM-DD)   [Stage 0 — provisional]
 
 ## Headline
 - 핵심 binding constraint top 3 + 연관 노드 영향

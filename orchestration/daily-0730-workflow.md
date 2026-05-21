@@ -61,6 +61,8 @@ T-0    (07:30)     사용자에게 computer:// 링크 전달 ✅
 | ⑤ | T-30m | Front/Middle 5개 self-review | ① pnl-manager (전일 실적) | `memory/<agent>/learnings/` |
 | ⑥ | T-15m | `reporter` | ①②③④⑤ 전부 | `reports/daily/{date}.md`, `.html` |
 
+> **데이터 prep (Bash, ① 직전)**: `fetch_pnl_data.py` → `fetch_market_data.py` → `recommend_as_position.py` 가 에이전트 호출 전 순차 실행된다. `recommend_as_position.py` 는 `fetch_market_data.py` 산출물(`shared/data/raw/yes-energy/{D+1}.csv`)을 소비해 fine playbook 시간별 AS 추천(`shared/data/forecasts/as-playbook/{D+1}.json`)을 생성 — ③ `bess-optimizer` 의 AS 배분 prior로 쓰인다 (in-sample 학습 → 절대 룰 아닌 prior).
+
 ---
 
 ## 3. Conditional Triggers
@@ -108,6 +110,8 @@ memory/crr-trader/learnings/                     ← 옥션 후에만 (대부분
 
 각 self-review는 4-5줄 자연어 요약 + 2-3개 정량 지표 + 다음번 적용할 1-2 액션.
 
+> Self-review 의무·내용 규약의 SoT는 `ORGANIZATION.md §6`. 본 절은 daily cycle 상의 타이밍·파일 경로만 정의한다.
+
 ---
 
 ## 6. Reporter 합치기 절차 (T-15m)
@@ -136,9 +140,10 @@ Step H. memory/reporter/history/{D+1}.md 사본 저장
 → Claude Code가 다음 시퀀스를 자동 진행 (각 단계 결과 노출):
 
 ```python
-# 1. 데이터 페치 (Bash)
+# 1. 데이터 페치 & D+1 AS 추천 (Bash)
 Bash("python shared/scripts/fetch_pnl_data.py")
 Bash("python shared/scripts/fetch_market_data.py")
+Bash("python shared/scripts/recommend_as_position.py")   # fine playbook → as-playbook/{D+1}.json
 
 # 2. P&L 정리 (Task — 단일 sub-agent)
 Task(subagent_type="pnl-manager", prompt="...")
@@ -159,23 +164,8 @@ Task(subagent_type="reporter", prompt="...")
 
 ### 옵션 B: Slash Command (반복 사용 시)
 
-`.claude/commands/daily-cycle.md` 작성 후 `/daily-cycle` 한 줄로 호출.
-
-```markdown
----
-description: ERCOT 매일 07:30 CT (Houston) daily cycle 자동 실행
----
-
-다음 시퀀스로 D+1 daily cycle을 실행해줘 (사용자 확인 받지 말고 자동 진행):
-
-1. Bash로 fetch_pnl_data.py + fetch_market_data.py 순차 실행
-2. Task → pnl-manager
-3. Task → market-analyst, congestion-analyst (병렬, 단일 메시지)
-4. Task → bess-optimizer, dart-virtual-trader (병렬)
-5. Task → reporter
-
-최종 Daily Report HTML 링크만 알려줘.
-```
+`/daily-cycle` 한 줄로 호출. 명령 정의는 `.claude/commands/daily-cycle.md` 에 있다.
+실행 시퀀스의 **single source of truth는 본 문서 §1~§2** — `daily-cycle.md` 는 그 구현이며, 시퀀스를 여기 다시 적지 않는다 (drift 방지).
 
 ### 옵션 C: OS-level 스케줄링
 

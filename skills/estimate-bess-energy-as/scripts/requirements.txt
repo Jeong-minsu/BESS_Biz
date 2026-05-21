@@ -1,0 +1,8 @@
+# estimate-bess-energy-as skill — deps for the vendored ERCOT_SCED_PJT pipeline
+boto3>=1.34.0          # Yes Energy Datalake (S3) access
+pandas>=2.1.0
+numpy>=1.24.0
+pyarrow>=14.0.0        # parquet read/write + caching
+openpyxl>=3.1.0        # ESS capacity.csv is csv, but load_bess_capacity supports xlsx
+python-dotenv>=1.0.0
+requests>=2.31.0       # ERCOT Public API (post-RTC+B disclosure)

@@ -61,7 +61,7 @@ melted["data_type"] = melted["item_raw"].str.extract(r"\(([^)]+)\)")
 Same vendor, separate surface. Holds **D-day vintage** files the REST API doesn't expose.
 
 - **Bucket:** `yedatalake`
-- **Auth:** AWS access key/secret (request from Yes Energy support; store in `.env`, never hardcode)
+- **Auth:** Yes Energy-issued S3 key/secret — `.env` keys `YES_ENERGY_ACCESS_KEY` / `YES_ENERGY_SECRET_KEY` (request from Yes Energy support; never hardcode)
 - **Common keys:**
   - `ercot/forecast/available_cap_forecast/{YYYYMMDD}.csv.gz`
   - `ercot/weather/forecast/{YYYYMMDD}.csv.gz`
@@ -71,9 +71,11 @@ Same vendor, separate surface. Holds **D-day vintage** files the REST API doesn'
 
 ```python
 import boto3, gzip, io, pandas as pd
+# Yes Energy issues these S3 keys; in BESS_Biz they live in the
+# '# Yes Energy Datalake' .env section — read section-aware via _env_loader.
 s3 = boto3.client("s3",
-    aws_access_key_id=os.environ["AWS_ACCESS_KEY_ID"],
-    aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY"])
+    aws_access_key_id=os.environ["YES_ENERGY_ACCESS_KEY"],
+    aws_secret_access_key=os.environ["YES_ENERGY_SECRET_KEY"])
 for file_date in [d_str, d_minus_1_str]:
     try:
         obj = s3.get_object(Bucket="yedatalake",
@@ -248,9 +250,9 @@ Each vendor gets its own block. AG2 and Enverus both use generic `USER` / `PASSW
 YES_ENERGY_USERNAME=...
 YES_ENERGY_PASSWORD=...
 
-# Optional — only if using S3 datalake
-AWS_ACCESS_KEY_ID=...
-AWS_SECRET_ACCESS_KEY=...
+# Optional — only if using S3 datalake (Yes Energy-issued keys)
+YES_ENERGY_ACCESS_KEY=...
+YES_ENERGY_SECRET_KEY=...
 
 ERCOT_USERNAME=...
 ERCOT_PASSWORD=...

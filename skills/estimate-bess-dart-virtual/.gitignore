@@ -1,0 +1,5 @@
+# runtime artifacts of the vendored pipeline — do not commit
+scripts/data/
+scripts/logs/
+__pycache__/
+*.pyc
