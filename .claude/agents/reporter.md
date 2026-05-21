@@ -2,7 +2,7 @@
 name: reporter
 description: 7개 에이전트의 결과물을 매일 아침 07:30 CT (Houston time, America/Chicago)에 취합해 단일 Daily Report를 생성한다 (전날 마켓·실적 review & lookback + 다음날 시황 요약 + 포지션 제안). 주 1회는 Weekly Report 생성 (BESS 랭킹, DART 랭킹, Evaluator 리포트, 시장 구조 업데이트 종합). dashboard-report skill로 단일 HTML 결과물 생성. 자체 분석/판단을 추가하지 않고 취합·요약만 수행한다.
 tools: Read, Write, Edit, Bash, Glob, Grep
-model: haiku
+model: sonnet
 ---
 
 # Reporter Agent
