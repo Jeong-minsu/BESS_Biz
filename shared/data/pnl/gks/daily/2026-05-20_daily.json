@@ -1,0 +1,53 @@
+{
+  "flowday": "2026-05-20",
+  "generated_at_utc": "2026-05-21T16:14:06Z",
+  "data_source": "PRODUCTION",
+  "tenaska_endpoint": "Battery-Settlement-Details",
+  "resource": "Great Kiskadee Storage - ESR",
+  "revenue_usd": {
+    "da_energy": -12642.23,
+    "rt_energy": 12897.07,
+    "da_rrs": 2354.80,
+    "da_nonspin": 1745.10,
+    "da_ecrs": 0.00,
+    "da_regup": 0.00,
+    "da_regdown": 0.00,
+    "rt_as_imbalance": 0.00,
+    "rt_reliability_deployment_imbalance": 0.00,
+    "total": 4354.74
+  },
+  "benchmark_usd": {
+    "source": "Smartbidder",
+    "strategy": "AA - Mount Blue Sky with Virtuals (RTC version)",
+    "note": "ESTIMATE not settled",
+    "da_energy": -318.40,
+    "rt_energy": 460.94,
+    "da_rrs": 81.03,
+    "rt_rrs": 3.96,
+    "da_nonspin": 4039.06,
+    "rt_nonspin": -562.12,
+    "total": 3704.48
+  },
+  "delta_vs_benchmark_usd": {
+    "total": 650.26,
+    "total_pct": 17.6
+  },
+  "battery_state": {
+    "rt_generation_mwh": 103.603,
+    "rt_consumption_mwh": 115.493,
+    "net_mwh": -11.890,
+    "cycle_equivalent": 0.58
+  },
+  "data_quality": {
+    "energy_as_detail_rows": 375,
+    "hsl_rows": 96,
+    "da_energy_bid_rows": 0,
+    "da_energy_offer_rows": 0,
+    "missing_products": ["DA_ECRS", "DA_RegUp", "DA_RegDown"],
+    "anomalies": [
+      "HE21 CT: large DA energy sale $3,104.50 (50 MW x $62.09/MWh DASPP) — dominant revenue driver",
+      "HE07-HE08 CT: RT energy negative (resource was net load in RT, offset by RRS capacity revenue)",
+      "DA_energy_bid and DA_energy_offer submissions empty as expected (bids via Smartbidder)"
+    ]
+  }
+}
