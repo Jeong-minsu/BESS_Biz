@@ -2,7 +2,7 @@
 
 **Source of truth**: `agensts/CONGESTION_PROJECT.md`
 **Maintained by**: `congestion-analyst` agent
-**Updated**: 2026-04-30 (initial)
+**Updated**: 2026-05-22
 
 ---
 
@@ -42,6 +42,22 @@
 - **Top constraint list**: 다음 단계 모델링 후보군
 
 산출물 형식: 위 두 가지로 D+1 outlook 제한적 작성. **shadow price 모델링은 Stage 2까지 미실시**.
+
+### Stage 0 heuristic signals established (as of 2026-05-22)
+
+Through daily provisional outlook cycles (2026-05-05, 2026-05-22, 2026-05-23), the following heuristic signals have been validated as internally consistent and useful at Stage 0:
+
+1. **Enverus wind STPF midday trough**: ERCOT-wide wind at HE10-13 is the primary quantitative proxy for WEST_TO_NORTH binding probability. Proposed threshold: STPF trough < 4,000 MW AND solar > 15,000 MW → P(binding) MEDIUM-HIGH.
+2. **Smartbidder P(DA<RT) HE09-13**: Values of 0.60-0.65 are consistent with West zone DA prices being bid below expected RT — canonical West export congestion signature.
+3. **Net load ramp magnitude (Enverus) HE17-20**: Ramp > 8,000 MW in 3 hours → MEDIUM probability South/Houston import binding.
+4. **Smartbidder DA-RT spread at HE20**: The aggregate hub DA-RT spread at the evening peak is the best available shadow price proxy until hub-pair LMP data is obtained.
+
+These heuristics should be formalized into the Stage 1 LightGBM feature set.
+
+### Critical data gaps blocking Stage 1
+
+1. **Hub-pair LMP data** (HB_NORTH, HB_SOUTH, HB_WEST, HB_HOUSTON): Not in current Yes Energy pull. Required for basis view and constraint calibration. Action: modify fetch_market_data.py to add hub LMP endpoint.
+2. **ERCOT 60-day disclosure**: No constraint-level binding history. Blocking constraint enumeration for Stage 1 model. Action: ERCOT MIS API ingestion (cdr.00013068 or equivalent).
 
 ---
 
