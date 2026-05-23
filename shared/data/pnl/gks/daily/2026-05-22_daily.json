@@ -1,0 +1,57 @@
+{
+  "flowday": "2026-05-22",
+  "generated_at_utc": "2026-05-23T12:07:19Z",
+  "source": "Tenaska PTP Battery-Settlement-Details (actual) + Smartbidder benchmark (estimate)",
+  "data_quality": "production_fetch",
+  "tenaska_row_count": 382,
+  "gks_actual": {
+    "da_energy_revenue": -1990.74,
+    "rt_energy_revenue": 2366.09,
+    "energy_total": 375.35,
+    "as_revenue_nonspin": 1545.60,
+    "as_revenue_rrs": 661.50,
+    "as_revenue_ecrs": 426.30,
+    "as_revenue_regup": 0.00,
+    "as_revenue_regdown": 0.00,
+    "rt_ancillary_imbalance": 0.00,
+    "rt_reliability_deployment_imbalance": 0.00,
+    "as_total": 2633.40,
+    "dart_virtual_revenue": null,
+    "dart_virtual_note": "Not separately reportable from Battery-Settlement-Details; embedded in DA_Energy_Amt",
+    "total_revenue": 3008.74
+  },
+  "battery_state": {
+    "rt_injection_mwh": 93.813,
+    "rt_consumption_mwh": 116.935,
+    "rt_net_mwh": -23.122,
+    "da_sales_mwh": 100.20,
+    "da_purchases_mwh": 250.00,
+    "as_dispatched_nonspin_mwh": 1190.0,
+    "as_dispatched_rrs_mwh": 350.0,
+    "as_dispatched_ecrs_mwh": 140.0,
+    "as_dispatched_regup_mwh": 0.0,
+    "as_dispatched_regdown_mwh": 0.0,
+    "cycles_equivalent": 0.58
+  },
+  "smartbidder_benchmark": {
+    "strategy": "Mount Blue Sky with Virtuals (RTC Version)",
+    "source": "estimate_not_settled",
+    "da_energy_revenue": 1989.46,
+    "rt_energy_revenue": -1847.50,
+    "nonspin_total": 2683.28,
+    "rrs_total": 24.60,
+    "ecrs_total": 19.38,
+    "regup_revenue": 0.00,
+    "regdown_revenue": 0.00,
+    "dart_virtual_revenue": 1807.00,
+    "total_revenue": 4676.21
+  },
+  "vs_benchmark": {
+    "delta_total": -1667.47,
+    "delta_pct": -35.7,
+    "delta_nonspin": -1137.68,
+    "delta_rrs": 636.90,
+    "delta_ecrs": 406.92,
+    "note": "Line-by-line comparison is directional only; DA Energy is not apples-to-apples due to DART virtual separation in benchmark"
+  }
+}
