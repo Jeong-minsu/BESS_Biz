@@ -2,8 +2,8 @@
 
 **Owner**: Minsoo (GridFlex Inc.)
 **Agent**: `congestion-analyst`
-**Last updated**: 2026-04-30
-**Current stage**: Stage 0 — Infrastructure setup (not yet started)
+**Last updated**: 2026-05-24
+**Current stage**: Stage 0 — Infrastructure setup (in progress — daily provisional outlooks active; ML pipeline not started)
 
 ---
 

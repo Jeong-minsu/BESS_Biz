@@ -2,7 +2,7 @@
 
 **Source of truth**: `agensts/CONGESTION_PROJECT.md`
 **Maintained by**: `congestion-analyst` agent
-**Updated**: 2026-05-22
+**Updated**: 2026-05-24
 
 ---
 
@@ -56,8 +56,15 @@ These heuristics should be formalized into the Stage 1 LightGBM feature set.
 
 ### Critical data gaps blocking Stage 1
 
-1. **Hub-pair LMP data** (HB_NORTH, HB_SOUTH, HB_WEST, HB_HOUSTON): Not in current Yes Energy pull. Required for basis view and constraint calibration. Action: modify fetch_market_data.py to add hub LMP endpoint.
+1. **Hub-pair LMP data** (HB_NORTH, HB_SOUTH, HB_WEST, HB_HOUSTON): Not in current Yes Energy pull. Required for basis view and constraint calibration. Action: modify fetch_market_data.py to add hub LMP endpoint. **Highest priority** — blocking daily basis view calibration.
 2. **ERCOT 60-day disclosure**: No constraint-level binding history. Blocking constraint enumeration for Stage 1 model. Action: ERCOT MIS API ingestion (cdr.00013068 or equivalent).
+3. **Smartbidder DA/RT5 price data**: Not present in fetches for 2026-05-23, 2026-05-24, or 2026-05-25. Multi-day absence may indicate endpoint or credential issue. Investigate or deprioritize.
+4. **Enverus solar STPF**: Not pulled in current daily fetch (only wind STPF and load FC). Should be added to fetch_market_data.py alongside wind STPF for cross-validation with Yes Energy COPHSL.
+
+### Additional Stage 0 heuristic validations (as of 2026-05-24 cycle)
+
+5. **GR_WEST wind trough is the dominant WEST_TO_NORTH binding discriminator**: Comparing 2026-05-24 (GR_WEST trough ~600 MW, P(binding)=HIGH ~35-50%) against 2026-05-25 (trough ~2,749 MW, P(binding)=MEDIUM ~20-30%) confirms that a 4.6x difference in West wind produces ~15-20 pp P(binding) difference even when solar levels are comparable (~28-29 GW). For Stage 1 LightGBM: GR_WEST trough in HE09-14 window should be a top-tier feature.
+6. **Yes Energy vs Enverus net load divergence (4 GW at HE10 on 2026-05-25)**: 20,931 MW (Yes Energy) vs 24,855 MW (Enverus) — meaningful source discrepancy. Flagged for Stage 1 source weighting decision pending settlement data calibration.
 
 ---
 
