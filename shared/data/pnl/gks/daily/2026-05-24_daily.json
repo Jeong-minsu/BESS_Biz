@@ -1,0 +1,44 @@
+{
+  "data_source": "PRODUCTION (Tenaska PTP + Smartbidder)",
+  "flowday": "2026-05-24",
+  "generated_at_utc": "2026-05-25T12:11:12Z",
+  "gks_actual": {
+    "da_energy_revenue": -5939.44,
+    "rt_energy_revenue": 9188.55,
+    "as_revenue_rrs": 510.4,
+    "as_revenue_ecrs": 233.1,
+    "as_revenue_nonspin": 1448.3,
+    "as_revenue_regup": 0.0,
+    "as_revenue_regdown": 0.0,
+    "dart_virtual_revenue": 0.0,
+    "total_as_revenue": 2191.8,
+    "total_revenue": 5440.91
+  },
+  "gks_quantities": {
+    "da_purchases_mwh": 250.0,
+    "da_sales_mwh": 54.3,
+    "rt_consumption_mwh": 27.72,
+    "rt_generation_mwh": 102.81,
+    "net_energy_mwh": 75.09,
+    "cycles_equivalent": 0.326,
+    "gen_rrs_mw_hr": 240,
+    "gen_ecrs_mw_hr": 280,
+    "gen_ns_mw_hr": 980
+  },
+  "smartbidder_benchmark": {
+    "strategy": "Mount Blue Sky with Virtuals (RTC Version)",
+    "note": "estimate, not settled",
+    "da_energy_revenue": 697.87,
+    "rt_energy_revenue": -517.24,
+    "nonspin_revenue": 2558.17,
+    "rrs_revenue": 71.46,
+    "ecrs_revenue": 263.47,
+    "dart_virtual_revenue": 1480.75,
+    "total_revenue": 4554.47
+  },
+  "vs_benchmark": {
+    "delta_usd": 886.44,
+    "delta_pct": 19.5
+  },
+  "spread_convention": "spread = DA_SPP - RT_SPP; positive => DA expensive => short DA / long RT signal"
+}
