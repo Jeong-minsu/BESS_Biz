@@ -2,50 +2,211 @@
 
 **Source of truth**: `agensts/CONGESTION_PROJECT.md`
 **Maintained by**: `congestion-analyst` agent
-**Updated**: 2026-04-30 (initial)
+**Updated**: 2026-05-26 (datalake-only Stage 0 plan)
 
 ---
 
 ## Current Stage
 
-**Stage 0 — Infrastructure setup** (시작 전 / not yet started)
+**Stage 0 — Infrastructure** (in progress / datalake-only, 3-4 weeks)
 
-### Stage 0 Checklist (from CONGESTION_PROJECT.md §4)
+> **2026-05-26 결정 (jms2527 + main thread)**: Stage 0 데이터 페치는 **Yes Energy Datalake (S3, bucket=`yedatalake`) 단독**으로 진행. ERCOT MIS direct 의존 0개로 확정. 사용자가 "PTDF = shift factor" 라는 ERCOT 용어 동치를 정확히 짚어준 덕분에 datalake의 4종 shift factor 경로 검증으로 NMMS direct extraction이 불필요해졌다. 9개 Stage 0 체크리스트 항목 전부 datalake에서 페치 가능함이 실측 확인됨.
 
-- [ ] ERCOT API ingestion (DAM/RTM clearing, binding constraints, SCED)
-- [ ] NMMS network model parsing → bus, branch, generator tables
-- [ ] PTDF / LODF matrix extraction (monthly snapshots)
-- [ ] CRR auction history ingestion
-- [ ] Outage data (60-day disclosure + transmission)
-- [ ] Weather pipeline (NOAA HRRR, by zone, hub-height wind)
-- [ ] Henry Hub + Waha gas
-- [ ] Unified time-aligned storage (Parquet + DuckDB)
-- [ ] Data quality dashboard (missingness, drift)
+---
+
+## Stage 0 Checklist — datalake 매핑
+
+각 항목 옆에 (소스 S3 경로 / 추정 소요 / 의존성 / deliverable) 4종 메타 포함.
+
+### [W1] 자격증명·인프라·메타데이터·DA constraints
+
+#### 0.1 Datalake client + ddl.json 파서
+- **데이터**: 없음 (코드 작업)
+- **소스**: `.env::yes_energy_s3` → `_env_loader.load_env_sections()["yes_energy_s3"]`
+- **소요**: 0.5d
+- **의존성**: 없음 (cold start)
+- **Deliverable**:
+  - `src/ingestion/_datalake_client.py` — boto3 클라이언트 팩토리 + `read_csv_gz(key)` + `read_ddl(folder)` 헬퍼
+  - `tests/test_datalake_client.py` — `list_objects_v2` smoke test
+
+#### 0.2 Network metadata (static) — facility/contingency/plant/unit/all
+- **소스**: `yedatalake://ercot/metadata/objects/{facility,contingency,ercot_plant,ercot_unit,all}.csv.gz` + 각 `ddl.json`
+- **소요**: 0.5d
+- **의존성**: 0.1
+- **Deliverable**:
+  - `src/ingestion/datalake_metadata.py`
+  - `data/raw/ercot/metadata/objects/*.parquet` (snapshot, dated)
+  - 컬럼 스키마 markdown: `memory/congestion-analyst/learnings/2026-05-XX-metadata-schema.md`
+- **Note**: contingency.csv.gz + facility.csv.gz 는 binding constraint join key 의 source of truth — W1 안에 끝내야 함
+
+#### 0.3 DA binding constraints backfill (16yr)
+- **소스**: `yedatalake://ercot/transmission/constraints/da/{YYYYMMDD}.csv.gz` (2010-10 → 현재)
+- **소요**: 2.0d (다운로드 ~1d + 정규화 1d)
+- **의존성**: 0.1, 0.2 (FACILITYID / CONTINGENCYID join)
+- **Deliverable**:
+  - `src/ingestion/datalake_constraints.py`
+  - `data/raw/ercot/transmission/constraints/da/year=YYYY/*.parquet` (Hive-partitioned)
+  - `data/interim/da_constraints_normalized.parquet` — (date, hour, CONSTRAINT, CONTINGENCY, FACILITY, λ, binding_flag) long table
+- **Risk**: 16년치 daily file = ~5,800 days. 파일당 평균 100-500KB 예상 → 총 1-3GB. 다운로드 시간 자체보다 *throttling / retry* 가 critical path.
+
+**W1 종료 기준**: DA constraints 가 (YYYY, constraint_id) 로 쿼리 가능한 parquet 으로 정착. λ 분포 / binding frequency top-50 list 산출.
+
+---
+
+### [W2] Shift factor 4종 backfill + 정규화 (= PTDF/LODF 통합)
+
+> 4종 shift factor 모두 (CONSTRAINT, CONTINGENCY, RESOURCE|PNODE|SP) → SHIFTFACTOR 트리플. ERCOT가 base-case PTDF + post-contingency PTDF 를 한 테이블에 발행하므로 별도 LODF 행렬 계산 불필요.
+
+#### 0.4 DAM market shift factors (pricenode-level + SHADOWPRICE + LIMIT)
+- **소스**: `yedatalake://ercot/transmission/constraints/market_shift_factors/{YYYYMMDD}.csv.gz` (2016-01 → )
+- **소요**: 1.5d
+- **의존성**: 0.2
+- **Deliverable**: `data/raw/ercot/transmission/constraints/market_shift_factors/year=YYYY/*.parquet`
+- **Use**: DAM binding/λ 모델의 PTDF projection — pricenode-level (Stage 2의 nodal MCC 재구성 1차 source)
+- **History 한계**: 2016-01 이후 → backtest window 10년
+
+#### 0.5 RT (SCED) shift factors (resource-level PTDF)
+- **소스**: `yedatalake://ercot/transmission/constraints/ercot_sced_shift_factors/{YYYYMMDD}.csv.gz` (2011-12 → )
+- **소요**: 2.0d (~480K rows/day × 5000+ days = 2.4B rows; columnar parquet 필수)
+- **의존성**: 0.2
+- **Deliverable**: `data/raw/.../ercot_sced_shift_factors/year=YYYY/*.parquet`
+- **Use**: RTM 모델 PTDF 입력 (resource-level → 발전기별 contribution)
+- **Critical**: 가장 큰 dataset 중 하나. 6.8 MB gz × 5000 days = ~34 GB gzipped. SCED용 dedicated storage budget 필요.
+
+#### 0.6 Settlement shift factors (SP-level)
+- **소스**: `yedatalake://ercot/transmission/constraints/settle_shift_factors_ercot/{YYYYMMDD}.csv.gz` (2020-02 → )
+- **소요**: 1.0d
+- **의존성**: 0.2
+- **Deliverable**: `data/raw/.../settle_shift_factors_ercot/year=YYYY/*.parquet`
+- **Use**: settlement point 기준 사후 검증용 (P&L attribution)
+- **History 한계**: 2020-02 이후 → 6년치만. 이전 backtest 는 0.4 / 0.5 로 대체.
+
+#### 0.7 Generic shift factors (pricenode-level + QUALITY_METRIC)
+- **소스**: `yedatalake://ercot/transmission/constraints/shift_factors/{YYYYMMDD}.csv.gz` (2015-01 → )
+- **소요**: 0.5d
+- **의존성**: 0.2
+- **Deliverable**: `data/raw/.../shift_factors/year=YYYY/*.parquet`
+- **Use**: QUALITY_METRIC 컬럼으로 PTDF 신뢰도 필터링 — feature engineering 단계 input.
+
+#### 0.8 정규화 — shift factor 4종의 용도 차이 문서화
+- **Deliverable**:
+  - `memory/congestion-analyst/plans/shift-factor-variants.md` —
+    - DAM(0.4) = DAM clearing 시 사용된 PTDF (λ 직접 매칭)
+    - RT(0.5) = SCED 5min PTDF (RTM 모델 입력)
+    - Settle(0.6) = settlement point 정산용 PTDF (P&L)
+    - Generic(0.7) = quality-flagged base PTDF (sanity check)
+  - `data/interim/shift_factors_unified_schema.md` — 4종 컬럼 매핑 표
+
+**W2 종료 기준**: DAM constraint (W1 산출) × DAM shift factor (0.4) join → (date, hour, constraint, pnode, shift_factor, λ) 통합 테이블 1개 산출. 임의 노드의 DAM MCC 재구성 = -Σ(SF × λ) 가 actual DAM LMP MCC 와 일치하는지 sanity check.
+
+---
+
+### [W3] Price / Outage / CRR / GTC
+
+#### 0.9 Bus-level (nodal) LMP backfill — **critical path**
+- **소스**: `yedatalake://ercot/prices/bus_lmp/{YYYYMMDD}.csv.gz` (2017-01 → )
+- **소요**: 3.0d (다운로드 자체로 1.5d, partition+QA 1.5d)
+- **의존성**: 0.2
+- **Deliverable**: `data/raw/ercot/prices/bus_lmp/year=YYYY/month=MM/*.parquet`
+- **Risk (Critical Path)**: ~10 MB/day gz × 3,200 days = **~30 GB gzipped, ~150 GB uncompressed parquet**. 전체 backfill 1회 다운로드 시간 + 디스크 + S3 egress 비용 모두 가장 큰 항목. → **W3 시작 전에 디스크 60GB+ 여유 확인 필수**.
+
+#### 0.10 Hub/zone LMP 15-min
+- **소스**: `yedatalake://ercot/prices/lmp/15min/{YYYYMMDDHH}.csv.gz` (2012-11 → )
+- **소요**: 1.0d
+- **의존성**: 0.1
+- **Deliverable**: `data/raw/ercot/prices/lmp/15min/year=YYYY/*.parquet`
+- **Use**: hub-pair basis history (Stage 1 baseline target) + 15min granularity feature.
+
+#### 0.11 Transmission outages
+- **소스**: `yedatalake://ercot/transmission/outages/actual/{YYYYMMDDHH}.csv.gz` (2017-01 → )
+- **소요**: 1.0d
+- **의존성**: 0.2 (facility join)
+- **Deliverable**: `data/raw/ercot/transmission/outages/actual/year=YYYY/*.parquet`
+- **Note**: hourly granular — outage event 가 binding 직전에 새로 들어왔는지 detect 가능.
+
+#### 0.12 CRR/FTR auction history
+- **소스**: `yedatalake://ercot/ftr/auction/{YYYY_MM_monthly,YYYY_annual}/{results,obligationmcp,optionmcp}.csv.gz` (2010-12 → )
+- **소요**: 0.5d
+- **의존성**: 0.1
+- **Deliverable**: `data/raw/ercot/ftr/auction/year=YYYY/*.parquet`
+- **Open decision 해소**: ✅ Datalake로 결정 (별도 ERCOT API subscription 불필요).
+
+#### 0.13 GTC (Generic Transmission Constraints) DA/RT
+- **소스**: `yedatalake://ercot/flow/ercot_{da,rt}_generic_constraints/` (2016-03 → )
+- **소요**: 0.5d
+- **의존성**: 0.2
+- **Deliverable**: `data/raw/ercot/flow/ercot_{da,rt}_generic_constraints/year=YYYY/*.parquet`
+- **Note**: CONGESTION_PROJECT.md §8 의 "GTBD (generic transmission constraints) ─ ERCOT-specific stability constraints" 항목 — 본 backfill로 별도 핸들링 ready.
+
+**W3 종료 기준**: 가격·outage·CRR·GTC backfill 완료. bus_lmp 의 day-1 spot check (임의 일자 GK 노드 LMP 와 ERCOT settlement statement 대조) 통과.
+
+---
+
+### [W4] Vintage / Weather / Gas + 통합 스토리지 + QA
+
+#### 0.14 Vintage forecasts (publish-time snapshots) — **leakage 자연 방지**
+- **소스**: `yedatalake://ercot/vintage/...` (정확한 sub-path는 W4 시작 시 확인 — load forecast / wind STWPF / solar STPPF 등 vintage tree)
+- **소요**: 2.0d (sub-path 탐색 0.5d + 페치 1.5d)
+- **의존성**: 0.1
+- **Deliverable**:
+  - `src/ingestion/datalake_vintage.py`
+  - `data/raw/ercot/vintage/<series>/year=YYYY/*.parquet`
+- **Critical**: D-1 10:00 CT cutoff 룰 (CONGESTION_PROJECT.md §6) 을 **데이터 레벨에서** 강제하는 유일한 source. publish_time 컬럼이 cutoff < publish_time 인 row 를 자동 차단해줌. Stage 1+ feature engineering 의 안전망.
+
+#### 0.15 Weather (forecast + actual, zone-level)
+- **소스**: `yedatalake://ercot/weather/{forecast,actual}/{YYYYMMDD}.csv.gz` (forecast 2008+, actual 2006+)
+- **소요**: 1.0d
+- **의존성**: 0.1
+- **Deliverable**: `data/raw/ercot/weather/{forecast,actual}/year=YYYY/*.parquet`
+- **Open decision 해소**: Stage 0/1 한정 datalake zone-level 로 충분. ⏸ HRRR (NOMADS 직접 다운로드) 는 **Stage 2 로 deferred** — hub-height wind / GHI 가 universal constraint model (Stage 2) 에서 필요해질 때 재개.
+
+#### 0.16 Henry Hub + Waha gas
+- **소스**: `yedatalake://ercot/prices/gas/` (정확한 경로 W4 시작 시 확인 필요 — 아직 미검증)
+- **소요**: 0.5d
+- **의존성**: 0.1
+- **Deliverable**: `data/raw/ercot/prices/gas/*.parquet`
+- **Fallback**: 만약 datalake에 없으면 EIA API / external — W4 중반 escalation point.
+
+#### 0.17 통합 Parquet/DuckDB 스토리지
+- **Deliverable**:
+  - `data/interim/duckdb_views.sql` — 각 raw parquet을 view로 등록
+  - `src/storage/duckdb_session.py` — `attach_all()` 헬퍼
+- **소요**: 1.0d
+- **의존성**: W1-W3 산출물 전부
+
+#### 0.18 Data quality dashboard
+- **Deliverable**:
+  - `notebooks/qa_dashboard.ipynb` — missingness / drift / coverage timeline 시각화
+  - `reports/ad-hoc/2026-MM-DD_congestion-stage0-qa.md` — Stage 0 → 1 전환 GO/NO-GO 판정용
+- **소요**: 1.5d
+- **의존성**: 0.17
+- **Stage 0 → 1 게이트**: dashboard 가 14일 연속 green (CONGESTION_PROJECT.md §4 transition gate).
+
+**W4 종료 기준**: 전체 데이터 인벤토리가 단일 DuckDB session 으로 쿼리 가능. QA 대시보드 첫 14일 모니터링 시작.
+
+---
+
+## Critical Path 식별
+
+1. **0.9 bus_lmp** — 9년치 × 10MB/day = ~30 GB gzipped 다운로드. W3 의 절반 이상을 차지. → **W3 시작 전 디스크 60 GB+ 확보 / S3 egress rate-limit 확인**.
+2. **0.5 ercot_sced_shift_factors** — 14년치, ~34 GB gzipped. W2 의 최대 risk.
+3. **0.3 DA constraints + 0.4 DAM shift factors 정합성** — W1/W2 의 교차 sanity check (DAM MCC 재구성) 가 실패하면 Stage 1 baseline 진입 차단.
+
+총 raw storage 예상: **~70 GB gzipped, ~300 GB uncompressed parquet (snappy)**. 압축 효율 고려해 columnar 변환 후 ~120 GB.
 
 ---
 
 ## Open Decisions (from CONGESTION_PROJECT.md §9)
 
-- [ ] CRR data subscription path — direct ERCOT API vs YES Energy
-- [ ] HRRR weather pipeline — direct NOMADS download vs commercial provider
-- [ ] Initial constraint subset for Stage 1 — full list vs top-N by historical binding frequency
-- [ ] Online learning vs scheduled retraining cadence
-- [ ] Inference latency target for RTM (5-min cycle hard cap)
+- [x] **CRR data subscription path** — ✅ **datalake로 해소 (2026-05-26)**. `yedatalake://ercot/ftr/auction/`.
+- [x] **HRRR weather pipeline** — ⏸ **Stage 0/1 한정 datalake zone-level 로 충분, HRRR 은 Stage 2 로 deferred (2026-05-26)**. Stage 2 의 universal constraint model 이 hub-height wind / GHI 를 요구할 때 NOMADS 직접 다운로드 vs commercial 재논의.
+- [ ] Initial constraint subset for Stage 1 — full list vs top-N by historical binding frequency (W1 0.3 산출 후 결정)
+- [ ] Online learning vs scheduled retraining cadence (Stage 2 이후 결정)
+- [ ] Inference latency target for RTM 5-min cycle (Stage 3 이후 결정)
 
 ---
 
-## Daily output during Stage 0
-
-본 stage 동안 congestion-analyst가 산출 가능한 것:
-- **Hub-pair basis 히스토리**: 단순 `DALMP:WEST_HUB - DALMP:NORTH_HUB` 평균/분포 — 정량 view
-- **Binding constraint 빈도** (60-day disclosure 가공): 어떤 constraint가 자주 binding하는지 통계
-- **Top constraint list**: 다음 단계 모델링 후보군
-
-산출물 형식: 위 두 가지로 D+1 outlook 제한적 작성. **shadow price 모델링은 Stage 2까지 미실시**.
-
----
-
-## Stage transition gates
+## Stage transition gates (unchanged)
 
 | Stage | Trigger | KPI |
 |---|---|---|
@@ -56,11 +217,30 @@
 
 ---
 
+## Daily output during Stage 0 (unchanged)
+
+본 stage 동안 congestion-analyst가 산출 가능한 것:
+- Hub-pair basis 히스토리 (DALMP:WEST_HUB − DALMP:NORTH_HUB 등)
+- Binding constraint 빈도 통계 (W1 0.3 산출물 활용)
+- Top constraint list (Stage 1 후보군)
+
+형식: D+1 outlook 의 `[Stage 0 — provisional]` 헤더 유지. shadow price 모델링은 Stage 2 진입 후.
+
+---
+
 ## Weekly update template
 
 ```markdown
 ## Week YYYY-WW
-- 진행: <Stage 0 체크리스트 중 N개 완료>
-- 블로커: <…>
-- 다음주 목표: <…>
+- 완료: <0.x 항목 N개>
+- 진행 중: <0.x>
+- 블로커: <S3 throttling / 디스크 / ddl.json 불일치 / …>
+- 다음주 목표: <0.x ~ 0.x>
 ```
+
+---
+
+## 변경 이력
+
+- **2026-05-26** — datalake-only 전면 재작성. 9개 체크리스트를 0.1–0.18 의 18개 sub-task 로 분해. W1–W4 milestone 정의. Critical path 식별 (bus_lmp / sced_shift_factors). Open decision 2개 해소.
+- **2026-04-30** — initial scaffold.

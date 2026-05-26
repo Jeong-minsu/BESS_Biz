@@ -2,8 +2,8 @@
 
 **Owner**: Minsoo (GridFlex Inc.)
 **Agent**: `congestion-analyst`
-**Last updated**: 2026-04-30
-**Current stage**: Stage 0 — Infrastructure setup (not yet started)
+**Last updated**: 2026-05-26
+**Current stage**: Stage 0 — Infrastructure (in progress, datalake-only, 3-4 weeks)
 
 ---
 
@@ -59,14 +59,20 @@ This handles new constraints without retraining.
 
 ## 4. Stage roadmap
 
-### Stage 0 — Infrastructure (Month 1-2) — CURRENT
-- [ ] ERCOT API ingestion (DAM/RTM clearing, binding constraints, SCED)
-- [ ] NMMS network model parsing → bus, branch, generator tables
-- [ ] PTDF / LODF matrix extraction (monthly snapshots)
-- [ ] CRR auction history ingestion
-- [ ] Outage data (60-day disclosure + transmission)
-- [ ] Weather pipeline (NOAA HRRR, by zone, hub-height wind)
-- [ ] Henry Hub + Waha gas
+### Stage 0 — Infrastructure (3-4 weeks, datalake-only) — CURRENT
+
+> **2026-05-26**: 9개 항목 전부 Yes Energy Datalake (S3 bucket `yedatalake`) 단독으로 페치 가능함이 메인 thread에서 실측 검증됨. ERCOT MIS direct 의존 0개. Week-level breakdown은 `memory/congestion-analyst/plans/stage-progress.md` 참조.
+
+- [ ] DAM/RTM constraint + λ + SCED ingestion  ← `yedatalake://ercot/transmission/constraints/da/{YYYYMMDD}.csv.gz` (2010-10+), `ercot_sced_shift_factors/{YYYYMMDD}.csv.gz` (2011-12+)
+- [ ] Network metadata (facility / contingency / plant / unit) — NMMS parsing 대체  ← `yedatalake://ercot/metadata/objects/{facility,contingency,ercot_plant,ercot_unit,all}.csv.gz`
+- [ ] PTDF / LODF — shift factor 4종이 datalake에 있어 NMMS direct 불필요 (2026-05-26 확인). Base-case + post-contingency PTDF 모두 한 테이블 (CONSTRAINT, CONTINGENCY, RESOURCE|PNODE|SP) → SHIFTFACTOR. 별도 LODF 행렬 계산 불필요.  ← `yedatalake://ercot/transmission/constraints/{market_shift_factors,ercot_sced_shift_factors,settle_shift_factors_ercot,shift_factors}/{YYYYMMDD}.csv.gz`
+- [ ] CRR / FTR auction history  ← `yedatalake://ercot/ftr/auction/{YYYY_MM_monthly|YYYY_annual}/{results,obligationmcp,optionmcp}.csv.gz` (2010-12+)
+- [ ] Transmission outages (hourly granular)  ← `yedatalake://ercot/transmission/outages/actual/{YYYYMMDDHH}.csv.gz` (2017-01+)
+- [ ] Weather — Stage 0 한정 datalake zone-level forecast + actual. HRRR 은 Stage 2 로 deferred.  ← `yedatalake://ercot/weather/{forecast,actual}/{YYYYMMDD}.csv.gz`
+- [ ] Henry Hub + Waha gas  ← `yedatalake://ercot/prices/gas/` (정확한 경로 W4 진입 시 확인)
+- [ ] Vintage forecasts (publish-time snapshots) — D-1 cutoff leakage 자연 방지  ← `yedatalake://ercot/vintage/...`
+- [ ] Bus-level (nodal) LMP + hub/zone 15-min LMP  ← `yedatalake://ercot/prices/bus_lmp/{YYYYMMDD}.csv.gz` (2017-01+), `prices/lmp/15min/{YYYYMMDDHH}.csv.gz` (2012-11+)
+- [ ] GTC (Generic Transmission Constraints) DA/RT  ← `yedatalake://ercot/flow/ercot_{da,rt}_generic_constraints/` (2016-03+)
 - [ ] Unified time-aligned storage (Parquet + DuckDB)
 - [ ] Data quality dashboard (missingness, drift)
 
@@ -97,34 +103,41 @@ This handles new constraints without retraining.
 
 ## 5. Data inventory
 
+> All Stage 0 sources resolved to `yedatalake://` paths (2026-05-26). Column schemas live in each folder's `ddl.json`.
+
 ### Static (rarely changes)
-- Network topology (bus, branch, transformer)
-- PTDF / LODF matrices (monthly)
-- Generator → bus mapping, fuel type, capacity
-- Constraint definitions (monitored element + contingency pairs)
+- Network topology (bus, branch, transformer)  ← `yedatalake://ercot/metadata/objects/{facility,all}.csv.gz`
+- PTDF / LODF matrices — **shift factor variants** (see Tier 1)
+- Generator → bus mapping, fuel type, capacity  ← `yedatalake://ercot/metadata/objects/{ercot_plant,ercot_unit}.csv.gz`
+- Constraint definitions (monitored element + contingency pairs)  ← `yedatalake://ercot/metadata/objects/contingency.csv.gz` + DA constraint history
 
 ### Daily
-- ERCOT 60-day disclosure (settlement prices, SCED, AS, binding constraints)
-- DAM / RTM clearing
-- CRR auction results (monthly issuance, accumulated)
-- Outage schedules (planned + forced)
+- ERCOT 60-day disclosure (settlement prices, SCED, AS, binding constraints)  ← `yedatalake://ercot/transmission/constraints/da/{YYYYMMDD}.csv.gz` + `ercot_sced_shift_factors/...`
+- DAM / RTM clearing  ← `yedatalake://ercot/prices/bus_lmp/{YYYYMMDD}.csv.gz` + `prices/lmp/15min/...`
+- CRR auction results (monthly issuance, accumulated)  ← `yedatalake://ercot/ftr/auction/{YYYY_MM_monthly|YYYY_annual}/*.csv.gz`
+- Outage schedules (planned + forced)  ← `yedatalake://ercot/transmission/outages/actual/{YYYYMMDDHH}.csv.gz`
 
 ### Hourly / sub-hourly
-- Load forecast and actual by weather zone
-- Wind/solar forecast (STWPF, STPPF, WGRPP, PVGRPP, all vintages) and actual
-- Real-time SCED outputs
-- Weather (NOAA HRRR, by zone — hub-height wind, GHI, DNI, temperature)
-- Henry Hub + Waha gas
+- Load forecast and actual by weather zone  ← `yedatalake://ercot/vintage/...` (publish-time vintage tree) + actual via weather/REST
+- Wind/solar forecast (STWPF, STPPF, WGRPP, PVGRPP, all vintages) and actual  ← `yedatalake://ercot/vintage/...`
+- Real-time SCED outputs  ← `yedatalake://ercot/transmission/constraints/ercot_sced_shift_factors/...`
+- Weather (zone-level forecast + actual) — Stage 0/1. HRRR hub-height wind / GHI 는 Stage 2.  ← `yedatalake://ercot/weather/{forecast,actual}/{YYYYMMDD}.csv.gz`
+- Henry Hub + Waha gas  ← `yedatalake://ercot/prices/gas/` (W4 진입 시 정확한 sub-path 확인)
 
 ### Critical features (priority order)
 **Tier 1 — required**
-- PTDF / LODF matrix
-- Constraint definitions
-- Generator-bus mapping, fuel, capacity
-- Outage list
-- Load by zone (forecast + actual)
-- Wind/solar forecast by zone
-- DAM clearing (also input to RTM model)
+- PTDF / LODF matrix — **shift factor 4종 variants** (all `yedatalake://ercot/transmission/constraints/...`):
+  - `market_shift_factors/` — DAM pricenode-level + SHADOWPRICE + LIMIT (2016-01+) — DAM model PTDF projection 1차 source
+  - `ercot_sced_shift_factors/` — RT/SCED resource-level (2011-12+) — RTM model PTDF input
+  - `settle_shift_factors_ercot/` — SP-level (2020-02+) — P&L attribution
+  - `shift_factors/` — generic pricenode-level + QUALITY_METRIC (2015-01+) — quality filter
+  - Base case + post-contingency PTDF (LODF effect) 모두 (CONSTRAINT, CONTINGENCY, RESOURCE|PNODE|SP) → SHIFTFACTOR 트리플로 발행됨 — 별도 LODF 행렬 계산 불필요.
+- Constraint definitions  ← `yedatalake://ercot/metadata/objects/contingency.csv.gz`, `facility.csv.gz`
+- Generator-bus mapping, fuel, capacity  ← `yedatalake://ercot/metadata/objects/{ercot_plant,ercot_unit}.csv.gz`
+- Outage list  ← `yedatalake://ercot/transmission/outages/actual/...`
+- Load by zone (forecast + actual)  ← `yedatalake://ercot/vintage/...` (forecast vintages) + `weather/actual/...`
+- Wind/solar forecast by zone  ← `yedatalake://ercot/vintage/...`
+- DAM clearing (also input to RTM model)  ← `yedatalake://ercot/prices/bus_lmp/...`
 
 **Tier 2 — high lift**
 - Hub-height wind speed by zone (NOAA HRRR, 80m & 100m)
@@ -199,8 +212,8 @@ Always report metrics broken down by:
 
 ## 9. Open decisions
 
-- [ ] CRR data subscription path — direct ERCOT API vs YES Energy
-- [ ] HRRR weather pipeline — direct NOMADS download vs commercial provider
+- [x] CRR data subscription path — ✅ **datalake로 결정 (2026-05-26)** — `yedatalake://ercot/ftr/auction/`. ERCOT API 별도 subscription 불필요.
+- [x] HRRR weather pipeline — ⏸ **Stage 2 로 deferred (2026-05-26)** — Stage 0/1 은 datalake zone-level (`yedatalake://ercot/weather/{forecast,actual}/`) 로 충분. Stage 2 universal constraint model 이 hub-height wind / GHI 를 요구할 때 NOMADS 직접 vs commercial 재논의.
 - [ ] Initial constraint subset for Stage 1 — full list vs top-N by historical binding frequency
 - [ ] Online learning vs scheduled retraining cadence (regime change handling)
 - [ ] Inference latency target for RTM (5-min cycle is hard cap)
@@ -217,13 +230,33 @@ ercot-congestion/
 │       └── congestion-analyst/
 │           └── MEMORY.md           # accumulated session notes
 ├── data/
-│   ├── raw/                        # API pulls, untouched
-│   ├── interim/                    # cleaned, time-aligned
+│   ├── raw/                        # datalake mirror — Hive-partitioned by year
+│   │   └── ercot/                  # mirrors yedatalake://ercot/ key prefix
+│   │       ├── transmission/
+│   │       │   ├── constraints/{da, market_shift_factors, ercot_sced_shift_factors, settle_shift_factors_ercot, shift_factors}/year=YYYY/*.parquet
+│   │       │   └── outages/actual/year=YYYY/*.parquet
+│   │       ├── prices/{bus_lmp, lmp/15min, gas}/year=YYYY/*.parquet
+│   │       ├── ftr/auction/year=YYYY/*.parquet
+│   │       ├── flow/ercot_{da,rt}_generic_constraints/year=YYYY/*.parquet
+│   │       ├── weather/{forecast,actual}/year=YYYY/*.parquet
+│   │       ├── vintage/<series>/year=YYYY/*.parquet
+│   │       └── metadata/objects/*.parquet
+│   ├── interim/                    # cleaned, time-aligned, normalized join keys
 │   ├── features/                   # ML-ready Parquet
-│   └── network/                    # NMMS, PTDF, LODF
+│   └── network/                    # NMMS-derived auxiliaries. shift factor 는 raw 에서 직접 load — 별도 PTDF 행렬 파일 불필요.
 ├── src/
-│   ├── ingestion/                  # ERCOT API, weather, gas
-│   ├── network/                    # PTDF, topology, constraint embedding
+│   ├── ingestion/                  # Stage 0 deliverable — 9 datalake modules (2026-05-26)
+│   │   ├── _datalake_client.py             # boto3 factory + ddl.json parser
+│   │   ├── datalake_metadata.py            # facility/contingency/plant/unit/all
+│   │   ├── datalake_constraints.py         # DA binding constraints + λ
+│   │   ├── datalake_shift_factors.py       # 4종 PTDF variants
+│   │   ├── datalake_lmp.py                 # bus_lmp + lmp/15min
+│   │   ├── datalake_outages.py             # transmission/outages/actual
+│   │   ├── datalake_ftr.py                 # CRR/FTR auction
+│   │   ├── datalake_vintage.py             # publish-time forecast snapshots
+│   │   ├── datalake_weather.py             # weather/forecast + actual
+│   │   └── datalake_gas.py                 # Henry Hub + Waha
+│   ├── network/                    # PTDF query helpers, topology, constraint embedding
 │   ├── features/
 │   ├── models/
 │   │   ├── stage1_baseline/
