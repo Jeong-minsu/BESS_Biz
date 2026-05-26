@@ -1,0 +1,152 @@
+{
+  "meta": {
+    "flow_date": "2026-05-24",
+    "issued_date": "2026-05-23",
+    "issued_by": "dart-virtual-trader",
+    "model_version": "v0",
+    "data_vintage": {
+      "yes_energy": "2026-05-23T12:08Z",
+      "smartbidder_forecast_run": "2026-05-23T06:57-05:00",
+      "enverus": "2026-05-23T06:41-06:47-05:00",
+      "smartbidder_price_file_available": false
+    },
+    "leakage_check": "COMPLIANT — all sources pre 2026-05-23 10:00 CT DAM cutoff",
+    "spread_sign_convention": "spread = DA - RT; positive => DA expensive => Short DA signal",
+    "notes": "Sunday flow date. DAM liquidity structurally reduced. Smartbidder DA/RT5 price series for 2026-05-24 not available; P(DA>RT) sourced from Smartbidder composite cited in market-analyst briefing."
+  },
+  "summary": {
+    "net_direction": "Short DA bias",
+    "hours_short_da": 4,
+    "hours_long_da": 3,
+    "hours_flat": 17,
+    "total_notional_mw": 266,
+    "short_da_mw": 200,
+    "long_da_mw": 66,
+    "expected_gross_pnl_usd": 1109.4,
+    "risk_adjusted_ev_usd": 743.7,
+    "win_loss_ratio_if_all_win_vs_all_lose": "1663 / -736 = 2.26:1",
+    "breakeven_hit_rate_pct": 30.7
+  },
+  "positions": [
+    {
+      "he": 10,
+      "node": "HB_NORTH",
+      "direction": "LONG_DA",
+      "size_mw": 22,
+      "da_bid_usd_per_mwh": 22.00,
+      "p_win": 0.62,
+      "e_spread_usd_per_mwh": -3.50,
+      "exp_gross_usd": 46.2,
+      "risk_adj_ev_usd": 28.6,
+      "tier": "MED",
+      "rationale": "P(DA<RT)=62%; solar 17,991 MW; net load 29,070 MW; WEST_TO_NORTH congestion HIGH (35-50%); HubN is import-receiving node (positive lambda under constraint)",
+      "risk_note": "WEST_TO_NORTH may not bind or releases early if wind underforecast; max loss $77"
+    },
+    {
+      "he": 11,
+      "node": "HB_NORTH",
+      "direction": "LONG_DA",
+      "size_mw": 22,
+      "da_bid_usd_per_mwh": 21.50,
+      "p_win": 0.62,
+      "e_spread_usd_per_mwh": -3.50,
+      "exp_gross_usd": 46.2,
+      "risk_adj_ev_usd": 28.6,
+      "tier": "MED",
+      "rationale": "Net load near trough 27,752 MW; solar 21,416 MW; GR_WEST 600 MW (trough); congestion peak hour; strongest West export binding signal",
+      "risk_note": "Same congestion risk as HE10; additional sensitivity: if solar 2,807 MW below Enverus, net load slightly higher but direction unchanged"
+    },
+    {
+      "he": 12,
+      "node": "HB_NORTH",
+      "direction": "LONG_DA",
+      "size_mw": 22,
+      "da_bid_usd_per_mwh": 21.00,
+      "p_win": 0.63,
+      "e_spread_usd_per_mwh": -3.50,
+      "exp_gross_usd": 48.5,
+      "risk_adj_ev_usd": 30.6,
+      "tier": "MED",
+      "rationale": "Yes Energy net load trough (27,615 MW); P(DA<RT)=63% highest of solar block; solar 23,733 MW; wind GR_WEST 602 MW near zero; maximum solar depression hour",
+      "risk_note": "Highest P of solar block but also tightest net load floor; any wind surprise 600->1500 MW reduces binding probability"
+    },
+    {
+      "he": 19,
+      "node": "HB_HOUSTON",
+      "direction": "SHORT_DA",
+      "size_mw": 50,
+      "da_bid_usd_per_mwh": 32.54,
+      "p_win": 0.684,
+      "e_spread_usd_per_mwh": 2.54,
+      "exp_gross_usd": 127.0,
+      "risk_adj_ev_usd": 59.5,
+      "tier": "HIGH",
+      "rationale": "P(DA>RT)=68.4%; spread +$2.54; Houston import constraint beginning; net load 40,794 MW; solar falling fast from 15,649 MW; congestion-analyst GKS MCC positive/neutral; Sunday DAM structural overprice",
+      "risk_note": "RT spike risk if early ramp surge; load still at 63,439 MW; resource cap out 15,100 MW limits headroom"
+    },
+    {
+      "he": 20,
+      "node": "HB_HOUSTON",
+      "direction": "SHORT_DA",
+      "size_mw": 50,
+      "da_bid_usd_per_mwh": 45.58,
+      "p_win": 0.684,
+      "e_spread_usd_per_mwh": 5.58,
+      "exp_gross_usd": 279.0,
+      "risk_adj_ev_usd": 130.9,
+      "tier": "HIGH",
+      "rationale": "P(DA>RT)=68.4%; spread +$5.58; net load ramp +7,887 MW HE19-20 (largest single-hour step); solar collapse 6,468 MW; Houston import HIGH (P 35-45%); primary P&L hour",
+      "risk_note": "Highest net load ramp hour; ORDC scarcity most likely here; RT spike asymmetric loss risk; max acceptable loss ~$88 at base scenario"
+    },
+    {
+      "he": 21,
+      "node": "HB_HOUSTON",
+      "direction": "SHORT_DA",
+      "size_mw": 50,
+      "da_bid_usd_per_mwh": 65.76,
+      "p_win": 0.675,
+      "e_spread_usd_per_mwh": 16.51,
+      "exp_gross_usd": 825.5,
+      "risk_adj_ev_usd": 376.5,
+      "tier": "HIGH",
+      "rationale": "P(DA>RT)=67.5%; spread +$16.51 largest of day; net load 53,905-54,446 MW; DA $65.76 reflects worst-case scarcity insurance; ECRS $8.27 + Non-Spin $16.23 confirm DAM scarcity pricing that RT typically does not fully realize; Sunday structural edge",
+      "risk_note": "HIGHEST VARIANCE POSITION. If ORDC triggers (resource cap out 15,100 MW + unplanned outage), RT can exceed $65.76 significantly. Max monitored loss at RT=$150: -$4,212. Actively monitor 5-min RT prices HE18-19."
+    },
+    {
+      "he": 22,
+      "node": "HB_HOUSTON",
+      "direction": "SHORT_DA",
+      "size_mw": 50,
+      "da_bid_usd_per_mwh": 38.00,
+      "p_win": 0.667,
+      "e_spread_usd_per_mwh": 4.00,
+      "exp_gross_usd": 200.0,
+      "risk_adj_ev_usd": 89.0,
+      "tier": "HIGH",
+      "rationale": "P(DA>RT)=66.7%; spread +$4.00; ramp unwinding; wind recovering 4,475 MW GR_WEST; net load 51,943 MW declining; congestion easing but still elevated; P signal sustained",
+      "risk_note": "Ramp tail risk moderating; wind recovery favorable (reduces RT spike probability); execution risk: Sunday DAM thin volume may cause partial fill at HE22"
+    }
+  ],
+  "skipped_hours": {
+    "HE01-09": "P(DA<RT) 38-62% but no Smartbidder explicit overnight confirmation; overnight spread historically thin; no settlement history to validate; HE07-09 sunrise transition congestion risk",
+    "HE13": "Recovery hour; spread compressing; congestion easing; P falling",
+    "HE14-15": "P(DA<RT) 55-58% below 60% MED threshold for congestion-overlay hours",
+    "HE16-17": "P(DA>RT) 58-61%; HE16 below threshold; HE17 transition congestion risk; solar still 24-25 GW",
+    "HE18": "RT spike risk on ERCOT gross load peak 64,502 MW; asymmetric loss at ramp onset; yield to cleaner HE19 entry",
+    "HE23-24": "Direction reversal (DA<RT expected); wind ramping; spread thin -$1.0"
+  },
+  "risk_summary": {
+    "primary_tail_risk": "HE21 RT spike under ORDC scarcity conditions",
+    "congestion_risks": [
+      "WEST_TO_NORTH binding timing error (HE10-12): may miss or arrive late",
+      "Houston import constraint magnitude uncertain (Stage 0, no PTDF)"
+    ],
+    "data_gaps": [
+      "Smartbidder DA/RT5 price file for 2026-05-24 not available",
+      "Hub-pair LMP data absent (HB_WEST, HB_NORTH, HB_HOUSTON separate series)",
+      "No 60-day constraint disclosure",
+      "No settlement history for hit rate validation"
+    ],
+    "model_limitations": "v0 model; no quantile regressor; P(DA>RT) from Smartbidder composite only; no conditional E[spread|direction] estimator"
+  }
+}
