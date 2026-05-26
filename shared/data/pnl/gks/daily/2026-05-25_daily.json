@@ -1,0 +1,69 @@
+{
+  "flowday": "2026-05-25",
+  "generated_at_utc": "2026-05-26T12:30:00Z",
+  "agent": "pnl-manager",
+  "data_status": "DEGRADED",
+  "data_source": {
+    "gks_actuals": {
+      "source": "Tenaska PTP (PRODUCTION)",
+      "is_mock": false,
+      "status": "FAILED",
+      "fetched_at_utc": "2026-05-26T12:12:57.523884Z",
+      "row_counts": {
+        "energy_as_detail": 0,
+        "da_energy_bid": 0,
+        "da_energy_offer": 0,
+        "hsl": 0
+      },
+      "failure_reason": "All 4 endpoints returned 0 records. Response duration 46-62ms consistent with IP whitelist rejection. Fourth incident in pattern (prior: 2026-05-21, 2026-05-23)."
+    },
+    "smartbidder_benchmark": {
+      "source": "Smartbidder API (PRODUCTION)",
+      "is_mock": false,
+      "is_estimate_not_settled": true,
+      "strategy": "Mount Blue Sky with Virtuals (RTC Version)",
+      "status": "OK"
+    }
+  },
+  "gks_actual": {
+    "da_energy_revenue": null,
+    "rt_energy_revenue": null,
+    "as_revenue_regup": null,
+    "as_revenue_regdown": null,
+    "as_revenue_rrs": null,
+    "as_revenue_ecrs": null,
+    "as_revenue_nonspin": null,
+    "dart_virtual_revenue": null,
+    "energy_injection_mwh": null,
+    "energy_consumption_mwh": null,
+    "total_revenue": null,
+    "note": "GKS actuals unavailable — Tenaska PTP returned 0 records. Re-run fetch_pnl_data.py from Ascend-whitelisted IP."
+  },
+  "smartbidder_benchmark": {
+    "da_energy_revenue": -799.54,
+    "rt_energy_revenue": 899.42,
+    "as_revenue_regup": 0.00,
+    "as_revenue_regdown": 0.00,
+    "as_revenue_rrs": 0.00,
+    "as_revenue_ecrs": 202.82,
+    "as_revenue_nonspin": 2599.70,
+    "as_revenue_nonspin_da": 3233.99,
+    "as_revenue_nonspin_rt": -634.29,
+    "dart_virtual_revenue": 0.00,
+    "total_revenue": 2902.41,
+    "notes": "RegUp/RegDown/RRS not present in this day's output (treated as 0). DART Virtual not separately reported (treated as 0). Non-Spin = DA Non-Spin (3233.99) + RT Non-Spin settlement (-634.29). Estimate, not settled."
+  },
+  "delta_gks_vs_benchmark": {
+    "da_energy_revenue": null,
+    "rt_energy_revenue": null,
+    "as_revenue_regup": null,
+    "as_revenue_regdown": null,
+    "as_revenue_rrs": null,
+    "as_revenue_ecrs": null,
+    "as_revenue_nonspin": null,
+    "dart_virtual_revenue": null,
+    "total_revenue": null,
+    "note": "Delta unavailable — GKS actuals missing"
+  },
+  "spread_convention": "spread = DA_SPP - RT_SPP (positive => DA expensive => short DA / long RT signal)"
+}
