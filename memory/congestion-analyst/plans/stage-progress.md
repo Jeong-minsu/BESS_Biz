@@ -18,38 +18,49 @@
 
 각 항목 옆에 (소스 S3 경로 / 추정 소요 / 의존성 / deliverable) 4종 메타 포함.
 
-### [W1] 자격증명·인프라·메타데이터·DA constraints
+### [W1] 자격증명·인프라·메타데이터·DA constraints — ✅ COMPLETED 2026-05-26
 
-#### 0.1 Datalake client + ddl.json 파서
+> **Historical window decision (2026-05-26)**: 학습 시작일을 **2020-02-01** 로 확정. `settle_shift_factors_ercot` 가 2020-02 이전 데이터를 보유하지 않아 그 이전 DA constraint history 는 shift factor 정합이 불가능함. 모든 W1 backfill 은 2020-02-01 이후만 처리.
+
+#### 0.1 Datalake client + ddl.json 파서 — [x] 2026-05-26
 - **데이터**: 없음 (코드 작업)
 - **소스**: `.env::yes_energy_s3` → `_env_loader.load_env_sections()["yes_energy_s3"]`
 - **소요**: 0.5d
 - **의존성**: 없음 (cold start)
 - **Deliverable**:
   - `src/ingestion/_datalake_client.py` — boto3 클라이언트 팩토리 + `read_csv_gz(key)` + `read_ddl(folder)` 헬퍼
-  - `tests/test_datalake_client.py` — `list_objects_v2` smoke test
+  - `tests/test_datalake_client.py` — `list_objects_v2` smoke test ✅ PASS (16 prefixes found)
 
-#### 0.2 Network metadata (static) — facility/contingency/plant/unit/all
-- **소스**: `yedatalake://ercot/metadata/objects/{facility,contingency,ercot_plant,ercot_unit,all}.csv.gz` + 각 `ddl.json`
+#### 0.2 Network metadata (static) — facility/contingency/plant/unit — [x] 2026-05-26
+- **소스**: `yedatalake://ercot/metadata/objects/{facility,contingency,ercot_plant,ercot_unit}.csv.gz`
 - **소요**: 0.5d
 - **의존성**: 0.1
 - **Deliverable**:
-  - `src/ingestion/datalake_metadata.py`
-  - `data/raw/ercot/metadata/objects/*.parquet` (snapshot, dated)
-  - 컬럼 스키마 markdown: `memory/congestion-analyst/learnings/2026-05-XX-metadata-schema.md`
-- **Note**: contingency.csv.gz + facility.csv.gz 는 binding constraint join key 의 source of truth — W1 안에 끝내야 함
+  - `src/ingestion/datalake_metadata.py` ✅
+  - `data/raw/ercot/metadata/objects/facility.parquet` (172,492 rows) ✅
+  - `data/raw/ercot/metadata/objects/contingency.parquet` (6,711 rows) ✅
+  - `data/raw/ercot/metadata/objects/ercot_plant.parquet` (1,318 rows) ✅
+  - `data/raw/ercot/metadata/objects/ercot_unit.parquet` (2,739 rows) ✅
+  - `memory/congestion-analyst/learnings/2026-05-26-metadata-schema.md` ✅
+- **Note**: contingency.csv.gz + facility.csv.gz join 결과 — null 0개 (100% 커버)
 
-#### 0.3 DA binding constraints backfill (16yr)
-- **소스**: `yedatalake://ercot/transmission/constraints/da/{YYYYMMDD}.csv.gz` (2010-10 → 현재)
-- **소요**: 2.0d (다운로드 ~1d + 정규화 1d)
-- **의존성**: 0.1, 0.2 (FACILITYID / CONTINGENCYID join)
+#### 0.3 DA binding constraints backfill (2020-02-01 → 2026-05-26) — [x] 2026-05-26
+- **소스**: `yedatalake://ercot/transmission/constraints/da/{YYYYMMDD}.csv.gz`
+- **실제 window**: 2020-02-01 ~ 2026-05-26 (2,307일, 16yr→6yr 로 변경, 이유: settle_shift_factors 정합)
+- **소요**: 완료 (ThreadPoolExecutor max_workers=16, throttling 0건)
+- **의존성**: 0.1, 0.2 ✅
 - **Deliverable**:
-  - `src/ingestion/datalake_constraints.py`
-  - `data/raw/ercot/transmission/constraints/da/year=YYYY/*.parquet` (Hive-partitioned)
-  - `data/interim/da_constraints_normalized.parquet` — (date, hour, CONSTRAINT, CONTINGENCY, FACILITY, λ, binding_flag) long table
-- **Risk**: 16년치 daily file = ~5,800 days. 파일당 평균 100-500KB 예상 → 총 1-3GB. 다운로드 시간 자체보다 *throttling / retry* 가 critical path.
+  - `src/ingestion/datalake_constraints.py` ✅
+  - `data/interim/constraint_binding_history.parquet` ✅
+    - Rows: **2,030,085**
+    - Date range: 2020-02-01 → 2026-05-26
+    - Coverage: **100.0%** (2,307/2,307 days)
+    - PRICE: min=0.001, max=31,029.1, mean=28.2, median=2.7 $/MWh
+    - Unique constraints (CONSTRAINTNAME): 2,649
+    - Null facility_name: 0 | Null contingency_name: 0
+- **Risk 실측**: throttling 발생 없음. 16 workers parallel = 약 4분 소요.
 
-**W1 종료 기준**: DA constraints 가 (YYYY, constraint_id) 로 쿼리 가능한 parquet 으로 정착. λ 분포 / binding frequency top-50 list 산출.
+**W1 종료 기준 충족**: DA constraints 가 (YYYY, constraint_id) 로 쿼리 가능한 parquet 으로 정착. ✅
 
 ---
 
@@ -59,19 +70,21 @@
 
 #### 0.4 DAM market shift factors (pricenode-level + SHADOWPRICE + LIMIT)
 - **소스**: `yedatalake://ercot/transmission/constraints/market_shift_factors/{YYYYMMDD}.csv.gz` (2016-01 → )
+- **Window**: 2020-02-01 이후만 사용 (settle_shift_factors 정합 기준, 2026-05-26 결정)
 - **소요**: 1.5d
 - **의존성**: 0.2
 - **Deliverable**: `data/raw/ercot/transmission/constraints/market_shift_factors/year=YYYY/*.parquet`
 - **Use**: DAM binding/λ 모델의 PTDF projection — pricenode-level (Stage 2의 nodal MCC 재구성 1차 source)
-- **History 한계**: 2016-01 이후 → backtest window 10년
+- **History 한계**: 2020-02-01 이후 → backtest window ~6년 (settle_shift_factors 정합)
 
 #### 0.5 RT (SCED) shift factors (resource-level PTDF)
 - **소스**: `yedatalake://ercot/transmission/constraints/ercot_sced_shift_factors/{YYYYMMDD}.csv.gz` (2011-12 → )
-- **소요**: 2.0d (~480K rows/day × 5000+ days = 2.4B rows; columnar parquet 필수)
+- **Window**: 2020-02-01 이후만 사용 (settle_shift_factors 정합 기준, 2026-05-26 결정)
+- **소요**: 2.0d (~480K rows/day × 2,300 days = 1.1B rows; columnar parquet 필수)
 - **의존성**: 0.2
 - **Deliverable**: `data/raw/.../ercot_sced_shift_factors/year=YYYY/*.parquet`
 - **Use**: RTM 모델 PTDF 입력 (resource-level → 발전기별 contribution)
-- **Critical**: 가장 큰 dataset 중 하나. 6.8 MB gz × 5000 days = ~34 GB gzipped. SCED용 dedicated storage budget 필요.
+- **Critical**: 가장 큰 dataset 중 하나. 6.8 MB gz × 2,300 days ≈ ~16 GB gzipped. SCED용 dedicated storage budget 필요.
 
 #### 0.6 Settlement shift factors (SP-level)
 - **소스**: `yedatalake://ercot/transmission/constraints/settle_shift_factors_ercot/{YYYYMMDD}.csv.gz` (2020-02 → )

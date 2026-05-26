@@ -63,8 +63,8 @@ This handles new constraints without retraining.
 
 > **2026-05-26**: 9개 항목 전부 Yes Energy Datalake (S3 bucket `yedatalake`) 단독으로 페치 가능함이 메인 thread에서 실측 검증됨. ERCOT MIS direct 의존 0개. Week-level breakdown은 `memory/congestion-analyst/plans/stage-progress.md` 참조.
 
-- [ ] DAM/RTM constraint + λ + SCED ingestion  ← `yedatalake://ercot/transmission/constraints/da/{YYYYMMDD}.csv.gz` (2010-10+), `ercot_sced_shift_factors/{YYYYMMDD}.csv.gz` (2011-12+)
-- [ ] Network metadata (facility / contingency / plant / unit) — NMMS parsing 대체  ← `yedatalake://ercot/metadata/objects/{facility,contingency,ercot_plant,ercot_unit,all}.csv.gz`
+- [x] DAM/RTM constraint + λ + SCED ingestion  ← `yedatalake://ercot/transmission/constraints/da/{YYYYMMDD}.csv.gz` (**2020-02-01+**, 2,030,085 rows, 100% coverage — W1 complete 2026-05-26), `ercot_sced_shift_factors/{YYYYMMDD}.csv.gz` (2011-12+, W2)
+- [x] Network metadata (facility / contingency / plant / unit) — NMMS parsing 대체  ← `yedatalake://ercot/metadata/objects/{facility,contingency,ercot_plant,ercot_unit,all}.csv.gz` (W1 complete 2026-05-26: facility 172,492 rows, contingency 6,711, ercot_plant 1,318, ercot_unit 2,739)
 - [ ] PTDF / LODF — shift factor 4종이 datalake에 있어 NMMS direct 불필요 (2026-05-26 확인). Base-case + post-contingency PTDF 모두 한 테이블 (CONSTRAINT, CONTINGENCY, RESOURCE|PNODE|SP) → SHIFTFACTOR. 별도 LODF 행렬 계산 불필요.  ← `yedatalake://ercot/transmission/constraints/{market_shift_factors,ercot_sced_shift_factors,settle_shift_factors_ercot,shift_factors}/{YYYYMMDD}.csv.gz`
 - [ ] CRR / FTR auction history  ← `yedatalake://ercot/ftr/auction/{YYYY_MM_monthly|YYYY_annual}/{results,obligationmcp,optionmcp}.csv.gz` (2010-12+)
 - [ ] Transmission outages (hourly granular)  ← `yedatalake://ercot/transmission/outages/actual/{YYYYMMDDHH}.csv.gz` (2017-01+)
@@ -104,6 +104,8 @@ This handles new constraints without retraining.
 ## 5. Data inventory
 
 > All Stage 0 sources resolved to `yedatalake://` paths (2026-05-26). Column schemas live in each folder's `ddl.json`.
+
+> **Historical training window**: Training data starts **2020-02-01**, aligned with the earliest `settle_shift_factors_ercot` availability. No data prior to 2020-02-01 is ingested even if datalake has earlier history — the cap is intentional for shift-factor alignment. Decision: 2026-05-26.
 
 ### Static (rarely changes)
 - Network topology (bus, branch, transformer)  ← `yedatalake://ercot/metadata/objects/{facility,all}.csv.gz`
