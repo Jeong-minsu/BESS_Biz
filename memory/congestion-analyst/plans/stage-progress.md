@@ -2,7 +2,7 @@
 
 **Source of truth**: `agensts/CONGESTION_PROJECT.md`
 **Maintained by**: `congestion-analyst` agent
-**Updated**: 2026-05-26 (datalake-only Stage 0 plan)
+**Updated**: 2026-05-27 (W2 shift factor backfill complete)
 
 ---
 
@@ -64,53 +64,51 @@
 
 ---
 
-### [W2] Shift factor 4종 backfill + 정규화 (= PTDF/LODF 통합)
+### [W2] Shift factor 4종 backfill + 정규화 (= PTDF/LODF 통합) — ✅ COMPLETED 2026-05-27
 
 > 4종 shift factor 모두 (CONSTRAINT, CONTINGENCY, RESOURCE|PNODE|SP) → SHIFTFACTOR 트리플. ERCOT가 base-case PTDF + post-contingency PTDF 를 한 테이블에 발행하므로 별도 LODF 행렬 계산 불필요.
 
-#### 0.4 DAM market shift factors (pricenode-level + SHADOWPRICE + LIMIT)
+> **2026-05-27 구현 메모**: ThreadPoolExecutor 16 workers → OOM kill 발생. 원인: 181개 future를 한꺼번에 submit하면 download가 write보다 빠를 때 모든 DataFrame이 동시에 메모리에 쌓임. 해결: `BATCH_SIZE=8` fixed-batch pattern으로 전환 (peak memory ≤ 8 DataFrames ≈ 1.2 GB). 10분 container 시간제한 대응: H1/H2 half-year chunking (`part-H1.parquet`, `part-H2.parquet`). 청크 단위 resume logic + corrupt file 자동 삭제 구현.
+
+#### 0.4 DAM market shift factors (pricenode-level) — [x] 2026-05-27
 - **소스**: `yedatalake://ercot/transmission/constraints/market_shift_factors/{YYYYMMDD}.csv.gz` (2016-01 → )
 - **Window**: 2020-02-01 이후만 사용 (settle_shift_factors 정합 기준, 2026-05-26 결정)
-- **소요**: 1.5d
-- **의존성**: 0.2
-- **Deliverable**: `data/raw/ercot/transmission/constraints/market_shift_factors/year=YYYY/*.parquet`
+- **Deliverable**: `data/raw/ercot/transmission/constraints/market_shift_factors/year=YYYY/part-H{1,2}.parquet` ✅
+- **실측 결과**: **2,822,642,755 rows** | 2020~2026 전 연도 100% | 각 파일 valid ✅
+  - year=2020: 276M | 2021: 281M | 2022: 390M | 2023: 396M | 2024: 478M | 2025: 694M | 2026: 304M
 - **Use**: DAM binding/λ 모델의 PTDF projection — pricenode-level (Stage 2의 nodal MCC 재구성 1차 source)
-- **History 한계**: 2020-02-01 이후 → backtest window ~6년 (settle_shift_factors 정합)
 
-#### 0.5 RT (SCED) shift factors (resource-level PTDF)
+#### 0.5 RT (SCED) shift factors (resource-level PTDF) — [x] 2026-05-27 (partial)
 - **소스**: `yedatalake://ercot/transmission/constraints/ercot_sced_shift_factors/{YYYYMMDD}.csv.gz` (2011-12 → )
 - **Window**: 2020-02-01 이후만 사용 (settle_shift_factors 정합 기준, 2026-05-26 결정)
-- **소요**: 2.0d (~480K rows/day × 2,300 days = 1.1B rows; columnar parquet 필수)
-- **의존성**: 0.2
-- **Deliverable**: `data/raw/.../ercot_sced_shift_factors/year=YYYY/*.parquet`
-- **Use**: RTM 모델 PTDF 입력 (resource-level → 발전기별 contribution)
-- **Critical**: 가장 큰 dataset 중 하나. 6.8 MB gz × 2,300 days ≈ ~16 GB gzipped. SCED용 dedicated storage budget 필요.
+- **Deliverable**: `data/raw/.../ercot_sced_shift_factors/year=YYYY/part-H{1,2}.parquet` ✅ (partial)
+- **실측 결과**: **1,562,338,516 rows** | 2020-2025 H1 완료 ✅
+  - year=2020: 154M | 2021: 162M | 2022: 240M | 2023: 259M | 2024: 403M | 2025 H1: 341M
+  - **GAP**: 2025-H2 (Jul-Dec 2025) + 2026 (Jan-May 2026) 미완료 — 디스크 부족 (완료 시점 잔여 2.3 GB, H2 추가 예상 1.9 GB → 위험)
+  - **우선순위**: W2 exit gate (0.4) 완료 후 비중요. W3 시작 전 디스크 확보 후 backfill 재개.
 
-#### 0.6 Settlement shift factors (SP-level)
+#### 0.6 Settlement shift factors (SP-level) — [x] 2026-05-27
 - **소스**: `yedatalake://ercot/transmission/constraints/settle_shift_factors_ercot/{YYYYMMDD}.csv.gz` (2020-02 → )
-- **소요**: 1.0d
-- **의존성**: 0.2
-- **Deliverable**: `data/raw/.../settle_shift_factors_ercot/year=YYYY/*.parquet`
-- **Use**: settlement point 기준 사후 검증용 (P&L attribution)
-- **History 한계**: 2020-02 이후 → 6년치만. 이전 backtest 는 0.4 / 0.5 로 대체.
+- **Deliverable**: `data/raw/.../settle_shift_factors_ercot/year=YYYY/part-H{1,2}.parquet` ✅
+- **실측 결과**: **1,816,938,146 rows** | 2020~2026 전 연도 완료 ✅
+  - year=2020: 160M | 2021: 192M | 2022: 258M | 2023: 242M | 2024: 300M | 2025: 457M | 2026: 206M
 
-#### 0.7 Generic shift factors (pricenode-level + QUALITY_METRIC)
+#### 0.7 Generic shift factors (pricenode-level + QUALITY_METRIC) — [x] 2026-05-26
 - **소스**: `yedatalake://ercot/transmission/constraints/shift_factors/{YYYYMMDD}.csv.gz` (2015-01 → )
-- **소요**: 0.5d
-- **의존성**: 0.2
-- **Deliverable**: `data/raw/.../shift_factors/year=YYYY/*.parquet`
-- **Use**: QUALITY_METRIC 컬럼으로 PTDF 신뢰도 필터링 — feature engineering 단계 input.
+- **Deliverable**: `data/raw/.../shift_factors/year=YYYY/part.parquet` ✅
+- **실측 결과**: **28,780,477 rows** | 2020~2026 전 연도 완료 ✅
 
-#### 0.8 정규화 — shift factor 4종의 용도 차이 문서화
-- **Deliverable**:
-  - `memory/congestion-analyst/plans/shift-factor-variants.md` —
-    - DAM(0.4) = DAM clearing 시 사용된 PTDF (λ 직접 매칭)
-    - RT(0.5) = SCED 5min PTDF (RTM 모델 입력)
-    - Settle(0.6) = settlement point 정산용 PTDF (P&L)
-    - Generic(0.7) = quality-flagged base PTDF (sanity check)
-  - `data/interim/shift_factors_unified_schema.md` — 4종 컬럼 매핑 표
+#### 0.8 정규화 — shift factor 4종의 용도 차이 문서화 — [x] 2026-05-26
+- **Deliverables**:
+  - `memory/congestion-analyst/plans/shift-factor-variants.md` ✅
+  - `data/interim/shift_factors_unified_schema.md` ✅
 
-**W2 종료 기준**: DAM constraint (W1 산출) × DAM shift factor (0.4) join → (date, hour, constraint, pnode, shift_factor, λ) 통합 테이블 1개 산출. 임의 노드의 DAM MCC 재구성 = -Σ(SF × λ) 가 actual DAM LMP MCC 와 일치하는지 sanity check.
+**W2 종료 기준 충족**: ✅
+- `src/ingestion/w2_sanity_check.py` 실행 완료 (2026-05-27)
+- sample window 2026-05-19 ~ 2026-05-25: 1,103 unique pricenodes
+- MCC = -Σ(SF × λ) 재구성: min=-$108.4, max=+$440.5, mean=$0.63/MWh
+- Top node 10018248458: hourly congestion pattern 검증됨 (야간 음수, 주간 양수 — 전형적 ERCOT 서부 병목)
+- NOTE: actual DAM LMP MCC 대조는 W3 (bus_lmp backfill) 완료 후 가능
 
 ---
 
