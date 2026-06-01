@@ -1,6 +1,6 @@
 # Evaluator Cross-Agent Patterns
 
-Last updated: 2026-05-25 (Week 2026-21 evaluation)
+Last updated: 2026-06-01 (Week 2026-22 evaluation)
 
 ---
 
@@ -64,7 +64,34 @@ bess-optimizer recommended DA Energy discharge both days. Tenaska executed RT En
 
 ## Pattern 7: Agents Show High Cross-Agent Consistency on Evening Peak Window
 
-**Observed**: Weeks 2026-21 (all 5 daily reports)
+**Observed**: Weeks 2026-21 through 2026-22 (all 11 daily reports)
 **Agents affected**: market-analyst, bess-optimizer, dart-virtual-trader, congestion-analyst
 
-All four front/middle agents have consistently agreed on HE20-21 (sometimes HE19-22) as the primary revenue window every day this week. The evening duck curve + Houston import constraint is the dominant cross-agent consensus. No material contradiction observed across any cycle. This is a strength of the multi-agent architecture — independent analyses converge on the same operational conclusion.
+All four front/middle agents have consistently agreed on HE20-21 (sometimes HE19-22) as the primary revenue window. The evening duck curve + Houston import constraint is the dominant cross-agent consensus. No material contradiction observed across any cycle. This alignment is confirmed structurally across normal weekdays, Saturdays, Sundays, and the Memorial Day holiday weekend.
+
+---
+
+## Pattern 8: Tenaska Data Outage Cascades to All Learning Loops
+
+**Observed**: Weeks 2026-21 through 2026-22 (7 failures in 11 operating days)
+**Agents affected**: bess-optimizer, dart-virtual-trader, market-analyst, congestion-analyst, pnl-manager
+
+All Front/Middle agent self-reviews cite Tenaska data absence as the primary limitation. The calibration anchors for bess-optimizer (0.80x haircut), dart-virtual-trader (+20% bias correction), and market-analyst (RT overestimate discount) were all established on 2026-05-24 data and are now 15+ days stale as of week end. This is a single-point infrastructure dependency: a cloud IP not on the Ascend whitelist is cascading into broken learning loops for 4 agents simultaneously.
+
+---
+
+## Pattern 9: Agent Self-Identification Exceeds Implementation Rate for Template-Level Changes
+
+**Observed**: Week 2026-22 (most visible in market-analyst; also in dart-virtual-trader)
+**Agents affected**: market-analyst, dart-virtual-trader
+
+Agents correctly identify fixes in self-reviews but do not physically apply them in subsequent cycles. market-analyst identified Non-Spin overnight and ECRS morning ramp gaps in 7 consecutive self-reviews without implementing the template fix. dart-virtual-trader identified the need for a hit rate log but did not create it. This is distinct from incremental rule changes (which are applied quickly, e.g., bess-optimizer applying lessons within 1-2 cycles) — it specifically affects template/infrastructure changes that require a one-time structural edit rather than a per-cycle decision.
+
+---
+
+## Pattern 10: RT Energy Dispatch Is an Unmodeled Revenue Source for bess-optimizer
+
+**Observed**: Week 2026-22 (confirmed 2026-05-29 settlement)
+**Agents affected**: bess-optimizer, pnl-manager
+
+On 2026-05-29, GKS generated $3,830.36 in RT Energy revenue that was not in the bess-optimizer recommended schedule. The DA-focused recommendation does not prevent RT dispatch — Smartbidder/Tenaska co-optimization submits RT offers independently. This is an upside source that systematically underestimates total GKS revenue in bess-optimizer plans. Since Week 22, bess-optimizer has added an explicit "RT Energy Optionality Upside: $1,500-$3,000" note. However, the mechanism is not yet modeled, so the base-case plan revenue estimate will continue to understate actuals until the RT dispatch structure is clarified with Tenaska.
