@@ -2,7 +2,7 @@
 
 **Source of truth**: `agensts/CONGESTION_PROJECT.md`
 **Maintained by**: `congestion-analyst` agent
-**Updated**: 2026-06-02 (no stage transition; W3 disk prerequisite still blocking)
+**Updated**: 2026-06-03 (no stage transition; W3 disk prerequisite still blocking; 13th consecutive cycle with hub-pair LMP unavailable)
 
 ---
 
