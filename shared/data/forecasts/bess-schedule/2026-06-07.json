@@ -1,0 +1,61 @@
+{
+  "flowday": "2026-06-07",
+  "generated_at_ct": "2026-06-06T07:30:00",
+  "asset": "GKS_BESS_RN",
+  "strategy": "Stack C — Midday DA Charge HE09 + NonSpin Bridge + 2-Hour Discharge HE19-20",
+  "soc_start_mwh": 100.0,
+  "soc_end_mwh": 20.0,
+  "efficiency_rte": 0.85,
+  "eta_per_side": 0.9220,
+  "soc_min_mwh": 20.0,
+  "soc_max_mwh": 190.0,
+  "as_playbook_available": false,
+  "expected_revenue_base": 4201,
+  "expected_revenue_low": 3418,
+  "expected_revenue_high": 5376,
+  "revenue_breakdown": {
+    "da_energy_net": 3217,
+    "non_spin": 984,
+    "ecrs": 0,
+    "rrs": 0,
+    "regup": 0,
+    "regdn": 0
+  },
+  "hours": {
+    "1":  {"mode":"HOLD_NS","energy_mw":0,"ns_mw":50,"soc_start":100.0,"soc_end":100.0,"da_price":28.69,"expected_rev":123},
+    "2":  {"mode":"HOLD_NS","energy_mw":0,"ns_mw":50,"soc_start":100.0,"soc_end":100.0,"da_price":26.87,"expected_rev":77},
+    "3":  {"mode":"HOLD_NS","energy_mw":0,"ns_mw":50,"soc_start":100.0,"soc_end":100.0,"da_price":24.62,"expected_rev":78},
+    "4":  {"mode":"HOLD_NS","energy_mw":0,"ns_mw":50,"soc_start":100.0,"soc_end":100.0,"da_price":24.61,"expected_rev":50},
+    "5":  {"mode":"HOLD_NS","energy_mw":0,"ns_mw":50,"soc_start":100.0,"soc_end":100.0,"da_price":25.07,"expected_rev":57},
+    "6":  {"mode":"HOLD_NS","energy_mw":0,"ns_mw":50,"soc_start":100.0,"soc_end":100.0,"da_price":25.52,"expected_rev":54},
+    "7":  {"mode":"HOLD_NS","energy_mw":0,"ns_mw":50,"soc_start":100.0,"soc_end":100.0,"da_price":22.25,"expected_rev":67},
+    "8":  {"mode":"HOLD_NS","energy_mw":0,"ns_mw":50,"soc_start":100.0,"soc_end":100.0,"da_price":18.95,"expected_rev":53},
+    "9":  {"mode":"CHARGE","energy_mw":-97.6,"ns_mw":0,"soc_start":100.0,"soc_end":190.0,"da_price":17.04,"expected_rev":-1663},
+    "10": {"mode":"HOLD_NS","energy_mw":0,"ns_mw":80,"soc_start":190.0,"soc_end":190.0,"da_price":16.84,"expected_rev":74},
+    "11": {"mode":"HOLD_NS","energy_mw":0,"ns_mw":80,"soc_start":190.0,"soc_end":190.0,"da_price":18.49,"expected_rev":56},
+    "12": {"mode":"HOLD_NS","energy_mw":0,"ns_mw":80,"soc_start":190.0,"soc_end":190.0,"da_price":19.47,"expected_rev":58},
+    "13": {"mode":"HOLD_NS","energy_mw":0,"ns_mw":80,"soc_start":190.0,"soc_end":190.0,"da_price":20.17,"expected_rev":43},
+    "14": {"mode":"HOLD_NS","energy_mw":0,"ns_mw":80,"soc_start":190.0,"soc_end":190.0,"da_price":20.89,"expected_rev":31},
+    "15": {"mode":"HOLD_NS","energy_mw":0,"ns_mw":80,"soc_start":190.0,"soc_end":190.0,"da_price":22.00,"expected_rev":31},
+    "16": {"mode":"HOLD_NS","energy_mw":0,"ns_mw":80,"soc_start":190.0,"soc_end":190.0,"da_price":21.15,"expected_rev":39},
+    "17": {"mode":"HOLD_NS","energy_mw":0,"ns_mw":80,"soc_start":190.0,"soc_end":190.0,"da_price":21.82,"expected_rev":38},
+    "18": {"mode":"HOLD_NS","energy_mw":0,"ns_mw":80,"soc_start":190.0,"soc_end":190.0,"da_price":25.61,"expected_rev":56},
+    "19": {"mode":"DISCHARGE","energy_mw":100.0,"ns_mw":0,"soc_start":190.0,"soc_end":81.5,"da_price":31.17,"expected_rev":3117},
+    "20": {"mode":"DISCHARGE","energy_mw":56.7,"ns_mw":0,"soc_start":81.5,"soc_end":20.0,"da_price":31.10,"expected_rev":1763},
+    "21": {"mode":"HOLD_DEPLETED","energy_mw":0,"ns_mw":0,"soc_start":20.0,"soc_end":20.0,"da_price":30.00,"expected_rev":0},
+    "22": {"mode":"HOLD_DEPLETED","energy_mw":0,"ns_mw":0,"soc_start":20.0,"soc_end":20.0,"da_price":25.20,"expected_rev":0},
+    "23": {"mode":"HOLD_DEPLETED","energy_mw":0,"ns_mw":0,"soc_start":20.0,"soc_end":20.0,"da_price":21.45,"expected_rev":0},
+    "24": {"mode":"HOLD_DEPLETED","energy_mw":0,"ns_mw":0,"soc_start":20.0,"soc_end":20.0,"da_price":null,"expected_rev":0}
+  },
+  "alternative": {
+    "name": "Stack B — Scarcity Escalation",
+    "trigger": "DAM clears HE19 >= $35 AND HE21 >= $33 at ~10:30 CT 2026-06-07",
+    "action": "Shift discharge to HE20-21 (100 MW + 56.7 MW), skip HE19 energy",
+    "expected_rev_if_triggered": 4692
+  },
+  "data_inputs": {
+    "market_analyst": "shared/data/forecasts/market-view/2026-06-07.md",
+    "congestion_analyst": "shared/data/forecasts/congestion/2026-06-07.md",
+    "tenaska_actuals_for_self_review": "shared/data/pnl/gks/hourly/2026-06-05_pnl.csv"
+  }
+}
