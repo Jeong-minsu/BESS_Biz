@@ -1,0 +1,59 @@
+{
+  "flowday": "2026-06-07",
+  "resource": "Great Kiskadee Storage - ESR",
+  "resource_capacity_mw": 100,
+  "resource_capacity_mwh": 200,
+  "data_quality": "DEGRADED",
+  "data_quality_notes": [
+    "da_energy_offer.json returned 0 rows — DA energy-only offer clearing unavailable",
+    "da_energy_bid.json not fetched (endpoint mapping used same index as da_energy_offer) — DART virtual not isolatable from DA_Energy_Amt",
+    "hsl.json not separately fetched — HSL availability not computable",
+    "DA_Energy_Amt ($100.41) includes both physical DA energy and any DART virtual component; cannot split without bid file",
+    "RT_Ancillary_Imbalance_Amt and RT_Reliability_Deployment_Imbalance_Amt both zero all hours"
+  ],
+  "sources": {
+    "gks_actuals": "Tenaska PTP Battery-Settlement-Details (fetched 2026-06-08T12:06:17Z)",
+    "smartbidder_benchmark": "AA - Mount Blue Sky with Virtuals (RTC version) — ESTIMATE only, not settled"
+  },
+  "gks_actuals": {
+    "da_energy_revenue": 100.41,
+    "rt_energy_revenue": 2600.85,
+    "as_revenue_rrs": 447.00,
+    "as_revenue_ecrs": 0.00,
+    "as_revenue_nonspin": 0.00,
+    "as_revenue_regup": 0.00,
+    "as_revenue_regdown": 0.00,
+    "dart_virtual_revenue": null,
+    "total_revenue": 3148.26
+  },
+  "battery_state": {
+    "rt_generation_mwh": 110.02,
+    "rt_consumption_mwh": 137.88,
+    "net_mwh": -27.86,
+    "da_sales_qty_mwh": 59.00,
+    "da_purchases_qty_mwh": 100.00,
+    "gen_rrs_qty_mw_avg": 60.0,
+    "gen_ecrs_qty_mw_avg": 0.0,
+    "cycles_equivalent": null,
+    "hsl_availability_pct": null
+  },
+  "smartbidder_benchmark": {
+    "strategy": "AA - Mount Blue Sky with Virtuals (RTC version)",
+    "da_energy_revenue": 4340.22,
+    "da_virtual_revenue": 9016.00,
+    "rt_energy_revenue": -7418.96,
+    "rt_virtual_revenue": -15571.75,
+    "as_revenue_rrs": 32.44,
+    "as_revenue_ecrs": 46.92,
+    "as_revenue_nonspin": 2733.53,
+    "as_revenue_regup": 0.00,
+    "as_revenue_regdown": 0.00,
+    "total_revenue": -7679.39,
+    "note": "ESTIMATE — not settled; includes DART virtual positions not present in GKS actuals"
+  },
+  "benchmark_comparison": {
+    "delta_total": 10827.65,
+    "delta_pct": null,
+    "note": "delta = GKS_actual - Smartbidder_benchmark. Benchmark is negative; GKS positive. Direct product-level comparison not meaningful given DART virtual isolation gap in actuals."
+  }
+}
