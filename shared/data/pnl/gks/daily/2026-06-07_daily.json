@@ -16,7 +16,7 @@
     "smartbidder_benchmark": "AA - Mount Blue Sky with Virtuals (RTC version) — ESTIMATE only, not settled"
   },
   "gks_actuals": {
-    "da_energy_revenue": 100.41,
+    "da_energy_revenue": 99.91,
     "rt_energy_revenue": 2600.85,
     "as_revenue_rrs": 447.00,
     "as_revenue_ecrs": 0.00,
@@ -24,7 +24,7 @@
     "as_revenue_regup": 0.00,
     "as_revenue_regdown": 0.00,
     "dart_virtual_revenue": null,
-    "total_revenue": 3148.26
+    "total_revenue": 3147.76
   },
   "battery_state": {
     "rt_generation_mwh": 110.02,
@@ -52,7 +52,7 @@
     "note": "ESTIMATE — not settled; includes DART virtual positions not present in GKS actuals"
   },
   "benchmark_comparison": {
-    "delta_total": 10827.65,
+    "delta_total": 10827.15,
     "delta_pct": null,
     "note": "delta = GKS_actual - Smartbidder_benchmark. Benchmark is negative; GKS positive. Direct product-level comparison not meaningful given DART virtual isolation gap in actuals."
   }
