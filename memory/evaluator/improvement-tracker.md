@@ -1,6 +1,32 @@
 # Evaluator Improvement Tracker
 
-Last updated: 2026-06-01 (Week 2026-22)
+Last updated: 2026-06-08 (Week 2026-W23)
+
+---
+
+## Week 2026-W23 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-W23-improvement.md` | dart-virtual-trader | CRITICAL | OPEN — agent to implement Saturday cap + dual-direction rule | First confirmed settlement: 0% hit rate, -$5,266; Saturday regime failure identified |
+| `memory/market-analyst/plans/2026-W23-improvement.md` | market-analyst | MAJOR | OPEN — agent to implement weekend RT checklist | Weekend RT direction 3-cycle systematic failure; rule written but not applied |
+| `memory/congestion-analyst/plans/2026-W23-improvement.md` | congestion-analyst | MAJOR | OPEN — agent to start W3 item 0.10; user to confirm disk | 18-cycle hub-pair LMP gap; lambda P90 underprediction confirmed with calibration fix |
+| `memory/bess-optimizer/plans/2026-W23-improvement.md` | bess-optimizer | MAJOR | OPEN — user action required for RT dispatch mechanism | Involuntary RT dispatch -$4,520 unresolved; AS Playbook 9-cycle gap |
+| `memory/pnl-manager/plans/2026-W23-improvement.md` | pnl-manager | MAJOR | OPEN — user/agent to implement DART virtual endpoint | DART virtual isolation 3 cycles deferred; data-quality.md update needed |
+
+---
+
+## Week 2026-22 Plans — Updated Status
+
+| Plan File | Agent | Priority | W23 Status | Notes |
+|---|---|---|---|---|
+| `memory/pnl-manager/plans/2026-22-tenaska-whitelist-escalation.md` | pnl-manager | CRITICAL | PARTIALLY RESOLVED | 5 PRODUCTION days in W23 vs 1 in W22; recovery mechanism undocumented; 3 W23 days still DEGRADED; superseded by 2026-W23 plan |
+| `memory/market-analyst/plans/2026-22-as-template-persistent-gap.md` | market-analyst | MAJOR | PARTIALLY RESOLVED | Non-Spin overnight improving; ECRS morning ramp inconsistent; NEW priority: weekend RT direction; superseded by 2026-W23 plan |
+| `memory/congestion-analyst/plans/2026-22-w3-disk-verification-blocker.md` | congestion-analyst | MAJOR | OPEN ESCALATING | 18 cycles (was 12 in W22); lambda underprediction now confirmed with commercial impact; superseded by 2026-W23 plan |
+| `memory/dart-virtual-trader/plans/2026-22-hit-rate-tracking-unresolved.md` | dart-virtual-trader | MAJOR | ESCALATED TO CRITICAL | First confirmed settlement 0/5 hit rate; proxy methodology demonstrated unreliable; superseded by 2026-W23 plan |
+| `memory/reporter/plans/2026-22-format-stabilization.md` | reporter | MINOR | PARTIALLY IMPLEMENTED | Footer missing some reports; section count improving; no new plan needed |
+| `memory/bess-optimizer/plans/2026-22-da-rt-venue-follow-up.md` | bess-optimizer | CRITICAL | OPEN — NEW DIMENSION | Tenaska DA venue still unconfirmed; involuntary RT dispatch adds new layer; superseded by 2026-W23 plan |
+| `memory/bess-optimizer/plans/2026-22-model-calibration-drift.md` | bess-optimizer | MAJOR | IN PROGRESS (IMPROVING) | 3 more data points in W23; lessons applied; involuntary RT dispatch is new separate issue |
 
 ---
 

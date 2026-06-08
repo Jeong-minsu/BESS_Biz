@@ -1,6 +1,6 @@
 # Evaluator Cross-Agent Patterns
 
-Last updated: 2026-06-01 (Week 2026-22 evaluation)
+Last updated: 2026-06-08 (Week 2026-W23 evaluation)
 
 ---
 
@@ -86,6 +86,24 @@ All Front/Middle agent self-reviews cite Tenaska data absence as the primary lim
 **Agents affected**: market-analyst, dart-virtual-trader
 
 Agents correctly identify fixes in self-reviews but do not physically apply them in subsequent cycles. market-analyst identified Non-Spin overnight and ECRS morning ramp gaps in 7 consecutive self-reviews without implementing the template fix. dart-virtual-trader identified the need for a hit rate log but did not create it. This is distinct from incremental rule changes (which are applied quickly, e.g., bess-optimizer applying lessons within 1-2 cycles) — it specifically affects template/infrastructure changes that require a one-time structural edit rather than a per-cycle decision.
+
+---
+
+## Pattern 11: Weekend Evening is a Distinct Regime — RT Systematically Exceeds DA in Scarcity
+
+**Observed**: Week 2026-W23 (3 consecutive weekend evenings: 2026-06-05 Fri, 2026-06-06 Sat, 2026-06-07 Sun)
+**Agents affected**: market-analyst (briefing framing), dart-virtual-trader (directional model), bess-optimizer (indirectly)
+
+On all three weekend evenings, actual RT exceeded DA by $15-30+/MWh at HE18-22 while Smartbidder P(DA>RT) predicted the opposite direction. The physical GKS battery profited from RT dispatch on these evenings (confirming RT>DA at the node); the DART virtual SHORT DA positions lost (-$5,266 confirmed on 2026-06-06). Two structural explanations: (a) Saturday thin DAM liquidity causes DA to clear below RT when scarcity materializes; (b) Extreme Non-Spin (>$10/MWh) signals RT scarcity, which is ambiguous — consistent with either DA-expensive or RT-spiking scenarios. The Friday case (2026-06-05) also showed RT>DA, suggesting the weekend effect may extend to Friday evening in scarcity weeks. All agents should treat weekend evening Smartbidder P(DA>RT) as "reference only" when prior-day RT>DA evidence exists.
+
+---
+
+## Pattern 12: GKS Execution May Be Independent of bess-optimizer Recommendation
+
+**Observed**: Week 2026-W23 (2026-06-05: involuntary RT charging HE13-15; 2026-06-07: DA energy cleared HE05-06 not in recommendation)
+**Agents affected**: bess-optimizer (execution assumption), pnl-manager (benchmark comparison structure)
+
+Tenaska settlement shows GKS being dispatched in hours not recommended by bess-optimizer, and in modes (RT charging at $28-44/MWh) that are directly contrary to the DA-sell strategy. Two possibilities: (a) Smartbidder/Tenaska submits bids independently with a separate RT co-optimization layer; (b) ERCOT automated demand response dispatched GKS involuntarily. Until the execution flow is confirmed, plan-vs-actual comparison for bess-optimizer may be comparing the recommendation against a different execution, making accuracy scoring invalid. User confirmation of the Tenaska/Smartbidder bid submission process is the prerequisite for valid bess-optimizer performance benchmarking.
 
 ---
 
