@@ -1,0 +1,82 @@
+[
+  {
+    "CONSTRAINTNAME":"HAINE__LA_PAL1_1",
+    "cum_impact":10930.9283487067,
+    "binding_intervals":19994,
+    "binding_hours":1735.5,
+    "mean_lambda":186.083898147,
+    "mean_abs_sf":0.035875883,
+    "n_rows":20826,
+    "element":"LA_PALMA-HAINE_DR 138KV HAINE__LA_PAL1_1",
+    "dom_contingency":"MHARNED5",
+    "peak_season":[
+      "Spring",
+      6129.8
+    ],
+    "top_months":"4(+2672),3(+2268),2(+1621)"
+  },
+  {
+    "CONSTRAINTNAME":"1710__C",
+    "cum_impact":5870.0731843805,
+    "binding_intervals":7191,
+    "binding_hours":607.5,
+    "mean_lambda":815.1952950316,
+    "mean_abs_sf":0.0130976475,
+    "n_rows":7290,
+    "element":"BELCNTY-SALSW 138KV 1710__C",
+    "dom_contingency":"DSALHUT5",
+    "peak_season":[
+      "Summer",
+      3587.3
+    ],
+    "top_months":"8(+2623),10(+894),5(+807)"
+  },
+  {
+    "CONSTRAINTNAME":"STPELM27_1",
+    "cum_impact":4456.9465452362,
+    "binding_intervals":1389,
+    "binding_hours":115.75,
+    "mean_lambda":794.529630504,
+    "mean_abs_sf":0.0554413823,
+    "n_rows":1389,
+    "element":"STP-ELMCREEK 345KV STPELM27_1",
+    "dom_contingency":"DELMSTP5",
+    "peak_season":[
+      "Winter",
+      4197.8
+    ],
+    "top_months":"12(+3025),1(+1172),11(+261)"
+  },
+  {
+    "CONSTRAINTNAME":"421__A",
+    "cum_impact":4238.9461680314,
+    "binding_intervals":4981,
+    "binding_hours":415.3333333333,
+    "mean_lambda":87.1232148957,
+    "mean_abs_sf":0.1179951625,
+    "n_rows":4984,
+    "element":"BCESW-SNDSW 345KV 421__A",
+    "dom_contingency":"DSALHUT5",
+    "peak_season":[
+      "Spring",
+      2282.4
+    ],
+    "top_months":"4(+2029),11(+1411),12(+384)"
+  },
+  {
+    "CONSTRAINTNAME":"WESTEX",
+    "cum_impact":3098.6376611693,
+    "binding_intervals":15774,
+    "binding_hours":1314.5,
+    "mean_lambda":15.9798126766,
+    "mean_abs_sf":0.1499250932,
+    "n_rows":15774,
+    "element":"WESTEX",
+    "dom_contingency":"BASE CASE",
+    "peak_season":[
+      "Spring",
+      1343.3
+    ],
+    "top_months":"5(+481),3(+461),4(+401)"
+  }
+]

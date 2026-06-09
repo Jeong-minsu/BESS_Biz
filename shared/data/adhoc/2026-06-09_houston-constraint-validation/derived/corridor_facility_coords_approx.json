@@ -1,0 +1,53 @@
+{
+  "_meta": {
+    "purpose": "APPROXIMATE public/domain lat-long for STP-WAP / MDO-PHR corridor + STP-WAP outage->binding watch-list, for dashboard map viz only.",
+    "source": "Public/domain knowledge of large, well-documented ERCOT facilities. NOT from datalake (datalake metadata has NO coordinates, ZONE only). NOT CEII. Do NOT treat as exact substation coordinates.",
+    "created": "2026-06-09",
+    "author": "congestion-analyst",
+    "zone_field": "ERCOT congestion zone as tagged in datalake metadata (HOUSTON/SOUTH). Note several SOUTH-tagged facilities are geographically south-central (Austin/La Grange/San Antonio area).",
+    "confidence": "high = town/plant location well known to ~1-3 mi; medium = correct community/area, exact bus uncertain; low = approximate area only",
+    "flagged_unplaceable": ["OASIS", "OBRIEN", "BRISITA", "ANGSTROM", "SKYLINE", "HILL COUNTRY", "KING REIT"]
+  },
+  "facilities": [
+    {"name": "WA PARISH",            "alias": "WAP", "lat": 29.483, "lon": -95.633, "zone": "HOUSTON", "role": "monitored-endpoint", "confidence": "high",   "note": "NRG W.A. Parish, Smithers Lake / Thompsons, Fort Bend Co. SW Houston injection node. TO-end (sink) of both monitored lines."},
+    {"name": "SOUTH TEXAS PROJECT",  "alias": "STP", "lat": 28.795, "lon": -96.048, "zone": "SOUTH",   "role": "monitored-endpoint", "confidence": "high",   "note": "STP nuclear, Matagorda Co. coast (Wadsworth/Bay City). FROM-end (source) of STP-WAP, highest +SF."},
+    {"name": "PH ROBINSON",          "alias": "PHR", "lat": 29.510, "lon": -94.990, "zone": "HOUSTON", "role": "monitored-endpoint", "confidence": "medium", "note": "CenterPoint PH Robinson switching stn, Bacliff/Galveston Bay. Gen retired ~2018, now transmission node."},
+    {"name": "MEADOW",               "alias": "MDO", "lat": 29.660, "lon": -95.170, "zone": "HOUSTON", "role": "monitored-endpoint", "confidence": "low",    "note": "CenterPoint Meadow 345kV stn, SE Houston (~17.4 mi NW of PHR per CNP). Exact bus location not public-confirmed."},
+
+    {"name": "HILLJE",               "alias": "HLJ", "lat": 29.270, "lon": -96.180, "zone": "SOUTH",   "role": "corridor-parallel", "confidence": "medium", "note": "Hillje community, Wharton Co. Coastal 345 hub (BLU-HLJ, BLY-HLJ, HLJ-WAP, STP-HLJ). Chronic parallel-out."},
+    {"name": "BLESSING",             "alias": "BLY", "lat": 28.870, "lon": -96.220, "zone": "SOUTH",   "role": "corridor-parallel", "confidence": "high",   "note": "Town of Blessing, Matagorda Co. DBLBYWF5 contingency family. BLY-WAP / BLY-HLJ 345."},
+    {"name": "ELM CREEK",            "alias": "ELMCREEK", "lat": 29.250, "lon": -98.330, "zone": "SOUTH", "role": "corridor-parallel", "confidence": "low",  "note": "Elm Creek 345 stn, Elmendorf/SE San Antonio (CPS area). STP-ELMCREEK; links MARION/SKYLINE/SANMIGUEL/HILLCTRY."},
+    {"name": "REFUGIO",              "alias": "REF", "lat": 28.300, "lon": -97.280, "zone": "SOUTH",   "role": "corridor-parallel", "confidence": "high",   "note": "Town of Refugio, Refugio Co. STP-REF 345 (REFSTP27) = likely DSTPREF5 contingency."},
+    {"name": "WHITE POINT",          "alias": "WHITE_PT", "lat": 27.870, "lon": -97.410, "zone": "SOUTH", "role": "corridor-parallel", "confidence": "medium", "note": "White Point, San Patricio Co. (Corpus Christi bay). STP-WHITE_PT; 'WP' sink token in DWPWFWP5."},
+    {"name": "DOW",                  "alias": "DOW", "lat": 28.960, "lon": -95.360, "zone": "HOUSTON", "role": "corridor-parallel", "confidence": "high",   "note": "Dow Chemical Freeport, Brazoria Co. STP-DOW; high +SF coastal injector."},
+    {"name": "BELLAIRE",             "alias": "BI",  "lat": 29.700, "lon": -95.460, "zone": "HOUSTON", "role": "corridor-parallel", "confidence": "medium", "note": "Bellaire, inner SW Houston. BI-WAP 345 outlet."},
+    {"name": "SAN MIGUEL",           "alias": "SANMIGUEL", "lat": 28.780, "lon": -98.470, "zone": "SOUTH", "role": "corridor-parallel", "confidence": "high", "note": "San Miguel power plant, Atascosa Co. ElmCreek linkage."},
+    {"name": "MARION",               "alias": "MARION", "lat": 29.570, "lon": -98.140, "zone": "SOUTH", "role": "corridor-parallel", "confidence": "medium", "note": "Marion, Guadalupe Co. (NE of San Antonio). ElmCreek linkage."},
+    {"name": "NORTHBELT",            "alias": "NB",  "lat": 29.930, "lon": -95.400, "zone": "HOUSTON", "role": "corridor-parallel", "confidence": "medium", "note": "North Belt area N Houston (Greenspoint). KG-NB 345 (DKG_NB_5, MDO-PHR contingency)."},
+
+    {"name": "LYTTON SPRINGS",       "alias": "LYTTON", "lat": 30.020, "lon": -97.620, "zone": "SOUTH", "role": "watchlist-outage", "confidence": "high",  "lift": 3.2, "note": "Lytton Springs community, Caldwell Co. (S of Austin). AT2H xfmr out -> STP-WAP lift 3.2."},
+    {"name": "FAYETTE",              "alias": "FAYETTE", "lat": 29.910, "lon": -96.750, "zone": "SOUTH", "role": "watchlist-outage", "confidence": "high",  "lift": 3.0, "note": "Fayette / LCRA Power Project, La Grange, Fayette Co. Plant-1 out -> STP-WAP lift 3.0."},
+    {"name": "HUTTO",                "alias": "HUTTO", "lat": 30.540, "lon": -97.550, "zone": "SOUTH", "role": "watchlist-outage", "confidence": "high",  "lift": 2.6, "note": "Hutto, Williamson Co. (NE of Austin). Brkr/DSC out -> STP-WAP lift 2.6. (Datalake zone=SOUTH despite central geography.)"},
+    {"name": "JEANETTA",             "alias": "JEANETTA", "lat": 29.690, "lon": -95.550, "zone": "HOUSTON", "role": "watchlist-outage", "confidence": "medium", "lift": 2.55, "note": "Jeanetta CenterPoint stn, SW Houston (Westwood/Sharpstown). AT1 xfmr out -> lift 2.55."},
+
+    {"name": "OASIS",                "alias": "OAS", "lat": null, "lon": null, "zone": "HOUSTON", "role": "corridor-parallel", "confidence": "flag", "note": "OAS-WAP 345 (DOASWAP5, MDO-PHR). Exact Oasis switching-stn location not confidently known. UNPLACED."},
+    {"name": "OBRIEN",               "alias": "OBRIEN", "lat": null, "lon": null, "zone": "HOUSTON", "role": "watchlist-outage", "confidence": "flag", "lift": 4.3, "note": "Highest STP-WAP lift (4.3) but small-n. CenterPoint Houston-area stn; exact location not confidently known. UNPLACED."},
+    {"name": "BRISITA",              "alias": "BRISITA", "lat": null, "lon": null, "zone": "SOUTH", "role": "watchlist-outage", "confidence": "flag", "lift": 2.6, "note": "2025-only single-episode (discount). Location not confidently known. UNPLACED."}
+  ],
+  "edges": [
+    {"from": "MEADOW",              "to": "PH ROBINSON",         "type": "monitored",  "constraint": "MDOPHR99_A", "note": "MDO-PHR 345 double-ckt, ~17.4 mi"},
+    {"from": "SOUTH TEXAS PROJECT", "to": "WA PARISH",           "type": "monitored",  "constraint": "STPWAP39_1", "note": "STP-WAP 345"},
+    {"from": "WA PARISH",           "to": "PH ROBINSON",         "type": "parallel",   "note": "PHR-WAP 345, ~40.2 mi reconductor"},
+    {"from": "WA PARISH",           "to": "HILLJE",              "type": "parallel",   "note": "HLJ-WAP 345"},
+    {"from": "WA PARISH",           "to": "BLESSING",            "type": "parallel",   "note": "BLY-WAP 345"},
+    {"from": "SOUTH TEXAS PROJECT", "to": "HILLJE",              "type": "parallel",   "note": "STP-HLJ 345"},
+    {"from": "SOUTH TEXAS PROJECT", "to": "BLESSING",            "type": "parallel",   "note": "STP-BLESSING 345"},
+    {"from": "SOUTH TEXAS PROJECT", "to": "ELM CREEK",           "type": "parallel",   "note": "STP-ELMCREEK 345"},
+    {"from": "SOUTH TEXAS PROJECT", "to": "REFUGIO",             "type": "parallel",   "note": "STP-REF 345 (REFSTP27)"},
+    {"from": "SOUTH TEXAS PROJECT", "to": "WHITE POINT",         "type": "parallel",   "note": "STP-WHITE_PT 345"},
+    {"from": "SOUTH TEXAS PROJECT", "to": "DOW",                 "type": "parallel",   "note": "STP-DOW 345"},
+    {"from": "BLESSING",            "to": "HILLJE",              "type": "parallel",   "note": "BLY-HLJ 345"},
+    {"from": "ELM CREEK",           "to": "MARION",              "type": "parallel",   "note": "ELMCREEK-MARION 345"},
+    {"from": "ELM CREEK",           "to": "SAN MIGUEL",          "type": "parallel",   "note": "ELMCREEK-SANMIGUEL 345"}
+  ]
+}

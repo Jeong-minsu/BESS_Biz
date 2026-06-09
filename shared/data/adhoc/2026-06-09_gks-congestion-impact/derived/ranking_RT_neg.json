@@ -1,0 +1,82 @@
+[
+  {
+    "CONSTRAINTNAME":"LARDVN_LASCRU1_1",
+    "cum_impact":-25798.9093694542,
+    "binding_intervals":14917,
+    "binding_hours":1246.4166666667,
+    "mean_lambda":235.7206484984,
+    "mean_abs_sf":0.0897837942,
+    "n_rows":14957,
+    "element":"LARDVNTH-LASCRUCE 138KV LARDVN_LASCRU1_1",
+    "dom_contingency":"MFOAVLO5",
+    "peak_season":[
+      "Summer",
+      -11955.0
+    ],
+    "top_months":"7(-5019),8(-4252),4(-3647)"
+  },
+  {
+    "CONSTRAINTNAME":"E_PASP",
+    "cum_impact":-22982.8659842751,
+    "binding_intervals":9314,
+    "binding_hours":776.1666666667,
+    "mean_lambda":139.8358054488,
+    "mean_abs_sf":0.22336258,
+    "n_rows":9314,
+    "element":"E_PASP",
+    "dom_contingency":"BASE CASE",
+    "peak_season":[
+      "Winter",
+      -6482.5
+    ],
+    "top_months":"5(-3736),1(-3525),8(-3464)"
+  },
+  {
+    "CONSTRAINTNAME":"VALEXP",
+    "cum_impact":-13004.2033567357,
+    "binding_intervals":4302,
+    "binding_hours":358.5,
+    "mean_lambda":37.0007180288,
+    "mean_abs_sf":0.9787684333,
+    "n_rows":4302,
+    "element":"VALEXP",
+    "dom_contingency":"BASE CASE",
+    "peak_season":[
+      "Winter",
+      -6707.8
+    ],
+    "top_months":"12(-3753),4(-2831),1(-2041)"
+  },
+  {
+    "CONSTRAINTNAME":"CATARI_PILONC1_1",
+    "cum_impact":-10577.0693460413,
+    "binding_intervals":5625,
+    "binding_hours":468.75,
+    "mean_lambda":370.1573973049,
+    "mean_abs_sf":0.0608806471,
+    "n_rows":5625,
+    "element":"PILONCIL-CATARINA 138KV CATARI_PILONC1_1",
+    "dom_contingency":"MLOBFOR5",
+    "peak_season":[
+      "Winter",
+      -4416.8
+    ],
+    "top_months":"1(-2494),5(-1811),2(-1789)"
+  },
+  {
+    "CONSTRAINTNAME":"LOYOLA_69_1",
+    "cum_impact":-7342.6161321761,
+    "binding_intervals":9239,
+    "binding_hours":781.9166666667,
+    "mean_lambda":576.342898071,
+    "mean_abs_sf":0.0168534669,
+    "n_rows":9383,
+    "element":"LOYOLA 138KV LOYOLA_69_1",
+    "dom_contingency":"SKLELOY8",
+    "peak_season":[
+      "Spring",
+      -3416.8
+    ],
+    "top_months":"5(-1786),4(-1243),1(-1144)"
+  }
+]

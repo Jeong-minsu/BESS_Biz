@@ -1,0 +1,82 @@
+[
+  {
+    "CONSTRAINTNAME":"E_PASP",
+    "cum_impact":-56359.760996703,
+    "binding_intervals":4539,
+    "binding_hours":4539.0,
+    "mean_lambda":54.1617047808,
+    "mean_abs_sf":0.2442159581,
+    "n_rows":4539,
+    "element":"- 0KV E_PASP",
+    "dom_contingency":"BASE CASE",
+    "peak_season":[
+      "Winter",
+      -27142.4
+    ],
+    "top_months":"1(-20527),8(-7176),7(-4751)"
+  },
+  {
+    "CONSTRAINTNAME":"LARDVN_LASCRU1_1",
+    "cum_impact":-24069.591341628,
+    "binding_intervals":4020,
+    "binding_hours":4948.0,
+    "mean_lambda":52.9227166532,
+    "mean_abs_sf":0.0834535873,
+    "n_rows":4948,
+    "element":"LARDVNTH-LASCRUCE 138KV LARDVN_LASCRU1_1",
+    "dom_contingency":"MFOAVLO5",
+    "peak_season":[
+      "Summer",
+      -10368.4
+    ],
+    "top_months":"7(-3779),8(-3637),4(-3432)"
+  },
+  {
+    "CONSTRAINTNAME":"BRUNI_69_1",
+    "cum_impact":-10343.445599688,
+    "binding_intervals":3249,
+    "binding_hours":4022.0,
+    "mean_lambda":182.0463980607,
+    "mean_abs_sf":0.0128505967,
+    "n_rows":4022,
+    "element":"BRUNI 138KV BRUNI_69_1",
+    "dom_contingency":"DFOAVLO5",
+    "peak_season":[
+      "Spring",
+      -5241.6
+    ],
+    "top_months":"4(-3964),12(-1449),1(-1073)"
+  },
+  {
+    "CONSTRAINTNAME":"LOYOLA_69_1",
+    "cum_impact":-6770.131165506,
+    "binding_intervals":3338,
+    "binding_hours":4435.0,
+    "mean_lambda":108.5367413754,
+    "mean_abs_sf":0.0124264257,
+    "n_rows":4435,
+    "element":"LOYOLA 138KV LOYOLA_69_1",
+    "dom_contingency":"SN_SLON5",
+    "peak_season":[
+      "Spring",
+      -3398.2
+    ],
+    "top_months":"5(-1593),4(-1045),11(-799)"
+  },
+  {
+    "CONSTRAINTNAME":"LASCRU_MILO1_1",
+    "cum_impact":-5051.649290418,
+    "binding_intervals":1439,
+    "binding_hours":1774.0,
+    "mean_lambda":29.512964487,
+    "mean_abs_sf":0.091402571,
+    "n_rows":1774,
+    "element":"LASCRUCE-MILO 138KV LASCRU_MILO1_1",
+    "dom_contingency":"DFOAVLO5",
+    "peak_season":[
+      "Fall",
+      -3171.9
+    ],
+    "top_months":"11(-2313),1(-1074),10(-859)"
+  }
+]

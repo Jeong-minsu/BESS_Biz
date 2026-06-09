@@ -1,0 +1,416 @@
+{
+  "HAINE__LA_PAL1_1": {
+    "meta": {
+      "constraint": "HAINE__LA_PAL1_1",
+      "window": "2024-07-03..2026-06-08",
+      "n_days": 704,
+      "n_bind": 506,
+      "base_pbind_per_day": 0.7188,
+      "mean_stations_out_on_bind": 11.58,
+      "mean_stations_out_off_bind": 11.7,
+      "month_base": {
+        "1": 0.839,
+        "2": 0.875,
+        "3": 1.0,
+        "4": 0.783,
+        "5": 0.548,
+        "6": 0.816,
+        "7": 0.95,
+        "8": 0.613,
+        "9": 0.593,
+        "10": 0.403,
+        "11": 0.45,
+        "12": 0.806
+      }
+    },
+    "stations": [
+      {
+        "station": "ORANGE GROVE",
+        "zone": "SOUTH",
+        "out_days": 23,
+        "co_bind": 23,
+        "p_bind_given_out": 1.0,
+        "raw_lift": 1.39,
+        "seas_lift": 1.28
+      },
+      {
+        "station": "BRISITA",
+        "zone": "SOUTH",
+        "out_days": 70,
+        "co_bind": 67,
+        "p_bind_given_out": 0.957,
+        "raw_lift": 1.33,
+        "seas_lift": 1.17
+      },
+      {
+        "station": "SAXET",
+        "zone": "SOUTH",
+        "out_days": 110,
+        "co_bind": 102,
+        "p_bind_given_out": 0.927,
+        "raw_lift": 1.29,
+        "seas_lift": 1.16
+      },
+      {
+        "station": "MVEC (BURNS)",
+        "zone": "SOUTH",
+        "out_days": 251,
+        "co_bind": 210,
+        "p_bind_given_out": 0.837,
+        "raw_lift": 1.16,
+        "seas_lift": 1.16
+      },
+      {
+        "station": "ZORN",
+        "zone": "SOUTH",
+        "out_days": 136,
+        "co_bind": 116,
+        "p_bind_given_out": 0.853,
+        "raw_lift": 1.19,
+        "seas_lift": 1.15
+      },
+      {
+        "station": "BGRSW",
+        "zone": "SOUTH",
+        "out_days": 258,
+        "co_bind": 192,
+        "p_bind_given_out": 0.744,
+        "raw_lift": 1.04,
+        "seas_lift": 1.14
+      },
+      {
+        "station": "GILLELAND",
+        "zone": "SOUTH",
+        "out_days": 283,
+        "co_bind": 219,
+        "p_bind_given_out": 0.774,
+        "raw_lift": 1.08,
+        "seas_lift": 1.13
+      },
+      {
+        "station": "YARSW",
+        "zone": "NORTH",
+        "out_days": 305,
+        "co_bind": 229,
+        "p_bind_given_out": 0.751,
+        "raw_lift": 1.04,
+        "seas_lift": 1.09
+      },
+      {
+        "station": "GULCH",
+        "zone": "SOUTH",
+        "out_days": 505,
+        "co_bind": 369,
+        "p_bind_given_out": 0.731,
+        "raw_lift": 1.02,
+        "seas_lift": 1.06
+      },
+      {
+        "station": "BELL COUNTY SWITCHING STATION",
+        "zone": "NORTH",
+        "out_days": 376,
+        "co_bind": 285,
+        "p_bind_given_out": 0.758,
+        "raw_lift": 1.05,
+        "seas_lift": 1.05
+      },
+      {
+        "station": "RIO HONDO",
+        "zone": "SOUTH",
+        "out_days": 641,
+        "co_bind": 477,
+        "p_bind_given_out": 0.744,
+        "raw_lift": 1.04,
+        "seas_lift": 1.04
+      },
+      {
+        "station": "RAYMONDVILLE 2",
+        "zone": "SOUTH",
+        "out_days": 37,
+        "co_bind": 37,
+        "p_bind_given_out": 1.0,
+        "raw_lift": 1.39,
+        "seas_lift": 1.02
+      },
+      {
+        "station": "ROCKDALE",
+        "zone": "SOUTH",
+        "out_days": 36,
+        "co_bind": 32,
+        "p_bind_given_out": 0.889,
+        "raw_lift": 1.24,
+        "seas_lift": 1.02
+      },
+      {
+        "station": "SANDOW SWITCH",
+        "zone": "SOUTH",
+        "out_days": 585,
+        "co_bind": 437,
+        "p_bind_given_out": 0.747,
+        "raw_lift": 1.04,
+        "seas_lift": 1.02
+      },
+      {
+        "station": "NORTH EDINBURG",
+        "zone": "SOUTH",
+        "out_days": 704,
+        "co_bind": 506,
+        "p_bind_given_out": 0.719,
+        "raw_lift": 1.0,
+        "seas_lift": 1.0
+      },
+      {
+        "station": "LON HILL",
+        "zone": "SOUTH",
+        "out_days": 703,
+        "co_bind": 505,
+        "p_bind_given_out": 0.718,
+        "raw_lift": 1.0,
+        "seas_lift": 1.0
+      },
+      {
+        "station": "HUTTO",
+        "zone": "SOUTH",
+        "out_days": 651,
+        "co_bind": 457,
+        "p_bind_given_out": 0.702,
+        "raw_lift": 0.98,
+        "seas_lift": 1.0
+      },
+      {
+        "station": "SOUTH SANTA ROSA",
+        "zone": "SOUTH",
+        "out_days": 17,
+        "co_bind": 10,
+        "p_bind_given_out": 0.588,
+        "raw_lift": 0.82,
+        "seas_lift": 1.0
+      },
+      {
+        "station": "GDLSW",
+        "zone": "NORTH",
+        "out_days": 424,
+        "co_bind": 302,
+        "p_bind_given_out": 0.712,
+        "raw_lift": 0.99,
+        "seas_lift": 0.99
+      },
+      {
+        "station": "BCESW",
+        "zone": "NORTH",
+        "out_days": 638,
+        "co_bind": 472,
+        "p_bind_given_out": 0.74,
+        "raw_lift": 1.03,
+        "seas_lift": 0.99
+      }
+    ]
+  },
+  "421__A": {
+    "meta": {
+      "constraint": "421__A",
+      "window": "2025-01-01..2026-06-08",
+      "n_days": 522,
+      "n_bind": 120,
+      "base_pbind_per_day": 0.2299,
+      "mean_stations_out_on_bind": 13.18,
+      "mean_stations_out_off_bind": 12.14,
+      "month_base": {
+        "1": 0.081,
+        "2": 0.071,
+        "3": 0.033,
+        "4": 0.5,
+        "5": 0.306,
+        "6": 0.053,
+        "7": 0.0,
+        "8": 0.0,
+        "9": 0.0,
+        "10": 0.677,
+        "11": 0.567,
+        "12": 0.645
+      }
+    },
+    "stations": [
+      {
+        "station": "CLOSNER",
+        "zone": "SOUTH",
+        "out_days": 21,
+        "co_bind": 9,
+        "p_bind_given_out": 0.429,
+        "raw_lift": 1.86,
+        "seas_lift": 2.39
+      },
+      {
+        "station": "SE EDINBURG",
+        "zone": "SOUTH",
+        "out_days": 50,
+        "co_bind": 22,
+        "p_bind_given_out": 0.44,
+        "raw_lift": 1.91,
+        "seas_lift": 2.27
+      },
+      {
+        "station": "BCRSW",
+        "zone": "SOUTH",
+        "out_days": 28,
+        "co_bind": 24,
+        "p_bind_given_out": 0.857,
+        "raw_lift": 3.73,
+        "seas_lift": 2.26
+      },
+      {
+        "station": "KNGFSHER",
+        "zone": "SOUTH",
+        "out_days": 73,
+        "co_bind": 44,
+        "p_bind_given_out": 0.603,
+        "raw_lift": 2.62,
+        "seas_lift": 2.14
+      },
+      {
+        "station": "STEWART ROAD",
+        "zone": "SOUTH",
+        "out_days": 98,
+        "co_bind": 50,
+        "p_bind_given_out": 0.51,
+        "raw_lift": 2.22,
+        "seas_lift": 1.93
+      },
+      {
+        "station": "VERTREES",
+        "zone": "SOUTH",
+        "out_days": 26,
+        "co_bind": 14,
+        "p_bind_given_out": 0.538,
+        "raw_lift": 2.34,
+        "seas_lift": 1.81
+      },
+      {
+        "station": "MVEC (WESLACO)",
+        "zone": "SOUTH",
+        "out_days": 29,
+        "co_bind": 11,
+        "p_bind_given_out": 0.379,
+        "raw_lift": 1.65,
+        "seas_lift": 1.52
+      },
+      {
+        "station": "BERGSTROM",
+        "zone": "SOUTH",
+        "out_days": 23,
+        "co_bind": 18,
+        "p_bind_given_out": 0.783,
+        "raw_lift": 3.4,
+        "seas_lift": 1.36
+      },
+      {
+        "station": "LA PALMA",
+        "zone": "SOUTH",
+        "out_days": 283,
+        "co_bind": 117,
+        "p_bind_given_out": 0.413,
+        "raw_lift": 1.8,
+        "seas_lift": 1.29
+      },
+      {
+        "station": "GDLSW",
+        "zone": "NORTH",
+        "out_days": 407,
+        "co_bind": 118,
+        "p_bind_given_out": 0.29,
+        "raw_lift": 1.26,
+        "seas_lift": 1.17
+      },
+      {
+        "station": "WESLACO UNIT",
+        "zone": "SOUTH",
+        "out_days": 108,
+        "co_bind": 52,
+        "p_bind_given_out": 0.481,
+        "raw_lift": 2.09,
+        "seas_lift": 1.15
+      },
+      {
+        "station": "KINGSBERY",
+        "zone": "SOUTH",
+        "out_days": 17,
+        "co_bind": 12,
+        "p_bind_given_out": 0.706,
+        "raw_lift": 3.07,
+        "seas_lift": 1.09
+      },
+      {
+        "station": "BELL COUNTY SWITCHING STATION",
+        "zone": "NORTH",
+        "out_days": 376,
+        "co_bind": 98,
+        "p_bind_given_out": 0.261,
+        "raw_lift": 1.13,
+        "seas_lift": 1.05
+      },
+      {
+        "station": "LON HILL",
+        "zone": "SOUTH",
+        "out_days": 521,
+        "co_bind": 120,
+        "p_bind_given_out": 0.23,
+        "raw_lift": 1.0,
+        "seas_lift": 1.0
+      },
+      {
+        "station": "BCESW",
+        "zone": "NORTH",
+        "out_days": 522,
+        "co_bind": 120,
+        "p_bind_given_out": 0.23,
+        "raw_lift": 1.0,
+        "seas_lift": 1.0
+      },
+      {
+        "station": "NORTH EDINBURG",
+        "zone": "SOUTH",
+        "out_days": 522,
+        "co_bind": 120,
+        "p_bind_given_out": 0.23,
+        "raw_lift": 1.0,
+        "seas_lift": 1.0
+      },
+      {
+        "station": "SANDOW SWITCH",
+        "zone": "SOUTH",
+        "out_days": 522,
+        "co_bind": 120,
+        "p_bind_given_out": 0.23,
+        "raw_lift": 1.0,
+        "seas_lift": 1.0
+      },
+      {
+        "station": "HUTTO",
+        "zone": "SOUTH",
+        "out_days": 469,
+        "co_bind": 116,
+        "p_bind_given_out": 0.247,
+        "raw_lift": 1.08,
+        "seas_lift": 0.99
+      },
+      {
+        "station": "YARSW",
+        "zone": "NORTH",
+        "out_days": 305,
+        "co_bind": 67,
+        "p_bind_given_out": 0.22,
+        "raw_lift": 0.96,
+        "seas_lift": 0.91
+      },
+      {
+        "station": "RIO HONDO",
+        "zone": "SOUTH",
+        "out_days": 459,
+        "co_bind": 86,
+        "p_bind_given_out": 0.187,
+        "raw_lift": 0.82,
+        "seas_lift": 0.85
+      }
+    ]
+  }
+}

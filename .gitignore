@@ -79,3 +79,8 @@ temp/
 # Reports — keep .md (review-able), gitignore .html (large, generated)
 # =============================================================
 reports/**/*.html
+
+# =============================================================
+# Ad-hoc derived caches — keep scripts/.json/.md, gitignore large parquet (re-fetchable from datalake)
+# =============================================================
+shared/data/adhoc/**/*.parquet

@@ -1,0 +1,8 @@
+{
+  "window_start": "2024-07-03 00:40:18",
+  "window_end": "2026-06-08 23:55:18",
+  "binding_rows": 1261408,
+  "convention": "impact=-SHIFTFACTOR*SHADOWPRICE; Pos raises GKS_BESS_RN LMP",
+  "source": "market_shift_factors PRICENODEID=10017907494 (GKS_BESS_RN)",
+  "rt_weight": "1/12 h per 5-min row"
+}

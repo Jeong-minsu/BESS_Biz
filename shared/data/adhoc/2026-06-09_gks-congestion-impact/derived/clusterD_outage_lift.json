@@ -1,0 +1,419 @@
+{
+ "BRUNI_69_1": {
+  "base": 0.6392045454545454,
+  "month_base": {
+   "1": 0.806,
+   "2": 0.768,
+   "3": 0.689,
+   "4": 0.85,
+   "5": 0.758,
+   "6": 0.605,
+   "7": 0.517,
+   "8": 0.323,
+   "9": 0.424,
+   "10": 0.435,
+   "11": 0.767,
+   "12": 0.726
+  },
+  "rows": [
+   {
+    "FROMSTATION": "GANDY",
+    "FROMZONE": "SOUTH",
+    "days_out": 25,
+    "days_out_bind": 23,
+    "exp_bind": 13.419047619047621,
+    "kv": 138,
+    "p_bind_given_out": 0.92,
+    "seas_lift": 1.7139815471965931
+   },
+   {
+    "FROMSTATION": "DOWNIE 1",
+    "FROMZONE": "SOUTH",
+    "days_out": 25,
+    "days_out_bind": 22,
+    "exp_bind": 15.305470381557601,
+    "kv": 138,
+    "p_bind_given_out": 0.88,
+    "seas_lift": 1.4373945688404979
+   },
+   {
+    "FROMSTATION": "SEVNF_ES",
+    "FROMZONE": "SOUTH",
+    "days_out": 102,
+    "days_out_bind": 67,
+    "exp_bind": 46.75219089275951,
+    "kv": 138,
+    "p_bind_given_out": 0.6568627450980392,
+    "seas_lift": 1.4330879199583406
+   },
+   {
+    "FROMSTATION": "SANDY HILL",
+    "FROMZONE": "SOUTH",
+    "days_out": 70,
+    "days_out_bind": 51,
+    "exp_bind": 36.22973967176004,
+    "kv": 138,
+    "p_bind_given_out": 0.7285714285714285,
+    "seas_lift": 1.4076833138205769
+   },
+   {
+    "FROMSTATION": "MENDOZA",
+    "FROMZONE": "SOUTH",
+    "days_out": 24,
+    "days_out_bind": 18,
+    "exp_bind": 12.911542632810189,
+    "kv": 138,
+    "p_bind_given_out": 0.75,
+    "seas_lift": 1.3941014262896263
+   },
+   {
+    "FROMSTATION": "BATESVILLE SWITCH",
+    "FROMZONE": "SOUTH",
+    "days_out": 27,
+    "days_out_bind": 25,
+    "exp_bind": 18.160957689040156,
+    "kv": 138,
+    "p_bind_given_out": 0.9259259259259259,
+    "seas_lift": 1.3765793868396652
+   },
+   {
+    "FROMSTATION": "SEB",
+    "FROMZONE": "SOUTH",
+    "days_out": 122,
+    "days_out_bind": 93,
+    "exp_bind": 69.64230333899265,
+    "kv": 345,
+    "p_bind_given_out": 0.7622950819672131,
+    "seas_lift": 1.3353952345216216
+   },
+   {
+    "FROMSTATION": "RUTHERFORD",
+    "FROMZONE": "SOUTH",
+    "days_out": 31,
+    "days_out_bind": 27,
+    "exp_bind": 20.325198937322153,
+    "kv": 138,
+    "p_bind_given_out": 0.8709677419354839,
+    "seas_lift": 1.3284002819977936
+   },
+   {
+    "FROMSTATION": "FREDONIA",
+    "FROMZONE": "SOUTH",
+    "days_out": 30,
+    "days_out_bind": 17,
+    "exp_bind": 12.899945325314379,
+    "kv": 69,
+    "p_bind_given_out": 0.5666666666666667,
+    "seas_lift": 1.3178350428074934
+   },
+   {
+    "FROMSTATION": "CHALUPA",
+    "FROMZONE": "SOUTH",
+    "days_out": 37,
+    "days_out_bind": 32,
+    "exp_bind": 24.39247311827957,
+    "kv": 138,
+    "p_bind_given_out": 0.8648648648648649,
+    "seas_lift": 1.3118800969803834
+   },
+   {
+    "FROMSTATION": "MONTECR1",
+    "FROMZONE": "SOUTH",
+    "days_out": 43,
+    "days_out_bind": 35,
+    "exp_bind": 26.91621392190153,
+    "kv": 345,
+    "p_bind_given_out": 0.813953488372093,
+    "seas_lift": 1.3003314694092527
+   },
+   {
+    "FROMSTATION": "CARA_ESS",
+    "FROMZONE": "SOUTH",
+    "days_out": 33,
+    "days_out_bind": 32,
+    "exp_bind": 24.704625292740047,
+    "kv": 138,
+    "p_bind_given_out": 0.9696969696969697,
+    "seas_lift": 1.2953040016115462
+   }
+  ]
+ },
+ "LOYOLA_69_1": {
+  "base": 0.48579545454545453,
+  "month_base": {
+   "1": 0.516,
+   "2": 0.464,
+   "3": 0.377,
+   "4": 0.5,
+   "5": 0.435,
+   "6": 0.684,
+   "7": 0.5,
+   "8": 0.242,
+   "9": 0.525,
+   "10": 0.597,
+   "11": 0.583,
+   "12": 0.484
+  },
+  "rows": [
+   {
+    "FROMSTATION": "ELGISW",
+    "FROMZONE": "SOUTH",
+    "days_out": 75,
+    "days_out_bind": 67,
+    "exp_bind": 33.1674120947575,
+    "kv": 138,
+    "p_bind_given_out": 0.8933333333333333,
+    "seas_lift": 2.0200551013321335
+   },
+   {
+    "FROMSTATION": "SAYER",
+    "FROMZONE": "SOUTH",
+    "days_out": 70,
+    "days_out_bind": 63,
+    "exp_bind": 31.86651309951689,
+    "kv": 138,
+    "p_bind_given_out": 0.9,
+    "seas_lift": 1.9769969749515865
+   },
+   {
+    "FROMSTATION": "BEXAR_ES",
+    "FROMZONE": "SOUTH",
+    "days_out": 60,
+    "days_out_bind": 56,
+    "exp_bind": 28.47453310696095,
+    "kv": 138,
+    "p_bind_given_out": 0.9333333333333333,
+    "seas_lift": 1.966669647914617
+   },
+   {
+    "FROMSTATION": "RED BLUFF",
+    "FROMZONE": "SOUTH",
+    "days_out": 26,
+    "days_out_bind": 24,
+    "exp_bind": 12.226958525345623,
+    "kv": 138,
+    "p_bind_given_out": 0.9230769230769231,
+    "seas_lift": 1.9628757184584942
+   },
+   {
+    "FROMSTATION": "MEDICAL CENTER (M3)",
+    "FROMZONE": "SOUTH",
+    "days_out": 35,
+    "days_out_bind": 30,
+    "exp_bind": 15.504494976203066,
+    "kv": 138,
+    "p_bind_given_out": 0.8571428571428571,
+    "seas_lift": 1.9349227463419627
+   },
+   {
+    "FROMSTATION": "GEORGE WEST CPL",
+    "FROMZONE": "SOUTH",
+    "days_out": 21,
+    "days_out_bind": 16,
+    "exp_bind": 8.286885245901638,
+    "kv": 138,
+    "p_bind_given_out": 0.7619047619047619,
+    "seas_lift": 1.930761622156281
+   },
+   {
+    "FROMSTATION": "ANTLER",
+    "FROMZONE": "SOUTH",
+    "days_out": 91,
+    "days_out_bind": 79,
+    "exp_bind": 40.918618266978925,
+    "kv": 138,
+    "p_bind_given_out": 0.8681318681318682,
+    "seas_lift": 1.9306614774857274
+   },
+   {
+    "FROMSTATION": "BRISITA",
+    "FROMZONE": "SOUTH",
+    "days_out": 87,
+    "days_out_bind": 76,
+    "exp_bind": 39.43655542876228,
+    "kv": 345,
+    "p_bind_given_out": 0.8735632183908046,
+    "seas_lift": 1.9271459987748039
+   },
+   {
+    "FROMSTATION": "CARRIZO SPRINGS SUB",
+    "FROMZONE": "SOUTH",
+    "days_out": 99,
+    "days_out_bind": 86,
+    "exp_bind": 44.63405605499736,
+    "kv": 69,
+    "p_bind_given_out": 0.8686868686868687,
+    "seas_lift": 1.9267798537966658
+   },
+   {
+    "FROMSTATION": "MAENRO",
+    "FROMZONE": "SOUTH",
+    "days_out": 21,
+    "days_out_bind": 20,
+    "exp_bind": 10.438308886971527,
+    "kv": 138,
+    "p_bind_given_out": 0.9523809523809523,
+    "seas_lift": 1.9160191767234254
+   },
+   {
+    "FROMSTATION": "WEIMAR",
+    "FROMZONE": "SOUTH",
+    "days_out": 70,
+    "days_out_bind": 57,
+    "exp_bind": 29.92041504104443,
+    "kv": 138,
+    "p_bind_given_out": 0.8142857142857143,
+    "seas_lift": 1.9050537875830986
+   },
+   {
+    "FROMSTATION": "HAMILTON WOLF",
+    "FROMZONE": "SOUTH",
+    "days_out": 30,
+    "days_out_bind": 25,
+    "exp_bind": 13.155737704918032,
+    "kv": 138,
+    "p_bind_given_out": 0.8333333333333334,
+    "seas_lift": 1.900311526479751
+   }
+  ]
+ },
+ "LASCRU_MILO1_1": {
+  "base": 0.1590909090909091,
+  "month_base": {
+   "1": 0.468,
+   "2": 0.089,
+   "3": 0.0,
+   "4": 0.0,
+   "5": 0.0,
+   "6": 0.0,
+   "7": 0.0,
+   "8": 0.0,
+   "9": 0.0,
+   "10": 0.484,
+   "11": 0.5,
+   "12": 0.29
+  },
+  "rows": [
+   {
+    "FROMSTATION": "LAGUNA",
+    "FROMZONE": "SOUTH",
+    "days_out": 32,
+    "days_out_bind": 4,
+    "exp_bind": 0.7517281105990784,
+    "kv": 138,
+    "p_bind_given_out": 0.125,
+    "seas_lift": 5.321072796934866
+   },
+   {
+    "FROMSTATION": "SEVNF_ES",
+    "FROMZONE": "SOUTH",
+    "days_out": 102,
+    "days_out_bind": 6,
+    "exp_bind": 1.3767281105990783,
+    "kv": 138,
+    "p_bind_given_out": 0.058823529411764705,
+    "seas_lift": 4.3581589958158995
+   },
+   {
+    "FROMSTATION": "BOWWOO",
+    "FROMZONE": "SOUTH",
+    "days_out": 51,
+    "days_out_bind": 9,
+    "exp_bind": 3.1422811059907834,
+    "kv": 345,
+    "p_bind_given_out": 0.17647058823529413,
+    "seas_lift": 2.8641613198900093
+   },
+   {
+    "FROMSTATION": "NIXON",
+    "FROMZONE": "SOUTH",
+    "days_out": 58,
+    "days_out_bind": 9,
+    "exp_bind": 3.5904377880184333,
+    "kv": 138,
+    "p_bind_given_out": 0.15517241379310345,
+    "seas_lift": 2.5066581100593615
+   },
+   {
+    "FROMSTATION": "ARY_BESS",
+    "FROMZONE": "SOUTH",
+    "days_out": 72,
+    "days_out_bind": 45,
+    "exp_bind": 18.31970046082949,
+    "kv": 345,
+    "p_bind_given_out": 0.625,
+    "seas_lift": 2.45637204037355
+   },
+   {
+    "FROMSTATION": "HALL ACRES",
+    "FROMZONE": "SOUTH",
+    "days_out": 111,
+    "days_out_bind": 23,
+    "exp_bind": 9.93721198156682,
+    "kv": 138,
+    "p_bind_given_out": 0.2072072072072072,
+    "seas_lift": 2.3145324908700946
+   },
+   {
+    "FROMSTATION": "SGAL_BES",
+    "FROMZONE": "SOUTH",
+    "days_out": 81,
+    "days_out_bind": 3,
+    "exp_bind": 1.338709677419355,
+    "kv": 138,
+    "p_bind_given_out": 0.037037037037037035,
+    "seas_lift": 2.2409638554216866
+   },
+   {
+    "FROMSTATION": "PEDERNALES",
+    "FROMZONE": "SOUTH",
+    "days_out": 36,
+    "days_out_bind": 24,
+    "exp_bind": 10.725806451612904,
+    "kv": 138,
+    "p_bind_given_out": 0.6666666666666666,
+    "seas_lift": 2.237593984962406
+   },
+   {
+    "FROMSTATION": "PLAINVIEW SUB",
+    "FROMZONE": "SOUTH",
+    "days_out": 28,
+    "days_out_bind": 11,
+    "exp_bind": 4.971774193548387,
+    "kv": 345,
+    "p_bind_given_out": 0.39285714285714285,
+    "seas_lift": 2.2124898621248987
+   },
+   {
+    "FROMSTATION": "GATEWAY TAP EAST",
+    "FROMZONE": "SOUTH",
+    "days_out": 150,
+    "days_out_bind": 24,
+    "exp_bind": 10.85483870967742,
+    "kv": 138,
+    "p_bind_given_out": 0.16,
+    "seas_lift": 2.2109955423476966
+   },
+   {
+    "FROMSTATION": "DRISCOLL SUB",
+    "FROMZONE": "SOUTH",
+    "days_out": 170,
+    "days_out_bind": 37,
+    "exp_bind": 17.007488479262673,
+    "kv": 69,
+    "p_bind_given_out": 0.21764705882352942,
+    "seas_lift": 2.1755122777307365
+   },
+   {
+    "FROMSTATION": "SOUTH SANTA ROSA",
+    "FROMZONE": "SOUTH",
+    "days_out": 33,
+    "days_out_bind": 20,
+    "exp_bind": 9.258064516129032,
+    "kv": 138,
+    "p_bind_given_out": 0.6060606060606061,
+    "seas_lift": 2.1602787456445993
+   }
+  ]
+ }
+}

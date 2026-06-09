@@ -1,0 +1,89 @@
+{
+  "_meta": {
+    "purpose": "APPROXIMATE public/domain lat-long for GKS_BESS_RN + the key station of each of the 14 GKS top-congestion-impact constraints (7 POS / 7 NEG), for dashboard map viz only.",
+    "source": "Public/domain knowledge of named ERCOT towns/plants/substations. NOT from datalake (datalake metadata has NO coordinates, ZONE only). NOT CEII. Do NOT treat as exact substation coordinates.",
+    "created": "2026-06-09",
+    "author": "congestion-analyst",
+    "sign_convention": "sign = effect on GKS_BESS_RN LMP via MCC = -SF*lambda. neg = LOWERS GKS LMP (GKS aggravates, charge-favorable, SF>0). pos = RAISES GKS LMP (GKS relieves, discharge-favorable, SF<0).",
+    "cum_usd_note": "cum_usd = sum of available DA+RT cumulative-$ /MW figures from gks-top-congestion-impact ranking (window 2024-07-03..2026-06-08). Where a market did not appear in that market's top-5, only the available side is summed (may understate). E_PASP/LARDVN/LOYOLA/HAINE/1710/421 have both; others one side.",
+    "confidence_field": "placement confidence: high = town/plant location well known to ~1-3 mi; med = correct community/area, exact bus uncertain; low = approximate area / inferred station identity; flag = not confidently placeable (lat/lon null).",
+    "status_field": "constraint binding status from deep-dive: live | retired (binding collapsed mid/late-2025) | noise.",
+    "corroboration": "LA PALMA, NORTH EDINBURG, LON HILL appear as real SOUTH-zone stations in the 2026-01-24..26 outage snapshot (datalake), corroborating those station identities.",
+    "reused_coords": "BLESSING, ELM CREEK (STP-ELMCREEK), STP from 2026-06-09_houston-constraint-validation/derived/corridor_facility_coords_approx.json.",
+    "flagged_unplaceable": ["421__A (BCESW-SNDSW 345 switch stations not confidently identifiable)"],
+    "low_confidence_inferred": ["1710__C (BELCNTY read as Bell County, SALSW unknown)", "LOYOLA_69_1 (LOYOLA bus identity uncertain)", "LASCRU_MILO1_1 (MILO bus uncertain)", "WESTEX (regional West->North GTC, not a point)"]
+  },
+  "gks": {"name": "GKS_BESS_RN", "lat": 26.30, "lon": -98.10, "zone": "SOUTH",
+          "confidence": "med", "note": "Great Kiskadee Storage (GKS_BESS_ESR1), deep South-TX / Rio Grande Valley, Hidalgo Co. area. SF~+1.0 on VALEXP (Valley export) places it on the Valley side of the North Edinburg-Lon Hill interface."},
+  "constraints": [
+    {"id": "E_PASP", "label": "PAWNEE-CALAVERAS 345 (interface)", "key_station": "PAWNEE",
+     "lat": 28.66, "lon": -98.01, "zone": "SOUTH", "sign": "neg", "cum_usd": -79343,
+     "status": "live", "confidence": "med",
+     "note": "RTI base-case S-TX->San-Antonio import interface. PAWNEE (Bee Co, nr Three Rivers) -> CALAVERAS (CPS, SE of San Antonio ~29.30,-98.31). Highest-SF GKS charge signal."},
+
+    {"id": "LARDVN_LASCRU1_1", "label": "LAREDOVNTH-LASCRUCE 138", "key_station": "LAREDOVNTH",
+     "lat": 27.60, "lon": -99.45, "zone": "SOUTH", "sign": "neg", "cum_usd": -49869,
+     "status": "retired", "confidence": "med",
+     "note": "Laredo-area 138 (Webb Co). LASCRUCE = South-TX Las Cruces (NOT New Mexico). N-1 wind-export corridor; binding collapsed ~Oct-2025."},
+
+    {"id": "LOYOLA_69_1", "label": "LOYOLA 138", "key_station": "LOYOLA",
+     "lat": 27.50, "lon": -99.40, "zone": "SOUTH", "sign": "neg", "cum_usd": -14113,
+     "status": "live", "confidence": "low",
+     "note": "LOYOLA bus identity uncertain; placed approximately in the Laredo/Webb-Co South-TX export cluster. RT-severity play (RT mean lambda ~$576)."},
+
+    {"id": "VALEXP", "label": "NORTH EDINBURG-LON HILL Valley Export (RTI/GTC)", "key_station": "NORTH EDINBURG",
+     "lat": 26.35, "lon": -98.16, "zone": "SOUTH", "sign": "neg", "cum_usd": -13004,
+     "status": "live", "confidence": "med",
+     "note": "Valley export interface; SF~+1.0 (GKS export fully loads it). NORTH EDINBURG (Edinburg, Hidalgo Co) -> LON HILL (Nueces Co, nr Corpus ~27.65,-97.55). Both confirmed in outage snapshot."},
+
+    {"id": "CATARI_PILONC1_1", "label": "PILONCILLO-CATARINA 138", "key_station": "CATARINA",
+     "lat": 28.35, "lon": -99.60, "zone": "SOUTH", "sign": "neg", "cum_usd": -10577,
+     "status": "retired", "confidence": "med",
+     "note": "Catarina & Piloncillo, Dimmit Co, deep SW South-TX (Eagle Ford wind/solar). N-1 light-load overnight severity play; binding near-zero since ~Jun-2025."},
+
+    {"id": "BRUNI_69_1", "label": "BRUNI 138", "key_station": "BRUNI",
+     "lat": 27.43, "lon": -98.85, "zone": "SOUTH", "sign": "neg", "cum_usd": -10343,
+     "status": "live", "confidence": "med",
+     "note": "Bruni, Webb Co (E of Laredo). South-TX export-cluster 138, RT-severity (RT mean lambda ~$182)."},
+
+    {"id": "LASCRU_MILO1_1", "label": "LASCRUCE-MILO 138", "key_station": "LASCRUCE",
+     "lat": 27.60, "lon": -99.30, "zone": "SOUTH", "sign": "neg", "cum_usd": -5052,
+     "status": "live", "confidence": "low",
+     "note": "Las Cruces (South-TX, Laredo area) -> MILO; MILO bus uncertain. Placed approximately in Webb-Co export cluster."},
+
+    {"id": "HAINE__LA_PAL1_1", "label": "LA PALMA-HAINE 138", "key_station": "LA PALMA",
+     "lat": 26.25, "lon": -98.05, "zone": "SOUTH", "sign": "pos", "cum_usd": 21805,
+     "status": "live", "confidence": "low",
+     "note": "Local RGV 138 GKS relieves (raises GKS LMP, discharge-favorable). LA PALMA confirmed as real SOUTH station in outage snapshot; exact bus uncertain. HAINE (DR) endpoint not separately placed."},
+
+    {"id": "1710__C", "label": "BELCNTY-SALSW 138", "key_station": "BELCNTY (Bell Co, inferred)",
+     "lat": 31.05, "lon": -97.46, "zone": "NORTH-CENTRAL (geo)", "sign": "pos", "cum_usd": 15684,
+     "status": "live", "confidence": "low",
+     "note": "BELCNTY read as Bell County (Temple/Belton, central TX); SALSW unknown. Low SF (~.025) consistent with an electrically-distant central-TX line. Summer-severity POS. INFERRED identity - verify."},
+
+    {"id": "421__A", "label": "BCESW-SNDSW 345", "key_station": null,
+     "lat": null, "lon": null, "zone": "SOUTH (likely)", "sign": "pos", "cum_usd": 9919,
+     "status": "live", "confidence": "flag",
+     "note": "UNPLACED: BCESW/SNDSW switch-station abbreviations not confidently identifiable. High SF (~.193) suggests electrically near GKS (deep South/Valley 345), but no confident coordinate."},
+
+    {"id": "STPELM27_1", "label": "STP-ELMCREEK 345", "key_station": "ELM CREEK",
+     "lat": 29.250, "lon": -98.330, "zone": "SOUTH", "sign": "pos", "cum_usd": 4457,
+     "status": "live", "confidence": "low",
+     "note": "STP (28.795,-96.048) -> ELM CREEK (Elmendorf, SE San Antonio). Coords reused from Houston corridor file. Winter (Dec/Jan) RT-severity POS."},
+
+    {"id": "BLESSING_1382", "label": "BLESSING 345", "key_station": "BLESSING",
+     "lat": 28.870, "lon": -96.220, "zone": "SOUTH", "sign": "pos", "cum_usd": 3857,
+     "status": "live", "confidence": "high",
+     "note": "Blessing, Matagorda Co. Coastal 345. Coords reused from Houston corridor file. DA-frequency POS (raises GKS LMP)."},
+
+    {"id": "WESTEX", "label": "RILEY(W)-KRWSW(N) West->North export GTC", "key_station": "RILEY (West-TX, approx)",
+     "lat": 32.00, "lon": -101.00, "zone": "WEST", "sign": "pos", "cum_usd": 3099,
+     "status": "live", "confidence": "low",
+     "note": "Regional West->North export GTC interface (RTI), NOT a single point; coordinate is an approximate West-TX/Permian-edge centroid for map placement only."},
+
+    {"id": "15060__B", "label": "VEALMOOR-KOCHTAP 138", "key_station": "VEALMOOR",
+     "lat": 32.42, "lon": -101.58, "zone": "WEST", "sign": "pos", "cum_usd": 2872,
+     "status": "live", "confidence": "med",
+     "note": "Vealmoor community, Howard Co (N of Big Spring), Permian Basin. KOCHTAP (Koch tap) endpoint not separately placed. Fall (Sep/Oct) POS."}
+  ]
+}

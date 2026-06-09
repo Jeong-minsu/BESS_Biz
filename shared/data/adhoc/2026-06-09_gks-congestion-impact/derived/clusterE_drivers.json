@@ -1,0 +1,140 @@
+{
+  "VALEXP": {
+    "DA": {
+      "primary_var": "wind_GR_SOUTH",
+      "solar_var": "solar_SouthEast",
+      "n_bind_hr": 1211,
+      "n_total_hr": 16941,
+      "wind_GR_SOUTH": {
+        "bind_median": 1024.0,
+        "bind_P25": 549.0,
+        "nonbind_median": 1298.0,
+        "nonbind_P90": 2547.0
+      },
+      "solar_SouthEast": {
+        "bind_median": 0.0,
+        "bind_P25": 0.0,
+        "nonbind_median": 77.0,
+        "nonbind_P90": 2550.0
+      },
+      "wind_GR_ERCOT": {
+        "bind_median": 9160.0,
+        "bind_P25": 6297.0,
+        "nonbind_median": 12878.0,
+        "nonbind_P90": 22958.0
+      },
+      "corr_lambda_vs_wind_GR_SOUTH": 0.035,
+      "P_bind_by_wind_GR_SOUTH_bucket": {
+        "(-1, 500]": 0.075,
+        "(500, 1000]": 0.098,
+        "(1000, 1500]": 0.099,
+        "(1500, 2000]": 0.065,
+        "(2000, 3000]": 0.034,
+        "(3000, 4000]": 0.021
+      }
+    },
+    "RT": {
+      "primary_var": "wind_GR_SOUTH",
+      "solar_var": "solar_SouthEast",
+      "n_bind_hr": 574,
+      "n_total_hr": 16941,
+      "wind_GR_SOUTH": {
+        "bind_median": 1023.0,
+        "bind_P25": 628.0,
+        "nonbind_median": 1281.0,
+        "nonbind_P90": 2539.0
+      },
+      "solar_SouthEast": {
+        "bind_median": 0.0,
+        "bind_P25": 0.0,
+        "nonbind_median": 32.0,
+        "nonbind_P90": 2529.0
+      },
+      "wind_GR_ERCOT": {
+        "bind_median": 8000.0,
+        "bind_P25": 5419.0,
+        "nonbind_median": 12659.0,
+        "nonbind_P90": 22859.0
+      },
+      "corr_lambda_vs_wind_GR_SOUTH": -0.05,
+      "P_bind_by_wind_GR_SOUTH_bucket": {
+        "(-1, 500]": 0.029,
+        "(500, 1000]": 0.054,
+        "(1000, 1500]": 0.051,
+        "(1500, 2000]": 0.031,
+        "(2000, 3000]": 0.014,
+        "(3000, 4000]": 0.0
+      }
+    }
+  },
+  "WESTEX": {
+    "DA": {
+      "primary_var": "wind_WESTEX_basin",
+      "solar_var": "solar_FarWest",
+      "n_bind_hr": 2518,
+      "n_total_hr": 16941,
+      "wind_WESTEX_basin": {
+        "bind_median": 16681.0,
+        "bind_P25": 14341.0,
+        "nonbind_median": 7242.0,
+        "nonbind_P90": 15034.0
+      },
+      "solar_FarWest": {
+        "bind_median": 232.0,
+        "bind_P25": 0.0,
+        "nonbind_median": 47.0,
+        "nonbind_P90": 4096.0
+      },
+      "wind_GR_ERCOT": {
+        "bind_median": 22273.0,
+        "bind_P25": 19503.0,
+        "nonbind_median": 10758.0,
+        "nonbind_P90": 20304.0
+      },
+      "corr_lambda_vs_wind_WESTEX_basin": 0.291,
+      "P_bind_by_wind_WESTEX_basin_bucket": {
+        "(-1, 500]": 0.0,
+        "(500, 1000]": 0.0,
+        "(1000, 1500]": 0.0,
+        "(1500, 2000]": 0.0,
+        "(2000, 3000]": 0.0,
+        "(3000, 4000]": 0.001,
+        "(4000, 99999]": 0.194
+      }
+    },
+    "RT": {
+      "primary_var": "wind_WESTEX_basin",
+      "solar_var": "solar_FarWest",
+      "n_bind_hr": 1625,
+      "n_total_hr": 16941,
+      "wind_WESTEX_basin": {
+        "bind_median": 17191.0,
+        "bind_P25": 14819.0,
+        "nonbind_median": 7746.0,
+        "nonbind_P90": 15736.0
+      },
+      "solar_FarWest": {
+        "bind_median": 253.0,
+        "bind_P25": 0.0,
+        "nonbind_median": 47.0,
+        "nonbind_P90": 4087.0
+      },
+      "wind_GR_ERCOT": {
+        "bind_median": 22768.0,
+        "bind_P25": 20181.0,
+        "nonbind_median": 11342.0,
+        "nonbind_P90": 21234.0
+      },
+      "corr_lambda_vs_wind_WESTEX_basin": 0.086,
+      "P_bind_by_wind_WESTEX_basin_bucket": {
+        "(-1, 500]": 0.0,
+        "(500, 1000]": 0.0,
+        "(1000, 1500]": 0.0,
+        "(1500, 2000]": 0.0,
+        "(2000, 3000]": 0.0,
+        "(3000, 4000]": 0.0,
+        "(4000, 99999]": 0.125
+      }
+    }
+  }
+}

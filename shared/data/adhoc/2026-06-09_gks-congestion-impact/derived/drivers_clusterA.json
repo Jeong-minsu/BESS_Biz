@@ -1,0 +1,484 @@
+{
+  "HAINE__LA_PAL1_1": {
+    "month": "2025-03",
+    "hours": 744,
+    "binding_hours": 482,
+    "base_rate": 0.648,
+    "load_South_bind_mean": 3943.9,
+    "load_South_nonbind_mean": 3559.2,
+    "solar_SouthEast_bind_mean": 896.7,
+    "solar_SouthEast_nonbind_mean": 493.2,
+    "wind_GR_SOUTH_bind_mean": 1840.6,
+    "wind_GR_SOUTH_nonbind_mean": 1272.3,
+    "load_North_bind_mean": 1512.8,
+    "load_North_nonbind_mean": 1509.5,
+    "load_SouthCentral_bind_mean": 7500.5,
+    "load_SouthCentral_nonbind_mean": 6907.2,
+    "solar_ERCOT_bind_mean": 8270.7,
+    "solar_ERCOT_nonbind_mean": 4433.6,
+    "wind_GR_ERCOT_bind_mean": 17428.2,
+    "wind_GR_ERCOT_nonbind_mean": 14010.3,
+    "thresholds": {
+      "load_South": {
+        "low": {
+          "range": [
+            null,
+            3468.0
+          ],
+          "n": 245,
+          "p_bind": 0.44,
+          "mean_lam_when_bind": 37.0
+        },
+        "mid": {
+          "range": [
+            3468.0,
+            4025.0
+          ],
+          "n": 245,
+          "p_bind": 0.69,
+          "mean_lam_when_bind": 56.0
+        },
+        "high": {
+          "range": [
+            4025.0,
+            4595.0
+          ],
+          "n": 178,
+          "p_bind": 0.8,
+          "mean_lam_when_bind": 103.0
+        },
+        "top10": {
+          "range": [
+            4595.0,
+            null
+          ],
+          "n": 75,
+          "p_bind": 0.8,
+          "mean_lam_when_bind": 127.0
+        }
+      },
+      "solar_SouthEast": {
+        "low": {
+          "range": [
+            null,
+            0.0
+          ],
+          "n": 332,
+          "p_bind": 0.52,
+          "mean_lam_when_bind": 54.0
+        },
+        "mid": {
+          "range": [
+            0.0,
+            1143.0
+          ],
+          "n": 158,
+          "p_bind": 0.68,
+          "mean_lam_when_bind": 90.0
+        },
+        "high": {
+          "range": [
+            1143.0,
+            2329.0
+          ],
+          "n": 178,
+          "p_bind": 0.88,
+          "mean_lam_when_bind": 88.0
+        },
+        "top10": {
+          "range": [
+            2329.0,
+            null
+          ],
+          "n": 75,
+          "p_bind": 0.6,
+          "mean_lam_when_bind": 68.0
+        }
+      },
+      "wind_GR_SOUTH": {
+        "low": {
+          "range": [
+            null,
+            1149.0
+          ],
+          "n": 245,
+          "p_bind": 0.51,
+          "mean_lam_when_bind": 69.0
+        },
+        "mid": {
+          "range": [
+            1149.0,
+            2194.0
+          ],
+          "n": 245,
+          "p_bind": 0.59,
+          "mean_lam_when_bind": 76.0
+        },
+        "high": {
+          "range": [
+            2194.0,
+            2758.0
+          ],
+          "n": 178,
+          "p_bind": 0.82,
+          "mean_lam_when_bind": 68.0
+        },
+        "top10": {
+          "range": [
+            2758.0,
+            null
+          ],
+          "n": 74,
+          "p_bind": 0.88,
+          "mean_lam_when_bind": 98.0
+        }
+      }
+    },
+    "p_bind_by_he": {
+      "1": 0.58,
+      "2": 0.52,
+      "3": 0.48,
+      "4": 0.45,
+      "5": 0.45,
+      "6": 0.42,
+      "7": 0.42,
+      "8": 0.42,
+      "9": 0.42,
+      "10": 0.48,
+      "11": 0.58,
+      "12": 0.71,
+      "13": 0.74,
+      "14": 0.74,
+      "15": 0.84,
+      "16": 0.84,
+      "17": 0.9,
+      "18": 0.94,
+      "19": 1.0,
+      "20": 0.87,
+      "21": 0.81,
+      "22": 0.68,
+      "23": 0.65,
+      "24": 0.61
+    }
+  },
+  "1710__C": {
+    "month": "2024-08",
+    "hours": 744,
+    "binding_hours": 157,
+    "base_rate": 0.211,
+    "load_North_bind_mean": 2271.7,
+    "load_North_nonbind_mean": 1974.2,
+    "solar_SouthEast_bind_mean": 1400.9,
+    "solar_SouthEast_nonbind_mean": 480.7,
+    "wind_GR_SOUTH_bind_mean": 758.2,
+    "wind_GR_SOUTH_nonbind_mean": 980.9,
+    "load_SouthCentral_bind_mean": 12954.6,
+    "load_SouthCentral_nonbind_mean": 10346.6,
+    "solar_ERCOT_bind_mean": 16053.5,
+    "solar_ERCOT_nonbind_mean": 5573.7,
+    "wind_GR_ERCOT_bind_mean": 8650.9,
+    "wind_GR_ERCOT_nonbind_mean": 10530.8,
+    "thresholds": {
+      "load_North": {
+        "low": {
+          "range": [
+            null,
+            1850.0
+          ],
+          "n": 244,
+          "p_bind": 0.01,
+          "mean_lam_when_bind": 35.0
+        },
+        "mid": {
+          "range": [
+            1850.0,
+            2205.0
+          ],
+          "n": 247,
+          "p_bind": 0.19,
+          "mean_lam_when_bind": 87.0
+        },
+        "high": {
+          "range": [
+            2205.0,
+            2409.0
+          ],
+          "n": 178,
+          "p_bind": 0.4,
+          "mean_lam_when_bind": 260.0
+        },
+        "top10": {
+          "range": [
+            2409.0,
+            null
+          ],
+          "n": 75,
+          "p_bind": 0.51,
+          "mean_lam_when_bind": 178.0
+        }
+      },
+      "solar_SouthEast": {
+        "low": {
+          "range": [
+            null,
+            0.0
+          ],
+          "n": 216,
+          "p_bind": 0.03,
+          "mean_lam_when_bind": 25.0
+        },
+        "mid": {
+          "range": [
+            0.0,
+            1248.0
+          ],
+          "n": 275,
+          "p_bind": 0.1,
+          "mean_lam_when_bind": 146.0
+        },
+        "high": {
+          "range": [
+            1248.0,
+            1672.0
+          ],
+          "n": 178,
+          "p_bind": 0.46,
+          "mean_lam_when_bind": 148.0
+        },
+        "top10": {
+          "range": [
+            1672.0,
+            null
+          ],
+          "n": 75,
+          "p_bind": 0.56,
+          "mean_lam_when_bind": 312.0
+        }
+      },
+      "wind_GR_SOUTH": {
+        "low": {
+          "range": [
+            null,
+            495.0
+          ],
+          "n": 246,
+          "p_bind": 0.3,
+          "mean_lam_when_bind": 222.0
+        },
+        "mid": {
+          "range": [
+            495.0,
+            1216.0
+          ],
+          "n": 244,
+          "p_bind": 0.2,
+          "mean_lam_when_bind": 203.0
+        },
+        "high": {
+          "range": [
+            1216.0,
+            1859.0
+          ],
+          "n": 180,
+          "p_bind": 0.1,
+          "mean_lam_when_bind": 102.0
+        },
+        "top10": {
+          "range": [
+            1859.0,
+            null
+          ],
+          "n": 74,
+          "p_bind": 0.22,
+          "mean_lam_when_bind": 71.0
+        }
+      }
+    },
+    "p_bind_by_he": {
+      "1": 0.0,
+      "2": 0.0,
+      "3": 0.0,
+      "4": 0.0,
+      "5": 0.0,
+      "6": 0.0,
+      "7": 0.0,
+      "8": 0.0,
+      "9": 0.0,
+      "10": 0.1,
+      "11": 0.19,
+      "12": 0.35,
+      "13": 0.45,
+      "14": 0.45,
+      "15": 0.61,
+      "16": 0.55,
+      "17": 0.55,
+      "18": 0.48,
+      "19": 0.39,
+      "20": 0.39,
+      "21": 0.19,
+      "22": 0.16,
+      "23": 0.19,
+      "24": 0.0
+    }
+  },
+  "421__A": {
+    "month": "2025-04",
+    "hours": 720,
+    "binding_hours": 15,
+    "base_rate": 0.021,
+    "load_SouthCentral_bind_mean": 9021.5,
+    "load_SouthCentral_nonbind_mean": 8221.6,
+    "solar_SouthEast_bind_mean": 1977.2,
+    "solar_SouthEast_nonbind_mean": 737.3,
+    "wind_GR_SOUTH_bind_mean": 993.1,
+    "wind_GR_SOUTH_nonbind_mean": 1907.9,
+    "load_North_bind_mean": 1745.5,
+    "load_North_nonbind_mean": 1602.6,
+    "solar_ERCOT_bind_mean": 22409.1,
+    "solar_ERCOT_nonbind_mean": 7004.8,
+    "wind_GR_ERCOT_bind_mean": 10751.2,
+    "wind_GR_ERCOT_nonbind_mean": 17107.4,
+    "thresholds": {
+      "load_SouthCentral": {
+        "low": {
+          "range": [
+            null,
+            7284.0
+          ],
+          "n": 238,
+          "p_bind": 0.0,
+          "mean_lam_when_bind": 1.0
+        },
+        "mid": {
+          "range": [
+            7284.0,
+            8850.0
+          ],
+          "n": 237,
+          "p_bind": 0.03,
+          "mean_lam_when_bind": 8.0
+        },
+        "high": {
+          "range": [
+            8850.0,
+            10236.0
+          ],
+          "n": 173,
+          "p_bind": 0.03,
+          "mean_lam_when_bind": 17.0
+        },
+        "top10": {
+          "range": [
+            10236.0,
+            null
+          ],
+          "n": 72,
+          "p_bind": 0.03,
+          "mean_lam_when_bind": 12.0
+        }
+      },
+      "solar_SouthEast": {
+        "low": {
+          "range": [
+            null,
+            0.0
+          ],
+          "n": 261,
+          "p_bind": 0.0,
+          "mean_lam_when_bind": 0
+        },
+        "mid": {
+          "range": [
+            0.0,
+            1177.0
+          ],
+          "n": 214,
+          "p_bind": 0.0,
+          "mean_lam_when_bind": 0
+        },
+        "high": {
+          "range": [
+            1177.0,
+            2250.0
+          ],
+          "n": 173,
+          "p_bind": 0.05,
+          "mean_lam_when_bind": 9.0
+        },
+        "top10": {
+          "range": [
+            2250.0,
+            null
+          ],
+          "n": 72,
+          "p_bind": 0.08,
+          "mean_lam_when_bind": 16.0
+        }
+      },
+      "wind_GR_SOUTH": {
+        "low": {
+          "range": [
+            null,
+            1661.0
+          ],
+          "n": 238,
+          "p_bind": 0.05,
+          "mean_lam_when_bind": 12.0
+        },
+        "mid": {
+          "range": [
+            1661.0,
+            2380.0
+          ],
+          "n": 237,
+          "p_bind": 0.01,
+          "mean_lam_when_bind": 10.0
+        },
+        "high": {
+          "range": [
+            2380.0,
+            2760.0
+          ],
+          "n": 173,
+          "p_bind": 0.0,
+          "mean_lam_when_bind": 0
+        },
+        "top10": {
+          "range": [
+            2760.0,
+            null
+          ],
+          "n": 72,
+          "p_bind": 0.0,
+          "mean_lam_when_bind": 0
+        }
+      }
+    },
+    "p_bind_by_he": {
+      "1": 0.0,
+      "2": 0.0,
+      "3": 0.0,
+      "4": 0.0,
+      "5": 0.0,
+      "6": 0.0,
+      "7": 0.0,
+      "8": 0.0,
+      "9": 0.0,
+      "10": 0.0,
+      "11": 0.03,
+      "12": 0.07,
+      "13": 0.07,
+      "14": 0.07,
+      "15": 0.07,
+      "16": 0.07,
+      "17": 0.03,
+      "18": 0.03,
+      "19": 0.03,
+      "20": 0.03,
+      "21": 0.0,
+      "22": 0.0,
+      "23": 0.0,
+      "24": 0.0
+    }
+  }
+}

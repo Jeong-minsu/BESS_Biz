@@ -1,0 +1,54 @@
+{
+  "VALEXP": {
+    "DA": {
+      "binding_hours": 1211.0,
+      "binding_intervals": 1211,
+      "distinct_hours": 1211,
+      "distinct_days": 180,
+      "lambda_median": 1.72,
+      "lambda_P90": 7.8,
+      "lambda_P99": 32.58,
+      "lambda_max": 646.64,
+      "mean_abs_SF": 1.0,
+      "cum_impact_$": -4929.5
+    },
+    "RT": {
+      "binding_hours": 358.5,
+      "binding_intervals": 4302,
+      "distinct_hours": 574,
+      "distinct_days": 128,
+      "lambda_median": 16.63,
+      "lambda_P90": 83.81,
+      "lambda_P99": 219.25,
+      "lambda_max": 4304.45,
+      "mean_abs_SF": 0.9788,
+      "cum_impact_$": -13004.2
+    }
+  },
+  "WESTEX": {
+    "DA": {
+      "binding_hours": 2519.0,
+      "binding_intervals": 2519,
+      "distinct_hours": 2519,
+      "distinct_days": 281,
+      "lambda_median": 5.89,
+      "lambda_P90": 16.24,
+      "lambda_P99": 25.03,
+      "lambda_max": 37.84,
+      "mean_abs_SF": 0.0485,
+      "cum_impact_$": -908.0
+    },
+    "RT": {
+      "binding_hours": 1314.5,
+      "binding_intervals": 15774,
+      "distinct_hours": 1626,
+      "distinct_days": 240,
+      "lambda_median": 15.13,
+      "lambda_P90": 28.39,
+      "lambda_P99": 50.45,
+      "lambda_max": 168.51,
+      "mean_abs_SF": 0.1499,
+      "cum_impact_$": 3098.6
+    }
+  }
+}

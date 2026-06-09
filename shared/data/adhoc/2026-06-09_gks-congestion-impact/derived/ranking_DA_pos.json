@@ -1,0 +1,82 @@
+[
+  {
+    "CONSTRAINTNAME":"HAINE__LA_PAL1_1",
+    "cum_impact":10873.799936412,
+    "binding_intervals":5624,
+    "binding_hours":7207.0,
+    "mean_lambda":43.0627526016,
+    "mean_abs_sf":0.0292217973,
+    "n_rows":7207,
+    "element":"LA_PALMA-HAINE_DR 138KV HAINE__LA_PAL1_1",
+    "dom_contingency":"MHARNED5",
+    "peak_season":[
+      "Spring",
+      5900.6
+    ],
+    "top_months":"3(+2361),4(+1923),2(+1698)"
+  },
+  {
+    "CONSTRAINTNAME":"1710__C",
+    "cum_impact":9813.624021685,
+    "binding_intervals":1698,
+    "binding_hours":1728.0,
+    "mean_lambda":224.6323200231,
+    "mean_abs_sf":0.0248308779,
+    "n_rows":1728,
+    "element":"BELCNTY-SALSW 138KV 1710__C",
+    "dom_contingency":"DSALHUT5",
+    "peak_season":[
+      "Summer",
+      5471.3
+    ],
+    "top_months":"8(+3493),10(+1951),5(+1162)"
+  },
+  {
+    "CONSTRAINTNAME":"421__A",
+    "cum_impact":5680.465744619,
+    "binding_intervals":932,
+    "binding_hours":1182.0,
+    "mean_lambda":24.4554170897,
+    "mean_abs_sf":0.1931876387,
+    "n_rows":1182,
+    "element":"BCESW-SNDSW 345KV 421__A",
+    "dom_contingency":"DSALHUT5",
+    "peak_season":[
+      "Spring",
+      3873.6
+    ],
+    "top_months":"4(+2703),5(+1124),11(+908)"
+  },
+  {
+    "CONSTRAINTNAME":"BLESSING_1382",
+    "cum_impact":3856.903665942,
+    "binding_intervals":4079,
+    "binding_hours":4171.0,
+    "mean_lambda":11.9088700551,
+    "mean_abs_sf":0.0754251908,
+    "n_rows":4171,
+    "element":"BLESSING 345KV BLESSING_1382",
+    "dom_contingency":"DELMTEX5",
+    "peak_season":[
+      "Winter",
+      1607.3
+    ],
+    "top_months":"4(+706),1(+559),2(+556)"
+  },
+  {
+    "CONSTRAINTNAME":"15060__B",
+    "cum_impact":2871.641509388,
+    "binding_intervals":4610,
+    "binding_hours":4611.0,
+    "mean_lambda":77.5645384949,
+    "mean_abs_sf":0.007935869,
+    "n_rows":4611,
+    "element":"VEALMOOR-KOCHTAP 138KV 15060__B",
+    "dom_contingency":"SW_LVLT5",
+    "peak_season":[
+      "Fall",
+      1168.8
+    ],
+    "top_months":"9(+482),10(+459),8(+386)"
+  }
+]
