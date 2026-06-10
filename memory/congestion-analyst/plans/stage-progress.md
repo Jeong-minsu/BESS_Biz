@@ -2,7 +2,7 @@
 
 **Source of truth**: `agensts/CONGESTION_PROJECT.md`
 **Maintained by**: `congestion-analyst` agent
-**Updated**: 2026-06-06 (no stage transition; W3 disk prerequisite still blocking; 16th consecutive cycle with hub-pair LMP unavailable)
+**Updated**: 2026-06-10 (no stage transition; W3 disk prerequisite still blocking; 20th consecutive cycle with hub-pair LMP unavailable; evaluator W23 improvement plan deadline for item 0.10 = 2026-06-11 — not yet executed)
 
 ---
 
@@ -253,5 +253,6 @@
 
 ## 변경 이력
 
+- **2026-06-10** — cycle count updated (20th consecutive cycle without W3 initiation). Evaluator W23 improvement plan deadline for item 0.10 flagged as overdue (target was by 2026-06-11). No stage transition.
 - **2026-05-26** — datalake-only 전면 재작성. 9개 체크리스트를 0.1–0.18 의 18개 sub-task 로 분해. W1–W4 milestone 정의. Critical path 식별 (bus_lmp / sced_shift_factors). Open decision 2개 해소.
 - **2026-04-30** — initial scaffold.
