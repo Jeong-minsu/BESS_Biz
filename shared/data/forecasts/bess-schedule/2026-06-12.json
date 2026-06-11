@@ -1,0 +1,86 @@
+{
+  "flowday": "2026-06-12",
+  "generated": "2026-06-11T07:30:00-05:00",
+  "asset": "GKS_BESS_RN",
+  "strategy": "Stack C — 2-Hour Full Discharge HE20-21 + NonSpin Bridge",
+  "model_params": {
+    "capacity_mwh": 200,
+    "max_mw": 100,
+    "rte": 0.85,
+    "eta_per_side": 0.9220,
+    "soc_min_mwh": 20,
+    "soc_start_mwh": 100
+  },
+  "data_quality": {
+    "market_view": "PRODUCTION",
+    "congestion": "PRODUCTION (Stage 0 heuristic)",
+    "pnl_actuals": "PRODUCTION (2026-06-10 Tenaska settled)",
+    "as_playbook": "NOT AVAILABLE",
+    "smartbidder_as_prices": "NULL (endpoint returned no data)",
+    "smartbidder_dart_probability": "NULL (unavailable)"
+  },
+  "expected_revenue": {
+    "da_energy_net": 4423,
+    "rt_energy_net": 0,
+    "as_nonspin": 1602,
+    "as_rrs": 0,
+    "as_ecrs": 0,
+    "as_regup": 0,
+    "as_regdown": 0,
+    "mcc_unconditional": 747,
+    "total_base_no_mcc": 5278,
+    "total_mid_with_mcc": 6025,
+    "probability_weighted_ev": 5993
+  },
+  "hours": {
+    "HE01": { "mode": "idle", "energy_mw": 0, "nonspin_mw": 80, "rrs_mw": 0, "ecrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "soc_end_mwh": 100.0, "da_price_forecast": 29.50, "expected_rev": 192 },
+    "HE02": { "mode": "idle", "energy_mw": 0, "nonspin_mw": 80, "rrs_mw": 0, "ecrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "soc_end_mwh": 100.0, "da_price_forecast": 29.20, "expected_rev": 154 },
+    "HE03": { "mode": "idle", "energy_mw": 0, "nonspin_mw": 80, "rrs_mw": 0, "ecrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "soc_end_mwh": 100.0, "da_price_forecast": 28.80, "expected_rev": 120 },
+    "HE04": { "mode": "idle", "energy_mw": 0, "nonspin_mw": 80, "rrs_mw": 0, "ecrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "soc_end_mwh": 100.0, "da_price_forecast": 28.50, "expected_rev": 84 },
+    "HE05": { "mode": "idle", "energy_mw": 0, "nonspin_mw": 80, "rrs_mw": 0, "ecrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "soc_end_mwh": 100.0, "da_price_forecast": 28.30, "expected_rev": 90 },
+    "HE06": { "mode": "idle", "energy_mw": 0, "nonspin_mw": 80, "rrs_mw": 0, "ecrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "soc_end_mwh": 100.0, "da_price_forecast": 28.60, "expected_rev": 138 },
+    "HE07": { "mode": "idle", "energy_mw": 0, "nonspin_mw": 80, "rrs_mw": 0, "ecrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "soc_end_mwh": 100.0, "da_price_forecast": 28.90, "expected_rev": 120 },
+    "HE08": { "mode": "idle", "energy_mw": 0, "nonspin_mw": 80, "rrs_mw": 0, "ecrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "soc_end_mwh": 100.0, "da_price_forecast": 27.50, "expected_rev": 80 },
+    "HE09": { "mode": "charge", "energy_mw": -100, "nonspin_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "soc_end_mwh": 192.2, "da_price_forecast": 24.50, "expected_rev": -2450, "note": "DA charge 100MW. NonSpin=0 during full charge." },
+    "HE10": { "mode": "charge", "energy_mw": -9, "nonspin_mw": 80, "rrs_mw": 0, "ecrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "soc_end_mwh": 200.0, "da_price_forecast": 21.19, "expected_rev": -29, "note": "DA top-off 8.5MW (rounds to 9MW) to fill SOC to 200. DA min $21.19. NonSpin 80MW from discharge headroom." },
+    "HE11": { "mode": "idle", "energy_mw": 0, "nonspin_mw": 80, "rrs_mw": 0, "ecrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "soc_end_mwh": 200.0, "da_price_forecast": 22.04, "expected_rev": 62, "note": "No charge — HOUSTON/SOUTH_MIDDAY_LOCAL RT risk (load>60GW + cap-out>11,500MW trigger met)" },
+    "HE12": { "mode": "idle", "energy_mw": 0, "nonspin_mw": 80, "rrs_mw": 0, "ecrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "soc_end_mwh": 200.0, "da_price_forecast": 23.00, "expected_rev": 60 },
+    "HE13": { "mode": "idle", "energy_mw": 0, "nonspin_mw": 80, "rrs_mw": 0, "ecrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "soc_end_mwh": 200.0, "da_price_forecast": 23.50, "expected_rev": 54 },
+    "HE14": { "mode": "idle", "energy_mw": 0, "nonspin_mw": 80, "rrs_mw": 0, "ecrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "soc_end_mwh": 200.0, "da_price_forecast": 24.00, "expected_rev": 40 },
+    "HE15": { "mode": "idle", "energy_mw": 0, "nonspin_mw": 80, "rrs_mw": 0, "ecrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "soc_end_mwh": 200.0, "da_price_forecast": 25.50, "expected_rev": 50 },
+    "HE16": { "mode": "idle", "energy_mw": 0, "nonspin_mw": 80, "rrs_mw": 0, "ecrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "soc_end_mwh": 200.0, "da_price_forecast": 27.00, "expected_rev": 60 },
+    "HE17": { "mode": "idle", "energy_mw": 0, "nonspin_mw": 80, "rrs_mw": 0, "ecrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "soc_end_mwh": 200.0, "da_price_forecast": 28.50, "expected_rev": 67 },
+    "HE18": { "mode": "idle", "energy_mw": 0, "nonspin_mw": 80, "rrs_mw": 0, "ecrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "soc_end_mwh": 200.0, "da_price_forecast": 30.00, "expected_rev": 76 },
+    "HE19": { "mode": "idle", "energy_mw": 0, "nonspin_mw": 80, "rrs_mw": 0, "ecrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "soc_end_mwh": 200.0, "da_price_forecast": 33.00, "expected_rev": 80, "note": "NonSpin held; HE19 DA $33 below HE20-21 threshold; energy held for HE20-21" },
+    "HE20": { "mode": "discharge", "energy_mw": 100, "nonspin_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "soc_end_mwh": 91.5, "da_price_forecast": 36.50, "mcc_unconditional": 4.5, "effective_da_price": 41.0, "expected_rev": 4100, "note": "Full 100MW DA discharge. SOC: 200 - 100/0.922 = 91.5 MWh. NonSpin=0 during full discharge." },
+    "HE21": { "mode": "discharge", "energy_mw": 66, "nonspin_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "soc_end_mwh": 20.0, "da_price_forecast": 40.23, "mcc_unconditional": 4.5, "effective_da_price": 44.73, "expected_rev": 2655, "note": "SOC-limited: (91.5-20)*0.922=66MW. DA 24hr max $40.23." },
+    "HE22": { "mode": "idle", "energy_mw": 0, "nonspin_mw": 20, "rrs_mw": 0, "ecrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "soc_end_mwh": 20.0, "da_price_forecast": 39.86, "expected_rev": 0, "note": "SOC at floor 20MWh. Limited NS 20MW only. No energy." },
+    "HE23": { "mode": "idle", "energy_mw": 0, "nonspin_mw": 20, "rrs_mw": 0, "ecrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "soc_end_mwh": 20.0, "da_price_forecast": 34.00, "expected_rev": 0 },
+    "HE24": { "mode": "idle", "energy_mw": 0, "nonspin_mw": 20, "rrs_mw": 0, "ecrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "soc_end_mwh": 20.0, "da_price_forecast": 31.00, "expected_rev": 0 }
+  },
+  "alternative_trigger": {
+    "stack_b_extended": {
+      "condition": "DAM HE22 >= $38.00 AND Smartbidder NS DA >= $5/MW",
+      "action": "Add HE22 18MW discharge from SOC floor (20 MWh x 0.922 = 18.4MW)",
+      "incremental_rev": 705,
+      "probability": "LOW (15%)"
+    },
+    "stack_a_hsllimited": {
+      "condition": "HSL telemetry < 70MW average by HE14",
+      "action": "Front-shift to HE19-20, reduce HE21 per SOC-limited regime (per 2026-06-08 learnings)",
+      "probability": "LOW unless battery degradation confirmed"
+    },
+    "reduced_discharge": {
+      "condition": "Realized Friday load at 09:30 CT tracking > 2,000 MW below forecast",
+      "action": "Reduce HE20 to 75MW, offer 25MW NonSpin at HE20-21",
+      "probability": "LOW-MEDIUM (20%)"
+    }
+  },
+  "risks": {
+    "involuntary_rt_dispatch": "UNRESOLVED W23 Issue 1 — observed 2026-06-05 (-$4,520) and 2026-06-10 (-$6,949 RT). Cannot prevent without root cause confirmation.",
+    "houston_midday_local_rt": "P(10-18%) GKS RTSPP > DASPP at HE11-16. Monitoring only — no energy scheduled in this window.",
+    "soc_limited_he21": "66MW max at HE21 (not full 100MW). HE22 DA $39.86 available but SOC depleted.",
+    "smartbidder_data_gaps": "AS prices and DA-RT probability both null. AS sizing from historical actuals only.",
+    "friday_demand_fade": "P(20%) load 1,500-3,000 MW below forecast — HOUSTON_IMPORT downgrade risk."
+  }
+}
