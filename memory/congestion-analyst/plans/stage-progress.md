@@ -2,7 +2,7 @@
 
 **Source of truth**: `agensts/CONGESTION_PROJECT.md`
 **Maintained by**: `congestion-analyst` agent
-**Updated**: 2026-06-10 (no stage transition; W3 disk prerequisite still blocking; 20th consecutive cycle with hub-pair LMP unavailable; evaluator W23 improvement plan deadline for item 0.10 = 2026-06-11 — not yet executed)
+**Updated**: 2026-06-12 (no stage transition; W3 disk prerequisite still blocking; 22nd consecutive cycle with hub-pair LMP unavailable; evaluator W23 improvement plan deadline for item 0.10 was 2026-06-11 — OVERDUE, not yet executed; Enverus solar STPF confirmed parsed for first time in 2026-06-12 cycle)
 
 ---
 
@@ -253,6 +253,7 @@
 
 ## 변경 이력
 
+- **2026-06-12** — cycle count updated (22nd consecutive cycle without W3 initiation). Evaluator W23 improvement plan deadline for item 0.10 was 2026-06-11 — OVERDUE by 1 day. No stage transition. One positive development: Enverus solar STPF confirmed parsed for the first time in the 2026-06-12 cycle (for 2026-06-13 flowday); Enverus-YE solar divergence small this cycle (+1,241 MW at peak vs prior 4,000-5,500 MW gaps). Tenaska IP-whitelist failure now at 12 confirmed occurrences — settlement validation blocked for 11 backfill days plus current flowday. GKS midday MCC sign correction operationalized (first cycle: 2026-06-12 forecast issued 2026-06-11). W2.5 DuckDB top-20 binding frequency query: still not executed (22 cycles).
 - **2026-06-10** — cycle count updated (20th consecutive cycle without W3 initiation). Evaluator W23 improvement plan deadline for item 0.10 flagged as overdue (target was by 2026-06-11). No stage transition.
 - **2026-05-26** — datalake-only 전면 재작성. 9개 체크리스트를 0.1–0.18 의 18개 sub-task 로 분해. W1–W4 milestone 정의. Critical path 식별 (bus_lmp / sced_shift_factors). Open decision 2개 해소.
 - **2026-04-30** — initial scaffold.
