@@ -2,7 +2,7 @@
 
 **Source of truth**: `agensts/CONGESTION_PROJECT.md`
 **Maintained by**: `congestion-analyst` agent
-**Updated**: 2026-06-12 (no stage transition; W3 disk prerequisite still blocking; 22nd consecutive cycle with hub-pair LMP unavailable; evaluator W23 improvement plan deadline for item 0.10 was 2026-06-11 — OVERDUE, not yet executed; Enverus solar STPF confirmed parsed for first time in 2026-06-12 cycle)
+**Updated**: 2026-06-13 (no stage transition; W3 initiation still blocked; 23rd consecutive cycle with hub-pair LMP unavailable; evaluator W23 improvement plan deadline for item 0.10 was 2026-06-11 — OVERDUE by 2 days, not yet executed; Enverus solar STPF confirmed parsed for second consecutive cycle (2026-06-13 for 2026-06-14 flowday); YE hourly forecast CSV absent for 2026-06-14 (summary.json only); GKS midday MCC sign correction operational for 3rd consecutive cycle)
 
 ---
 
