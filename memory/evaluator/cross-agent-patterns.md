@@ -1,6 +1,6 @@
 # Evaluator Cross-Agent Patterns
 
-Last updated: 2026-06-08 (Week 2026-W23 evaluation)
+Last updated: 2026-06-15 (Week 2026-24 evaluation)
 
 ---
 

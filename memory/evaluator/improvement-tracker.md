@@ -1,6 +1,38 @@
 # Evaluator Improvement Tracker
 
-Last updated: 2026-06-08 (Week 2026-W23)
+Last updated: 2026-06-15 (Week 2026-24)
+
+---
+
+## Week 2026-24 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/congestion-analyst/plans/2026-24-w3-item010-final-escalation.md` | congestion-analyst | CRITICAL | OPEN — user to confirm disk; agent to start item 0.10 immediately | W3 item 0.10 now 23 cycles unstarted; 12 cycles past W23 deadline |
+| `memory/dart-virtual-trader/plans/2026-24-settlement-infrastructure-gap.md` | dart-virtual-trader | CRITICAL | OPEN — user to confirm Smartbidder submission scope; agent to fix label bug + ECRS modifier | Settlement blind 4 weeks; Non-Spin vs ECRS label bug; ECRS INC modifier not formalized |
+| `memory/bess-optimizer/plans/2026-24-ecrs-nonspun-execution-gap.md` | bess-optimizer | MAJOR | OPEN — agent to create standing-rules.md + apply ECRS rule; user to confirm execution flow | ECRS exclusion rule failed 4 cycles (~$1,400 opportunity loss); execution divergence past deadline |
+| `memory/pnl-manager/plans/2026-24-whitelist-and-dart-isolation.md` | pnl-manager | CRITICAL | OPEN — user to whitelist IP; agent to implement Submissions-DA-Settlement-Amounts endpoint | 12 whitelist failures in 21 days; DART virtual isolation 4 cycles deferred |
+| `memory/market-analyst/plans/2026-24-weekend-direction-and-as-fallback.md` | market-analyst | MAJOR | OPEN — agent to implement weekend checklist before 2026-06-20 Saturday | Weekend RT direction miss 4th consecutive weekend; ramp framing systematic error |
+
+---
+
+## Week 2026-W23 Plans — Updated Status
+
+| Plan File | Agent | Priority | W24 Status | Notes |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-W23-improvement.md` | dart-virtual-trader | CRITICAL | PARTIALLY IMPLEMENTED | Saturday 25 MW cap applied 2026-06-13 (confirmed); dual-direction scarcity skip applied and validated 2026-06-14; hit-rate log in learnings table but no dedicated file created; superseded by 2026-24 plan for new issues |
+| `memory/market-analyst/plans/2026-W23-improvement.md` | market-analyst | MAJOR | OPEN — 4th weekend miss | Weekend RT checklist documented but not applied Sunday 2026-06-14; superseded by 2026-24 plan |
+| `memory/congestion-analyst/plans/2026-W23-improvement.md` | congestion-analyst | MAJOR | CRITICAL OPEN | Item 0.10 deadline (2026-06-11) missed by 5 cycles; MCC sign correction applied (positive); superseded by 2026-24 escalation plan |
+| `memory/bess-optimizer/plans/2026-W23-improvement.md` | bess-optimizer | MAJOR | OPEN (NEW DIMENSION) | RT dispatch mechanism past 2026-06-15 deadline; ECRS gap is new compounding issue; superseded by 2026-24 plan |
+| `memory/pnl-manager/plans/2026-W23-improvement.md` | pnl-manager | MAJOR | CRITICAL OPEN | No implementation progress on DART isolation or backfill; whitelist failures continuing; superseded by 2026-24 plan |
+
+---
+
+## Resolved Items (W24)
+
+| Item | Resolution | Evidence |
+|---|---|---|
+| reporter W22 format stabilization | RESOLVED | All 7 W24 daily reports have consistent footer, section structure, data banner. Plan `2026-22-format-stabilization.md` CLOSED. |
 
 ---
 
