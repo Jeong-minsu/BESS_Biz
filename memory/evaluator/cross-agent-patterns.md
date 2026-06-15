@@ -107,6 +107,33 @@ Tenaska settlement shows GKS being dispatched in hours not recommended by bess-o
 
 ---
 
+## Pattern 13: Execution Divergence Is Structural, Not Episodic
+
+**Observed**: Week 2026-24 (confirmed PRODUCTION days 2026-06-10, 2026-06-12, 2026-06-14)
+**Agents affected**: bess-optimizer (primary), dart-virtual-trader (suspected), pnl-manager (benchmark structure)
+
+On all three PRODUCTION days in W24 where bess-optimizer vs actual comparison was possible, Smartbidder/Tenaska executed a fundamentally different strategy than recommended (RT-first cycling vs DA-first discharge). GKS actual exceeded the bess-optimizer recommendation by 26-50%. This is not a random deviation — it is consistent RT co-optimization by Smartbidder operating independently of the bess-optimizer advisory. If this is also true for dart-virtual-trader (Hypothesis C: Smartbidder runs its own virtual book independently), both Front Office agents are advisory-only layers above Smartbidder execution. This is an architectural question requiring user confirmation.
+
+---
+
+## Pattern 14: ECRS DA Clearing Is a Recurring Feature in June–September ERCOT, Not a Tail Event
+
+**Observed**: Week 2026-24 (4 of 7 days: 2026-06-08, 2026-06-12, 2026-06-13, 2026-06-14)
+**Agents affected**: bess-optimizer (ECRS exclusion error), market-analyst (AS section), dart-virtual-trader (ECRS as INC risk indicator)
+
+ECRS cleared in the DA market in the evening hours (HE20-24 CT) on 4 of 7 W24 days. bess-optimizer excluded ECRS from recommendations on each day (citing "zero clearing 4+ consecutive days"). market-analyst either lacked Smartbidder AS data (null endpoint) or did not provide ECRS estimates in the briefing. dart-virtual-trader confirmed on 2026-06-14 that ECRS clearing is a confirmed INC contra-indicator (ECRS clears → RT scarcity → RT > DA → INC loses). All three agents need to treat ECRS clearing in the HE20-24 window as a standing expectation during the June–September heat season, not a surprise.
+
+---
+
+## Pattern 15: Agent Learning Loop Speed Varies Systematically by Change Type
+
+**Observed**: Weeks 2026-21 through 2026-24 (all agents, most visible in bess-optimizer and market-analyst)
+**Agents affected**: All 5 Front/Middle agents; pnl-manager (DART virtual isolation)
+
+Per-cycle rule changes (e.g., adjusting charge window timing, applying a P90 multiplier, changing position sizes) are implemented within 1-2 cycles. Structural/persistent changes (creating a standing-rules document, implementing an API endpoint, adding a mandatory pre-briefing checklist step, creating a hit-rate-log file) are deferred indefinitely. The evaluator has documented ECRS standing offer for bess-optimizer across 4 cycles; weekend RT override for market-analyst across 4 cycles; DART virtual isolation for pnl-manager across 4 cycles; hit-rate-log creation for dart-virtual-trader across 3 cycles. The common pattern: structural changes require creating a new persistent artifact (document, file, code change) rather than modifying a per-cycle decision. No agent has a mechanism for consuming the evaluator's improvement-tracker to ensure structural changes are executed.
+
+---
+
 ## Pattern 10: RT Energy Dispatch Is an Unmodeled Revenue Source for bess-optimizer
 
 **Observed**: Week 2026-22 (confirmed 2026-05-29 settlement)
