@@ -1,0 +1,36 @@
+{
+  "flowday": "2026-06-15",
+  "generated_at_utc": "2026-06-16T12:08:00Z",
+  "data_source": "production",
+  "tenaska_endpoint": "Battery-Settlement-Details (ERCOTNodal)",
+  "smartbidder_benchmark": "Mount Blue Sky with Virtuals (RTC Version)",
+  "note": "Tenaska data is settled. Smartbidder is estimate (not settled). DART virtual = DA_Energy_Amt - RT_Energy_Amt per spread convention (DA - RT).",
+  "gks_actual": {
+    "da_energy_revenue": 1059.37,
+    "rt_energy_revenue": 113.4484,
+    "as_revenue_regup": 0.0,
+    "as_revenue_regdown": 0.0,
+    "as_revenue_rrs": 1539.6,
+    "as_revenue_ecrs": 0.0,
+    "as_revenue_nonspin": 5282.9,
+    "rt_ancillary_imbalance": 0.0,
+    "rt_reliability_deployment": 0.0,
+    "dart_virtual_revenue": 945.9216,
+    "energy_injection_mwh": 116.3751,
+    "energy_consumption_mwh": 132.9013,
+    "net_energy_mwh": -16.5262,
+    "total_revenue": 7995.3184
+  },
+  "smartbidder_benchmark": {
+    "lmp_energy_net": 69.06,
+    "da_nonspin": 5688.16,
+    "rt_nonspin": -2188.81,
+    "da_rrs": 12.54,
+    "rt_rrs": -0.51,
+    "total_revenue": 3580.4363
+  },
+  "comparison": {
+    "delta_total": 4414.8821,
+    "delta_pct": 123.3
+  }
+}
