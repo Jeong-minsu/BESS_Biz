@@ -1,0 +1,74 @@
+{
+  "date": "2026-06-21",
+  "asset": "GKS_BESS",
+  "generated_at": "2026-06-20T07:30:00-05:00",
+  "initial_soc_mwh": 100,
+  "capacity_mw": 100,
+  "capacity_mwh": 200,
+  "round_trip_efficiency": 0.85,
+  "spread_sign_convention": "spread = DA - RT; positive means DA expensive",
+  "data_status": {
+    "yes_energy": "PRODUCTION",
+    "enverus": "PRODUCTION",
+    "ag2": "PRODUCTION",
+    "smartbidder": "ABSENT",
+    "as_playbook": "ABSENT"
+  },
+  "primary_stack": "A",
+  "schedule": [
+    {"he": 1,  "energy_mw": 0,    "da_rt": null, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 85, "regup_mw": 0,  "regdown_mw": 0,  "soc_after_mwh": 100, "net_load_mw": 35281, "notes": "NS full; overnight wind 22.1 GW; GKS MCC negative (PANHANDLE)"},
+    {"he": 2,  "energy_mw": 0,    "da_rt": null, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 85, "regup_mw": 0,  "regdown_mw": 0,  "soc_after_mwh": 100, "net_load_mw": 32568, "notes": "NS full; wind 22.5 GW"},
+    {"he": 3,  "energy_mw": 0,    "da_rt": null, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 85, "regup_mw": 0,  "regdown_mw": 0,  "soc_after_mwh": 100, "net_load_mw": 30768, "notes": "NS full"},
+    {"he": 4,  "energy_mw": 0,    "da_rt": null, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 85, "regup_mw": 0,  "regdown_mw": 0,  "soc_after_mwh": 100, "net_load_mw": 29185, "notes": "NS full"},
+    {"he": 5,  "energy_mw": 0,    "da_rt": null, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 85, "regup_mw": 0,  "regdown_mw": 0,  "soc_after_mwh": 100, "net_load_mw": 28310, "notes": "NS full"},
+    {"he": 6,  "energy_mw": 0,    "da_rt": null, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 85, "regup_mw": 0,  "regdown_mw": 0,  "soc_after_mwh": 100, "net_load_mw": 28121, "notes": "NS full; net load trough area"},
+    {"he": 7,  "energy_mw": 0,    "da_rt": null, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 85, "regup_mw": 0,  "regdown_mw": 0,  "soc_after_mwh": 100, "net_load_mw": 27389, "notes": "NS full; solar 240 MW onset"},
+    {"he": 8,  "energy_mw": 0,    "da_rt": null, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 85, "regup_mw": 0,  "regdown_mw": 0,  "soc_after_mwh": 100, "net_load_mw": 21814, "notes": "NS full; solar 5,291 MW; net load falling"},
+    {"he": 9,  "energy_mw": -100, "da_rt": "DA", "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 0,  "regup_mw": 0,  "regdown_mw": 0,  "soc_after_mwh": 185, "net_load_mw": 12449, "notes": "MAX CHARGE; solar 16,064 MW; net load 12,449 MW; est DA $5-15/MWh"},
+    {"he": 10, "energy_mw": -100, "da_rt": "DA", "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 0,  "regup_mw": 0,  "regdown_mw": 0,  "soc_after_mwh": 200, "net_load_mw": 9783,  "notes": "MAX CHARGE; net load ERCOT record low 9,783 MW; solar 22,166 MW; est DA $0-5 or negative"},
+    {"he": 11, "energy_mw": -18,  "da_rt": "DA", "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 82, "regup_mw": 0,  "regdown_mw": 0,  "soc_after_mwh": 200, "net_load_mw": 10277, "notes": "Top-off charge 18 MW to cap; NS 82 MW on remaining capacity; solar 26,012 MW"},
+    {"he": 12, "energy_mw": 0,    "da_rt": null, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 85, "regup_mw": 0,  "regdown_mw": 15, "soc_after_mwh": 200, "net_load_mw": 13184, "notes": "SoC full 200 MWh; NS 85 + RegDown 15 = 100 MW; net load 13,184 MW; solar 27,545 MW"},
+    {"he": 13, "energy_mw": 0,    "da_rt": null, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 85, "regup_mw": 0,  "regdown_mw": 15, "soc_after_mwh": 200, "net_load_mw": 16496, "notes": "Cap-out 12,934 MW series max; NS 85 + RegDown 15 = 100 MW"},
+    {"he": 14, "energy_mw": 0,    "da_rt": null, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 85, "regup_mw": 0,  "regdown_mw": 15, "soc_after_mwh": 200, "net_load_mw": 19742, "notes": "Solar 28,679 MW; cap-out 12,934 MW; NS 85 + RegDown 15 = 100 MW"},
+    {"he": 15, "energy_mw": 0,    "da_rt": null, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 85, "regup_mw": 0,  "regdown_mw": 15, "soc_after_mwh": 200, "net_load_mw": 22545, "notes": "Solar 28,824 MW ERCOT annual peak; NS 85 + RegDown 15 = 100 MW"},
+    {"he": 16, "energy_mw": 0,    "da_rt": null, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 85, "regup_mw": 0,  "regdown_mw": 0,  "soc_after_mwh": 200, "net_load_mw": 24857, "notes": "Solar declining; net load rising; NS 85 MW"},
+    {"he": 17, "energy_mw": 0,    "da_rt": null, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 85, "regup_mw": 0,  "regdown_mw": 0,  "soc_after_mwh": 200, "net_load_mw": 26650, "notes": "Load peak approaching 78,450 MW; NS 85 MW; hold SoC"},
+    {"he": 18, "energy_mw": 0,    "da_rt": null, "rrs_mw": 15, "ecrs_mw": 0,  "nonspin_mw": 85, "regup_mw": 0,  "regdown_mw": 0,  "soc_after_mwh": 200, "net_load_mw": 27894, "notes": "Pre-ramp; load 78,784 MW; solar 26,089 MW still high; RRS 15 + NS 85 = 100 MW; hold for discharge"},
+    {"he": 19, "energy_mw": 80,   "da_rt": "DA", "rrs_mw": 0,  "ecrs_mw": 20, "nonspin_mw": 0,  "regup_mw": 0,  "regdown_mw": 0,  "soc_after_mwh": 120, "net_load_mw": 31097, "notes": "DISCHARGE DA; solar 21,548 MW; ramp onset; est DA $45-55/MWh; ECRS 20 MW co-offer; 80+20=100 MW"},
+    {"he": 20, "energy_mw": 100,  "da_rt": "DA", "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 0,  "regup_mw": 0,  "regdown_mw": 0,  "soc_after_mwh": 20,  "net_load_mw": 40164, "notes": "FULL DISCHARGE DA; solar 10,938 MW; net load ramp +9,067 MW vs HE19; est DA $55-75/MWh; P(DA>RT) positive"},
+    {"he": 21, "energy_mw": 20,   "da_rt": "RT", "rrs_mw": 0,  "ecrs_mw": 30, "nonspin_mw": 0,  "regup_mw": 30, "regdown_mw": 0,  "soc_after_mwh": 0,   "net_load_mw": 46521, "notes": "RT spike capture 20 MW; ECRS 30 + RegUp 30; 20+30+30=80 MW; net load 46,521 MW peak; solar 1,123 MW; HOUSTON_IMPORT HIGH 38-55%"},
+    {"he": 22, "energy_mw": 0,    "da_rt": null, "rrs_mw": 20, "ecrs_mw": 20, "nonspin_mw": 40, "regup_mw": 0,  "regdown_mw": 0,  "soc_after_mwh": 0,   "net_load_mw": 44355, "notes": "Post-ramp; wind 26,252 MW rising; GKS MCC turning negative; RRS 20+ECRS 20+NS 40=80 MW; SoC=0 limits dispatch risk"},
+    {"he": 23, "energy_mw": 0,    "da_rt": null, "rrs_mw": 30, "ecrs_mw": 0,  "nonspin_mw": 50, "regup_mw": 0,  "regdown_mw": 0,  "soc_after_mwh": 0,   "net_load_mw": 40448, "notes": "WEST_TO_NORTH MEDIUM; wind 26,855 MW; GKS MCC -$2 to -$5; RRS 30+NS 50=80 MW"},
+    {"he": 24, "energy_mw": 0,    "da_rt": null, "rrs_mw": 30, "ecrs_mw": 0,  "nonspin_mw": 50, "regup_mw": 0,  "regdown_mw": 0,  "soc_after_mwh": 0,   "net_load_mw": 35971, "notes": "Wind 27,442 MW ERCOT peak; GKS MCC negative; no energy; RRS 30+NS 50=80 MW"}
+  ],
+  "expected_revenue": {
+    "da_energy_charge": -1290,
+    "da_energy_discharge": 10500,
+    "rt_energy_discharge": 1700,
+    "rrs": 428,
+    "ecrs": 300,
+    "nonspin": 3743,
+    "regup": 150,
+    "regdown": 150,
+    "total": 15681
+  },
+  "revenue_uncertainty": {
+    "low_scenario": 11000,
+    "base_scenario": 15681,
+    "high_scenario": 18500,
+    "low_trigger": "Enverus NL ramp 12.6 GW correct; DA prices HE19-21 $35-50",
+    "high_trigger": "RT spike HE20-21 to $120+; HOUSTON_IMPORT binds; GKS MCC +$25"
+  },
+  "key_constraints": {
+    "HOUSTON_IMPORT_345": {"tier": "HIGH", "p_binding": "38-55%", "window": "HE19-22", "gks_mcc_unconditional": "+$6 to +$12"},
+    "WEST_TO_NORTH_345": {"tier": "MEDIUM", "p_binding": "28-40%", "window": "HE22-24", "gks_mcc": "-$2 to -$5"},
+    "HOUSTON_SOUTH_MIDDAY_LOCAL": {"tier": "MEDIUM", "p_binding": "22-32%", "window": "HE09-17", "gks_mcc": "+$3 to +$6"},
+    "PANHANDLE_EXPORT_345": {"tier": "LOW-MEDIUM", "p_binding": "15-22%", "window": "HE01-07", "gks_mcc": "-$1 to -$3"}
+  },
+  "alternative_stack": {
+    "name": "B - AS Heavy",
+    "trigger": "Activate if Enverus NL ramp HE18-21 revised below 10 GW by 06:00 CT June 21, OR DA price HE09-10 above $20/MWh",
+    "expected_revenue": 5158,
+    "changes": "Cancel charge HE09-11; restore NS 85 MW HE09-11; cancel energy discharge HE19-21; full NS+ECRS posture all day"
+  }
+}
