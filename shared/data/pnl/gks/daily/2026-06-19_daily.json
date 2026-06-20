@@ -1,0 +1,22 @@
+{
+  "date": "2026-06-19",
+  "data_source": "Production - Tenaska PTP Battery-Settlement-Details + Smartbidder AA-Mount-Blue-Sky-with-Virtuals-RTC",
+  "fetched_at_utc": "2026-06-20T12:06:53Z",
+  "da_energy_amt": -3304.44,
+  "da_rrs_amt": 832.20,
+  "da_ecrs_amt": 0.00,
+  "da_ns_amt": 5579.95,
+  "da_regup_amt": 0.00,
+  "da_regdown_amt": 0.00,
+  "rt_energy_amt": 6172.55,
+  "dart_virtual_amt": 0.00,
+  "total_amt": 9280.26,
+  "benchmark_total_amt": 291.25,
+  "vs_benchmark_delta": 8988.01,
+  "notes": {
+    "da_rrs_amt_note": "RRS cleared HE22-HE24 CT only (60 MW each hour)",
+    "da_ns_amt_note": "Non-spin cleared 85 MW HE01-HE19, 25 MW HE22-HE24",
+    "dart_virtual_amt_note": "DA bid and offer submission rows=0; no virtual positions",
+    "benchmark_note": "Smartbidder estimate, not settled; EOD cumulative from revenue_summary.json"
+  }
+}
