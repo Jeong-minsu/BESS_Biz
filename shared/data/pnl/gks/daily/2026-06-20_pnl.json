@@ -1,0 +1,60 @@
+{
+  "flowday": "2026-06-20",
+  "generated_at": "2026-06-21",
+  "data_status": "PRODUCTION",
+  "sources": {
+    "tenaska_ptp": {
+      "endpoint": "Battery-Settlement-Details",
+      "rows": 385,
+      "element": "Great Kiskadee Storage - ESR",
+      "query_begin": "2026-06-20",
+      "query_end": "2026-06-20"
+    },
+    "smartbidder": {
+      "strategy": "AA - Mount Blue Sky with Virtuals (RTC version)",
+      "note": "estimate, not settled"
+    }
+  },
+  "gks_actual": {
+    "da_energy_revenue": -4124.11,
+    "rt_energy_revenue": 5075.34,
+    "as_revenue_nonspin": 3218.80,
+    "as_revenue_rrs": 220.10,
+    "as_revenue_ecrs": 0.0,
+    "as_revenue_regup": 0.0,
+    "as_revenue_regdown": 0.0,
+    "dart_virtual_revenue": null,
+    "total_revenue": 4390.13,
+    "currency": "USD"
+  },
+  "smartbidder_benchmark": {
+    "strategy": "Mount Blue Sky with Virtuals (RTC version)",
+    "total_revenue": 2728.18,
+    "currency": "USD",
+    "note": "estimate only - not reconciled to invoice"
+  },
+  "comparison": {
+    "delta_usd": 1661.95,
+    "delta_pct": 60.92,
+    "direction": "GKS_outperforms_benchmark"
+  },
+  "battery_state": {
+    "rt_consumption_qty_mwh": 117.03,
+    "rt_generation_qty_mwh": 63.86,
+    "net_mwh": -53.17,
+    "note": "net negative = net consumer on day (more charge than discharge in RT)"
+  },
+  "as_utilization": {
+    "gen_ns_qty_total_mw_hours": 1665.0,
+    "gen_rrs_qty_total_mw_hours": 375.0,
+    "gen_ecrs_qty_total_mw_hours": 0.0,
+    "da_purchases_qty_total_mwh": 200.0
+  },
+  "data_quality_flags": {
+    "hsl_missing": true,
+    "hsl_note": "400 error from Tenaska PTP - expected; Battery-Settlement-Details does not accept Generator definition",
+    "da_bid_offer_rows": 0,
+    "da_bid_offer_note": "Expected - bids submitted via Smartbidder portal, not PTP",
+    "da_energy_discrepancy_note": "Task input summary stated DA_Energy_Amt=-5124.11; raw JSON file sums to -4124.11. Values above use raw file."
+  }
+}
