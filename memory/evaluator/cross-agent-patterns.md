@@ -1,6 +1,6 @@
 # Evaluator Cross-Agent Patterns
 
-Last updated: 2026-06-15 (Week 2026-24 evaluation)
+Last updated: 2026-06-22 (Week 2026-25 evaluation)
 
 ---
 
@@ -131,6 +131,29 @@ ECRS cleared in the DA market in the evening hours (HE20-24 CT) on 4 of 7 W24 da
 **Agents affected**: All 5 Front/Middle agents; pnl-manager (DART virtual isolation)
 
 Per-cycle rule changes (e.g., adjusting charge window timing, applying a P90 multiplier, changing position sizes) are implemented within 1-2 cycles. Structural/persistent changes (creating a standing-rules document, implementing an API endpoint, adding a mandatory pre-briefing checklist step, creating a hit-rate-log file) are deferred indefinitely. The evaluator has documented ECRS standing offer for bess-optimizer across 4 cycles; weekend RT override for market-analyst across 4 cycles; DART virtual isolation for pnl-manager across 4 cycles; hit-rate-log creation for dart-virtual-trader across 3 cycles. The common pattern: structural changes require creating a new persistent artifact (document, file, code change) rather than modifying a per-cycle decision. No agent has a mechanism for consuming the evaluator's improvement-tracker to ensure structural changes are executed.
+
+---
+
+## Pattern 16: Simultaneous Multi-Constraint Active Days Produce Correlated Calibration Failures
+
+**Observed**: Week 2026-25 (2026-06-21 summer solstice — all 4 tracked constraints active simultaneously)
+**Agents affected**: congestion-analyst, dart-virtual-trader, bess-optimizer (indirectly)
+
+On the summer solstice (2026-06-21), GR_WEST peaked at 18,103 MW (series record) while NL ramp was
+elevated and 4 constraints were simultaneously active: HOUSTON_IMPORT HIGH, WEST_TO_NORTH MEDIUM,
+HOUSTON_SOUTH_MIDDAY_LOCAL MEDIUM, PANHANDLE LOW-MEDIUM. Actual outcome: HOUSTON_IMPORT call failed
+(RT crashed, not spiked), WEST_TO_NORTH partial (1-hr timing bias), HOUSTON_SOUTH_MIDDAY_LOCAL wrong
+direction.
+
+When multiple constraints activate simultaneously under high-GR_WEST conditions, Stage 0 heuristics
+overestimate all of them because:
+(a) Mutual suppression effects between constraints are not modeled (binding one constraint relieves others)
+(b) High GR_WEST wind exports from West suppress evening DA prices AND reduce South-to-Houston import pressure
+(c) Stage 0 has no mechanism to downweight when conditions combine to create unusual market structure
+
+This pattern will recur on summer peak days (July-August heat events, solstice-adjacent weekends).
+All agents should treat "4+ constraints simultaneously flagged HIGH/MEDIUM" as a signal to apply
+an additional 10-15 ppt confidence haircut to all probability calls, not just individual ones.
 
 ---
 

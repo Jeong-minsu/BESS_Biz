@@ -1,6 +1,21 @@
 # Evaluator Improvement Tracker
 
-Last updated: 2026-06-15 (Week 2026-24)
+Last updated: 2026-06-22 (Week 2026-25)
+
+---
+
+## Week 2026-25 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/pnl-manager/plans/2026-25-tenaska-whitelist-escalation.md` | pnl-manager | CRITICAL | OPEN — user to submit IP whitelist to Ascend; agent to add IP pre-check | 15th whitelist failure; 52% cloud failure rate; 13+ DEGRADED day backlog; cascades to 4 agents |
+| `memory/dart-virtual-trader/plans/2026-25-output-directory-standardization.md` | dart-virtual-trader | CRITICAL | OPEN — agent to implement by 2026-06-23 | 6 path variants used in W25; canonical path is reports/daily/dart-virtual-trader/ |
+| `memory/dart-virtual-trader/plans/2026-25-direction-inversion-fix.md` | dart-virtual-trader | CRITICAL | OPEN — agent to add direction-reason consistency check by 2026-06-23 | DEC issued with DA>RT rationale on 2 consecutive weekend cycles; hit rate ~14-25% |
+| `memory/congestion-analyst/plans/2026-25-w3-item010-critical-escalation.md` | congestion-analyst | MAJOR | OPEN — agent to start immediately; user to confirm data access | 11 days past evaluator deadline; 32 consecutive blocked cycles; escalates to CRITICAL if not started by 2026-06-29 |
+| `memory/market-analyst/plans/2026-25-smartbidder-fallback-protocol.md` | market-analyst | MAJOR | OPEN — agent to implement by 2026-06-24 | Smartbidder absent 3+ W25 days; no fallback quantitative estimates provided; downstream agents left without P(DA>RT) |
+| `memory/dart-virtual-trader/plans/2026-25-settlement-infrastructure.md` | dart-virtual-trader | MAJOR | OPEN — user to confirm DART execution scope; agent to create hit-rate-log.md | 40+ positions unresolved; hit rate uncalculable; below-floor cap violated 2026-06-18 |
+| `memory/bess-optimizer/plans/2026-25-standing-rules-gap.md` | bess-optimizer | MAJOR | OPEN — agent to implement by 2026-06-24 | standing-rules.md 6 days past self-committed deadline; ECRS rule not formalized |
+| `memory/congestion-analyst/plans/2026-25-weekend-high-wind-haircut.md` | congestion-analyst | MAJOR | OPEN — agent to implement in next Sat/Sun cycle | GR_WEST >15,000 MW suppresses HOUSTON_IMPORT binding; 10-15 ppt haircut needed; WEST_TO_NORTH timing +1hr bias |
 
 ---
 
@@ -8,11 +23,11 @@ Last updated: 2026-06-15 (Week 2026-24)
 
 | Plan File | Agent | Priority | Status | Description |
 |---|---|---|---|---|
-| `memory/congestion-analyst/plans/2026-24-w3-item010-final-escalation.md` | congestion-analyst | CRITICAL | OPEN — user to confirm disk; agent to start item 0.10 immediately | W3 item 0.10 now 23 cycles unstarted; 12 cycles past W23 deadline |
-| `memory/dart-virtual-trader/plans/2026-24-settlement-infrastructure-gap.md` | dart-virtual-trader | CRITICAL | OPEN — user to confirm Smartbidder submission scope; agent to fix label bug + ECRS modifier | Settlement blind 4 weeks; Non-Spin vs ECRS label bug; ECRS INC modifier not formalized |
-| `memory/bess-optimizer/plans/2026-24-ecrs-nonspun-execution-gap.md` | bess-optimizer | MAJOR | OPEN — agent to create standing-rules.md + apply ECRS rule; user to confirm execution flow | ECRS exclusion rule failed 4 cycles (~$1,400 opportunity loss); execution divergence past deadline |
-| `memory/pnl-manager/plans/2026-24-whitelist-and-dart-isolation.md` | pnl-manager | CRITICAL | OPEN — user to whitelist IP; agent to implement Submissions-DA-Settlement-Amounts endpoint | 12 whitelist failures in 21 days; DART virtual isolation 4 cycles deferred |
-| `memory/market-analyst/plans/2026-24-weekend-direction-and-as-fallback.md` | market-analyst | MAJOR | OPEN — agent to implement weekend checklist before 2026-06-20 Saturday | Weekend RT direction miss 4th consecutive weekend; ramp framing systematic error |
+| `memory/congestion-analyst/plans/2026-24-w3-item010-final-escalation.md` | congestion-analyst | CRITICAL | OPEN — 0% started, 11 days past deadline; superseded by 2026-25 plan | W3 item 0.10 now 32 cycles unstarted |
+| `memory/dart-virtual-trader/plans/2026-24-settlement-infrastructure-gap.md` | dart-virtual-trader | CRITICAL | OPEN — no confirmed progress; superseded by 2026-25 plan | Settlement blind now 6+ weeks; 40+ positions unresolved |
+| `memory/bess-optimizer/plans/2026-24-ecrs-nonspun-execution-gap.md` | bess-optimizer | MAJOR | PARTIALLY OPEN — ECRS awareness improved in learnings; standing-rules.md not created; superseded by 2026-25 plan | standing-rules.md missed 2026-06-16 deadline |
+| `memory/pnl-manager/plans/2026-24-whitelist-and-dart-isolation.md` | pnl-manager | CRITICAL | OPEN — 15th failure in W25; no IP whitelist change; superseded by 2026-25 plan | Now 52% cloud failure rate; 13+ day backlog |
+| `memory/market-analyst/plans/2026-24-weekend-direction-and-as-fallback.md` | market-analyst | MAJOR | PARTIALLY OPEN — weekend checklist in learnings; Smartbidder fallback not implemented; superseded by 2026-25 plan | Smartbidder absent 3+ W25 days; no fallback quantitative output |
 
 ---
 
