@@ -1,0 +1,49 @@
+{
+  "flowday": "2026-06-28",
+  "generated_at_utc": "2026-06-29T12:05:00Z",
+  "data_status": "DEGRADED",
+  "data_status_detail": "Tenaska PTP endpoint mapping 미완료 — GKS actual 0 rows. Smartbidder benchmark values only.",
+  "gks_actual": {
+    "source": "Tenaska PTP",
+    "status": "UNAVAILABLE",
+    "row_counts": {
+      "energy_as_detail": 0,
+      "hsl": 0,
+      "da_energy_bid": 0,
+      "da_energy_offer": 0
+    },
+    "da_energy_revenue": null,
+    "rt_energy_revenue": null,
+    "as_revenue_regup": null,
+    "as_revenue_regdown": null,
+    "as_revenue_rrs": null,
+    "as_revenue_ecrs": null,
+    "as_revenue_nonspin": null,
+    "dart_virtual_revenue": null,
+    "energy_injection_mwh": null,
+    "energy_consumption_mwh": null,
+    "total_revenue": null
+  },
+  "smartbidder_benchmark": {
+    "source": "Smartbidder — Mount Blue Sky with Virtuals (RTC Version)",
+    "status": "SUCCESS",
+    "note": "Estimate, not settled. 24 hourly rows, 33 columns.",
+    "da_energy_revenue": 5389.25,
+    "rt_energy_revenue": -7222.43,
+    "as_revenue_regup": null,
+    "as_revenue_regdown": null,
+    "as_revenue_rrs": 69.04,
+    "as_revenue_ecrs": 11.90,
+    "as_revenue_nonspin": 1362.54,
+    "dart_virtual_revenue": 1445.75,
+    "dart_virtual_da_component": 9251.00,
+    "dart_virtual_rt_component": -7805.25,
+    "energy_injection_mwh": null,
+    "energy_consumption_mwh": null,
+    "total_revenue": 1056.05
+  },
+  "comparison": {
+    "status": "UNAVAILABLE",
+    "reason": "GKS actual data absent — comparison deferred until Tenaska endpoint mapping resolved."
+  }
+}
