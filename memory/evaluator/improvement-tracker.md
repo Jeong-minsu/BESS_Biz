@@ -1,6 +1,37 @@
 # Evaluator Improvement Tracker
 
-Last updated: 2026-06-22 (Week 2026-25)
+Last updated: 2026-06-29 (Week 2026-26)
+
+---
+
+## Week 2026-26 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-26-execution-confirmation-critical.md` | dart-virtual-trader | CRITICAL | OPEN — user to confirm execution scope by 2026-07-03 | 14th escalation; hit rate uncomputable 6+ weeks; GKS DART rank #276/276; possible non-execution Jun 24 |
+| `memory/pnl-manager/plans/2026-26-tenaska-whitelist-critical.md` | pnl-manager | CRITICAL | OPEN — user to contact Ascend to re-whitelist cloud IP | 17th failure; 50% rate; 16 DEGRADED days; cascades to 4 agents |
+| `memory/bess-optimizer/plans/2026-26-execution-divergence-critical.md` | bess-optimizer | CRITICAL | OPEN — user to confirm root cause by 2026-07-03 | 5+ cycles of DA position divergence; Jun 24 -$3,221 vs benchmark; Jun 26 -$446 vs benchmark |
+| `memory/congestion-analyst/plans/2026-26-w3-item010-overdue.md` | congestion-analyst | MAJOR | OPEN — user to confirm access path; agent to document workaround by 2026-07-06 | 38 consecutive blocked cycles; 27 days past W23 deadline; trigger date 2026-06-29 reached |
+| `memory/dart-virtual-trader/plans/2026-26-output-directory-final.md` | dart-virtual-trader | MAJOR | OPEN — agent to declare canonical path by 2026-06-30 | W25 deadline missed; 4 path variants in W26; final warning |
+| `memory/pnl-manager/plans/2026-26-dart-isolation-final.md` | pnl-manager | MAJOR | OPEN — user to contact Tenaska re: virtual settlement endpoint | 14 cycles without DART virtual P&L isolation; Jun 24 "DART Virtual Net" confirmed as physical BESS charging |
+| `memory/dart-virtual-trader/plans/2026-26-smartbidder-probability-absent.md` | dart-virtual-trader | MAJOR | OPEN — user to investigate CSV format change; agent to add fallback protocol by 2026-06-30 | 13+ consecutive cycles absent; forced minimum 25 MW cap on all positions |
+| `memory/market-analyst/plans/2026-26-ag2-data-separation.md` | market-analyst | MINOR | OPEN — agent to add AG2 data provenance note starting 2026-06-30 | AG2 D+1 data vintage not labeled in briefings; CLAUDE.md data leakage compliance not visibly auditable |
+| `memory/reporter/plans/2026-26-section-numbering.md` | reporter | MINOR | OPEN — agent to fix starting 2026-06-29 report | Jun 28 report section numbering starts at "0"; format drift from W26 convention |
+
+---
+
+## Week 2026-26 W25 Plan Compliance Update
+
+| Plan | Agent | W25 Deadline | W26 Status |
+|---|---|---|---|
+| `2026-25-standing-rules-gap.md` | bess-optimizer | 2026-06-24 | CLOSED — standing-rules.md created 2026-06-23 (1 day late) |
+| `2026-25-direction-inversion-fix.md` | dart-virtual-trader | 2026-06-23 | PARTIALLY CLOSED — direction-reason gate implemented and PASS every W26 cycle; execution still unconfirmed |
+| `2026-25-output-directory-standardization.md` | dart-virtual-trader | 2026-06-23 | OPEN — deadline MISSED; 4 variants still in W26; superseded by 2026-26-output-directory-final.md |
+| `2026-25-tenaska-whitelist-escalation.md` | pnl-manager | User action | OPEN — no resolution; 17th failure; superseded by 2026-26-tenaska-whitelist-critical.md |
+| `2026-25-smartbidder-fallback-protocol.md` | market-analyst | 2026-06-24 | PARTIALLY CLOSED — qualitative fallback in use; not formally documented in memory |
+| `2026-25-settlement-infrastructure.md` | dart-virtual-trader | User confirm | OPEN — no user response; superseded by 2026-26-execution-confirmation-critical.md |
+| `2026-25-w3-item010-critical-escalation.md` | congestion-analyst | Trigger 2026-06-29 | OPEN — trigger date reached; 38 blocked cycles; superseded by 2026-26-w3-item010-overdue.md |
+| `2026-25-weekend-high-wind-haircut.md` | congestion-analyst | Next Sat/Sun cycle | CLOSED — haircut applied correctly Jun 27-28 |
 
 ---
 
