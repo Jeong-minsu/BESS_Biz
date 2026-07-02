@@ -1,0 +1,42 @@
+{
+  "flowday": "2026-07-01",
+  "generated_at": "2026-07-02",
+  "data_source": "PRODUCTION \u2014 Tenaska PTP Battery-Settlement-Details",
+  "gks": {
+    "da_energy_revenue": 10079.16,
+    "rt_energy_revenue": -8744.79,
+    "as_revenue_nonspin": 4334.4,
+    "as_revenue_rrs": 0.0,
+    "as_revenue_ecrs": 0.0,
+    "as_revenue_regup": 0.0,
+    "as_revenue_regdown": 0.0,
+    "dart_virtual_revenue": null,
+    "total_revenue": 5668.77,
+    "energy_injection_mwh": 104.21,
+    "energy_consumption_mwh": 78.82,
+    "net_energy_mwh": 25.39,
+    "da_sales_mwh": 300.3,
+    "cycles_equivalent": 0.394,
+    "gen_ns_cleared_mw_all_hours": 80
+  },
+  "smartbidder_benchmark": {
+    "strategy": "Mount Blue Sky with Virtuals (RTC Version)",
+    "note": "estimate, not settled",
+    "da_energy_revenue": 1637.07,
+    "da_virtual_revenue": 9829.0,
+    "rt_energy_revenue": -2518.71,
+    "rt_virtual_revenue": -10807.75,
+    "as_revenue_nonspin_da": 2880.31,
+    "as_revenue_nonspin_rt": -757.65,
+    "as_revenue_nonspin_net": 2122.66,
+    "as_revenue_rrs_net": 28.76,
+    "as_revenue_ecrs_net": 0.11,
+    "dart_virtual_net": -978.75,
+    "total_revenue": 291.15
+  },
+  "comparison": {
+    "delta_total": 5377.62,
+    "delta_pct": 1847.1,
+    "note": "GKS DA_Energy_Amt includes physical DA sales only (no DART virtual visible). DART virtual embedded-not-separable per Tenaska reporting structure. Benchmark DART virtual is -$978.75 (DA virtual +$9,829 + RT virtual -$10,808). Structural mismatch in DA Energy vs Benchmark DA+Virtual columns persists."
+  }
+}
