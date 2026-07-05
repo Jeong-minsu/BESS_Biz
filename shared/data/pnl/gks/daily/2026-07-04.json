@@ -1,0 +1,51 @@
+{
+  "flowday": "2026-07-04",
+  "resource": "Great Kiskadee Storage - ESR",
+  "data_source": "production",
+  "fetched_at_utc": "2026-07-05T12:09:46.736417Z",
+  "generated_at_utc": "2026-07-05T12:10:00.000000Z",
+  "data_notes": {
+    "hsl": "0 rows returned from Tenaska (unavailable for this flowday)",
+    "da_energy_bid": "0 rows returned from Tenaska Submissions-DA-Energy-Bid",
+    "da_energy_offer": "0 rows returned from Tenaska Submissions-DA-Energy-Only-Offer",
+    "energy_as_detail": "383 rows returned from Tenaska Battery-Settlement-Details (all 24 HE x ~16 datapoints)",
+    "dart_virtual_revenue": "set to 0 — no separate virtual bid/offer positions identified in data; DA_Energy_Amt reflects physical commitment to charge/discharge"
+  },
+  "revenue": {
+    "da_energy_revenue": -4603.67,
+    "rt_energy_revenue": 5555.31,
+    "as_revenue_regup": 0.00,
+    "as_revenue_regdown": 0.00,
+    "as_revenue_rrs": 0.00,
+    "as_revenue_ecrs": 350.80,
+    "as_revenue_nonspin": 2958.40,
+    "dart_virtual_revenue": 0.00,
+    "total_revenue": 4260.84
+  },
+  "benchmark": {
+    "source": "Smartbidder",
+    "strategy": "Mount Blue Sky with Virtuals (RTC Version)",
+    "note": "estimate, not settled — fine for benchmark use only",
+    "da_energy_revenue": 1465.92,
+    "rt_energy_revenue_lmp5": -2226.01,
+    "dart_virtual_revenue": 454.00,
+    "as_revenue_rrs_net": 25.22,
+    "as_revenue_ecrs": 0.00,
+    "as_revenue_nonspin_net": 1894.02,
+    "total_revenue": 1613.15
+  },
+  "vs_benchmark": {
+    "total_delta_usd": 2647.69,
+    "total_delta_pct": 164.1
+  },
+  "battery_state": {
+    "rt_energy_injection_mwh": 92.67,
+    "rt_energy_consumption_mwh": 129.06,
+    "net_mwh": -36.39,
+    "cycles_equivalent_charge_side": 0.65,
+    "da_purchase_committed_mwh": 200.0,
+    "hsl_availability_pct": null,
+    "peak_charge_hours_ct": ["HE09 08:00-09:00", "HE10 09:00-10:00", "HE11 10:00-11:00"],
+    "peak_discharge_hours_ct": ["HE21 20:00-21:00", "HE22 21:00-22:00"]
+  }
+}
