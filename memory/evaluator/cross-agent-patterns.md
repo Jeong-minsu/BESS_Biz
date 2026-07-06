@@ -1,6 +1,6 @@
 # Evaluator Cross-Agent Patterns
 
-Last updated: 2026-06-22 (Week 2026-25 evaluation)
+Last updated: 2026-07-06 (Week 2026-27 evaluation)
 
 ---
 
@@ -154,6 +154,33 @@ overestimate all of them because:
 This pattern will recur on summer peak days (July-August heat events, solstice-adjacent weekends).
 All agents should treat "4+ constraints simultaneously flagged HIGH/MEDIUM" as a signal to apply
 an additional 10-15 ppt confidence haircut to all probability calls, not just individual ones.
+
+---
+
+## Pattern 17: Smartbidder D+1 CSV Intermittent Recovery After Extended Absence
+
+**Observed**: Week 2026-27 (2026-07-05 return after 43+ consecutive absent cycles)
+**Agents affected**: market-analyst, dart-virtual-trader
+
+Smartbidder DA-RT probability CSV (used by dart-virtual-trader for position sizing and by market-analyst for P(DA>RT) input) disappeared after approximately Week 22 and was absent for 43+ consecutive production cycles. It returned on 2026-07-05. Dart-virtual-trader correctly applied a 70% size cap on return, citing "calibration trust low." Pattern: long absence → brief return → unknown reliability. Agents should not restore full weight to the CSV without a calibration trust protocol (proposed: 5 consecutive production days before treating as primary source). This pattern may recur if the CSV is tied to a Smartbidder model cycle or parameter change.
+
+---
+
+## Pattern 18: Tenaska Access in VPN-Linked Clusters
+
+**Observed**: Weeks 2026-26–2026-27 (confirmed: June 30, July 1, July 2 PRODUCTION; July 3 FAILED)
+**Agents affected**: pnl-manager (primary); cascades to all agents via DEGRADED backlog
+
+Tenaska PTP access succeeds in consecutive clusters of 2-3 days when user runs fetch_pnl_data.py from a VPN-whitelisted machine, then fails again when cloud execution resumes. The intermittent PRODUCTION pattern (3 consecutive success → fail) is not a permanent fix — cloud IP remains unwhitelisted. 19 total failures as of W27, 18 DEGRADED days in backlog. Implication: user must run the script from VPN for each day's data, or Ascend must permanently whitelist the cloud IP. A daily VPN execution window is not a scalable solution beyond the current backlog.
+
+---
+
+## Pattern 19: Smartbidder Execution Default — NS 80 MW Flat + HE14-22 DA
+
+**Observed**: Week 2026-27 (quantified in bess-optimizer learnings 2026-07-02; 6 consecutive cycles)
+**Agents affected**: bess-optimizer (recommendations), pnl-manager (benchmark), dart-virtual-trader (cross-strategy consistency)
+
+Confirmed in bess-optimizer learnings: Smartbidder strategy "Mount Blue Sky with Virtuals (RTC Version)" executes NS at 80 MW × 24h flat and DA sells HE14-22 regardless of bess-optimizer recommendations. bess-optimizer recommendations (which vary NS hours and DA sell window) are not implemented. This is a structural execution gap — not a per-cycle issue. Consequences: (1) bess-optimizer expected revenue calculations are systematically higher than realized because they assume recommendation adherence; (2) dart-virtual-trader position logic (which assumes BESS discharge at bess-optimizer's recommended hours) may be stale for cross-strategy consistency checks; (3) pnl-manager benchmark (Smartbidder strategy) reflects the 80 MW flat / HE14-22 pattern, not the bess-optimizer-optimal one. Until the execution gap is resolved, GKS actual performance should be benchmarked against the Smartbidder default strategy, not the bess-optimizer recommendation.
 
 ---
 
