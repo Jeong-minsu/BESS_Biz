@@ -1,0 +1,49 @@
+{
+  "date": "2026-07-13",
+  "asset": "GKS_BESS_RN",
+  "initial_soc_mwh": 100,
+  "rte": 0.85,
+  "schedule": [
+    {"he": 1,  "energy_mw":    0, "soc_mwh": 100, "nonspin_mw": 50, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 50, "regdn_mw": 0},
+    {"he": 2,  "energy_mw":    0, "soc_mwh": 100, "nonspin_mw": 50, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 50, "regdn_mw": 0},
+    {"he": 3,  "energy_mw":    0, "soc_mwh": 100, "nonspin_mw": 50, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 50, "regdn_mw": 0},
+    {"he": 4,  "energy_mw":  -18, "soc_mwh": 115, "nonspin_mw": 50, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 32, "regdn_mw": 0},
+    {"he": 5,  "energy_mw": -100, "soc_mwh": 200, "nonspin_mw":  0, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw":  0, "regdn_mw": 0},
+    {"he": 6,  "energy_mw":    0, "soc_mwh": 200, "nonspin_mw": 50, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 50, "regdn_mw": 0},
+    {"he": 7,  "energy_mw":    0, "soc_mwh": 200, "nonspin_mw": 50, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 50, "regdn_mw": 0},
+    {"he": 8,  "energy_mw":    0, "soc_mwh": 200, "nonspin_mw": 50, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 50, "regdn_mw": 0},
+    {"he": 9,  "energy_mw":    0, "soc_mwh": 200, "nonspin_mw": 50, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 50, "regdn_mw": 0},
+    {"he": 10, "energy_mw":    0, "soc_mwh": 200, "nonspin_mw": 50, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 50, "regdn_mw": 0},
+    {"he": 11, "energy_mw":    0, "soc_mwh": 200, "nonspin_mw": 50, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 50, "regdn_mw": 0},
+    {"he": 12, "energy_mw":    0, "soc_mwh": 200, "nonspin_mw": 50, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 50, "regdn_mw": 0},
+    {"he": 13, "energy_mw":    0, "soc_mwh": 200, "nonspin_mw": 50, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 50, "regdn_mw": 0},
+    {"he": 14, "energy_mw":    0, "soc_mwh": 200, "nonspin_mw": 50, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 50, "regdn_mw": 0},
+    {"he": 15, "energy_mw":    0, "soc_mwh": 200, "nonspin_mw": 50, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 50, "regdn_mw": 0},
+    {"he": 16, "energy_mw":    0, "soc_mwh": 200, "nonspin_mw": 50, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 50, "regdn_mw": 0},
+    {"he": 17, "energy_mw":    0, "soc_mwh": 200, "nonspin_mw": 50, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 50, "regdn_mw": 0},
+    {"he": 18, "energy_mw":    0, "soc_mwh": 200, "nonspin_mw": 50, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 50, "regdn_mw": 0},
+    {"he": 19, "energy_mw":    0, "soc_mwh": 200, "nonspin_mw": 50, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 50, "regdn_mw": 0},
+    {"he": 20, "energy_mw":    0, "soc_mwh": 200, "nonspin_mw": 80, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 20, "regdn_mw": 0},
+    {"he": 21, "energy_mw":    0, "soc_mwh": 200, "nonspin_mw":100, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw":  0, "regdn_mw": 0},
+    {"he": 22, "energy_mw":  100, "soc_mwh": 100, "nonspin_mw":  0, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw":  0, "regdn_mw": 0},
+    {"he": 23, "energy_mw":  100, "soc_mwh":   0, "nonspin_mw":  0, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw":  0, "regdn_mw": 0},
+    {"he": 24, "energy_mw":    0, "soc_mwh":   0, "nonspin_mw":  0, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw":  0, "regdn_mw": 0}
+  ],
+  "expected_revenue": {
+    "da_energy_discharge": 7141,
+    "da_energy_charge": -3097,
+    "da_energy": 4044,
+    "nonspin": 1767,
+    "regup": 816,
+    "ecrs": 0,
+    "rrs": 0,
+    "as_total": 2583,
+    "total": 6627
+  },
+  "notes": {
+    "charge_hours": "HE4 (-18 MW, $26.5), HE5 (-100 MW, $26.2)",
+    "discharge_hours": "HE22 (+100 MW, $35.97), HE23 (+100 MW, $35.44)",
+    "he8_rt_spike": "RT>DA +$3.52 확인; HE22-23 기회비용($35.44-35.97) > HE8 RT ($31.67) → skip",
+    "he21_nonspin_risk": "100 MW NS 배포 시 HE23 방전 포기 (-$3,544); P(deploy)=10%, E[NS]-E[loss]= +$496 → offer"
+  }
+}
