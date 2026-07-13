@@ -1,6 +1,34 @@
 # Evaluator Improvement Tracker
 
-Last updated: 2026-07-06 (Week 2026-27)
+Last updated: 2026-07-13 (Week 2026-28)
+
+---
+
+## Week 2026-28 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-28-improvements.md` | dart-virtual-trader | CRITICAL | OPEN — user to confirm execution scope (ADVISORY ONLY now default); agent to create advisory-only-mode.md by 2026-07-18 | W27 deadline expired 2026-07-13 with no user response; ADVISORY ONLY in effect; 30th+ dart_virtual_revenue null |
+| `memory/bess-optimizer/plans/2026-28-improvements.md` | bess-optimizer | CRITICAL | OPEN — user to confirm execution role (STRATEGIC BENCHMARK now default); agent to update report header and produce recalibration note by 2026-07-18 | W27 deadline expired 2026-07-13 with no user response; STRATEGIC BENCHMARK in effect; Jul 6-7 directory instability |
+| `memory/pnl-manager/plans/2026-28-improvements.md` | pnl-manager | CRITICAL | OPEN — user to contact Ascend for permanent whitelist; agent to diagnose DA bid/offer 0-row on first PRODUCTION day | 23rd Tenaska failure; 22 backlog days; 4 consecutive DEGRADED Jul 8-11 |
+| `memory/congestion-analyst/plans/2026-28-improvements.md` | congestion-analyst | MAJOR | OPEN — agent to confirm 2026-07-10 escalation plan filed; create stage-0-rules.md by 2026-07-21 | W3 item 0.10 60+ days overdue; data still blocked; escalation note referenced but not confirmed |
+| `memory/market-analyst/plans/2026-28-improvements.md` | market-analyst | MINOR | OPEN — agent to fix P(DA>RT) detection by 2026-07-14 (W29 Day 1) | Smartbidder P(DA>RT) false negative Jul 7; caught by reporter cross-check |
+
+---
+
+## Week 2026-28 W27 Plan Compliance Update
+
+| Plan | Agent | W27 Deadline | W28 Status |
+|---|---|---|---|
+| `2026-27-execution-final-deadline.md` | dart-virtual-trader | 2026-07-13 | CLOSED BY POLICY — no user response; ADVISORY ONLY in effect per plan terms |
+| `2026-27-execution-divergence-escalation.md` | bess-optimizer | 2026-07-13 | CLOSED BY POLICY — no user response; STRATEGIC BENCHMARK in effect per plan terms |
+| `2026-27-w3-item010-60day-crisis.md` | congestion-analyst | 2026-07-10 | PARTIALLY RESOLVED — escalation note referenced in Jul 10 report; file existence unconfirmed |
+| `2026-27-missing-daily-trigger.md` | reporter | 2026-07-10 / 2026-07-13 | PARTIALLY RESOLVED — W28 had 7/7 daily coverage; Jul 3 retroactive not confirmed |
+| `2026-27-output-directory-critical.md` | dart-virtual-trader | 2026-07-10 | MISSED THEN SELF-RESOLVED — 4 directories through Jul 10; resolved Jul 11 per agent statement |
+| `2026-27-da-bid-row-inquiry.md` | pnl-manager | 2026-07-10 | BLOCKED — Jul 8-11 all DEGRADED; diagnosis impossible; carried forward to 2026-28-improvements.md |
+| `2026-27-ag2-smartbidder-fallback.md` | market-analyst | 2026-07-13 | PARTIALLY RESOLVED — AG2 parsed Jul 6 (4 sources, correct); Smartbidder 70% calibration trust in use; P(DA>RT) false negative Jul 7 (new MINOR issue) |
+
+**W27 CLOSED BY POLICY**: 2 | **PARTIALLY RESOLVED**: 3 | **BLOCKED/CARRIED FORWARD**: 1 | **MISSED THEN SELF-RESOLVED**: 1
 
 ---
 
@@ -8,13 +36,13 @@ Last updated: 2026-07-06 (Week 2026-27)
 
 | Plan File | Agent | Priority | Status | Description |
 |---|---|---|---|---|
-| `memory/dart-virtual-trader/plans/2026-27-execution-final-deadline.md` | dart-virtual-trader | CRITICAL | OPEN — user to confirm execution scope by 2026-07-13 (FINAL) | 20th escalation; W26 deadline 2026-07-03 MISSED; agent declared ADVISORY ONLY — UNSCORED on Approach |
-| `memory/bess-optimizer/plans/2026-27-execution-divergence-escalation.md` | bess-optimizer | CRITICAL | OPEN — user to confirm execution model by 2026-07-13 (FINAL) | 6th consecutive [EXECUTION-DIVERGENCE] cycle; W26 deadline 2026-07-03 MISSED; July 2 divergence cost −$3,551 |
-| `memory/congestion-analyst/plans/2026-27-w3-item010-60day-crisis.md` | congestion-analyst | CRITICAL | OPEN — agent to deliver item 0.10 resolution document by 2026-07-10; user action if BLOCKED | TODAY is evaluator workaround deadline; 60-day milestone July 10; 54 days blocked |
-| `memory/reporter/plans/2026-27-missing-daily-trigger.md` | reporter | MAJOR | OPEN — agent to produce retroactive July 3 report by 2026-07-10; handling rule by 2026-07-13 | July 3 consolidated daily report missing; upstream inputs were available |
-| `memory/dart-virtual-trader/plans/2026-27-output-directory-critical.md` | dart-virtual-trader | MAJOR | OPEN — agent to consolidate to dart-virtual-trader/ by 2026-07-10 | 2 directory variants still active in W27; W26 deadline 2026-06-30 MISSED |
-| `memory/pnl-manager/plans/2026-27-da-bid-row-inquiry.md` | pnl-manager | MAJOR | OPEN — agent to diagnose and document root cause by 2026-07-10 | DA bid/offer 0 rows for 5+ consecutive PRODUCTION days; DART virtual isolation blocked |
-| `memory/market-analyst/plans/2026-27-ag2-smartbidder-fallback.md` | market-analyst | MINOR | OPEN — agent to parse AG2 CSV in next briefing; Smartbidder trust rule by 2026-07-13 | AG2 CSV not parsed; Smartbidder return (July 5) calibration trust protocol missing |
+| `memory/dart-virtual-trader/plans/2026-27-execution-final-deadline.md` | dart-virtual-trader | CRITICAL | CLOSED BY POLICY (2026-07-13) | 20th escalation; W26 deadline 2026-07-03 MISSED; ADVISORY ONLY now in effect |
+| `memory/bess-optimizer/plans/2026-27-execution-divergence-escalation.md` | bess-optimizer | CRITICAL | CLOSED BY POLICY (2026-07-13) | 6th consecutive [EXECUTION-DIVERGENCE] cycle; STRATEGIC BENCHMARK now in effect |
+| `memory/congestion-analyst/plans/2026-27-w3-item010-60day-crisis.md` | congestion-analyst | CRITICAL | PARTIALLY RESOLVED — escalation note referenced; superseded by 2026-28-improvements.md | 60-day milestone Jul 10; agent acknowledged and referenced escalation plan |
+| `memory/reporter/plans/2026-27-missing-daily-trigger.md` | reporter | MAJOR | PARTIALLY RESOLVED — W28 7/7 coverage; Jul 3 retroactive unconfirmed | July 3 consolidated daily report missing; upstream inputs were available |
+| `memory/dart-virtual-trader/plans/2026-27-output-directory-critical.md` | dart-virtual-trader | MAJOR | MISSED THEN SELF-RESOLVED (2026-07-11) — superseded by 2026-28-improvements.md | 4 directories used in W28; resolved Jul 11; deadline Jul 10 MISSED |
+| `memory/pnl-manager/plans/2026-27-da-bid-row-inquiry.md` | pnl-manager | MAJOR | BLOCKED — superseded by 2026-28-improvements.md | DEGRADED days prevented Jul 10 diagnosis; carried forward |
+| `memory/market-analyst/plans/2026-27-ag2-smartbidder-fallback.md` | market-analyst | MINOR | PARTIALLY RESOLVED — new issue (P(DA>RT) false neg) in 2026-28-improvements.md | AG2 parsed correctly; Smartbidder calibration trust in use |
 
 ---
 

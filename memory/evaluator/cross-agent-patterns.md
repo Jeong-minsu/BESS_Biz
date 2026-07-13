@@ -1,6 +1,6 @@
 # Evaluator Cross-Agent Patterns
 
-Last updated: 2026-07-06 (Week 2026-27 evaluation)
+Last updated: 2026-07-13 (Week 2026-28 evaluation)
 
 ---
 
@@ -181,6 +181,33 @@ Tenaska PTP access succeeds in consecutive clusters of 2-3 days when user runs f
 **Agents affected**: bess-optimizer (recommendations), pnl-manager (benchmark), dart-virtual-trader (cross-strategy consistency)
 
 Confirmed in bess-optimizer learnings: Smartbidder strategy "Mount Blue Sky with Virtuals (RTC Version)" executes NS at 80 MW × 24h flat and DA sells HE14-22 regardless of bess-optimizer recommendations. bess-optimizer recommendations (which vary NS hours and DA sell window) are not implemented. This is a structural execution gap — not a per-cycle issue. Consequences: (1) bess-optimizer expected revenue calculations are systematically higher than realized because they assume recommendation adherence; (2) dart-virtual-trader position logic (which assumes BESS discharge at bess-optimizer's recommended hours) may be stale for cross-strategy consistency checks; (3) pnl-manager benchmark (Smartbidder strategy) reflects the 80 MW flat / HE14-22 pattern, not the bess-optimizer-optimal one. Until the execution gap is resolved, GKS actual performance should be benchmarked against the Smartbidder default strategy, not the bess-optimizer recommendation.
+
+---
+
+## Pattern 20: Smartbidder Calibration Recovery Protocol Working as Designed
+
+**Observed**: Week 2026-28 (Jul 8-12 — 8 consecutive cycles at 85-90%+ calibration after 43+ absent cycles)
+**Agents affected**: dart-virtual-trader (primary), market-analyst (secondary)
+
+After 43+ absent cycles, Smartbidder DA-RT probability CSV returned Jul 5. dart-virtual-trader correctly applied the calibration ramp: 70% cap on return (Jul 5) → 85% cap (4th cycle Jul 8) → 88% (5th cycle Jul 9) → 90%+ and 45 MW ceiling (7th-8th cycles Jul 11-12). The calibration trust protocol, while informal, is functioning as designed. Pattern 17 (extended absence → uncertain reliability on return) predicted this would require 5+ consecutive cycles before restoring significant weight — validated. If the CSV remains present through W29, evaluator recommends formalizing "full trust" criteria (e.g., 10 consecutive cycles at 90%) to prevent premature ceiling removal. The calibration schedule should be documented as a standing rule in dart-virtual-trader's model notes, not rediscovered on each re-entry.
+
+---
+
+## Pattern 21: bess-optimizer Rule-Creation Cycles Produce Output Directory Instability
+
+**Observed**: Week 2026-28 (Jul 6-7 — new Rules 9 and 10 established in Jul 6 learnings; output filed to bess-stack/ and bess-schedule/ respectively)
+**Agents affected**: bess-optimizer (primary); similar pattern observed in dart-virtual-trader in prior weeks
+
+On the same day bess-optimizer formalized new Rules 9 and 10 (Jul 6), output was filed to the wrong directory. Jul 7 (first application day of new rules) also used the wrong directory. Jul 8 onward was correct. This is consistent with Pattern 9 (agents self-identify fixes but do not implement structural checklist items). The specific form here: cognitive load during rule-formalization displaces rote process steps like output path verification. Mitigation: agents should use a fixed first-step checklist entry ("verify output directory") that precedes any analysis or decision-making in the daily cycle. This must be a mechanical check, not a memory-dependent step, to survive high-cognitive-load days.
+
+---
+
+## Pattern 22: Reporter Cross-Agent Consistency Check Adds Material Value
+
+**Observed**: Week 2026-28 (Jul 7 — caught Smartbidder P(DA>RT) discrepancy between market-analyst and dart-virtual-trader)
+**Agents affected**: reporter (implements), market-analyst, dart-virtual-trader (subject agents)
+
+The reporter's cross-agent consistency check caught a data discrepancy on Jul 7 that neither market-analyst nor dart-virtual-trader flagged in their own reports. market-analyst listed Smartbidder P(DA>RT) as "N/A" while dart-virtual-trader confirmed the file was present and used it for position sizing. This is the first confirmed instance of the cross-agent check providing unique quality control value — a discrepancy invisible to the individual agents' self-reviews. The cross-agent check is now a standing feature, not an experimental addition. It should be retained in all future reporter consolidated daily reports. Future enhancement: when a flag is raised, the reporter should note which agent's data was confirmed correct (in this case, dart-virtual-trader's direct file access was the ground truth).
 
 ---
 
