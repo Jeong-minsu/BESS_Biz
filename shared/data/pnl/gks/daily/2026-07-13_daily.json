@@ -1,0 +1,12 @@
+{
+  "flowday": "2026-07-13",
+  "da_energy_usd": 10082.29,
+  "rt_energy_usd": -6511.25,
+  "da_rrs_usd": 0.00,
+  "da_ecrs_usd": 161.10,
+  "da_ns_usd": 3779.90,
+  "da_regup_usd": 0.00,
+  "da_regdown_usd": 0.00,
+  "total_usd": 7512.04,
+  "data_source": "Tenaska PTP Battery-Settlement-Details"
+}
