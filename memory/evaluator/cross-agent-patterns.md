@@ -1,6 +1,6 @@
 # Evaluator Cross-Agent Patterns
 
-Last updated: 2026-07-13 (Week 2026-28 evaluation)
+Last updated: 2026-07-20 (Week 2026-29 evaluation)
 
 ---
 
@@ -208,6 +208,51 @@ On the same day bess-optimizer formalized new Rules 9 and 10 (Jul 6), output was
 **Agents affected**: reporter (implements), market-analyst, dart-virtual-trader (subject agents)
 
 The reporter's cross-agent consistency check caught a data discrepancy on Jul 7 that neither market-analyst nor dart-virtual-trader flagged in their own reports. market-analyst listed Smartbidder P(DA>RT) as "N/A" while dart-virtual-trader confirmed the file was present and used it for position sizing. This is the first confirmed instance of the cross-agent check providing unique quality control value — a discrepancy invisible to the individual agents' self-reviews. The cross-agent check is now a standing feature, not an experimental addition. It should be retained in all future reporter consolidated daily reports. Future enhancement: when a flag is raised, the reporter should note which agent's data was confirmed correct (in this case, dart-virtual-trader's direct file access was the ground truth).
+
+---
+
+## Pattern 23: Wind Source Divergence (YE vs AG2) Produces Systematic DA Evening Overforecast
+
+**Observed**: Week 2026-29 (2026-07-19 — quantified in market-analyst learnings 2026-07-19.md)
+**Agents affected**: market-analyst (primary), bess-optimizer (evening discharge timing), dart-virtual-trader (spread direction for INC/DEC)
+
+On 2026-07-19, Smartbidder and Yes Energy agreed on wind at ~9.9 GW for the evening hours, while AG2/Enverus showed 12-15 GW. The market cleared on the higher wind basis, causing DA prices in HE20-21 to clear well below RT (DA $15-17/MWh vs RT $32-34/MWh). market-analyst overforecast DA by -$12 to -$18/MWh in those hours, issuing a DA-premium view (consistent with low-wind tight supply) when the actual was a large RT-premium event.
+
+The divergence: YE low-wind → DA expensive (Pattern 2); AG2 high-wind → solar + wind oversupply suppresses DA → RT premium. Both scenarios are internally consistent. The market followed AG2.
+
+Agent-proposed rule: when AG2 > YE wind by 2+ GW in HE18-23, apply a -$5 to -$15/MWh DA evening adjustment. This should be propagated downstream: market-analyst should flag wind source divergence when it occurs so bess-optimizer (discharge timing) and dart-virtual-trader (INC/DEC direction) can adjust their own assumptions.
+
+This pattern is distinct from Pattern 2 (Smartbidder absolute overestimation) — the source is a specific data divergence between wind forecast vendors, not a generic model bias.
+
+---
+
+## Pattern 24: Orchestration Cycle Skip Cascades Identically to All Front/Middle Agents
+
+**Observed**: Week 2026-29 (2026-07-16 — no D+1 cycle for Jul 17 planning)
+**Agents affected**: bess-optimizer, dart-virtual-trader, market-analyst, congestion-analyst, reporter (all simultaneously absent)
+
+On 2026-07-16, the entire daily orchestration cycle for Jul 17 D+1 planning was not executed. All five front/middle agents have a Jul 17 gap simultaneously — this is the signature of an orchestration skip rather than individual agent failures. The reporter also failed to file a "DEGRADED — no inputs" notice.
+
+This pattern has different causes from Pattern 8 (Tenaska outage cascades). Pattern 8 affects the *self-review learning loop* (prior-day settlement absent) but leaves the D+1 planning cycle intact. Pattern 24 is a complete orchestration stop — neither the D+1 planning nor the settlement review occurs. The two patterns can compound: the Jul 17 orchestration skip meant that when Jul 17 settlement data would have arrived (T+2), there was no learning cycle anchored to that day's recommendations.
+
+Detection: if 4+ agents all have the same day absent from their output directories, the root cause is almost certainly orchestration-level rather than individual agent failure.
+
+---
+
+## Pattern 25: bess-optimizer High-Stakes Hour Misidentification Persists Across Multiple Self-Reviews
+
+**Observed**: Week 2026-29 (2026-07-13 self-review — documented in memory/bess-optimizer/learnings/2026-07-13.md)
+**Agents affected**: bess-optimizer (primary); downstream impact on dart-virtual-trader (discharge window alignment)
+
+On 2026-07-13, bess-optimizer completely inverted the top and bottom revenue hours:
+- Recommended HE04-05 as cheapest charge hours: actual price was $34.95-$35.50/MWh (most expensive hours)
+- Recommended HE22-23 as peak discharge: actual peak was HE07 at $41.31/MWh
+- Missed 2-cycle throughput opportunity (actual ~405 MWh vs 1-cycle recommendation)
+- ECRS missed: $161 actual vs $0 recommended
+
+This is the largest calibration miss observed in any single self-review — complete directional inversion of all key decisions. The Jul 16 self-review showed the agent immediately correcting the charge window to HE10-11 (within 1-2 cycles), consistent with Pattern 15 (per-cycle rule changes applied quickly). However, the Jul 13 miss severity suggests the base calibration model for overnight vs daytime price structure requires more systematic revision, not just a one-cycle correction.
+
+Root cause: the bess-optimizer model assumed a conventional summer price curve (overnight cheap, afternoon/evening expensive). The Jul 13 actual showed a compressed midday trough with peak at HE07 (morning ramp), consistent with a high-solar, moderate-wind, tight early-morning supply day. This is a pattern the model should be able to recognize from the AS price structure (Non-Spin elevated overnight → market expects tight morning supply).
 
 ---
 

@@ -1,6 +1,39 @@
 # Evaluator Improvement Tracker
 
-Last updated: 2026-07-13 (Week 2026-28)
+Last updated: 2026-07-20 (Week 2026-29)
+
+---
+
+## Week 2026-29 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-29-advisory-only-mode-missed.md` | dart-virtual-trader | CRITICAL | OPEN — agent must create advisory-only-mode.md by 2026-07-21 (W30 Day 1); user approval for escalation path requested | advisory-only-mode.md due Jul 18 per W28 plan; still absent as of 2026-07-20; second consecutive week missed |
+| `memory/dart-virtual-trader/plans/2026-29-directory-proliferation.md` | dart-virtual-trader | CRITICAL (escalated from MAJOR) | OPEN — user approval for monitoring threshold; agent to implement first-line path anchor W30 | 4 distinct wrong directories used in W29 (2 correct / 4 wrong, 33% compliance vs 100% required) |
+| `memory/pnl-manager/plans/2026-29-tenaska-whitelist-critical.md` | pnl-manager | CRITICAL | OPEN — user to submit Ascend whitelist request (overdue since W22); user to set resolution deadline | 26th+ failure event; Jul 15 missing even DEGRADED report (secondary process failure) |
+| `memory/reporter/plans/2026-29-coverage-regression.md` | reporter | MAJOR | OPEN — agent to file 7/7 reports W30; agent to verify source paths before citing | 5/7 coverage in W29 (down from 7/7 in W28); Jul 17 and Jul 19 missing; source citation error Jul 15 |
+| `memory/bess-optimizer/plans/2026-29-directory-jul19.md` | bess-optimizer | MAJOR | OPEN — agent to never use bess-stack/ directory W30 | Jul 19 filed to bess-stack/ instead of bess-optimizer/; confirmed by reporter Cycle Health table |
+| `memory/congestion-analyst/plans/2026-29-w3-overdue-escalation.md` | congestion-analyst | MAJOR | OPEN — stage-0-rules.md due 2026-07-21; agent to confirm exact blocker for W3/0.09 and 0.10 | W3 items 0.09/0.10 blocked 59th cycle; stage-0-rules.md outstanding despite Jul 21 deadline |
+| `memory/market-analyst/plans/2026-29-wind-da-adjustment-protocol.md` | market-analyst | MAJOR | OPEN — agent to add AG2 vs YE wind divergence check as standing step W30 | DA HE20-21 overforecast Jul 19 (-$12 to -$18/MWh error) due to YE 9.9 GW vs market AG2/Enverus 12-15 GW wind |
+| `memory/evaluator/plans/2026-29-orchestration-skip-jul17.md` | system-wide | MAJOR | OPEN — user to confirm whether Jul 17 (Saturday) skip was intentional; if unintentional, add weekend coverage rule | All agents missed D+1 planning for Jul 17; reporter, bess-optimizer, market-analyst, congestion-analyst, dart-virtual-trader all have Jul 17 gaps |
+
+---
+
+## Week 2026-29 W28 Plan Compliance Update
+
+| Plan | Agent | W28 Deadline | W29 Status |
+|---|---|---|---|
+| advisory-only-mode.md creation | dart-virtual-trader | 2026-07-18 | MISSED — file absent as of 2026-07-20; escalated to 2026-29-advisory-only-mode-missed.md |
+| Output directory 7/7 (dart-virtual-trader/) | dart-virtual-trader | W29 (7 days) | FAILED — 33% compliance (2/4 active days correct); escalated to 2026-29-directory-proliferation.md |
+| STRATEGIC BENCHMARK header | bess-optimizer | 2026-07-14 | PARTIALLY MET — header in place from Jul 16 (2 days late); partially closed |
+| Output directory 7/7 (bess-optimizer/) | bess-optimizer | W29 (7 days) | PARTIALLY FAILED — 5/6 correct; Jul 19 wrong (bess-stack/); escalated to 2026-29-directory-jul19.md |
+| Smartbidder recalibration note | bess-optimizer | 2026-07-18 | UNCONFIRMED — no evidence in available W29 outputs; carried forward |
+| Escalation plan confirmed (Jul 14) | congestion-analyst | 2026-07-14 | UNCONFIRMED — no explicit confirmation file found in W29 |
+| stage-0-rules.md creation | congestion-analyst | 2026-07-21 | OUTSTANDING — deadline tomorrow (2026-07-21); escalated to 2026-29-w3-overdue-escalation.md |
+| P(DA>RT) false negative fix | market-analyst | 2026-07-14 | RESOLVED — no P(DA>RT) false negative recurrence observed in W29 evidence |
+| Tenaska Ascend whitelist | pnl-manager | User action | UNRESOLVED — 26th+ failure; user action still pending; escalated to 2026-29-tenaska-whitelist-critical.md |
+
+**MISSED**: 2 | **PARTIALLY MET/FAILED**: 2 | **OUTSTANDING**: 1 | **UNCONFIRMED**: 2 | **RESOLVED**: 1 | **USER UNRESOLVED**: 1
 
 ---
 
