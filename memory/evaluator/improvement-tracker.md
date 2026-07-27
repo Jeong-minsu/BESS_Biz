@@ -1,6 +1,39 @@
 # Evaluator Improvement Tracker
 
-Last updated: 2026-07-20 (Week 2026-29)
+Last updated: 2026-07-27 (Week 2026-W30)
+
+---
+
+## Week 2026-W30 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-W30-directory-final-escalation.md` | dart-virtual-trader | CRITICAL | OPEN — agent must read plan at start of every cycle; user authorization for reporter exclusion if W31 < 7/7 | 1/7 (14%) compliance — regression from 33% in W29; 4th consecutive CRITICAL; new dart-position/ variant added |
+| `memory/dart-virtual-trader/plans/2026-W30-advisory-only-escalation.md` | dart-virtual-trader | CRITICAL | OPEN — agent to create advisory-only-mode.md by 2026-07-28; user to authorize reporter exclusion if absent at W31 | advisory-only-mode.md absent 3rd consecutive week; W28/W29/W30 deadlines all missed |
+| `memory/pnl-manager/plans/2026-W30-smartbidder-secret-expired.md` | pnl-manager (+ bess-optimizer, market-analyst, dart-virtual-trader) | CRITICAL | OPEN — user to contact Ascend rep by 2026-07-30; agents to apply no-SB fallback until renewed | Smartbidder MSAL client_secret expired 2026-07-25 (AADSTS7000222); 2nd consecutive failure day 2026-07-26 |
+| `memory/bess-optimizer/plans/2026-W30-directory-escalation.md` | bess-optimizer | MAJOR | OPEN — agent to read plan at session start; 7/7 compliance required W31 | 4/7 (57%) compliance; bess-stack/ ban violated twice (07-22, 07-23); new bess-schedule/ variant 07-21; self-review missing 07-24 and 07-25 |
+| `memory/congestion-analyst/plans/2026-W30-stage0rules-overdue.md` | congestion-analyst | MAJOR | OPEN — agent to create stage-0-rules.md by 2026-07-28 | stage-0-rules.md deadline was 2026-07-21 (W29 plan); 6 days overdue; file still absent |
+| `memory/market-analyst/plans/2026-W30-wind-protocol-formalize.md` | market-analyst | MAJOR | OPEN — agent to embed wind divergence step in briefing template by W31 | Wind DA adjustment applied conceptually but not formalized as named standing step; threshold revision to 1.5 GW discussed in learnings but not hardcoded |
+| `memory/reporter/plans/2026-W30-path-verification.md` | reporter | MINOR | OPEN — agent to implement canonical path check in Cycle Health; flag [WRONG DIR] | Wrong dart-virtual-trader and bess-optimizer paths cited in Cycle Health tables; W29 plan (verify paths) not implemented |
+| `memory/pnl-manager/plans/2026-W30-saturday-coverage.md` | pnl-manager | MINOR | OPEN — user to confirm weekend coverage policy | 07-23 (Saturday) pnl report absent; weekend coverage policy unconfirmed since W29 evaluator request |
+
+---
+
+## Week 2026-W30 W29 Plan Compliance Update
+
+| Plan | Agent | W29 Deadline | W30 Status |
+|---|---|---|---|
+| advisory-only-mode.md creation | dart-virtual-trader | 2026-07-21 | **MISSED — 3rd consecutive week; escalated to 2026-W30-advisory-only-escalation.md** |
+| Output directory 7/7 (dart-virtual-trader/) | dart-virtual-trader | W30 | **FAILED — 14% compliance (1/7), REGRESSION; escalated to 2026-W30-directory-final-escalation.md** |
+| Tenaska Ascend whitelist | pnl-manager | User action (W31 deadline) | **STILL OPEN — 27th (07-22) and 28th (07-26) failures this week** |
+| 7/7 daily reports | reporter | W30 | PARTIALLY MET — 6/7 (improvement from 5/7; 07-23 Saturday absent) |
+| Verify source paths | reporter | W30 | NOT IMPLEMENTED — wrong paths still cited in Cycle Health; escalated to 2026-W30-path-verification.md |
+| No bess-stack/ use | bess-optimizer | W30 | **VIOLATED — 07-22 and 07-23 filed to bess-stack/; escalated to 2026-W30-directory-escalation.md** |
+| stage-0-rules.md by 2026-07-21 | congestion-analyst | 2026-07-21 | **MISSED — 6 days overdue; escalated to 2026-W30-stage0rules-overdue.md** |
+| Wind protocol as standing step | market-analyst | W30 | PARTIALLY MET — protocol applied conceptually, threshold revision discussed; not formalized; escalated to 2026-W30-wind-protocol-formalize.md |
+| Jul 17 orchestration skip (user confirm) | system-wide | W29/30 | UNCONFIRMED — user has not responded; also applies to Jul 23 Saturday gap |
+
+**MISSED/FAILED**: 5 | **PARTIALLY MET**: 2 | **STILL OPEN (user)**: 2
 
 ---
 
