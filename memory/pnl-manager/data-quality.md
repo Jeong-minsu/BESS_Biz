@@ -1,6 +1,7 @@
 # pnl-manager Data Quality Log
 
 | Date | Source | Issue | Resolution |
+| 2026-08-02 | Smartbidder benchmark (2026-08-01 flowday) | client_secret 만료로 Smartbidder API 조회 불가 (AADSTS7000222). 2026-08-01 benchmark 섹션 전체 N/A. Tenaska PTP 데이터 정상 수신 (production, 4개 파일 모두 OK — 379 rows energy_as_detail). DA Energy Bid/Offer 파일 빈 배열([]) — 기존 패턴과 동일. DART Virtual 별도 산출 불가. GKS actual total $9,989.87. | Smartbidder: Ascend rep에 client_secret 갱신 요청 필요 (12개월 만료 주기). DA Bid/Offer 0-row 패턴: Tenaska 측 확인 필요 (Smartbidder 포털 경유 입찰 구조로 settlement 상 빈 배열 expected 가능성 높음). |
 |---|---|---|---|
 | 2026-05-22 | Tenaska PTP | Fetch FAILED for 2026-05-21 flowday — cloud execution IP not on Ascend whitelist. No raw data written to shared/data/raw/. 2026-05-21 P&L report marked DEGRADED. | Re-run fetch from whitelisted IP; then re-run pnl-manager for 2026-05-21. |
 | 2026-05-24 | Tenaska PTP + Smartbidder benchmark | Fetch FAILED for 2026-05-23 flowday — cloud execution IP not on Ascend whitelist. No raw data written to shared/data/raw/tenaska/. Smartbidder benchmark also absent (fetch_market_data.py retrieved D+1 forecast only, not prior-day benchmark). 2026-05-23 P&L report marked PARTIAL. Third incident in this pattern (2026-05-21 and 2026-05-23 both failed; 2026-05-22 succeeded from presumably whitelisted environment). | Re-run fetch_pnl_data.py from whitelisted IP for 2026-05-23 flowday; then re-run pnl-manager to generate actuals. |
