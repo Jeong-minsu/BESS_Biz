@@ -1,6 +1,6 @@
 # Evaluator Cross-Agent Patterns
 
-Last updated: 2026-07-20 (Week 2026-29 evaluation)
+Last updated: 2026-08-03 (Week 2026-W31 evaluation)
 
 ---
 
@@ -228,14 +228,16 @@ This pattern is distinct from Pattern 2 (Smartbidder absolute overestimation) �
 
 ## Pattern 24: Orchestration Cycle Skip Cascades Identically to All Front/Middle Agents
 
-**Observed**: Week 2026-29 (2026-07-16 — no D+1 cycle for Jul 17 planning)
-**Agents affected**: bess-optimizer, dart-virtual-trader, market-analyst, congestion-analyst, reporter (all simultaneously absent)
+**Observed**: Week 2026-29 (2026-07-16 — no D+1 cycle for Jul 17 planning); W31 analog (2026-07-28 — ALL data sources DEGRADED simultaneously)
+**Agents affected**: bess-optimizer, dart-virtual-trader, market-analyst, congestion-analyst, reporter (all simultaneously absent or unable to produce self-review)
 
 On 2026-07-16, the entire daily orchestration cycle for Jul 17 D+1 planning was not executed. All five front/middle agents have a Jul 17 gap simultaneously — this is the signature of an orchestration skip rather than individual agent failures. The reporter also failed to file a "DEGRADED — no inputs" notice.
 
+**W31 analog (2026-07-28)**: YE rate-limited + Smartbidder FAILED day 4 + AG2/Enverus absent simultaneously. Market-analyst filed a DEGRADED briefing with appropriate uncertainty flags but no other front/middle agent produced self-review learnings for Jul 28. The self-review step appears to be suppressed when data sources are universally absent — an orchestration-level behavior, not individual agent failure.
+
 This pattern has different causes from Pattern 8 (Tenaska outage cascades). Pattern 8 affects the *self-review learning loop* (prior-day settlement absent) but leaves the D+1 planning cycle intact. Pattern 24 is a complete orchestration stop — neither the D+1 planning nor the settlement review occurs. The two patterns can compound: the Jul 17 orchestration skip meant that when Jul 17 settlement data would have arrived (T+2), there was no learning cycle anchored to that day's recommendations.
 
-Detection: if 4+ agents all have the same day absent from their output directories, the root cause is almost certainly orchestration-level rather than individual agent failure.
+Detection: if 4+ agents all have the same day absent from their output directories, the root cause is almost certainly orchestration-level rather than individual agent failure. The W31 variant shows Pattern 24 can manifest as self-review suppression (outputs filed but learning step skipped) rather than full output absence.
 
 ---
 

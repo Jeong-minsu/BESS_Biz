@@ -1,6 +1,36 @@
 # Evaluator Improvement Tracker
 
-Last updated: 2026-07-27 (Week 2026-W30)
+Last updated: 2026-08-03 (Week 2026-W31)
+
+---
+
+## Week 2026-W31 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-W31-directory-persistence.md` | dart-virtual-trader | CRITICAL | OPEN — agent to create OUTPUT_DIRECTORY.md and read it at session start; user authorization requested for agent definition hard-code if W32 < 5/7 | 2/7 (29%) compliance; 5th consecutive Critical; new dart-trader/ variant (4th distinct wrong dir); directory proliferation continues |
+| `memory/bess-optimizer/plans/2026-W31-directory-regression.md` | bess-optimizer | CRITICAL | OPEN — agent to create OUTPUT_DIRECTORY.md; move W31 misfiled reports to correct dir; user authorization requested for agent definition hard-code | 3/7 (43%) compliance; REGRESSION from 4/7 W30; bess-stack/ ban violated 3 days; NEW: root dir + wrong filename Aug 1 |
+| `memory/congestion-analyst/plans/2026-W31-stage0rules-final-deadline.md` | congestion-analyst | MAJOR | OPEN — agent to write stage-0-rules.md by 2026-08-08; HARD DEADLINE; escalates to Critical if absent at W32 evaluation | stage-0-rules.md absent 13 days past W30 deadline (Jul 21); content available in learnings/2026-07-31.md |
+| `memory/market-analyst/plans/2026-W31-wind-protocol-embed.md` | market-analyst | MAJOR | OPEN — agent to create BRIEFING_TEMPLATE.md with Wind Divergence Check section; apply to all W32 briefings | Wind protocol in prose only; not embedded as named mandatory template step; W30 plan unfulfilled |
+| `memory/pnl-manager/plans/2026-W31-tenaska-endpoint-cache.md` | pnl-manager | MAJOR | OPEN — user action required: 1 manual VPN run to discover endpoints + set TENASKA_EP_ENERGY_AS (+ 3 others) in .env | NEW technical root cause: endpoint cache env vars not set; non-interactive cloud env blocks endpoint discovery; 31-day DEGRADED backlog |
+| `memory/reporter/plans/2026-W31-path-verification-final.md` | reporter | MINOR | OPEN — agent to add path verification pre-step to daily compilation; include 1-line path status in each report | Path verification not implemented 2nd consecutive week; escalates to Major if W32 also misses |
+
+---
+
+## Week 2026-W31 W30 Plan Compliance Update
+
+| Plan | Agent | W30 Deadline | W31 Status |
+|---|---|---|---|
+| dart-virtual-trader directory final escalation | dart-virtual-trader | W31 7/7 | **FAILED — 2/7 (29%); marginal improvement from 14% but below threshold; CRITICAL continues; new wrong-dir variant** |
+| dart-virtual-trader advisory-only-mode | dart-virtual-trader | 2026-07-28 | **RESOLVED — advisory-only-mode.md created 2026-07-28; W30 Critical item closed** |
+| Smartbidder secret expired | pnl-manager (all agents) | User action (2026-07-30) | **STILL OPEN — expired 8+ consecutive days (Jul 25 – Aug 2); user action pending** |
+| bess-optimizer directory escalation | bess-optimizer | W31 7/7 | **REGRESSION — 3/7 (43%); down from 4/7 W30; bess-stack/ ban violated 3x; new root-dir violation; escalated to Critical** |
+| congestion stage-0-rules.md | congestion-analyst | 2026-07-21 (W30 deadline) | **STILL OPEN — 13 days overdue; file absent; new hard deadline 2026-08-08** |
+| market-analyst wind protocol | market-analyst | W31 | **OPEN — not embedded as named template step; W30 plan unfulfilled** |
+| reporter path verification | reporter | W31 | **OPEN — not implemented 2nd consecutive week; Minor escalating to Major threshold if W32 also misses** |
+| pnl-manager Saturday coverage | pnl-manager | User confirm | **INDETERMINATE — Jul 30 P&L report not confirmed present; Jul 30 was DEGRADED (Tenaska FAILED)** |
+
+**RESOLVED**: 1 (dart advisory-only-mode.md) | **REGRESSION**: 1 (bess-optimizer dir) | **STILL OPEN/FAILED**: 5 | **USER PENDING**: 2
 
 ---
 
