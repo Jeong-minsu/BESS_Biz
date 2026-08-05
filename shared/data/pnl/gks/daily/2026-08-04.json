@@ -1,0 +1,31 @@
+{
+  "flowday": "2026-08-04",
+  "data_source": "Tenaska PTP \u2014 Production",
+  "smartbidder_benchmark": "N/A (client_secret expired \u2014 2026-08-05 Ascend renewal required)",
+  "generated_at_utc": "2026-08-05T12:24:53Z",
+  "revenue": {
+    "da_energy_revenue": 225.18,
+    "rt_energy_revenue": 2033.27,
+    "as_revenue_nonspin": 2387.0,
+    "as_revenue_ecrs": 229.0,
+    "as_revenue_rrs": 0.0,
+    "as_revenue_regup": 0.0,
+    "as_revenue_regdown": 0.0,
+    "rt_ancillary_imbalance": 0.0,
+    "rt_reliability_deployment_imbalance": 0.0,
+    "total_revenue": 4874.45
+  },
+  "energy_volumes": {
+    "rt_generation_mwh": 105.5,
+    "rt_consumption_mwh": 125.8,
+    "da_purchases_mwh": 135.6,
+    "da_sales_mwh": 80.1,
+    "cycles_rt_equivalent": 0.629
+  },
+  "hsl": {
+    "avg_mw_all_hours": 50.18,
+    "max_mw": 93.55,
+    "nameplate_mw": 100.0,
+    "avg_pct_nameplate": 50.2
+  }
+}
