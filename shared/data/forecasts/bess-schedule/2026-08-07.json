@@ -1,0 +1,115 @@
+{
+  "date": "2026-08-07",
+  "issued_at_ct": "2026-08-06T07:30:00-05:00",
+  "asset": "GKS_BESS_RN",
+  "capacity_mw": 100,
+  "capacity_mwh": 200,
+  "rte": 0.85,
+  "soc_init_mwh": 0,
+  "data_status": "YES_ENERGY=PROD | SMARTBIDDER=DEGRADED(12th day, AADSTS7000222) | TENASKA=DEGRADED | AS_PLAYBOOK=ABSENT",
+  "stack": "A",
+  "strategy": "Duck charge HE09-11 (MODERATE trough HE10 NL=28553 MW) → NS 75MW all-day overlay → DA discharge HE21 (NL peak 63794 MW) + HE22 (empirical peak DA price anchor $37.08) + ECRS 25MW HE22-24",
+  "price_mode": "EMPIRICAL — anchored to Tenaska 08/04 actuals (HE10 DA=$10.05, HE21 DA=$32.16, HE22 DA=$37.08/MWh). No Smartbidder forecast available (Day 12 DEGRADED).",
+  "schedule": [
+    {"he": 1,  "da_mw": 0,    "mode": "NS_HOLD",        "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 0,   "price_floor_cap": null, "note": "WEST_TO_NORTH MEDIUM overnight; NS hold preferred over charge"},
+    {"he": 2,  "da_mw": 0,    "mode": "NS_HOLD",        "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 0,   "price_floor_cap": null, "note": null},
+    {"he": 3,  "da_mw": 0,    "mode": "NS_HOLD",        "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 0,   "price_floor_cap": null, "note": null},
+    {"he": 4,  "da_mw": 0,    "mode": "NS_HOLD",        "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 0,   "price_floor_cap": null, "note": null},
+    {"he": 5,  "da_mw": 0,    "mode": "NS_HOLD",        "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 0,   "price_floor_cap": null, "note": null},
+    {"he": 6,  "da_mw": 0,    "mode": "NS_HOLD",        "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 0,   "price_floor_cap": null, "note": null},
+    {"he": 7,  "da_mw": 0,    "mode": "NS_HOLD",        "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 0,   "price_floor_cap": null, "note": null},
+    {"he": 8,  "da_mw": 0,    "mode": "NS_HOLD",        "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 0,   "price_floor_cap": null, "note": null},
+    {"he": 9,  "da_mw": -100, "mode": "DA_CHARGE",      "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 85,  "price_floor_cap": "node_buy_le_15", "note": "NS concurrent with charge — capacity commitment per 08/03-04 observed pattern"},
+    {"he": 10, "da_mw": -100, "mode": "DA_CHARGE",      "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 170, "price_floor_cap": "node_buy_le_12", "note": "Duck trough NL=28553 MW; anchor 08/04 actual $10.05/MWh"},
+    {"he": 11, "da_mw": -35,  "mode": "DA_CHARGE",      "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": "node_buy_le_17", "note": "Top-off to FULL: 35MW * 0.85 = 29.75MWh => SoC=199.75~200"},
+    {"he": 12, "da_mw": 0,    "mode": "NS_HOLD",        "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": null, "note": null},
+    {"he": 13, "da_mw": 0,    "mode": "NS_HOLD_WATCH",  "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": null, "note": "GR_WEST trough 3564 MW; wind risk watch. No energy dispatch in primary."},
+    {"he": 14, "da_mw": 0,    "mode": "NS_HOLD_GATE",   "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": null, "note": "Stack B gate: if RT>$40 trigger partial discharge. Primary = hold."},
+    {"he": 15, "da_mw": 0,    "mode": "NS_HOLD",        "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": null, "note": null},
+    {"he": 16, "da_mw": 0,    "mode": "NS_HOLD",        "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": null, "note": null},
+    {"he": 17, "da_mw": 0,    "mode": "NS_HOLD",        "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": null, "note": "Load peak HE17=86589 MW; NS hold maintains AS revenue"},
+    {"he": 18, "da_mw": 0,    "mode": "NS_HOLD",        "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": null, "note": null},
+    {"he": 19, "da_mw": 0,    "mode": "NS_SOC_HOLD",    "as_nonspin_mw": 50, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": null, "note": "SoC reserve priority; ramp +8179 MW to HE21 begins"},
+    {"he": 20, "da_mw": 0,    "mode": "NS_RAMP_MONITOR","as_nonspin_mw": 50, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": null, "note": "NL=59340 MW; monitor for opportunistic. Primary=hold for HE21-22 full discharge"},
+    {"he": 21, "da_mw": 100,  "mode": "DA_DISCHARGE",   "as_nonspin_mw": 0,  "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 100, "price_floor_cap": "node_sell_ge_25", "note": "NL peak 63794 MW; anchor 08/04 actual DA $32.16/MWh; floor $25 ensures clearing"},
+    {"he": 22, "da_mw": 75,   "mode": "DA_DISCHARGE",   "as_nonspin_mw": 0,  "as_ecrs_mw": 25, "as_rrs_mw": 0, "soc_end_mwh": 25,  "price_floor_cap": "node_sell_ge_25", "note": "Empirical peak DA hour (08/04 actual $37.08); 75MW energy + 25MW ECRS = 100MW HSL; SoC 25MWh residual"},
+    {"he": 23, "da_mw": 0,    "mode": "ECRS_HOLD",      "as_nonspin_mw": 0,  "as_ecrs_mw": 25, "as_rrs_mw": 0, "soc_end_mwh": 25,  "price_floor_cap": null, "note": "ECRS buffer; confirmed 4-consecutive Smartbidder execution pattern"},
+    {"he": 24, "da_mw": 0,    "mode": "ECRS_HOLD",      "as_nonspin_mw": 0,  "as_ecrs_mw": 25, "as_rrs_mw": 0, "soc_end_mwh": 25,  "price_floor_cap": null, "note": "ECRS buffer; terminal SoC 25 MWh"}
+  ],
+  "soc_balance": {
+    "soc_init_mwh": 0,
+    "charge_grid_mwh": 235,
+    "charge_stored_mwh": 199.75,
+    "discharge_mwh": 175,
+    "soc_terminal_mwh": 25,
+    "feasible": true,
+    "note": "Terminal SoC 25 MWh = ECRS contingency buffer HE22-24. Discharge: HE21 100MWh + HE22 75MWh = 175MWh total."
+  },
+  "hsl_check": {
+    "max_energy_mw_per_hour": 100,
+    "hsl_mw": 100,
+    "feasible": true,
+    "binding_hours": {
+      "HE09": "100MW charge = 100MW (NS 75MW concurrent capacity, not additive)",
+      "HE10": "100MW charge = 100MW",
+      "HE21": "100MW discharge = 100MW",
+      "HE22": "75MW discharge + 25MW ECRS = 100MW"
+    },
+    "note": "NS during charge hours is concurrent capacity commitment per 08/03-04 observed execution. Not additive to energy MW."
+  },
+  "expected_revenue": {
+    "p10_usd": 3300,
+    "p50_empirical_usd": 5460,
+    "p50_structural_usd": 5995,
+    "p90_usd": 8400,
+    "breakdown_p50_empirical": {
+      "he09_charge_cost_usd": -1200,
+      "he10_charge_cost_usd": -1005,
+      "he11_charge_cost_usd": -490,
+      "he21_discharge_revenue_usd": 3200,
+      "he22_discharge_revenue_usd": 2775,
+      "energy_net_usd": 3280,
+      "as_nonspin_usd": 2030,
+      "as_ecrs_usd": 150,
+      "as_rrs_usd": 0,
+      "total_usd": 5460
+    },
+    "price_assumptions_empirical": {
+      "he09_buy_mwh": 12.0,
+      "he10_buy_mwh": 10.05,
+      "he11_buy_mwh": 14.0,
+      "he21_sell_mwh": 32.0,
+      "he22_sell_mwh": 37.0,
+      "ns_rate_mwh": 1.40,
+      "ecrs_rate_mwh": 2.00,
+      "source": "08/04 Tenaska actuals (HE10=$10.05, HE21=$32.16, HE22=$37.08) with Friday decay adjustment"
+    }
+  },
+  "stack_b_trigger": {
+    "description": "Two-cycle: midday partial discharge + recharge + evening discharge",
+    "conditions": [
+      "GR_WEST actual STPF HE13 < 2500 MW at 09:30 CT monitoring",
+      "RT price HE13 or HE14 > $40/MWh confirmed real-time",
+      "Tenaska intraday alert of DA clearing > $45/MWh HE13-15"
+    ],
+    "stack_b_schedule_delta": {
+      "HE14": "DA_DISCHARGE +100MW (RT primary if RT>$40)",
+      "HE16": "DA_RECHARGE -85MW",
+      "HE21": "DA_DISCHARGE +100MW (SoC ~172MWh going in)",
+      "HE22": "DA_DISCHARGE +50MW + ECRS 25MW"
+    },
+    "stack_b_p50_bear_usd": 6960,
+    "economics_note": "Two-cycle only positive NPV if midday discharge price > recharge price. Under base case (midday $28/MWh < recharge $35/MWh), two-cycle loses ~$700. Bear case only."
+  },
+  "congestion_integration": {
+    "west_to_north_he01_05": "MEDIUM 16-24%; GKS MCC -$1 to -$3/MWh overnight. Effective overnight price $16-22/MWh still > duck trough $10-15/MWh. Duck charging preferred.",
+    "duck_curve_he09_12": "MODERATE; GKS MCC -$0.5 to -$2.0/MWh. Confirms charging window. Effective HE10 cost ~$9-12/MWh.",
+    "south_houston_he19_21": "LOW 8-15%; below binding floor 2130 MW. GKS MCC +$0 to +$1/MWh. DA primary maintained.",
+    "rule_6_status": "NOT_TRIGGERED (P=8-15% < 35% HIGH threshold)"
+  },
+  "downstream_handoffs": {
+    "reporter": "Stack A primary. P10/P50_empirical/P90 = $3,300/$5,460/$8,400. Key: Duck HE09-11, NS 75MW, DA discharge HE21-22, ECRS HE22-24.",
+    "dart_virtual_trader": "HE21-22 DA primary (no Rule 6). No virtual concentration conflict.",
+    "pnl_manager": "T+2 Tenaska expected 2026-08-09. Request: HE10 DA charge price, HE21+22 DA sell prices, NS clearance MW and rate, ECRS HE22-24 clearance."
+  }
+}
