@@ -1,0 +1,179 @@
+{
+  "date": "2026-08-11",
+  "issued_at_ct": "2026-08-10T07:30:00-05:00",
+  "asset": "GKS_BESS_RN",
+  "capacity_mw": 100,
+  "capacity_mwh": 200,
+  "charge_efficiency": 0.85,
+  "discharge_efficiency": 0.92,
+  "soc_init_mwh": 10,
+  "data_status": "YES_ENERGY=PRODUCTION | SMARTBIDDER=DEGRADED(Day 16, AADSTS7000222) | TENASKA_T2_08_09=PENDING(arrives 2026-08-11) | TENASKA_T2_08_10=PENDING(arrives 2026-08-12) | AS_PLAYBOOK=ABSENT | ENVERUS=ABSENT | AG2=ABSENT",
+  "stack": "A",
+  "strategy": "NEGATIVE-PRICE DUCK FLOOR CYCLE: Reject overnight charge (W2N MEDIUM-HIGH HE01-06) — duck floor >4x more valuable per MWh stored. Maximize charge at EXTREME dual-hour duck floor HE10-12 (GKS node -$22/-$19/$0 per MWh; earn from consuming). NS_HOLD all non-charge/discharge hours (75 MW swing). DA discharge HE20-21 (SOUTH_HOUSTON MEDIUM-HIGH 35-50%, Finding 3 onset HE20-22; DA offer floors $38/$30). ECRS 25 MW HE21-24 (5+ cycle confirmed pattern). No HE18-19 pre-discharge in primary (SOUTH_HOUSTON Finding 3 onset = HE20; MCC near-zero HE18-19). RT contingency: if HE19 RT > $38/MWh observed, execute Stack B (pre-discharge 50 MW HE19).",
+  "day_type": "Tuesday WDPEAK (HE07-22) — Aug 2026 heat event collapse Day 17; thermal dome fully collapsed (GR_WEST 9,419 MW daytime trough vs 5,156 MW on 08/10); EXTREME dual-hour duck curve NEW Phase 2 record (NL HE10=19,981 MW + HE11=21,375 MW); FIRST NEGATIVE-PRICE CHARGING WINDOW of event series; new event record HE19-20 solar cliff (-13,469 MW); new event record gross load peak HE17=88,204 MW.",
+  "price_mode": "QUALITATIVE — anchored to 08/04 Tenaska duck actuals + 08/08 Tenaska P&L actuals + net-load-to-price interpolation. Smartbidder DEGRADED Day 16. Hub DA midpoints: HE10=-$15, HE11=-$13, HE12=$3, HE20=$42.5, HE21=$30/MWh. MCC: HE10=-$7, HE11=-$6, HE12=-$3.5, HE20=+$2, HE21=+$2/MWh (congestion-analyst EXTREME duck calibration; SOUTH_HOUSTON unconditional +$2/MWh). GKS node: HE10=-$22, HE11=-$19, HE12=$0, HE20=$44.5, HE21=$32/MWh. AS: 08/08 actuals pattern (NS cleared at 90 MW; using 75 MW conservative). ALL ESTIMATES — Smartbidder Day 16 DEGRADED.",
+  "key_structural_decisions": {
+    "overnight_charge_rejected": "W2N MEDIUM-HIGH 28-42% HE01-06 (SCI 0.424-0.469; strongest overnight since Aug 4; E[GKS MCC] -$4 to -$9/MWh). Despite stronger overnight congestion than 08/10, duck floor EXTREME is the dominant signal. Duck floor GKS node -$22/MWh vs overnight GKS node ~$6-14/MWh (after MCC). Differential: $28-36/MWh per stored MWh → overnight charging economically dominated. NS 75 MW primary HE01-09 instead. Consistent with 08/10 decision (duck floor dominated) but now the gap is even larger (EXTREME vs MODERATE on 08/10).",
+    "charge_deferred_to_he10_not_he09": "HE09 NL 27,817 MW (MODERATE-SEVERE); hub DA ~$4/MWh; MCC ~-$3/MWh; GKS node ~$1/MWh. Charging at HE09 ($1 effective) vs holding NS and charging at HE10 (-$22 effective): Option B (HE10-12 only) earns $2,728 charge revenue vs Option A (HE09-12): $1,712. Difference $1,016 in favor of deferring charge to HE10. Battery has sufficient capacity to charge full SoC in HE10-12 window alone. Reject HE09 pre-charge. Market-analyst's HE08 ramp guidance interpreted as bid-timing, not MW commitment.",
+    "extreme_duck_floor_primary": "HE10-11 EXTREME dual-hour (NL 19,981/21,375 MW) — FIRST two-consecutive-hour EXTREME in Phase 2 series. DA price base case: -$10 to -$20/MWh (both hours). E[GKS MCC] -$5 to -$10+/MWh. Combined GKS node: -$22/MWh (HE10), -$19/MWh (HE11) at P50. This is the first flowday in Aug series where BESS charging generates revenue rather than incurring cost. This event is economically analogous to discharging at high prices — except on the charge side. Do not miss this window.",
+    "charge_plan_he10_12": "SoC init 10 MWh requires 190 MWh stored = 224 MWh grid draw. HE10: -100 MW (85 MWh stored, SoC 95 MWh). HE11: -100 MW (85 MWh stored, SoC 180 MWh). HE12: -24 MW (20.4 MWh stored, SoC 200 MWh FULL). HE12 top-off justified: 24 MW × $0 cost + enables 9.4 more MW at HE21 = +$282 additional discharge revenue; net +$282 positive. Full SoC 200 MWh by HE12.",
+    "no_trade_zone_he13_18": "GR_WEST daytime structural low 9,419-10,154 MW (SCI 0.318-0.343, below MEDIUM threshold). No binding constraint expected. GKS MCC near-zero. No midday partial discharge: market-analyst explicitly warns that preserving full SoC for HE19-21 is mandatory given the +19,683 MW three-hour ramp. Forego any HE13-17 opportunity ($3-32/MWh declining) to protect full 200 MWh headroom at HE18.",
+    "discharge_strategy_he20_21": "SOUTH_HOUSTON_IMPORT MEDIUM-HIGH 35-50% (NL ramp +19,683 MW, 1,748 MW above binding floor). Finding 3 onset +2h: primary DA discharge window HE20-22 (not HE18-19). DA offer floor HE20=$38/MWh, HE21=$30/MWh. HE19 reserved as RT contingency only (if RT > $38/MWh observed, activate Stack B). HE20 is the primary solar cliff hour (-13,469 MW HE19->HE20, new event extreme); capacity fully committed to DA dispatch. HE21: 75 MW energy + 25 MW ECRS = 100 MW HSL.",
+    "ecrs_he21_24_confirmed_pattern": "ECRS 25 MW HE21-24: 5+ cycle confirmed pattern. SoC ~10 MWh post-HE21 discharge limits energy re-dispatch. ECRS is optimal product for this window. HE22 ambiguity (SOUTH_HOUSTON vs WEST_TO_NORTH): SOUTH_HOUSTON resolves HE22; W2N MEDIUM-HIGH SCI 0.468-0.526 (record) dominates HE23-24. ECRS held throughout.",
+    "soc_init_uncertainty": "SoC init 10 MWh assumes full 08/10 execution per plan. Empirical partial-execution pattern (65-80% of planned discharge) suggests actual SoC may be 50-100 MWh. Sensitivity: if SoC init 100 MWh -> HE10: -100 MW (SoC 185), HE11: -18 MW topoff (SoC 200); HE12 charge not needed. If SoC init 50 MWh -> HE10: -100 MW (SoC 135), HE11: -76 MW (SoC 200); HE12 not needed. In all cases, full SoC achieved by HE11 at latest.",
+    "optional_late_recharge_he22_24": "W2N MEDIUM-HIGH record evening SCI 0.468-0.526 (HE22-24). E[GKS MCC] -$4 to -$10/MWh. GKS node price: ~$15-18/MWh after MCC (vs raw ~$20-25/MWh). Congestion-analyst recommends HE22-24 recharge if SoC < 50% for next-day positioning. With SoC ~10 MWh, recharge is structurally recommended. However: recharge cost impacts 08/11 P&L (cost, not revenue) and benefits 08/12. Not included in primary P50. OPTIONAL: recharge -100 MW at HE22-23 (~$17/MWh GKS node) for 08/12 positioning if 08/12 duck floor is expected similarly deep."
+  },
+  "schedule": [
+    {"he": 1,  "da_mw": 0,    "mode": "NS_HOLD",           "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 10,  "price_floor_cap": null, "note": "OFFPEAK. W2N MEDIUM-HIGH (SCI 0.469, 3-hour peak). GR_WEST 13,859 MW. E[GKS MCC] -$5 to -$8/MWh. Overnight charge REJECTED: duck floor -$22/MWh GKS dominates. NS 75 MW primary. Hub DA ~$17.5/MWh. Load 65,918 MW."},
+    {"he": 2,  "da_mw": 0,    "mode": "NS_HOLD",           "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 10,  "price_floor_cap": null, "note": "OFFPEAK. W2N MEDIUM-HIGH (SCI 0.468). GR_WEST 13,838 MW. Hub DA ~$16/MWh. Load 62,902 MW."},
+    {"he": 3,  "da_mw": 0,    "mode": "NS_HOLD",           "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 10,  "price_floor_cap": null, "note": "OFFPEAK. W2N MEDIUM-HIGH (SCI 0.461). GR_WEST 13,630 MW. Hub DA ~$15/MWh. Load 60,568 MW."},
+    {"he": 4,  "da_mw": 0,    "mode": "NS_HOLD",           "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 10,  "price_floor_cap": null, "note": "OFFPEAK. W2N MEDIUM (SCI 0.448). Load trough 59,067 MW. Hub DA ~$14.5/MWh."},
+    {"he": 5,  "da_mw": 0,    "mode": "NS_HOLD",           "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 10,  "price_floor_cap": null, "note": "OFFPEAK. W2N MEDIUM (SCI 0.435). GR_WEST 12,861 MW. Hub DA ~$14.5/MWh. Load 58,473 MW."},
+    {"he": 6,  "da_mw": 0,    "mode": "NS_HOLD",           "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 10,  "price_floor_cap": null, "note": "OFFPEAK. W2N MEDIUM (SCI 0.424). GR_WEST 12,552 MW. Hub DA ~$16/MWh. Load 59,155 MW."},
+    {"he": 7,  "da_mw": 0,    "mode": "NS_HOLD",           "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 10,  "price_floor_cap": null, "note": "WDPEAK begins. W2N MEDIUM (SCI 0.410). GR_WEST 12,138 MW. Solar onset 13 MW. Hub DA ~$17/MWh. Load 60,517 MW. NL 40,715 MW."},
+    {"he": 8,  "da_mw": 0,    "mode": "NS_HOLD",           "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 10,  "price_floor_cap": null, "note": "WDPEAK. Solar onset 2,999 MW. NL 39,345 MW. Hub DA ~$11.5/MWh. W2N MEDIUM (SCI 0.382). Price falling toward duck floor — defer charge to EXTREME HE10."},
+    {"he": 9,  "da_mw": 0,    "mode": "NS_HOLD",           "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 10,  "price_floor_cap": null, "note": "WDPEAK. Solar 16,909 MW. NL 27,817 MW (MODERATE-SEVERE). Hub DA ~$4/MWh. GKS node ~$1/MWh (MCC ~-$3/MWh). CHARGE DEFERRED to HE10: charging HE10-12 only earns $1,016 more than starting at HE09. Full battery fillable in HE10-12 alone."},
+    {"he": 10, "da_mw": -100, "mode": "DA_CHARGE",         "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 95,  "price_floor_cap": "node_buy_le_neg10", "note": "EXTREME DUCK FLOOR — PRIMARY CHARGE. NL 19,981 MW (2nd deepest WDPEAK in Phase 2 history; -6,496 MW vs 08/10). Solar 27,027 MW + Wind 18,467 MW = 45,494 MW VRE. Hub DA est -$15/MWh (base); GKS node -$22/MWh (MCC -$7/MWh, EXTREME tier). GRID PAYS US TO CONSUME. Earn $2,200 from charging (100 MW × $22/MWh). NS 75 MW swing concurrent (-100 to -25 MW). SoC: 10+85=95 MWh."},
+    {"he": 11, "da_mw": -100, "mode": "DA_CHARGE",         "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 180, "price_floor_cap": "node_buy_le_neg8",  "note": "EXTREME (2nd consecutive — FIRST Phase 2 record). NL 21,375 MW. Solar 30,346 MW. Hub DA est -$13/MWh; GKS node -$19/MWh (MCC -$6/MWh). Earn $1,900 from charging. NS 75 MW swing concurrent. SoC: 95+85=180 MWh. Cap-out 7,683 MW — EXTREME negative-price + AS tightness window."},
+    {"he": 12, "da_mw": -24,  "mode": "DA_CHARGE_TOPOFF",  "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": "node_buy_le_5",    "note": "SEVERE duck curve (NL 25,960 MW). Top-off: need 20.4 MWh stored = 24 MW grid draw. Hub DA ~$3/MWh; GKS node ~$0/MWh (MCC -$3.5/MWh). Near-zero cost. Justified: enables 9.4 MW additional HE21 dispatch = +$282 revenue minus ~$0 cost. NS 75 MW swing: -24 to +51 MW = 75 MW swing, within HSL. SoC: 180+20.4=200 MWh FULL."},
+    {"he": 13, "da_mw": 0,    "mode": "NS_HOLD",           "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": null, "note": "SoC FULL 200 MWh. Solar peak 31,980 MW (near Phase 2 WDPEAK record). GR_WEST 9,849 MW (SCI 0.333 — no binding driver). NO-TRADE ZONE begins. Hub DA ~$7.5/MWh. GKS MCC near-zero."},
+    {"he": 14, "da_mw": 0,    "mode": "NS_HOLD",           "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": null, "note": "NO-TRADE ZONE. GR_WEST daytime trough 9,421 MW (SCI 0.318). NL 34,674 MW. Cap-out peak 7,825 MW. Hub DA ~$13/MWh. Full SoC 200 MWh preserved for evening discharge."},
+    {"he": 15, "da_mw": 0,    "mode": "NS_HOLD",           "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": null, "note": "NO-TRADE ZONE. GR_WEST trough 9,419 MW (dome fully collapsed; above pre-dome baseline). GR_COASTAL 3,168 MW building. Hub DA ~$17/MWh. Load 87,089 MW."},
+    {"he": 16, "da_mw": 0,    "mode": "NS_HOLD",           "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": null, "note": "NO-TRADE ZONE. GR_COASTAL 3,445 MW. Solar 30,817 MW still strong. Hub DA ~$20.5/MWh. GKS MCC near-zero. HOLD full SoC."},
+    {"he": 17, "da_mw": 0,    "mode": "NS_HOLD",           "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": null, "note": "LOAD PEAK: 88,204 MW (Aug 2026 event-series gross load record). GR_COASTAL 3,589 MW. NL 38,065 MW. Hub DA ~$25/MWh. Full SoC 200 MWh mandatory — do not dispatch."},
+    {"he": 18, "da_mw": 0,    "mode": "NS_HOLD",           "as_nonspin_mw": 75, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": null, "note": "Solar cliff begins: 27,376 MW (-2,336 MW from HE17). GR_COASTAL peak 3,668 MW (new event record). NL 38,973 MW. Hub DA ~$27.5/MWh. NO pre-discharge: SOUTH_HOUSTON Finding 3 onset is HE20 (+2h); MCC near-zero at HE18; preserving full 200 MWh for primary HE20 window. Market-analyst early-start recommendation acknowledged but Finding 3 discipline maintained."},
+    {"he": 19, "da_mw": 0,    "mode": "NS_SOC_HOLD",       "as_nonspin_mw": 45, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": null, "note": "Solar cliff: 20,056 MW (-7,320 MW from HE18). NL 44,016 MW. Hub DA ~$38/MWh. SOUTH_HOUSTON onset risk: Finding 3 primary window is HE20-22 (not HE19). NS reduced 75->45 MW: protect full SoC for HE20. RT CONTINGENCY: if real-time RT price > $38/MWh at HE19, activate Stack B (discharge 50 MW RT; see stack_b_trigger). SoC 200 MWh held in base plan."},
+    {"he": 20, "da_mw": 100,  "mode": "DA_DISCHARGE",      "as_nonspin_mw": 0,  "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 91,  "price_floor_cap": "node_sell_ge_38", "note": "PRIMARY DISCHARGE — steepest solar cliff of event period: -13,469 MW HE19->HE20 (new event extreme). NL 55,325 MW (+11,309 MW ramp from HE19). SOUTH_HOUSTON_IMPORT MEDIUM-HIGH 35-50% (Finding 3 primary window). DA offer floor $38/MWh. Hub DA P50 $42.5/MWh; GKS node $44.5/MWh (MCC +$2/MWh). Full 100 MW dispatch. SoC: 200-108.7=91.3 MWh. P(DA>RT) unknown (Smartbidder DEGRADED) — monitor RT for commitment thin risk."},
+    {"he": 21, "da_mw": 75,   "mode": "DA_DISCHARGE_ECRS", "as_nonspin_mw": 0,  "as_ecrs_mw": 25, "as_rrs_mw": 0, "soc_end_mwh": 10,  "price_floor_cap": "node_sell_ge_30", "note": "SECONDARY DISCHARGE + ECRS. NL 58,656 MW (day net load peak). SOUTH_HOUSTON MEDIUM-HIGH tail. DA offer floor $30/MWh. Hub DA P50 $30/MWh; GKS node $32/MWh (MCC +$2/MWh). 75 MW energy + 25 MW ECRS = 100 MW HSL. SoC: 91.3-81.5=9.8 MWh. Max feasible discharge from 91.3 MWh SoC: 91.3×0.92=84 MW — 75 MW energy leaves 9 MW safety margin vs HSL."},
+    {"he": 22, "da_mw": 0,    "mode": "ECRS_HOLD",         "as_nonspin_mw": 0,  "as_ecrs_mw": 25, "as_rrs_mw": 0, "soc_end_mwh": 10,  "price_floor_cap": null, "note": "ECRS 25 MW. SOUTH_HOUSTON pressure fading; W2N MEDIUM-HIGH SCI 0.468 (Phase 2 evening record). GKS MCC HE22: sign ambiguous (SOUTH_HOUSTON positive vs W2N negative) — hold ECRS; do not re-dispatch energy (SoC ~10 MWh). Hub DA ~$22/MWh. NL 54,571 MW declining."},
+    {"he": 23, "da_mw": 0,    "mode": "ECRS_HOLD",         "as_nonspin_mw": 0,  "as_ecrs_mw": 25, "as_rrs_mw": 0, "soc_end_mwh": 10,  "price_floor_cap": null, "note": "ECRS 25 MW. OFFPEAK. W2N MEDIUM-HIGH SCI 0.506 (NEW Phase 2 evening record). GR_WEST 14,972 MW. Hub DA ~$18.5/MWh. NL 48,949 MW. GKS MCC -$4 to -$10/MWh but SoC ~10 MWh prevents energy re-dispatch. Optional: RT charge monitor (-$15 GKS effective; see optional_late_recharge)."},
+    {"he": 24, "da_mw": 0,    "mode": "ECRS_HOLD",         "as_nonspin_mw": 0,  "as_ecrs_mw": 25, "as_rrs_mw": 0, "soc_end_mwh": 10,  "price_floor_cap": null, "note": "ECRS 25 MW. OFFPEAK. W2N SCI 0.526 (PANHANDLE threshold breach at 15,571 MW; LOW 5-10% binding). GR_WEST 15,571 MW — highest of day; new Phase 2 evening record. Cap-out 6,827 MW (lowest of day; units returning; constructive for 08/12). Terminal SoC ~10 MWh. Hub DA ~$15.5/MWh."}
+  ],
+  "soc_balance": {
+    "soc_init_mwh": 10,
+    "charge_he10_grid_mwh": 100,
+    "charge_he10_stored_mwh": 85,
+    "charge_he11_grid_mwh": 100,
+    "charge_he11_stored_mwh": 85,
+    "charge_he12_grid_mwh": 24,
+    "charge_he12_stored_mwh": 20.4,
+    "total_charge_grid_mwh": 224,
+    "total_charge_stored_mwh": 190.4,
+    "soc_full_by_he": 12,
+    "discharge_he20_grid_mwh": 100,
+    "discharge_he20_battery_mwh": 108.7,
+    "discharge_he21_grid_mwh": 75,
+    "discharge_he21_battery_mwh": 81.5,
+    "total_discharge_grid_mwh": 175,
+    "total_discharge_battery_mwh": 190.2,
+    "soc_terminal_mwh": 9.8,
+    "roundtrip_efficiency_realized": 0.781,
+    "feasible": true,
+    "note": "Init 10 MWh (08/10 plan terminal; uncertainty: actual may be 50-100 MWh if 08/10 partially executed). Charge: HE10 100MW (85 MWh) + HE11 100MW (85 MWh) + HE12 24MW (20.4 MWh) = 190.4 MWh stored, 224 MWh grid draw. SoC FULL (200 MWh) at HE12. Hold 200 MWh through HE13-19. Discharge: HE20 100MW->grid (108.7 MWh battery) + HE21 75MW->grid (81.5 MWh battery) = 175 MWh to grid, 190.2 MWh from battery. Terminal SoC 9.8 MWh.",
+    "soc_init_sensitivity": {
+      "if_soc_init_50mwh": "HE10: -100MW (SoC 135), HE11: -76MW topoff (SoC 200). Full by HE11. HE12 charge not needed.",
+      "if_soc_init_100mwh": "HE10: -100MW (SoC 185), HE11: -18MW topoff (SoC 200). Full by HE11. HE12 not needed.",
+      "if_soc_init_150mwh": "HE10: -59MW topoff (SoC 200). Full by HE10. HE11-12 not needed."
+    }
+  },
+  "hsl_check": {
+    "max_energy_mw_per_hour": 100,
+    "hsl_mw": 100,
+    "feasible": true,
+    "binding_hours": {
+      "HE10": "100MW charge + NS 75MW concurrent (swing: -100MW to -25MW = 75MW NS; within HSL 100MW)",
+      "HE11": "100MW charge + NS 75MW concurrent (same swing pattern; within HSL)",
+      "HE12": "24MW charge + NS 75MW (swing: -24MW to +51MW = 75MW; within HSL)",
+      "HE20": "100MW discharge = 100MW HSL (no AS concurrent)",
+      "HE21": "75MW discharge + 25MW ECRS = 100MW HSL; feasible (91.3 MWh × 0.92 = 84MW max; 75MW energy + 9MW margin)"
+    }
+  },
+  "expected_revenue": {
+    "p10_usd": 8500,
+    "p50_usd": 13100,
+    "p90_usd": 18000,
+    "breakdown_p50": {
+      "he10_charge_revenue_usd": 2200,
+      "he11_charge_revenue_usd": 1900,
+      "he12_charge_cost_usd": 0,
+      "total_charge_net_revenue_usd": 4100,
+      "he20_discharge_revenue_usd": 4450,
+      "he21_discharge_revenue_usd": 2400,
+      "total_discharge_revenue_usd": 6850,
+      "energy_net_usd": 10950,
+      "as_nonspin_he01_09_usd": 945,
+      "as_nonspin_he10_12_swing_usd": 315,
+      "as_nonspin_he13_18_usd": 630,
+      "as_nonspin_he19_usd": 63,
+      "as_nonspin_total_usd": 1953,
+      "as_ecrs_he21_24_usd": 200,
+      "as_rrs_usd": 0,
+      "total_as_usd": 2153,
+      "grand_total_usd": 13103
+    },
+    "price_assumptions_p50": {
+      "he10_gks_node_mwh": -22.0,
+      "he10_hub_da_mwh": -15.0,
+      "he10_mcc_mwh": -7.0,
+      "he11_gks_node_mwh": -19.0,
+      "he11_hub_da_mwh": -13.0,
+      "he11_mcc_mwh": -6.0,
+      "he12_gks_node_mwh": 0.0,
+      "he12_hub_da_mwh": 3.0,
+      "he12_mcc_mwh": -3.5,
+      "he20_gks_node_mwh": 44.5,
+      "he20_hub_da_mwh": 42.5,
+      "he20_mcc_mwh": 2.0,
+      "he21_gks_node_mwh": 32.0,
+      "he21_hub_da_mwh": 30.0,
+      "he21_mcc_mwh": 2.0,
+      "ns_rate_mw_h": 1.40,
+      "ecrs_rate_mw_h": 2.00,
+      "rrs_rate_mw_h": 0.0,
+      "source": "Charge: net-load-to-price interpolation from 08/04 Tenaska duck actuals (HE10 DA $10.05 at NL 23,639 MW) extrapolated to 19,981 MW (below min-thermal floor). Hub mid -$15/MWh. MCC: congestion-analyst EXTREME tier -$5 to -$10+/MWh, central -$7/MWh. Discharge: 08/08 Tenaska actuals (HE20 DA $34.59, HE21 DA $36.82) adjusted -$8/MWh for wind dome collapse (GR_WEST +3 GW); plus SOUTH_HOUSTON MCC +$2/MWh. ALL ESTIMATES — Smartbidder Day 16 DEGRADED."
+    },
+    "comparison_to_08_10_plan": {
+      "08_10_p50_usd": 7014,
+      "08_11_p50_usd": 13103,
+      "delta_usd": 6089,
+      "delta_pct": 87,
+      "driver": "Duck floor inversion: 08/10 charge cost = -$2,314 (paid to charge); 08/11 charge revenue = +$4,100 (earned from charging). Swing = $6,414. Partially offset by -$375 lower discharge revenue (dome collapse moderates evening spike)."
+    },
+    "empirical_realization_factor": "Historical 08/01-04 confirmed realized = plan P50 x 0.65-0.80. However: 08/11 negative-price duck floor is structurally novel — the charge revenue is based on clearing at negative DA (which clears automatically if DA price is negative and BESS is bidding to charge). Realization risk concentrated on (1) discharge execution (Smartbidder partial dispatch) and (2) duck floor DA price being less negative than base case. Revised factor: 0.75-0.90 given clearer charge revenue mechanics at negative prices. Empirical realized estimate: $9,825-$11,793."
+  },
+  "da_rt_spread_strategy": {
+    "charge_window": "DA vs RT: DA lock preferred for HE10-12. At negative DA prices, DA charge earns guaranteed revenue. RT at HE10 could be even more negative if real-time VRE overshoots — upside not captured in DA, but DA clears with certainty. Do not reject DA charge to chase RT upside at the duck floor.",
+    "discharge_window": "DA lock preferred for HE20-21. 08/08 actuals: HE20 DA $34.59 > RT $23.79 (+$10.80); HE21 DA $36.82 > RT $30.54 (+$6.28). Monday/Tuesday WDPEAK historically DA-dominant. Risk: HE20 solar cliff (-13,469 MW) could cause thermal under-commitment -> RT spike above DA. Monitor HE20 DA clearing commitment. If DA HE20 looks thin (ERCOT advisory on fast-ramp commitment), shift to RT position via Stack B.",
+    "rrs_ecrs_da_vs_rt": "ECRS: DA preferred (SOUTH_HOUSTON MH 35-50% drives DA AS prices). RRS: not offered (not clearing historically; 5+ cycle pattern).",
+    "spread_convention": "spread = DA - RT. Positive = DA more expensive = short DA / long RT signal. Currently: no P(DA>RT) quantitative signal (Smartbidder DEGRADED). Qualitative: DA > RT for discharge (confirmed 08/08 pattern + Tuesday WDPEAK commercial structure)."
+  },
+  "stack_b_trigger": {
+    "description": "HE19 RT pre-discharge: if RT price > $38/MWh observed at HE19, add 50 MW RT discharge at HE19",
+    "conditions": [
+      "RT price HE19 > $38/MWh observed in real-time at HE18-19 boundary",
+      "AND SOUTH_HOUSTON binding signals present (SCED dispatch advisory, HE19 RT scarcity)"
+    ],
+    "stack_b_schedule_delta": {
+      "HE19": "Add RT_DISCHARGE +50 MW (Stack B only; not DA bid); SoC: 200->145.7 MWh",
+      "HE20": "100 MW discharge unchanged; SoC: 145.7->37 MWh",
+      "HE21": "34 MW max (37 MWh × 0.92); ECRS 66 MW (100-34); SoC: 0 MWh",
+      "HE22_24": "ECRS 25 MW only (SoC=0; no energy)"
+    },
+    "stack_b_p50_usd": 13600,
+    "stack_b_economics": "Stack B wins over Stack A if HE19 actual > $36/MWh (breakeven). At HE19 $38: gain $1,900; lose ($2,400-$1,020 HE21) + ($200-$150 ECRS) = $1,430 less; net +$470 vs Stack A. Risk: if HE19 RT < $38, lost the SoC depth for HE21."
+  },
+  "congestion_integration": {
+    "west_to_north_he01_06": "MEDIUM-HIGH 28-42% (SCI 0.424-0.469; HE01-03 MEDIUM-HIGH 0.461-0.469). E[GKS MCC] -$4 to -$9/MWh. Charge REJECTED — duck floor GKS node -$22/MWh vs overnight $6-14/MWh effective. NS 75 MW primary.",
+    "west_to_north_he07_08": "LOW-MEDIUM 12-18% (SCI 0.382-0.410 MEDIUM). E[GKS MCC] -$1.5 to -$4/MWh. No charge — duck floor still dominates. NS 75 MW.",
+    "extreme_duck_he09_12": "HIGH 42-60% (EXTREME dual-hour HE10-11). E[GKS MCC] -$5 to -$10+/MWh. PRIMARY charge window. HE09 charge deferred (GKS node ~$1/MWh). HE10-12: charge in order of decreasing value (-$22/-$19/$0/MWh).",
+    "south_houston_he19_22": "MEDIUM-HIGH 35-50% (ramp +19,683 MW, 1,748 MW above binding floor). E[GKS MCC unconditional] +$1 to +$3.5/MWh (central +$2/MWh). Finding 3 onset +2h: primary DA discharge HE20-22. HE19: RT contingency only (Stack B).",
+    "west_to_north_he22_24": "MEDIUM-HIGH 30-42% (SCI 0.468-0.526 — Phase 2 evening record). E[GKS MCC] -$4 to -$10/MWh. SoC ~10 MWh post-discharge: energy re-dispatch not feasible. ECRS 25 MW assigned. Optional recharge HE22-24 for 08/12 positioning (not in primary P&L).",
+    "panhandle_he24": "LOW 5-10% (GR_WEST 15,571 MW; 571 MW above threshold; single-hour). Tiebreaker only. No change to schedule."
+  },
+  "downstream_handoffs": {
+    "reporter": "Stack A primary. P10/P50/P90 = $8,500/$13,100/$18,000. Key: NS overlay HE01-19, EXTREME duck charge HE10-12 (100/100/24 MW; EARN from charging at negative prices), full SoC 200 MWh by HE12, DA discharge HE20 ($38 floor, 100 MW) + HE21 ($30 floor + ECRS 25 MW), ECRS hold HE22-24. Novel: first negative-price charging window of event series — charge revenue +$4,100 vs 08/10 charge cost -$2,314 (structural inversion).",
+    "dart_virtual_trader": "DA discharge at GKS node HE20-21. SOUTH_HOUSTON MEDIUM-HIGH (35-50%) — virtual positions at HB_SOUTH or SOUTH_HOUSTON hub independent trader decision. No energy conflict. Note: HE20 DA may be thin if thermal under-commits to solar cliff (-13,469 MW); RT spike risk at HE20.",
+    "pnl_manager": "T+2 Tenaska for 2026-08-09 expected today (2026-08-11). T+2 for 2026-08-10 expected 2026-08-12. Requests: (1) HE10-12 actual DA prices (validate negative-price duck floor call), (2) HE20-21 DA and RT actual prices, (3) NS MW actual clearing rate per hour, (4) ECRS HE22-24 clearance, (5) SoC terminal 08/10 to calibrate 08/11 SoC init.",
+    "market_analyst": "CRITICAL: Smartbidder client_secret renewal Day 16 — hard deadline passed. Negative-price duck floor at HE10-11 requires precise bid price optimization (cannot determine optimal negative bid without P(clearing < $X) distribution). Revenue impact from bid imprecision: estimated $200-$500 per cycle at current depth. Escalate to contractual consequence trigger."
+  }
+}
