@@ -74,3 +74,23 @@ Both estimation pipeline scripts timed out at 30s with zero output. Exit code 14
 **Resolution:** Run pipelines locally or on VPN. Cache will be populated; subsequent cloud runs can read parquet cache.
 
 **GKS anomaly noted:** GKS is rank #282/282 (last) in DART virtual with -$182.7K net. Flagged for dart-virtual-trader awareness.
+
+---
+
+## 2026-08-10 — W32 Weekly Dashboard
+
+**Issue (Tenaska PTP):** Cloud IP not on Ascend whitelist. GKS actual settlement data unavailable for entire W31 (Jul 27–Aug 2) and W32. Persistent unresolved issue (33+ failures since 2026-05-21). No GKS P&L data from Tenaska.
+
+**Issue (Smartbidder):** MSAL client_secret expired 2026-07-25. Day 16 as of 2026-08-10. All Smartbidder benchmark data unavailable.
+
+**Issue (ERCOT API — energy/AS estimation):** Script launched for 2026-05-06 to 2026-06-09 range. ERCOT API and Yes Energy Datalake (S3) accessible but pipeline runtime exceeds available window — no new energy/AS output files produced during this run. Energy/AS dashboard built from cached `summary_2026-01-01_2026-05-05_aggregated.csv` (327 resources, $150.3M, Jan 1 – May 5, 2026). Script still running as background process.
+
+**ERCOT API — DART virtual (RESOLVED):** Both ERCOT B2C auth and Yes Energy DataSignals API accessible from cloud environment. DART virtual estimation script completed successfully for 2026-05-25 to 2026-06-09 (16 new dates, 281 nodes, Phase 1 cache hits + Phase 2 LMP bulk fetch). New output: `dart_daily_2026-05-25_2026-06-09.parquet/.csv`. Combined aggregate `dart_summary_2026-01-01_2026-06-09_aggregated.csv` written (284 nodes, $3.5M fleet net, Jan 1 – Jun 9, 2026, 140 days; May 6–24 gap = 19 days not cached).
+
+**Dashboard status:**
+- `reports/weekly/bess-revenue-dashboard/2026-W32.html`: DEGRADED — Energy+AS covers Jan 1 – May 5, 2026 only (cached). Data range: 5 months, 327 resources, fleet $150.3M.
+- `reports/weekly/bess-dart-virtual-dashboard/2026-W32.html`: PARTIAL — DART virtual covers Jan 1 – Jun 9, 2026 (140 of ~160 days; May 6–24 gap). 284 nodes, fleet +$3.5M net. GKS rank #284/284 (last, -$192K).
+
+**GKS anomaly:** GKS_BESS_RN remains last-ranked in DART virtual at -$192,315 (Jan-Jun 2026). Consistent with W30/W31 anomaly noted previously. Flagged for dart-virtual-trader.
+
+**Resolution:** (1) Energy/AS: background script is running; when complete, rebuild dashboard from new summary CSV (covers May 6 – Jun 9). (2) Tenaska: Ascend cloud IP whitelist P1 — backfill pending from whitelisted IP. (3) Smartbidder: client_secret renewal P0 — Ascend rep contact required. (4) DART data gap May 6–24: run `dart-virtual script --start 2026-05-06 --end 2026-05-24` to fill gap (cache warm from prior archive downloads).
