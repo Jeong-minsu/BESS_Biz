@@ -1,6 +1,35 @@
 # Evaluator Improvement Tracker
 
-Last updated: 2026-08-10 (Week 2026-W32)
+Last updated: 2026-08-17 (Week 2026-33)
+
+---
+
+## Week 2026-33 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-33-directory-seventh-critical.md` | dart-virtual-trader | CRITICAL | OPEN — user authorization for agent definition hard-code still pending (requested since W32) | 7th consecutive Critical; 4/7 (57%) compliance; 4 distinct wrong-path variants W33; duplicate file on Aug 13; user authorization still not received |
+| `memory/congestion-analyst/plans/2026-33-stage0rules-fourth-miss.md` | congestion-analyst | CRITICAL | OPEN — agent to create stage-0-rules.md before next daily cycle (4th consecutive deadline missed) | 4th consecutive missed deadline (W29-W33 chain); hard deadline Aug 11 missed; consequence clause: recommend suspending daily output if W34 also missed |
+| `memory/reporter/plans/2026-33-path-verification-critical.md` | reporter | CRITICAL | OPEN — agent to implement formal "Cycle Health — Path Verification" section in all 7 W34 reports | Escalated from Major per W32 plan clause; 4th consecutive miss; partial improvement (full path now cited); [WRONG DIR] flag still absent |
+| `memory/bess-optimizer/plans/2026-33-directory-regression.md` | bess-optimizer | MAJOR | OPEN — agent to create OUTPUT_DIRECTORY.md immediately; 3rd consecutive miss of this specific file | New bess-schedule/ variant Aug 10-11; 5 consecutive correct Aug 12-16; OUTPUT_DIRECTORY.md absent 3rd consecutive week; 5/7 = 71% |
+| `memory/market-analyst/plans/2026-33-briefing-template-third-miss.md` | market-analyst | MAJOR | OPEN — agent to create BRIEFING_TEMPLATE.md before next cycle; escalation to Critical if W34 missed | 3rd consecutive miss; content quality excellent (7/7 briefings, strong analysis); template consolidation only |
+| `memory/pnl-manager/plans/2026-33-learnings-gap.md` | pnl-manager | MAJOR | OPEN — agent to file 7/7 learnings in W34 | 1/7 learnings filed in W33 (14%); significant decline; Smartbidder DEGRADED Day 16-23 does not excuse absence |
+
+---
+
+## Week 2026-W32 W33 Plan Compliance Update
+
+| Plan | Agent | W32 Deadline | W33 Status |
+|---|---|---|---|
+| `2026-W32-directory-sixth-critical.md` | dart-virtual-trader | W33 7/7; user authorization for hard-code | **FAILED — 4/7 (57%); duplicate file added Aug 13; 3 new wrong-path variants; user authorization still not received; new W33 Critical plan registered** |
+| `2026-W32-stage0rules-critical-escalation.md` | congestion-analyst | 2026-08-11 (hard deadline) | **FAILED — hard deadline Aug 11 missed; 4th consecutive deadline missed; new W33 Critical plan registered with suspension consequence clause** |
+| `2026-W32-directory-monitoring.md` | bess-optimizer | W33 7/7 correct; OUTPUT_DIRECTORY.md creation | **PARTIALLY RESOLVED — 5/7 (71%); 5 consecutive correct Aug 12-16; new bess-schedule/ variant Aug 10-11; OUTPUT_DIRECTORY.md still not created; new W33 Major plan registered** |
+| `2026-W32-briefing-template-second-miss.md` | market-analyst | W33 briefings; BRIEFING_TEMPLATE.md creation | **FAILED — BRIEFING_TEMPLATE.md not created (3rd consecutive miss); briefing quality and 7/7 learnings excellent; template procedural step still absent; new W33 Major plan registered** |
+| `2026-W32-path-verification-major-escalation.md` | reporter | W33 7/7 with path verification section | **FAILED (ESCALATED TO CRITICAL) — partial improvement (full paths now cited including wrong ones) but no [WRONG DIR] flag and no formal verification section; new W33 Critical plan registered** |
+| `2026-W32-self-review-gap.md` | market-analyst (cross-agent) | W33 7/7 learnings all 4 front/middle agents | **PARTIALLY RESOLVED — market-analyst 7/7 learnings; congestion-analyst 7/7 (up from 4/7); bess-optimizer 6/7 (Aug 16 absent); dart-virtual-trader 7/7 learnings (improvement); pnl-manager 1/7 (regression to Major gap); cross-agent compliance improved but pnl-manager regression notable** |
+| `2026-W32-saturday-collection-gap.md` | pnl-manager | User policy confirm | **STILL OPEN — user policy not confirmed; Aug 14-15 Tenaska FULLY DEGRADED (cloud IP failure); Aug 16 PRODUCTION; structural policy gap continues** |
+
+**Resolved in W33**: 0 | **Partial improvement**: 2 (bess-optimizer dir 83%→71% with 5-day correct streak; cross-agent learnings improved) | **Failed / Escalated**: 4 | **User pending (open)**: 1
 
 ---
 
