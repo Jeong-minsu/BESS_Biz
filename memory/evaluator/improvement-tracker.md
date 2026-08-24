@@ -1,6 +1,35 @@
 # Evaluator Improvement Tracker
 
-Last updated: 2026-08-17 (Week 2026-33)
+Last updated: 2026-08-24 (Week 2026-34)
+
+---
+
+## Week 2026-34 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-34-directory-eighth-critical.md` | dart-virtual-trader | CRITICAL | OPEN — user authorization for agent definition hard-code still pending; W35 consequence clause: reporter exclusion if not resolved | 8th consecutive Critical; 0/7 (0%) compliance — worst on record; new dart-position/ variant (5th distinct wrong dir); user authorization unreceived since W32 request |
+| `memory/congestion-analyst/plans/2026-34-stage0rules-suspension.md` | congestion-analyst | CRITICAL | OPEN — user to confirm or override suspension consequence clause (suppress congestion section from Daily Report until file created) | 5th consecutive deadline missed; W33 suspension consequence clause triggered; file content available in learnings but never consolidated |
+| `memory/reporter/plans/2026-34-path-verification-fourth-critical.md` | reporter | CRITICAL | OPEN — agent to implement "Cycle Health — Path Verification" section in all W35 reports | 4th consecutive Critical miss; reporter propagating wrong paths (dart/..., bess-stack/...) without flag; Aug 17 Monday gap also noted |
+| `memory/bess-optimizer/plans/2026-34-directory-critical-regression.md` | bess-optimizer | CRITICAL | OPEN — agent to create OUTPUT_DIRECTORY.md immediately; user to consider agent definition update | Escalated from Major; 1/7 (14%) — regression from 5/7 W33 streak; bess-strategy/ new variant introduced; OUTPUT_DIRECTORY.md absent 4th consecutive miss |
+| `memory/market-analyst/plans/2026-34-briefing-template-critical.md` | market-analyst | CRITICAL | OPEN — agent to create BRIEFING_TEMPLATE.md before W35 Day 1 (2026-08-25 07:30 CT) | W33 escalation clause triggered (4th consecutive miss); analytical quality strong but template procedural compliance failure persists |
+| `memory/pnl-manager/plans/2026-34-learnings-zero.md` | pnl-manager | MAJOR | OPEN — agent to file minimum 5/7 learnings in W35 | 0/7 learnings in W34 — regression from 1/7 in W33; Tenaska PRODUCTION Aug 20-23 available but no learnings filed |
+| `memory/crr-trader/plans/2026-34-inactive.md` | crr-trader | MINOR/N/A | OPEN — no action required; next-activation checklist registered | Inactive; no auction cycle in W34 |
+
+---
+
+## Week 2026-W33 W34 Plan Compliance Update
+
+| Plan | Agent | W33 Deadline | W34 Status |
+|---|---|---|---|
+| `2026-33-directory-seventh-critical.md` | dart-virtual-trader | W34 7/7; user authorization for hard-code | **FAILED — 0/7 (0%); dart-position/ new variant (5th distinct); user authorization still not received; new Critical plan registered** |
+| `2026-33-stage0rules-fourth-miss.md` | congestion-analyst | Create stage-0-rules.md before next daily cycle | **FAILED — file still absent (5th consecutive miss); suspension consequence clause triggered; new Critical plan registered** |
+| `2026-33-path-verification-critical.md` | reporter | Implement path verification in all 7 W34 reports | **FAILED — section not implemented; wrong paths cited without flag; new Critical plan registered** |
+| `2026-33-directory-regression.md` | bess-optimizer | 7/7 correct directory; create OUTPUT_DIRECTORY.md | **FAILED — 1/7 (14%); bess-strategy/ new variant; OUTPUT_DIRECTORY.md absent 4th week; escalated to Critical** |
+| `2026-33-briefing-template-third-miss.md` | market-analyst | Create BRIEFING_TEMPLATE.md; escalate to Critical if W34 missed | **FAILED — BRIEFING_TEMPLATE.md not created (4th miss); escalation clause triggered; new Critical plan registered** |
+| `2026-33-learnings-gap.md` | pnl-manager | 7/7 learnings in W34 | **FAILED — 0/7 learnings in W34 (regression from 1/7); new Major plan registered** |
+
+**Resolved in W34**: 0 | **Partial improvement**: 0 | **Failed / Escalated**: 6 | **User pending (open)**: 2 (Smartbidder, Tenaska endpoint cache)
 
 ---
 
