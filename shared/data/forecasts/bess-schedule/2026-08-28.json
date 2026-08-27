@@ -1,0 +1,87 @@
+{
+  "asset": "GKS_BESS_RN",
+  "flowday": "2026-08-28",
+  "day_type": "WDPEAK_FRIDAY",
+  "heat_wave_day": 9,
+  "generated": "2026-08-27",
+  "data_environment": {
+    "yes_energy": "PRODUCTION",
+    "smartbidder": "UNAVAILABLE_DAY33_MSAL_EXPIRED",
+    "congestion": "NEGLIGIBLE_STAGE0_ALL_HOURS",
+    "as_playbook": "ABSENT_SELF_GENERATED",
+    "tenaska_actuals": "FULLY_DEGRADED_31_PLUS_CYCLES"
+  },
+  "asset_specs": {
+    "capacity_mw": 100,
+    "energy_mwh": 200,
+    "rte": 0.85,
+    "charge_efficiency": 0.85,
+    "discharge_efficiency": 1.0
+  },
+  "starting_soc_mwh": 42,
+  "strategy": "Stack_B_Energy_concentrated_HE20_21_AS_co_optimized",
+  "venue": "DA_primary_RT_upside_only",
+  "congestion_overlay": "NONE_MCC_ZERO_ALL_HOURS",
+  "hours": [
+    {"he": 1,  "mode": "NonSpin",    "energy_mw": 0,    "regup_mw": 0,  "regdown_mw": 0, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 27, "soc_end_mwh": 42,  "est_da_lmp_per_mwh": null, "est_as_rate_per_mwh": 2.00,  "est_gross_revenue": 54},
+    {"he": 2,  "mode": "NonSpin",    "energy_mw": 0,    "regup_mw": 0,  "regdown_mw": 0, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 27, "soc_end_mwh": 42,  "est_da_lmp_per_mwh": null, "est_as_rate_per_mwh": 2.00,  "est_gross_revenue": 54},
+    {"he": 3,  "mode": "NonSpin",    "energy_mw": 0,    "regup_mw": 0,  "regdown_mw": 0, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 27, "soc_end_mwh": 42,  "est_da_lmp_per_mwh": null, "est_as_rate_per_mwh": 2.00,  "est_gross_revenue": 54},
+    {"he": 4,  "mode": "NonSpin",    "energy_mw": 0,    "regup_mw": 0,  "regdown_mw": 0, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 27, "soc_end_mwh": 42,  "est_da_lmp_per_mwh": null, "est_as_rate_per_mwh": 2.00,  "est_gross_revenue": 54},
+    {"he": 5,  "mode": "NonSpin",    "energy_mw": 0,    "regup_mw": 0,  "regdown_mw": 0, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 27, "soc_end_mwh": 42,  "est_da_lmp_per_mwh": null, "est_as_rate_per_mwh": 2.00,  "est_gross_revenue": 54},
+    {"he": 6,  "mode": "NonSpin",    "energy_mw": 0,    "regup_mw": 0,  "regdown_mw": 0, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 27, "soc_end_mwh": 42,  "est_da_lmp_per_mwh": null, "est_as_rate_per_mwh": 2.00,  "est_gross_revenue": 54},
+    {"he": 7,  "mode": "NonSpin",    "energy_mw": 0,    "regup_mw": 0,  "regdown_mw": 0, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 27, "soc_end_mwh": 42,  "est_da_lmp_per_mwh": null, "est_as_rate_per_mwh": 2.00,  "est_gross_revenue": 54},
+    {"he": 8,  "mode": "ECRS",       "energy_mw": 0,    "regup_mw": 0,  "regdown_mw": 0, "rrs_mw": 0,  "ecrs_mw": 25, "nonspin_mw": 0,  "soc_end_mwh": 42,  "est_da_lmp_per_mwh": null, "est_as_rate_per_mwh": 12.00, "est_gross_revenue": 300},
+    {"he": 9,  "mode": "ECRS",       "energy_mw": 0,    "regup_mw": 0,  "regdown_mw": 0, "rrs_mw": 0,  "ecrs_mw": 25, "nonspin_mw": 0,  "soc_end_mwh": 42,  "est_da_lmp_per_mwh": null, "est_as_rate_per_mwh": 12.00, "est_gross_revenue": 300},
+    {"he": 10, "mode": "Charge",     "energy_mw": -100, "regup_mw": 0,  "regdown_mw": 0, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 0,  "soc_end_mwh": 127, "est_da_lmp_per_mwh": -10,  "est_as_rate_per_mwh": null,  "est_gross_revenue": 1000},
+    {"he": 11, "mode": "Charge",     "energy_mw": -86,  "regup_mw": 0,  "regdown_mw": 0, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 0,  "soc_end_mwh": 200, "est_da_lmp_per_mwh": -2,   "est_as_rate_per_mwh": null,  "est_gross_revenue": 172},
+    {"he": 12, "mode": "RRS+ECRS",   "energy_mw": 0,    "regup_mw": 0,  "regdown_mw": 0, "rrs_mw": 50, "ecrs_mw": 50, "nonspin_mw": 0,  "soc_end_mwh": 200, "est_da_lmp_per_mwh": null, "est_as_rate_per_mwh": 11.00, "est_gross_revenue": 1100},
+    {"he": 13, "mode": "RRS+ECRS",   "energy_mw": 0,    "regup_mw": 0,  "regdown_mw": 0, "rrs_mw": 50, "ecrs_mw": 50, "nonspin_mw": 0,  "soc_end_mwh": 200, "est_da_lmp_per_mwh": null, "est_as_rate_per_mwh": 11.00, "est_gross_revenue": 1100},
+    {"he": 14, "mode": "RegUp+ECRS", "energy_mw": 0,    "regup_mw": 50, "regdown_mw": 0, "rrs_mw": 0,  "ecrs_mw": 50, "nonspin_mw": 0,  "soc_end_mwh": 200, "est_da_lmp_per_mwh": null, "est_as_rate_per_mwh": 16.00, "est_gross_revenue": 1600},
+    {"he": 15, "mode": "RegUp+ECRS", "energy_mw": 0,    "regup_mw": 50, "regdown_mw": 0, "rrs_mw": 0,  "ecrs_mw": 50, "nonspin_mw": 0,  "soc_end_mwh": 200, "est_da_lmp_per_mwh": null, "est_as_rate_per_mwh": 16.00, "est_gross_revenue": 1600},
+    {"he": 16, "mode": "RegUp+ECRS", "energy_mw": 0,    "regup_mw": 50, "regdown_mw": 0, "rrs_mw": 0,  "ecrs_mw": 50, "nonspin_mw": 0,  "soc_end_mwh": 200, "est_da_lmp_per_mwh": null, "est_as_rate_per_mwh": 16.00, "est_gross_revenue": 1600},
+    {"he": 17, "mode": "RegUp+RRS",  "energy_mw": 0,    "regup_mw": 50, "regdown_mw": 0, "rrs_mw": 50, "ecrs_mw": 0,  "nonspin_mw": 0,  "soc_end_mwh": 200, "est_da_lmp_per_mwh": null, "est_as_rate_per_mwh": 15.00, "est_gross_revenue": 1500},
+    {"he": 18, "mode": "RegUp+RRS",  "energy_mw": 0,    "regup_mw": 50, "regdown_mw": 0, "rrs_mw": 50, "ecrs_mw": 0,  "nonspin_mw": 0,  "soc_end_mwh": 200, "est_da_lmp_per_mwh": null, "est_as_rate_per_mwh": 15.00, "est_gross_revenue": 1500},
+    {"he": 19, "mode": "RegUp+ECRS", "energy_mw": 0,    "regup_mw": 50, "regdown_mw": 0, "rrs_mw": 0,  "ecrs_mw": 20, "nonspin_mw": 0,  "soc_end_mwh": 200, "est_da_lmp_per_mwh": null, "est_as_rate_per_mwh": 19.29,"est_gross_revenue": 1340},
+    {"he": 20, "mode": "Discharge",  "energy_mw": 100,  "regup_mw": 0,  "regdown_mw": 0, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 0,  "soc_end_mwh": 100, "est_da_lmp_per_mwh": 70,   "est_as_rate_per_mwh": null,  "est_gross_revenue": 7000},
+    {"he": 21, "mode": "Discharge",  "energy_mw": 100,  "regup_mw": 0,  "regdown_mw": 0, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 0,  "soc_end_mwh": 0,   "est_da_lmp_per_mwh": 65,   "est_as_rate_per_mwh": null,  "est_gross_revenue": 6500},
+    {"he": 22, "mode": "Idle",       "energy_mw": 0,    "regup_mw": 0,  "regdown_mw": 0, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 0,  "soc_end_mwh": 0,   "est_da_lmp_per_mwh": null, "est_as_rate_per_mwh": null,  "est_gross_revenue": 0},
+    {"he": 23, "mode": "Recharge",   "energy_mw": -50,  "regup_mw": 0,  "regdown_mw": 0, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 0,  "soc_end_mwh": 43,  "est_da_lmp_per_mwh": 18,   "est_as_rate_per_mwh": null,  "est_gross_revenue": -900},
+    {"he": 24, "mode": "Recharge",   "energy_mw": -50,  "regup_mw": 0,  "regdown_mw": 0, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 0,  "soc_end_mwh": 85,  "est_da_lmp_per_mwh": 15,   "est_as_rate_per_mwh": null,  "est_gross_revenue": -750}
+  ],
+  "soc_trajectory_mwh": {
+    "start_of_day": 42,
+    "after_he10": 127,
+    "after_he11": 200,
+    "after_he19": 200,
+    "after_he20": 100,
+    "after_he21": 0,
+    "after_he23": 43,
+    "end_of_day": 85
+  },
+  "revenue_estimate": {
+    "da_energy_gross": 13022,
+    "da_energy_post_haircut_080x": 10418,
+    "as_directional": 12318,
+    "rt_energy_structural_low": 300,
+    "rt_energy_structural_high": 2000,
+    "total_p40_low": 23036,
+    "total_p40_high": 24736,
+    "total_p10_range_floor": 14000,
+    "total_p90_range_ceiling": 33000,
+    "confidence": "LOW",
+    "notes": "Single-source YE BidClose only. Smartbidder UNAVAILABLE Day 33. No Tenaska actuals 31+ cycles. All prices directional/qualitative estimates."
+  },
+  "alternative_stack_a": {
+    "trigger": "DA HE19 clears above 65 per MWh at DAM settlement OR GR_WEST intraday ramp materially underperforms BidClose forecast",
+    "he19_energy_mw": 50,
+    "he21_energy_mw": 50,
+    "he21_soc_cap_mwh": 50,
+    "est_revenue_delta_vs_primary": -250
+  },
+  "d2_saturday_positioning": {
+    "end_of_day_soc_mwh": 85,
+    "nonspin_capacity_mw": 55,
+    "recharge_cost_estimate": 1650,
+    "justification": "HE23-24 wind 13688-14186 MW drives DA to est 15-18 per MWh — well below 25 per MWh recharge threshold"
+  }
+}
