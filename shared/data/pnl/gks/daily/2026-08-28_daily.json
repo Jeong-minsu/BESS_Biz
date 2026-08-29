@@ -1,0 +1,90 @@
+{
+  "flowday": "2026-08-28",
+  "generated": "2026-08-29",
+  "resource": "Great Kiskadee Storage - ESR",
+  "data_status": "PRODUCTION",
+  "data_source": "Tenaska PTP Battery-Settlement-Details",
+  "sequence_note": "DA fields sequence=1 (settled). RT fields sequence=null (preliminary — RT AS settlement pending 48-72h).",
+  "benchmark_status": "N/A — Smartbidder client_secret expired Day 35 (2026-07-25~)",
+  "revenue": {
+    "da_energy_revenue": -3226.65,
+    "rt_energy_revenue": -969.05,
+    "as_revenue_regup": 0.00,
+    "as_revenue_regdown": 0.00,
+    "as_revenue_rrs": 0.00,
+    "as_revenue_ecrs": 1438.40,
+    "as_revenue_nonspin": 161.45,
+    "dart_virtual_revenue": null,
+    "rt_ancillary_imbalance": 0.00,
+    "rt_reliability_deployment_imbalance": 0.00,
+    "total_revenue": -2595.85
+  },
+  "revenue_notes": {
+    "dart_virtual_revenue": "Not isolable — DA Energy Bid/Offer raw file minimal (1KB). DA_Energy_Amt contains net of purchases(-)/sales(+). DA purchases observed at HE13 (50 MWh at $38.71 DASPP) and HE24 (35 MWh at $36.89 DASPP). Physical vs virtual separation requires separate DA bid market result data.",
+    "rt_ancillary_imbalance": "sequence=null — RT AS settlement may not be final. Recheck 48-72h.",
+    "rt_reliability_deployment_imbalance": "sequence=null — RT AS settlement may not be final. Recheck 48-72h."
+  },
+  "energy_volumes": {
+    "da_sales_mwh": 0.00,
+    "da_purchases_mwh": 85.00,
+    "da_net_mwh": -85.00,
+    "rt_generation_mwh": 2.05,
+    "rt_consumption_mwh": 136.28,
+    "rt_net_mwh": -134.23,
+    "cycle_equivalent_rt": 0.68
+  },
+  "as_capacity_cleared": {
+    "ecrs_he10_he19_mw": 90.0,
+    "ecrs_he20_mw": 50.0,
+    "ecrs_he22_mw": 35.0,
+    "ecrs_total_capacity_mwh": 985.0,
+    "nonspin_he01_he04_he08_mw": 5.0,
+    "nonspin_total_capacity_mwh": 25.0,
+    "rrs_mwh": 0.0,
+    "regup_mwh": 0.0,
+    "regdown_mwh": 0.0
+  },
+  "price_summary": {
+    "avg_daspp_per_mwh": 45.49,
+    "avg_rtspp_per_mwh": 39.83,
+    "daspp_24h_sum": 1091.64,
+    "rtspp_24h_sum": 956.03,
+    "spread_da_minus_rt_avg": 5.66,
+    "rtspp_hourly_note": "RTSPP_Avg datapoint present in source JSON but not mapped hourly — daily avg only"
+  },
+  "benchmark": {
+    "smartbidder_strategy": "Mount Blue Sky with Virtuals (RTC Version)",
+    "total_revenue": null,
+    "da_energy": null,
+    "rt_energy": null,
+    "nonspin": null,
+    "ecrs": null,
+    "delta_vs_actual": null
+  },
+  "hourly": [
+    {"he_ct": 1,  "daspp": 49.05, "da_energy_amt": 0.00,     "rt_energy_amt": -13.08,   "da_ns_amt": 42.80,  "da_ecrs_amt": 0.00,   "da_rrs_amt": 0.00, "da_regup_amt": 0.00, "da_regdn_amt": 0.00, "da_purchases_qty": 0.00, "rt_consumption_qty": 0.2716, "rt_generation_qty": 0.0000, "he_total": 29.72},
+    {"he_ct": 2,  "daspp": 43.96, "da_energy_amt": 0.00,     "rt_energy_amt": -12.52,   "da_ns_amt": 35.65,  "da_ecrs_amt": 0.00,   "da_rrs_amt": 0.00, "da_regup_amt": 0.00, "da_regdn_amt": 0.00, "da_purchases_qty": 0.00, "rt_consumption_qty": 0.2886, "rt_generation_qty": 0.0000, "he_total": 23.13},
+    {"he_ct": 3,  "daspp": 41.59, "da_energy_amt": 0.00,     "rt_energy_amt": -12.80,   "da_ns_amt": 25.70,  "da_ecrs_amt": 0.00,   "da_rrs_amt": 0.00, "da_regup_amt": 0.00, "da_regdn_amt": 0.00, "da_purchases_qty": 0.00, "rt_consumption_qty": 0.3177, "rt_generation_qty": 0.0001, "he_total": 12.90},
+    {"he_ct": 4,  "daspp": 38.40, "da_energy_amt": 0.00,     "rt_energy_amt": -10.72,   "da_ns_amt": 27.50,  "da_ecrs_amt": 0.00,   "da_rrs_amt": 0.00, "da_regup_amt": 0.00, "da_regdn_amt": 0.00, "da_purchases_qty": 0.00, "rt_consumption_qty": 0.3101, "rt_generation_qty": 0.0000, "he_total": 16.78},
+    {"he_ct": 5,  "daspp": 39.91, "da_energy_amt": 0.00,     "rt_energy_amt": -10.86,   "da_ns_amt": 0.00,   "da_ecrs_amt": 0.00,   "da_rrs_amt": 0.00, "da_regup_amt": 0.00, "da_regdn_amt": 0.00, "da_purchases_qty": 0.00, "rt_consumption_qty": 0.2850, "rt_generation_qty": 0.0003, "he_total": -10.86},
+    {"he_ct": 6,  "daspp": 39.77, "da_energy_amt": 0.00,     "rt_energy_amt": -16.84,   "da_ns_amt": 0.00,   "da_ecrs_amt": 0.00,   "da_rrs_amt": 0.00, "da_regup_amt": 0.00, "da_regdn_amt": 0.00, "da_purchases_qty": 0.00, "rt_consumption_qty": 0.2745, "rt_generation_qty": 0.0001, "he_total": -16.84},
+    {"he_ct": 7,  "daspp": 44.15, "da_energy_amt": 0.00,     "rt_energy_amt": -20.15,   "da_ns_amt": 0.00,   "da_ecrs_amt": 0.00,   "da_rrs_amt": 0.00, "da_regup_amt": 0.00, "da_regdn_amt": 0.00, "da_purchases_qty": 0.00, "rt_consumption_qty": 0.3147, "rt_generation_qty": 0.0003, "he_total": -20.15},
+    {"he_ct": 8,  "daspp": 38.96, "da_energy_amt": 0.00,     "rt_energy_amt": -16.01,   "da_ns_amt": 29.80,  "da_ecrs_amt": 0.00,   "da_rrs_amt": 0.00, "da_regup_amt": 0.00, "da_regdn_amt": 0.00, "da_purchases_qty": 0.00, "rt_consumption_qty": 0.3169, "rt_generation_qty": 0.0003, "he_total": 13.79},
+    {"he_ct": 9,  "daspp": 26.81, "da_energy_amt": 0.00,     "rt_energy_amt": -395.50,  "da_ns_amt": 0.00,   "da_ecrs_amt": 0.00,   "da_rrs_amt": 0.00, "da_regup_amt": 0.00, "da_regdn_amt": 0.00, "da_purchases_qty": 0.00, "rt_consumption_qty": 15.3484,"rt_generation_qty": 0.0001, "he_total": -395.50},
+    {"he_ct": 10, "daspp": 25.70, "da_energy_amt": 0.00,     "rt_energy_amt": -1523.87, "da_ns_amt": 0.00,   "da_ecrs_amt": 18.00,  "da_rrs_amt": 0.00, "da_regup_amt": 0.00, "da_regdn_amt": 0.00, "da_purchases_qty": 0.00, "rt_consumption_qty": 59.4523,"rt_generation_qty": 0.0000, "he_total": -1505.87},
+    {"he_ct": 11, "daspp": 26.50, "da_energy_amt": 0.00,     "rt_energy_amt": -1407.71, "da_ns_amt": 0.00,   "da_ecrs_amt": 13.50,  "da_rrs_amt": 0.00, "da_regup_amt": 0.00, "da_regdn_amt": 0.00, "da_purchases_qty": 0.00, "rt_consumption_qty": 44.1193,"rt_generation_qty": 0.0000, "he_total": -1394.21},
+    {"he_ct": 12, "daspp": 30.96, "da_energy_amt": 0.00,     "rt_energy_amt": -417.50,  "da_ns_amt": 0.00,   "da_ecrs_amt": 12.60,  "da_rrs_amt": 0.00, "da_regup_amt": 0.00, "da_regdn_amt": 0.00, "da_purchases_qty": 0.00, "rt_consumption_qty": 11.1367,"rt_generation_qty": 0.0000, "he_total": -404.90},
+    {"he_ct": 13, "daspp": 38.71, "da_energy_amt": -1935.50, "rt_energy_amt": 2067.44,  "da_ns_amt": 0.00,   "da_ecrs_amt": 12.60,  "da_rrs_amt": 0.00, "da_regup_amt": 0.00, "da_regdn_amt": 0.00, "da_purchases_qty": 50.00,"rt_consumption_qty": 0.4079, "rt_generation_qty": 0.0004, "he_total": 144.54},
+    {"he_ct": 14, "daspp": 45.25, "da_energy_amt": 0.00,     "rt_energy_amt": -11.42,   "da_ns_amt": 0.00,   "da_ecrs_amt": 12.60,  "da_rrs_amt": 0.00, "da_regup_amt": 0.00, "da_regdn_amt": 0.00, "da_purchases_qty": 0.00, "rt_consumption_qty": 0.2169, "rt_generation_qty": 0.0028, "he_total": 1.18},
+    {"he_ct": 15, "daspp": 50.03, "da_energy_amt": 0.00,     "rt_energy_amt": 106.12,   "da_ns_amt": 0.00,   "da_ecrs_amt": 12.60,  "da_rrs_amt": 0.00, "da_regup_amt": 0.00, "da_regdn_amt": 0.00, "da_purchases_qty": 0.00, "rt_consumption_qty": 0.1764, "rt_generation_qty": 2.0248, "he_total": 118.72},
+    {"he_ct": 16, "daspp": 51.23, "da_energy_amt": 0.00,     "rt_energy_amt": -16.83,   "da_ns_amt": 0.00,   "da_ecrs_amt": 17.10,  "da_rrs_amt": 0.00, "da_regup_amt": 0.00, "da_regdn_amt": 0.00, "da_purchases_qty": 0.00, "rt_consumption_qty": 0.3090, "rt_generation_qty": 0.0012, "he_total": 0.27},
+    {"he_ct": 17, "daspp": 58.94, "da_energy_amt": 0.00,     "rt_energy_amt": -2.85,    "da_ns_amt": 0.00,   "da_ecrs_amt": 17.10,  "da_rrs_amt": 0.00, "da_regup_amt": 0.00, "da_regdn_amt": 0.00, "da_purchases_qty": 0.00, "rt_consumption_qty": 0.0674, "rt_generation_qty": 0.0112, "he_total": 14.25},
+    {"he_ct": 18, "daspp": 57.40, "da_energy_amt": 0.00,     "rt_energy_amt": -11.67,   "da_ns_amt": 0.00,   "da_ecrs_amt": 18.00,  "da_rrs_amt": 0.00, "da_regup_amt": 0.00, "da_regdn_amt": 0.00, "da_purchases_qty": 0.00, "rt_consumption_qty": 0.3031, "rt_generation_qty": 0.0012, "he_total": 6.33},
+    {"he_ct": 19, "daspp": 72.10, "da_energy_amt": 0.00,     "rt_energy_amt": -8.52,    "da_ns_amt": 0.00,   "da_ecrs_amt": 24.30,  "da_rrs_amt": 0.00, "da_regup_amt": 0.00, "da_regdn_amt": 0.00, "da_purchases_qty": 0.00, "rt_consumption_qty": 0.3108, "rt_generation_qty": 0.0032, "he_total": 15.78},
+    {"he_ct": 20, "daspp": 63.81, "da_energy_amt": 0.00,     "rt_energy_amt": -9.45,    "da_ns_amt": 0.00,   "da_ecrs_amt": 296.50, "da_rrs_amt": 0.00, "da_regup_amt": 0.00, "da_regdn_amt": 0.00, "da_purchases_qty": 0.00, "rt_consumption_qty": 0.3218, "rt_generation_qty": 0.0002, "he_total": 287.05},
+    {"he_ct": 21, "daspp": 65.43, "da_energy_amt": 0.00,     "rt_energy_amt": -12.70,   "da_ns_amt": 0.00,   "da_ecrs_amt": 0.00,   "da_rrs_amt": 0.00, "da_regup_amt": 0.00, "da_regdn_amt": 0.00, "da_purchases_qty": 0.00, "rt_consumption_qty": 0.4147, "rt_generation_qty": 0.0000, "he_total": -12.70},
+    {"he_ct": 22, "daspp": 60.19, "da_energy_amt": 0.00,     "rt_energy_amt": -11.79,   "da_ns_amt": 0.00,   "da_ecrs_amt": 983.50, "da_rrs_amt": 0.00, "da_regup_amt": 0.00, "da_regdn_amt": 0.00, "da_purchases_qty": 0.00, "rt_consumption_qty": 0.4118, "rt_generation_qty": 0.0000, "he_total": 971.71},
+    {"he_ct": 23, "daspp": 45.90, "da_energy_amt": 0.00,     "rt_energy_amt": -9.13,    "da_ns_amt": 0.00,   "da_ecrs_amt": 0.00,   "da_rrs_amt": 0.00, "da_regup_amt": 0.00, "da_regdn_amt": 0.00, "da_purchases_qty": 0.00, "rt_consumption_qty": 0.3878, "rt_generation_qty": 0.0000, "he_total": -9.13},
+    {"he_ct": 24, "daspp": 36.89, "da_energy_amt": -1291.15, "rt_energy_amt": 809.30,   "da_ns_amt": 0.00,   "da_ecrs_amt": 0.00,   "da_rrs_amt": 0.00, "da_regup_amt": 0.00, "da_regdn_amt": 0.00, "da_purchases_qty": 35.00,"rt_consumption_qty": 0.5130, "rt_generation_qty": 0.0000, "he_total": -481.85}
+  ]
+}
