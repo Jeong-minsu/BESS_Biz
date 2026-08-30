@@ -1,0 +1,76 @@
+{
+  "flowday": "2026-08-29",
+  "resource": "Great Kiskadee Storage - ESR",
+  "capacity_mw": 100,
+  "capacity_mwh": 200,
+  "data_source": "Tenaska PTP Battery-Settlement-Details (Production)",
+  "fetched_at_utc": "2026-08-30T12:12:20.843924Z",
+  "revenue": {
+    "da_energy_revenue_usd": 7863.00,
+    "rt_energy_revenue_usd": -967.80,
+    "as_revenue_regup_usd": 0.00,
+    "as_revenue_regdown_usd": 0.00,
+    "as_revenue_rrs_usd": 0.00,
+    "as_revenue_ecrs_usd": 599.20,
+    "as_revenue_nonspin_usd": 728.00,
+    "dart_virtual_revenue_usd": 0.00,
+    "rt_ancillary_imbalance_usd": 0.00,
+    "rt_reliability_deployment_imbalance_usd": 0.00,
+    "total_revenue_usd": 8222.40
+  },
+  "da_energy_detail": {
+    "total_cleared_mwh": 200.0,
+    "avg_price_per_mwh": 39.32,
+    "cleared_hours": [
+      {"he_ct": 14, "mw": 100.0, "price_per_mwh": 38.48, "revenue_usd": 3848.00},
+      {"he_ct": 17, "mw": 100.0, "price_per_mwh": 40.15, "revenue_usd": 4015.00}
+    ]
+  },
+  "battery_state": {
+    "rt_injection_mwh": 115.85,
+    "rt_consumption_mwh": 27.14,
+    "rt_net_mwh": 88.71,
+    "cycles_equivalent": 0.58
+  },
+  "smartbidder_benchmark": {
+    "status": "PARTIAL",
+    "reason": "MSAL client_secret expired — benchmark not collected",
+    "benchmark_total_revenue_usd": null,
+    "delta_usd": null,
+    "delta_pct": null
+  },
+  "data_quality": {
+    "da_energy_bid_rows": 0,
+    "da_energy_offer_rows": 0,
+    "energy_as_detail_rows": 339,
+    "hsl_rows": 5472,
+    "rt_ancillary_imbalance_all_zero": true,
+    "rt_reliability_deployment_all_zero": true
+  },
+  "hourly_revenue": [
+    {"he_ct": 1,  "da_energy": 0.00,    "rt_energy": -9.07,    "ecrs": 0.00,   "nonspin": 20.00,  "rrs": 0.00, "regup": 0.00, "regdown": 0.00, "total": 10.93},
+    {"he_ct": 2,  "da_energy": 0.00,    "rt_energy": -14.31,   "ecrs": 0.00,   "nonspin": 16.50,  "rrs": 0.00, "regup": 0.00, "regdown": 0.00, "total": 2.19},
+    {"he_ct": 3,  "da_energy": 0.00,    "rt_energy": -13.34,   "ecrs": 0.00,   "nonspin": 3.60,   "rrs": 0.00, "regup": 0.00, "regdown": 0.00, "total": -9.74},
+    {"he_ct": 4,  "da_energy": 0.00,    "rt_energy": -10.32,   "ecrs": 0.00,   "nonspin": 0.00,   "rrs": 0.00, "regup": 0.00, "regdown": 0.00, "total": -10.32},
+    {"he_ct": 5,  "da_energy": 0.00,    "rt_energy": -11.28,   "ecrs": 0.00,   "nonspin": 0.00,   "rrs": 0.00, "regup": 0.00, "regdown": 0.00, "total": -11.28},
+    {"he_ct": 6,  "da_energy": 0.00,    "rt_energy": -9.28,    "ecrs": 0.00,   "nonspin": 0.00,   "rrs": 0.00, "regup": 0.00, "regdown": 0.00, "total": -9.28},
+    {"he_ct": 7,  "da_energy": 0.00,    "rt_energy": -8.35,    "ecrs": 0.00,   "nonspin": 0.00,   "rrs": 0.00, "regup": 0.00, "regdown": 0.00, "total": -8.35},
+    {"he_ct": 8,  "da_energy": 0.00,    "rt_energy": -162.77,  "ecrs": 0.00,   "nonspin": 0.00,   "rrs": 0.00, "regup": 0.00, "regdown": 0.00, "total": -162.77},
+    {"he_ct": 9,  "da_energy": 0.00,    "rt_energy": -231.38,  "ecrs": 0.00,   "nonspin": 0.00,   "rrs": 0.00, "regup": 0.00, "regdown": 0.00, "total": -231.38},
+    {"he_ct": 10, "da_energy": 0.00,    "rt_energy": -23.08,   "ecrs": 0.00,   "nonspin": 0.00,   "rrs": 0.00, "regup": 0.00, "regdown": 0.00, "total": -23.08},
+    {"he_ct": 11, "da_energy": 0.00,    "rt_energy": -1.29,    "ecrs": 13.50,  "nonspin": 0.00,   "rrs": 0.00, "regup": 0.00, "regdown": 0.00, "total": 12.21},
+    {"he_ct": 12, "da_energy": 0.00,    "rt_energy": -1.53,    "ecrs": 13.50,  "nonspin": 0.00,   "rrs": 0.00, "regup": 0.00, "regdown": 0.00, "total": 11.97},
+    {"he_ct": 13, "da_energy": 0.00,    "rt_energy": -5.50,    "ecrs": 12.60,  "nonspin": 0.00,   "rrs": 0.00, "regup": 0.00, "regdown": 0.00, "total": 7.10},
+    {"he_ct": 14, "da_energy": 3848.00, "rt_energy": -2343.63, "ecrs": 12.60,  "nonspin": 0.00,   "rrs": 0.00, "regup": 0.00, "regdown": 0.00, "total": 1516.97},
+    {"he_ct": 15, "da_energy": 0.00,    "rt_energy": 0.58,     "ecrs": 12.60,  "nonspin": 0.00,   "rrs": 0.00, "regup": 0.00, "regdown": 0.00, "total": 13.18},
+    {"he_ct": 16, "da_energy": 0.00,    "rt_energy": 450.10,   "ecrs": 17.10,  "nonspin": 0.00,   "rrs": 0.00, "regup": 0.00, "regdown": 0.00, "total": 467.20},
+    {"he_ct": 17, "da_energy": 4015.00, "rt_energy": -2702.53, "ecrs": 17.10,  "nonspin": 0.00,   "rrs": 0.00, "regup": 0.00, "regdown": 0.00, "total": 1329.57},
+    {"he_ct": 18, "da_energy": 0.00,    "rt_energy": 55.33,    "ecrs": 18.00,  "nonspin": 0.00,   "rrs": 0.00, "regup": 0.00, "regdown": 0.00, "total": 73.33},
+    {"he_ct": 19, "da_energy": 0.00,    "rt_energy": 703.03,   "ecrs": 27.00,  "nonspin": 0.00,   "rrs": 0.00, "regup": 0.00, "regdown": 0.00, "total": 730.03},
+    {"he_ct": 20, "da_energy": 0.00,    "rt_energy": 1579.85,  "ecrs": 0.00,   "nonspin": 0.00,   "rrs": 0.00, "regup": 0.00, "regdown": 0.00, "total": 1579.85},
+    {"he_ct": 21, "da_energy": 0.00,    "rt_energy": 1576.26,  "ecrs": 0.00,   "nonspin": 94.50,  "rrs": 0.00, "regup": 0.00, "regdown": 0.00, "total": 1670.76},
+    {"he_ct": 22, "da_energy": 0.00,    "rt_energy": 242.78,   "ecrs": 455.20, "nonspin": 343.80, "rrs": 0.00, "regup": 0.00, "regdown": 0.00, "total": 1041.78},
+    {"he_ct": 23, "da_energy": 0.00,    "rt_energy": -18.45,   "ecrs": 0.00,   "nonspin": 249.60, "rrs": 0.00, "regup": 0.00, "regdown": 0.00, "total": 231.15},
+    {"he_ct": 24, "da_energy": 0.00,    "rt_energy": -9.63,    "ecrs": 0.00,   "nonspin": 0.00,   "rrs": 0.00, "regup": 0.00, "regdown": 0.00, "total": -9.63}
+  ]
+}
