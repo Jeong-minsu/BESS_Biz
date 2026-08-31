@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERCOT All BESS DART Virtual Revenue Dashboard — 2026-W35</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; padding: 20px; background: #f8fafc; color: #1e293b; }
+  .header { background: #1a3a4a; color: #fff; padding: 24px 28px; border-radius: 10px; margin-bottom: 24px; }
+  .header h1 { margin: 0 0 4px; font-size: 1.4em; }
+  .header .meta { opacity: 0.8; font-size: 0.85em; }
+  .badge-box { display: flex; gap: 12px; flex-wrap: wrap; margin: 12px 0 0; }
+  .badge { background: rgba(255,255,255,0.15); border-radius: 6px; padding: 6px 14px; font-size: 0.8em; }
+  .section { background: #fff; border-radius: 10px; padding: 20px 24px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .section h2 { margin: 0 0 16px; font-size: 1.1em; color: #1a3a4a; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.87em; }
+  th { background: #1a3a4a; color: #fff; padding: 8px 10px; text-align: left; font-weight: 600; white-space: nowrap; }
+  td { padding: 7px 10px; border-bottom: 1px solid #f1f5f9; }
+  tr:hover { background: #f8fafc; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; }
+  .kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 16px; }
+  .kpi-label { font-size: 0.75em; color: #64748b; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .kpi-value { font-size: 1.3em; font-weight: 700; color: #1a3a4a; }
+  .kpi-value.negative { color: #dc2626; }
+  .note { background: #fef9c3; border-left: 4px solid #f59e0b; padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 0.85em; margin: 12px 0; }
+  .data-quality { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 8px; padding: 12px 16px; font-size: 0.84em; }
+  .positive { color: #16a34a; }
+  .negative { color: #dc2626; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>ERCOT All BESS — DART Virtual Revenue Dashboard</h1>
+  <div class="meta">Week: 2026-W35 (2026-08-24 Mon ~ 2026-08-30 Sun) &nbsp;|&nbsp; Generated: 2026-08-31 14:28 CT &nbsp;|&nbsp; By: pnl-manager</div>
+  <div class="badge-box">
+    <span class="badge">Fleet data: 2026-01-01 to 2026-07-09 (ESTIMATE)</span>
+    <span class="badge">GKS W35 DART: mostly N/A (DA bids not isolable)</span>
+    <span class="badge">~286 BESS nodes</span>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Data Quality</h2>
+  <div class="data-quality">
+    <strong>Fleet DART estimate</strong>: ERCOT 60-day disclosure estimate — 286 nodes — 2026-01-01 to 2026-07-09<br>
+    <strong>GKS W35 DART actuals</strong>: DART virtual revenue not isolable from physical energy for Aug 27, 28, 30. DA Energy Bid/Offer raw files returned 0 rows (bids submitted via Smartbidder portal). Aug 29 reports $0.00 explicitly.<br>
+    <strong>Smartbidder MSAL</strong>: client_secret expired Day 37+ — benchmark N/A.<br>
+    <strong>DART estimation method</strong>: ERCOT 60-day NP3-966-ER EnergyOnlyOfferAwards + EnergyBidAwards. Settled against DA-vs-RT LMP spread. ESTIMATE, not invoiced.
+  </div>
+</div>
+
+<!-- GKS W35 DART KPIs -->
+<div class="section">
+  <h2>GKS DART Virtual — W35 Summary</h2>
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-label">W35 DART Revenue</div>
+      <div class="kpi-value">N/A (Aug 27-28,30 not isolable)</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Aug 29 DART</div>
+      <div class="kpi-value">$0.00</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Degraded Days</div>
+      <div class="kpi-value">3/7 (Aug 24-26)</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">GKS Fleet DART Rank</div>
+      <div class="kpi-value">286 / 286</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">GKS YTD DART (est.)</div>
+      <div class="kpi-value negative">-$208,214</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">GKS DART Win Rate</div>
+      <div class="kpi-value">40.3%</div>
+    </div>
+  </div>
+  <div class="note">
+    <strong>GKS DART Note:</strong> GKS submits bids via Smartbidder portal, which routes orders through a separate interface not captured in Tenaska PTP's DA Energy Bid Market Result endpoint (0 rows returned). DART virtual revenue for GKS in W35 cannot be isolated from physical energy. ERCOT 60-day disclosure estimate for GKS (as GKS_BESS_RN) covers Jan-Jul period and shows net position above.
+  </div>
+</div>
+
+<!-- GKS W35 Day-by-Day -->
+<div class="section">
+  <h2>GKS DART — W35 Daily (2026-08-24 to 2026-08-30)</h2>
+  <table>
+    <thead>
+      <tr><th>Date</th><th>Status</th><th>DART Virtual Revenue</th><th>Note</th></tr>
+    </thead>
+    <tbody>
+      <tr class="row-degraded"><td>08-24</td><td><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75em;font-weight:600">DEGRADED</span></td><td>N/A</td><td>Tenaska PTP fetch failed</td></tr>
+      <tr class="row-degraded"><td>08-25</td><td><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75em;font-weight:600">DEGRADED</span></td><td>N/A</td><td>Tenaska PTP fetch failed</td></tr>
+      <tr class="row-degraded"><td>08-26</td><td><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75em;font-weight:600">DEGRADED</span></td><td>N/A</td><td>Tenaska PTP fetch failed</td></tr>
+      <tr style="background:#f0fdf4"><td>08-27</td><td><span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75em;font-weight:600">PRODUCTION</span></td><td>N/A (not isolable)</td><td>DA bid/offer files 0 rows — net energy proxy only</td></tr>
+      <tr style="background:#f0fdf4"><td>08-28</td><td><span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75em;font-weight:600">PRODUCTION</span></td><td>N/A (not isolable)</td><td>DA bid/offer files minimal; DA purchases at HE13, HE24 — physical/virtual separation requires separate DA bid data</td></tr>
+      <tr style="background:#f0fdf4"><td>08-29</td><td><span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75em;font-weight:600">PRODUCTION</span></td><td><strong>$0.00</strong></td><td>Explicit from Tenaska PTP report</td></tr>
+      <tr style="background:#fffbeb"><td>08-30</td><td><span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75em;font-weight:600">PARTIAL</span></td><td>N/A (not isolable)</td><td>DA bid/offer files 0 rows — RT AS preliminary (sequence=null)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Top 30 Fleet DART Ranking -->
+<div class="section">
+  <h2>ERCOT BESS Fleet — Top 30 DART Virtual Revenue Ranking (2026-01-01 to 2026-07-09)</h2>
+  <p style="font-size:0.83em;color:#64748b;margin:0 0 12px">Sorted by net virtual revenue (offer + bid, estimate). Yellow = GKS.</p>
+  <div style="overflow-x:auto">
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align:center">#</th>
+        <th>Node</th>
+        <th style="text-align:right">Offer Rev (Virtual Short)</th>
+        <th style="text-align:right">Bid Rev (Virtual Long)</th>
+        <th style="text-align:right">Net Revenue</th>
+        <th style="text-align:right">Days Active</th>
+        <th style="text-align:right">HSL</th>
+        <th style="text-align:right">Win Rate</th>
+        <th style="text-align:right">P/L Ratio</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style=''><td style='text-align:center'>1</td><td><strong>RRANCHES_ALL</strong></td><td style='text-align:right'>$1,129,969</td><td style='text-align:right'>-$31,095</td><td style='text-align:right'><strong style='color:#16a34a'>$1,098,874</strong></td><td style='text-align:right'>230</td><td style='text-align:right'>150.0 MW</td><td style='text-align:right'>44.5%</td><td style='text-align:right'>5.78x</td></tr>
+<tr style=''><td style='text-align:center'>2</td><td><strong>EBNY_ESS_RN</strong></td><td style='text-align:right'>$812,044</td><td style='text-align:right'>$487</td><td style='text-align:right'><strong style='color:#16a34a'>$812,531</strong></td><td style='text-align:right'>230</td><td style='text-align:right'>200.0 MW</td><td style='text-align:right'>44.1%</td><td style='text-align:right'>29.03x</td></tr>
+<tr style=''><td style='text-align:center'>3</td><td><strong>BLVN_RN</strong></td><td style='text-align:right'>$414,103</td><td style='text-align:right'>-$6,286</td><td style='text-align:right'><strong style='color:#16a34a'>$407,817</strong></td><td style='text-align:right'>228</td><td style='text-align:right'>180.0 MW</td><td style='text-align:right'>45.0%</td><td style='text-align:right'>16.81x</td></tr>
+<tr style=''><td style='text-align:center'>4</td><td><strong>SG_BES_BESS1</strong></td><td style='text-align:right'>$356,722</td><td style='text-align:right'>-$21,033</td><td style='text-align:right'><strong style='color:#16a34a'>$335,689</strong></td><td style='text-align:right'>230</td><td style='text-align:right'>100.0 MW</td><td style='text-align:right'>44.5%</td><td style='text-align:right'>6.63x</td></tr>
+<tr style=''><td style='text-align:center'>5</td><td><strong>RADN_SLR_ALL</strong></td><td style='text-align:right'>$266,087</td><td style='text-align:right'>$29,380</td><td style='text-align:right'><strong style='color:#16a34a'>$295,467</strong></td><td style='text-align:right'>229</td><td style='text-align:right'>81.9 MW</td><td style='text-align:right'>43.2%</td><td style='text-align:right'>4.51x</td></tr>
+<tr style=''><td style='text-align:center'>6</td><td><strong>GIGA_ESS_RN</strong></td><td style='text-align:right'>$253,032</td><td style='text-align:right'>-$6,463</td><td style='text-align:right'><strong style='color:#16a34a'>$246,570</strong></td><td style='text-align:right'>229</td><td style='text-align:right'>125.0 MW</td><td style='text-align:right'>47.1%</td><td style='text-align:right'>6.57x</td></tr>
+<tr style=''><td style='text-align:center'>7</td><td><strong>PALACIOS_RN</strong></td><td style='text-align:right'>$227,739</td><td style='text-align:right'>$1,276</td><td style='text-align:right'><strong style='color:#16a34a'>$229,015</strong></td><td style='text-align:right'>230</td><td style='text-align:right'>3.0 MW</td><td style='text-align:right'>49.7%</td><td style='text-align:right'>7.45x</td></tr>
+<tr style=''><td style='text-align:center'>8</td><td><strong>BCK_RN</strong></td><td style='text-align:right'>$238,569</td><td style='text-align:right'>-$32,230</td><td style='text-align:right'><strong style='color:#16a34a'>$206,339</strong></td><td style='text-align:right'>229</td><td style='text-align:right'>126.5 MW</td><td style='text-align:right'>43.9%</td><td style='text-align:right'>9.42x</td></tr>
+<tr style=''><td style='text-align:center'>9</td><td><strong>CORALSLR_ALL</strong></td><td style='text-align:right'>$197,631</td><td style='text-align:right'>-$16,070</td><td style='text-align:right'><strong style='color:#16a34a'>$181,561</strong></td><td style='text-align:right'>230</td><td style='text-align:right'>51.4 MW</td><td style='text-align:right'>46.1%</td><td style='text-align:right'>7.68x</td></tr>
+<tr style=''><td style='text-align:center'>10</td><td><strong>TBWF_ES_BES1</strong></td><td style='text-align:right'>$155,259</td><td style='text-align:right'>$2,380</td><td style='text-align:right'><strong style='color:#16a34a'>$157,639</strong></td><td style='text-align:right'>230</td><td style='text-align:right'>150.0 MW</td><td style='text-align:right'>35.7%</td><td style='text-align:right'>12.49x</td></tr>
+<tr style=''><td style='text-align:center'>11</td><td><strong>MUSTNGCK_ALL</strong></td><td style='text-align:right'>$151,590</td><td style='text-align:right'>$1,282</td><td style='text-align:right'><strong style='color:#16a34a'>$152,872</strong></td><td style='text-align:right'>230</td><td style='text-align:right'>71.0 MW</td><td style='text-align:right'>46.7%</td><td style='text-align:right'>13.31x</td></tr>
+<tr style=''><td style='text-align:center'>12</td><td><strong>CROSSETT_ALL</strong></td><td style='text-align:right'>$166,662</td><td style='text-align:right'>-$30,718</td><td style='text-align:right'><strong style='color:#16a34a'>$135,944</strong></td><td style='text-align:right'>230</td><td style='text-align:right'>100.0 MW</td><td style='text-align:right'>44.1%</td><td style='text-align:right'>7.72x</td></tr>
+<tr style=''><td style='text-align:center'>13</td><td><strong>FIVEWSLR_ALL</strong></td><td style='text-align:right'>$114,432</td><td style='text-align:right'>$9,129</td><td style='text-align:right'><strong style='color:#16a34a'>$123,561</strong></td><td style='text-align:right'>229</td><td style='text-align:right'>220.0 MW</td><td style='text-align:right'>45.3%</td><td style='text-align:right'>7.90x</td></tr>
+<tr style=''><td style='text-align:center'>14</td><td><strong>VORT_ALL_RN</strong></td><td style='text-align:right'>$112,762</td><td style='text-align:right'>-$2,572</td><td style='text-align:right'><strong style='color:#16a34a'>$110,190</strong></td><td style='text-align:right'>230</td><td style='text-align:right'>121.8 MW</td><td style='text-align:right'>43.7%</td><td style='text-align:right'>7.80x</td></tr>
+<tr style=''><td style='text-align:center'>15</td><td><strong>ROSELAND_ALL</strong></td><td style='text-align:right'>$113,455</td><td style='text-align:right'>-$21,459</td><td style='text-align:right'><strong style='color:#16a34a'>$91,996</strong></td><td style='text-align:right'>230</td><td style='text-align:right'>50.0 MW</td><td style='text-align:right'>47.1%</td><td style='text-align:right'>5.00x</td></tr>
+<tr style=''><td style='text-align:center'>16</td><td><strong>SUNVASLR_ALL</strong></td><td style='text-align:right'>$83,518</td><td style='text-align:right'>$5,954</td><td style='text-align:right'><strong style='color:#16a34a'>$89,471</strong></td><td style='text-align:right'>230</td><td style='text-align:right'>53.0 MW</td><td style='text-align:right'>45.0%</td><td style='text-align:right'>4.91x</td></tr>
+<tr style=''><td style='text-align:center'>17</td><td><strong>FLOWERII_RN</strong></td><td style='text-align:right'>$99,386</td><td style='text-align:right'>-$11,708</td><td style='text-align:right'><strong style='color:#16a34a'>$87,678</strong></td><td style='text-align:right'>230</td><td style='text-align:right'>95.0 MW</td><td style='text-align:right'>44.4%</td><td style='text-align:right'>8.57x</td></tr>
+<tr style=''><td style='text-align:center'>18</td><td><strong>PHO_ALL</strong></td><td style='text-align:right'>$79,009</td><td style='text-align:right'>$700</td><td style='text-align:right'><strong style='color:#16a34a'>$79,708</strong></td><td style='text-align:right'>224</td><td style='text-align:right'>150.0 MW</td><td style='text-align:right'>43.5%</td><td style='text-align:right'>10.47x</td></tr>
+<tr style=''><td style='text-align:center'>19</td><td><strong>EUNICE_ALL</strong></td><td style='text-align:right'>$84,976</td><td style='text-align:right'>-$12,756</td><td style='text-align:right'><strong style='color:#16a34a'>$72,220</strong></td><td style='text-align:right'>230</td><td style='text-align:right'>18.0 MW</td><td style='text-align:right'>44.4%</td><td style='text-align:right'>16.92x</td></tr>
+<tr style=''><td style='text-align:center'>20</td><td><strong>ANCHOR_ALL</strong></td><td style='text-align:right'>$71,416</td><td style='text-align:right'>$628</td><td style='text-align:right'><strong style='color:#16a34a'>$72,044</strong></td><td style='text-align:right'>230</td><td style='text-align:right'>36.3 MW</td><td style='text-align:right'>46.4%</td><td style='text-align:right'>5.12x</td></tr>
+<tr style=''><td style='text-align:center'>21</td><td><strong>DAN_ALL</strong></td><td style='text-align:right'>$85,247</td><td style='text-align:right'>-$14,085</td><td style='text-align:right'><strong style='color:#16a34a'>$71,162</strong></td><td style='text-align:right'>228</td><td style='text-align:right'>76.3 MW</td><td style='text-align:right'>42.6%</td><td style='text-align:right'>8.25x</td></tr>
+<tr style=''><td style='text-align:center'>22</td><td><strong>NF_BRP_RN</strong></td><td style='text-align:right'>$7,852</td><td style='text-align:right'>$58,510</td><td style='text-align:right'><strong style='color:#16a34a'>$66,362</strong></td><td style='text-align:right'>229</td><td style='text-align:right'>100.5 MW</td><td style='text-align:right'>47.1%</td><td style='text-align:right'>14.15x</td></tr>
+<tr style=''><td style='text-align:center'>23</td><td><strong>RN_SOLC_SLR</strong></td><td style='text-align:right'>$57,256</td><td style='text-align:right'>$5,910</td><td style='text-align:right'><strong style='color:#16a34a'>$63,166</strong></td><td style='text-align:right'>183</td><td style='text-align:right'>0.0 MW</td><td style='text-align:right'>37.7%</td><td style='text-align:right'>9.06x</td></tr>
+<tr style=''><td style='text-align:center'>24</td><td><strong>HOUSEMTN_RN</strong></td><td style='text-align:right'>$59,893</td><td style='text-align:right'>-$851</td><td style='text-align:right'><strong style='color:#16a34a'>$59,041</strong></td><td style='text-align:right'>230</td><td style='text-align:right'>60.0 MW</td><td style='text-align:right'>44.0%</td><td style='text-align:right'>8.25x</td></tr>
+<tr style=''><td style='text-align:center'>25</td><td><strong>MUENSTER_RN</strong></td><td style='text-align:right'>$54,821</td><td style='text-align:right'>$3,589</td><td style='text-align:right'><strong style='color:#16a34a'>$58,410</strong></td><td style='text-align:right'>229</td><td style='text-align:right'>9.9 MW</td><td style='text-align:right'>46.4%</td><td style='text-align:right'>8.52x</td></tr>
+<tr style=''><td style='text-align:center'>26</td><td><strong>BATCAVE_RN</strong></td><td style='text-align:right'>$39,190</td><td style='text-align:right'>$7,177</td><td style='text-align:right'><strong style='color:#16a34a'>$46,368</strong></td><td style='text-align:right'>229</td><td style='text-align:right'>100.5 MW</td><td style='text-align:right'>41.3%</td><td style='text-align:right'>5.26x</td></tr>
+<tr style=''><td style='text-align:center'>27</td><td><strong>ANG_ALL</strong></td><td style='text-align:right'>$17,079</td><td style='text-align:right'>$25,283</td><td style='text-align:right'><strong style='color:#16a34a'>$42,362</strong></td><td style='text-align:right'>230</td><td style='text-align:right'>81.0 MW</td><td style='text-align:right'>29.8%</td><td style='text-align:right'>7.56x</td></tr>
+<tr style=''><td style='text-align:center'>28</td><td><strong>STADIUM_RN</strong></td><td style='text-align:right'>$20,477</td><td style='text-align:right'>$19,644</td><td style='text-align:right'><strong style='color:#16a34a'>$40,121</strong></td><td style='text-align:right'>206</td><td style='text-align:right'>9.9 MW</td><td style='text-align:right'>43.9%</td><td style='text-align:right'>7.30x</td></tr>
+<tr style=''><td style='text-align:center'>29</td><td><strong>RRC_WIND_ALL</strong></td><td style='text-align:right'>$23,363</td><td style='text-align:right'>$12,304</td><td style='text-align:right'><strong style='color:#16a34a'>$35,667</strong></td><td style='text-align:right'>230</td><td style='text-align:right'>75.0 MW</td><td style='text-align:right'>47.8%</td><td style='text-align:right'>5.47x</td></tr>
+<tr style=''><td style='text-align:center'>30</td><td><strong>WOV_BESS_RN</strong></td><td style='text-align:right'>$1,303</td><td style='text-align:right'>$33,331</td><td style='text-align:right'><strong style='color:#16a34a'>$34,634</strong></td><td style='text-align:right'>229</td><td style='text-align:right'>9.9 MW</td><td style='text-align:right'>46.7%</td><td style='text-align:right'>8.98x</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="font-size:0.83em;color:#64748b;margin:12px 0 0">Showing top 30 of 286 nodes. GKS_BESS_RN rank: 286.</p>
+</div>
+
+<div style="text-align:center;color:#94a3b8;font-size:0.8em;padding:20px 0">
+  pnl-manager / BESS_Biz &nbsp;|&nbsp; Generated 2026-08-31 14:28 CT &nbsp;|&nbsp;
+  DART data source: ERCOT 60-day NP3-966-ER disclosure (estimate, not invoiced settlement)
+</div>
+
+</body>
+</html>

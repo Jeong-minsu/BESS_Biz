@@ -81,5 +81,9 @@ temp/
 
 # =============================================================
 # Reports — keep .md (review-able), gitignore .html (large, generated)
+# Weekly dashboard HTML deliverables are explicitly included
 # =============================================================
 reports/**/*.html
+!reports/weekly/*.html
+!reports/weekly/bess-revenue-dashboard/*.html
+!reports/weekly/bess-dart-virtual-dashboard/*.html

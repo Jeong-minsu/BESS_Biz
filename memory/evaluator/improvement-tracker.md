@@ -1,6 +1,35 @@
 # Evaluator Improvement Tracker
 
-Last updated: 2026-08-24 (Week 2026-34)
+Last updated: 2026-08-31 (Week 2026-W35)
+
+---
+
+## Week 2026-W35 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-W35.md` | dart-virtual-trader | CRITICAL | OPEN — user authorization for agent definition hard-code still pending (9th consecutive non-compliant week) | 2/7 dir (29%); 7/7 learnings first-ever; new dart/ variant W35; T+2 queue 10+ positions |
+| `memory/congestion-analyst/plans/2026-W35.md` | congestion-analyst | CRITICAL | OPEN — user to confirm or override suspension clause (W34 suspension not implemented; stage-0-rules.md 6th consecutive miss) | 7/7 dir; 5/7 learnings; analytical quality high |
+| `memory/pnl-manager/plans/2026-W35.md` | pnl-manager | CRITICAL | OPEN — agent to file minimum 5/7 learnings in W36; Tenaska PRODUCTION data already available Aug 27-28 | 0/7 learnings 3rd consecutive zero; 7/7 reports |
+| `memory/market-analyst/plans/2026-W35.md` | market-analyst | CRITICAL | OPEN — agent to create BRIEFING_TEMPLATE.md before W36 Day 1; fix Aug 27 path regression | 6/7 dir (Aug 27 opath); 5/7 learnings; BRIEFING_TEMPLATE absent 5th consecutive week |
+| `memory/bess-optimizer/plans/2026-W35.md` | bess-optimizer | CRITICAL | OPEN — agent to create OUTPUT_DIRECTORY.md immediately; user to consider agent definition hard-code | 4/7 dir (57% improved); Day 8 P40 -67% calibration error (self-corrected Day 10); OUTPUT_DIRECTORY absent 5th week |
+| `memory/reporter/plans/2026-W35.md` | reporter | MAJOR | OPEN — agent to implement Path Verification section W36 all 7 days; create canonical-paths.md | 7/7 reports; data status tables added; path verification 5th consecutive miss |
+| `memory/crr-trader/plans/2026-W35.md` | crr-trader | N/A | OPEN — inactive; pre-activation checklist review | No auction cycle W35 |
+
+---
+
+## Week 2026-W35 W34 Plan Compliance Update
+
+| Plan | Agent | W34 Deadline | W35 Status |
+|---|---|---|---|
+| `2026-34-directory-eighth-critical.md` | dart-virtual-trader | 7/7 dir; user authorization hard-code | **PARTIAL FAIL** — 2/7 (0%→29%; improvement but target missed; user authorization still not received) |
+| `2026-34-stage0rules-suspension.md` | congestion-analyst | stage-0-rules.md created; suspension if W35 missed | **FAILED** — stage-0-rules.md still absent (6th miss); W35 suspension not implemented; user override not confirmed |
+| `2026-34-path-verification-fourth-critical.md` | reporter | Path Verification section in all 7 W35 reports | **FAILED** — section not implemented; data status tables added (partial improvement) |
+| `2026-34-directory-critical-regression.md` | bess-optimizer | 7/7 dir; OUTPUT_DIRECTORY.md creation | **PARTIAL FAIL** — 4/7 (14%→57% meaningful improvement); OUTPUT_DIRECTORY.md absent 5th week |
+| `2026-34-briefing-template-critical.md` | market-analyst | BRIEFING_TEMPLATE.md before W35 Day 1 | **FAILED** — BRIEFING_TEMPLATE.md absent (5th consecutive miss) |
+| `2026-34-learnings-zero.md` | pnl-manager | 7/7 learnings in W35 | **FAILED** — 0/7 learnings (3rd consecutive zero; Tenaska PRODUCTION Aug 27-28 available but unused) |
+
+**Resolved**: 0 | **Partial improvement**: 2 (dart 0→29%; bess-optimizer 14→57%) | **Failed**: 4 | **User pending (open)**: 2 (Smartbidder, Tenaska endpoint)
 
 ---
 
