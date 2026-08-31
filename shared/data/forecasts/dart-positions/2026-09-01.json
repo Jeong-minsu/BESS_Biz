@@ -1,0 +1,407 @@
+{
+  "flowday": "2026-09-01",
+  "generated": "2026-08-31T07:30:00-05:00",
+  "model_version": "v3-no-sb",
+  "advisory_only": true,
+  "smartbidder_status": "UNAVAILABLE",
+  "smartbidder_degraded_day": 37,
+  "spread_convention": "DA_minus_RT",
+  "spread_sign_note": "positive => INC WIN (Short DA / Long RT); negative => DEC WIN (Long DA / Short RT)",
+  "data_sources": {
+    "yes_energy": "PRODUCTION",
+    "enverus": "ABSENT_sep1_cycle",
+    "ag2": "ABSENT_sep1_cycle",
+    "smartbidder": "UNAVAILABLE",
+    "hub_pair_lmp": "ABSENT_103rd_cycle",
+    "tenaska": "DEGRADED"
+  },
+  "data_quality": "SINGLE_SOURCE_ONLY",
+  "confidence_weight": 0.55,
+  "confidence_weight_note": "Reduced from 0.68 (dual-source Aug 31) to 0.55 due to single-source day; no Enverus/AG2/SB cross-validation",
+  "market_analyst_confidence": "LOW",
+  "day_context": {
+    "day_type": "WDPEAK_TUESDAY",
+    "heat_wave_day": 12,
+    "peak_hours": "HE07-22",
+    "offpeak_hours": "HE01-06_HE23-24",
+    "load_avg_24h_mw": 72251,
+    "load_peak_he": 16,
+    "load_peak_mw": 85477,
+    "load_trough_he": 5,
+    "load_trough_mw": 59404,
+    "net_load_avg_24h_mw": 47396,
+    "net_load_trough_he": 10,
+    "net_load_trough_mw": 32127,
+    "net_load_trough_tier": "MILD",
+    "net_load_trough_vs_moderate_boundary_mw": 127,
+    "net_load_trough_vs_severe_boundary_mw": 6127,
+    "net_load_evening_peak_he": 20,
+    "net_load_evening_peak_mw": 64515,
+    "solar_peak_he": 12,
+    "solar_peak_mw": 30796,
+    "wind_avg_24h_mw": 12359,
+    "grwest_24h_avg_mw": 7291,
+    "grwest_midday_trough_he": 15,
+    "grwest_midday_trough_mw": 2988,
+    "grwest_overnight_max_mw": 13248,
+    "grwest_overnight_max_he": 5,
+    "grcoastal_peak_he19_mw": 3141,
+    "cap_out_avg_mw": 8340,
+    "cap_out_evening_he19_24_mw": 7963,
+    "net_load_ramp_he19_to_he20_mw": 6385,
+    "solar_cliff_he19_to_he20_mw": -10182,
+    "net_load_ramp_he18_to_he21_est_mw": 7000
+  },
+  "summary": {
+    "active_hours": 0,
+    "total_mw_notional": 0,
+    "direction_bias": "FLAT",
+    "direction_type": null,
+    "p_win_weighted_avg": null,
+    "advisory_e_p50_gross_usd": 0,
+    "advisory_e_p50_confidence_weighted_usd": 0,
+    "triggers_fired": [],
+    "triggers_failed": [
+      "duck_floor_DEC_MILD_tier_not_MODERATE",
+      "duck_floor_DA_positive_not_negative",
+      "INC_duck_floor_SEVERE_not_met",
+      "evening_secondary_DEC_HE20_NL_gate",
+      "evening_secondary_DEC_HE20_capout_gate",
+      "cond1_ramp_DEC_HE18_21",
+      "south_houston_INC_P_negligible",
+      "INC_HE19_21_P_insufficient_RT_spike_veto"
+    ],
+    "triggers_blocked": [
+      "w2n_overnight_no_hubpair_LMP_103rd_cycle",
+      "INC_HE13_21_RT_spike_veto_grwest_2988mw"
+    ]
+  },
+  "key_fundamentals": {
+    "nl_trough_he10_mw": 32127,
+    "nl_trough_vs_moderate_boundary_mw": 127,
+    "nl_trough_vs_severe_boundary_mw": 6127,
+    "nl_trough_tier": "MILD",
+    "da_estimate_he10_range": "$10-35/MWh (positive — no negative prices expected)",
+    "da_estimate_he20_range": "$120-250/MWh",
+    "nl_he20_mw": 64515,
+    "nl_secondary_dec_gate_mw": 70000,
+    "nl_he20_gap_to_secondary_gate_mw": -5485,
+    "cap_out_he20_mw": 7963,
+    "cap_out_secondary_dec_gate_mw": 7000,
+    "cap_out_he20_vs_gate_mw": 963,
+    "nl_ramp_he18_to_he21_est_mw": 7000,
+    "cond1_threshold_mw": 20000,
+    "cond1_deficit_mw": -13000,
+    "grwest_midday_trough_mw": 2988,
+    "rt_spike_veto_threshold_mw": 5500,
+    "rt_spike_veto_active": true,
+    "w2n_overnight_p_binding_range": "15-22%",
+    "w2n_grwest_max_he05_mw": 13248,
+    "w2n_grwest_sci_max": 0.442,
+    "hub_pair_lmp_absent_days": 103,
+    "south_houston_p_binding_range": "NEGLIGIBLE<3%",
+    "duck_curve_tier": "MILD",
+    "e_gks_mcc_duck_he09_12": "-$0.2 to -$0.8/MWh"
+  },
+  "trigger_details": {
+    "duck_floor_DEC": {
+      "nl_trough_ye_mw": 32127,
+      "nl_enverus_mw": null,
+      "cross_source_validation": "UNAVAILABLE_single_source",
+      "tier": "MILD",
+      "moderate_boundary_mw": 32000,
+      "margin_above_moderate_mw": 127,
+      "severe_boundary_mw": 26000,
+      "margin_above_severe_mw": 6127,
+      "da_estimate_he10_range": "$10-35/MWh",
+      "da_negative_expected": false,
+      "fires": false,
+      "fires_reason_tier": "MILD_not_MODERATE",
+      "fires_reason_da": "DA_positive_not_negative"
+    },
+    "INC_duck_floor": {
+      "nl_trough_mw": 32127,
+      "severe_boundary_mw": 26000,
+      "gap_to_severe_mw": 6127,
+      "fires": false
+    },
+    "evening_secondary_DEC": {
+      "nl_he20_mw": 64515,
+      "nl_gate_mw": 70000,
+      "nl_condition": "FAIL",
+      "nl_gap_mw": -5485,
+      "cap_out_he20_mw": 7963,
+      "cap_out_gate_mw": 7000,
+      "cap_out_condition": "FAIL",
+      "fires": false,
+      "note": "Both AND-conditions fail. NL 64,515 < 70,000 (-5,485). Cap-out 7,963 > 7,000 (+963)."
+    },
+    "cond1_ramp": {
+      "nl_ramp_he18_to_he21_est_mw": 7000,
+      "cond1_threshold_mw": 20000,
+      "deficit_est_mw": 13000,
+      "fires": false,
+      "data_quality": "estimate_only_single_source"
+    },
+    "rt_spike_veto": {
+      "grwest_midday_trough_mw": 2988,
+      "grwest_midday_trough_he": 15,
+      "veto_threshold_mw": 5500,
+      "veto_active": true,
+      "veto_hours": "HE13-21_approx",
+      "effect": "blocks_INC_positions"
+    },
+    "w2n_overnight": {
+      "grwest_he01_mw": 11216,
+      "grwest_he05_mw": 13248,
+      "sci_range": "0.374-0.442",
+      "p_binding_he01_05_range": "15-22%",
+      "hub_pair_lmp_available": false,
+      "hub_pair_lmp_absent_days": 103,
+      "decision": "NOT_ENTERED",
+      "rationale": "Hub-pair LMP absent 103rd consecutive cycle; no basis calibration possible; W2N BLOCK applied precautionary"
+    },
+    "south_houston_INC": {
+      "p_binding_he18_21_range": "NEGLIGIBLE<3%",
+      "medium_threshold_pct": 22,
+      "fires": false
+    }
+  },
+  "p_construction_reference_he10": {
+    "structural_base_mild_tier": 0.52,
+    "tuesday_wdpeak_adjustment": 0.00,
+    "sb_degraded_day37_penalty": -0.03,
+    "single_source_extra_discount": -0.02,
+    "da_positive_blocker": -0.01,
+    "net_p_win": 0.46,
+    "threshold": 0.55,
+    "decision": "SKIP"
+  },
+  "positions": [
+    {
+      "he": 1, "decision": "SKIP", "direction": null, "hub": null, "mw": 0,
+      "da_bid_price_usd": null, "p_win": 0.50, "e_spread_usd": null, "e_p50_usd": null,
+      "trigger": "SKIP_w2n_no_hubpair_LMP",
+      "note": "W2N LOW-MEDIUM 15%; GR_WEST 11,216 MW (SCI 0.374); hub-pair LMP absent (103rd); OFFPEAK; DA $25-40"
+    },
+    {
+      "he": 2, "decision": "SKIP", "direction": null, "hub": null, "mw": 0,
+      "da_bid_price_usd": null, "p_win": 0.50, "e_spread_usd": null, "e_p50_usd": null,
+      "trigger": "SKIP_w2n_no_hubpair_LMP",
+      "note": "W2N 17%; GR_WEST ~11,760 MW (SCI ~0.392); hub-pair LMP absent; OFFPEAK"
+    },
+    {
+      "he": 3, "decision": "SKIP", "direction": null, "hub": null, "mw": 0,
+      "da_bid_price_usd": null, "p_win": 0.50, "e_spread_usd": null, "e_p50_usd": null,
+      "trigger": "SKIP_w2n_no_hubpair_LMP",
+      "note": "W2N 19%; GR_WEST ~12,480 MW (SCI ~0.416); hub-pair LMP absent; OFFPEAK"
+    },
+    {
+      "he": 4, "decision": "SKIP", "direction": null, "hub": null, "mw": 0,
+      "da_bid_price_usd": null, "p_win": 0.50, "e_spread_usd": null, "e_p50_usd": null,
+      "trigger": "SKIP_w2n_no_hubpair_LMP",
+      "note": "W2N 20%; GR_WEST ~12,900 MW (SCI ~0.430); hub-pair LMP absent; OFFPEAK; DA $25-35"
+    },
+    {
+      "he": 5, "decision": "SKIP", "direction": null, "hub": null, "mw": 0,
+      "da_bid_price_usd": null, "p_win": 0.50, "e_spread_usd": null, "e_p50_usd": null,
+      "trigger": "SKIP_w2n_no_hubpair_LMP",
+      "note": "W2N 22% (peak of overnight block); GR_WEST 13,248 MW (SCI 0.442); hub-pair LMP absent; OFFPEAK"
+    },
+    {
+      "he": 6, "decision": "SKIP", "direction": null, "hub": null, "mw": 0,
+      "da_bid_price_usd": null, "p_win": 0.50, "e_spread_usd": null, "e_p50_usd": null,
+      "trigger": "SKIP",
+      "note": "W2N VERY LOW 5-8% (SCI 0.344); GR_WEST ~10,320 MW; dawn transition; no signal"
+    },
+    {
+      "he": 7, "decision": "SKIP", "direction": null, "hub": null, "mw": 0,
+      "da_bid_price_usd": null, "p_win": 0.50, "e_spread_usd": null, "e_p50_usd": null,
+      "trigger": "SKIP",
+      "note": "WDPEAK onset; NL ~47 GW; solar onset; DA $30-50; no trigger"
+    },
+    {
+      "he": 8, "decision": "SKIP", "direction": null, "hub": null, "mw": 0,
+      "da_bid_price_usd": null, "p_win": 0.50, "e_spread_usd": null, "e_p50_usd": null,
+      "trigger": "SKIP",
+      "note": "Morning ramp; NL ~48 GW; solar ramping; DA $30-50; no trigger"
+    },
+    {
+      "he": 9, "decision": "SKIP", "direction": null, "hub": null, "mw": 0,
+      "da_bid_price_usd": null, "p_win": 0.51, "e_spread_usd": null, "e_p50_usd": null,
+      "trigger": "duck_floor_DEC_MILD_not_fired",
+      "note": "NL ~39 GW MILD; solar belly onset; DA $10-35 (positive); structural P ~53% after SB-DEG -3 ppt + single-source -2 ppt = 48%; below 55% threshold; SKIP"
+    },
+    {
+      "he": 10, "decision": "SKIP", "direction": null, "hub": null, "mw": 0,
+      "da_bid_price_usd": null, "p_win": 0.46, "e_spread_usd": null, "e_p50_usd": null,
+      "trigger": "duck_floor_DEC_MILD_not_fired_DA_positive",
+      "p_construction": {
+        "structural_base_mild_tier": 0.52,
+        "tuesday_wdpeak_adjustment": 0.00,
+        "sb_degraded_day37": -0.03,
+        "single_source_extra_discount": -0.02,
+        "da_positive_blocker": -0.01,
+        "net": 0.46
+      },
+      "note": "NL 32,127 MW MILD (127 MW above 32,000 MW MODERATE boundary); DA $10-35/MWh — market-analyst 'no negative prices expected'; duck curve MILD per congestion-analyst; P 46% after adjustments; well below 55% threshold; SKIP"
+    },
+    {
+      "he": 11, "decision": "SKIP", "direction": null, "hub": null, "mw": 0,
+      "da_bid_price_usd": null, "p_win": 0.47, "e_spread_usd": null, "e_p50_usd": null,
+      "trigger": "duck_floor_DEC_MILD_not_fired",
+      "note": "NL ~33-35 GW MILD; solar ~28 GW plateau; DA $10-35 (positive); P 47% after adjustments; below 55% threshold; SKIP"
+    },
+    {
+      "he": 12, "decision": "SKIP", "direction": null, "hub": null, "mw": 0,
+      "da_bid_price_usd": null, "p_win": 0.50, "e_spread_usd": null, "e_p50_usd": null,
+      "trigger": "duck_floor_DEC_MILD_not_fired",
+      "note": "Solar peak 30,796 MW; NL ~37 GW MILD; E[GKS MCC] -$0.2 to -$0.8 (small); DA $10-35; SKIP"
+    },
+    {
+      "he": 13, "decision": "SKIP", "direction": null, "hub": null, "mw": 0,
+      "da_bid_price_usd": null, "p_win": 0.50, "e_spread_usd": null, "e_p50_usd": null,
+      "trigger": "SKIP_RT_spike_veto",
+      "note": "Shoulder onset; NL ~42 GW; RT spike veto ACTIVE (GR_WEST approaching trough); DA $40-90; INC blocked"
+    },
+    {
+      "he": 14, "decision": "SKIP", "direction": null, "hub": null, "mw": 0,
+      "da_bid_price_usd": null, "p_win": 0.50, "e_spread_usd": null, "e_p50_usd": null,
+      "trigger": "SKIP_RT_spike_veto",
+      "note": "Shoulder; NL ~46 GW; RT spike veto ACTIVE; DA $40-90; DEC no signal"
+    },
+    {
+      "he": 15, "decision": "SKIP", "direction": null, "hub": null, "mw": 0,
+      "da_bid_price_usd": null, "p_win": 0.50, "e_spread_usd": null, "e_p50_usd": null,
+      "trigger": "SKIP_RT_spike_veto_peak",
+      "note": "GR_WEST trough 2,988 MW (RT spike veto peak); NL ~50 GW; DA $40-90; RT spike veto PEAK ACTIVE; no INC or DEC trigger"
+    },
+    {
+      "he": 16, "decision": "SKIP", "direction": null, "hub": null, "mw": 0,
+      "da_bid_price_usd": null, "p_win": 0.50, "e_spread_usd": null, "e_p50_usd": null,
+      "trigger": "SKIP_RT_spike_veto",
+      "note": "Peak plateau; NL ~51 GW (load peak HE16 = 85,477 MW); RT spike veto; DA $75-120"
+    },
+    {
+      "he": 17, "decision": "SKIP", "direction": null, "hub": null, "mw": 0,
+      "da_bid_price_usd": null, "p_win": 0.50, "e_spread_usd": null, "e_p50_usd": null,
+      "trigger": "SKIP_RT_spike_veto",
+      "note": "Peak plateau; NL ~53 GW; RT spike veto; DA $75-120"
+    },
+    {
+      "he": 18, "decision": "SKIP", "direction": null, "hub": null, "mw": 0,
+      "da_bid_price_usd": null, "p_win": 0.50, "e_spread_usd": null, "e_p50_usd": null,
+      "trigger": "SKIP_cond1_base_RT_spike_veto",
+      "note": "Peak plateau; NL ~54 GW; cond1 ramp base hour; RT spike veto; GR_COASTAL 3,141 MW (HE19 peak); DA $75-120"
+    },
+    {
+      "he": 19, "decision": "SKIP", "direction": null, "hub": null, "mw": 0,
+      "da_bid_price_usd": null, "p_win": 0.51, "e_spread_usd": null, "e_p50_usd": null,
+      "trigger": "SKIP_INC_RT_spike_veto_DEC_P_unknown",
+      "watchlist": true,
+      "note": "Solar cliff onset; NL ~58 GW (stated market-view); DA $90-160; RT spike veto blocks INC; DEC direction plausible (market-analyst: spread likely negative HE19-21) but P(DEC win) unquantifiable without SB; secondary DEC trigger fails; WATCHLIST"
+    },
+    {
+      "he": 20, "decision": "SKIP", "direction": null, "hub": null, "mw": 0,
+      "da_bid_price_usd": null, "p_win": 0.50, "e_spread_usd": null, "e_p50_usd": null,
+      "trigger": "SKIP_secondary_DEC_both_gates_fail_INC_P_unknown",
+      "watchlist": true,
+      "trigger_detail": {
+        "nl_mw": 64515,
+        "nl_gate_mw": 70000,
+        "nl_condition": "FAIL",
+        "nl_gap_mw": -5485,
+        "cap_out_mw": 7963,
+        "cap_out_gate_mw": 7000,
+        "cap_out_condition": "FAIL"
+      },
+      "note": "CRITICAL hour: NL 64,515 MW + 7,963 MW offline + solar cliff -10,182 MW HE19->HE20 + wind only 12,430 MW; secondary DEC: NL 64,515 < 70,000 FAIL (-5,485) AND cap-out 7,963 > 7,000 FAIL (+963); INC: RT spike P(RT>$300) est 8-15%; direction unknown without SB; WATCHLIST"
+    },
+    {
+      "he": 21, "decision": "SKIP", "direction": null, "hub": null, "mw": 0,
+      "da_bid_price_usd": null, "p_win": 0.50, "e_spread_usd": null, "e_p50_usd": null,
+      "trigger": "SKIP_secondary_NL_fail_cond1_fail",
+      "note": "Evening NL ~60-63 GW; solar ~0; cond1 est ramp +7k-10k MW < 20k threshold (FAIL); wind building; secondary NL FAIL; SKIP"
+    },
+    {
+      "he": 22, "decision": "SKIP", "direction": null, "hub": null, "mw": 0,
+      "da_bid_price_usd": null, "p_win": 0.50, "e_spread_usd": null, "e_p50_usd": null,
+      "trigger": "SKIP",
+      "note": "Evening decline; NL ~58-60 GW; solar ~0; W2N LOW (SCI 0.342); DA $80-150; no trigger"
+    },
+    {
+      "he": 23, "decision": "SKIP", "direction": null, "hub": null, "mw": 0,
+      "da_bid_price_usd": null, "p_win": 0.50, "e_spread_usd": null, "e_p50_usd": null,
+      "trigger": "SKIP",
+      "note": "OFFPEAK; wind surge; NL ~50 GW; DA $35-55; W2N LOW (SCI 0.310); no hub-pair LMP; no position"
+    },
+    {
+      "he": 24, "decision": "SKIP", "direction": null, "hub": null, "mw": 0,
+      "da_bid_price_usd": null, "p_win": 0.50, "e_spread_usd": null, "e_p50_usd": null,
+      "trigger": "SKIP",
+      "note": "OFFPEAK; wind building; NL ~48 GW; DA $35-55; W2N LOW (SCI 0.274); no hub-pair LMP; no position"
+    }
+  ],
+  "settlement_reference": {
+    "field": "dart_virtual_revenue",
+    "parquet_path": "shared/data/pnl/gks/hourly/2026-09-01.parquet",
+    "expected_settlement_usd": 0,
+    "reason": "advisory-only mode; no ERCOT submissions",
+    "t_plus_2_date": "2026-09-03",
+    "self_review_target": "memory/dart-virtual-trader/learnings/2026-09-01.md",
+    "overdue_t2_note": "Aug 29 T+2 due Aug 31 OVERDUE. Aug 30 T+2 due Sep 1 (today). Escalate to pnl-manager and Tenaska Ascend."
+  },
+  "risks": [
+    {
+      "id": 1,
+      "label": "HE20_RT_spike_CRITICAL",
+      "level": "CRITICAL",
+      "hours": "HE20",
+      "watchlist": true,
+      "detail": "NL 64,515 MW + 7,963 MW offline + wind 12,430 MW + solar cliff -10,182 MW in 1 hour. P(RT > $300/MWh) structural est 8-15%. Secondary DEC trigger fails (NL 64,515 < 70,000; cap-out 7,963 > 7,000). No position entered. Monitoring: ERCOT emergency alert at HE19-20. Missed opportunity risk if RT >> DA."
+    },
+    {
+      "id": 2,
+      "label": "GR_WEST_midday_collapse_worse_than_forecast",
+      "level": "HIGH",
+      "hours": "HE13-20",
+      "detail": "GR_WEST forecast 2,988 MW at HE15. Actual could be lower (< 1,500 MW). RT spike risk escalates sharply if GR_WEST < 1,500 MW at HE16-18. RT spike veto already active; INC would have been catastrophic. BESS-optimizer domain risk."
+    },
+    {
+      "id": 3,
+      "label": "single_source_NL_trough_wrong",
+      "level": "HIGH",
+      "hours": "HE09-12",
+      "detail": "No Enverus or AG2 cross-check for Sep 1. If actual NL trough is 1,000-2,000 MW lower (~30,000-31,000 MW = MODERATE), model would miss duck-floor DEC entry. This is the primary opportunity cost of today's FLAT decision. Model would fire at MODERATE with DA going negative."
+    },
+    {
+      "id": 4,
+      "label": "INC_HE20_missed_opportunity",
+      "level": "MEDIUM",
+      "hours": "HE20",
+      "watchlist": true,
+      "detail": "If DA prices scarcity at $200+ and RT settles at $120-150 (no spike, buffered by wind/imports), DA > RT → positive spread → INC wins. Cannot enter INC without SB (P direction unknown) and RT spike veto active. Estimated opportunity cost: 25 MW × $80 = +$2,000 in such scenario."
+    },
+    {
+      "id": 5,
+      "label": "aug30_learning_update_not_field_tested",
+      "level": "MEDIUM",
+      "hours": "duck_hours_future",
+      "detail": "Model update A (EXTREME NL < 22,000 MW → DEC in summer heat wave) proposed in learnings/2026-08-30.md. Not applicable to Sep 1 (NL MILD, 32,127 MW). First live test will be next EXTREME NL event. Monitor weather forecast for extended heat."
+    },
+    {
+      "id": 6,
+      "label": "Smartbidder_Day37",
+      "level": "CRITICAL",
+      "hours": "ALL",
+      "detail": "Operating without probabilistic price confirmation for 37th consecutive cycle. Direction calibration fundamentally limited at duck floor and evening scarcity hours. Immediate Ascend rep escalation required. All P(win) estimates carry ±5 ppt irreducible uncertainty."
+    },
+    {
+      "id": 7,
+      "label": "T2_backlog_critical",
+      "level": "HIGH",
+      "hours": "ALL",
+      "detail": "Aug 29 T+2 OVERDUE (due Aug 31). Aug 30 T+2 due today (Sep 1). Without Tenaska settlement data, cannot validate Aug 29 DEC direction (proxy suggests wrong — +$5.66 daily avg spread = INC wins) or Aug 30 INC direction (proxy: RT $16/MWh vs DA -$100 → DEC wins → INC was wrong). Model calibration blocked by settlement gap."
+    }
+  ]
+}
