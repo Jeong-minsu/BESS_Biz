@@ -1,0 +1,33 @@
+{
+  "flowday": "2026-09-02",
+  "source": "Tenaska PTP Battery-Settlement-Details",
+  "note": "RT_Generation_Qty partial (only hours with gen activity); DA_MWh/RT_MWh derived from Amt/Price",
+  "revenue_usd": {
+    "da_energy": 1382.0,
+    "rt_energy": -885.01,
+    "as_ecrs": 593.5,
+    "as_ns": 856.7,
+    "as_rrs": 0.0,
+    "as_regup": 0.0,
+    "as_regdown": 0.0,
+    "rt_ancillary_imbalance": 0.0,
+    "rt_reliability_deploy_imbalance": 0.0,
+    "total": 1947.19
+  },
+  "energy_mwh": {
+    "da_net_mwh": 20.0,
+    "rt_net_mwh": -93.484,
+    "rt_generation_mwh": 31.5693,
+    "rt_consumption_mwh": 111.2149
+  },
+  "as_avg_mw": {
+    "ns": 57.38,
+    "rrs": 0.0,
+    "ecrs": 50.0
+  },
+  "avg_prices": {
+    "da_spp": 31.9242,
+    "rt_spp": 37.5541
+  },
+  "smartbidder_benchmark": "UNAVAILABLE \u2014 AADSTS7000222 client_secret expired"
+}
