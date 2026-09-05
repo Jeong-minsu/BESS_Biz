@@ -1,0 +1,111 @@
+{
+  "meta": {
+    "flowday": "2026-09-06",
+    "day_type": "SUNDAY_WEPEAK",
+    "filed_at": "2026-09-05T07:30:00-05:00",
+    "agent": "dart-virtual-trader",
+    "model_version": "v3_no_sb_degraded",
+    "advisory_only": true,
+    "data_quality": {
+      "yes_energy": "PRODUCTION",
+      "smartbidder": "UNAVAILABLE_day_42plus",
+      "enverus": "ABSENT",
+      "ag2": "ABSENT",
+      "hub_pair_lmp": "ABSENT_cycle_108",
+      "degraded_penalty_ppt": -4,
+      "effective_raw_floor_pct": 59
+    }
+  },
+  "summary": {
+    "net_direction": "DEC_bias",
+    "active_hours": 2,
+    "skip_hours": 22,
+    "total_mw_notional": 30,
+    "expected_pnl_p50_gross_usd": 372,
+    "expected_pnl_confidence_weighted_usd": 211,
+    "primary_trigger": "SCARCITY_CLIFF_DEC",
+    "trigger_detail": "NL_HE20=64987MW_and_NL_HE21=63935MW_both_exceed_60000MW_gate"
+  },
+  "positions": [
+    {
+      "hour_ending": 20,
+      "peak_type": "WEPEAK",
+      "direction": "DEC",
+      "direction_label": "Long_DA_Short_RT",
+      "hub": "HB_NORTH",
+      "mw": 15,
+      "dec_bid_price_usd_per_mwh": 145,
+      "p_win_raw_pct": 62,
+      "p_win_adjusted_pct": 58,
+      "conviction": "MEDIUM",
+      "size_rule": "half_size",
+      "net_load_mw": 64987,
+      "solar_mw": 1843,
+      "wind_total_mw": 11098,
+      "gr_west_mw": 5047,
+      "da_estimate_range_usd": [70, 130],
+      "rt_estimate_scenario_usd": [80, 160],
+      "expected_spread_when_win_usd_per_mwh": -30,
+      "expected_spread_when_lose_usd_per_mwh": 20,
+      "e_p50_gross_usd": 135,
+      "primary_analog": "2026-09-02_HE20_DEC_WIN_plus242usd_spread_neg12.11",
+      "fill_condition": "DA_clears_below_145",
+      "key_risk": "wind_ramp_in_RT_exceeds_BidClose_suppresses_RT_price"
+    },
+    {
+      "hour_ending": 21,
+      "peak_type": "WEPEAK",
+      "direction": "DEC",
+      "direction_label": "Long_DA_Short_RT",
+      "hub": "HB_NORTH",
+      "mw": 15,
+      "dec_bid_price_usd_per_mwh": 65,
+      "p_win_raw_pct": 60,
+      "p_win_adjusted_pct": 56,
+      "conviction": "MEDIUM",
+      "size_rule": "half_size",
+      "net_load_mw": 63935,
+      "solar_mw": 2,
+      "wind_total_mw": 12131,
+      "gr_west_mw": 5910,
+      "da_estimate_range_usd": [25, 55],
+      "rt_estimate_scenario_usd": [60, 200],
+      "expected_spread_when_win_usd_per_mwh": -40,
+      "expected_spread_when_lose_usd_per_mwh": 15,
+      "e_p50_gross_usd": 237,
+      "primary_analog": "2026-09-01_HE21_spread_neg20.03",
+      "fill_condition": "DA_clears_below_65",
+      "key_risk": "wind_building_HE21_suppresses_RT_spike_thesis; DA_may_not_collapse_if_wind_ramp_priced_in"
+    }
+  ],
+  "skip_summary": {
+    "HE01_03": "GR_WEST_below_11000MW_gate (max 8963MW HE01)",
+    "HE04_06": "OFFPEAK_no_trigger",
+    "HE07_09": "INC_RT_spike_veto_active_GR_WEST_below_5500MW",
+    "HE10_12": "MILD_duck_curve_NL_32970MW; P_adj_49to52pct_below_55pct_threshold; RT_spike_veto_active",
+    "HE13_18": "NL_below_60000MW_gate; INC_veto_active; no_trigger",
+    "HE19": "NL_59430MW_570MW_below_60000MW_DEC_gate",
+    "HE22": "NL_60354MW_354MW_above_gate_insufficient; wind_building_strongly; P_adj_48pct",
+    "HE23_24": "OFFPEAK; GR_WEST_7534to7810MW_below_11000MW_gate"
+  },
+  "model_gates_applied": {
+    "gr_west_11000mw_overnight_inc_gate": true,
+    "rt_spike_veto_gr_west_below_5500mw": true,
+    "scarcity_cliff_dec_nl_60000mw_gate": true,
+    "duck_floor_inc_nl_below_32000mw_gate": "not_triggered_NL_32970MW_MILD",
+    "degraded_data_penalty": "-4ppt_3of4_sources_absent"
+  },
+  "congestion_inputs": {
+    "duck_curve_midday": {"tier": "MILD", "p_binding_pct": "6-10", "note": "NL_trough_32970MW_970MW_above_32000MW_boundary"},
+    "west_to_north_345": {"p_binding_pct": "4-8", "note": "GR_WEST_max_8963MW_SCI_0.300_below_MEDIUM_threshold_0.350"},
+    "south_houston_import": {"p_binding_pct": "1-3", "note": "NEGLIGIBLE_evening_wind_surge_suppressing_ramp"},
+    "hb_west_hb_north_basis_usd": -1.0,
+    "hb_houston_hb_north_basis_usd": 0.5
+  },
+  "settlement": {
+    "t_plus_2_date": "2026-09-08",
+    "dart_virtual_revenue_field": "shared/data/pnl/gks/hourly/2026-09-06.parquet",
+    "expected_advisory": "P50_plus_372usd",
+    "self_review_target": "memory/dart-virtual-trader/learnings/2026-09-07.md"
+  }
+}
