@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERCOT Weekly Report — 2026-W36 (Aug 31 – Sep 6)</title>
+<style>
+:root {
+  --bg-base:        #f7f8fa;
+  --bg-panel:       #ffffff;
+  --bg-panel-2:     #f0f2f5;
+  --bg-row-alt:     #fafbfc;
+  --border-soft:    #e0e3eb;
+  --border-strong:  #c8ccd4;
+  --text-primary:   #131722;
+  --text-secondary: #5d606b;
+  --text-muted:     #9598a1;
+  --accent-up:      #089981;
+  --accent-down:    #f23645;
+  --accent-blue:    #2962ff;
+  --accent-amber:   #ff9800;
+  --accent-gold:    #d4a017;
+  --accent-red-bg:  #fff1f2;
+  --accent-amber-bg:#fff8e1;
+  --grid-line:      #eceff3;
+  --shadow-card:    0 1px 2px rgba(16,24,40,0.04);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.page { max-width: 1300px; margin: 0 auto; padding: 20px 24px; }
+
+/* Header */
+.header {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.header-title { font-size: 20px; font-weight: 700; color: var(--text-primary); letter-spacing: -0.4px; }
+.header-sub { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+.header-badges { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 10px; border-radius: 4px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.04em;
+}
+.badge-blue   { background:#e3f2fd; color:#1565c0; border:1px solid #90caf9; }
+.badge-amber  { background:#fff3e0; color:#e65100; border:1px solid #ffcc80; }
+.badge-red    { background:#ffebee; color:#c62828; border:1px solid #ef9a9a; }
+.badge-green  { background:#e8f5e9; color:#2e7d32; border:1px solid #a5d6a7; }
+
+/* Data status table */
+.status-table-wrap {
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 14px;
+  font-size: 11.5px;
+}
+.status-table-wrap table { border-collapse: collapse; width: 100%; }
+.status-table-wrap th { text-align: left; color: var(--text-secondary); font-weight: 600; padding: 4px 10px 4px 0; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+.status-table-wrap td { padding: 4px 10px 4px 0; color: var(--text-primary); vertical-align: top; }
+.status-table-wrap tr:not(:last-child) td { border-bottom: 1px solid #ffe082; }
+.status-prod  { color: var(--accent-up); font-weight: 600; }
+.status-deg   { color: var(--accent-amber); font-weight: 600; }
+.status-fail  { color: var(--accent-down); font-weight: 600; }
+
+/* KPI row */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.kpi {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 14px 18px;
+  box-shadow: var(--shadow-card);
+}
+.kpi-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); margin-bottom: 6px; font-weight: 500; }
+.kpi-value { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 24px; font-weight: 600; color: var(--text-primary); line-height: 1.1; }
+.kpi-sub   { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+.kpi-up    { color: var(--accent-up); }
+.kpi-down  { color: var(--accent-down); }
+.kpi-amber { color: var(--accent-amber); }
+
+/* Section panels */
+.section {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  margin-bottom: 14px;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+.section-header {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border-soft);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  background: var(--bg-panel);
+}
+.section-header:hover { background: var(--bg-panel-2); }
+.section-title { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+.section-num { font-size: 11px; color: var(--text-muted); font-weight: 400; margin-right: 8px; }
+.section-body { padding: 16px 20px; }
+.section-body.collapsed { display: none; }
+.toggle-icon { font-size: 16px; color: var(--text-muted); transition: transform 0.15s; }
+.toggle-icon.open { transform: rotate(90deg); }
+
+/* Tables */
+table.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+table.data-table thead th {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-secondary);
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--border-soft);
+  font-weight: 600;
+  text-align: right;
+  white-space: nowrap;
+  background: var(--bg-row-alt);
+}
+table.data-table thead th:first-child,
+table.data-table thead th:nth-child(2) { text-align: left; }
+table.data-table tbody td {
+  padding: 7px 10px;
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-size: 12px;
+  text-align: right;
+  border-bottom: 1px solid var(--grid-line);
+  color: var(--text-primary);
+}
+table.data-table tbody td:first-child { text-align: left; font-family: inherit; font-weight: 500; }
+table.data-table tbody td:nth-child(2) { text-align: left; font-family: inherit; }
+table.data-table tbody tr:last-child td { border-bottom: none; font-weight: 700; background: var(--bg-row-alt); }
+table.data-table tbody tr:hover td { background: var(--bg-panel-2); }
+.positive { color: var(--accent-up); }
+.negative { color: var(--accent-down); }
+.na-cell  { color: var(--text-muted); }
+
+/* P&L daily table — special rows */
+tr.prod-row td { }
+tr.deg-row td  { background: #fff3e0 !important; }
+tr.fail-row td { background: #ffebee !important; color: #c62828 !important; }
+tr.sum-row td  { background: #e3f2fd !important; font-weight: 700; border-top: 2px solid #90caf9; }
+
+/* Critical/Major/Minor tags */
+.tag {
+  display: inline-flex; align-items: center;
+  padding: 2px 7px; border-radius: 3px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.05em;
+}
+.tag-critical { background: #ffebee; color: #c62828; border: 1px solid #ef9a9a; }
+.tag-major    { background: #fff3e0; color: #e65100; border: 1px solid #ffcc80; }
+.tag-minor    { background: #e8f5e9; color: #2e7d32; border: 1px solid #a5d6a7; }
+.tag-na       { background: var(--bg-row-alt); color: var(--text-muted); border: 1px solid var(--border-soft); }
+
+/* Score pills */
+.score { font-family: monospace; font-weight: 700; font-size: 13px; }
+.score-A { color: #089981; }
+.score-B { color: #2962ff; }
+.score-C { color: #ff9800; }
+.score-D { color: #f23645; }
+
+/* Bullet lists */
+.bullet-list { list-style: none; padding: 0; }
+.bullet-list li { padding: 5px 0; padding-left: 16px; position: relative; border-bottom: 1px solid var(--grid-line); }
+.bullet-list li:last-child { border-bottom: none; }
+.bullet-list li::before { content: "•"; position: absolute; left: 0; color: var(--text-muted); }
+
+/* Watch table */
+table.watch-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+table.watch-table th {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--text-secondary); padding: 7px 10px;
+  border-bottom: 1px solid var(--border-soft);
+  font-weight: 600; text-align: left; background: var(--bg-row-alt);
+}
+table.watch-table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--grid-line);
+  vertical-align: top;
+  font-size: 12px;
+}
+table.watch-table tbody tr:last-child td { border-bottom: none; }
+
+/* Action items */
+.action-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--grid-line);
+}
+.action-item:last-child { border-bottom: none; }
+.action-checkbox {
+  width: 16px; height: 16px; border: 2px solid var(--border-strong);
+  border-radius: 3px; flex-shrink: 0; margin-top: 1px;
+}
+.action-body { flex: 1; }
+.action-title { font-weight: 700; font-size: 12.5px; margin-bottom: 3px; }
+.action-detail { font-size: 11.5px; color: var(--text-secondary); }
+
+/* Divider */
+.divider { height: 1px; background: var(--border-soft); margin: 14px 0; }
+
+/* Grid two-col */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .kpi-row { grid-template-columns: repeat(3, 1fr); }
+  .grid-2 { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .kpi-row { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ── HEADER ── -->
+<div class="header">
+  <div>
+    <div class="header-title">ERCOT 전력 트레이딩 Weekly Report</div>
+    <div class="header-sub">2026-W36 &nbsp;|&nbsp; Aug 31 – Sep 6, 2026 &nbsp;|&nbsp; Generated 2026-09-07 07:30 CT &nbsp;|&nbsp; reporter agent</div>
+  </div>
+  <div class="header-badges">
+    <span class="badge badge-blue">2026-W36</span>
+    <span class="badge badge-red">Smartbidder EXPIRED Day 42+</span>
+    <span class="badge badge-amber">Tenaska DEGRADED 4/7</span>
+    <span class="badge badge-amber">BESS Dashboard DEGRADED</span>
+    <span class="badge badge-green">Heat Wave Day 12-17</span>
+  </div>
+</div>
+
+<!-- ── DATA STATUS ── -->
+<div class="status-table-wrap">
+  <strong style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:#7c5900;">Data Status — W36</strong>
+  <table style="margin-top:8px;">
+    <thead><tr><th>Source</th><th>Status</th><th>Detail</th></tr></thead>
+    <tbody>
+      <tr><td>Smartbidder MSAL</td><td><span class="status-fail">EXPIRED</span></td><td>client_secret 만료 2026-07-25~ (Day 36-42 전 주간). Benchmark, price forecast, AS spread, P(DA>RT) 전부 불가.</td></tr>
+      <tr><td>Tenaska PTP</td><td><span class="status-deg">PARTIAL (4/7)</span></td><td>PRODUCTION Aug 31-Sep 2 + Sep 6; FAILED Sep 3-5 (cloud IP 미화이트리스트). T+2 결산 40+ flowday 적체.</td></tr>
+      <tr><td>Yes Energy BidClose</td><td><span class="status-prod">PRODUCTION (6/7)</span></td><td>Sep 4 HTTP 429 rate throttle (1일); 나머지 6일 PRODUCTION.</td></tr>
+      <tr><td>Enverus Mosaic STPF</td><td><span class="status-deg">PARTIAL</span></td><td>Sep 1-4 PRODUCTION; 기타 일자 미수집.</td></tr>
+      <tr><td>AG2 WSI Trader</td><td><span class="status-deg">PARTIAL</span></td><td>Sep 4-6 복귀 PRODUCTION; 나머지 미수집.</td></tr>
+      <tr><td>BESS Revenue Dashboard</td><td><span class="status-deg">DEGRADED — Estimate</span></td><td>60-day public disclosure 캐시 (Jan 1 – Jul 13, 2026). 실시간 아님.</td></tr>
+      <tr><td>BESS DART Dashboard</td><td><span class="status-deg">DEGRADED — Estimate</span></td><td>캐시 Jan 1 – Jul 9, 2026 (May 6-24 gap). 실시간 아님.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ── KPI ROW ── -->
+<div class="kpi-row">
+  <div class="kpi">
+    <div class="kpi-label">W36 Known Revenue</div>
+    <div class="kpi-value kpi-up">$11,551</div>
+    <div class="kpi-sub">4/7 days confirmed &nbsp;|&nbsp; 3 days N/A</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Best Day (Sep 6)</div>
+    <div class="kpi-value kpi-up">$6,232</div>
+    <div class="kpi-sub">NonSpin 73% + ECRS 18%</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Worst Day (Aug 31)</div>
+    <div class="kpi-value kpi-down">-$1,065</div>
+    <div class="kpi-sub">AS+Energy overlap -$25,691 RT</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">GKS Fleet Rank (Energy+AS)</div>
+    <div class="kpi-value kpi-amber">#90</div>
+    <div class="kpi-sub">of 333 &nbsp;|&nbsp; $738K YTD (cached Jul 13)</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Benchmark Delta</div>
+    <div class="kpi-value na-cell">N/A</div>
+    <div class="kpi-sub">Smartbidder EXPIRED Day 42+</div>
+  </div>
+</div>
+
+<!-- ── SECTION 1: WEEKLY P&L ── -->
+<div class="section" id="sec1">
+  <div class="section-header" onclick="toggleSection('sec1')">
+    <div><span class="section-num">01</span><span class="section-title">GKS Weekly P&amp;L — 전주 실적 요약</span></div>
+    <span class="toggle-icon open" id="sec1-icon">&#9654;</span>
+  </div>
+  <div class="section-body" id="sec1-body">
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Flowday</th>
+          <th>Day</th>
+          <th>Total Revenue</th>
+          <th>DA Energy</th>
+          <th>RT Energy</th>
+          <th>ECRS</th>
+          <th>NonSpin</th>
+          <th>Data Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="prod-row">
+          <td>Aug 31</td><td>Mon</td>
+          <td class="negative">-$1,064.57</td>
+          <td>$18,815</td>
+          <td class="negative">-$25,691</td>
+          <td>$806</td>
+          <td>$5,006</td>
+          <td><span class="status-prod">PRODUCTION</span></td>
+        </tr>
+        <tr class="prod-row">
+          <td>Sep 1</td><td>Tue (Labor Day)</td>
+          <td class="positive">$4,436.42</td>
+          <td>$1,895</td>
+          <td class="negative">-$600</td>
+          <td>$887</td>
+          <td>$2,256</td>
+          <td><span class="status-prod">PRODUCTION</span></td>
+        </tr>
+        <tr class="prod-row">
+          <td>Sep 2</td><td>Wed</td>
+          <td class="positive">$1,947.19</td>
+          <td>$1,382</td>
+          <td class="negative">-$885</td>
+          <td>$594</td>
+          <td>$857</td>
+          <td><span class="status-prod">PRODUCTION</span></td>
+        </tr>
+        <tr class="fail-row">
+          <td>Sep 3</td><td>Thu</td>
+          <td class="na-cell">N/A</td>
+          <td class="na-cell">—</td>
+          <td class="na-cell">—</td>
+          <td class="na-cell">—</td>
+          <td class="na-cell">—</td>
+          <td><span class="status-fail">FULLY DEGRADED</span></td>
+        </tr>
+        <tr class="fail-row">
+          <td>Sep 4</td><td>Fri</td>
+          <td class="na-cell">N/A</td>
+          <td class="na-cell">—</td>
+          <td class="na-cell">—</td>
+          <td class="na-cell">—</td>
+          <td class="na-cell">—</td>
+          <td><span class="status-fail">FULLY DEGRADED</span></td>
+        </tr>
+        <tr class="fail-row">
+          <td>Sep 5</td><td>Sat</td>
+          <td class="na-cell">N/A</td>
+          <td class="na-cell">—</td>
+          <td class="na-cell">—</td>
+          <td class="na-cell">—</td>
+          <td class="na-cell">—</td>
+          <td><span class="status-fail">FULLY DEGRADED</span></td>
+        </tr>
+        <tr class="prod-row">
+          <td>Sep 6</td><td>Sun</td>
+          <td class="positive">$6,232.18</td>
+          <td>$0</td>
+          <td class="positive">$572</td>
+          <td>$1,125</td>
+          <td>$4,535</td>
+          <td><span class="status-prod">PRODUCTION</span></td>
+        </tr>
+        <tr class="sum-row">
+          <td>W36 Known Sum</td><td>4/7 days</td>
+          <td class="positive">$11,551.22</td>
+          <td>$22,092</td>
+          <td class="negative">-$26,604</td>
+          <td>$3,412</td>
+          <td>$12,654</td>
+          <td>3 days MISSING</td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="margin-top:12px;font-size:11.5px;color:var(--text-secondary);">
+      <strong>Notes:</strong>
+      <ul class="bullet-list" style="margin-top:6px;">
+        <li>Aug 31 discrepancy: pnl report -$1,064.57 vs pnl-manager data quality log $5,792.39. RT AS 재정산 가능성 — 소급 갱신 필요.</li>
+        <li>Sep 3-5 3일 연속 FULLY DEGRADED: Tenaska cloud IP 미화이트리스트. 수익 추정 없음.</li>
+        <li>Smartbidder benchmark 비교 전 7일 N/A (Day 36-42 만료).</li>
+        <li>DART Virtual: 전 주간 $0.00 — dart-virtual-trader advisory-only mode 유지.</li>
+        <li>Sep 2 bess-optimizer capture rate: $1,947 / $26,433 theoretical = <strong>7.4%</strong> (시리즈 최저). DA charge bid 미실행 + AS+Energy overlap 중첩.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 2: FLEET RANKINGS ── -->
+<div class="section" id="sec2">
+  <div class="section-header" onclick="toggleSection('sec2')">
+    <div><span class="section-num">02</span><span class="section-title">ERCOT All-BESS Fleet Rankings &nbsp;<span class="tag tag-major">DEGRADED — Cached Estimate</span></span></div>
+    <span class="toggle-icon open" id="sec2-icon">&#9654;</span>
+  </div>
+  <div class="section-body" id="sec2-body">
+    <div class="grid-2">
+      <!-- Energy+AS -->
+      <div>
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-secondary);font-weight:600;margin-bottom:10px;">Energy + AS Revenue Ranking &nbsp;|&nbsp; Jan 1 – Jul 13, 2026 (60-day cache)</div>
+        <table class="data-table">
+          <thead>
+            <tr><th>#</th><th>Resource</th><th>Est. Revenue</th><th>Opt Rate</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>#1</td><td>ANOL_ESS_ESR1</td><td class="positive">$3.90M</td><td>—</td></tr>
+            <tr><td>#2</td><td>CNLY_ESS_ESR1</td><td class="positive">—</td><td>—</td></tr>
+            <tr><td>#3</td><td>BOCO_ESS_ESR1</td><td class="positive">—</td><td>—</td></tr>
+            <tr><td colspan="4" style="text-align:center;padding:6px;font-size:11px;color:var(--text-muted);">… (333 resources total)</td></tr>
+            <tr style="background:#fffbeb;">
+              <td style="color:var(--accent-gold);font-weight:700;">#90</td>
+              <td style="color:var(--accent-gold);font-weight:700;">GKS_BESS_ESR1 ★</td>
+              <td style="color:var(--accent-gold);font-weight:700;">$737,926</td>
+              <td style="color:var(--accent-gold);font-weight:700;">93.1%</td>
+            </tr>
+            <tr><td colspan="2" style="font-weight:700;">Fleet Total (333)</td><td class="positive">$183.6M</td><td>52.2% median</td></tr>
+          </tbody>
+        </table>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:6px;">GKS opt rate 93.1% &gt;&gt; fleet median 52.2% — AS+Energy overlap 손실에도 가동률 자체는 우수. 실시간 W36 순위 확인 불가.</div>
+      </div>
+      <!-- DART -->
+      <div>
+        <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-secondary);font-weight:600;margin-bottom:10px;">DART Virtual Revenue Ranking &nbsp;|&nbsp; Jan 1 – Jul 9, 2026 (May 6-24 gap)</div>
+        <table class="data-table">
+          <thead>
+            <tr><th>#</th><th>Node</th><th>Est. Net Rev.</th><th>Win Rate</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>#1</td><td>RRANCHES_ALL</td><td class="positive">$1.10M</td><td>—</td></tr>
+            <tr><td colspan="4" style="text-align:center;padding:6px;font-size:11px;color:var(--text-muted);">Top 30 avg: 44.1% win rate, 9.2x P/L ratio</td></tr>
+            <tr><td colspan="4" style="text-align:center;padding:6px;font-size:11px;color:var(--text-muted);">… (286 nodes total)</td></tr>
+            <tr style="background:#ffebee;">
+              <td style="color:var(--accent-down);font-weight:700;">#286</td>
+              <td style="color:var(--accent-down);font-weight:700;">GKS_BESS_ESR1 (LAST)</td>
+              <td style="color:var(--accent-down);font-weight:700;">-$208,214</td>
+              <td style="color:var(--accent-down);font-weight:700;">—</td>
+            </tr>
+            <tr><td colspan="2" style="font-weight:700;">Fleet Total (286 nodes)</td><td class="positive">$3.77M</td><td>—</td></tr>
+          </tbody>
+        </table>
+        <div style="font-size:11px;color:var(--text-muted);margin-top:6px;">GKS DART virtual 최하위. Advisory-only mode — 실제 virtual bid 없음. W36 advisory P&amp;L: Sep 2 +$257.90 (2/4 filled, 100% win rate on filled). 캐시 데이터 기준.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SECTION 3: STRUCTURAL UPDATE ── -->
+<div class="section" id="sec3">
+  <div class="section-header" onclick="toggleSection('sec3')">
+    <div><span class="section-num">03</span><span class="section-title">ERCOT Structural / Policy Update</span></div>
+    <span class="toggle-icon open" id="sec3-icon">&#9654;</span>
+  </div>
+  <div class="section-body" id="sec3-body">
+    <ul class="bullet-list">
+      <li>
+        <strong>Heat Wave Day 12-17 완주 — ERCOT 역사적 기록.</strong>
+        17일 연속 극열 운영 Conservation Appeal 없이 완수. W36 피크 부하 89,093 MW (Aug 31). Cap-out 9,000-11,000 MW 범위로 정상 초기-9월 대비 2.5-3 GW 초과 — 누적 forced outage 지속. Solar 계절 하락 확인: 33,556 MW(Aug 31) → 24,855 MW(Sep 3), 피크 시간 HE12→HE14 이동. Sep 3 GR_WEST HE15 443 MW = 열파 시리즈 최저치.
+      </li>
+      <li>
+        <strong>OBBBA — Solar/Wind Jul 4, 2026 건설 착공 Deadline 경과; BESS ITC 2033년까지 유지.</strong>
+        Jul 4, 2026 이후 신규 착공 태양광/풍력은 가속 phase-down 적용. BESS Section 48E ITC 전액 2033년 유지. 구조적으로 BESS-only 프로젝트 경쟁 우위. 2028-2029 태양광 신규 성장 둔화 예상. FEOC 공급망 제약으로 BESS 성장률 완화.
+      </li>
+      <li>
+        <strong>Batch Zero 데이터센터 감사 — RFI Wave 진행 중 (Governor Abbott, Aug 3).</strong>
+        ~300개 75 MW+ 데이터센터 프로젝트 RFI 발송 중. 49.8 GW+ 신규 접속 동결. 타임라인: Oct-Nov 정보 수집 → Dec 10 ERCOT 보고서 → Dec 17 PUCT 회의. 2026년 내 신규 대형 데이터센터 접속 불가.
+      </li>
+      <li>
+        <strong>16 TAC §25.194 (대형 부하 접속 기준) Sep 2026 채택 예정.</strong>
+        $50,000/MW 재정보증 요건. 75 MW+ 부하 접속 기준 ERCOT 사상 최초 제정. Sep/Oct PUCT open meeting (Project No. 58481). 채택 시 438,000 MW 접속 큐 구조적 정리 촉진. SB 6 구현의 핵심 트랙.
+      </li>
+      <li>
+        <strong>STEP Permian 765-kV CCN: Aug 28 첫 2개 구간 승인; Sep 25 다음 청문.</strong>
+        Sep 25 PUCT 청문에서 추가 4개 구간 검토. Lt. Gov. Patrick + Sen. Schwertner 반대에도 불구하고 PUCT 승인 궤도 유지.
+      </li>
+      <li>
+        <strong>Sep 3 ROS 회의록 미공개; TAC는 W36 없음 (8월 26-27 TAC 이후).</strong>
+        Sep 3 ROS 주요 안건: Batch Zero 감사 타임라인, 2026 하계 운영 종합, Aug 27 TAC AS methodology 2027 계획. 공식 회의록 ercot.com 공개 후 확인 필요.
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── SECTION 4: EVALUATOR SCORECARD ── -->
+<div class="section" id="sec4">
+  <div class="section-header" onclick="toggleSection('sec4')">
+    <div><span class="section-num">04</span><span class="section-title">Evaluator Scorecard Summary &nbsp;<span class="tag tag-critical">6 Critical Issues</span>&nbsp;<span class="tag tag-major">0/6 W35 Plans Resolved</span></span></div>
+    <span class="toggle-icon open" id="sec4-icon">&#9654;</span>
+  </div>
+  <div class="section-body" id="sec4-body">
+
+    <!-- Per-agent scores -->
+    <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-secondary);font-weight:600;margin-bottom:8px;">Per-Agent Overall Grade</div>
+    <table class="data-table" style="margin-bottom:16px;">
+      <thead>
+        <tr><th>Agent</th><th>Grade</th><th>Trend</th><th>Process</th><th>Approach</th><th>Resource</th><th>Key Issue</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>market-analyst</td>
+          <td><span class="score score-B">B+</span></td>
+          <td>↑</td><td>A-</td><td>B+</td><td>B</td>
+          <td>7/7 dir 최초 달성; BRIEFING_TEMPLATE.md 6주 부재 <span class="tag tag-critical">C5</span></td>
+        </tr>
+        <tr>
+          <td>bess-optimizer</td>
+          <td><span class="score score-C">C</span></td>
+          <td>↓</td><td>C</td><td>C-</td><td>B-</td>
+          <td>DA charge bid failure 7th+ <span class="tag tag-critical">C2</span>; AS+Energy overlap 3rd <span class="tag tag-critical">C3</span></td>
+        </tr>
+        <tr>
+          <td>dart-virtual-trader</td>
+          <td><span class="score score-D">D-</span></td>
+          <td>↓</td><td>D-</td><td>N/A</td><td>C+</td>
+          <td>1/7 dir — 10주 연속 비준수 (W35→W36 2/7→1/7 퇴보) <span class="tag tag-critical">C1</span></td>
+        </tr>
+        <tr>
+          <td>crr-trader</td>
+          <td><span class="score na-cell">—</span></td>
+          <td>—</td><td>—</td><td>—</td><td>—</td>
+          <td>W36 비옥션 사이클 (inactive)</td>
+        </tr>
+        <tr>
+          <td>congestion-analyst</td>
+          <td><span class="score score-B">B-</span></td>
+          <td>→</td><td>C+</td><td>A-</td><td>B-</td>
+          <td>7/7 dir; stage-0-rules.md 7주 부재 <span class="tag tag-critical">C6</span></td>
+        </tr>
+        <tr>
+          <td>pnl-manager</td>
+          <td><span class="score score-C">C-</span></td>
+          <td>↓</td><td>D+</td><td>B</td><td>C</td>
+          <td>1/7 learnings — 4주 연속 0-1/7 <span class="tag tag-critical">C4</span></td>
+        </tr>
+        <tr>
+          <td>reporter</td>
+          <td><span class="score score-B">B-</span></td>
+          <td>→</td><td>B-</td><td>B</td><td>B-</td>
+          <td>Path Verification 6주 미구현 <span class="tag tag-major">MAJOR</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Critical issues detail -->
+    <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-secondary);font-weight:600;margin-bottom:8px;">Critical Issues Detail</div>
+    <table class="watch-table" style="margin-bottom:16px;">
+      <thead>
+        <tr><th>#</th><th>Agent</th><th>Issue</th><th>사용자 액션 필요</th></tr>
+      </thead>
+      <tbody>
+        <tr style="background:var(--accent-red-bg);">
+          <td><span class="tag tag-critical">C1</span></td>
+          <td>dart-virtual-trader</td>
+          <td>디렉토리 1/7 — 10주 연속 비준수. W35 2/7에서 1/7로 추가 퇴보. dart/ 변종 5건(71%) 지배.</td>
+          <td><code>.claude/agents/dart-virtual-trader.md</code>에 <code>reports/daily/dart-virtual-trader/</code> 경로 하드코딩 승인</td>
+        </tr>
+        <tr style="background:var(--accent-red-bg);">
+          <td><span class="tag tag-critical">C2</span></td>
+          <td>bess-optimizer</td>
+          <td>DA charge bid HE10-11 7th+ 연속 미실행. Sep 2 추정 손실 -$15,668. Capture rate 7.4%.</td>
+          <td>Tenaska 운영팀 HE10-11 DA charge bid 미실행 즉시 감사 요청</td>
+        </tr>
+        <tr style="background:var(--accent-red-bg);">
+          <td><span class="tag tag-critical">C3</span></td>
+          <td>bess-optimizer</td>
+          <td>AS+Energy overlap 3rd 연속 사이클. Aug 31 -$25,691, Sep 2 -$2,227 RT imbalance.</td>
+          <td>Energy+AS ≤ 100MW 제약 규칙 에이전트 정의 또는 standing-rules.md에 명문화</td>
+        </tr>
+        <tr style="background:var(--accent-amber-bg);">
+          <td><span class="tag tag-critical">C4</span></td>
+          <td>pnl-manager</td>
+          <td>Learnings 1/7 — 4주 연속 0-1/7. PRODUCTION 가용일(Aug 31, Sep 2)에도 미작성.</td>
+          <td>W37 PRODUCTION 날 전부 learnings 즉시 작성 의무 재확인</td>
+        </tr>
+        <tr style="background:var(--accent-amber-bg);">
+          <td><span class="tag tag-critical">C5</span></td>
+          <td>market-analyst</td>
+          <td>BRIEFING_TEMPLATE.md 6주 연속 부재. 분석 품질 자체는 A- — 순수 절차적 실패.</td>
+          <td>즉시 생성 명령</td>
+        </tr>
+        <tr style="background:var(--accent-amber-bg);">
+          <td><span class="tag tag-critical">C6</span></td>
+          <td>congestion-analyst</td>
+          <td>stage-0-rules.md 7주 연속 부재. W34 정지 조항 발동 미시행.</td>
+          <td>(a) 즉시 생성 명령 또는 (b) 정지 조항 철회 결정. 7주 = 에이전트 자체 해결 불가.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- W36 positives -->
+    <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--text-secondary);font-weight:600;margin-bottom:8px;">W36 긍정 사항</div>
+    <ul class="bullet-list">
+      <li>market-analyst 7/7 dir 최초 달성 — W35 Aug 27 오저장 패턴 완전 해소.</li>
+      <li>reporter 운영 알림 섹션 품질 향상 — DA charge failure 7th+ [CRITICAL], AS+Energy overlap 3rd [CRITICAL], YE throttle, hub-pair 106th 모두 정확 식별.</li>
+      <li>bess-optimizer 자기인식 루프 단축 — Aug 31 -$25,691 손실 후 Sep 2에서 70/100 MW 분리 적용; Sep 4에서 bid cap $22 추가 인하.</li>
+      <li>congestion-analyst 분석 일관성 유지 — Sep 2 83% binding accuracy; WEST_TO_NORTH overnight 패턴 7일 일관 적용.</li>
+      <li>AG2 복귀(Sep 4) 후 market-analyst + congestion-analyst 즉시 통합 — Yes Energy throttle 공백 대응.</li>
+      <li>pnl-manager learnings 0→1 (최소 개선) — Sep 1 learnings 양호한 품질 (RT imbalance 원인까지 분석).</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── SECTION 5: SELF-FEEDBACK ── -->
+<div class="section" id="sec5">
+  <div class="section-header" onclick="toggleSection('sec5')">
+    <div><span class="section-num">05</span><span class="section-title">Weekly Self-Feedback Summary (Front/Middle Agents)</span></div>
+    <span class="toggle-icon open" id="sec5-icon">&#9654;</span>
+  </div>
+  <div class="section-body" id="sec5-body">
+    <table class="watch-table">
+      <thead>
+        <tr><th>Agent</th><th>Learnings (W36)</th><th>핵심 학습 1-2줄</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>market-analyst</strong></td>
+          <td>5/7 (Sep 2,3,4,5; Sep 7 after-cycle)<br><span class="na-cell">Sep 1, Sep 6 부재</span></td>
+          <td>
+            DEGRADED 사이클 프로토콜 확립: 태양광 +10-15% 상방 보정 (3사이클 체계적 과소추정), 풍력 MIN(BidClose, Enverus) × 0.85. 열파 Day 14+ cap-out은 주말-월요일 개선 가정 금지 (Sep 7 확인). DA price MAE Smartbidder 없이 56% 과추정 — 구조적 한계.
+          </td>
+        </tr>
+        <tr>
+          <td><strong>bess-optimizer</strong></td>
+          <td>4/7 (Sep 2,3,4,5)<br><span class="na-cell">Aug 31, Sep 1, Sep 6 부재</span></td>
+          <td>
+            DA charge HE09-12 7th+ 실행 실패 확인. HE03-06 충전 창 전환 (Sep 2 HE04 실행 확인). AS+Energy overlap 규칙 Aug 31 손실 후 즉시 적용. Sep 2 capture rate 7.4% — Tenaska 운영팀 감사 필요. Sep 5 Saturday에 일회성 HE09-11 회귀 후 규칙 재수정.
+          </td>
+        </tr>
+        <tr>
+          <td><strong>dart-virtual-trader</strong></td>
+          <td>5/7 (Sep 2,3,4,5; Sep 7 after-cycle)<br><span class="na-cell">Sep 1, Sep 6 부재 (W35 7/7에서 퇴보)</span></td>
+          <td>
+            GR_WEST HE22-24 INC gate 11,000 MW 확립 (Sep 3 HE22 미적용 실수 발견). Learning-to-rule codification lag 확인 — 당일 07:30 파일링 전 전일 learnings 반드시 확인. Sep 4 FLAT 결정 적절 (RT spike veto 작동). T+2 결산 큐 40+ flowday 누적.
+          </td>
+        </tr>
+        <tr>
+          <td><strong>congestion-analyst</strong></td>
+          <td>5/7 (Sep 2,3,4,5; Sep 7 after-cycle)<br><span class="na-cell">Sep 1, Sep 6 부재</span></td>
+          <td>
+            WEST_TO_NORTH overnight bridge 방법 한계 확인: 단일일 HE24 bridge는 체제 전환 미감지 (Sep 5→6 21,398→8,963 MW 급락). Sep 2 binding accuracy 83% 유지; HE21 RT $106.63 spike 사전 포착 실패 — scarcity watch row 필요.
+          </td>
+        </tr>
+        <tr>
+          <td><strong>pnl-manager</strong></td>
+          <td>1/7 (Sep 1만)<br><span class="na-cell">Aug 31-Sep 6 나머지 부재</span></td>
+          <td>
+            Sep 1: Tenaska sequence=null RT AS 정산 미확정 48-72h 후 확인 필요 (이후 전 HE $0 확인). Aug 31→Sep 1 revenue 구조 전환 파악 (DA $18,815→$1,895; NonSpin $5,006→$2,256). Sep 1 HE22 단일 시간이 당일 수익의 34% 집중 — 스파이크 의존도 리스크.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── SECTION 6: W37 WATCH ITEMS ── -->
+<div class="section" id="sec6">
+  <div class="section-header" onclick="toggleSection('sec6')">
+    <div><span class="section-num">06</span><span class="section-title">W37 Watch Items (Sep 7–13, 2026)</span></div>
+    <span class="toggle-icon open" id="sec6-icon">&#9654;</span>
+  </div>
+  <div class="section-body" id="sec6-body">
+    <table class="watch-table">
+      <thead>
+        <tr><th>Urgency</th><th>Theme</th><th>What to Watch</th></tr>
+      </thead>
+      <tbody>
+        <tr style="background:var(--accent-red-bg);">
+          <td><span class="tag tag-critical">P0</span></td>
+          <td>Smartbidder MSAL 갱신</td>
+          <td>Day 43+ 미해결. Ascend rep 즉시 연락. 갱신 후 2026-07-25~ 전체 소급 조회. bess-optimizer 7.4% capture rate의 구조적 원인.</td>
+        </tr>
+        <tr style="background:var(--accent-red-bg);">
+          <td><span class="tag tag-critical">P0</span></td>
+          <td>bess-optimizer DA charge bid 감사</td>
+          <td>Tenaska 운영팀에 HE10-11 bid 7th+ 미실행 즉시 감사 요청. 내부 bid 제출 로그 확인. 사이클당 추정 손실 -$15,000+.</td>
+        </tr>
+        <tr style="background:var(--accent-red-bg);">
+          <td><span class="tag tag-critical">P0</span></td>
+          <td>bess-optimizer AS+Energy 규칙 명문화</td>
+          <td>Energy+AS ≤ 100MW 제약 즉시 코딩. 3연속 사이클 위반으로 Aug 31 -$25,691 + Sep 2 -$2,227 손실.</td>
+        </tr>
+        <tr style="background:var(--accent-amber-bg);">
+          <td><span class="tag tag-major">HIGH</span></td>
+          <td>dart-virtual-trader 경로 하드코딩 승인</td>
+          <td>10주 연속. 사용자 승인 1회로 구조적 해결 가능. W35 consequence 조항 재발동.</td>
+        </tr>
+        <tr style="background:var(--accent-amber-bg);">
+          <td><span class="tag tag-major">HIGH</span></td>
+          <td>Tenaska cloud IP whitelist</td>
+          <td>Sep 3-5 3일 연속 FULLY DEGRADED. Ascend rep에 cloud 실행 환경 IP 등록 요청. T+2 40+ flowday 적체.</td>
+        </tr>
+        <tr style="background:var(--accent-amber-bg);">
+          <td><span class="tag tag-major">HIGH</span></td>
+          <td>PUCT 16 TAC §25.194 채택 감시</td>
+          <td>Sep/Oct PUCT open meeting. 75 MW+ 대형 부하 접속 기준 최초 제정. 채택 시 ERCOT 큐 구조적 정리 시작.</td>
+        </tr>
+        <tr style="background:var(--accent-amber-bg);">
+          <td><span class="tag tag-major">HIGH</span></td>
+          <td>열파 정상화 확인</td>
+          <td>Yes Energy W37 부하 65-70 GW 24h avg 수렴 여부. 72 GW+ 지속 시 추가 anticyclone ridge 위험.</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-minor">MEDIUM</span></td>
+          <td>STEP Permian Sep 25 CCN 청문</td>
+          <td>다음 4개 구간 청문. Aug 28 첫 2개 승인 후 PUCT 지주 반대 수용 여부 관찰.</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-minor">MEDIUM</span></td>
+          <td>Batch Zero RFI 정보 수집</td>
+          <td>Oct-Nov 공식 수집 단계 진입. W37에서 ERCOT RFI 대상 목록 공개 가능성.</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-minor">MEDIUM</span></td>
+          <td>congestion-analyst stage-0-rules.md</td>
+          <td>7주 연속. (a) 즉시 생성 명령 또는 (b) 정지 조항 철회 결정. 명시적 사용자 지시 필요.</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-minor">MEDIUM</span></td>
+          <td>market-analyst BRIEFING_TEMPLATE.md</td>
+          <td>6주 연속. W37 Day 1 이전 생성.</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-na">LOW</span></td>
+          <td>Sep 3 ROS 회의록</td>
+          <td>공개 후 Batch Zero 감사 타임라인, 대형 부하 통합 지침 확인.</td>
+        </tr>
+        <tr>
+          <td><span class="tag tag-na">OPERATIONAL</span></td>
+          <td>Enverus / AG2 안정성</td>
+          <td>W36에서 간헐적 미수집. W37 daily fetch 일관성 확인.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── SECTION 7: ACTION ITEMS ── -->
+<div class="section" id="sec7">
+  <div class="section-header" onclick="toggleSection('sec7')">
+    <div><span class="section-num">07</span><span class="section-title">Action Items — 사용자 Review 요청 (5건)</span></div>
+    <span class="toggle-icon open" id="sec7-icon">&#9654;</span>
+  </div>
+  <div class="section-body" id="sec7-body">
+    <div class="action-item">
+      <div class="action-checkbox"></div>
+      <div class="action-body">
+        <div class="action-title"><span class="tag tag-critical">C1</span> dart-virtual-trader 하드코딩 승인 (10주 누적)</div>
+        <div class="action-detail"><code>.claude/agents/dart-virtual-trader.md</code>에 <code>reports/daily/dart-virtual-trader/YYYY-MM-DD.md</code> 필수 경로 명시. W35 consequence 조항 재발동. Plan: <code>memory/dart-virtual-trader/plans/2026-W36-directory-tenth-critical.md</code></div>
+      </div>
+    </div>
+    <div class="action-item">
+      <div class="action-checkbox"></div>
+      <div class="action-body">
+        <div class="action-title"><span class="tag tag-critical">C2</span> bess-optimizer DA charge bid 감사 요청 승인</div>
+        <div class="action-detail">Tenaska 운영팀에 HE10-11 DA charge bid 7th+ 연속 미실행 원인 즉시 감사 요청. 매 사이클 추정 손실 -$15,000+. Plan: <code>memory/bess-optimizer/plans/2026-W36-da-charge-failure-critical.md</code></div>
+      </div>
+    </div>
+    <div class="action-item">
+      <div class="action-checkbox"></div>
+      <div class="action-body">
+        <div class="action-title"><span class="tag tag-critical">C6</span> congestion-analyst stage-0-rules.md 조항 결정 (7주 연속)</div>
+        <div class="action-detail">(a) 즉시 생성 명령 또는 (b) 정지 조항 철회 및 대안 consequence 설정. Plan: <code>memory/congestion-analyst/plans/2026-W36-stage0rules-seventh-miss.md</code></div>
+      </div>
+    </div>
+    <div class="action-item">
+      <div class="action-checkbox"></div>
+      <div class="action-body">
+        <div class="action-title"><span class="tag tag-critical">P0 Infra</span> Smartbidder MSAL client_secret 갱신 (Day 42+)</div>
+        <div class="action-detail">Ascend rep 즉시 연락 (jms2527@gmail.com). 갱신 없이 bess-optimizer 정상화 불가. 갱신 후 2026-07-25 이후 전체 소급 조회.</div>
+      </div>
+    </div>
+    <div class="action-item">
+      <div class="action-checkbox"></div>
+      <div class="action-body">
+        <div class="action-title"><span class="tag tag-major">HIGH Infra</span> Tenaska endpoint 화이트리스트 (원격 환경 IP)</div>
+        <div class="action-detail">Sep 3-6 재차 DEGRADED. T+2 결산 40+ flowday 적체. DART 캘리브레이션 루프 동결 지속. Ascend rep에 cloud 실행 환경 IP 화이트리스트 등록 요청.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div style="text-align:center;font-size:11px;color:var(--text-muted);padding:16px 0;">
+  ERCOT 전력 트레이딩 Weekly Report — 2026-W36 &nbsp;|&nbsp; Generated 2026-09-07 07:30 CT &nbsp;|&nbsp; reporter agent &nbsp;|&nbsp; Pure aggregation — no self-analysis added
+  <br>
+  Sources: pnl-manager, market-analyst, congestion-analyst, bess-optimizer, dart-virtual-trader, evaluator
+  <br>
+  Files: <code>reports/weekly/2026-W36.md</code> &nbsp;|&nbsp; <code>reports/weekly/2026-W36.html</code>
+</div>
+
+</div><!-- /.page -->
+
+<script>
+function toggleSection(id) {
+  var body = document.getElementById(id + '-body');
+  var icon = document.getElementById(id + '-icon');
+  if (body.classList.contains('collapsed')) {
+    body.classList.remove('collapsed');
+    icon.classList.add('open');
+  } else {
+    body.classList.add('collapsed');
+    icon.classList.remove('open');
+  }
+}
+// All sections open by default — nothing to collapse on load
+</script>
+</body>
+</html>

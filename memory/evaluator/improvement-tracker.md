@@ -1,6 +1,35 @@
 # Evaluator Improvement Tracker
 
-Last updated: 2026-08-31 (Week 2026-W35)
+Last updated: 2026-09-07 (Week 2026-W36)
+
+---
+
+## Week 2026-W36 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-W36-directory-tenth-critical.md` | dart-virtual-trader | CRITICAL | OPEN — user authorization for agent definition hard-code still pending (10th consecutive non-compliant week); dart/ variant now dominant (5/7) | 1/7 dir (REGRESSION from 2/7); 5/7 learnings (regression from 7/7); dart/ 5 instances + dart-position/ 1 instance |
+| `memory/bess-optimizer/plans/2026-W36-da-charge-failure-critical.md` | bess-optimizer | CRITICAL | OPEN — user to escalate to Tenaska ops team for DA charge bid audit; agent to implement Energy+AS 100MW gate immediately | 4/7 dir (same as W35, no improvement); DA charge bid failure 7th+ cycle (-$15,668 Sep 2); AS+Energy overlap 3rd cycle (-$2,227 Sep 2); Sep 6 output missing; OUTPUT_DIRECTORY.md absent 6th week |
+| `memory/pnl-manager/plans/2026-W36-learnings-fourth-near-zero.md` | pnl-manager | CRITICAL | OPEN — agent to file learnings on all PRODUCTION days in W37; Aug 31 and Sep 2 learnings absent despite PRODUCTION data available | 1/7 learnings (4th consecutive 0-1/7); PRODUCTION 3 days (Aug 31, Sep 1, Sep 2) but only Sep 1 filed |
+| `memory/market-analyst/plans/2026-W36-briefing-template-sixth-miss.md` | market-analyst | CRITICAL | OPEN — agent to create BRIEFING_TEMPLATE.md before W37 Day 1; 7/7 dir achieved (positive) | 7/7 dir FIRST EVER; 5/7 learnings; BRIEFING_TEMPLATE.md absent 6th consecutive week |
+| `memory/congestion-analyst/plans/2026-W36-stage0rules-seventh-miss.md` | congestion-analyst | CRITICAL | OPEN — user to confirm or override suspension clause (7th consecutive miss); agent to create stage-0-rules.md immediately | 7/7 dir; 5/7 learnings; stage-0-rules.md absent 7th consecutive week; analytical quality A- |
+| `memory/reporter/plans/2026-W36-path-verification-sixth-miss.md` | reporter | MAJOR | OPEN — agent to implement Path Verification section W37 all 7 days; create canonical-paths.md before W37 Day 1 | 7/7 reports; [WRONG DIR] tags absent; sep 4: bess-stack/ and dart-position/ wrong citations unflagged; canonical-paths.md absent |
+| `memory/crr-trader/plans/2026-W36-inactive.md` | crr-trader | N/A | OPEN — inactive; pre-activation checklist review | No auction cycle W36 |
+
+---
+
+## Week 2026-W36 W35 Plan Compliance Update
+
+| Plan | Agent | W35 Deadline | W36 Status |
+|---|---|---|---|
+| `2026-W35.md` — dir compliance | dart-virtual-trader | ≥3/7 dir; user authorization hard-code | **FAILED — 1/7 (REGRESSION from 2/7; dart/ variant now dominant 5 instances)** |
+| `2026-W35.md` — stage-0-rules.md | congestion-analyst | stage-0-rules.md before W36 Day 1 | **FAILED — stage-0-rules.md still absent (7th consecutive miss)** |
+| `2026-W35.md` — Path Verification section | reporter | 7/7 Path Verification; canonical-paths.md | **FAILED — section not implemented (6th consecutive miss); canonical-paths.md not created** |
+| `2026-W35.md` — dir improvement past 4/7; OUTPUT_DIRECTORY.md | bess-optimizer | 5/7; OUTPUT_DIRECTORY.md | **FAILED — 4/7 unchanged; OUTPUT_DIRECTORY.md absent 6th week; Sep 6 output missing** |
+| `2026-W35.md` — BRIEFING_TEMPLATE.md | market-analyst | Before W36 Day 1 | **FAILED — BRIEFING_TEMPLATE.md absent (6th consecutive miss)** |
+| `2026-W35.md` — 5/7 learnings | pnl-manager | ≥5/7; PRODUCTION days same-day | **MINIMAL — 1/7 (0→1; PRODUCTION Aug 31 and Sep 2 unfiled)** |
+
+**Resolved**: 0 | **Minimal improvement**: 1 (pnl-manager 0→1) | **Failed**: 5 | **User pending (open)**: 2 (Smartbidder, Tenaska endpoint)
 
 ---
 
