@@ -114,3 +114,18 @@ Both estimation pipeline scripts timed out at 30s with zero output. Exit code 14
 **Resolution:** (1) Energy/AS: background script is running; when complete, rebuild dashboard from new summary CSV (covers May 6 – Jun 9). (2) Tenaska: Ascend cloud IP whitelist P1 — backfill pending from whitelisted IP. (3) Smartbidder: client_secret renewal P0 — Ascend rep contact required. (4) DART data gap May 6–24: run `dart-virtual script --start 2026-05-06 --end 2026-05-24` to fill gap (cache warm from prior archive downloads).
 
 | 2026-09-01 | Smartbidder benchmark (2026-08-31 flowday) | Tenaska PTP PRODUCTION — Battery-Settlement-Details 수신 성공 (shared/data/pnl/gks/hourly/2026-08-31_energy_as_detail.json, 3,359 rows; 10 datapoint types × 24 HEs complete). DA fields sequence=1 (settled); RT fields sequence=null (RT AS settlement 미확정). GKS actual total -$1,064.57 (DA Energy +$18,815.11 + RT Energy -$25,691.38 + Non-Spin +$5,005.70 + ECRS +$806.00; RRS/RegUp/RegDown $0). Non-Spin 90 MW HE01–HE21 CT; ECRS 40 MW HE22–HE24 CT (shared with NS 40 MW → NS drops to 40 MW HE22–24). DA Sales: 50 MW (HE14), 67 MW (HE15), 75 MW (HE16-18), 75.1 MW (HE17), 50 MW (HE20), 75.1 MW (HE21), 75 MW (HE22), 30 MW (HE23-24). DA Purchases: 30 MW (HE10-11). RT generation 88.0 MWh; RT consumption 95.2 MWh; net RT -7.2 MWh; cycle equivalent ~0.46. Highest RTSPP HE18 $63.19/MWh; max neg spread HE18 DA-RT=-$32.46/MWh; worst hour HE10 -$757.22. DA energy offer file returned empty [] (expected — structural pattern). DART virtual not separately isolable. Smartbidder MSAL: AADSTS7000222 client_secret 만료 연속 (2026-07-25~). Benchmark 비교 전체 N/A. | Smartbidder: Ascend rep에 client_secret 즉시 갱신 요청 (P0, 연속 갱신 미이행). Tenaska 정상. RT AS 정산: 2026-09-02 or 2026-09-03에 sequence!=null 확인 후 RT_Ancillary_Imbalance_Amt 및 RT_Reliability_Deployment_Imbalance_Amt 소급 갱신 필요. |
+
+---
+## 2026-09-07 — ERCOT API blocked in sandbox (W36 weekly run)
+
+**Symptom:** `api.ercot.com:443` Read timeout on every request (30s timeout, 5 retries exhausted per date, all dates Jan 1 onward).
+
+**Scripts affected:**
+- `estimate-bess-energy-as/scripts/run_estimate.py`
+- `estimate-bess-dart-virtual/scripts/run_estimate.py` (not retried after confirming API down)
+
+**Root cause:** ERCOT vendor domain blocked in sandbox network per CLAUDE.md §"외부 환경 제약". Must run from user's local machine or company VPN where `api.ercot.com` is whitelisted.
+
+**Mitigation used:** Built W36 dashboards from existing cached data in `shared/data/pnl/all_bess/` (covers through 2026-07-13 for energy_as, 2026-07-09 for dart_virtual). Dashboards marked DEGRADED fetch / FULL cached data. No new data fetched.
+
+**Action required:** Run `python skills/estimate-bess-energy-as/scripts/run_estimate.py --start 2026-07-14 --end 2026-09-07` and `python skills/estimate-bess-dart-virtual/scripts/run_estimate.py --start 2026-07-10 --end 2026-09-07` locally to fill the gap when on VPN.
