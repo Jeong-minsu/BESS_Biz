@@ -1,0 +1,162 @@
+{
+  "meta": {
+    "flow_date": "2026-09-11",
+    "issued_at_ct": "2026-09-10T07:30:00-05:00",
+    "issued_by": "dart-virtual-trader",
+    "spread_convention": "DA_minus_RT_positive_means_DA_expensive",
+    "model_version": "v3 no-SB DEGRADED",
+    "advisory_only": true,
+    "degraded_penalty_ppt": -4,
+    "data_status": {
+      "yes_energy_bidclose": "PRODUCTION (24 rows, single-source)",
+      "smartbidder_p_da_rt": "UNAVAILABLE (Day ~47, MSAL expired)",
+      "smartbidder_price_forecast": "UNAVAILABLE",
+      "hub_pair_lmp": "ABSENT (~113 consecutive cycles)",
+      "tenaska_ptp": "UNAVAILABLE (~42+ flowdays)",
+      "enverus": "NOT_COLLECTED",
+      "ag2": "NOT_COLLECTED",
+      "congestion_view": "STAGE_0_PROVISIONAL (SCI-proxy heuristic; +/-10 ppt structural uncertainty)"
+    },
+    "w2n_inc_block": "ACTIVE (hub-pair LMP absent; INC positions blocked per model policy)",
+    "spread_rule_correction": "Task brief HE18-20 label 'short DA' is inverted vs stated P(DA<RT) high signal. Correct trade for P(DA<RT)>50% (RT spike) is LONG_DA (DEC bid). This report applies LONG_DA for evening spike hours."
+  },
+  "input_data_summary": {
+    "he20_net_load_mw": 59650,
+    "he20_cap_out_mw": 9118,
+    "he20_solar_mw": 1319,
+    "he20_wind_total_mw": 17168,
+    "he20_gr_west_mw": 8589,
+    "he10_net_load_mw": 35130,
+    "he10_solar_mw": 22015,
+    "he10_gr_west_mw": 4366,
+    "he19_solar_mw": 10256,
+    "he21_net_load_mw": 56153,
+    "he21_wind_total_mw": 19898,
+    "he21_gr_west_mw": 10558,
+    "he21_sci_proxy": 0.354,
+    "he22_gr_west_mw": 12485,
+    "he22_sci_proxy": 0.418,
+    "he23_gr_west_mw": 13904,
+    "he23_sci_proxy": 0.466,
+    "he24_gr_west_mw": 14797,
+    "he24_sci_proxy": 0.496,
+    "he24_panhandle_gap_mw": 203,
+    "evening_nl_ramp_he18_to_he20_mw": 8152,
+    "load_peak_he17_mw": 85618,
+    "net_load_peak_he20_mw": 59650,
+    "cap_out_sep_series_context": "HE20 cap-out 9,118 MW is highest in Sep 2026 WDPEAK series (Sep 9: 8,488-8,698 MW; Sep 10: 6,537 MW)"
+  },
+  "positions": [
+    {
+      "he": 20,
+      "node": "HB_NORTH",
+      "direction": "LONG_DA",
+      "dart_product": "DEC_bid",
+      "size_mw": 15,
+      "da_estimate_low_usd": 70,
+      "da_estimate_high_usd": 100,
+      "da_bid_target_usd": 80,
+      "rt_estimate_if_win_usd_range": "85-130",
+      "rt_estimate_if_lose_usd_range": "50-75",
+      "spread_forecast_if_win_usd": -22,
+      "spread_forecast_if_lose_usd": 8,
+      "spread_convention_note": "negative spread (DA-RT<0) means RT>DA; DEC wins",
+      "p_adj": 0.56,
+      "p_adj_raw_pre_degraded": 0.60,
+      "degraded_penalty_ppt": -4,
+      "expected_spread_magnitude_usd": 18,
+      "expected_gross_p50_sym_usd": 32,
+      "expected_gross_p50_asym_1_5_usd": 108,
+      "confidence_weighted_p50_sym_usd": 26,
+      "tier": "HALF",
+      "conviction": "MEDIUM",
+      "trigger": "Scarcity_Cliff_DEC",
+      "signal_drivers": [
+        "NL peak 59,650 MW (WDPEAK high despite 9-10 GW below Sep 9/10 precedent)",
+        "cap-out 9,118 MW = Sep 2026 series record (most capacity offline)",
+        "solar 1,319 MW = effectively complete cliff (from 19,289 MW at HE18)",
+        "2h NL ramp +8,152 MW (HE18 51,498 MW -> HE20 59,650 MW)",
+        "ORDC scarcity pricing possible when thermal dispatch stack under pressure"
+      ],
+      "risk_note": "NL 9 GW below Sep 9/10 precedent reduces absolute scarcity probability. Bear case: RT stays at/below DA, loss ~$50-100. GR_COASTAL 3,703 MW forecast key sensitivity.",
+      "sizing_rationale": "Half-size (15 MW) vs full-size (25 MW): P(adj)=56% within MED band (55-60%); NL structurally weaker than prior Sep DEC triggers."
+    }
+  ],
+  "signals_monitored_but_skipped": [
+    {
+      "he": 21,
+      "signal_type": "Scarcity_Cliff_DEC_declining",
+      "direction": "LONG_DA",
+      "p_adj_estimate": 0.53,
+      "reason_skipped": "P(adj) ~53% below 55% floor. NL declining to 56,153 MW. Wind surge to 19,898 MW compresses scarcity risk. W2N SCI 0.354 marginal (110 MW above threshold) adds basis complexity but P remains below threshold.",
+      "watch_condition": "If DAM reveals HE20 clears above $90, revisit HE21 sizing upward. If GR_COASTAL actual misses by 1+ GW, P(adj) could reach 55-57%.",
+      "would_be_mw_if_triggered": 10
+    },
+    {
+      "he": 10,
+      "signal_type": "Duck_Floor_DEC",
+      "direction": "LONG_DA",
+      "p_adj_estimate": 0.52,
+      "reason_skipped": "Market-analyst language 'negative/near-zero possible' below explicit trigger threshold ('LIKELY' required per Aug 2026 precedent). NL 35,130 MW is 3,130 MW above MILD boundary (32,000 MW) — more buffer than prior triggers. P(adj) after -4 ppt DEGRADED ~52% → below 55% floor.",
+      "watch_condition": "Trigger would fire if market-analyst explicitly says 'negative prices likely' AND NL within 500 MW of MILD boundary."
+    }
+  ],
+  "signals_blocked_by_policy": [
+    {
+      "he_range": "22-24",
+      "signal_type": "WEST_TO_NORTH_INC",
+      "direction": "SHORT_DA",
+      "dart_product": "INC_offer",
+      "sci_values": {"he22": 0.418, "he23": 0.466, "he24": 0.496},
+      "gr_west_mw": {"he22": 12485, "he23": 13904, "he24": 14797},
+      "estimated_p_if_unblocked": "0.60-0.65",
+      "block_reason": "Hub-pair LMP (HB_WEST, HB_NORTH, HB_HOUSTON) absent ~113 consecutive cycles. W2N INC signal cannot be converted to reliable P(DA>RT) estimate without LMP calibration. W2N INC block ACTIVE per model policy.",
+      "additional_note": "This is the strongest directional signal of the day and the first evening-window MEDIUM W2N signal in Sep 2026 series. Represents primary infrastructure gap. HE24 also carries PANHANDLE_EXPORT tail risk (GR_WEST 14,797 MW; 203 MW from 15,000 MW threshold).",
+      "opportunity_cost_estimate_usd": "Advisory E[gross] ~$400-700 if 3 hours x 25 MW unblocked; not monetized under current policy"
+    }
+  ],
+  "summary": {
+    "total_active_positions": 1,
+    "total_active_notional_mw": 15,
+    "directions": {
+      "LONG_DA_DEC": 1,
+      "SHORT_DA_INC": 0
+    },
+    "active_hours": [20],
+    "skipped_hours": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,21,22,23,24],
+    "expected_gross_p50_sym_usd": 32,
+    "expected_gross_p50_asym_1_5_usd": 108,
+    "confidence_weighted_p50_sym_usd": 26,
+    "pnl_range_bear_usd": -100,
+    "pnl_range_base_usd": 262,
+    "pnl_range_bull_usd": 750,
+    "structural_note": "Sep 11 is first filing with cap-out > 9,000 MW in September series. Single-position day reflects lower absolute NL (59.6 GW vs 68-69 GW in prior Sep filings). Primary missed-alpha: W2N INC HE22-24 blocked by hub-pair LMP absence."
+  },
+  "stop_loss_triggers": [
+    {
+      "condition": "DAM clears HE20 above $110/MWh",
+      "action": "Reduce to 10 MW maximum; do not chase DA spike into DEC"
+    },
+    {
+      "condition": "Forced outage 500+ MW added between 07:30-10:00 CT",
+      "action": "Monitor only; HE20 DEC remains if added outage increases RT spike probability"
+    },
+    {
+      "condition": "GR_COASTAL actual forecast revised down 1,500+ MW at HE20",
+      "action": "Raise to full-size (25 MW) if P(adj) would cross 60%"
+    }
+  ],
+  "key_risks": [
+    "HE20 RT does not spike: P=44% that DA >= RT; DEC loses $50-100",
+    "GR_COASTAL 3,703 MW forecast miss would increase RT spike but is not observable pre-DAM",
+    "W2N INC HE22-24 blocked: opportunity cost ~$400-700 advisory gross",
+    "HE24 PANHANDLE_EXPORT: 203 MW from threshold; tail risk for WEST zone basis if triggered",
+    "Single-source data: Yes Energy BidClose only; no cross-validation available"
+  ],
+  "d2_forward_signal": {
+    "date": "2026-09-12",
+    "signal": "WEST_TO_NORTH MEDIUM-HIGH carry-forward",
+    "basis": "HE24 SCI = 0.496 (D+2 continuity TRIGGERED per congestion analyst). Sep 12 HE01 should start with elevated MEDIUM prior for W2N.",
+    "recommended_watch": "If Smartbidder or hub-pair LMP restored for Sep 12 cycle, W2N INC overnight may become actionable for first time in Sep series."
+  }
+}
