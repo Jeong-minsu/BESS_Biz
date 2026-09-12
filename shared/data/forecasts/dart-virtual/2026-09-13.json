@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "flowday": "2026-09-13",
+    "filed_date": "2026-09-12",
+    "filed_time_ct": "07:30",
+    "day_type": "WEPEAK",
+    "day_of_week": "Sunday",
+    "wepeak_hours": "HE07-22",
+    "offpeak_hours": "HE01-06, HE23-24",
+    "model_version": "v3 no-SB-DEGRADED",
+    "advisory_only": true,
+    "spread_convention": "spread = DA - RT; positive = INC (Short DA / Long RT)"
+  },
+  "data_status": {
+    "market_analyst": "YES",
+    "congestion_analyst": "YES",
+    "smartbidder_probability": "NO",
+    "hub_pair_lmp": "NO",
+    "hub_pair_lmp_absent_cycles": 113,
+    "smartbidder_absent_days": 47,
+    "yes_energy_regime": "PRODUCTION"
+  },
+  "penalty_structure": {
+    "degraded_ppt": -4,
+    "sunday_dow_ppt": -5,
+    "total_penalty_ppt": -9,
+    "effective_raw_floor_pct": 64,
+    "entry_threshold_adj_pct": 55
+  },
+  "summary": {
+    "net_direction": "INC",
+    "active_hours": 2,
+    "skip_hours": 22,
+    "total_notional_mw": 75,
+    "hub": "HB_NORTH",
+    "expected_pnl_p50_sym_usd": 149,
+    "expected_pnl_confidence_weighted_usd": 85,
+    "max_tail_loss_p10_usd": -350,
+    "milestone": "Sep 2026 WEPEAK 최초 midday INC — SEVERE duck (NL 22,188 MW) + veto 미발동 (GR_WEST 6,787 MW)"
+  },
+  "positions": [
+    {
+      "he": 10,
+      "direction": "Short DA / Long RT",
+      "type": "INC",
+      "hub": "HB_NORTH",
+      "mw": 50,
+      "da_offer_per_mwh": 12,
+      "p_win_raw_pct": 70,
+      "p_win_adj_pct": 61,
+      "conviction": "HIGH",
+      "size_category": "full",
+      "expected_spread_low_per_mwh": 8,
+      "expected_spread_high_per_mwh": 15,
+      "expected_spread_central_per_mwh": 11.5,
+      "expected_pnl_p50_sym_usd": 126,
+      "key_signals": {
+        "nl_mw": 22188,
+        "nl_tier": "SEVERE",
+        "gr_west_mw": 6787,
+        "gr_west_above_veto": true,
+        "veto_threshold_mw": 5500,
+        "solar_mw": 26284,
+        "duck_curve_binding_prob_pct_low": 65,
+        "duck_curve_binding_prob_pct_high": 80,
+        "trigger": "DUCK_CURVE_MIDDAY_SEVERE"
+      }
+    },
+    {
+      "he": 11,
+      "direction": "Short DA / Long RT",
+      "type": "INC",
+      "hub": "HB_NORTH",
+      "mw": 25,
+      "da_offer_per_mwh": 14,
+      "p_win_raw_pct": 65,
+      "p_win_adj_pct": 56,
+      "conviction": "MEDIUM",
+      "size_category": "half",
+      "expected_spread_low_per_mwh": 5,
+      "expected_spread_high_per_mwh": 10,
+      "expected_spread_central_per_mwh": 7.5,
+      "expected_pnl_p50_sym_usd": 23,
+      "key_signals": {
+        "nl_mw_est": 25324,
+        "nl_tier": "SEVERE",
+        "gr_west_mw_interpolated": 6178,
+        "gr_west_above_veto": true,
+        "solar_mw": 29976,
+        "trigger": "DUCK_CURVE_MIDDAY_SEVERE"
+      }
+    }
+  ],
+  "skipped_hours": [
+    {
+      "he_range": "01-05",
+      "reason": "INC_OVERNIGHT_GATE_FIRED_W2N_BLOCKED",
+      "detail": "GR_WEST 10,605-13,534 MW >> 11,000 MW INC gate; hub-pair LMP absent ~113 cycle; P(adj) ~49%",
+      "watchlist": true
+    },
+    {
+      "he_range": "06-09",
+      "reason": "NL_MODERATE_P_ADJ_BELOW_THRESHOLD",
+      "detail": "NL 31-39k MW (MODERATE/MILD tier); P(adj) ~43-48% < 55%"
+    },
+    {
+      "he": 12,
+      "reason": "GR_WEST_BORDERLINE_VETO_AND_MODERATE_DUCK",
+      "detail": "GR_WEST 5,569 MW — only 69 MW above 5,500 MW veto; within single-source uncertainty; NL 27,362 MW MODERATE; P(adj) ~51%"
+    },
+    {
+      "he_range": "13-17",
+      "reason": "TRANSITION_NO_TRIGGER",
+      "detail": "NL rising 31-38k; GR_WEST likely ~5,400 MW below veto by HE13; no INC or DEC trigger"
+    },
+    {
+      "he_range": "18-20",
+      "reason": "SCARCITY_CLIFF_DEC_NOT_FIRED",
+      "detail": "NL peak 58,736 MW (HE20) — 1,264 MW below 60,000 MW Scarcity Cliff gate; wind 18,285 MW suppresses RT spike; P(adj) ~46-48%"
+    },
+    {
+      "he": 21,
+      "reason": "NL_DECLINING_WIND_SURGE",
+      "detail": "NL 56,475 MW; wind 19,818 MW surge onset; P(adj) ~45%"
+    },
+    {
+      "he_range": "22-24",
+      "reason": "W2N_WATCHLIST_BLOCKED",
+      "detail": "WEST_TO_NORTH SCI 0.414-0.424 MEDIUM; hub-pair LMP absent; P(binding) 8-15% Sunday discount applied; P(adj) ~44%"
+    }
+  ],
+  "key_market_context": {
+    "nl_trough_mw": 22188,
+    "nl_trough_he": 10,
+    "nl_trough_tier": "SEVERE",
+    "nl_peak_mw": 58736,
+    "nl_peak_he": 20,
+    "scarcity_cliff_gate_mw": 60000,
+    "scarcity_cliff_gap_mw": -1264,
+    "scarcity_cliff_fired": false,
+    "duck_curve_amplitude_mw": 36548,
+    "solar_peak_mw": 31140,
+    "solar_peak_he": 12,
+    "wind_peak_mw": 22474,
+    "wind_peak_he": 1,
+    "wind_min_mw": 11357,
+    "wind_min_he": 12,
+    "evening_ramp_mw": 18011,
+    "evening_ramp_window": "HE18-HE20",
+    "cap_out_avg_mw": 10508,
+    "duck_curve_midday_binding_prob_pct": "65-80"
+  },
+  "t2_settlement": {
+    "t2_date": "2026-09-15",
+    "parquet_file": "shared/data/pnl/gks/hourly/2026-09-13.parquet",
+    "settlement_field": "dart_virtual_revenue",
+    "tenaska_channel_blocked": true,
+    "blocked_days": 43
+  }
+}
