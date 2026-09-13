@@ -1,0 +1,41 @@
+{
+  "flowday": "2026-09-12",
+  "generated_at": "2026-09-13",
+  "resource": "GKS_BESS_ESR1",
+  "status": "DEGRADED",
+  "reason": {
+    "tenaska_ptp": "Cloud IP not whitelisted by Tenaska Ascend + no endpoint cache (TENASKA_EP_*). HTTP connection refused. All settlement data unavailable.",
+    "smartbidder": "MSAL authentication error AADSTS7000222 — client_secret expired Day 50 consecutive (since 2026-07-25). Benchmark data unavailable."
+  },
+  "data": {
+    "da_energy_revenue": null,
+    "rt_energy_revenue": null,
+    "as_revenue_regup": null,
+    "as_revenue_regdown": null,
+    "as_revenue_rrs": null,
+    "as_revenue_ecrs": null,
+    "as_revenue_nonspin": null,
+    "dart_virtual_revenue": null,
+    "energy_injection_mwh": null,
+    "energy_consumption_mwh": null,
+    "total_revenue": null
+  },
+  "benchmark": {
+    "smartbidder_strategy": "Mount Blue Sky with Virtuals (RTC Version)",
+    "total_revenue": null,
+    "delta_usd": null,
+    "delta_pct": null,
+    "status": "DEGRADED"
+  },
+  "last_successful_fetch": {
+    "flowday": "2026-09-08",
+    "total_revenue": 9584.10,
+    "source": "shared/data/pnl/gks/daily/2026-09-08_pnl.json",
+    "note": "2026-09-11 flowday had PARTIAL data (RTEIAMT -5818.15, no DA/AS total). 2026-09-09 and 2026-09-10 were FULLY DEGRADED."
+  },
+  "action_items": [
+    "[P0] Tenaska IP whitelist: Notify Ascend team of cloud execution IP or re-run fetch_pnl_data.py from VPN/local environment.",
+    "[P0] Smartbidder client_secret renewal: Request new Azure AD app registration secret from Ascend rep (50 consecutive days expired). Update .env [Smartbidder] section after renewal.",
+    "Re-run fetch_pnl_data.py after both issues resolved. Backfill flowdays 2026-09-09 through 2026-09-12. Regenerate this report."
+  ]
+}
