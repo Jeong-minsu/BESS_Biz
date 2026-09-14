@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERCOT 전력 트레이딩 Weekly Report — 2026-W37</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap');
+
+  :root {
+    --bg-base:        #f7f8fa;
+    --bg-panel:       #ffffff;
+    --bg-panel-2:     #f0f2f5;
+    --bg-row-alt:     #fafbfc;
+    --border-soft:    #e0e3eb;
+    --border-strong:  #c8ccd4;
+    --text-primary:   #131722;
+    --text-secondary: #5d606b;
+    --text-muted:     #9598a1;
+    --accent-up:      #089981;
+    --accent-down:    #f23645;
+    --accent-blue:    #2962ff;
+    --accent-amber:   #ff9800;
+    --accent-purple:  #9c27b0;
+    --grid-line:      #eceff3;
+    --shadow-card:    0 1px 2px rgba(16, 24, 40, 0.04);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', 'Pretendard', 'Noto Sans KR', -apple-system, system-ui, sans-serif;
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+    border-radius: 6px;
+    padding: 20px 24px;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .header-left h1 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+  .header-left .subtitle {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+  .header-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .pill {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.03em;
+  }
+  .pill-red   { background: rgba(242,54,69,0.10);  color: var(--accent-down); border: 1px solid rgba(242,54,69,0.25); }
+  .pill-amber { background: rgba(255,152,0,0.10);  color: var(--accent-amber); border: 1px solid rgba(255,152,0,0.25); }
+  .pill-green { background: rgba(8,153,129,0.10);  color: var(--accent-up);   border: 1px solid rgba(8,153,129,0.25); }
+  .pill-blue  { background: rgba(41,98,255,0.08);  color: var(--accent-blue); border: 1px solid rgba(41,98,255,0.2); }
+
+  /* ── Data Status Banner ── */
+  .status-banner {
+    background: rgba(242,54,69,0.05);
+    border: 1px solid rgba(242,54,69,0.20);
+    border-radius: 6px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+  .status-banner strong { color: var(--accent-down); }
+
+  /* ── KPI Row ── */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  @media (max-width: 900px) { .kpi-row { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 600px) { .kpi-row { grid-template-columns: repeat(2, 1fr); } }
+
+  .kpi-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+    border-radius: 6px;
+    padding: 20px;
+    box-shadow: var(--shadow-card);
+  }
+  .kpi-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+  .kpi-value {
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .kpi-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    font-family: 'Inter', sans-serif;
+  }
+  .kpi-change {
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 4px;
+  }
+  .kpi-change.up   { color: var(--accent-up); }
+  .kpi-change.down { color: var(--accent-down); }
+  .kpi-change.warn { color: var(--accent-amber); }
+  .kpi-change.muted{ color: var(--text-muted); }
+
+  /* ── Chart + Heatmap row ── */
+  .chart-heatmap-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  @media (max-width: 900px) { .chart-heatmap-row { grid-template-columns: 1fr; } }
+
+  .panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+    border-radius: 6px;
+    padding: 16px 20px;
+    box-shadow: var(--shadow-card);
+  }
+  .panel-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+
+  /* ── Tables ── */
+  .table-wrap { overflow-x: auto; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  thead th {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    padding: 8px 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-soft);
+    white-space: nowrap;
+  }
+  thead th.num { text-align: right; }
+  tbody tr { transition: background 0.1s; }
+  tbody tr:nth-child(even) { background: var(--bg-row-alt); }
+  tbody tr:hover { background: var(--bg-panel-2); }
+  tbody td {
+    padding: 7px 10px;
+    font-size: 12px;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--grid-line);
+    vertical-align: middle;
+  }
+  tbody td.num {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-variant-numeric: tabular-nums;
+    font-size: 12px;
+  }
+  .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 2px 7px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .tag-prod   { background: rgba(8,153,129,0.12);  color: var(--accent-up); }
+  .tag-deg    { background: rgba(242,54,69,0.10);  color: var(--accent-down); }
+  .tag-part   { background: rgba(255,152,0,0.12);  color: var(--accent-amber); }
+  .tag-na     { background: rgba(149,152,161,0.12); color: var(--text-muted); }
+  .tag-crit   { background: rgba(242,54,69,0.12);  color: var(--accent-down); }
+  .tag-major  { background: rgba(255,152,0,0.12);  color: var(--accent-amber); }
+  .tag-minor  { background: rgba(41,98,255,0.08);  color: var(--accent-blue); }
+
+  /* Score coloring */
+  .score-high { color: var(--accent-up); font-weight: 600; }
+  .score-mid  { color: var(--accent-amber); font-weight: 600; }
+  .score-low  { color: var(--accent-down); font-weight: 600; }
+
+  /* ── Heatmap ── */
+  .heatmap-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 3px;
+    margin-top: 4px;
+  }
+  .heatmap-cell {
+    aspect-ratio: 1;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    line-height: 1.2;
+    padding: 2px;
+  }
+  .hm-prod   { background: rgba(8,153,129,0.75); }
+  .hm-part   { background: rgba(255,152,0,0.70); }
+  .hm-deg    { background: rgba(242,54,69,0.55); color: rgba(255,255,255,0.9); }
+  .hm-label  { font-size: 9px; color: var(--text-muted); text-align: center; padding-top: 2px; }
+  .heatmap-legend {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    color: var(--text-secondary);
+  }
+  .legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+  }
+
+  /* ── Full-width panels ── */
+  .full-panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+    border-radius: 6px;
+    padding: 16px 20px;
+    box-shadow: var(--shadow-card);
+    margin-bottom: 12px;
+  }
+
+  /* ── Agent feedback grid ── */
+  .agent-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 4px;
+  }
+  @media (max-width: 900px) { .agent-grid { grid-template-columns: 1fr; } }
+
+  .agent-card {
+    background: var(--bg-base);
+    border: 1px solid var(--border-soft);
+    border-radius: 4px;
+    padding: 12px 14px;
+  }
+  .agent-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: 0.02em;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .agent-score {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 1px 6px;
+    border-radius: 3px;
+    margin-left: auto;
+  }
+  .agent-card ul {
+    margin: 0;
+    padding: 0 0 0 14px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  .agent-card ul li { margin-bottom: 2px; }
+
+  /* ── Watch items ── */
+  .watch-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 900px) { .watch-grid { grid-template-columns: 1fr; } }
+
+  .watch-col-title {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .watch-col-title.p0    { color: var(--accent-down); }
+  .watch-col-title.high  { color: var(--accent-amber); }
+  .watch-col-title.med   { color: var(--accent-blue); }
+
+  .watch-item {
+    margin-bottom: 8px;
+    padding: 8px 10px;
+    background: var(--bg-base);
+    border: 1px solid var(--border-soft);
+    border-radius: 4px;
+  }
+  .watch-item-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 3px;
+  }
+  .watch-item-desc {
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  /* ── Structural update ── */
+  .struct-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 4px;
+  }
+  @media (max-width: 900px) { .struct-grid { grid-template-columns: 1fr; } }
+
+  .struct-item {
+    background: var(--bg-base);
+    border: 1px solid var(--border-soft);
+    border-radius: 4px;
+    padding: 10px 12px;
+  }
+  .struct-item-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+  .struct-item-body {
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  /* chart container */
+  .chart-container { position: relative; height: 220px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ── HEADER ── -->
+  <div class="header">
+    <div class="header-left">
+      <h1>ERCOT 전력 트레이딩 Weekly Report — 2026-W37</h1>
+      <div class="subtitle">기간: 2026-09-07(Mon) – 2026-09-13(Sun) &nbsp;|&nbsp; 작성: 2026-09-14 07:30 CT &nbsp;|&nbsp; reporter 통합 (pnl-manager, market-analyst, congestion-analyst, bess-optimizer, dart-virtual-trader, evaluator)</div>
+    </div>
+    <div class="header-pills">
+      <span class="pill pill-red">Smartbidder EXPIRED Day 47+</span>
+      <span class="pill pill-red">Tenaska 1/7 PRODUCTION</span>
+      <span class="pill pill-amber">Fleet Data: ESTIMATE (Jan–Jul 14)</span>
+      <span class="pill pill-amber">Tenaska DA bid HTTP 400 (Sep 11+)</span>
+    </div>
+  </div>
+
+  <!-- ── DATA STATUS BANNER ── -->
+  <div class="status-banner">
+    <strong>DATA STATUS</strong> &nbsp;—&nbsp;
+    Smartbidder MSAL <strong>EXPIRED</strong> Day 40–51 (전 주간). Benchmark 비교, DA/RT 가격 예측 전체 N/A. &nbsp;|&nbsp;
+    Tenaska PTP: Sep 8 <strong>PRODUCTION</strong> ($9,584.10) / Sep 11 <strong>PARTIAL</strong> (RTEIAMT only) / Sep 7, 9, 10, 12, 13 <strong>FULLY DEGRADED</strong> (cloud IP 미화이트리스트). &nbsp;|&nbsp;
+    ERCOT 全 BESS 랭킹: ERCOT 60일 공시 지연으로 Jan 1–Jul 14, 2026 <strong>추정치</strong>만 가용.
+    &nbsp;|&nbsp; Tenaska DA bid endpoint: <strong>HTTP 400</strong> 신규 오류 Sep 11+. T+2 결산 적체 40+ flowdays.
+  </div>
+
+  <!-- ── KPI ROW ── -->
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-label">W37 PRODUCTION 일수</div>
+      <div class="kpi-value">1<span style="font-size:14px;color:var(--text-muted)">/7</span></div>
+      <div class="kpi-change down">▼ Tenaska IP 차단 지속</div>
+      <div class="kpi-sub">Sep 8만 완전 실적 확보</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">W37 확인 수익 (Sep 8)</div>
+      <div class="kpi-value" style="font-size:22px">$9,584</div>
+      <div class="kpi-change muted">나머지 6일 N/A</div>
+      <div class="kpi-sub">NonSpin $6,515 | ECRS $1,381</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">GKS Energy+AS 순위 (추정)</div>
+      <div class="kpi-value">#89</div>
+      <div class="kpi-change up">▲ W36 #90 → #37</div>
+      <div class="kpi-sub">338개 중 | $742,122 총액 (Jan–Jul 14)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">GKS DART Virtual 순위 (추정)</div>
+      <div class="kpi-value" style="color:var(--accent-down)">#288</div>
+      <div class="kpi-change muted">최하위 (288개 중 Last)</div>
+      <div class="kpi-sub">-$190,902 | 승률 51.2% | P/L 3.93</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">인프라 장애 현황</div>
+      <div class="kpi-value" style="font-size:20px;color:var(--accent-amber)">4건</div>
+      <div class="kpi-change down">▼ Smartbidder Day 47+</div>
+      <div class="kpi-sub">Smartbidder / Tenaska IP / DA HTTP 400 / hub-pair LMP</div>
+    </div>
+  </div>
+
+  <!-- ── CHART + HEATMAP ── -->
+  <div class="chart-heatmap-row">
+    <div class="panel">
+      <div class="panel-title">W37 일별 GKS 수익 ($ / day) — Sep 8 PRODUCTION, 나머지 N/A</div>
+      <div class="chart-container">
+        <canvas id="revenueChart"></canvas>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">W37 Tenaska 데이터 품질 히트맵</div>
+      <div class="heatmap-grid">
+        <div class="heatmap-cell hm-deg">Sep 7<br>Mon<br>FAILED</div>
+        <div class="heatmap-cell hm-prod">Sep 8<br>Tue<br>PROD</div>
+        <div class="heatmap-cell hm-deg">Sep 9<br>Wed<br>FAILED</div>
+        <div class="heatmap-cell hm-deg">Sep 10<br>Thu<br>FAILED</div>
+        <div class="heatmap-cell hm-part">Sep 11<br>Fri<br>PART</div>
+        <div class="heatmap-cell hm-deg">Sep 12<br>Sat<br>FAILED</div>
+        <div class="heatmap-cell hm-deg">Sep 13<br>Sun<br>FAILED</div>
+      </div>
+      <div class="heatmap-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:rgba(8,153,129,0.75)"></div>PRODUCTION</div>
+        <div class="legend-item"><div class="legend-dot" style="background:rgba(255,152,0,0.70)"></div>PARTIAL</div>
+        <div class="legend-item"><div class="legend-dot" style="background:rgba(242,54,69,0.55)"></div>FULLY DEGRADED</div>
+      </div>
+      <div style="margin-top:14px">
+        <div style="font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px">Sep 8 수익 구성 (PRODUCTION)</div>
+        <table style="font-size:11px">
+          <tbody>
+            <tr><td>DA Energy</td><td class="num" style="color:var(--accent-up)">+$15,774</td></tr>
+            <tr style="background:var(--bg-row-alt)"><td>RT Energy</td><td class="num" style="color:var(--accent-down)">-$14,086</td></tr>
+            <tr><td>NonSpin AS</td><td class="num" style="color:var(--accent-up)">+$6,515</td></tr>
+            <tr style="background:var(--bg-row-alt)"><td>ECRS AS</td><td class="num" style="color:var(--accent-up)">+$1,381</td></tr>
+            <tr style="border-top:1px solid var(--border-strong)"><td><strong>Total</strong></td><td class="num"><strong>$9,584</strong></td></tr>
+          </tbody>
+        </table>
+        <div style="font-size:10px;color:var(--text-muted);margin-top:6px">HSL avg: 68.6 MW / 100 MW 명판 | Rule 8 패턴 재발</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FLEET RANKINGS TABLE ── -->
+  <div class="full-panel">
+    <div class="panel-title">ERCOT 全 BESS 랭킹 — [DEGRADED ESTIMATE: Jan 1 – Jul 14, 2026 기준. W37 실시간 실적 아님]</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;flex-wrap:wrap">
+      <div>
+        <div style="font-size:11px;font-weight:600;color:var(--text-secondary);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em">Energy+AS Revenue 순위</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th>Rank</th>
+              <th>Resource</th>
+              <th class="num">Total Revenue</th>
+              <th class="num">Opt Rate</th>
+              <th>WoW</th>
+            </tr></thead>
+            <tbody>
+              <tr><td class="num" style="color:var(--accent-amber)">#1</td><td>ANOL_ESS_ESR1</td><td class="num">—</td><td class="num">—</td><td><span class="tag tag-na">—</span></td></tr>
+              <tr><td class="num" style="color:var(--text-muted)">…</td><td colspan="4" style="color:var(--text-muted);font-size:11px">338개 전체 중 (Top 10–88 생략)</td></tr>
+              <tr style="background:rgba(41,98,255,0.04);border-left:3px solid var(--accent-blue)">
+                <td class="num" style="color:var(--accent-blue);font-weight:700">#89</td>
+                <td><strong>GKS_BESS_ESR1</strong></td>
+                <td class="num"><strong>$742,122</strong></td>
+                <td class="num" style="color:var(--accent-up)">93.0%</td>
+                <td><span class="tag tag-prod">▲ #90→89</span></td>
+              </tr>
+              <tr><td class="num" style="color:var(--text-muted)">…</td><td colspan="4" style="color:var(--text-muted);font-size:11px">#90–338 생략</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="font-size:10px;color:var(--text-muted);margin-top:6px">
+          수익 구조: RT Energy $380K / AS $361K / DA Energy ~$1K<br>
+          <span style="color:var(--accent-amber)">ESTIMATE — ERCOT 60-day disclosure lag. 실시간 순위 아님.</span>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:600;color:var(--text-secondary);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.05em">DART Virtual Revenue 순위</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th>Rank</th>
+              <th>Node</th>
+              <th class="num">Net Revenue</th>
+              <th class="num">Win Rate</th>
+              <th class="num">P/L Ratio</th>
+            </tr></thead>
+            <tbody>
+              <tr><td class="num" style="color:var(--accent-amber)">#1</td><td>RRANCHES_ALL</td><td class="num">—</td><td class="num">—</td><td class="num">—</td></tr>
+              <tr><td class="num" style="color:var(--text-muted)">…</td><td colspan="4" style="color:var(--text-muted);font-size:11px">288개 전체 중 (#1–287 생략)</td></tr>
+              <tr style="background:rgba(242,54,69,0.04);border-left:3px solid var(--accent-down)">
+                <td class="num" style="color:var(--accent-down);font-weight:700">#288</td>
+                <td><strong>GKS_BESS_ESR1</strong></td>
+                <td class="num" style="color:var(--accent-down)"><strong>-$190,902</strong></td>
+                <td class="num">51.2%</td>
+                <td class="num">3.93</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="font-size:10px;color:var(--text-muted);margin-top:6px">
+          Advisory-only mode — W37 내 실제 ERCOT virtual bid 미제출. $0 결산.<br>
+          W36 대비 net loss 개선: -$208,214 → -$190,902 (+$17,312).<br>
+          <span style="color:var(--accent-amber)">ESTIMATE — ERCOT 60-day disclosure lag.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── EVALUATOR SCORECARD ── -->
+  <div class="full-panel">
+    <div class="panel-title">Evaluator 주간 평가 (W37) — 출처: reports/weekly/evaluator/2026-W37.md</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-bottom:8px">에이전트별 점수 (W37)</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr>
+              <th>Agent</th>
+              <th class="num">Process</th>
+              <th class="num">Approach</th>
+              <th class="num">Resource</th>
+              <th class="num">Overall</th>
+              <th>Trend</th>
+            </tr></thead>
+            <tbody>
+              <tr>
+                <td>pnl-manager</td>
+                <td class="num"><span class="score-high">4.5</span></td>
+                <td class="num"><span class="score-high">4.5</span></td>
+                <td class="num"><span class="score-high">4.0</span></td>
+                <td class="num"><span class="score-high">4.3</span></td>
+                <td>→ <span style="font-size:10px;color:var(--accent-up)">Top</span></td>
+              </tr>
+              <tr>
+                <td>market-analyst</td>
+                <td class="num"><span class="score-high">4.5</span></td>
+                <td class="num"><span class="score-high">4.0</span></td>
+                <td class="num"><span class="score-mid">3.8</span></td>
+                <td class="num"><span class="score-high">4.1</span></td>
+                <td>→</td>
+              </tr>
+              <tr>
+                <td>congestion-analyst</td>
+                <td class="num"><span class="score-mid">3.8</span></td>
+                <td class="num" style="color:var(--text-muted)">N/A</td>
+                <td class="num"><span class="score-mid">3.5</span></td>
+                <td class="num"><span class="score-mid">3.7</span></td>
+                <td>→</td>
+              </tr>
+              <tr>
+                <td>reporter</td>
+                <td class="num"><span class="score-mid">3.5</span></td>
+                <td class="num"><span class="score-mid">4.0</span></td>
+                <td class="num"><span class="score-mid">3.5</span></td>
+                <td class="num"><span class="score-mid">3.7</span></td>
+                <td>→</td>
+              </tr>
+              <tr>
+                <td>bess-optimizer</td>
+                <td class="num"><span class="score-mid">3.2</span></td>
+                <td class="num"><span class="score-mid">3.5</span></td>
+                <td class="num"><span class="score-mid">3.8</span></td>
+                <td class="num"><span class="score-mid">3.5</span></td>
+                <td>↑ (partial)</td>
+              </tr>
+              <tr>
+                <td>dart-virtual-trader</td>
+                <td class="num"><span class="score-low">1.5</span></td>
+                <td class="num"><span class="score-mid">3.0</span></td>
+                <td class="num"><span class="score-mid">2.8</span></td>
+                <td class="num"><span class="score-low">2.4</span></td>
+                <td style="color:var(--accent-down)">↓ CRITICAL</td>
+              </tr>
+              <tr>
+                <td>crr-trader</td>
+                <td class="num" style="color:var(--text-muted)">—</td>
+                <td class="num" style="color:var(--text-muted)">—</td>
+                <td class="num" style="color:var(--text-muted)">—</td>
+                <td class="num" style="color:var(--text-muted)">—</td>
+                <td style="color:var(--text-muted)">inactive</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-bottom:8px">W36 계획 이행률: 0/6 해결 (1/6 실질 해결)</div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Agent</th><th>W36 Plan</th><th>결과</th></tr></thead>
+            <tbody>
+              <tr><td>dart-virtual-trader</td><td style="font-size:11px">directory-10th-critical</td><td><span class="tag tag-deg">FAILED (11주)</span></td></tr>
+              <tr><td>market-analyst</td><td style="font-size:11px">briefing-template-6th-miss</td><td><span class="tag tag-deg">FAILED (7주)</span></td></tr>
+              <tr><td>congestion-analyst</td><td style="font-size:11px">stage0rules-7th-miss</td><td><span class="tag tag-deg">FAILED (8주)</span></td></tr>
+              <tr><td>reporter</td><td style="font-size:11px">path-verification-6th-miss</td><td><span class="tag tag-deg">FAILED (7주)</span></td></tr>
+              <tr><td>bess-optimizer</td><td style="font-size:11px">da-charge-failure-critical</td><td><span class="tag tag-part">부분 해결</span></td></tr>
+              <tr><td>pnl-manager</td><td style="font-size:11px">learnings-4th-near-zero</td><td><span class="tag tag-prod">실질 해결 (6/7)</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:12px">
+          <div style="font-size:11px;color:var(--text-secondary);margin-bottom:6px">Issues 요약</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <span class="tag tag-crit" style="font-size:11px;padding:4px 10px">CRITICAL 3건</span>
+            <span class="tag tag-major" style="font-size:11px;padding:4px 10px">MAJOR 2건</span>
+            <span class="tag tag-minor" style="font-size:11px;padding:4px 10px">MINOR 4건</span>
+          </div>
+          <div style="margin-top:8px;font-size:11px;color:var(--text-secondary);line-height:1.6">
+            <div><span style="color:var(--accent-down);font-weight:600">CRIT 1</span> dart-virtual-trader 디렉토리 11주 연속 비준수 (신규 3번째 변형 dart-virtual/ 등장)</div>
+            <div><span style="color:var(--accent-down);font-weight:600">CRIT 2</span> market-analyst BRIEFING_TEMPLATE.md 7주 연속 부재</div>
+            <div><span style="color:var(--accent-down);font-weight:600">CRIT 3</span> congestion-analyst stage-0-rules.md 8주 연속 부재</div>
+            <div><span style="color:var(--accent-amber);font-weight:600">MAJOR 1</span> bess-optimizer bess-stack/ 잔존(Sep 7-8) + Sep 13 누락 + RT 구조 불균형</div>
+            <div><span style="color:var(--accent-amber);font-weight:600">MAJOR 2</span> reporter canonical-paths.md + Cycle Health 7주 연속 부재</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── MARKET STRUCTURAL UPDATE ── -->
+  <div class="full-panel">
+    <div class="panel-title">Market Structural Update (W37) — 출처: reports/weekly/structural-update/2026-W37.md</div>
+    <div class="struct-grid">
+      <div class="struct-item">
+        <div class="struct-item-title">★★★ Batch Zero 데이터센터 감사</div>
+        <div class="struct-item-body">ERCOT 461개 DC 종합 설문 론칭. 362개 프로젝트, 요청 전력 191.8 GW. 검증 RFI 231건(마감 Sep 23), ERCOT 보고서 Dec 10, PUCT 오픈미팅 Dec 17. 191.8 GW 파이프라인(~90% DC) = 2026 수요 예측 최대 불확실성.</div>
+      </div>
+      <div class="struct-item">
+        <div class="struct-item-title">★★ PUCT Sep 11 오픈미팅 — 결과 미확인</div>
+        <div class="struct-item-body">개최 확인 (ERCOT 캘린더). 의제 후보: 16 TAC §25.194 대형부하 접속기준, NPRR1330 처분, Batch Zero 현황. 구체적 결정은 W37 기준 미확인. W38에서 interchange.puc.texas.gov 확인 필요.</div>
+      </div>
+      <div class="struct-item">
+        <div class="struct-item-title">★ BESS 플리트 ~14 GW / B2U COD (Sep 9)</div>
+        <div class="struct-item-body">ERCOT BESS ~14 GW (Texas = 미국 2026 유틸리티 추가 24 GW 중 53%). 신규 COD: B2U Bexar Martinez BESS 28 MWh (재활용 EV 배터리, Sep 9 상업운전 개시).</div>
+      </div>
+      <div class="struct-item">
+        <div class="struct-item-title">NPRR1330 / 1322 / 1324 진행 상황</div>
+        <div class="struct-item-body">NPRR1330 (RMR 미티게이티드 오퍼캡): PUCT Sep 11 의제 후보. 채택 시 열발전 DA 상한 제한 → RT 스파이크 진폭 완화 가능. NPRR1322/1324: W37 신규 조치 없음.</div>
+      </div>
+      <div class="struct-item">
+        <div class="struct-item-title">태양광·풍력·열발전 계절 추세</div>
+        <div class="struct-item-body">태양광: Sep 계절 하락, HE12 피크 ~25-30 GW. Duck curve 심화 지속 (Sep 13 NL trough 22,188 MW SEVERE-EXTREME 경계). 풍력: GR_WEST 계절 회복, Sep 11+ 야간→저녁 timing 체제 전환. 열발전 cap-out: 일부 회복 중.</div>
+      </div>
+      <div class="struct-item">
+        <div class="struct-item-title">STEP Permian CCN Sep 25 청문</div>
+        <div class="struct-item-body">W37 변동 없음. Sep 25 일정 유지. 2개 구간 Aug 28 승인 후 다음 배치 진행 중. 765-kV 구간 PUCT 반대 의견 동향 W38 추적.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── AGENT SELF-FEEDBACK ── -->
+  <div class="full-panel">
+    <div class="panel-title">에이전트 Self-Feedback 요약 (W37) — 5/7 파일 (Sep 8, Sep 12 공통 누락: Tenaska DEGRADED 날 learning 억제)</div>
+    <div class="agent-grid">
+      <div class="agent-card">
+        <div class="agent-name">
+          market-analyst
+          <span class="agent-score" style="background:rgba(8,153,129,0.12);color:var(--accent-up)">Overall 4.1</span>
+        </div>
+        <ul>
+          <li>Sep 11: HE10-12 RT 급등 미예측 ($89-103/MWh 실제 vs HE19-20 예측) — 2-3시간 선행 오류</li>
+          <li>HE10-11 negative price 예측 미실현 ($33-37/MWh 양수 유지 — cap-out 9 GW 환경에서 price floor 과소평가)</li>
+          <li>"Evening Ramp HE18-20" → "오후-저녁 고가구간 HE15-20" 3회 누적 미반영. Sep 15 브리핑에서 강제 적용</li>
+          <li>단일 소스(Yes Energy) 한계 — Enverus/AG2 부재로 교차검증 불가</li>
+        </ul>
+      </div>
+      <div class="agent-card">
+        <div class="agent-name">
+          bess-optimizer
+          <span class="agent-score" style="background:rgba(255,152,0,0.12);color:var(--accent-amber)">Overall 3.5</span>
+        </div>
+        <ul>
+          <li>Sep 8 구조적 오류 4개: ①에너지 수익 6-17배 과대추정 ②NonSpin 시간대 오인 (HE11-18 아닌 HE19-24) ③HSL 68.6 MW vs 100 MW 가정 ④에너지-AS overlap 재발</li>
+          <li>Sep 11: HE14-19 피크 시간 역방향 충전 -$10,757 (avg $91/MWh) 확인. "충전은 HE10-11에만" 원칙 강화</li>
+          <li>Rule 8 (RT dispatch mismatch) 미결 Day 36+. SoC 추정 오차 누적 경고</li>
+          <li>MaxSOC 95%(190 MWh) 명세 적용, HE09 충전 기준 "NL 격차 ≥ 5,000 MW"로 확립</li>
+        </ul>
+      </div>
+      <div class="agent-card">
+        <div class="agent-name">
+          dart-virtual-trader
+          <span class="agent-score" style="background:rgba(242,54,69,0.12);color:var(--accent-down)">Overall 2.4</span>
+        </div>
+        <ul>
+          <li>Sep 9 HE01-02: W2N 11,153/11,237 MW — GR_WEST 11,000 MW 게이트 W37 최초 돌파. hub-pair LMP 부재로 포지션 불가 (~115 사이클)</li>
+          <li>Sep 8 dart_virtual_revenue +$1,688.20 확인. Cap-out 급감(-1,951 MW) → P(adj) half-size 자동 작동 확인</li>
+          <li>Sep 11 HE10-12 오전 RT 급등 미포착 ($168-$496/15min) — Scarcity Cliff 프레임 외부 이벤트</li>
+          <li>T+2 결산 적체 9 flowdays (Sep 3-11 전부 Tenaska 차단). 디렉토리: dart-virtual/ 신규 3번째 변형 등장</li>
+        </ul>
+      </div>
+      <div class="agent-card">
+        <div class="agent-name">
+          congestion-analyst
+          <span class="agent-score" style="background:rgba(255,152,0,0.12);color:var(--accent-amber)">Overall 3.7</span>
+        </div>
+        <ul>
+          <li>Sep 11 MAJOR MISS: HOUSTON_SOUTH cap-out 9,463 MW를 P99 꼬리 위험으로만 처리 → HE10-12 RT 급등 미예측. 새 규칙: cap-out MEDIUM threshold 600 MW 이내 시 binding 표에 필수 등재</li>
+          <li>Sep 9: WEST_TO_NORTH_345 3시간 연속 MEDIUM (HE01-03) — Sep 2026 시리즈 최초</li>
+          <li>Sep 13: DUCK_CURVE EXTREME HE09-12 (NL 20,669 MW) P65-80% + W2N 22시간 MEDIUM (Sep 2026 최장)</li>
+          <li>Stage 0 진행 차단: disk W3 60GB+ 미확보, hub-pair LMP ~116 사이클 부재, Smartbidder Day 51</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── NEXT WEEK WATCH ITEMS ── -->
+  <div class="full-panel">
+    <div class="panel-title">W38 Watch Items (Sep 14-20)</div>
+    <div class="watch-grid">
+      <div>
+        <div class="watch-col-title p0">P0 — 즉시 조치 필요</div>
+        <div class="watch-item">
+          <div class="watch-item-title">Smartbidder MSAL 갱신 (Day 47+)</div>
+          <div class="watch-item-desc">Ascend rep 즉시 연락. 갱신 후 2026-07-25 이후 전체 소급 조회 필요. 전 에이전트 benchmark 차단 중.</div>
+        </div>
+        <div class="watch-item">
+          <div class="watch-item-title">Tenaska PTP cloud IP 화이트리스트</div>
+          <div class="watch-item-desc">W29 이후 미해결. T+2 결산 적체 40+ flowday 해소 선결조건. Ascend 담당자에 IP 등록.</div>
+        </div>
+        <div class="watch-item">
+          <div class="watch-item-title">Tenaska DA bid HTTP 400 진단 (신규)</div>
+          <div class="watch-item-desc">Sep 11+ 신규 오류 클래스. DA bid 제출 및 결산 데이터 경로 모두 차단. 진단 및 Ascend 연락 필요.</div>
+        </div>
+      </div>
+      <div>
+        <div class="watch-col-title high">HIGH</div>
+        <div class="watch-item">
+          <div class="watch-item-title">PUCT Sep 11 결과 확인</div>
+          <div class="watch-item-desc">interchange.puc.texas.gov Project 58481 (16 TAC §25.194), NPRR1330, NPRR1322/1324 처분 내용.</div>
+        </div>
+        <div class="watch-item">
+          <div class="watch-item-title">Batch Zero RFI Sep 23 마감</div>
+          <div class="watch-item-desc">231개 DC 응답률 추적. 연장 요청 현황. ERCOT 공개 대시보드 확인.</div>
+        </div>
+        <div class="watch-item">
+          <div class="watch-item-title">dart-virtual-trader 경로 하드코딩 승인</div>
+          <div class="watch-item-desc">사용자 승인 1회로 11주 연속 문제 구조적 해결. W38 consequence 조항 집행 여부 결정 필요.</div>
+        </div>
+        <div class="watch-item">
+          <div class="watch-item-title">hub-pair LMP 소스 복구</div>
+          <div class="watch-item-desc">~113 사이클 부재. W2N INC 전략 및 congestion Stage 1 공통 선결 조건.</div>
+        </div>
+      </div>
+      <div>
+        <div class="watch-col-title med">MEDIUM</div>
+        <div class="watch-item">
+          <div class="watch-item-title">STEP Permian Sep 25 CCN 청문</div>
+          <div class="watch-item-desc">다음 배치 765-kV 구간. PUCT 반대 의견 동향 추적.</div>
+        </div>
+        <div class="watch-item">
+          <div class="watch-item-title">Sep 3 ROS 회의록 게시 예상 (Sep 17-24)</div>
+          <div class="watch-item-desc">ERCOT.com. 여름 열파 대응 및 대형 부하 통합 지침 내용 확인.</div>
+        </div>
+        <div class="watch-item">
+          <div class="watch-item-title">congestion-analyst Sep 14 EXTREME 검증</div>
+          <div class="watch-item-desc">Tenaska 복구 시 최우선 calibration. NL 20,669 MW EXTREME + W2N 22시간 MEDIUM.</div>
+        </div>
+        <div class="watch-item">
+          <div class="watch-item-title">BESS fleet 규모 소싱 일관화</div>
+          <div class="watch-item-desc">KilowattLogic 14 GW vs Cleanview 17 GW 차이 원인. W38 structural update에서 단일 기준 선택.</div>
+        </div>
+        <div class="watch-item">
+          <div class="watch-item-title">Batch Zero 커뮤니티 설문 발송 확인</div>
+          <div class="watch-item-desc">ERCOT이 "다음주" 발송 예고 (Sep 11 기준). W38이 1차 수신 주간.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── LINKS ── -->
+  <div class="panel" style="margin-bottom:12px">
+    <div class="panel-title">관련 대시보드 링크</div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;font-size:12px">
+      <a href="bess-revenue-dashboard/2026-W37.html" style="color:var(--accent-blue);text-decoration:none">BESS Energy+AS Revenue Dashboard →</a>
+      <a href="bess-dart-virtual-dashboard/2026-W37.html" style="color:var(--accent-blue);text-decoration:none">BESS DART Virtual Dashboard →</a>
+      <span style="color:var(--text-muted)">| Markdown: <code style="font-family:'JetBrains Mono',monospace;font-size:11px">reports/weekly/2026-W37.md</code></span>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+// W37 Daily Revenue Chart
+const ctx = document.getElementById('revenueChart').getContext('2d');
+const labels = ['Sep 7\n(Mon)', 'Sep 8\n(Tue)', 'Sep 9\n(Wed)', 'Sep 10\n(Thu)', 'Sep 11\n(Fri)', 'Sep 12\n(Sat)', 'Sep 13\n(Sun)'];
+const data   = [null, 9584.10, null, null, null, null, null];
+const colors = data.map(v => v === null ? 'rgba(149,152,161,0.25)' : 'rgba(8,153,129,0.75)');
+const borderColors = data.map(v => v === null ? 'rgba(149,152,161,0.40)' : 'rgba(8,153,129,1)');
+
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Sep 7', 'Sep 8', 'Sep 9', 'Sep 10', 'Sep 11', 'Sep 12', 'Sep 13'],
+    datasets: [{
+      label: 'GKS Total Revenue ($)',
+      data: [0, 9584.10, 0, 0, 0, 0, 0],
+      backgroundColor: colors,
+      borderColor: borderColors,
+      borderWidth: 1,
+      borderRadius: 3,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: function(ctx) {
+            const idx = ctx.dataIndex;
+            const statuses = ['FULLY DEGRADED', 'PRODUCTION — $9,584.10', 'FULLY DEGRADED', 'FULLY DEGRADED', 'PARTIAL (RTEIAMT only)', 'FULLY DEGRADED', 'FULLY DEGRADED'];
+            return statuses[idx];
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: '#eceff3' },
+        ticks: { color: '#5d606b', font: { size: 11 } }
+      },
+      y: {
+        grid: { color: '#eceff3' },
+        ticks: {
+          color: '#5d606b',
+          font: { size: 11, family: "'JetBrains Mono', monospace" },
+          callback: v => v === 0 ? 'N/A' : '$' + v.toLocaleString()
+        },
+        min: 0,
+        max: 12000
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
