@@ -1,6 +1,33 @@
 # Evaluator Improvement Tracker
 
-Last updated: 2026-09-07 (Week 2026-W36)
+Last updated: 2026-09-14 (Week 2026-W37)
+
+---
+
+## Week 2026-W37 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-W37-directory-eleventh-critical.md` | dart-virtual-trader | CRITICAL | OPEN — user authorization for agent definition hard-code still pending (11th consecutive non-compliant week); dart-virtual/ is NEW third wrong-dir variant (regression); dart/ variant dominant (4 instances) | 1/7 dir; new dart-virtual/ variant Sep 11-12; dart/ Sep 7,8,10,13; consequence clause W38: suspend DART section from Daily Report if < 7/7 |
+| `memory/market-analyst/plans/2026-W37-briefing-template-seventh-miss.md` | market-analyst | CRITICAL | OPEN — agent to create BRIEFING_TEMPLATE.md immediately; user authorization for agent definition hard-code now recommended (7th consecutive miss, exceeds escalation threshold) | 7/7 dir ✓; 5/7 learnings (Sep 8,12 absent — DEGRADED cascade); BRIEFING_TEMPLATE.md absent 7th week |
+| `memory/congestion-analyst/plans/2026-W37-stage0rules-eighth-miss.md` | congestion-analyst | CRITICAL | OPEN — agent to create stage-0-rules.md immediately; user to confirm suspension clause (triggered W36, unenforced W36-W37) | 7/7 dir ✓; 5/7 learnings (Sep 8,12 absent — DEGRADED cascade); stage-0-rules.md absent 8th week; hub-pair LMP absent ~113 cycles (Stage 1 blocked) |
+| `memory/bess-optimizer/plans/2026-W37-bess-stack-persistence-plus-rt-imbalance.md` | bess-optimizer | MAJOR | OPEN — agent to apply path anchor at session start; Sep 13 missing recovery; RT-offset ratio tracking when Smartbidder resumes | 4/7 dir (bess-stack/ Sep 7-8; Sep 13 missing); DA charge W36 Critical PARTIALLY RESOLVED (charge moved HE03-10; DA energy confirmed clearing); AS+Energy overlap rule applied; RT offset ratio 89% Sep 8 (benchmark unavailable) |
+| `memory/reporter/plans/2026-W37-canonical-paths-seventh-miss.md` | reporter | MAJOR | OPEN — agent to create canonical-paths.md immediately; add Cycle Health section to all W38 daily reports | 7/7 dir ✓; 7/7 history ✓; canonical-paths.md absent 7th week; Cycle Health section absent 7th week; user-facing transparency issue (directory failures invisible in daily reports) |
+
+---
+
+## Week 2026-W37 W36 Plan Compliance Update
+
+| Plan | Agent | W36 Deadline | W37 Status |
+|---|---|---|---|
+| `2026-W36-directory-tenth-critical.md` — dir compliance | dart-virtual-trader | ≥7/7 dir; user authorization hard-code | **FAILED — 1/7 (REGRESSION: new dart-virtual/ 3rd wrong-dir variant; dart/ dominant 4 instances); user authorization still not received** |
+| `2026-W36-da-charge-failure-critical.md` — DA charge + AS overlap | bess-optimizer | DA charge bid fix; AS+Energy gate; 7/7 dir | **PARTIALLY RESOLVED — DA charge moved HE03-10 (no longer HE10-11); Sep 8 PRODUCTION confirms DA energy $15,774 cleared; AS+Energy overlap rule applied in W37. bess-stack/ persists Sep 7-8; Sep 13 output MISSING. Dir = 4/7 (same as W36, no directory improvement)** |
+| `2026-W36-learnings-fourth-near-zero.md` — pnl-manager history | pnl-manager | ≥5/7 learnings; PRODUCTION days same-day | **SUBSTANTIALLY RESOLVED — 6/7 history (up from 1/7 in W36); Sep 11 only miss (DEGRADED cascade). Near-closed.** |
+| `2026-W36-briefing-template-sixth-miss.md` — BRIEFING_TEMPLATE.md | market-analyst | Before W37 Day 1 | **FAILED — BRIEFING_TEMPLATE.md still absent (7th consecutive miss). 7/7 dir maintained.** |
+| `2026-W36-stage0rules-seventh-miss.md` — stage-0-rules.md | congestion-analyst | Before W37 Day 1 | **FAILED — stage-0-rules.md still absent (8th consecutive miss). 7/7 dir maintained.** |
+| `2026-W36-path-verification-sixth-miss.md` — reporter canonical-paths + Cycle Health | reporter | W37 all 7 days; canonical-paths.md before W37 Day 1 | **FAILED — both canonical-paths.md and Cycle Health section absent (7th consecutive miss). 7/7 dir and 7/7 history maintained.** |
+
+**Resolved**: 0 | **Substantially resolved**: 1 (pnl-manager 1/7→6/7 history) | **Partially resolved**: 1 (bess-optimizer DA charge) | **Failed**: 4 | **User authorization pending**: 1 (dart-virtual-trader hard-code)
 
 ---
 
