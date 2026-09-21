@@ -1,6 +1,32 @@
 # Evaluator Improvement Tracker
 
-Last updated: 2026-09-14 (Week 2026-W37)
+Last updated: 2026-09-21 (Week 2026-W38)
+
+---
+
+## Week 2026-W38 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-W38-directory-twelfth-consequence-clause.md` | dart-virtual-trader | CRITICAL | OPEN — consequence clause triggered; user authorization for hard-code still pending (12th week); 4/7 dir (improvement from W37's 1/7); Mon-Thu correct; Fri-Sun wrong (dart/ Sep 18, dart-position/ Sep 19-20); consequence clause: suspend DART section from Daily Report until hard-code authorized or 7/7 achieved | dart-virtual-trader/ 4/7; dart/ 1/7 (Sep 18); dart-position/ 2/7 (Sep 19-20) |
+| `memory/market-analyst/plans/2026-W38-briefing-template-eighth-miss.md` | market-analyst | CRITICAL | OPEN — agent to create BRIEFING_TEMPLATE.md immediately (NEXT session); user authorization for agent definition hard-code confirmed recommended after 8 misses | 7/7 dir ✓; 5/7 learnings (Sep 16,20 absent — DEGRADED cascade); BRIEFING_TEMPLATE.md absent 8th week |
+| `memory/congestion-analyst/plans/2026-W38-stage0rules-ninth-miss.md` | congestion-analyst | CRITICAL | OPEN — agent to create stage-0-rules.md immediately; user to confirm suspension clause (triggered W36, unenforced 3 cycles W36-W38) | 7/7 dir ✓; 6/7 learnings; stage-0-rules.md absent 9th week; hub-pair LMP absent ~122 cycles (Stage 1 blocked) |
+| `memory/bess-optimizer/plans/2026-W38-bess-stack-weekend-persistence.md` | bess-optimizer | MAJOR | OPEN — agent to apply path anchor on DEGRADED/weekend sessions; same root cause as dart-virtual-trader Pattern 21 variant | 4/7 dir (same as W37; bess-stack/ Sep 18-20); no missing-output days (improvement: no Sep 13-type gap) |
+| `memory/reporter/plans/2026-W38-canonical-paths-eighth-miss.md` | reporter | MAJOR | OPEN — agent to create canonical-paths.md immediately; add Cycle Health section all W39 reports | 7/7 dir ✓; canonical-paths.md absent 8th week; Cycle Health section absent 8th week; W38 wrong-dir failures by dart-virtual-trader and bess-optimizer not surfaced to user |
+
+---
+
+## Week 2026-W38 W37 Plan Compliance Update
+
+| Plan | Agent | W37 Deadline | W38 Status |
+|---|---|---|---|
+| `2026-W37-directory-eleventh-critical.md` — dir compliance | dart-virtual-trader | 7/7 dir; user authorization hard-code | **PARTIALLY IMPROVED — 4/7 correct (dart-virtual-trader/ Sep 14-17). dart/ Sep 18 (1 instance); dart-position/ Sep 19-20 (2 instances). Still < 7/7; consequence clause triggered per W37 registered plan.** |
+| `2026-W37-bess-stack-persistence-plus-rt-imbalance.md` — dir + RT imbalance | bess-optimizer | 7/7 dir; RT offset tracking | **FAILED — 4/7 correct (same as W37). bess-stack/ 3 instances (Sep 18-20). No missing-output day (improvement). RT benchmark still unavailable (Smartbidder DEGRADED).** |
+| `2026-W37-briefing-template-seventh-miss.md` — BRIEFING_TEMPLATE.md | market-analyst | Before W38 Day 1 | **FAILED — BRIEFING_TEMPLATE.md still absent (8th consecutive miss). 7/7 dir maintained.** |
+| `2026-W37-stage0rules-eighth-miss.md` — stage-0-rules.md | congestion-analyst | Before W38 Day 1 | **FAILED — stage-0-rules.md still absent (9th consecutive miss). 7/7 dir maintained. 6/7 learnings (improvement from W37's 5/7).** |
+| `2026-W37-canonical-paths-seventh-miss.md` — reporter canonical-paths + Cycle Health | reporter | W38 all 7 days; canonical-paths.md before W38 Day 1 | **FAILED — both canonical-paths.md and Cycle Health section absent (8th consecutive miss). 7/7 dir and coverage maintained.** |
+
+**Resolved**: 0 | **Partially improved**: 1 (dart-virtual-trader 1/7→4/7) | **Failed**: 4
 
 ---
 
