@@ -1,6 +1,6 @@
 # Evaluator Cross-Agent Patterns
 
-Last updated: 2026-08-03 (Week 2026-W31 evaluation)
+Last updated: 2026-09-28 (Week 2026-W39 evaluation)
 
 ---
 
@@ -255,6 +255,21 @@ On 2026-07-13, bess-optimizer completely inverted the top and bottom revenue hou
 This is the largest calibration miss observed in any single self-review — complete directional inversion of all key decisions. The Jul 16 self-review showed the agent immediately correcting the charge window to HE10-11 (within 1-2 cycles), consistent with Pattern 15 (per-cycle rule changes applied quickly). However, the Jul 13 miss severity suggests the base calibration model for overnight vs daytime price structure requires more systematic revision, not just a one-cycle correction.
 
 Root cause: the bess-optimizer model assumed a conventional summer price curve (overnight cheap, afternoon/evening expensive). The Jul 13 actual showed a compressed midday trough with peak at HE07 (morning ramp), consistent with a high-solar, moderate-wind, tight early-morning supply day. This is a pattern the model should be able to recognize from the AS price structure (Non-Spin elevated overnight → market expects tight morning supply).
+
+---
+
+## Pattern 26: Compound Infrastructure DEGRADED + Absence of Orchestrator Trigger Produces Multi-Day Cycle Void
+
+**Observed**: Week 2026-W39 (Sep 22-25, 2026 — 4 consecutive cycle gaps; Sep 27 also missing; 5 of 7 W39 days not executed)
+**Agents affected**: All agents simultaneously
+
+When Smartbidder is DEGRADED (Day 8+) AND Tenaska PTP is DOWN simultaneously, the daily cycle is at risk of complete abandonment if the orchestration trigger is not enforced independently of data availability. In W39, this compound condition produced a 4-day operational void (Sep 22-25 with Sep 27 also missing) — 5 of 7 operational days not executed.
+
+This is an extension of Pattern 24 (orchestration cycle skip) but with a different root cause: in W39 the issue was not a one-day skip but a multi-day accumulated suppression under sustained infrastructure DEGRADED conditions. Agent self-reviews cite "오케스트레이터 트리거 부재(일일 07:30 CT 사이클 자동화 미동작) 가능성" — suggesting the orchestrator failed to trigger the cycle on DEGRADED days.
+
+**Key distinction from Pattern 8**: Pattern 8 breaks the self-review loop (T+2 settlement absent) but leaves D+1 planning intact. Pattern 26 breaks both D+1 planning AND T+2 review simultaneously. The compound effect means no recommendations, no learning updates, and (if actuals were available) no benchmark comparison — a complete operational blackout.
+
+**Mitigation**: A DEGRADED-mode minimum cycle protocol should exist. Even with both Smartbidder and Tenaska DOWN, a minimal cycle using Yes Energy only (which was PRODUCTION on both run days) should generate: (1) market-analyst briefing, (2) bess-optimizer DEGRADED-flagged stack, (3) dart-virtual-trader DEGRADED positions. A DEGRADED recommendation is materially better than no recommendation — the Sep 17 loss (-$2,231.14) resulted from Smartbidder autonomously executing a strategy that contradicted the bess-optimizer recommendation. During the Sep 22-25 gap, with no recommendation present, Smartbidder likely continued autonomous execution with no oversight.
 
 ---
 

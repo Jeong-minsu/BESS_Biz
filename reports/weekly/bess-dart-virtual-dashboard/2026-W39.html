@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERCOT All-BESS DART Virtual Revenue Dashboard — 2026-W39</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg-base:        #f7f8fa;
+  --bg-panel:       #ffffff;
+  --bg-panel-2:     #f0f2f5;
+  --bg-row-alt:     #fafbfc;
+  --border-soft:    #e0e3eb;
+  --border-strong:  #c8ccd4;
+  --text-primary:   #131722;
+  --text-secondary: #5d606b;
+  --text-muted:     #9598a1;
+  --accent-up:      #089981;
+  --accent-down:    #f23645;
+  --accent-blue:    #2962ff;
+  --accent-amber:   #ff9800;
+  --accent-purple:  #9c27b0;
+  --grid-line:      #eceff3;
+  --shadow-card:    0 1px 2px rgba(16,24,40,0.04);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg-base);
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  color: var(--text-primary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.page-wrap { max-width: 1400px; margin: 0 auto; padding: 24px; }
+
+.degraded-banner {
+  background: #fff8e1;
+  border: 1px solid #ff9800;
+  border-radius: 6px;
+  padding: 12px 20px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.degraded-banner .icon { font-size: 18px; margin-top: 1px; }
+.degraded-banner .body strong { color: #e65100; font-size: 13px; }
+.degraded-banner .body p { color: #5d606b; font-size: 12px; margin-top: 2px; }
+
+.header {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 20px 24px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.header-left h1 { font-size: 18px; font-weight: 600; }
+.header-left .sub { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+.header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.status-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.status-degraded { background: #fff3e0; color: #e65100; border: 1px solid #ffb74d; }
+.status-ytd      { background: #e8f5e9; color: #2e7d32; border: 1px solid #81c784; }
+.data-as-of { font-size: 11px; color: var(--text-muted); }
+
+.kpi-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 12px; }
+.kpi-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 16px 20px;
+  box-shadow: var(--shadow-card);
+}
+.kpi-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); font-weight: 500; margin-bottom: 6px; }
+.kpi-value { font-family: 'JetBrains Mono', monospace; font-size: 26px; font-weight: 500; color: var(--text-primary); font-variant-numeric: tabular-nums; }
+.kpi-change { font-size: 11px; margin-top: 4px; display: flex; align-items: center; gap: 4px; }
+.kpi-change.up { color: var(--accent-up); }
+.kpi-change.neutral { color: var(--text-secondary); }
+.kpi-change.down { color: var(--accent-down); }
+
+.chart-row { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; margin-bottom: 12px; }
+.panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+}
+.panel-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); font-weight: 500; margin-bottom: 16px; }
+.panel-subtitle { font-size: 11px; color: var(--text-muted); margin-top: -12px; margin-bottom: 14px; }
+.chart-container { position: relative; height: 240px; }
+
+.metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.metric-cell {
+  background: var(--bg-panel-2);
+  border-radius: 4px;
+  padding: 10px 12px;
+}
+.metric-cell .m-label { font-size: 10px; color: var(--text-secondary); margin-bottom: 4px; }
+.metric-cell .m-value { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--text-primary); font-variant-numeric: tabular-nums; }
+.metric-cell .m-sub { font-size: 10px; color: var(--text-muted); }
+
+table { width: 100%; border-collapse: collapse; }
+thead tr { border-bottom: 1px solid var(--border-soft); }
+th { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); font-weight: 500; padding: 8px 10px; text-align: left; }
+th.num { text-align: right; }
+td { padding: 7px 10px; font-size: 12px; color: var(--text-primary); border-bottom: 1px solid var(--grid-line); }
+td.num { text-align: right; font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
+tr:nth-child(even) td { background: var(--bg-row-alt); }
+tr:hover td { background: var(--bg-panel-2); }
+.rank-cell { color: var(--text-muted); font-size: 11px; }
+.gks-row td { background: #e3f2fd !important; }
+.gks-row:hover td { background: #bbdefb !important; }
+.gks-tag { display: inline-block; margin-left: 6px; background: var(--accent-blue); color: white; font-size: 9px; padding: 1px 5px; border-radius: 3px; font-weight: 600; letter-spacing: 0.04em; }
+.rev-pos { color: var(--accent-up); }
+.rev-neg { color: var(--accent-down); }
+.win-bar-wrap { display: flex; align-items: center; gap: 6px; }
+.win-bar { height: 6px; border-radius: 2px; }
+
+.w39-notice {
+  background: #fff8e1;
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 14px 20px;
+  margin-bottom: 12px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  align-items: center;
+}
+.w39-notice .w-label { font-weight: 600; font-size: 13px; }
+.w39-notice .w-body { font-size: 12px; color: var(--text-secondary); }
+.w39-notice .w-pill { background: #fff3e0; color: #e65100; border: 1px solid #ffb74d; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; white-space: nowrap; }
+
+.dart-concept {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-card);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.dart-concept strong { color: var(--text-primary); }
+.footnote { font-size: 11px; color: var(--text-muted); margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--grid-line); }
+.footnote p { margin-bottom: 4px; }
+.table-panel { margin-bottom: 12px; }
+@media (max-width: 900px) {
+  .kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .chart-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<!-- DEGRADED BANNER -->
+<div class="degraded-banner">
+  <div class="icon">&#9888;</div>
+  <div class="body">
+    <strong>W39 (Sep 21–27, 2026) — ERCOT 60-Day Disclosure NOT YET PUBLISHED</strong>
+    <p>ERCOT NP3-966-ER 60-day disclosure for Sep 21–27 will not be published until approximately Nov 20–26, 2026.
+    W39 DART virtual revenue data is unavailable — this is an expected timing constraint.
+    Dashboard shows YTD data through 2026-07-27. ERCOT archive search confirmed no archive found for
+    any date in the range 2026-09-21 to 2026-09-27 as of 2026-09-28 CT.</p>
+  </div>
+</div>
+
+<!-- W39 STATUS ROW -->
+<div class="w39-notice">
+  <div class="w-label">ISO Week 2026-W39</div>
+  <div class="w-body">Sep 21–27, 2026 &nbsp;|&nbsp; DART Virtual Revenue Estimate &nbsp;|&nbsp;
+    ERCOT 60-day disclosure embargo: data available ~Nov 20–26, 2026</div>
+  <div class="w-pill">DEGRADED — 60-day lag</div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <h1>ERCOT All-BESS DART Virtual Revenue Dashboard</h1>
+    <div class="sub">
+      2026-W39 Report &nbsp;|&nbsp; YTD Coverage: 2026-01-01 to 2026-07-27
+      &nbsp;|&nbsp; Source: ERCOT NP3-966-ER 60-day Disclosure + Yes Energy LMP (Estimate, not settlement)
+      &nbsp;|&nbsp; Generated: 2026-09-28 CT
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="status-pill status-ytd">YTD DATA AVAILABLE</span>
+    <span class="status-pill status-degraded">W39 DEGRADED</span>
+    <span class="data-as-of">Latest data as-of: 2026-07-27 &nbsp;|&nbsp; 292 active nodes</span>
+  </div>
+</div>
+
+<!-- DART CONCEPT NOTE -->
+<div class="dart-concept">
+  <strong>What is DART Virtual Revenue?</strong>
+  DART virtual = financial energy-only offers/bids settled against the DA-vs-RT price spread.
+  <strong>Virtual Short (offer)</strong>: (DA_LMP − RT_LMP) &times; Offer_MW &nbsp;&mdash;&nbsp;
+  <strong>Virtual Long (bid)</strong>: (RT_LMP − DA_LMP) &times; Bid_MW.
+  This revenue stream is <em>separate and additive</em> to physical energy + AS revenue (see Energy/AS dashboard).
+  Sign convention: <code>spread = DA − RT</code>; positive spread &rArr; DA expensive &rArr; virtual short is profitable.
+</div>
+
+<!-- KPI CARDS -->
+<div class="kpi-row">
+  <div class="kpi-card">
+    <div class="kpi-label">YTD Fleet Net DART</div>
+    <div class="kpi-value" style="color:var(--accent-up);">$5.58M</div>
+    <div class="kpi-change up">Jan 1 – Jul 27, 2026</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Active BESS Nodes</div>
+    <div class="kpi-value">292</div>
+    <div class="kpi-change neutral">with DART virtual activity</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Positive Nodes</div>
+    <div class="kpi-value">136</div>
+    <div class="kpi-change neutral">of 292 &nbsp;(46.6%)</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">GKS Rank (YTD)</div>
+    <div class="kpi-value" style="color:var(--accent-down);">#292</div>
+    <div class="kpi-change down">last &nbsp;|&nbsp; -$193K</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">W39 Status</div>
+    <div class="kpi-value" style="font-size:18px;color:var(--accent-amber);">DEGRADED</div>
+    <div class="kpi-change neutral">60-day embargo</div>
+  </div>
+</div>
+
+<!-- CHART + METRICS -->
+<div class="chart-row">
+  <div class="panel">
+    <div class="panel-title">Monthly Fleet DART Virtual Revenue (Jan–Jul 2026)</div>
+    <div class="panel-subtitle">Positive = net virtual short PnL dominates. Jan 2026 peak driven by high DA-RT spreads.</div>
+    <div class="chart-container">
+      <canvas id="monthlyDartChart"></canvas>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-title">Fleet DART Metrics (YTD)</div>
+    <div class="panel-subtitle">Jan 1 – Jul 27, 2026 &nbsp;|&nbsp; 292 nodes</div>
+    <div class="metric-grid" style="margin-top:8px;">
+      <div class="metric-cell">
+        <div class="m-label">Fleet Offer Rev</div>
+        <div class="m-value" style="color:var(--accent-up);">+$6.21M</div>
+        <div class="m-sub">Virtual Short</div>
+      </div>
+      <div class="metric-cell">
+        <div class="m-label">Fleet Bid Rev</div>
+        <div class="m-value" style="color:var(--accent-down);">-$0.63M</div>
+        <div class="m-sub">Virtual Long</div>
+      </div>
+      <div class="metric-cell">
+        <div class="m-label">Top Node</div>
+        <div class="m-value" style="font-size:12px;">RRANCHES_ALL</div>
+        <div class="m-sub">$1.17M net</div>
+      </div>
+      <div class="metric-cell">
+        <div class="m-label">Avg Win Rate</div>
+        <div class="m-value">47.6%</div>
+        <div class="m-sub">positive nodes</div>
+      </div>
+      <div class="metric-cell" style="grid-column:1/3; background:#ffebee;">
+        <div class="m-label">GKS_BESS_RN (YTD)</div>
+        <div class="m-value" style="color:var(--accent-down);">-$192,571</div>
+        <div class="m-sub">Rank #292 of 292 &nbsp;|&nbsp; Win rate 51.2% &nbsp;|&nbsp; P/L ratio 3.93 &nbsp;|&nbsp; Participation 32.7%</div>
+      </div>
+      <div class="metric-cell" style="grid-column:1/3; background:#fff8e1;">
+        <div class="m-label">W39 (Sep 21–27)</div>
+        <div class="m-value" style="color:var(--accent-amber); font-size:16px;">N/A</div>
+        <div class="m-sub">60-day embargo — available ~Nov 20, 2026</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOP 30 RANKING TABLE -->
+<div class="panel table-panel">
+  <div class="panel-title">Top 30 BESS Nodes — YTD DART Virtual Net Revenue (Jan 1 – Jul 27, 2026)</div>
+  <div class="panel-subtitle" style="margin-top:-12px; margin-bottom:12px;">
+    Estimate from ERCOT NP3-966-ER 60-day disclosure + Yes Energy LMP. Not settlement.
+    Win rate = hours with positive net / hours participated. P/L ratio = avg winning hour / |avg losing hour|.
+    GKS shown at bottom.
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:40px;">#</th>
+        <th>Node</th>
+        <th class="num">Net DART Rev</th>
+        <th class="num">Offer Rev</th>
+        <th class="num">Bid Rev</th>
+        <th>Win Rate</th>
+        <th class="num">P/L Ratio</th>
+        <th class="num">Participation</th>
+        <th class="num">HSL (MW)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="rank-cell">1</td><td>RRANCHES_ALL</td><td class="num rev-pos">$1,172,321</td><td class="num rev-pos">$1,172,321</td><td class="num rev-neg">-$20,029</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:50px;background:var(--accent-amber);opacity:0.7;"></div><span>49.7%</span></div></td><td class="num">7.28</td><td class="num">14.2%</td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">2</td><td>EBNY_ESS_RN</td><td class="num rev-pos">$880,219</td><td class="num rev-pos">$880,219</td><td class="num rev-pos">$550</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:51px;background:var(--accent-up);opacity:0.7;"></div><span>51.1%</span></div></td><td class="num">2.82</td><td class="num">0.4%</td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">3</td><td>BLVN_RN</td><td class="num rev-pos">$500,272</td><td class="num rev-pos">$500,272</td><td class="num rev-neg">-$5,834</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:52px;background:var(--accent-up);opacity:0.7;"></div><span>51.5%</span></div></td><td class="num" style="color:var(--accent-up);">17.20</td><td class="num">12.0%</td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">4</td><td>SG_BES_BESS1</td><td class="num rev-pos">$432,738</td><td class="num rev-pos">$432,738</td><td class="num rev-neg">-$15,003</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:50px;background:var(--accent-amber);opacity:0.7;"></div><span>49.8%</span></div></td><td class="num">2.80</td><td class="num">14.9%</td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">5</td><td>RADN_SLR_ALL</td><td class="num rev-pos">$297,428</td><td class="num rev-pos">$266,911</td><td class="num rev-pos">$30,086</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:47px;background:var(--accent-amber);opacity:0.7;"></div><span>46.8%</span></div></td><td class="num">2.16</td><td class="num">11.3%</td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">6</td><td>BCK_RN</td><td class="num rev-pos">$286,672</td><td class="num rev-pos">$250,514</td><td class="num rev-neg">-$32,365</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:49px;background:var(--accent-amber);opacity:0.7;"></div><span>48.9%</span></div></td><td class="num">2.73</td><td class="num">62.4%</td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">7</td><td>GIGA_ESS_RN</td><td class="num rev-pos">$250,752</td><td class="num rev-pos">$253,262</td><td class="num rev-neg">-$5,540</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:53px;background:var(--accent-up);opacity:0.7;"></div><span>53.3%</span></div></td><td class="num">4.50</td><td class="num">1.2%</td><td class="num">112</td></tr>
+      <tr><td class="rank-cell">8</td><td>FIVEWSLR_ALL</td><td class="num rev-pos">$241,520</td><td class="num rev-pos">$241,520</td><td class="num rev-neg">-$3,997</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:50px;background:var(--accent-amber);opacity:0.7;"></div><span>49.5%</span></div></td><td class="num" style="color:var(--accent-up);">11.38</td><td class="num">32.7%</td><td class="num">220</td></tr>
+      <tr><td class="rank-cell">9</td><td>PALACIOS_RN</td><td class="num rev-pos">$233,119</td><td class="num rev-pos">$230,701</td><td class="num rev-pos">$1,927</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:53px;background:var(--accent-up);opacity:0.7;"></div><span>52.5%</span></div></td><td class="num">5.21</td><td class="num" style="color:var(--accent-down);">112.0%</td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">10</td><td>CORALSLR_ALL</td><td class="num rev-pos">$223,188</td><td class="num rev-pos">$198,876</td><td class="num rev-neg">-$15,036</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:52px;background:var(--accent-up);opacity:0.7;"></div><span>51.8%</span></div></td><td class="num">6.99</td><td class="num">23.2%</td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">11</td><td>CROSSETT_ALL</td><td class="num rev-pos">$190,986</td><td class="num">—</td><td class="num">—</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:52px;background:var(--accent-up);opacity:0.7;"></div><span>52.1%</span></div></td><td class="num">4.50</td><td class="num">11.1%</td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">12</td><td>TBWF_ES_BES1</td><td class="num rev-pos">$175,698</td><td class="num">—</td><td class="num">—</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:60px;background:var(--accent-up);opacity:0.7;"></div><span>59.7%</span></div></td><td class="num" style="color:var(--accent-up);">32.89</td><td class="num">2.4%</td><td class="num">150</td></tr>
+      <tr><td class="rank-cell">13</td><td>MUSTNGCK_ALL</td><td class="num rev-pos">$152,626</td><td class="num">—</td><td class="num">—</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:51px;background:var(--accent-up);opacity:0.7;"></div><span>51.1%</span></div></td><td class="num">3.55</td><td class="num">6.0%</td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">14</td><td>ROSELAND_ALL</td><td class="num rev-pos">$128,149</td><td class="num">—</td><td class="num">—</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:52px;background:var(--accent-up);opacity:0.7;"></div><span>52.0%</span></div></td><td class="num">5.67</td><td class="num">39.7%</td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">15</td><td>VORT_ALL_RN</td><td class="num rev-pos">$122,150</td><td class="num">—</td><td class="num">—</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:48px;background:var(--accent-amber);opacity:0.7;"></div><span>48.4%</span></div></td><td class="num">2.34</td><td class="num">7.5%</td><td class="num">122</td></tr>
+      <tr><td class="rank-cell">16</td><td>EUNICE_ALL</td><td class="num rev-pos">$118,075</td><td class="num">—</td><td class="num">—</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:50px;background:var(--accent-amber);opacity:0.7;"></div><span>50.4%</span></div></td><td class="num">3.81</td><td class="num" style="color:var(--accent-down);">224.5%</td><td class="num">17</td></tr>
+      <tr><td class="rank-cell">17</td><td>FLOWERII_RN</td><td class="num rev-pos">$115,741</td><td class="num">—</td><td class="num">—</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:50px;background:var(--accent-amber);opacity:0.7;"></div><span>50.2%</span></div></td><td class="num">6.19</td><td class="num">7.9%</td><td class="num">100</td></tr>
+      <tr><td class="rank-cell">18</td><td>SUNVASLR_ALL</td><td class="num rev-pos">$110,472</td><td class="num">—</td><td class="num">—</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:48px;background:var(--accent-amber);opacity:0.7;"></div><span>47.6%</span></div></td><td class="num">1.84</td><td class="num">30.8%</td><td class="num">53</td></tr>
+      <tr><td class="rank-cell">19</td><td>RN_SOLC_SLR</td><td class="num rev-pos">$97,347</td><td class="num">—</td><td class="num">—</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:53px;background:var(--accent-up);opacity:0.7;"></div><span>53.0%</span></div></td><td class="num" style="color:var(--accent-up);">28.53</td><td class="num">13.2%</td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">20</td><td>ANG_ALL</td><td class="num rev-pos">$95,347</td><td class="num">—</td><td class="num">—</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:49px;background:var(--accent-amber);opacity:0.7;"></div><span>49.4%</span></div></td><td class="num">3.00</td><td class="num">43.0%</td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">21</td><td>ANCHOR_ALL</td><td class="num rev-pos">$93,372</td><td class="num">—</td><td class="num">—</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:48px;background:var(--accent-amber);opacity:0.7;"></div><span>48.2%</span></div></td><td class="num">1.99</td><td class="num">32.6%</td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">22</td><td>PHO_ALL</td><td class="num rev-pos">$84,428</td><td class="num">—</td><td class="num">—</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:49px;background:var(--accent-amber);opacity:0.7;"></div><span>49.1%</span></div></td><td class="num">2.69</td><td class="num">2.6%</td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">23</td><td>DAN_ALL</td><td class="num rev-pos">$84,036</td><td class="num">—</td><td class="num">—</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:49px;background:var(--accent-amber);opacity:0.7;"></div><span>48.6%</span></div></td><td class="num">3.81</td><td class="num">12.4%</td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">24</td><td>HOUSEMTN_RN</td><td class="num rev-pos">$69,817</td><td class="num">—</td><td class="num">—</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:49px;background:var(--accent-amber);opacity:0.7;"></div><span>49.4%</span></div></td><td class="num">4.27</td><td class="num">7.4%</td><td class="num">60</td></tr>
+      <tr><td class="rank-cell">25</td><td>BYP_RN</td><td class="num rev-pos">$66,885</td><td class="num">—</td><td class="num">—</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:52px;background:var(--accent-up);opacity:0.7;"></div><span>52.2%</span></div></td><td class="num" style="color:var(--accent-up);">19.60</td><td class="num">10.4%</td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">26</td><td>MUENSTER_RN</td><td class="num rev-pos">$64,744</td><td class="num">—</td><td class="num">—</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:57px;background:var(--accent-up);opacity:0.7;"></div><span>56.8%</span></div></td><td class="num">8.64</td><td class="num">39.7%</td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">27</td><td>JUNCTION_RN</td><td class="num rev-pos">$55,435</td><td class="num">—</td><td class="num">—</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:61px;background:var(--accent-up);opacity:0.7;"></div><span>60.9%</span></div></td><td class="num">6.51</td><td class="num">77.9%</td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">28</td><td>BATCAVE_RN</td><td class="num rev-pos">$53,020</td><td class="num">—</td><td class="num">—</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:51px;background:var(--accent-up);opacity:0.7;"></div><span>51.2%</span></div></td><td class="num">3.10</td><td class="num">15.1%</td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">29</td><td>RN_QTUM_SLR</td><td class="num rev-pos">$48,919</td><td class="num">—</td><td class="num">—</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:43px;background:var(--accent-amber);opacity:0.7;"></div><span>42.7%</span></div></td><td class="num" style="color:var(--accent-up);">23.01</td><td class="num">11.3%</td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">30</td><td>OLNEYTN_RN</td><td class="num rev-pos">$43,309</td><td class="num">—</td><td class="num">—</td><td><div class="win-bar-wrap"><div class="win-bar" style="width:63px;background:var(--accent-up);opacity:0.7;"></div><span>62.8%</span></div></td><td class="num">13.67</td><td class="num">32.7%</td><td class="num">—</td></tr>
+      <!-- Spacer row -->
+      <tr><td colspan="9" style="padding:4px; background:var(--bg-base); font-size:10px; color:var(--text-muted); text-align:center;">&bull;&bull;&bull; ranks 31–291 omitted &bull;&bull;&bull;</td></tr>
+      <!-- GKS row -->
+      <tr class="gks-row">
+        <td class="rank-cell">292</td>
+        <td>GKS_BESS_RN <span class="gks-tag">GKS</span></td>
+        <td class="num rev-neg">-$192,571</td>
+        <td class="num rev-neg">-$154,317</td>
+        <td class="num rev-neg">-$38,254</td>
+        <td><div class="win-bar-wrap"><div class="win-bar" style="width:51px;background:var(--accent-amber);opacity:0.7;"></div><span>51.2%</span></div></td>
+        <td class="num">3.93</td>
+        <td class="num">32.7%</td>
+        <td class="num">40</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="footnote">
+    <p>* GKS_BESS_RN: rank #292 of 292 (last). Net DART -$192,571 YTD. Win rate 51.2% and P/L ratio 3.93 suggest the issue is <em>position sizing / timing</em>, not win probability — losses exceed wins in dollar terms despite majority of hours being winners. HSL 40MW (lower than capacity, SOC constraints during virtual participation). Participation rate 32.7% suggests active strategy.</p>
+    <p>* Both offer and bid revenues are negative for GKS: offer rev -$154K (virtual short losses, i.e. RT &gt; DA when GKS was short DA), bid rev -$38K (virtual long losses). This indicates a systematic directional bias error — GKS virtual shorts tend to lose because RT prices exceeded DA at GKS node. The <code>dart-virtual-trader</code> agent should review node-level spread structure.</p>
+    <p>* Participation rate &gt;100% (e.g. PALACIOS_RN 112%, EUNICE_ALL 224%): awarded MW exceeded HSL (possibly HSL reporting is for a sub-unit; or multiple overlapping award windows).</p>
+    <p>* P/L ratio interpretation: values &gt;1 mean winning hours are larger in magnitude than losing hours. GKS P/L=3.93 means when GKS wins, the gain is 3.93&times; the loss — yet still net negative, implying wins are infrequent relative to losses in dollar-weighted terms.</p>
+    <p>* "—" in Offer/Bid columns for ranks 11+: data from aggregated daily files where per-direction breakdown is available but not shown here for brevity. Net revenue figures are accurate.</p>
+  </div>
+</div>
+
+</div><!-- .page-wrap -->
+
+<script>
+const ctx2 = document.getElementById('monthlyDartChart').getContext('2d');
+new Chart(ctx2, {
+  type: 'bar',
+  data: {
+    labels: ['Jan 2026', 'Feb 2026', 'Mar 2026', 'Apr 2026', 'May 2026', 'Jun 2026', 'Jul 2026 (partial)'],
+    datasets: [{
+      label: 'Fleet Net DART Virtual Revenue ($)',
+      data: [6354743, 28628, -287094, -450357, -451603, -1362027, 1810117],
+      backgroundColor: [
+        'rgba(8,153,129,0.75)', 'rgba(8,153,129,0.4)', 'rgba(242,54,69,0.55)',
+        'rgba(242,54,69,0.55)', 'rgba(242,54,69,0.55)', 'rgba(242,54,69,0.75)',
+        'rgba(8,153,129,0.75)'
+      ],
+      borderColor: [
+        'rgba(8,153,129,1)', 'rgba(8,153,129,0.6)', 'rgba(242,54,69,0.8)',
+        'rgba(242,54,69,0.8)', 'rgba(242,54,69,0.8)', 'rgba(242,54,69,1)',
+        'rgba(8,153,129,1)'
+      ],
+      borderWidth: 1,
+      borderRadius: 3,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            const v = context.parsed.y;
+            return ' $' + v.toLocaleString('en-US', {maximumFractionDigits: 0});
+          }
+        }
+      }
+    },
+    scales: {
+      x: { grid: { color: '#eceff3' }, ticks: { font: { family: "'Inter', sans-serif", size: 11 }, color: '#5d606b' } },
+      y: {
+        grid: { color: '#eceff3' },
+        ticks: {
+          font: { family: "'JetBrains Mono', monospace", size: 10 },
+          color: '#5d606b',
+          callback: function(value) {
+            if (Math.abs(value) >= 1000000) return '$' + (value/1000000).toFixed(1) + 'M';
+            if (Math.abs(value) >= 1000) return '$' + (value/1000).toFixed(0) + 'K';
+            return '$' + value;
+          }
+        }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>

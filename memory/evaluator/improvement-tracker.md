@@ -1,6 +1,32 @@
 # Evaluator Improvement Tracker
 
-Last updated: 2026-09-21 (Week 2026-W38)
+Last updated: 2026-09-28 (Week 2026-W39)
+
+---
+
+## Week 2026-W39 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-W39-directory-thirteenth-suspension-final.md` | dart-virtual-trader | CRITICAL | OPEN — regression to 0/2 correct (including Monday); 13th consecutive CRITICAL; consequence clause triggered 6th time; agent definition hard-code authorization pending W32 (11 weeks); evaluator recommends suspension with no further deferral | dart-position/ Sep 21 (Mon) AND Sep 26 (Sat); even Monday regressed from W38; 0/2 correct on run days |
+| `memory/bess-optimizer/plans/2026-W39-directory-critical-regression.md` | bess-optimizer | CRITICAL (escalated from Major) | OPEN — regression to 0/2 correct (bess-stack/ Sep 21 Mon AND Sep 26 Sat); DEGRADED conditions now displace path on all sessions; user authorization for agent definition hard-code requested | 0/2 correct; W38 had 4/7 correct (Mon-Thu); full regression; elevation to CRITICAL justified by regression trend |
+| `memory/market-analyst/plans/2026-W39-briefing-template-ninth-miss.md` | market-analyst | CRITICAL → PARTIALLY RESOLVED | PARTIALLY RESOLVED post-period — BRIEFING_TEMPLATE.md absent during W39 (Sep 21-27); created Sep 28 (W40 Day 1) per `2026-W39-briefing-template-resolved.md`. 9-week streak broken. W40: verify file persists; agent definition hard-code decision still pending. | Sep 26 briefing: action 1 (Duck curve check) + action 2 (HE18 row) first implemented; action 3 (AG2/Enverus) still missing; BRIEFING_TEMPLATE.md created Sep 28 |
+| `memory/congestion-analyst/plans/2026-W39-stage0rules-tenth-miss.md` | congestion-analyst | CRITICAL | OPEN — stage-0-rules.md absent 10th consecutive week; suspension clause unenforced 4th time; agent-executable task with no user dependency | stage-progress.md in plans/ (not root); Sep 24 learning high quality; 2/2 correct dir on run days |
+| `memory/reporter/plans/2026-W39-canonical-paths-ninth-miss.md` | reporter | MAJOR | OPEN — canonical-paths.md absent 9th week; template-issues.md created but EMPTY (hollow compliance); Cycle Health section absent; Sep 25 report quality significantly improved | Sep 25 report: SYSTEM STATUS table, ACTION ITEMS table, cross-agent consistency table — best structural format to date; canonical-paths.md still absent |
+
+---
+
+## Week 2026-W39 W38 Plan Compliance Update
+
+| Plan | Agent | W38 Deadline | W39 Status |
+|---|---|---|---|
+| `2026-W38-directory-twelfth-consequence-clause.md` — dir compliance | dart-virtual-trader | 7/7 dir | **FAILED — REGRESSION. W38 4/7 (Mon-Thu correct). W39 0/2 (dart-position/ Sep 21 Mon AND Sep 26 Sat). Even Monday regressed. 13th consecutive CRITICAL. Consequence clause triggered 6th time.** |
+| `2026-W38-bess-stack-weekend-persistence.md` — dir compliance | bess-optimizer | 7/7 dir | **FAILED — REGRESSION. W38 4/7 (Mon-Thu correct). W39 0/2 (bess-stack/ Sep 21 Mon AND Sep 26 Sat). Full regression. Elevated to CRITICAL.** |
+| `2026-W38-briefing-template-eighth-miss.md` — BRIEFING_TEMPLATE.md | market-analyst | Before W39 Day 1 | **FAILED during W39 period (Sep 21-27) — 9th consecutive miss. PARTIALLY RESOLVED post-period: file created Sep 28 (W40 Day 1). Streak broken effective W40. Positive: Sep 26 briefing quality improved (actions 1+2 implemented).** |
+| `2026-W38-stage0rules-ninth-miss.md` — stage-0-rules.md | congestion-analyst | Before W39 Day 1 | **FAILED — stage-0-rules.md still absent (10th consecutive miss). Suspension clause unenforced 4th time.** |
+| `2026-W38-canonical-paths-eighth-miss.md` — reporter canonical-paths + Cycle Health | reporter | W39 all days; canonical-paths.md before W39 Day 1 | **FAILED — canonical-paths.md absent (9th miss). template-issues.md created but EMPTY. Cycle Health section absent. Positive: Sep 25 report structure significantly improved.** |
+
+**Resolved**: 0 | **Partially resolved (post-period)**: 1 (market-analyst BRIEFING_TEMPLATE created Sep 28) | **Failed during W39 period**: 5 | **Failed with regression**: 2 (dart-virtual-trader, bess-optimizer)
 
 ---
 

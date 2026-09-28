@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERCOT All-BESS Energy + AS Revenue Dashboard — 2026-W39</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg-base:        #f7f8fa;
+  --bg-panel:       #ffffff;
+  --bg-panel-2:     #f0f2f5;
+  --bg-row-alt:     #fafbfc;
+  --border-soft:    #e0e3eb;
+  --border-strong:  #c8ccd4;
+  --text-primary:   #131722;
+  --text-secondary: #5d606b;
+  --text-muted:     #9598a1;
+  --accent-up:      #089981;
+  --accent-down:    #f23645;
+  --accent-blue:    #2962ff;
+  --accent-amber:   #ff9800;
+  --accent-purple:  #9c27b0;
+  --grid-line:      #eceff3;
+  --shadow-card:    0 1px 2px rgba(16,24,40,0.04);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg-base);
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  color: var(--text-primary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.page-wrap { max-width: 1400px; margin: 0 auto; padding: 24px; }
+
+/* DEGRADED BANNER */
+.degraded-banner {
+  background: #fff8e1;
+  border: 1px solid #ff9800;
+  border-radius: 6px;
+  padding: 12px 20px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.degraded-banner .icon { font-size: 18px; margin-top: 1px; }
+.degraded-banner .body strong { color: #e65100; font-size: 13px; }
+.degraded-banner .body p { color: #5d606b; font-size: 12px; margin-top: 2px; }
+
+/* HEADER */
+.header {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 20px 24px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.header-left h1 { font-size: 18px; font-weight: 600; color: var(--text-primary); }
+.header-left .sub { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+.header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.status-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.status-degraded { background: #fff3e0; color: #e65100; border: 1px solid #ffb74d; }
+.status-ytd      { background: #e8f5e9; color: #2e7d32; border: 1px solid #81c784; }
+.data-as-of { font-size: 11px; color: var(--text-muted); }
+
+/* KPI CARDS */
+.kpi-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 12px; }
+.kpi-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 16px 20px;
+  box-shadow: var(--shadow-card);
+}
+.kpi-label {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text-secondary); font-weight: 500; margin-bottom: 6px;
+}
+.kpi-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 26px; font-weight: 500; color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+.kpi-change {
+  font-size: 11px; margin-top: 4px; display: flex; align-items: center; gap: 4px;
+}
+.kpi-change.up { color: var(--accent-up); }
+.kpi-change.neutral { color: var(--text-secondary); }
+.kpi-change.down { color: var(--accent-down); }
+
+/* CHART + HEATMAP ROW */
+.chart-row { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; margin-bottom: 12px; }
+.panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+}
+.panel-title {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text-secondary); font-weight: 500; margin-bottom: 16px;
+}
+.panel-subtitle {
+  font-size: 11px; color: var(--text-muted); margin-top: -12px; margin-bottom: 14px;
+}
+.chart-container { position: relative; height: 240px; }
+
+/* PRODUCT BREAKDOWN (heatmap-style) */
+.product-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+}
+.product-cell {
+  background: var(--bg-panel-2);
+  border-radius: 4px;
+  padding: 10px 12px;
+}
+.product-cell .p-label { font-size: 10px; color: var(--text-secondary); margin-bottom: 4px; }
+.product-cell .p-value {
+  font-family: 'JetBrains Mono', monospace; font-size: 14px;
+  color: var(--text-primary); font-variant-numeric: tabular-nums;
+}
+.product-cell .p-pct { font-size: 10px; color: var(--text-muted); }
+
+/* RANKING TABLE */
+.table-panel { margin-bottom: 12px; }
+table { width: 100%; border-collapse: collapse; }
+thead tr { border-bottom: 1px solid var(--border-soft); }
+th {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text-secondary); font-weight: 500;
+  padding: 8px 10px; text-align: left;
+}
+th.num { text-align: right; }
+td {
+  padding: 7px 10px; font-size: 12px; color: var(--text-primary);
+  border-bottom: 1px solid var(--grid-line);
+}
+td.num {
+  text-align: right;
+  font-family: 'JetBrains Mono', monospace;
+  font-variant-numeric: tabular-nums;
+}
+tr:nth-child(even) td { background: var(--bg-row-alt); }
+tr:hover td { background: var(--bg-panel-2); }
+.rank-cell { color: var(--text-muted); font-size: 11px; }
+.gks-row td { background: #e3f2fd !important; }
+.gks-row:hover td { background: #bbdefb !important; }
+.gks-tag {
+  display: inline-block; margin-left: 6px;
+  background: var(--accent-blue); color: white;
+  font-size: 9px; padding: 1px 5px; border-radius: 3px;
+  font-weight: 600; letter-spacing: 0.04em;
+}
+.opt-bar-wrap { display: flex; align-items: center; gap: 6px; }
+.opt-bar { height: 6px; border-radius: 2px; min-width: 2px; }
+.opt-val { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-variant-numeric: tabular-nums; }
+
+/* W39 DEGRADED ROW */
+.w39-notice {
+  background: #fff8e1;
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 14px 20px;
+  margin-bottom: 12px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  align-items: center;
+}
+.w39-notice .w-label { font-weight: 600; font-size: 13px; }
+.w39-notice .w-body { font-size: 12px; color: var(--text-secondary); }
+.w39-notice .w-pill {
+  background: #fff3e0; color: #e65100; border: 1px solid #ffb74d;
+  padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.04em; white-space: nowrap;
+}
+.footnote { font-size: 11px; color: var(--text-muted); margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--grid-line); }
+.footnote p { margin-bottom: 4px; }
+@media (max-width: 900px) {
+  .kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .chart-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<!-- DEGRADED BANNER -->
+<div class="degraded-banner">
+  <div class="icon">&#9888;</div>
+  <div class="body">
+    <strong>W39 (Sep 21–27, 2026) — ERCOT 60-Day Disclosure NOT YET PUBLISHED</strong>
+    <p>ERCOT 60-day disclosure for Sep 21–27 will not be published until approximately Nov 20–26, 2026 (~62-day embargo).
+    W39 data is unavailable from this source — this is an expected timing constraint, not a system failure.
+    Dashboard shows YTD data through the latest available date (2026-07-27).
+    W39 estimate script run attempted on 2026-09-28 CT; no archive found for requested dates.</p>
+  </div>
+</div>
+
+<!-- W39 STATUS ROW -->
+<div class="w39-notice">
+  <div class="w-label">ISO Week 2026-W39</div>
+  <div class="w-body">Sep 21–27, 2026 &nbsp;|&nbsp; Energy + AS Revenue Estimate &nbsp;|&nbsp;
+    ERCOT 60-day disclosure embargo: data available ~Nov 20–26, 2026</div>
+  <div class="w-pill">DEGRADED — 60-day lag</div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <h1>ERCOT All-BESS Energy + AS Revenue Dashboard</h1>
+    <div class="sub">
+      2026-W39 Report &nbsp;|&nbsp; YTD Coverage: 2026-01-01 to 2026-07-27
+      &nbsp;|&nbsp; Source: ERCOT 60-day SCED/DAM Disclosure (Estimate, not settlement)
+      &nbsp;|&nbsp; Generated: 2026-09-28 CT
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="status-pill status-ytd">YTD DATA AVAILABLE</span>
+    <span class="status-pill status-degraded">W39 DEGRADED</span>
+    <span class="data-as-of">Latest data as-of: 2026-07-27 &nbsp;|&nbsp; 208 days covered</span>
+  </div>
+</div>
+
+<!-- KPI CARDS -->
+<div class="kpi-row">
+  <div class="kpi-card">
+    <div class="kpi-label">YTD Fleet Revenue</div>
+    <div class="kpi-value">$198.8M</div>
+    <div class="kpi-change neutral">Jan 1 – Jul 27, 2026</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Active BESS Resources</div>
+    <div class="kpi-value">338</div>
+    <div class="kpi-change neutral">as of Jul 27, 2026</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">Median Opt Rate</div>
+    <div class="kpi-value">52.6%</div>
+    <div class="kpi-change neutral">vs TB index (YTD)</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">GKS Rank (YTD)</div>
+    <div class="kpi-value">#89</div>
+    <div class="kpi-change neutral">of 338 &nbsp;|&nbsp; $790K</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">W39 Status</div>
+    <div class="kpi-value" style="font-size:18px;color:var(--accent-amber);">DEGRADED</div>
+    <div class="kpi-change neutral">60-day embargo</div>
+  </div>
+</div>
+
+<!-- CHART + PRODUCT BREAKDOWN -->
+<div class="chart-row">
+  <div class="panel">
+    <div class="panel-title">Monthly Fleet Energy + AS Revenue (Jan–Jul 2026)</div>
+    <div class="panel-subtitle">All BESS resources, YTD estimate from ERCOT 60-day disclosure. Aug–W39 not yet published.</div>
+    <div class="chart-container">
+      <canvas id="monthlyChart"></canvas>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-title">YTD Product Breakdown (Fleet Total)</div>
+    <div class="panel-subtitle">Derived from 338 active resources, Jan 1 – Jul 27</div>
+    <div class="product-grid" style="margin-top:8px;">
+      <div class="product-cell">
+        <div class="p-label">DA Energy</div>
+        <div class="p-value">$65.5M</div>
+        <div class="p-pct">33% of total</div>
+      </div>
+      <div class="product-cell">
+        <div class="p-label">RT Energy</div>
+        <div class="p-value">$83.4M</div>
+        <div class="p-pct">42% of total</div>
+      </div>
+      <div class="product-cell">
+        <div class="p-label">NonSpin + ECRS</div>
+        <div class="p-value">$27.8M</div>
+        <div class="p-pct">14% of total</div>
+      </div>
+      <div class="product-cell">
+        <div class="p-label">RegUp + RegDn + RRS</div>
+        <div class="p-value">$22.2M</div>
+        <div class="p-pct">11% of total</div>
+      </div>
+      <div class="product-cell" style="grid-column:1/3; background:#e8f5e9;">
+        <div class="p-label">GKS YTD Total</div>
+        <div class="p-value" style="color:var(--accent-blue);">$790,583</div>
+        <div class="p-pct">Rank #89 / 338 &nbsp;|&nbsp; Opt rate 93.0%</div>
+      </div>
+      <div class="product-cell" style="grid-column:1/3; background:#fff8e1;">
+        <div class="p-label">W39 (Sep 21–27)</div>
+        <div class="p-value" style="color:var(--accent-amber); font-size:16px;">N/A</div>
+        <div class="p-pct">60-day embargo — available ~Nov 20, 2026</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOP 30 RANKING TABLE -->
+<div class="panel table-panel">
+  <div class="panel-title">Top 30 BESS Resources — YTD Energy + AS Revenue (Jan 1 – Jul 27, 2026)</div>
+  <div class="panel-subtitle" style="margin-top:-12px; margin-bottom:12px;">
+    Estimate from ERCOT 60-day SCED/DAM disclosure. Not settlement. GKS highlighted in blue.
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:40px;">#</th>
+        <th>Resource</th>
+        <th>Company</th>
+        <th class="num">Total Rev</th>
+        <th class="num">DA Energy</th>
+        <th class="num">RT Energy</th>
+        <th class="num">AS Total</th>
+        <th>Opt Rate</th>
+        <th class="num">Cap (MW)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="rank-cell">1</td><td>ANOL_ESS_ESR1</td><td>esVolta</td><td class="num">$4,146,039</td><td class="num">$1,130,897</td><td class="num">$2,241,927</td><td class="num">$518,313</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:57px;background:var(--accent-up);opacity:0.7;"></div><span class="opt-val">57%</span></div></td><td class="num">247</td></tr>
+      <tr><td class="rank-cell">2</td><td>CNLY_ESS_ESR1</td><td>YBTCOS</td><td class="num">$3,906,329</td><td class="num">$2,101,943</td><td class="num">$651,123</td><td class="num">$998,260</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:100px;background:var(--accent-up);opacity:0.7;"></div><span class="opt-val" style="color:var(--accent-up);">164%</span></div></td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">3</td><td>WAL_ESR1</td><td>Tesla</td><td class="num">$3,457,276</td><td class="num">$1,853,842</td><td class="num">$61,770</td><td class="num">$1,296,244</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:87px;background:var(--accent-up);opacity:0.7;"></div><span class="opt-val">87%</span></div></td><td class="num">200</td></tr>
+      <tr><td class="rank-cell">4</td><td>BOCO_ESS_ESR1</td><td>Aypa Power</td><td class="num">$3,457,096</td><td class="num">$735,757</td><td class="num">$1,926,968</td><td class="num">$577,435</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:91px;background:var(--accent-up);opacity:0.7;"></div><span class="opt-val">91%</span></div></td><td class="num">154</td></tr>
+      <tr><td class="rank-cell">5</td><td>AVIL_ESS_ESR1</td><td>ENGIE</td><td class="num">$3,377,709</td><td class="num">$1,784,629</td><td class="num">$480,260</td><td class="num">$722,207</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:83px;background:var(--accent-up);opacity:0.7;"></div><span class="opt-val">83%</span></div></td><td class="num">160</td></tr>
+      <tr><td class="rank-cell">6</td><td>CACH_ESS_ESR1</td><td>ENGIE</td><td class="num">$3,215,323</td><td class="num">$1,326,910</td><td class="num">$481,560</td><td class="num">$1,175,665</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:78px;background:var(--accent-up);opacity:0.7;"></div><span class="opt-val">78%</span></div></td><td class="num">200</td></tr>
+      <tr><td class="rank-cell">7</td><td>BLVN_SLR_ESR1</td><td>National Grid Renewables</td><td class="num">$3,188,203</td><td class="num">$2,195,961</td><td class="num">$287,898</td><td class="num">$438,898</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:61px;background:var(--accent-up);opacity:0.7;"></div><span class="opt-val">61%</span></div></td><td class="num">188</td></tr>
+      <tr><td class="rank-cell">8</td><td>SHAMROCK_ESR1</td><td>NextEra Energy Resources</td><td class="num">$3,061,296</td><td class="num">$2,014,642</td><td class="num">$823,967</td><td class="num">$0</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:49px;background:var(--accent-amber);opacity:0.7;"></div><span class="opt-val">49%</span></div></td><td class="num">99</td></tr>
+      <tr><td class="rank-cell">9</td><td>TURQBESS_ESR1</td><td>YBTCUN</td><td class="num">$2,838,585</td><td class="num">$1,344,369</td><td class="num">$645,928</td><td class="num">$631,677</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:65px;background:var(--accent-up);opacity:0.7;"></div><span class="opt-val">65%</span></div></td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">10</td><td>BLSUMMIT_ESR2</td><td>NextEra Energy Resources</td><td class="num">$2,713,219</td><td class="num">$696,214</td><td class="num">$1,703,740</td><td class="num">$0</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:20px;background:var(--text-muted);opacity:0.5;"></div><span class="opt-val" style="color:var(--text-muted);">N/A</span></div></td><td class="num">15</td></tr>
+      <tr><td class="rank-cell">11</td><td>PINEFRST_ESR1</td><td>YPFHYB</td><td class="num">$2,591,905</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:81px;background:var(--accent-up);opacity:0.7;"></div><span class="opt-val">81%</span></div></td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">12</td><td>JAG_SLR_ESR1</td><td>SER Capital Partners</td><td class="num">$2,516,196</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:100px;background:var(--accent-up);opacity:0.7;"></div><span class="opt-val" style="color:var(--accent-up);">171%</span></div></td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">13</td><td>DSWL_ESS_ESR1</td><td>esVolta</td><td class="num">$2,515,375</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:88px;background:var(--accent-up);opacity:0.7;"></div><span class="opt-val">88%</span></div></td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">14</td><td>CHIL_SLR_ESR1</td><td>YSUEZ</td><td class="num">$2,507,099</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:41px;background:var(--accent-amber);opacity:0.7;"></div><span class="opt-val">41%</span></div></td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">15</td><td>ANEM_ESS_ESR1</td><td>Plus Power</td><td class="num">$2,401,935</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:59px;background:var(--accent-up);opacity:0.7;"></div><span class="opt-val">59%</span></div></td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">16</td><td>RRANCHES_ESR1</td><td>Plus Power</td><td class="num">$2,401,331</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:53px;background:var(--accent-up);opacity:0.7;"></div><span class="opt-val">53%</span></div></td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">17</td><td>GIGA_ESS_ESR1</td><td>Tesla</td><td class="num">$2,372,743</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:73px;background:var(--accent-up);opacity:0.7;"></div><span class="opt-val">73%</span></div></td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">18</td><td>EBNY_ESS_ESR1</td><td>Plus Power</td><td class="num">$2,324,119</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:57px;background:var(--accent-up);opacity:0.7;"></div><span class="opt-val">57%</span></div></td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">19</td><td>LON_ESR1</td><td>Tokyo Gas America</td><td class="num">$2,271,350</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:95px;background:var(--accent-up);opacity:0.7;"></div><span class="opt-val">95%</span></div></td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">20</td><td>ANDMDSLR_ESR2</td><td>YIPLU2</td><td class="num">$2,267,413</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:100px;background:var(--accent-up);opacity:0.7;"></div><span class="opt-val" style="color:var(--accent-up);">112%</span></div></td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">21</td><td>TBWF_ESS_ESR1</td><td>Spearmint Energy</td><td class="num">$2,184,005</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:40px;background:var(--accent-amber);opacity:0.7;"></div><span class="opt-val">40%</span></div></td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">22</td><td>RRANCHES_ESR2</td><td>Plus Power</td><td class="num">$2,181,031</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:47px;background:var(--accent-amber);opacity:0.7;"></div><span class="opt-val">47%</span></div></td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">23</td><td>CARN_ESS_ESR1</td><td>ENGIE</td><td class="num">$2,143,334</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:65px;background:var(--accent-up);opacity:0.7;"></div><span class="opt-val">65%</span></div></td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">24</td><td>HYDR_ESS_ESR1</td><td>ENGIE</td><td class="num">$2,129,228</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:59px;background:var(--accent-up);opacity:0.7;"></div><span class="opt-val">59%</span></div></td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">25</td><td>BKSL_ESS_ESR1</td><td>esVolta</td><td class="num">$2,055,768</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:75px;background:var(--accent-up);opacity:0.7;"></div><span class="opt-val">75%</span></div></td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">26</td><td>HMNG_ESS_ESR1</td><td>Key Capture Energy</td><td class="num">$1,990,384</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:46px;background:var(--accent-amber);opacity:0.7;"></div><span class="opt-val">46%</span></div></td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">27</td><td>JAG_SLR_ESR2</td><td>SER Capital Partners</td><td class="num">$1,904,932</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:40px;background:var(--accent-amber);opacity:0.7;"></div><span class="opt-val">40%</span></div></td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">28</td><td>RRC_WIND_ESR2</td><td>YNEXTE</td><td class="num">$1,888,351</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:44px;background:var(--accent-amber);opacity:0.7;"></div><span class="opt-val">44%</span></div></td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">29</td><td>BLACKSPR_ESR1</td><td>YBLKSP</td><td class="num">$1,862,385</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:55px;background:var(--accent-up);opacity:0.7;"></div><span class="opt-val">55%</span></div></td><td class="num">—</td></tr>
+      <tr><td class="rank-cell">30</td><td>SGAL_BES_ESR2</td><td>Jupiter Power</td><td class="num">$1,836,231</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:64px;background:var(--accent-up);opacity:0.7;"></div><span class="opt-val">64%</span></div></td><td class="num">—</td></tr>
+      <!-- GKS row -->
+      <tr class="gks-row">
+        <td class="rank-cell">89</td>
+        <td>GKS_BESS_ESR1 <span class="gks-tag">GKS</span></td>
+        <td>SA Grid Solutions</td>
+        <td class="num">$790,583</td>
+        <td class="num">$1,057</td>
+        <td class="num">$405,223</td>
+        <td class="num">$290,122</td>
+        <td><div class="opt-bar-wrap"><div class="opt-bar" style="width:93px;background:var(--accent-blue);opacity:0.7;"></div><span class="opt-val" style="color:var(--accent-blue);">93%</span></div></td>
+        <td class="num">103</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="footnote">
+    <p>* GKS_BESS_ESR1: rank #89 of 338. 100 MW / 200 MWh. Opt rate 93.0% indicates efficient dispatch vs theoretical best. DA Energy nearly zero ($1,057) — DA charge bid failure pattern noted in prior plans (5th-percentile DA energy; predominantly RT energy + AS revenue stack).</p>
+    <p>* "—" in DA/RT/AS columns for ranks 11–30: columns available in per-period files but not fully propagated in aggregated YTD file. Total revenue figures are accurate (aggregated from all run periods).</p>
+    <p>* Opt rate &gt;100% (e.g. CNLY 164%, JAG_SLR 171%, ANDMDSLR 112%): these resources achieved revenue above the single-cycle TB index, indicating multi-cycling or AS stack that exceeded the energy-only theoretical benchmark.</p>
+  </div>
+</div>
+
+</div><!-- .page-wrap -->
+
+<script>
+const ctx = document.getElementById('monthlyChart').getContext('2d');
+const monthlyChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ['Jan 2026', 'Feb 2026', 'Mar 2026', 'Apr 2026', 'May 2026', 'Jun 2026', 'Jul 2026 (partial)'],
+    datasets: [{
+      label: 'Fleet Energy+AS Revenue ($)',
+      data: [46719849, 27415717, 25335654, 46389140, 23519034, 13171767, 16288207],
+      backgroundColor: 'rgba(8, 153, 129, 0.75)',
+      borderColor: 'rgba(8, 153, 129, 1)',
+      borderWidth: 1,
+      borderRadius: 3,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            return ' $' + context.parsed.y.toLocaleString('en-US', {maximumFractionDigits: 0});
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: '#eceff3' },
+        ticks: { font: { family: "'Inter', sans-serif", size: 11 }, color: '#5d606b' }
+      },
+      y: {
+        grid: { color: '#eceff3' },
+        ticks: {
+          font: { family: "'JetBrains Mono', monospace", size: 10 },
+          color: '#5d606b',
+          callback: function(value) { return '$' + (value / 1000000).toFixed(1) + 'M'; }
+        }
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
