@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERCOT All-BESS Energy + AS Revenue Dashboard — 2026-W40</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg-base:        #f7f8fa;
+  --bg-panel:       #ffffff;
+  --bg-panel-2:     #f0f2f5;
+  --bg-row-alt:     #fafbfc;
+  --border-soft:    #e0e3eb;
+  --border-strong:  #c8ccd4;
+  --text-primary:   #131722;
+  --text-secondary: #5d606b;
+  --text-muted:     #9598a1;
+  --accent-up:      #089981;
+  --accent-down:    #f23645;
+  --accent-blue:    #2962ff;
+  --accent-amber:   #ff9800;
+  --accent-purple:  #9c27b0;
+  --grid-line:      #eceff3;
+  --shadow-card:    0 1px 2px rgba(16,24,40,0.04);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg-base);
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  color: var(--text-primary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.page-wrap { max-width: 1400px; margin: 0 auto; padding: 24px; }
+
+/* DEGRADED BANNER */
+.degraded-banner {
+  background: #fff8e1;
+  border: 1px solid #ff9800;
+  border-radius: 6px;
+  padding: 12px 20px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.degraded-banner .icon { font-size: 18px; margin-top: 1px; }
+.degraded-banner .body strong { color: #e65100; font-size: 13px; }
+.degraded-banner .body p { color: #5d606b; font-size: 12px; margin-top: 2px; }
+
+/* DATA STATUS BANNER */
+.data-status-banner {
+  background: #fce4ec;
+  border: 1px solid #e91e63;
+  border-radius: 6px;
+  padding: 14px 20px;
+  margin-bottom: 16px;
+}
+.data-status-banner h3 { color: #880e4f; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+.data-status-banner ul { list-style: none; padding: 0; }
+.data-status-banner li { font-size: 12px; color: #4a148c; padding: 2px 0; padding-left: 14px; position: relative; }
+.data-status-banner li::before { content: "•"; position: absolute; left: 0; color: #e91e63; }
+
+/* HEADER */
+.header {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 20px 24px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.header-left h1 { font-size: 18px; font-weight: 600; color: var(--text-primary); }
+.header-left .sub { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+.header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.status-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.04em; text-transform: uppercase;
+}
+.status-degraded { background: #fff3e0; color: #e65100; border: 1px solid #ffb74d; }
+.status-embargoed { background: #fce4ec; color: #880e4f; border: 1px solid #f48fb1; }
+.status-ytd      { background: #e8f5e9; color: #2e7d32; border: 1px solid #81c784; }
+.data-as-of { font-size: 11px; color: var(--text-muted); }
+
+/* KPI CARDS */
+.kpi-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 12px; }
+.kpi-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 16px 20px;
+  box-shadow: var(--shadow-card);
+}
+.kpi-label {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text-secondary); font-weight: 500; margin-bottom: 6px;
+}
+.kpi-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 24px; font-weight: 500; color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+.kpi-value.small { font-size: 18px; }
+.kpi-change {
+  font-size: 11px; margin-top: 4px; display: flex; align-items: center; gap: 4px;
+}
+.kpi-change.up { color: var(--accent-up); }
+.kpi-change.neutral { color: var(--text-secondary); }
+.kpi-change.down { color: var(--accent-down); }
+
+/* CHART + HEATMAP ROW */
+.chart-row { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; margin-bottom: 12px; }
+.panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 20px;
+  box-shadow: var(--shadow-card);
+}
+.panel-title {
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text-secondary); font-weight: 500; margin-bottom: 16px;
+}
+.panel-subtitle {
+  font-size: 11px; color: var(--text-muted); margin-top: -12px; margin-bottom: 14px;
+}
+.chart-container { position: relative; height: 240px; }
+
+/* PRODUCT BREAKDOWN */
+.product-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+}
+.product-cell {
+  background: var(--bg-panel-2);
+  border-radius: 4px;
+  padding: 10px 12px;
+}
+.product-cell .p-label { font-size: 10px; color: var(--text-secondary); margin-bottom: 4px; }
+.product-cell .p-value {
+  font-family: 'JetBrains Mono', monospace; font-size: 14px;
+  color: var(--text-primary); font-variant-numeric: tabular-nums;
+}
+.product-cell .p-pct { font-size: 10px; color: var(--text-muted); }
+
+/* RANKING TABLE */
+.table-panel { margin-bottom: 12px; }
+table { width: 100%; border-collapse: collapse; }
+thead tr { border-bottom: 1px solid var(--border-soft); }
+th {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text-secondary); font-weight: 500;
+  padding: 8px 10px; text-align: left;
+}
+th.num { text-align: right; }
+td {
+  padding: 7px 10px; font-size: 12px; color: var(--text-primary);
+  border-bottom: 1px solid var(--grid-line);
+}
+td.num {
+  text-align: right;
+  font-family: 'JetBrains Mono', monospace;
+  font-variant-numeric: tabular-nums;
+}
+tr:nth-child(even) td { background: var(--bg-row-alt); }
+tr:hover td { background: var(--bg-panel-2); }
+.rank-cell { color: var(--text-muted); font-size: 11px; }
+.gks-row td { background: #e3f2fd !important; }
+.gks-row:hover td { background: #bbdefb !important; }
+.gks-tag {
+  display: inline-block; margin-left: 6px;
+  background: var(--accent-blue); color: white;
+  font-size: 9px; padding: 1px 5px; border-radius: 3px;
+  font-weight: 600; letter-spacing: 0.04em;
+}
+.opt-bar-wrap { display: flex; align-items: center; gap: 6px; }
+.opt-bar { height: 6px; border-radius: 2px; min-width: 2px; }
+.opt-val { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-variant-numeric: tabular-nums; }
+
+/* W40 EMBARGO NOTICE */
+.w40-notice {
+  background: #fce4ec;
+  border: 1px solid #f48fb1;
+  border-radius: 6px;
+  padding: 14px 20px;
+  margin-bottom: 12px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  align-items: center;
+}
+.w40-notice .w-label { font-weight: 600; font-size: 13px; color: #880e4f; }
+.w40-notice .w-body { font-size: 12px; color: #5d606b; }
+.w40-notice .w-pill {
+  background: #fce4ec; color: #880e4f; border: 1px solid #f48fb1;
+  padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 500;
+  text-transform: uppercase; letter-spacing: 0.04em; white-space: nowrap;
+}
+.footnote { font-size: 11px; color: var(--text-muted); margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--grid-line); }
+.footnote p { margin-bottom: 4px; }
+@media (max-width: 900px) {
+  .kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .chart-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+  <!-- DEGRADED BANNER -->
+  <div class="degraded-banner">
+    <div class="icon">&#9888;</div>
+    <div class="body">
+      <strong>DEGRADED — 2026-W40 Data Embargoed (ERCOT 60-Day Disclosure Rule)</strong>
+      <p>W40 dates (Sep 28 – Oct 4, 2026) are within the 60-day embargo window. Fleet data not yet available.
+         Dashboard shows YTD through 2026-07-27 only. W40 unlock estimated 2026-11-27.</p>
+    </div>
+  </div>
+
+  <!-- DATA STATUS BANNER -->
+  <div class="data-status-banner">
+    <h3>DATA STATUS — 2026-W40 Report (Run Date: 2026-10-05)</h3>
+    <ul>
+      <li><strong>ERCOT 60-Day Embargo:</strong> W40 dates (Sep 28 – Oct 4, 2026) are EMBARGOED. Expected unlock ~2026-11-27.</li>
+      <li><strong>Latest available fleet data:</strong> 2026-07-27 (338 resources, energy+AS YTD $198,839,369 — estimate, not settled).</li>
+      <li><strong>GKS Actual (Tenaska PTP):</strong> UNAVAILABLE — HTTP 401 Unauthorized (cloud IP not on Ascend whitelist, chronic P0 since 2026-05-21).</li>
+      <li><strong>Smartbidder Benchmark:</strong> UNAVAILABLE — MSAL client_secret expired Day 72+ (since 2026-07-25). No benchmark comparison possible.</li>
+      <li><strong>All revenue figures are ESTIMATES</strong> based on ERCOT 60-day public disclosure (settlement_point prices × cleared MW). Not reconciled to invoiced actuals.</li>
+    </ul>
+  </div>
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>ERCOT All-BESS Energy + AS Revenue — 2026-W40</h1>
+      <div class="sub">Week of Sep 28 – Oct 4, 2026 &nbsp;|&nbsp; YTD data through 2026-07-27 &nbsp;|&nbsp; 338 BESS resources &nbsp;|&nbsp; ESTIMATE (not settled)</div>
+    </div>
+    <div class="header-right">
+      <span class="status-pill status-degraded">DEGRADED</span>
+      <span class="status-pill status-embargoed">W40 EMBARGOED</span>
+      <span class="status-pill status-ytd">YTD Jan–Jul 27</span>
+      <div class="data-as-of">Data as of: 2026-07-27 &nbsp;|&nbsp; Generated: 2026-10-05</div>
+    </div>
+  </div>
+
+  <!-- W40 EMBARGO NOTICE -->
+  <div class="w40-notice">
+    <div class="w-label">2026-W40 (Sep 28 – Oct 4)</div>
+    <div class="w-body">Fleet data for W40 is within ERCOT's 60-day public disclosure embargo window. No energy, AS, or throughput data available for this period. Re-run skills when archive becomes available (~2026-11-27). All values below reflect YTD through Jul 27, 2026.</div>
+    <div class="w-pill">EMBARGOED ~2026-11-27</div>
+  </div>
+
+  <!-- KPI CARDS -->
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-label">Fleet YTD Total (Energy+AS)</div>
+      <div class="kpi-value small">$198.8M</div>
+      <div class="kpi-change neutral">Jan 1 – Jul 27, 2026 (estimate)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">BESS Resources Tracked</div>
+      <div class="kpi-value">338</div>
+      <div class="kpi-change neutral">ERCOT 60-day disclosure</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">GKS YTD Revenue</div>
+      <div class="kpi-value small">$790.6K</div>
+      <div class="kpi-change neutral">Rank #89 / 338</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">GKS Optimization Rate</div>
+      <div class="kpi-value">93.0%</div>
+      <div class="kpi-change up">Top-third fleet average</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">W40 Fleet Revenue</div>
+      <div class="kpi-value small">N/A</div>
+      <div class="kpi-change neutral">EMBARGOED — unlock ~Nov 27</div>
+    </div>
+  </div>
+
+  <!-- MONTHLY CHART + PRODUCT BREAKDOWN -->
+  <div class="chart-row">
+    <div class="panel">
+      <div class="panel-title">Fleet Total Revenue — Monthly (Jan–Jul 2026, partial)</div>
+      <div class="panel-subtitle">Estimate | ERCOT 60-day disclosure | Aug–Oct EMBARGOED</div>
+      <div class="chart-container">
+        <canvas id="monthlyChart"></canvas>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Fleet YTD Product Mix</div>
+      <div class="panel-subtitle">Jan 1 – Jul 27, 2026</div>
+      <div class="product-grid">
+        <div class="product-cell">
+          <div class="p-label">DA Energy</div>
+          <div class="p-value">$65.5M</div>
+          <div class="p-pct">33.0% of total</div>
+        </div>
+        <div class="product-cell">
+          <div class="p-label">RT Energy</div>
+          <div class="p-value">$83.4M</div>
+          <div class="p-pct">41.9% of total</div>
+        </div>
+        <div class="product-cell">
+          <div class="p-label">Non-Spin</div>
+          <div class="p-value">$17.8M</div>
+          <div class="p-pct">8.9% of total</div>
+        </div>
+        <div class="product-cell">
+          <div class="p-label">RRS</div>
+          <div class="p-value">$15.4M</div>
+          <div class="p-pct">7.7% of total</div>
+        </div>
+        <div class="product-cell">
+          <div class="p-label">ECRS</div>
+          <div class="p-value">$10.0M</div>
+          <div class="p-pct">5.0% of total</div>
+        </div>
+        <div class="product-cell">
+          <div class="p-label">RegUp + RegDn</div>
+          <div class="p-value">$6.8M</div>
+          <div class="p-pct">3.4% of total</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GKS PRODUCT BREAKDOWN -->
+  <div class="chart-row">
+    <div class="panel">
+      <div class="panel-title">GKS Revenue — Monthly (Jan–Jul 2026)</div>
+      <div class="panel-subtitle">GKS_BESS_ESR1 | 103 MW / ~200 MWh | Estimate | Aug–Oct EMBARGOED</div>
+      <div class="chart-container">
+        <canvas id="gksChart"></canvas>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">GKS YTD Product Mix</div>
+      <div class="panel-subtitle">Jan 1 – Jul 27, 2026</div>
+      <div class="product-grid">
+        <div class="product-cell">
+          <div class="p-label">DA Energy</div>
+          <div class="p-value">$1.1K</div>
+          <div class="p-pct">0.1% of total</div>
+        </div>
+        <div class="product-cell">
+          <div class="p-label">RT Energy</div>
+          <div class="p-value">$405.2K</div>
+          <div class="p-pct">51.3% of total</div>
+        </div>
+        <div class="product-cell">
+          <div class="p-label">Non-Spin</div>
+          <div class="p-value">$251.5K</div>
+          <div class="p-pct">31.8% of total</div>
+        </div>
+        <div class="product-cell">
+          <div class="p-label">RRS</div>
+          <div class="p-value">$94.2K</div>
+          <div class="p-pct">11.9% of total</div>
+        </div>
+        <div class="product-cell">
+          <div class="p-label">ECRS</div>
+          <div class="p-value">$38.6K</div>
+          <div class="p-pct">4.9% of total</div>
+        </div>
+        <div class="product-cell">
+          <div class="p-label">Opt Rate</div>
+          <div class="p-value">93.0%</div>
+          <div class="p-pct">Rank #89/338</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RANKING TABLE TOP 30 -->
+  <div class="panel table-panel">
+    <div class="panel-title">ERCOT BESS Fleet — Energy + AS Revenue Ranking (YTD Jan 1 – Jul 27, 2026) — Top 30 of 338</div>
+    <div class="panel-subtitle">Estimate only — ERCOT 60-day disclosure. GKS highlighted in blue (Rank #89).</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Resource</th>
+          <th>Company / Site</th>
+          <th class="num">DA Energy</th>
+          <th class="num">RT Energy</th>
+          <th class="num">NonSpin</th>
+          <th class="num">RRS</th>
+          <th class="num">ECRS</th>
+          <th class="num">RegUp/Dn</th>
+          <th class="num">Total Revenue</th>
+          <th>HSL MW</th>
+          <th>Opt Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="rank-cell">1</td><td>ANOL_ESS_ESR1</td><td>esVolta / Anole BESS</td><td class="num">$1,182,971</td><td class="num">$2,411,268</td><td class="num">$407,239</td><td class="num">$99,489</td><td class="num">$45,071</td><td class="num">$0</td><td class="num"><strong>$4,146,039</strong></td><td>247</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:57px;background:#089981"></div><span class="opt-val">57.2%</span></div></td></tr>
+        <tr><td class="rank-cell">2</td><td>CNLY_ESS_ESR1</td><td>YBTCOS</td><td class="num">$2,148,978</td><td class="num">$733,736</td><td class="num">$516,974</td><td class="num">$119,011</td><td class="num">$75,684</td><td class="num">$311,944</td><td class="num"><strong>$3,906,329</strong></td><td>125</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:100px;background:#089981"></div><span class="opt-val">163.7%</span></div></td></tr>
+        <tr><td class="rank-cell">3</td><td>WAL_ESR1</td><td>Tesla / Walstrom BESS</td><td class="num">$1,895,288</td><td class="num">$241,329</td><td class="num">$797,069</td><td class="num">$74,666</td><td class="num">$235,070</td><td class="num">$213,853</td><td class="num"><strong>$3,457,276</strong></td><td>200</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:87px;background:#089981"></div><span class="opt-val">87.1%</span></div></td></tr>
+        <tr><td class="rank-cell">4</td><td>BOCO_ESS_ESR1</td><td>—</td><td class="num">$779,658</td><td class="num">$2,075,340</td><td class="num">$372,494</td><td class="num">$103,869</td><td class="num">$105,978</td><td class="num">$19,757</td><td class="num"><strong>$3,457,096</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:91px;background:#089981"></div><span class="opt-val">91.2%</span></div></td></tr>
+        <tr><td class="rank-cell">5</td><td>AVIL_ESS_ESR1</td><td>—</td><td class="num">$1,916,459</td><td class="num">$488,911</td><td class="num">$481,476</td><td class="num">$220,696</td><td class="num">$88,127</td><td class="num">$182,040</td><td class="num"><strong>$3,377,709</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:83px;background:#089981"></div><span class="opt-val">83.0%</span></div></td></tr>
+        <tr><td class="rank-cell">6</td><td>CACH_ESS_ESR1</td><td>—</td><td class="num">$1,475,845</td><td class="num">$529,170</td><td class="num">$674,461</td><td class="num">$342,152</td><td class="num">$119,562</td><td class="num">$74,133</td><td class="num"><strong>$3,215,323</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:78px;background:#089981"></div><span class="opt-val">77.5%</span></div></td></tr>
+        <tr><td class="rank-cell">7</td><td>BLVN_SLR_ESR1</td><td>—</td><td class="num">$2,301,659</td><td class="num">$424,976</td><td class="num">$294,283</td><td class="num">$61,768</td><td class="num">$55,987</td><td class="num">$49,530</td><td class="num"><strong>$3,188,203</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:61px;background:#089981"></div><span class="opt-val">61.0%</span></div></td></tr>
+        <tr><td class="rank-cell">8</td><td>SHAMROCK_ESR1</td><td>—</td><td class="num">$2,212,208</td><td class="num">$849,088</td><td class="num">$0</td><td class="num">$0</td><td class="num">$0</td><td class="num">$0</td><td class="num"><strong>$3,061,296</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:49px;background:#089981"></div><span class="opt-val">49.1%</span></div></td></tr>
+        <tr><td class="rank-cell">9</td><td>TURQBESS_ESR1</td><td>—</td><td class="num">$1,543,611</td><td class="num">$643,841</td><td class="num">$299,547</td><td class="num">$173,162</td><td class="num">$100,028</td><td class="num">$78,396</td><td class="num"><strong>$2,838,585</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:65px;background:#089981"></div><span class="opt-val">64.8%</span></div></td></tr>
+        <tr><td class="rank-cell">10</td><td>BLSUMMIT_ESR2</td><td>—</td><td class="num">$982,138</td><td class="num">$1,731,081</td><td class="num">$0</td><td class="num">$0</td><td class="num">$0</td><td class="num">$0</td><td class="num"><strong>$2,713,219</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:100px;background:#ff9800"></div><span class="opt-val">4,599.7%*</span></div></td></tr>
+        <tr><td class="rank-cell">11</td><td>PINEFRST_ESR1</td><td>—</td><td class="num">$247,951</td><td class="num">$2,278,879</td><td class="num">$64,820</td><td class="num">$276</td><td class="num">$145</td><td class="num">$-166</td><td class="num"><strong>$2,591,905</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:81px;background:#089981"></div><span class="opt-val">80.9%</span></div></td></tr>
+        <tr><td class="rank-cell">12</td><td>JAG_SLR_ESR1</td><td>—</td><td class="num">$869,106</td><td class="num">$1,065,628</td><td class="num">$372,194</td><td class="num">$90,254</td><td class="num">$27,434</td><td class="num">$91,580</td><td class="num"><strong>$2,516,196</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:100px;background:#089981"></div><span class="opt-val">170.7%</span></div></td></tr>
+        <tr><td class="rank-cell">13</td><td>DSWL_ESS_ESR1</td><td>—</td><td class="num">$2,016,433</td><td class="num">$208,317</td><td class="num">$162,082</td><td class="num">$75,451</td><td class="num">$49,067</td><td class="num">$4,025</td><td class="num"><strong>$2,515,375</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:88px;background:#089981"></div><span class="opt-val">88.0%</span></div></td></tr>
+        <tr><td class="rank-cell">14</td><td>CHIL_SLR_ESR1</td><td>—</td><td class="num">$1,797,919</td><td class="num">$-218,224</td><td class="num">$602,781</td><td class="num">$155,765</td><td class="num">$106,768</td><td class="num">$62,090</td><td class="num"><strong>$2,507,099</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:41px;background:#089981"></div><span class="opt-val">40.6%</span></div></td></tr>
+        <tr><td class="rank-cell">15</td><td>ANEM_ESS_ESR1</td><td>—</td><td class="num">$0</td><td class="num">$1,724,605</td><td class="num">$335,516</td><td class="num">$205,668</td><td class="num">$63,756</td><td class="num">$72,390</td><td class="num"><strong>$2,401,935</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:59px;background:#089981"></div><span class="opt-val">58.7%</span></div></td></tr>
+        <tr><td class="rank-cell">16</td><td>RRANCHES_ESR1</td><td>—</td><td class="num">$5,388</td><td class="num">$2,134,419</td><td class="num">$141,609</td><td class="num">$50,148</td><td class="num">$52,419</td><td class="num">$17,348</td><td class="num"><strong>$2,401,331</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:53px;background:#089981"></div><span class="opt-val">53.0%</span></div></td></tr>
+        <tr><td class="rank-cell">17</td><td>GIGA_ESS_ESR1</td><td>—</td><td class="num">$1,400,083</td><td class="num">$200,658</td><td class="num">$534,165</td><td class="num">$138,820</td><td class="num">$61,093</td><td class="num">$37,924</td><td class="num"><strong>$2,372,743</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:73px;background:#089981"></div><span class="opt-val">72.8%</span></div></td></tr>
+        <tr><td class="rank-cell">18</td><td>EBNY_ESS_ESR1</td><td>—</td><td class="num">$0</td><td class="num">$2,075,316</td><td class="num">$0</td><td class="num">$0</td><td class="num">$248,803</td><td class="num">$0</td><td class="num"><strong>$2,324,119</strong></td><td>200</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:57px;background:#089981"></div><span class="opt-val">57.1%</span></div></td></tr>
+        <tr><td class="rank-cell">19</td><td>LON_ESR1</td><td>—</td><td class="num">$1,016,887</td><td class="num">$368,277</td><td class="num">$511,397</td><td class="num">$167,046</td><td class="num">$104,265</td><td class="num">$103,478</td><td class="num"><strong>$2,271,350</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:95px;background:#089981"></div><span class="opt-val">94.7%</span></div></td></tr>
+        <tr><td class="rank-cell">20</td><td>ANDMDSLR_ESR2</td><td>—</td><td class="num">$1,667,634</td><td class="num">$80,046</td><td class="num">$311,049</td><td class="num">$168,491</td><td class="num">$26,940</td><td class="num">$13,253</td><td class="num"><strong>$2,267,413</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:100px;background:#089981"></div><span class="opt-val">112.4%</span></div></td></tr>
+        <tr><td class="rank-cell">21</td><td>TBWF_ESS_ESR1</td><td>—</td><td class="num">$0</td><td class="num">$1,878,560</td><td class="num">$201,491</td><td class="num">$55,268</td><td class="num">$48,686</td><td class="num">$0</td><td class="num"><strong>$2,184,005</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:40px;background:#089981"></div><span class="opt-val">40.0%</span></div></td></tr>
+        <tr><td class="rank-cell">22</td><td>RRANCHES_ESR2</td><td>—</td><td class="num">$0</td><td class="num">$1,949,040</td><td class="num">$120,621</td><td class="num">$67,048</td><td class="num">$44,322</td><td class="num">$0</td><td class="num"><strong>$2,181,031</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:47px;background:#089981"></div><span class="opt-val">47.2%</span></div></td></tr>
+        <tr><td class="rank-cell">23</td><td>CARN_ESS_ESR1</td><td>—</td><td class="num">$1,047,564</td><td class="num">$65,382</td><td class="num">$688,069</td><td class="num">$227,649</td><td class="num">$62,282</td><td class="num">$52,388</td><td class="num"><strong>$2,143,334</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:65px;background:#089981"></div><span class="opt-val">65.3%</span></div></td></tr>
+        <tr><td class="rank-cell">24</td><td>HYDR_ESS_ESR1</td><td>—</td><td class="num">$1,415,883</td><td class="num">$-109,288</td><td class="num">$445,673</td><td class="num">$229,014</td><td class="num">$95,827</td><td class="num">$52,119</td><td class="num"><strong>$2,129,228</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:59px;background:#089981"></div><span class="opt-val">58.7%</span></div></td></tr>
+        <tr><td class="rank-cell">25</td><td>BKSL_ESS_ESR1</td><td>—</td><td class="num">$499,198</td><td class="num">$1,288,847</td><td class="num">$139,534</td><td class="num">$55,699</td><td class="num">$60,430</td><td class="num">$12,060</td><td class="num"><strong>$2,055,768</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:75px;background:#089981"></div><span class="opt-val">74.6%</span></div></td></tr>
+        <tr><td class="rank-cell">26</td><td>HMNG_ESS_ESR1</td><td>—</td><td class="num">$98,762</td><td class="num">$1,323,738</td><td class="num">$368,614</td><td class="num">$97,174</td><td class="num">$63,786</td><td class="num">$38,310</td><td class="num"><strong>$1,990,384</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:46px;background:#089981"></div><span class="opt-val">45.5%</span></div></td></tr>
+        <tr><td class="rank-cell">27</td><td>JAG_SLR_ESR2</td><td>—</td><td class="num">$-76,008</td><td class="num">$1,977,332</td><td class="num">$0</td><td class="num">$3,608</td><td class="num">$0</td><td class="num">$0</td><td class="num"><strong>$1,904,932</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:40px;background:#089981"></div><span class="opt-val">39.8%</span></div></td></tr>
+        <tr><td class="rank-cell">28</td><td>RRC_WIND_ESR2</td><td>—</td><td class="num">$953,695</td><td class="num">$934,656</td><td class="num">$0</td><td class="num">$0</td><td class="num">$0</td><td class="num">$0</td><td class="num"><strong>$1,888,351</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:44px;background:#089981"></div><span class="opt-val">43.7%</span></div></td></tr>
+        <tr><td class="rank-cell">29</td><td>BLACKSPR_ESR1</td><td>—</td><td class="num">$1,237,627</td><td class="num">$555,527</td><td class="num">$0</td><td class="num">$69,231</td><td class="num">$0</td><td class="num">$0</td><td class="num"><strong>$1,862,385</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:55px;background:#089981"></div><span class="opt-val">55.3%</span></div></td></tr>
+        <tr><td class="rank-cell">30</td><td>SGAL_BES_ESR2</td><td>—</td><td class="num">$0</td><td class="num">$1,552,153</td><td class="num">$153,490</td><td class="num">$90,548</td><td class="num">$39,868</td><td class="num">$172</td><td class="num"><strong>$1,836,231</strong></td><td>—</td><td><div class="opt-bar-wrap"><div class="opt-bar" style="width:64px;background:#089981"></div><span class="opt-val">64.2%</span></div></td></tr>
+        <tr style="background:#f5f5f5;"><td colspan="12" style="text-align:center;color:#9598a1;font-size:11px;padding:6px;">... ranks 31–88 not shown ...</td></tr>
+        <tr class="gks-row">
+          <td class="rank-cell"><strong>89</strong></td>
+          <td>GKS_BESS_ESR1 <span class="gks-tag">GKS</span></td>
+          <td>SA Grid Solutions / Great Kiskadee Storage</td>
+          <td class="num">$1,057</td>
+          <td class="num">$405,223</td>
+          <td class="num">$251,489</td>
+          <td class="num">$94,181</td>
+          <td class="num">$38,632</td>
+          <td class="num">$0</td>
+          <td class="num"><strong>$790,583</strong></td>
+          <td>103</td>
+          <td><div class="opt-bar-wrap"><div class="opt-bar" style="width:93px;background:#2962ff"></div><span class="opt-val" style="color:#2962ff">93.0%</span></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footnote">
+    <p>* BLSUMMIT_ESR2 optimization rate of 4,599.7% indicates possible HSL reporting anomaly — data artifact, not actual performance.</p>
+    <p>Source: ERCOT 60-day public disclosure (settlement_point_prices × cleared MW). All figures are <strong>estimates, not settled actuals</strong>.</p>
+    <p>GKS actuals: Tenaska PTP UNAVAILABLE (HTTP 401, cloud IP not on Ascend whitelist — P0 chronic since 2026-05-21). W40 GKS actual unknown.</p>
+    <p>Smartbidder benchmark: UNAVAILABLE (MSAL client_secret expired Day 72+ since 2026-07-25).</p>
+    <p>W40 fleet data (Sep 28 – Oct 4, 2026): EMBARGOED — ERCOT 60-day rule. Unlock ~2026-11-27.</p>
+    <p>Dashboard generated: 2026-10-05 | pnl-manager | BESS_Biz</p>
+  </div>
+
+</div>
+
+<script>
+// Monthly Revenue Chart
+const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
+new Chart(monthlyCtx, {
+  type: 'bar',
+  data: {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul*', 'Aug*', 'Sep*', 'Oct*'],
+    datasets: [
+      {
+        label: 'Fleet Total (estimate)',
+        data: [61225491, 15691164, 25655941, 49696324, 22417966, 12553218, 15502713, null, null, null],
+        backgroundColor: '#2962ff',
+        borderRadius: 3,
+      },
+      {
+        label: 'EMBARGOED',
+        data: [null, null, null, null, null, null, null, 0, 0, 0],
+        backgroundColor: '#fce4ec',
+        borderColor: '#e91e63',
+        borderWidth: 1,
+        borderRadius: 3,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'top', labels: { font: { size: 11 } } },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => ctx.raw ? `$${(ctx.raw/1e6).toFixed(1)}M` : 'EMBARGOED'
+        }
+      }
+    },
+    scales: {
+      y: {
+        ticks: {
+          callback: (v) => `$${(v/1e6).toFixed(0)}M`,
+          font: { size: 10 }
+        },
+        grid: { color: '#eceff3' }
+      },
+      x: { ticks: { font: { size: 11 } }, grid: { display: false } }
+    }
+  }
+});
+
+// GKS Monthly Chart
+const gksCtx = document.getElementById('gksChart').getContext('2d');
+new Chart(gksCtx, {
+  type: 'bar',
+  data: {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul*', 'Aug*', 'Sep*', 'Oct*'],
+    datasets: [
+      {
+        label: 'GKS Revenue (estimate)',
+        data: [228777, 120699, 88670, 134855, 119948, 65744, 52644, null, null, null],
+        backgroundColor: '#2962ff',
+        borderRadius: 3,
+      },
+      {
+        label: 'EMBARGOED',
+        data: [null, null, null, null, null, null, null, 0, 0, 0],
+        backgroundColor: '#fce4ec',
+        borderColor: '#e91e63',
+        borderWidth: 1,
+        borderRadius: 3,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'top', labels: { font: { size: 11 } } },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => ctx.raw ? `$${(ctx.raw/1000).toFixed(1)}K` : 'EMBARGOED'
+        }
+      }
+    },
+    scales: {
+      y: {
+        ticks: {
+          callback: (v) => `$${(v/1000).toFixed(0)}K`,
+          font: { size: 10 }
+        },
+        grid: { color: '#eceff3' }
+      },
+      x: { ticks: { font: { size: 11 } }, grid: { display: false } }
+    }
+  }
+});
+</script>
+</body>
+</html>

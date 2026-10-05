@@ -1,6 +1,34 @@
 # Evaluator Improvement Tracker
 
-Last updated: 2026-09-28 (Week 2026-W39)
+Last updated: 2026-10-05 (Week 2026-W40)
+
+---
+
+## Week 2026-W40 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-W40.md` | dart-virtual-trader | CRITICAL | OPEN — 14th consecutive path miss; Sep 30 in dart-virtual/ (WRONG); Oct 6 in dart-virtual-trader/ (CORRECT); 1/2; consequence clause triggered 8th time; hard-code authorization pending 12 weeks | Achieve 7/7 directory compliance in W41 or enforce consequence clause. October DEC gate model gap. DEGRADED penalty schedule formalization. |
+| `memory/bess-optimizer/plans/2026-W40.md` | bess-optimizer | MAJOR carry-forward | OPEN — Rule 8 unresolved Day 22+; Yes Energy rate-limit fallback protocol needed; directory RESOLVED (downgraded from CRITICAL) | Confirm Rule 8 on Tenaska restoration; document Yes Energy fallback protocol; add October seasonal parameters to standing-rules.md. |
+| `memory/market-analyst/plans/2026-W40.md` | market-analyst | MAJOR | OPEN — AG2/Enverus not called (3rd consecutive miss); BRIEFING_TEMPLATE.md RESOLVED | Call AG2/Enverus on next W41 run day; document October seasonal anchor after first PRODUCTION Yes Energy cycle. |
+| `memory/congestion-analyst/plans/2026-W40.md` | congestion-analyst | CRITICAL | OPEN — stage-0-rules.md absent 11th consecutive week; suspension clause unenforced 5th time | Create stage-0-rules.md immediately (agent-executable). User policy decision required on suspension. |
+| `memory/pnl-manager/plans/2026-W40.md` | pnl-manager | MAJOR carry-forward | OPEN — Tenaska PTP HTTP 401 Day 21+; Smartbidder MSAL expired Day 22+; learnings gap Sep-Oct | Contact Ascend (P0); file backfill priority list in data-quality.md; file infrastructure learnings entry. |
+| `memory/reporter/plans/2026-W40.md` | reporter | CRITICAL (new) | OPEN — W40 weekly report not filed; canonical-paths.md absent 10th week; Cycle Health missing | File W40 weekly report today; create canonical-paths.md immediately; add Cycle Health section to all W41 reports. |
+| `memory/crr-trader/plans/2026-W40.md` | crr-trader | MONITORING | OPEN — inactive; infrastructure readiness checklist filed | All 4 primary dependencies degraded. Pre-auction readiness checklist documented. |
+
+---
+
+## Week 2026-W40 W39 Plan Compliance Update
+
+| Plan | Agent | W39 Deadline | W40 Status |
+|---|---|---|---|
+| `2026-W39-directory-thirteenth-suspension-final.md` — dir compliance | dart-virtual-trader | 7/7 dir | **PARTIALLY IMPROVED — 1/2 correct (Oct 6 correct; Sep 30 dart-virtual/ WRONG). 14th consecutive miss. Consequence clause triggered 8th time.** |
+| `2026-W39-directory-critical-regression.md` — dir compliance | bess-optimizer | 7/7 dir | **RESOLVED — 2/2 correct (bess-optimizer/ both Sep 30 and Oct 6). Critical downgraded to monitoring.** |
+| `2026-W39-briefing-template-ninth-miss.md` — BRIEFING_TEMPLATE.md | market-analyst | Persist through W40 | **RESOLVED — BRIEFING_TEMPLATE.md created Sep 28 (W40 Day 1) and persisted through W40. 9-week streak confirmed broken.** |
+| `2026-W39-stage0rules-tenth-miss.md` — stage-0-rules.md | congestion-analyst | Before W40 Day 1 | **FAILED — stage-0-rules.md absent 11th consecutive week. Suspension clause unenforced 5th time.** |
+| `2026-W39-canonical-paths-ninth-miss.md` — canonical-paths.md | reporter | W40 all days | **FAILED — canonical-paths.md absent 10th consecutive week.** |
+
+**Resolved**: 2 (bess-optimizer dir CRITICAL, market-analyst BRIEFING_TEMPLATE) | **Partially improved**: 1 (dart-virtual-trader 0/2→1/2) | **Failed**: 2 (congestion-analyst stage-0-rules, reporter canonical-paths)
 
 ---
 

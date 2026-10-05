@@ -1,6 +1,6 @@
 # Evaluator Cross-Agent Patterns
 
-Last updated: 2026-09-28 (Week 2026-W39 evaluation)
+Last updated: 2026-10-05 (Week 2026-W40 evaluation)
 
 ---
 
@@ -270,6 +270,19 @@ This is an extension of Pattern 24 (orchestration cycle skip) but with a differe
 **Key distinction from Pattern 8**: Pattern 8 breaks the self-review loop (T+2 settlement absent) but leaves D+1 planning intact. Pattern 26 breaks both D+1 planning AND T+2 review simultaneously. The compound effect means no recommendations, no learning updates, and (if actuals were available) no benchmark comparison — a complete operational blackout.
 
 **Mitigation**: A DEGRADED-mode minimum cycle protocol should exist. Even with both Smartbidder and Tenaska DOWN, a minimal cycle using Yes Energy only (which was PRODUCTION on both run days) should generate: (1) market-analyst briefing, (2) bess-optimizer DEGRADED-flagged stack, (3) dart-virtual-trader DEGRADED positions. A DEGRADED recommendation is materially better than no recommendation — the Sep 17 loss (-$2,231.14) resulted from Smartbidder autonomously executing a strategy that contradicted the bess-optimizer recommendation. During the Sep 22-25 gap, with no recommendation present, Smartbidder likely continued autonomous execution with no oversight.
+
+---
+
+## Pattern 27: Persistent Document Creation Failure — Three Agents, Three Files, 10-11 Weeks
+
+**Observed**: Weeks 2026-W30 through 2026-W40 (ongoing)
+**Agents affected**: congestion-analyst (stage-0-rules.md, 11 weeks), reporter (canonical-paths.md, 10 weeks), reporter (template-issues.md, EMPTY)
+
+Three agents have each failed to create or populate simple agent-executable persistent files across 10-11 consecutive weeks. None of these files have infrastructure dependencies — each can be created in a single session in under 5 minutes. The pattern is identical: an evaluator plan is registered with a specific file to be created, the plan is not executed, a follow-up plan is registered the next week, and the cycle repeats.
+
+This is distinct from Pattern 9 (template-level changes identified but not implemented across cycles). The difference is that Pattern 9 involves recurring per-cycle decisions (applying a format fix each cycle), while Pattern 27 involves a one-time file creation that, once done, would be complete. The persistence of this failure across 10-11 weeks suggests that either (a) agents are not reading their open plans at session start, or (b) the gap between "analysis session" and "infrastructure maintenance session" means file creation tasks are never prioritized.
+
+**Implication for agent definitions**: Consider adding a mandatory session-start step: "Read all open CRITICAL/MAJOR plans in memory/<agent>/plans/. Execute any plan items requiring <5 minutes before proceeding to analysis." This structural addition would catch one-time file creation tasks that are currently being deferred indefinitely.
 
 ---
 
