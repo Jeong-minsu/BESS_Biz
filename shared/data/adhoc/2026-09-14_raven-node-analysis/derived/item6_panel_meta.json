@@ -1,0 +1,36 @@
+{
+  "constraints": [
+    "WHARTN",
+    "BLESSI_PAVLOV1_1",
+    "E_PASP",
+    "1710__C",
+    "HARGRO_TWINBU1_1",
+    "STPELM27_1",
+    "630__B",
+    "STPWAP39_1",
+    "587__A",
+    "50__A",
+    "35055__A",
+    "1710__A",
+    "TREADW_YELWJC1_1",
+    "SEA_AAT1",
+    "FB_RS_60_A",
+    "1715__B",
+    "107__B",
+    "378T387_1",
+    "THWZEN98_A",
+    "6200__F",
+    "WESTEX",
+    "ARROZ_EL_CAM1_1",
+    "421__A",
+    "FORTMA_YELWJC1_1"
+  ],
+  "alignment_shift": 0,
+  "corr_mcc_da_vs_basis": 0.798,
+  "n_rows": 24405,
+  "window": [
+    "2023-12-02",
+    "2026-09-13"
+  ],
+  "n_real_hours": 2448
+}

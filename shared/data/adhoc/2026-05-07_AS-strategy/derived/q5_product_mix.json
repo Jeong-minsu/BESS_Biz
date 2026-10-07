@@ -1,0 +1,32 @@
+{
+  "strategies": {
+    "A_always_RRS": 508607.0,
+    "A_always_ECRS": 526464.0,
+    "A_always_NSPIN": 624132.0,
+    "A_best_single": "NSPIN",
+    "A_best_revenue": 624132.0,
+    "B_oracle_pick_DA": 897140.0,
+    "C_oracle_pick_DAorRT": 1058068.0,
+    "D_oracle_lp_split": 1084312.0
+  },
+  "picks_B": {
+    "RRS": 404,
+    "ECRS": 313,
+    "NSPIN": 2570
+  },
+  "picks_C": {
+    "RRS_DA": 570,
+    "RRS_RT": 12,
+    "ECRS_DA": 198,
+    "ECRS_RT": 55,
+    "NSPIN_DA": 2102,
+    "NSPIN_RT": 350
+  },
+  "split_hours_pct_D": 10.34,
+  "uplifts_vs_A_best": {
+    "B_pct": 43.74,
+    "C_pct": 69.53,
+    "D_pct": 73.73
+  },
+  "uplift_D_over_C_pct": 2.48
+}

@@ -1,0 +1,1620 @@
+{
+  "level_1_by_he_bucket": {
+    "Night (HE 1-6)": {
+      "label": "Night (HE 1-6)",
+      "hours": 709,
+      "avg_winner_rev_usd_per_hour": 273.0,
+      "total_revenue": 193659.0,
+      "top_product": "NSPIN",
+      "product_distribution_pct": {
+        "RRS": 1.1,
+        "ECRS": 0.1,
+        "NSPIN": 98.7
+      },
+      "overall_da_pct": 83.6,
+      "overall_rt_pct": 16.4,
+      "per_product": {
+        "RRS": {
+          "hours": 8,
+          "share_pct": 1.1,
+          "da_pct": 100.0,
+          "rt_pct": 0.0,
+          "avg_revenue_per_hour": 311.0,
+          "total_revenue": 2488.0
+        },
+        "ECRS": {
+          "hours": 1,
+          "share_pct": 0.1,
+          "da_pct": 100.0,
+          "rt_pct": 0.0,
+          "avg_revenue_per_hour": 76.0,
+          "total_revenue": 76.0
+        },
+        "NSPIN": {
+          "hours": 700,
+          "share_pct": 98.7,
+          "da_pct": 83.4,
+          "rt_pct": 16.6,
+          "avg_revenue_per_hour": 273.0,
+          "total_revenue": 191095.0
+        }
+      }
+    },
+    "Morning ramp (HE 7-10)": {
+      "label": "Morning ramp (HE 7-10)",
+      "hours": 475,
+      "avg_winner_rev_usd_per_hour": 664.0,
+      "total_revenue": 315623.0,
+      "top_product": "NSPIN",
+      "product_distribution_pct": {
+        "RRS": 16.0,
+        "ECRS": 30.1,
+        "NSPIN": 53.9
+      },
+      "overall_da_pct": 85.7,
+      "overall_rt_pct": 14.3,
+      "per_product": {
+        "RRS": {
+          "hours": 76,
+          "share_pct": 16.0,
+          "da_pct": 94.7,
+          "rt_pct": 5.3,
+          "avg_revenue_per_hour": 2953.0,
+          "total_revenue": 224395.0
+        },
+        "ECRS": {
+          "hours": 143,
+          "share_pct": 30.1,
+          "da_pct": 86.0,
+          "rt_pct": 14.0,
+          "avg_revenue_per_hour": 301.0,
+          "total_revenue": 43009.0
+        },
+        "NSPIN": {
+          "hours": 256,
+          "share_pct": 53.9,
+          "da_pct": 82.8,
+          "rt_pct": 17.2,
+          "avg_revenue_per_hour": 188.0,
+          "total_revenue": 48219.0
+        }
+      }
+    },
+    "Mid-day (HE 11-17)": {
+      "label": "Mid-day (HE 11-17)",
+      "hours": 830,
+      "avg_winner_rev_usd_per_hour": 107.0,
+      "total_revenue": 89003.0,
+      "top_product": "NSPIN",
+      "product_distribution_pct": {
+        "RRS": 0.7,
+        "ECRS": 3.9,
+        "NSPIN": 95.4
+      },
+      "overall_da_pct": 95.9,
+      "overall_rt_pct": 4.1,
+      "per_product": {
+        "RRS": {
+          "hours": 6,
+          "share_pct": 0.7,
+          "da_pct": 100.0,
+          "rt_pct": 0.0,
+          "avg_revenue_per_hour": 132.0,
+          "total_revenue": 790.0
+        },
+        "ECRS": {
+          "hours": 32,
+          "share_pct": 3.9,
+          "da_pct": 96.9,
+          "rt_pct": 3.1,
+          "avg_revenue_per_hour": 355.0,
+          "total_revenue": 11372.0
+        },
+        "NSPIN": {
+          "hours": 792,
+          "share_pct": 95.4,
+          "da_pct": 95.8,
+          "rt_pct": 4.2,
+          "avg_revenue_per_hour": 97.0,
+          "total_revenue": 76841.0
+        }
+      }
+    },
+    "Evening peak (HE 18-22)": {
+      "label": "Evening peak (HE 18-22)",
+      "hours": 593,
+      "avg_winner_rev_usd_per_hour": 554.0,
+      "total_revenue": 328531.0,
+      "top_product": "NSPIN",
+      "product_distribution_pct": {
+        "RRS": 5.4,
+        "ECRS": 9.8,
+        "NSPIN": 84.8
+      },
+      "overall_da_pct": 75.0,
+      "overall_rt_pct": 25.0,
+      "per_product": {
+        "RRS": {
+          "hours": 32,
+          "share_pct": 5.4,
+          "da_pct": 75.0,
+          "rt_pct": 25.0,
+          "avg_revenue_per_hour": 580.0,
+          "total_revenue": 18564.0
+        },
+        "ECRS": {
+          "hours": 58,
+          "share_pct": 9.8,
+          "da_pct": 48.3,
+          "rt_pct": 51.7,
+          "avg_revenue_per_hour": 1009.0,
+          "total_revenue": 58545.0
+        },
+        "NSPIN": {
+          "hours": 503,
+          "share_pct": 84.8,
+          "da_pct": 78.1,
+          "rt_pct": 21.9,
+          "avg_revenue_per_hour": 500.0,
+          "total_revenue": 251423.0
+        }
+      }
+    },
+    "Late evening (HE 23-24)": {
+      "label": "Late evening (HE 23-24)",
+      "hours": 236,
+      "avg_winner_rev_usd_per_hour": 556.0,
+      "total_revenue": 131252.0,
+      "top_product": "NSPIN",
+      "product_distribution_pct": {
+        "RRS": 6.8,
+        "ECRS": 8.1,
+        "NSPIN": 85.2
+      },
+      "overall_da_pct": 78.4,
+      "overall_rt_pct": 21.6,
+      "per_product": {
+        "RRS": {
+          "hours": 16,
+          "share_pct": 6.8,
+          "da_pct": 100.0,
+          "rt_pct": 0.0,
+          "avg_revenue_per_hour": 60.0,
+          "total_revenue": 960.0
+        },
+        "ECRS": {
+          "hours": 19,
+          "share_pct": 8.1,
+          "da_pct": 78.9,
+          "rt_pct": 21.1,
+          "avg_revenue_per_hour": 378.0,
+          "total_revenue": 7191.0
+        },
+        "NSPIN": {
+          "hours": 201,
+          "share_pct": 85.2,
+          "da_pct": 76.6,
+          "rt_pct": 23.4,
+          "avg_revenue_per_hour": 612.0,
+          "total_revenue": 123100.0
+        }
+      }
+    }
+  },
+  "level_2_he_bucket_x_netload": {
+    "Night (HE 1-6)": {
+      "Q1 low": {
+        "label": "Night (HE 1-6) \u00d7 NetLoad Q1 low",
+        "hours": 137,
+        "avg_winner_rev_usd_per_hour": 63.0,
+        "total_revenue": 8626.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 0.0,
+          "ECRS": 0.0,
+          "NSPIN": 100.0
+        },
+        "overall_da_pct": 93.4,
+        "overall_rt_pct": 6.6,
+        "per_product": {
+          "RRS": {
+            "hours": 0,
+            "share_pct": 0,
+            "da_pct": 0,
+            "rt_pct": 0,
+            "avg_revenue_per_hour": 0,
+            "total_revenue": 0
+          },
+          "ECRS": {
+            "hours": 0,
+            "share_pct": 0,
+            "da_pct": 0,
+            "rt_pct": 0,
+            "avg_revenue_per_hour": 0,
+            "total_revenue": 0
+          },
+          "NSPIN": {
+            "hours": 137,
+            "share_pct": 100.0,
+            "da_pct": 93.4,
+            "rt_pct": 6.6,
+            "avg_revenue_per_hour": 63.0,
+            "total_revenue": 8626.0
+          }
+        }
+      },
+      "Q2": {
+        "label": "Night (HE 1-6) \u00d7 NetLoad Q2",
+        "hours": 155,
+        "avg_winner_rev_usd_per_hour": 67.0,
+        "total_revenue": 10431.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 0.0,
+          "ECRS": 0.0,
+          "NSPIN": 100.0
+        },
+        "overall_da_pct": 84.5,
+        "overall_rt_pct": 15.5,
+        "per_product": {
+          "RRS": {
+            "hours": 0,
+            "share_pct": 0,
+            "da_pct": 0,
+            "rt_pct": 0,
+            "avg_revenue_per_hour": 0,
+            "total_revenue": 0
+          },
+          "ECRS": {
+            "hours": 0,
+            "share_pct": 0,
+            "da_pct": 0,
+            "rt_pct": 0,
+            "avg_revenue_per_hour": 0,
+            "total_revenue": 0
+          },
+          "NSPIN": {
+            "hours": 155,
+            "share_pct": 100.0,
+            "da_pct": 84.5,
+            "rt_pct": 15.5,
+            "avg_revenue_per_hour": 67.0,
+            "total_revenue": 10431.0
+          }
+        }
+      },
+      "Q3": {
+        "label": "Night (HE 1-6) \u00d7 NetLoad Q3",
+        "hours": 136,
+        "avg_winner_rev_usd_per_hour": 74.0,
+        "total_revenue": 10098.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 2.2,
+          "ECRS": 0.0,
+          "NSPIN": 97.8
+        },
+        "overall_da_pct": 78.7,
+        "overall_rt_pct": 21.3,
+        "per_product": {
+          "RRS": {
+            "hours": 3,
+            "share_pct": 2.2,
+            "da_pct": 100.0,
+            "rt_pct": 0.0,
+            "avg_revenue_per_hour": 207.0,
+            "total_revenue": 622.0
+          },
+          "ECRS": {
+            "hours": 0,
+            "share_pct": 0,
+            "da_pct": 0,
+            "rt_pct": 0,
+            "avg_revenue_per_hour": 0,
+            "total_revenue": 0
+          },
+          "NSPIN": {
+            "hours": 133,
+            "share_pct": 97.8,
+            "da_pct": 78.2,
+            "rt_pct": 21.8,
+            "avg_revenue_per_hour": 71.0,
+            "total_revenue": 9475.0
+          }
+        }
+      },
+      "Q4": {
+        "label": "Night (HE 1-6) \u00d7 NetLoad Q4",
+        "hours": 139,
+        "avg_winner_rev_usd_per_hour": 133.0,
+        "total_revenue": 18443.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 2.9,
+          "ECRS": 0.0,
+          "NSPIN": 97.1
+        },
+        "overall_da_pct": 82.0,
+        "overall_rt_pct": 18.0,
+        "per_product": {
+          "RRS": {
+            "hours": 4,
+            "share_pct": 2.9,
+            "da_pct": 100.0,
+            "rt_pct": 0.0,
+            "avg_revenue_per_hour": 455.0,
+            "total_revenue": 1820.0
+          },
+          "ECRS": {
+            "hours": 0,
+            "share_pct": 0,
+            "da_pct": 0,
+            "rt_pct": 0,
+            "avg_revenue_per_hour": 0,
+            "total_revenue": 0
+          },
+          "NSPIN": {
+            "hours": 135,
+            "share_pct": 97.1,
+            "da_pct": 81.5,
+            "rt_pct": 18.5,
+            "avg_revenue_per_hour": 123.0,
+            "total_revenue": 16623.0
+          }
+        }
+      },
+      "Q5 high": {
+        "label": "Night (HE 1-6) \u00d7 NetLoad Q5 high",
+        "hours": 142,
+        "avg_winner_rev_usd_per_hour": 1029.0,
+        "total_revenue": 146062.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 0.7,
+          "ECRS": 0.7,
+          "NSPIN": 98.6
+        },
+        "overall_da_pct": 79.6,
+        "overall_rt_pct": 20.4,
+        "per_product": {
+          "RRS": {
+            "hours": 1,
+            "share_pct": 0.7,
+            "da_pct": 100.0,
+            "rt_pct": 0.0,
+            "avg_revenue_per_hour": 46.0,
+            "total_revenue": 46.0
+          },
+          "ECRS": {
+            "hours": 1,
+            "share_pct": 0.7,
+            "da_pct": 100.0,
+            "rt_pct": 0.0,
+            "avg_revenue_per_hour": 76.0,
+            "total_revenue": 76.0
+          },
+          "NSPIN": {
+            "hours": 140,
+            "share_pct": 98.6,
+            "da_pct": 79.3,
+            "rt_pct": 20.7,
+            "avg_revenue_per_hour": 1042.0,
+            "total_revenue": 145940.0
+          }
+        }
+      }
+    },
+    "Morning ramp (HE 7-10)": {
+      "Q1 low": {
+        "label": "Morning ramp (HE 7-10) \u00d7 NetLoad Q1 low",
+        "hours": 95,
+        "avg_winner_rev_usd_per_hour": 71.0,
+        "total_revenue": 6716.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 7.4,
+          "ECRS": 22.1,
+          "NSPIN": 70.5
+        },
+        "overall_da_pct": 89.5,
+        "overall_rt_pct": 10.5,
+        "per_product": {
+          "RRS": {
+            "hours": 7,
+            "share_pct": 7.4,
+            "da_pct": 100.0,
+            "rt_pct": 0.0,
+            "avg_revenue_per_hour": 98.0,
+            "total_revenue": 685.0
+          },
+          "ECRS": {
+            "hours": 21,
+            "share_pct": 22.1,
+            "da_pct": 90.5,
+            "rt_pct": 9.5,
+            "avg_revenue_per_hour": 73.0,
+            "total_revenue": 1523.0
+          },
+          "NSPIN": {
+            "hours": 67,
+            "share_pct": 70.5,
+            "da_pct": 88.1,
+            "rt_pct": 11.9,
+            "avg_revenue_per_hour": 67.0,
+            "total_revenue": 4508.0
+          }
+        }
+      },
+      "Q2": {
+        "label": "Morning ramp (HE 7-10) \u00d7 NetLoad Q2",
+        "hours": 95,
+        "avg_winner_rev_usd_per_hour": 86.0,
+        "total_revenue": 8161.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 14.7,
+          "ECRS": 21.1,
+          "NSPIN": 64.2
+        },
+        "overall_da_pct": 89.5,
+        "overall_rt_pct": 10.5,
+        "per_product": {
+          "RRS": {
+            "hours": 14,
+            "share_pct": 14.7,
+            "da_pct": 85.7,
+            "rt_pct": 14.3,
+            "avg_revenue_per_hour": 63.0,
+            "total_revenue": 880.0
+          },
+          "ECRS": {
+            "hours": 20,
+            "share_pct": 21.1,
+            "da_pct": 95.0,
+            "rt_pct": 5.0,
+            "avg_revenue_per_hour": 121.0,
+            "total_revenue": 2411.0
+          },
+          "NSPIN": {
+            "hours": 61,
+            "share_pct": 64.2,
+            "da_pct": 88.5,
+            "rt_pct": 11.5,
+            "avg_revenue_per_hour": 80.0,
+            "total_revenue": 4870.0
+          }
+        }
+      },
+      "Q3": {
+        "label": "Morning ramp (HE 7-10) \u00d7 NetLoad Q3",
+        "hours": 94,
+        "avg_winner_rev_usd_per_hour": 147.0,
+        "total_revenue": 13800.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 22.3,
+          "ECRS": 34.0,
+          "NSPIN": 43.6
+        },
+        "overall_da_pct": 84.0,
+        "overall_rt_pct": 16.0,
+        "per_product": {
+          "RRS": {
+            "hours": 21,
+            "share_pct": 22.3,
+            "da_pct": 95.2,
+            "rt_pct": 4.8,
+            "avg_revenue_per_hour": 156.0,
+            "total_revenue": 3268.0
+          },
+          "ECRS": {
+            "hours": 32,
+            "share_pct": 34.0,
+            "da_pct": 84.4,
+            "rt_pct": 15.6,
+            "avg_revenue_per_hour": 151.0,
+            "total_revenue": 4826.0
+          },
+          "NSPIN": {
+            "hours": 41,
+            "share_pct": 43.6,
+            "da_pct": 78.0,
+            "rt_pct": 22.0,
+            "avg_revenue_per_hour": 139.0,
+            "total_revenue": 5705.0
+          }
+        }
+      },
+      "Q4": {
+        "label": "Morning ramp (HE 7-10) \u00d7 NetLoad Q4",
+        "hours": 96,
+        "avg_winner_rev_usd_per_hour": 193.0,
+        "total_revenue": 18488.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 20.8,
+          "ECRS": 33.3,
+          "NSPIN": 45.8
+        },
+        "overall_da_pct": 85.4,
+        "overall_rt_pct": 14.6,
+        "per_product": {
+          "RRS": {
+            "hours": 20,
+            "share_pct": 20.8,
+            "da_pct": 100.0,
+            "rt_pct": 0.0,
+            "avg_revenue_per_hour": 164.0,
+            "total_revenue": 3272.0
+          },
+          "ECRS": {
+            "hours": 32,
+            "share_pct": 33.3,
+            "da_pct": 81.2,
+            "rt_pct": 18.8,
+            "avg_revenue_per_hour": 247.0,
+            "total_revenue": 7892.0
+          },
+          "NSPIN": {
+            "hours": 44,
+            "share_pct": 45.8,
+            "da_pct": 81.8,
+            "rt_pct": 18.2,
+            "avg_revenue_per_hour": 166.0,
+            "total_revenue": 7323.0
+          }
+        }
+      },
+      "Q5 high": {
+        "label": "Morning ramp (HE 7-10) \u00d7 NetLoad Q5 high",
+        "hours": 95,
+        "avg_winner_rev_usd_per_hour": 2826.0,
+        "total_revenue": 268459.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 14.7,
+          "ECRS": 40.0,
+          "NSPIN": 45.3
+        },
+        "overall_da_pct": 80.0,
+        "overall_rt_pct": 20.0,
+        "per_product": {
+          "RRS": {
+            "hours": 14,
+            "share_pct": 14.7,
+            "da_pct": 92.9,
+            "rt_pct": 7.1,
+            "avg_revenue_per_hour": 15449.0,
+            "total_revenue": 216290.0
+          },
+          "ECRS": {
+            "hours": 38,
+            "share_pct": 40.0,
+            "da_pct": 84.2,
+            "rt_pct": 15.8,
+            "avg_revenue_per_hour": 694.0,
+            "total_revenue": 26357.0
+          },
+          "NSPIN": {
+            "hours": 43,
+            "share_pct": 45.3,
+            "da_pct": 72.1,
+            "rt_pct": 27.9,
+            "avg_revenue_per_hour": 600.0,
+            "total_revenue": 25813.0
+          }
+        }
+      }
+    },
+    "Mid-day (HE 11-17)": {
+      "Q1 low": {
+        "label": "Mid-day (HE 11-17) \u00d7 NetLoad Q1 low",
+        "hours": 178,
+        "avg_winner_rev_usd_per_hour": 64.0,
+        "total_revenue": 11309.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 0.6,
+          "ECRS": 0.0,
+          "NSPIN": 99.4
+        },
+        "overall_da_pct": 98.9,
+        "overall_rt_pct": 1.1,
+        "per_product": {
+          "RRS": {
+            "hours": 1,
+            "share_pct": 0.6,
+            "da_pct": 100.0,
+            "rt_pct": 0.0,
+            "avg_revenue_per_hour": 22.0,
+            "total_revenue": 22.0
+          },
+          "ECRS": {
+            "hours": 0,
+            "share_pct": 0,
+            "da_pct": 0,
+            "rt_pct": 0,
+            "avg_revenue_per_hour": 0,
+            "total_revenue": 0
+          },
+          "NSPIN": {
+            "hours": 177,
+            "share_pct": 99.4,
+            "da_pct": 98.9,
+            "rt_pct": 1.1,
+            "avg_revenue_per_hour": 64.0,
+            "total_revenue": 11287.0
+          }
+        }
+      },
+      "Q2": {
+        "label": "Mid-day (HE 11-17) \u00d7 NetLoad Q2",
+        "hours": 163,
+        "avg_winner_rev_usd_per_hour": 66.0,
+        "total_revenue": 10775.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 0.6,
+          "ECRS": 1.2,
+          "NSPIN": 98.2
+        },
+        "overall_da_pct": 96.9,
+        "overall_rt_pct": 3.1,
+        "per_product": {
+          "RRS": {
+            "hours": 1,
+            "share_pct": 0.6,
+            "da_pct": 100.0,
+            "rt_pct": 0.0,
+            "avg_revenue_per_hour": 36.0,
+            "total_revenue": 36.0
+          },
+          "ECRS": {
+            "hours": 2,
+            "share_pct": 1.2,
+            "da_pct": 100.0,
+            "rt_pct": 0.0,
+            "avg_revenue_per_hour": 112.0,
+            "total_revenue": 223.0
+          },
+          "NSPIN": {
+            "hours": 160,
+            "share_pct": 98.2,
+            "da_pct": 96.9,
+            "rt_pct": 3.1,
+            "avg_revenue_per_hour": 66.0,
+            "total_revenue": 10516.0
+          }
+        }
+      },
+      "Q3": {
+        "label": "Mid-day (HE 11-17) \u00d7 NetLoad Q3",
+        "hours": 167,
+        "avg_winner_rev_usd_per_hour": 68.0,
+        "total_revenue": 11276.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 0.6,
+          "ECRS": 3.6,
+          "NSPIN": 95.8
+        },
+        "overall_da_pct": 95.8,
+        "overall_rt_pct": 4.2,
+        "per_product": {
+          "RRS": {
+            "hours": 1,
+            "share_pct": 0.6,
+            "da_pct": 100.0,
+            "rt_pct": 0.0,
+            "avg_revenue_per_hour": 37.0,
+            "total_revenue": 37.0
+          },
+          "ECRS": {
+            "hours": 6,
+            "share_pct": 3.6,
+            "da_pct": 100.0,
+            "rt_pct": 0.0,
+            "avg_revenue_per_hour": 83.0,
+            "total_revenue": 495.0
+          },
+          "NSPIN": {
+            "hours": 160,
+            "share_pct": 95.8,
+            "da_pct": 95.6,
+            "rt_pct": 4.4,
+            "avg_revenue_per_hour": 67.0,
+            "total_revenue": 10745.0
+          }
+        }
+      },
+      "Q4": {
+        "label": "Mid-day (HE 11-17) \u00d7 NetLoad Q4",
+        "hours": 160,
+        "avg_winner_rev_usd_per_hour": 70.0,
+        "total_revenue": 11241.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 0.6,
+          "ECRS": 7.5,
+          "NSPIN": 91.9
+        },
+        "overall_da_pct": 95.0,
+        "overall_rt_pct": 5.0,
+        "per_product": {
+          "RRS": {
+            "hours": 1,
+            "share_pct": 0.6,
+            "da_pct": 100.0,
+            "rt_pct": 0.0,
+            "avg_revenue_per_hour": 87.0,
+            "total_revenue": 87.0
+          },
+          "ECRS": {
+            "hours": 12,
+            "share_pct": 7.5,
+            "da_pct": 91.7,
+            "rt_pct": 8.3,
+            "avg_revenue_per_hour": 49.0,
+            "total_revenue": 590.0
+          },
+          "NSPIN": {
+            "hours": 147,
+            "share_pct": 91.9,
+            "da_pct": 95.2,
+            "rt_pct": 4.8,
+            "avg_revenue_per_hour": 72.0,
+            "total_revenue": 10564.0
+          }
+        }
+      },
+      "Q5 high": {
+        "label": "Mid-day (HE 11-17) \u00d7 NetLoad Q5 high",
+        "hours": 162,
+        "avg_winner_rev_usd_per_hour": 274.0,
+        "total_revenue": 44403.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 1.2,
+          "ECRS": 7.4,
+          "NSPIN": 91.4
+        },
+        "overall_da_pct": 92.6,
+        "overall_rt_pct": 7.4,
+        "per_product": {
+          "RRS": {
+            "hours": 2,
+            "share_pct": 1.2,
+            "da_pct": 100.0,
+            "rt_pct": 0.0,
+            "avg_revenue_per_hour": 304.0,
+            "total_revenue": 609.0
+          },
+          "ECRS": {
+            "hours": 12,
+            "share_pct": 7.4,
+            "da_pct": 100.0,
+            "rt_pct": 0.0,
+            "avg_revenue_per_hour": 839.0,
+            "total_revenue": 10065.0
+          },
+          "NSPIN": {
+            "hours": 148,
+            "share_pct": 91.4,
+            "da_pct": 91.9,
+            "rt_pct": 8.1,
+            "avg_revenue_per_hour": 228.0,
+            "total_revenue": 33729.0
+          }
+        }
+      }
+    },
+    "Evening peak (HE 18-22)": {
+      "Q1 low": {
+        "label": "Evening peak (HE 18-22) \u00d7 NetLoad Q1 low",
+        "hours": 116,
+        "avg_winner_rev_usd_per_hour": 110.0,
+        "total_revenue": 12760.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 1.7,
+          "ECRS": 3.4,
+          "NSPIN": 94.8
+        },
+        "overall_da_pct": 85.3,
+        "overall_rt_pct": 14.7,
+        "per_product": {
+          "RRS": {
+            "hours": 2,
+            "share_pct": 1.7,
+            "da_pct": 50.0,
+            "rt_pct": 50.0,
+            "avg_revenue_per_hour": 127.0,
+            "total_revenue": 254.0
+          },
+          "ECRS": {
+            "hours": 4,
+            "share_pct": 3.4,
+            "da_pct": 100.0,
+            "rt_pct": 0.0,
+            "avg_revenue_per_hour": 131.0,
+            "total_revenue": 524.0
+          },
+          "NSPIN": {
+            "hours": 110,
+            "share_pct": 94.8,
+            "da_pct": 85.5,
+            "rt_pct": 14.5,
+            "avg_revenue_per_hour": 109.0,
+            "total_revenue": 11982.0
+          }
+        }
+      },
+      "Q2": {
+        "label": "Evening peak (HE 18-22) \u00d7 NetLoad Q2",
+        "hours": 111,
+        "avg_winner_rev_usd_per_hour": 216.0,
+        "total_revenue": 24009.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 1.8,
+          "ECRS": 2.7,
+          "NSPIN": 95.5
+        },
+        "overall_da_pct": 83.8,
+        "overall_rt_pct": 16.2,
+        "per_product": {
+          "RRS": {
+            "hours": 2,
+            "share_pct": 1.8,
+            "da_pct": 100.0,
+            "rt_pct": 0.0,
+            "avg_revenue_per_hour": 328.0,
+            "total_revenue": 656.0
+          },
+          "ECRS": {
+            "hours": 3,
+            "share_pct": 2.7,
+            "da_pct": 100.0,
+            "rt_pct": 0.0,
+            "avg_revenue_per_hour": 311.0,
+            "total_revenue": 932.0
+          },
+          "NSPIN": {
+            "hours": 106,
+            "share_pct": 95.5,
+            "da_pct": 83.0,
+            "rt_pct": 17.0,
+            "avg_revenue_per_hour": 212.0,
+            "total_revenue": 22420.0
+          }
+        }
+      },
+      "Q3": {
+        "label": "Evening peak (HE 18-22) \u00d7 NetLoad Q3",
+        "hours": 123,
+        "avg_winner_rev_usd_per_hour": 298.0,
+        "total_revenue": 36654.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 6.5,
+          "ECRS": 12.2,
+          "NSPIN": 81.3
+        },
+        "overall_da_pct": 75.6,
+        "overall_rt_pct": 24.4,
+        "per_product": {
+          "RRS": {
+            "hours": 8,
+            "share_pct": 6.5,
+            "da_pct": 50.0,
+            "rt_pct": 50.0,
+            "avg_revenue_per_hour": 395.0,
+            "total_revenue": 3162.0
+          },
+          "ECRS": {
+            "hours": 15,
+            "share_pct": 12.2,
+            "da_pct": 26.7,
+            "rt_pct": 73.3,
+            "avg_revenue_per_hour": 304.0,
+            "total_revenue": 4555.0
+          },
+          "NSPIN": {
+            "hours": 100,
+            "share_pct": 81.3,
+            "da_pct": 85.0,
+            "rt_pct": 15.0,
+            "avg_revenue_per_hour": 289.0,
+            "total_revenue": 28937.0
+          }
+        }
+      },
+      "Q4": {
+        "label": "Evening peak (HE 18-22) \u00d7 NetLoad Q4",
+        "hours": 123,
+        "avg_winner_rev_usd_per_hour": 278.0,
+        "total_revenue": 34169.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 8.1,
+          "ECRS": 13.0,
+          "NSPIN": 78.9
+        },
+        "overall_da_pct": 64.2,
+        "overall_rt_pct": 35.8,
+        "per_product": {
+          "RRS": {
+            "hours": 10,
+            "share_pct": 8.1,
+            "da_pct": 80.0,
+            "rt_pct": 20.0,
+            "avg_revenue_per_hour": 81.0,
+            "total_revenue": 812.0
+          },
+          "ECRS": {
+            "hours": 16,
+            "share_pct": 13.0,
+            "da_pct": 37.5,
+            "rt_pct": 62.5,
+            "avg_revenue_per_hour": 380.0,
+            "total_revenue": 6087.0
+          },
+          "NSPIN": {
+            "hours": 97,
+            "share_pct": 78.9,
+            "da_pct": 67.0,
+            "rt_pct": 33.0,
+            "avg_revenue_per_hour": 281.0,
+            "total_revenue": 27271.0
+          }
+        }
+      },
+      "Q5 high": {
+        "label": "Evening peak (HE 18-22) \u00d7 NetLoad Q5 high",
+        "hours": 120,
+        "avg_winner_rev_usd_per_hour": 1841.0,
+        "total_revenue": 220939.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 8.3,
+          "ECRS": 16.7,
+          "NSPIN": 75.0
+        },
+        "overall_da_pct": 67.5,
+        "overall_rt_pct": 32.5,
+        "per_product": {
+          "RRS": {
+            "hours": 10,
+            "share_pct": 8.3,
+            "da_pct": 90.0,
+            "rt_pct": 10.0,
+            "avg_revenue_per_hour": 1368.0,
+            "total_revenue": 13680.0
+          },
+          "ECRS": {
+            "hours": 20,
+            "share_pct": 16.7,
+            "da_pct": 55.0,
+            "rt_pct": 45.0,
+            "avg_revenue_per_hour": 2322.0,
+            "total_revenue": 46447.0
+          },
+          "NSPIN": {
+            "hours": 90,
+            "share_pct": 75.0,
+            "da_pct": 67.8,
+            "rt_pct": 32.2,
+            "avg_revenue_per_hour": 1787.0,
+            "total_revenue": 160813.0
+          }
+        }
+      }
+    },
+    "Late evening (HE 23-24)": {
+      "Q1 low": {
+        "label": "Late evening (HE 23-24) \u00d7 NetLoad Q1 low",
+        "hours": 50,
+        "avg_winner_rev_usd_per_hour": 114.0,
+        "total_revenue": 5685.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 0.0,
+          "ECRS": 4.0,
+          "NSPIN": 96.0
+        },
+        "overall_da_pct": 82.0,
+        "overall_rt_pct": 18.0,
+        "per_product": {
+          "RRS": {
+            "hours": 0,
+            "share_pct": 0,
+            "da_pct": 0,
+            "rt_pct": 0,
+            "avg_revenue_per_hour": 0,
+            "total_revenue": 0
+          },
+          "ECRS": {
+            "hours": 2,
+            "share_pct": 4.0,
+            "da_pct": 100.0,
+            "rt_pct": 0.0,
+            "avg_revenue_per_hour": 367.0,
+            "total_revenue": 734.0
+          },
+          "NSPIN": {
+            "hours": 48,
+            "share_pct": 96.0,
+            "da_pct": 81.2,
+            "rt_pct": 18.8,
+            "avg_revenue_per_hour": 103.0,
+            "total_revenue": 4951.0
+          }
+        }
+      },
+      "Q2": {
+        "label": "Late evening (HE 23-24) \u00d7 NetLoad Q2",
+        "hours": 44,
+        "avg_winner_rev_usd_per_hour": 206.0,
+        "total_revenue": 9055.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 4.5,
+          "ECRS": 4.5,
+          "NSPIN": 90.9
+        },
+        "overall_da_pct": 88.6,
+        "overall_rt_pct": 11.4,
+        "per_product": {
+          "RRS": {
+            "hours": 2,
+            "share_pct": 4.5,
+            "da_pct": 100.0,
+            "rt_pct": 0.0,
+            "avg_revenue_per_hour": 71.0,
+            "total_revenue": 142.0
+          },
+          "ECRS": {
+            "hours": 2,
+            "share_pct": 4.5,
+            "da_pct": 100.0,
+            "rt_pct": 0.0,
+            "avg_revenue_per_hour": 42.0,
+            "total_revenue": 84.0
+          },
+          "NSPIN": {
+            "hours": 40,
+            "share_pct": 90.9,
+            "da_pct": 87.5,
+            "rt_pct": 12.5,
+            "avg_revenue_per_hour": 221.0,
+            "total_revenue": 8829.0
+          }
+        }
+      },
+      "Q3": {
+        "label": "Late evening (HE 23-24) \u00d7 NetLoad Q3",
+        "hours": 47,
+        "avg_winner_rev_usd_per_hour": 229.0,
+        "total_revenue": 10786.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 10.6,
+          "ECRS": 8.5,
+          "NSPIN": 80.9
+        },
+        "overall_da_pct": 72.3,
+        "overall_rt_pct": 27.7,
+        "per_product": {
+          "RRS": {
+            "hours": 5,
+            "share_pct": 10.6,
+            "da_pct": 100.0,
+            "rt_pct": 0.0,
+            "avg_revenue_per_hour": 22.0,
+            "total_revenue": 108.0
+          },
+          "ECRS": {
+            "hours": 4,
+            "share_pct": 8.5,
+            "da_pct": 50.0,
+            "rt_pct": 50.0,
+            "avg_revenue_per_hour": 241.0,
+            "total_revenue": 962.0
+          },
+          "NSPIN": {
+            "hours": 38,
+            "share_pct": 80.9,
+            "da_pct": 71.1,
+            "rt_pct": 28.9,
+            "avg_revenue_per_hour": 256.0,
+            "total_revenue": 9715.0
+          }
+        }
+      },
+      "Q4": {
+        "label": "Late evening (HE 23-24) \u00d7 NetLoad Q4",
+        "hours": 47,
+        "avg_winner_rev_usd_per_hour": 329.0,
+        "total_revenue": 15477.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 10.6,
+          "ECRS": 10.6,
+          "NSPIN": 78.7
+        },
+        "overall_da_pct": 70.2,
+        "overall_rt_pct": 29.8,
+        "per_product": {
+          "RRS": {
+            "hours": 5,
+            "share_pct": 10.6,
+            "da_pct": 100.0,
+            "rt_pct": 0.0,
+            "avg_revenue_per_hour": 40.0,
+            "total_revenue": 201.0
+          },
+          "ECRS": {
+            "hours": 5,
+            "share_pct": 10.6,
+            "da_pct": 80.0,
+            "rt_pct": 20.0,
+            "avg_revenue_per_hour": 615.0,
+            "total_revenue": 3075.0
+          },
+          "NSPIN": {
+            "hours": 37,
+            "share_pct": 78.7,
+            "da_pct": 64.9,
+            "rt_pct": 35.1,
+            "avg_revenue_per_hour": 330.0,
+            "total_revenue": 12201.0
+          }
+        }
+      },
+      "Q5 high": {
+        "label": "Late evening (HE 23-24) \u00d7 NetLoad Q5 high",
+        "hours": 48,
+        "avg_winner_rev_usd_per_hour": 1880.0,
+        "total_revenue": 90248.0,
+        "top_product": "NSPIN",
+        "product_distribution_pct": {
+          "RRS": 8.3,
+          "ECRS": 12.5,
+          "NSPIN": 79.2
+        },
+        "overall_da_pct": 79.2,
+        "overall_rt_pct": 20.8,
+        "per_product": {
+          "RRS": {
+            "hours": 4,
+            "share_pct": 8.3,
+            "da_pct": 100.0,
+            "rt_pct": 0.0,
+            "avg_revenue_per_hour": 127.0,
+            "total_revenue": 508.0
+          },
+          "ECRS": {
+            "hours": 6,
+            "share_pct": 12.5,
+            "da_pct": 83.3,
+            "rt_pct": 16.7,
+            "avg_revenue_per_hour": 389.0,
+            "total_revenue": 2336.0
+          },
+          "NSPIN": {
+            "hours": 38,
+            "share_pct": 79.2,
+            "da_pct": 76.3,
+            "rt_pct": 23.7,
+            "avg_revenue_per_hour": 2300.0,
+            "total_revenue": 87404.0
+          }
+        }
+      }
+    }
+  },
+  "level_3_evening_peak_by_he": {
+    "HE18": {
+      "label": "HE 18",
+      "hours": 119,
+      "avg_winner_rev_usd_per_hour": 136.0,
+      "total_revenue": 16199.0,
+      "top_product": "NSPIN",
+      "product_distribution_pct": {
+        "RRS": 1.7,
+        "ECRS": 11.8,
+        "NSPIN": 86.6
+      },
+      "overall_da_pct": 89.9,
+      "overall_rt_pct": 10.1,
+      "per_product": {
+        "RRS": {
+          "hours": 2,
+          "share_pct": 1.7,
+          "da_pct": 0.0,
+          "rt_pct": 100.0,
+          "avg_revenue_per_hour": 131.0,
+          "total_revenue": 262.0
+        },
+        "ECRS": {
+          "hours": 14,
+          "share_pct": 11.8,
+          "da_pct": 35.7,
+          "rt_pct": 64.3,
+          "avg_revenue_per_hour": 217.0,
+          "total_revenue": 3035.0
+        },
+        "NSPIN": {
+          "hours": 103,
+          "share_pct": 86.6,
+          "da_pct": 99.0,
+          "rt_pct": 1.0,
+          "avg_revenue_per_hour": 125.0,
+          "total_revenue": 12902.0
+        }
+      }
+    },
+    "HE19": {
+      "label": "HE 19",
+      "hours": 119,
+      "avg_winner_rev_usd_per_hour": 297.0,
+      "total_revenue": 35351.0,
+      "top_product": "NSPIN",
+      "product_distribution_pct": {
+        "RRS": 4.2,
+        "ECRS": 12.6,
+        "NSPIN": 83.2
+      },
+      "overall_da_pct": 76.5,
+      "overall_rt_pct": 23.5,
+      "per_product": {
+        "RRS": {
+          "hours": 5,
+          "share_pct": 4.2,
+          "da_pct": 80.0,
+          "rt_pct": 20.0,
+          "avg_revenue_per_hour": 823.0,
+          "total_revenue": 4115.0
+        },
+        "ECRS": {
+          "hours": 15,
+          "share_pct": 12.6,
+          "da_pct": 6.7,
+          "rt_pct": 93.3,
+          "avg_revenue_per_hour": 515.0,
+          "total_revenue": 7725.0
+        },
+        "NSPIN": {
+          "hours": 99,
+          "share_pct": 83.2,
+          "da_pct": 86.9,
+          "rt_pct": 13.1,
+          "avg_revenue_per_hour": 237.0,
+          "total_revenue": 23511.0
+        }
+      }
+    },
+    "HE20": {
+      "label": "HE 20",
+      "hours": 119,
+      "avg_winner_rev_usd_per_hour": 555.0,
+      "total_revenue": 66040.0,
+      "top_product": "NSPIN",
+      "product_distribution_pct": {
+        "RRS": 6.7,
+        "ECRS": 4.2,
+        "NSPIN": 89.1
+      },
+      "overall_da_pct": 70.6,
+      "overall_rt_pct": 29.4,
+      "per_product": {
+        "RRS": {
+          "hours": 8,
+          "share_pct": 6.7,
+          "da_pct": 37.5,
+          "rt_pct": 62.5,
+          "avg_revenue_per_hour": 1371.0,
+          "total_revenue": 10969.0
+        },
+        "ECRS": {
+          "hours": 5,
+          "share_pct": 4.2,
+          "da_pct": 20.0,
+          "rt_pct": 80.0,
+          "avg_revenue_per_hour": 909.0,
+          "total_revenue": 4545.0
+        },
+        "NSPIN": {
+          "hours": 106,
+          "share_pct": 89.1,
+          "da_pct": 75.5,
+          "rt_pct": 24.5,
+          "avg_revenue_per_hour": 477.0,
+          "total_revenue": 50525.0
+        }
+      }
+    },
+    "HE21": {
+      "label": "HE 21",
+      "hours": 119,
+      "avg_winner_rev_usd_per_hour": 753.0,
+      "total_revenue": 89617.0,
+      "top_product": "NSPIN",
+      "product_distribution_pct": {
+        "RRS": 8.4,
+        "ECRS": 10.1,
+        "NSPIN": 81.5
+      },
+      "overall_da_pct": 73.1,
+      "overall_rt_pct": 26.9,
+      "per_product": {
+        "RRS": {
+          "hours": 10,
+          "share_pct": 8.4,
+          "da_pct": 100.0,
+          "rt_pct": 0.0,
+          "avg_revenue_per_hour": 265.0,
+          "total_revenue": 2653.0
+        },
+        "ECRS": {
+          "hours": 12,
+          "share_pct": 10.1,
+          "da_pct": 91.7,
+          "rt_pct": 8.3,
+          "avg_revenue_per_hour": 1613.0,
+          "total_revenue": 19360.0
+        },
+        "NSPIN": {
+          "hours": 97,
+          "share_pct": 81.5,
+          "da_pct": 68.0,
+          "rt_pct": 32.0,
+          "avg_revenue_per_hour": 697.0,
+          "total_revenue": 67604.0
+        }
+      }
+    },
+    "HE22": {
+      "label": "HE 22",
+      "hours": 117,
+      "avg_winner_rev_usd_per_hour": 1037.0,
+      "total_revenue": 121325.0,
+      "top_product": "NSPIN",
+      "product_distribution_pct": {
+        "RRS": 6.0,
+        "ECRS": 10.3,
+        "NSPIN": 83.8
+      },
+      "overall_da_pct": 65.0,
+      "overall_rt_pct": 35.0,
+      "per_product": {
+        "RRS": {
+          "hours": 7,
+          "share_pct": 6.0,
+          "da_pct": 100.0,
+          "rt_pct": 0.0,
+          "avg_revenue_per_hour": 81.0,
+          "total_revenue": 565.0
+        },
+        "ECRS": {
+          "hours": 12,
+          "share_pct": 10.3,
+          "da_pct": 83.3,
+          "rt_pct": 16.7,
+          "avg_revenue_per_hour": 1990.0,
+          "total_revenue": 23880.0
+        },
+        "NSPIN": {
+          "hours": 98,
+          "share_pct": 83.8,
+          "da_pct": 60.2,
+          "rt_pct": 39.8,
+          "avg_revenue_per_hour": 989.0,
+          "total_revenue": 96880.0
+        }
+      }
+    }
+  },
+  "level_3_evening_peak_by_solar": {
+    "Q1 low": {
+      "label": "Evening \u00d7 Solar Q1 low",
+      "hours": 132,
+      "avg_winner_rev_usd_per_hour": 397.0,
+      "total_revenue": 52374.0,
+      "top_product": "NSPIN",
+      "product_distribution_pct": {
+        "RRS": 5.3,
+        "ECRS": 7.6,
+        "NSPIN": 87.1
+      },
+      "overall_da_pct": 73.5,
+      "overall_rt_pct": 26.5,
+      "per_product": {
+        "RRS": {
+          "hours": 7,
+          "share_pct": 5.3,
+          "da_pct": 85.7,
+          "rt_pct": 14.3,
+          "avg_revenue_per_hour": 1617.0,
+          "total_revenue": 11317.0
+        },
+        "ECRS": {
+          "hours": 10,
+          "share_pct": 7.6,
+          "da_pct": 40.0,
+          "rt_pct": 60.0,
+          "avg_revenue_per_hour": 221.0,
+          "total_revenue": 2214.0
+        },
+        "NSPIN": {
+          "hours": 115,
+          "share_pct": 87.1,
+          "da_pct": 75.7,
+          "rt_pct": 24.3,
+          "avg_revenue_per_hour": 338.0,
+          "total_revenue": 38844.0
+        }
+      }
+    },
+    "Q2": {
+      "label": "Evening \u00d7 Solar Q2",
+      "hours": 105,
+      "avg_winner_rev_usd_per_hour": 329.0,
+      "total_revenue": 34581.0,
+      "top_product": "NSPIN",
+      "product_distribution_pct": {
+        "RRS": 7.6,
+        "ECRS": 11.4,
+        "NSPIN": 81.0
+      },
+      "overall_da_pct": 73.3,
+      "overall_rt_pct": 26.7,
+      "per_product": {
+        "RRS": {
+          "hours": 8,
+          "share_pct": 7.6,
+          "da_pct": 100.0,
+          "rt_pct": 0.0,
+          "avg_revenue_per_hour": 94.0,
+          "total_revenue": 752.0
+        },
+        "ECRS": {
+          "hours": 12,
+          "share_pct": 11.4,
+          "da_pct": 50.0,
+          "rt_pct": 50.0,
+          "avg_revenue_per_hour": 1460.0,
+          "total_revenue": 17520.0
+        },
+        "NSPIN": {
+          "hours": 85,
+          "share_pct": 81.0,
+          "da_pct": 74.1,
+          "rt_pct": 25.9,
+          "avg_revenue_per_hour": 192.0,
+          "total_revenue": 16308.0
+        }
+      }
+    },
+    "Q3": {
+      "label": "Evening \u00d7 Solar Q3",
+      "hours": 160,
+      "avg_winner_rev_usd_per_hour": 823.0,
+      "total_revenue": 131645.0,
+      "top_product": "NSPIN",
+      "product_distribution_pct": {
+        "RRS": 5.6,
+        "ECRS": 15.6,
+        "NSPIN": 78.8
+      },
+      "overall_da_pct": 64.4,
+      "overall_rt_pct": 35.6,
+      "per_product": {
+        "RRS": {
+          "hours": 9,
+          "share_pct": 5.6,
+          "da_pct": 77.8,
+          "rt_pct": 22.2,
+          "avg_revenue_per_hour": 101.0,
+          "total_revenue": 913.0
+        },
+        "ECRS": {
+          "hours": 25,
+          "share_pct": 15.6,
+          "da_pct": 48.0,
+          "rt_pct": 52.0,
+          "avg_revenue_per_hour": 1178.0,
+          "total_revenue": 29444.0
+        },
+        "NSPIN": {
+          "hours": 126,
+          "share_pct": 78.8,
+          "da_pct": 66.7,
+          "rt_pct": 33.3,
+          "avg_revenue_per_hour": 804.0,
+          "total_revenue": 101288.0
+        }
+      }
+    },
+    "Q4": {
+      "label": "Evening \u00d7 Solar Q4",
+      "hours": 77,
+      "avg_winner_rev_usd_per_hour": 433.0,
+      "total_revenue": 33341.0,
+      "top_product": "NSPIN",
+      "product_distribution_pct": {
+        "RRS": 9.1,
+        "ECRS": 5.2,
+        "NSPIN": 85.7
+      },
+      "overall_da_pct": 81.8,
+      "overall_rt_pct": 18.2,
+      "per_product": {
+        "RRS": {
+          "hours": 7,
+          "share_pct": 9.1,
+          "da_pct": 28.6,
+          "rt_pct": 71.4,
+          "avg_revenue_per_hour": 610.0,
+          "total_revenue": 4268.0
+        },
+        "ECRS": {
+          "hours": 4,
+          "share_pct": 5.2,
+          "da_pct": 25.0,
+          "rt_pct": 75.0,
+          "avg_revenue_per_hour": 1087.0,
+          "total_revenue": 4350.0
+        },
+        "NSPIN": {
+          "hours": 66,
+          "share_pct": 85.7,
+          "da_pct": 90.9,
+          "rt_pct": 9.1,
+          "avg_revenue_per_hour": 375.0,
+          "total_revenue": 24724.0
+        }
+      }
+    },
+    "Q5 high": {
+      "label": "Evening \u00d7 Solar Q5 high",
+      "hours": 119,
+      "avg_winner_rev_usd_per_hour": 644.0,
+      "total_revenue": 76591.0,
+      "top_product": "NSPIN",
+      "product_distribution_pct": {
+        "RRS": 0.8,
+        "ECRS": 5.9,
+        "NSPIN": 93.3
+      },
+      "overall_da_pct": 88.2,
+      "overall_rt_pct": 11.8,
+      "per_product": {
+        "RRS": {
+          "hours": 1,
+          "share_pct": 0.8,
+          "da_pct": 100.0,
+          "rt_pct": 0.0,
+          "avg_revenue_per_hour": 1314.0,
+          "total_revenue": 1314.0
+        },
+        "ECRS": {
+          "hours": 7,
+          "share_pct": 5.9,
+          "da_pct": 71.4,
+          "rt_pct": 28.6,
+          "avg_revenue_per_hour": 717.0,
+          "total_revenue": 5017.0
+        },
+        "NSPIN": {
+          "hours": 111,
+          "share_pct": 93.3,
+          "da_pct": 89.2,
+          "rt_pct": 10.8,
+          "avg_revenue_per_hour": 633.0,
+          "total_revenue": 70260.0
+        }
+      }
+    }
+  }
+}

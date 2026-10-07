@@ -1,0 +1,1010 @@
+{
+  "_doc": "Production playbook rules for AS DA-RT product/venue selection. Trained on 2026-01-01~2026-05-17 with HSL=100MW flat, SoC=200MWh nameplate. Use as_playbook.py module to consume. Cohort key format: Medium='<bucket>|<nl_q>', Fine='<bucket>|<nl_q>|<solar_q>'. Combo format: '<PRODUCT>_<VENUE>' where PRODUCT in {RRS,ECRS,NSPIN}, VENUE in {DA,RT}.",
+  "trained_on": {
+    "date_range": [
+      "2026-01-01",
+      "2026-05-17"
+    ],
+    "n_hours": 3287,
+    "hsl_mw": 100.0,
+    "soc_mwh": 200.0,
+    "soc_duration_h": {
+      "RRS": 0.5,
+      "ECRS": 1.0,
+      "NSPIN": 4.0
+    }
+  },
+  "he_bucket_map": {
+    "1": "Night",
+    "2": "Night",
+    "3": "Night",
+    "4": "Night",
+    "5": "Night",
+    "6": "Night",
+    "7": "Morning",
+    "8": "Morning",
+    "9": "Morning",
+    "10": "Morning",
+    "11": "Midday",
+    "12": "Midday",
+    "13": "Midday",
+    "14": "Midday",
+    "15": "Midday",
+    "16": "Midday",
+    "17": "Midday",
+    "18": "Evening",
+    "19": "Evening",
+    "20": "Evening",
+    "21": "Evening",
+    "22": "Evening",
+    "23": "LateEve",
+    "24": "LateEve"
+  },
+  "nl_quintile_thresholds_per_he": {
+    "1": [
+      20238.47,
+      23856.72,
+      29983.3,
+      35761.45
+    ],
+    "2": [
+      18638.22,
+      23017.62,
+      28335.77,
+      33921.3
+    ],
+    "3": [
+      18931.7,
+      23283.89,
+      27440.08,
+      33414.93
+    ],
+    "4": [
+      18850.96,
+      23478.93,
+      28329.46,
+      33535.28
+    ],
+    "5": [
+      20005.43,
+      24007.5,
+      29015.82,
+      34343.05
+    ],
+    "6": [
+      21815.89,
+      26428.23,
+      31315.44,
+      36924.15
+    ],
+    "7": [
+      24446.35,
+      29067.0,
+      34161.21,
+      39502.84
+    ],
+    "8": [
+      25195.56,
+      30074.8,
+      35647.53,
+      40935.86
+    ],
+    "9": [
+      18519.79,
+      24316.21,
+      28840.38,
+      34786.32
+    ],
+    "10": [
+      9901.62,
+      16059.81,
+      21494.3,
+      27386.65
+    ],
+    "11": [
+      7629.67,
+      13614.82,
+      18669.31,
+      25748.86
+    ],
+    "12": [
+      7098.16,
+      12526.19,
+      18245.58,
+      25316.72
+    ],
+    "13": [
+      7888.23,
+      13101.73,
+      17799.78,
+      25742.05
+    ],
+    "14": [
+      9109.89,
+      13191.0,
+      18396.91,
+      26221.07
+    ],
+    "15": [
+      9713.39,
+      13885.13,
+      19076.06,
+      26517.59
+    ],
+    "16": [
+      10013.42,
+      15779.04,
+      19482.3,
+      26759.38
+    ],
+    "17": [
+      14155.37,
+      19424.76,
+      23316.56,
+      30324.65
+    ],
+    "18": [
+      19082.39,
+      24011.21,
+      31894.81,
+      37719.35
+    ],
+    "19": [
+      25414.47,
+      29865.24,
+      36376.16,
+      43534.89
+    ],
+    "20": [
+      31160.43,
+      34974.87,
+      40706.18,
+      44826.32
+    ],
+    "21": [
+      30345.52,
+      35198.1,
+      39503.41,
+      44624.87
+    ],
+    "22": [
+      28159.04,
+      32749.27,
+      37183.54,
+      43085.6
+    ],
+    "23": [
+      25211.15,
+      29224.08,
+      34346.21,
+      40055.03
+    ],
+    "24": [
+      22138.12,
+      25989.19,
+      30826.57,
+      36511.32
+    ]
+  },
+  "solar_quintile_thresholds_per_he": {
+    "1": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "2": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "3": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "4": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "5": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "6": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "7": [
+      0.0,
+      0.0,
+      0.0,
+      6.5
+    ],
+    "8": [
+      301.48,
+      542.54,
+      1028.34,
+      1836.06
+    ],
+    "9": [
+      6040.16,
+      7805.26,
+      9569.46,
+      11587.72
+    ],
+    "10": [
+      13504.74,
+      16816.8,
+      20367.16,
+      24688.46
+    ],
+    "11": [
+      16998.4,
+      20044.36,
+      23711.46,
+      27164.34
+    ],
+    "12": [
+      18781.1,
+      22092.0,
+      24743.58,
+      28313.38
+    ],
+    "13": [
+      19516.02,
+      22735.9,
+      25520.16,
+      29177.68
+    ],
+    "14": [
+      20245.54,
+      23039.8,
+      25955.6,
+      29308.24
+    ],
+    "15": [
+      19954.4,
+      23288.28,
+      25940.6,
+      29623.44
+    ],
+    "16": [
+      18512.82,
+      22733.38,
+      25604.68,
+      29622.24
+    ],
+    "17": [
+      14467.68,
+      19092.08,
+      22064.14,
+      27391.92
+    ],
+    "18": [
+      3585.16,
+      9268.86,
+      16450.12,
+      23317.84
+    ],
+    "19": [
+      45.04,
+      546.44,
+      10210.24,
+      15772.74
+    ],
+    "20": [
+      0.0,
+      0.0,
+      1582.44,
+      2694.38
+    ],
+    "21": [
+      0.0,
+      0.0,
+      0.6,
+      36.38
+    ],
+    "22": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "23": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "24": [
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "medium_cohort_rules": {
+    "Night|Q3": "NSPIN_RT",
+    "Night|Q4": "NSPIN_DA",
+    "Morning|Q4": "ECRS_RT",
+    "Midday|Q4": "NSPIN_DA",
+    "Midday|Q3": "NSPIN_DA",
+    "Evening|Q3": "NSPIN_DA",
+    "Evening|Q2": "NSPIN_DA",
+    "Evening|Q1": "NSPIN_DA",
+    "LateEve|Q1": "NSPIN_DA",
+    "Night|Q1": "NSPIN_DA",
+    "Morning|Q1": "NSPIN_DA",
+    "Morning|Q2": "NSPIN_DA",
+    "Midday|Q2": "NSPIN_DA",
+    "Evening|Q4": "NSPIN_RT",
+    "LateEve|Q2": "NSPIN_DA",
+    "Night|Q2": "NSPIN_DA",
+    "Morning|Q3": "RRS_DA",
+    "Evening|Q5": "NSPIN_RT",
+    "LateEve|Q4": "NSPIN_DA",
+    "Midday|Q1": "NSPIN_DA",
+    "Morning|Q5": "RRS_DA",
+    "Midday|Q5": "NSPIN_DA",
+    "LateEve|Q3": "NSPIN_RT",
+    "Night|Q5": "NSPIN_DA",
+    "LateEve|Q5": "NSPIN_DA"
+  },
+  "medium_cohort_trained_revenue": {
+    "Night|Q3": {
+      "combo": "NSPIN_RT",
+      "n_hours_trained": 163,
+      "trained_revenue": 9296.0
+    },
+    "Night|Q4": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 162,
+      "trained_revenue": 15722.0
+    },
+    "Morning|Q4": {
+      "combo": "ECRS_RT",
+      "n_hours_trained": 108,
+      "trained_revenue": 13758.0
+    },
+    "Midday|Q4": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 189,
+      "trained_revenue": 12511.0
+    },
+    "Midday|Q3": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 189,
+      "trained_revenue": 13453.0
+    },
+    "Evening|Q3": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 135,
+      "trained_revenue": 30819.0
+    },
+    "Evening|Q2": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 135,
+      "trained_revenue": 22109.0
+    },
+    "Evening|Q1": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 140,
+      "trained_revenue": 16926.0
+    },
+    "LateEve|Q1": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 56,
+      "trained_revenue": 8606.0
+    },
+    "Night|Q1": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 167,
+      "trained_revenue": 15259.0
+    },
+    "Morning|Q1": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 112,
+      "trained_revenue": 10308.0
+    },
+    "Morning|Q2": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 108,
+      "trained_revenue": 7477.0
+    },
+    "Midday|Q2": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 189,
+      "trained_revenue": 12887.0
+    },
+    "Evening|Q4": {
+      "combo": "NSPIN_RT",
+      "n_hours_trained": 135,
+      "trained_revenue": 26073.0
+    },
+    "LateEve|Q2": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 54,
+      "trained_revenue": 14870.0
+    },
+    "Night|Q2": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 162,
+      "trained_revenue": 14116.0
+    },
+    "Morning|Q3": {
+      "combo": "RRS_DA",
+      "n_hours_trained": 108,
+      "trained_revenue": 13483.0
+    },
+    "Evening|Q5": {
+      "combo": "NSPIN_RT",
+      "n_hours_trained": 140,
+      "trained_revenue": 122229.0
+    },
+    "LateEve|Q4": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 54,
+      "trained_revenue": 17450.0
+    },
+    "Midday|Q1": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 196,
+      "trained_revenue": 14206.0
+    },
+    "Morning|Q5": {
+      "combo": "RRS_DA",
+      "n_hours_trained": 112,
+      "trained_revenue": 296490.0
+    },
+    "Midday|Q5": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 196,
+      "trained_revenue": 46577.0
+    },
+    "LateEve|Q3": {
+      "combo": "NSPIN_RT",
+      "n_hours_trained": 54,
+      "trained_revenue": 12562.0
+    },
+    "Night|Q5": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 167,
+      "trained_revenue": 158918.0
+    },
+    "LateEve|Q5": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 56,
+      "trained_revenue": 81015.0
+    }
+  },
+  "fine_cohort_rules": {
+    "Night|Q3|Q1": "NSPIN_RT",
+    "Night|Q4|Q1": "NSPIN_DA",
+    "Morning|Q4|Q1": "ECRS_RT",
+    "Morning|Q4|Q2": "ECRS_RT",
+    "Morning|Q4|Q3": "ECRS_RT",
+    "Midday|Q4|Q2": "NSPIN_DA",
+    "Midday|Q4|Q1": "ECRS_RT",
+    "Midday|Q3|Q1": "NSPIN_DA",
+    "Evening|Q3|Q1": "NSPIN_DA",
+    "Evening|Q2|Q1": "NSPIN_RT",
+    "Evening|Q1|Q1": "NSPIN_DA",
+    "LateEve|Q1|Q1": "NSPIN_DA",
+    "Night|Q1|Q1": "NSPIN_DA",
+    "Morning|Q1|Q1": "NSPIN_DA",
+    "Morning|Q1|Q2": "NSPIN_DA",
+    "Morning|Q2|Q3": "NSPIN_DA",
+    "Midday|Q2|Q3": "NSPIN_DA",
+    "Midday|Q2|Q2": "NSPIN_DA",
+    "Evening|Q4|Q1": "NSPIN_RT",
+    "LateEve|Q2|Q1": "NSPIN_DA",
+    "Night|Q2|Q1": "NSPIN_DA",
+    "Morning|Q3|Q1": "NSPIN_DA",
+    "Midday|Q4|Q3": "NSPIN_DA",
+    "Midday|Q3|Q3": "NSPIN_DA",
+    "Evening|Q5|Q1": "ECRS_DA",
+    "LateEve|Q4|Q1": "NSPIN_DA",
+    "Morning|Q3|Q2": "ECRS_DA",
+    "Morning|Q3|Q3": "NSPIN_DA",
+    "Midday|Q3|Q2": "NSPIN_DA",
+    "Midday|Q1|Q2": "NSPIN_DA",
+    "Midday|Q2|Q1": "NSPIN_DA",
+    "Morning|Q2|Q1": "NSPIN_DA",
+    "Morning|Q5|Q2": "RRS_RT",
+    "Midday|Q5|Q2": "NSPIN_DA",
+    "Midday|Q5|Q1": "NSPIN_DA",
+    "Midday|Q1|Q1": "NSPIN_DA",
+    "LateEve|Q3|Q1": "NSPIN_RT",
+    "Night|Q5|Q1": "NSPIN_DA",
+    "Morning|Q5|Q1": "ECRS_DA",
+    "Morning|Q2|Q2": "ECRS_RT",
+    "LateEve|Q5|Q1": "NSPIN_DA",
+    "Morning|Q5|Q3": "RRS_DA",
+    "Midday|Q5|Q3": "NSPIN_DA",
+    "Midday|Q1|Q3": "NSPIN_DA",
+    "Morning|Q5|Q4": "RRS_DA",
+    "Morning|Q4|Q4": "ECRS_DA",
+    "Midday|Q3|Q4": "NSPIN_DA",
+    "Morning|Q1|Q4": "NSPIN_DA",
+    "Midday|Q1|Q4": "NSPIN_DA",
+    "Morning|Q3|Q5": "RRS_DA",
+    "Midday|Q2|Q4": "NSPIN_DA",
+    "Evening|Q5|Q2": "NSPIN_DA",
+    "Midday|Q4|Q4": "NSPIN_DA",
+    "Midday|Q5|Q4": "NSPIN_DA",
+    "Morning|Q3|Q4": "RRS_DA",
+    "Evening|Q2|Q2": "NSPIN_DA",
+    "Evening|Q3|Q2": "NSPIN_DA",
+    "Evening|Q4|Q2": "ECRS_RT",
+    "Morning|Q4|Q5": "ECRS_DA",
+    "Morning|Q2|Q5": "NSPIN_DA",
+    "Midday|Q3|Q5": "NSPIN_DA",
+    "Midday|Q2|Q5": "NSPIN_DA",
+    "Morning|Q2|Q4": "NSPIN_DA",
+    "Midday|Q1|Q5": "NSPIN_DA",
+    "Morning|Q1|Q3": "ECRS_DA",
+    "Evening|Q4|Q3": "ECRS_RT",
+    "Evening|Q2|Q3": "NSPIN_DA",
+    "Evening|Q3|Q3": "ECRS_RT",
+    "Morning|Q5|Q5": "NSPIN_DA",
+    "Morning|Q1|Q5": "NSPIN_DA",
+    "Evening|Q1|Q3": "NSPIN_DA",
+    "Evening|Q1|Q2": "NSPIN_DA",
+    "Evening|Q5|Q3": "NSPIN_RT",
+    "Night|Q5|Q5": "NSPIN_RT",
+    "Evening|Q2|Q4": "NSPIN_DA",
+    "Evening|Q1|Q4": "NSPIN_DA",
+    "Evening|Q1|Q5": "NSPIN_DA",
+    "Evening|Q2|Q5": "NSPIN_DA",
+    "Evening|Q3|Q4": "NSPIN_DA",
+    "Evening|Q3|Q5": "NSPIN_DA",
+    "Evening|Q4|Q4": "ECRS_RT",
+    "Midday|Q4|Q5": "NSPIN_DA",
+    "Evening|Q5|Q4": "ECRS_RT",
+    "Evening|Q4|Q5": "NSPIN_DA",
+    "Evening|Q5|Q5": "NSPIN_DA",
+    "Midday|Q5|Q5": "NSPIN_DA"
+  },
+  "fine_cohort_trained_revenue": {
+    "Night|Q3|Q1": {
+      "combo": "NSPIN_RT",
+      "n_hours_trained": 163,
+      "trained_revenue": 9296.0
+    },
+    "Night|Q4|Q1": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 162,
+      "trained_revenue": 15722.0
+    },
+    "Morning|Q4|Q1": {
+      "combo": "ECRS_RT",
+      "n_hours_trained": 36,
+      "trained_revenue": 6172.0
+    },
+    "Morning|Q4|Q2": {
+      "combo": "ECRS_RT",
+      "n_hours_trained": 16,
+      "trained_revenue": 1743.0
+    },
+    "Morning|Q4|Q3": {
+      "combo": "ECRS_RT",
+      "n_hours_trained": 18,
+      "trained_revenue": 4344.0
+    },
+    "Midday|Q4|Q2": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 52,
+      "trained_revenue": 4323.0
+    },
+    "Midday|Q4|Q1": {
+      "combo": "ECRS_RT",
+      "n_hours_trained": 48,
+      "trained_revenue": 2434.0
+    },
+    "Midday|Q3|Q1": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 39,
+      "trained_revenue": 3111.0
+    },
+    "Evening|Q3|Q1": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 58,
+      "trained_revenue": 11360.0
+    },
+    "Evening|Q2|Q1": {
+      "combo": "NSPIN_RT",
+      "n_hours_trained": 50,
+      "trained_revenue": 11573.0
+    },
+    "Evening|Q1|Q1": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 62,
+      "trained_revenue": 7478.0
+    },
+    "LateEve|Q1|Q1": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 56,
+      "trained_revenue": 8606.0
+    },
+    "Night|Q1|Q1": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 167,
+      "trained_revenue": 15259.0
+    },
+    "Morning|Q1|Q1": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 22,
+      "trained_revenue": 2270.0
+    },
+    "Morning|Q1|Q2": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 14,
+      "trained_revenue": 1619.0
+    },
+    "Morning|Q2|Q3": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 13,
+      "trained_revenue": 1488.0
+    },
+    "Midday|Q2|Q3": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 41,
+      "trained_revenue": 2809.0
+    },
+    "Midday|Q2|Q2": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 35,
+      "trained_revenue": 2268.0
+    },
+    "Evening|Q4|Q1": {
+      "combo": "NSPIN_RT",
+      "n_hours_trained": 75,
+      "trained_revenue": 13866.0
+    },
+    "LateEve|Q2|Q1": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 54,
+      "trained_revenue": 14870.0
+    },
+    "Night|Q2|Q1": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 162,
+      "trained_revenue": 14116.0
+    },
+    "Morning|Q3|Q1": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 28,
+      "trained_revenue": 2650.0
+    },
+    "Midday|Q4|Q3": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 46,
+      "trained_revenue": 3819.0
+    },
+    "Midday|Q3|Q3": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 43,
+      "trained_revenue": 2855.0
+    },
+    "Evening|Q5|Q1": {
+      "combo": "ECRS_DA",
+      "n_hours_trained": 87,
+      "trained_revenue": 87369.0
+    },
+    "LateEve|Q4|Q1": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 54,
+      "trained_revenue": 17450.0
+    },
+    "Morning|Q3|Q2": {
+      "combo": "ECRS_DA",
+      "n_hours_trained": 15,
+      "trained_revenue": 1990.0
+    },
+    "Morning|Q3|Q3": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 16,
+      "trained_revenue": 2869.0
+    },
+    "Midday|Q3|Q2": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 37,
+      "trained_revenue": 2250.0
+    },
+    "Midday|Q1|Q2": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 20,
+      "trained_revenue": 1686.0
+    },
+    "Midday|Q2|Q1": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 15,
+      "trained_revenue": 1190.0
+    },
+    "Morning|Q2|Q1": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 32,
+      "trained_revenue": 2782.0
+    },
+    "Morning|Q5|Q2": {
+      "combo": "RRS_RT",
+      "n_hours_trained": 20,
+      "trained_revenue": 7976.0
+    },
+    "Midday|Q5|Q2": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 45,
+      "trained_revenue": 7335.0
+    },
+    "Midday|Q5|Q1": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 89,
+      "trained_revenue": 25021.0
+    },
+    "Midday|Q1|Q1": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 5,
+      "trained_revenue": 460.0
+    },
+    "LateEve|Q3|Q1": {
+      "combo": "NSPIN_RT",
+      "n_hours_trained": 54,
+      "trained_revenue": 12562.0
+    },
+    "Night|Q5|Q1": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 166,
+      "trained_revenue": 159135.0
+    },
+    "Morning|Q5|Q1": {
+      "combo": "ECRS_DA",
+      "n_hours_trained": 52,
+      "trained_revenue": 93777.0
+    },
+    "Morning|Q2|Q2": {
+      "combo": "ECRS_RT",
+      "n_hours_trained": 16,
+      "trained_revenue": 1986.0
+    },
+    "LateEve|Q5|Q1": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 56,
+      "trained_revenue": 81015.0
+    },
+    "Morning|Q5|Q3": {
+      "combo": "RRS_DA",
+      "n_hours_trained": 20,
+      "trained_revenue": 197782.0
+    },
+    "Midday|Q5|Q3": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 23,
+      "trained_revenue": 11238.0
+    },
+    "Midday|Q1|Q3": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 36,
+      "trained_revenue": 2836.0
+    },
+    "Morning|Q5|Q4": {
+      "combo": "RRS_DA",
+      "n_hours_trained": 13,
+      "trained_revenue": 6804.0
+    },
+    "Morning|Q4|Q4": {
+      "combo": "ECRS_DA",
+      "n_hours_trained": 24,
+      "trained_revenue": 5378.0
+    },
+    "Midday|Q3|Q4": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 34,
+      "trained_revenue": 2628.0
+    },
+    "Morning|Q1|Q4": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 27,
+      "trained_revenue": 2114.0
+    },
+    "Midday|Q1|Q4": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 45,
+      "trained_revenue": 2876.0
+    },
+    "Morning|Q3|Q5": {
+      "combo": "RRS_DA",
+      "n_hours_trained": 27,
+      "trained_revenue": 3721.0
+    },
+    "Midday|Q2|Q4": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 47,
+      "trained_revenue": 3363.0
+    },
+    "Evening|Q5|Q2": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 22,
+      "trained_revenue": 5968.0
+    },
+    "Midday|Q4|Q4": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 32,
+      "trained_revenue": 2891.0
+    },
+    "Midday|Q5|Q4": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 31,
+      "trained_revenue": 2592.0
+    },
+    "Morning|Q3|Q4": {
+      "combo": "RRS_DA",
+      "n_hours_trained": 22,
+      "trained_revenue": 2822.0
+    },
+    "Evening|Q2|Q2": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 8,
+      "trained_revenue": 1488.0
+    },
+    "Evening|Q3|Q2": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 9,
+      "trained_revenue": 1391.0
+    },
+    "Evening|Q4|Q2": {
+      "combo": "ECRS_RT",
+      "n_hours_trained": 14,
+      "trained_revenue": 2689.0
+    },
+    "Morning|Q4|Q5": {
+      "combo": "ECRS_DA",
+      "n_hours_trained": 14,
+      "trained_revenue": 1865.0
+    },
+    "Morning|Q2|Q5": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 28,
+      "trained_revenue": 2164.0
+    },
+    "Midday|Q3|Q5": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 36,
+      "trained_revenue": 2609.0
+    },
+    "Midday|Q2|Q5": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 51,
+      "trained_revenue": 3257.0
+    },
+    "Morning|Q2|Q4": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 19,
+      "trained_revenue": 1046.0
+    },
+    "Midday|Q1|Q5": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 90,
+      "trained_revenue": 6348.0
+    },
+    "Morning|Q1|Q3": {
+      "combo": "ECRS_DA",
+      "n_hours_trained": 14,
+      "trained_revenue": 1250.0
+    },
+    "Evening|Q4|Q3": {
+      "combo": "ECRS_RT",
+      "n_hours_trained": 16,
+      "trained_revenue": 3808.0
+    },
+    "Evening|Q2|Q3": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 22,
+      "trained_revenue": 3255.0
+    },
+    "Evening|Q3|Q3": {
+      "combo": "ECRS_RT",
+      "n_hours_trained": 19,
+      "trained_revenue": 2190.0
+    },
+    "Morning|Q5|Q5": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 7,
+      "trained_revenue": 3077.0
+    },
+    "Morning|Q1|Q5": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 35,
+      "trained_revenue": 3067.0
+    },
+    "Evening|Q1|Q3": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 15,
+      "trained_revenue": 3373.0
+    },
+    "Evening|Q1|Q2": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 1,
+      "trained_revenue": 125.0
+    },
+    "Evening|Q5|Q3": {
+      "combo": "NSPIN_RT",
+      "n_hours_trained": 8,
+      "trained_revenue": 13159.0
+    },
+    "Night|Q5|Q5": {
+      "combo": "NSPIN_RT",
+      "n_hours_trained": 1,
+      "trained_revenue": 193.0
+    },
+    "Evening|Q2|Q4": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 34,
+      "trained_revenue": 6540.0
+    },
+    "Evening|Q1|Q4": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 27,
+      "trained_revenue": 2402.0
+    },
+    "Evening|Q1|Q5": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 35,
+      "trained_revenue": 3549.0
+    },
+    "Evening|Q2|Q5": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 21,
+      "trained_revenue": 5739.0
+    },
+    "Evening|Q3|Q4": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 31,
+      "trained_revenue": 10354.0
+    },
+    "Evening|Q3|Q5": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 18,
+      "trained_revenue": 5899.0
+    },
+    "Evening|Q4|Q4": {
+      "combo": "ECRS_RT",
+      "n_hours_trained": 10,
+      "trained_revenue": 3206.0
+    },
+    "Midday|Q4|Q5": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 11,
+      "trained_revenue": 567.0
+    },
+    "Evening|Q5|Q4": {
+      "combo": "ECRS_RT",
+      "n_hours_trained": 5,
+      "trained_revenue": 3778.0
+    },
+    "Evening|Q4|Q5": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 20,
+      "trained_revenue": 6856.0
+    },
+    "Evening|Q5|Q5": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 18,
+      "trained_revenue": 37340.0
+    },
+    "Midday|Q5|Q5": {
+      "combo": "NSPIN_DA",
+      "n_hours_trained": 8,
+      "trained_revenue": 391.0
+    }
+  },
+  "default_combo": "NSPIN_DA"
+}

@@ -1,0 +1,344 @@
+{
+ "info": {
+  "route": {
+   "timeZone": "Central",
+   "rootName": "ERCOT Nodal",
+   "rootIdentifier": 2,
+   "endpointName": "Battery-Settlement-Details",
+   "endpointIdentifier": "14db5dea-6e3e-45f4-b44b-897d306d99b0",
+   "url": "https://api.ptp.energy/ptp/ERCOTNodal/Battery-Settlement-Details"
+  },
+  "session": {
+   "received": "2026-05-14T20:15:27.579Z",
+   "complete": "2026-05-14T20:15:27.579Z",
+   "duration": 0,
+   "username": "minsu_jeong@sk.com",
+   "sessionId": "892fd8ac-bd92-4f2e-8e7b-fec0cfbf2050"
+  }
+ },
+ "data": {
+  "element-definitions": [
+   {
+    "shortName": "ENT",
+    "validParentElementDefinitionIdentifiers": [
+     4,
+     5
+    ],
+    "name": "Entity",
+    "identifier": 4,
+    "links": {}
+   },
+   {
+    "shortName": "MKT",
+    "name": "Market",
+    "identifier": 6,
+    "links": {}
+   },
+   {
+    "shortName": "MKTPT",
+    "validParentElementDefinitionIdentifiers": [
+     6
+    ],
+    "name": "MarketParticipant",
+    "identifier": 5,
+    "links": {}
+   }
+  ],
+  "dataPoints": [
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Aggregate",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "DA_Sales_Qty",
+    "identifier": "0a6e1109-8e5f-447e-bd50-a90898a97d19",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Aggregate",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "DA_Purchases_Qty",
+    "identifier": "c463d16f-007e-47be-b182-be6eace87273",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "DimensionFilter",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "DASPP",
+    "identifier": "7e99041a-5d61-4154-9865-903ed59dacbe",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "DA_Energy_Amt",
+    "identifier": "e40f011d-b392-452d-ad84-f4d475e7948c",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Aggregate",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "RT_Generation_Qty",
+    "identifier": "162849da-b009-46c6-95f0-1f621f6dbbf1",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Aggregate",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "RT_Consumption_Qty",
+    "identifier": "6514bae9-61b7-4748-ad85-ac184ea4c8c5",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Aggregate",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "RTSPP_Avg",
+    "identifier": "4e13bb2a-28e9-4549-8946-2bbddb99b918",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "RT_Energy_Amt",
+    "identifier": "6c92a93f-91a0-49a2-8def-372f4f34a2e7",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "RT_Reliability_Deployment_Imbalance_Amt",
+    "identifier": "c51168e3-ca4f-4a89-badc-e2846ce8c62e",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "RT_Ancillary_Imbalance_Amt",
+    "identifier": "791853ba-f170-44e2-b25e-348384c254b9",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "Gen_Reg_Up_Qty",
+    "identifier": "ca722611-489a-423a-a35c-806a3d35f511",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "Gen_Reg_Down_Qty",
+    "identifier": "37ee3b61-b5c0-4bda-905a-03c56638f573",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "Gen_RRS_Qty",
+    "identifier": "f026e6ee-9981-4c1a-a4c9-b252cce3b14e",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "Gen_NS_Qty",
+    "identifier": "7a8195c6-bbdd-448b-9ab8-935b8d40682f",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "Gen_ECRS_Qty",
+    "identifier": "a24b7e1c-56f5-4604-a68f-b01100116ac2",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "CLR_Reg_Up_Qty",
+    "identifier": "b35fdd04-4be8-44fb-9172-44033f08478a",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "CLR_Reg_Down_Qty",
+    "identifier": "4a9d16e6-79fc-4f91-ab61-27a70094ccda",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "CLR_RRS_Qty",
+    "identifier": "38e74608-de10-4be6-a467-9def51020106",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "CLR_NS_Qty",
+    "identifier": "2e4e9dc0-131b-44f3-977e-562b58e34ebe",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "CLR_ECRS_Qty",
+    "identifier": "537424ad-a54c-42c2-99ae-0a3e6f8dc58b",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "sequenceIdentifier": 3,
+    "name": "DA_Reg_Up_Amt",
+    "identifier": "d09e254d-9777-4202-8f90-9b8b25c88c8e",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "sequenceIdentifier": 3,
+    "name": "DA_Reg_Down_Amt",
+    "identifier": "fb5396fe-ecb3-47d2-bfd3-9b6cf1ee65a6",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "sequenceIdentifier": 3,
+    "name": "DA_RRS_Amt",
+    "identifier": "a063f27c-dde1-44a8-9aaa-95279d3abd42",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "sequenceIdentifier": 3,
+    "name": "DA_NS_Amt",
+    "identifier": "1e36b4a2-5c61-4494-b0dc-6f738e9fd86b",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "sequenceIdentifier": 3,
+    "name": "DA_ECRS_Amt",
+    "identifier": "40803670-ab42-4960-bd97-1557c4513dbc",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "RT_Reg_Up_Amt",
+    "identifier": "5d1cdda8-641b-48de-9aed-6bd6be0023c6",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "RT_Reg_Down_Amt",
+    "identifier": "6fceab0a-0bfd-4a1a-b339-cd10db631558",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "RT_RRS_Amt",
+    "identifier": "816f393f-24fa-4272-b6de-d455e40df994",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "RT_NS_Amt",
+    "identifier": "0a845bb3-528c-4091-aafd-d230c0fd089c",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "RT_ECRS_Amt",
+    "identifier": "0a895e25-d43b-4267-839f-bb98c72ec740",
+    "links": {}
+   },
+   {
+    "elementDefinitionIdentifier": 4,
+    "dataPointType": "Expression",
+    "dataType": "Decimal",
+    "periodicity": 60,
+    "name": "BP_Dev_Amt",
+    "identifier": "0af9fe41-37b7-4ea3-a084-1d5d61b6806b",
+    "links": {}
+   }
+  ],
+  "dimensions": [],
+  "name": "Battery-Settlement-Details",
+  "identifier": "14db5dea-6e3e-45f4-b44b-897d306d99b0",
+  "isReadOnly": true,
+  "links": {
+   "self": "https://api.ptp.energy/ptp/ERCOTNodal/Battery-Settlement-Details",
+   "elements": "https://api.ptp.energy/ptp/ERCOTNodal/Battery-Settlement-Details/elements?begin=2026-05-14&end=2026-05-14",
+   "query": "https://api.ptp.energy/ptp/ERCOTNodal/Battery-Settlement-Details/query?begin=2026-05-14&end=2026-05-14",
+   "query-columnar": "https://api.ptp.energy/ptp/ERCOTNodal/Battery-Settlement-Details/query-columnar?begin=2026-05-14&end=2026-05-14"
+  }
+ }
+}

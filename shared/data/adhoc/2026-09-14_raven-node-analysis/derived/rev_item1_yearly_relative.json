@@ -1,0 +1,118 @@
+{
+ "DA": [
+  {
+   "year": 2023,
+   "n_days": 121,
+   "src": "proxy",
+   "raven": 123.00926191649161,
+   "gks": NaN,
+   "sys_mean": 122.77397918701172,
+   "sys_median": 122.15361785888672,
+   "vs_sys_mean_pct": 0.1916389214049241,
+   "vs_sys_median_pct": 0.7004655880052058,
+   "gks_vs_sys_mean_pct": NaN,
+   "vs_gks_pct": NaN,
+   "common_days": 0
+  },
+  {
+   "year": 2024,
+   "n_days": 365,
+   "src": "proxy",
+   "raven": 73.77138894453441,
+   "gks": 52.70463911427392,
+   "sys_mean": 81.16397857666016,
+   "sys_median": 77.67094421386719,
+   "vs_sys_mean_pct": -9.108214951714544,
+   "vs_sys_median_pct": -5.020610099183731,
+   "gks_vs_sys_mean_pct": -35.06400248172423,
+   "vs_gks_pct": 4.2140323318049955,
+   "common_days": 180
+  },
+  {
+   "year": 2025,
+   "n_days": 364,
+   "src": "proxy",
+   "raven": 55.83009430425303,
+   "gks": 40.473925650940785,
+   "sys_mean": 61.82326126098633,
+   "sys_median": 60.27157211303711,
+   "vs_sys_mean_pct": -9.694032366609061,
+   "vs_sys_median_pct": -7.369108939873426,
+   "gks_vs_sys_mean_pct": -34.53285248075076,
+   "vs_gks_pct": 37.88724510772135,
+   "common_days": 363
+  },
+  {
+   "year": 2026,
+   "n_days": 255,
+   "src": "mixed",
+   "raven": 51.028691148012875,
+   "gks": 37.15592178643919,
+   "sys_mean": 57.11643600463867,
+   "sys_median": 56.942893981933594,
+   "vs_sys_mean_pct": -10.658481660395235,
+   "vs_sys_median_pct": -10.386199963417964,
+   "gks_vs_sys_mean_pct": -34.947058350381674,
+   "vs_gks_pct": 37.33663086414622,
+   "common_days": 255
+  }
+ ],
+ "RT": [
+  {
+   "year": 2023,
+   "n_days": 121,
+   "src": "proxy",
+   "raven": 172.61741285603725,
+   "gks": NaN,
+   "sys_mean": 170.3519287109375,
+   "sys_median": 165.72206115722656,
+   "vs_sys_mean_pct": 1.3298846465917835,
+   "vs_sys_median_pct": 4.160792866478302,
+   "gks_vs_sys_mean_pct": NaN,
+   "vs_gks_pct": NaN,
+   "common_days": 0
+  },
+  {
+   "year": 2024,
+   "n_days": 365,
+   "src": "proxy",
+   "raven": 79.13534768177834,
+   "gks": 69.50838399855472,
+   "sys_mean": 93.56537628173828,
+   "sys_median": 82.89215087890625,
+   "vs_sys_mean_pct": -15.42240214639775,
+   "vs_sys_median_pct": -4.532157939315717,
+   "gks_vs_sys_mean_pct": -25.711425785051755,
+   "vs_gks_pct": 1.1328244342518445,
+   "common_days": 181
+  },
+  {
+   "year": 2025,
+   "n_days": 364,
+   "src": "proxy",
+   "raven": 61.599597085103554,
+   "gks": 51.5185608115078,
+   "sys_mean": 74.4209213256836,
+   "sys_median": 67.47126770019531,
+   "vs_sys_mean_pct": -17.22811813155455,
+   "vs_sys_median_pct": -8.702475609591609,
+   "gks_vs_sys_mean_pct": -30.774088933876055,
+   "vs_gks_pct": 19.55889049996746,
+   "common_days": 363
+  },
+  {
+   "year": 2026,
+   "n_days": 255,
+   "src": "mixed",
+   "raven": 56.48639233426428,
+   "gks": 49.28509300082337,
+   "sys_mean": 68.60704803466797,
+   "sys_median": 64.7627944946289,
+   "vs_sys_mean_pct": -17.66677921236164,
+   "vs_sys_median_pct": -12.779563057692068,
+   "gks_vs_sys_mean_pct": -28.16322169127723,
+   "vs_gks_pct": 14.611516170458682,
+   "common_days": 255
+  }
+ ]
+}

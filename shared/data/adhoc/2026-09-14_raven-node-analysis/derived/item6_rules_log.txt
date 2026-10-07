@@ -1,0 +1,188 @@
+
+===== REAL =====
+                                                rule  part  n_hours  n_days  ev_per_mwh  per_day_per_mw  hit_rate_hours  hit_rate_days  sharpe_daily  sharpe_annualised  max_drawdown_per_mw  worst_hour  t_stat  ev_sys_part  ev_basis_part
+47             C_short_HE11-19_if_1715__B_bound_lag1  test      115      23       3.796           18.98           0.678          0.783         0.500               9.55               -127.8       -29.4    3.83        2.675          1.121
+38                R_long_HE7-11_if_wind_low_NEEDS_FC  test       70      14       3.664           18.32           0.714          0.714         0.625              11.95                -16.1        -6.8    3.98        4.055         -0.391
+50             C_short_HE11-19_if_1715__B_bound_lag2  test      115      23       2.572           12.86           0.643          0.739         0.250               4.77               -175.9       -67.3    1.96        1.373          1.199
+20         P_follow_yesterday_sign_HE9-20_lag1_leaky  test      528      44       2.563           30.75           0.642          0.705         0.418               7.99               -433.2      -140.1    3.76        2.761         -0.198
+53               C_long_HE17-22_if_E_PASP_bound_lag1  test      264      44       2.403           14.42           0.364          0.455         0.074               1.42               -799.2       -73.8    0.86        3.669         -1.266
+56               C_long_HE17-22_if_E_PASP_bound_lag2  test      264      44       2.403           14.42           0.364          0.455         0.074               1.42               -799.2       -73.8    0.86        3.669         -1.266
+11                              B_long_HE7-11_static  test      220      44       1.754            8.77           0.605          0.614         0.430               8.22                -54.3        -6.8    4.92        2.007         -0.252
+35                 R_long_HE7-11_if_rt_vol_lag1_high  test      165      33       1.710            8.55           0.594          0.606         0.449               8.59                -54.3        -6.8    4.66        2.070         -0.359
+8                               B_always_long_all_HE  test     1056      44       1.681           40.35           0.491          0.477         0.148               2.83               -820.5       -73.8    2.00        2.056         -0.375
+2                          B0_item3a_long_HE3,5,7-11  test      308      44       1.556           10.90           0.607          0.636         0.421               8.04                -75.6        -7.7    5.47        1.738         -0.182
+29                 R_long_HE7-11_if_rt_vol_lag2_high  test      160      32       1.516            7.58           0.581          0.594         0.415               7.94                -42.8        -6.8    4.22        1.784         -0.269
+32                 R_long_HE7-11_if_rt_max_lag2_high  test      175      35       1.438            7.19           0.589          0.600         0.409               7.81                -42.8        -6.8    4.30        1.666         -0.228
+71             X_B0_long + STPWAP_lag2_short_HE14-18  test      508      44       1.273           14.70           0.596          0.682         0.417               7.98               -178.9       -36.6    3.98        1.028          0.245
+17          P_follow_yesterday_sign_perHE_lag1_leaky  test     1056      44       1.259           30.22           0.595          0.636         0.130               2.49              -1878.4      -426.8    1.49        1.356         -0.096
+74  X_regime_long_HE7-11 + STPWAP_lag2_short_HE14-18  test      360      42       1.139            9.76           0.581          0.714         0.340               6.50               -183.2       -36.6    2.76        0.757          0.382
+41          C_short_HE14-18_if_STPWAP39_1_bound_lag1  test      200      40       0.962            4.81           0.585          0.675         0.146               2.78               -203.4       -36.6    1.39       -0.007          0.969
+44          C_short_HE14-18_if_STPWAP39_1_bound_lag2  test      200      40       0.837            4.19           0.580          0.650         0.127               2.43               -203.4       -36.6    1.22       -0.065          0.902
+68   C_short_HE14-18_if_any_HoustonImport_bound_lag2  test      220      44       0.832            4.16           0.586          0.659         0.117               2.24               -203.4       -36.6    1.23        0.090          0.742
+65   C_short_HE14-18_if_any_HoustonImport_bound_lag1  test      220      44       0.832            4.16           0.586          0.659         0.117               2.24               -203.4       -36.6    1.23        0.090          0.742
+14                            B_short_HE14-18_static  test      220      44       0.832            4.16           0.586          0.659         0.117               2.24               -203.4       -36.6    1.23        0.090          0.742
+62             C_long_HE10-13_if_35055__A_bound_lag2  test      136      34       0.641            2.56           0.537          0.471         0.171               3.26                -35.8       -21.7    1.56        0.863         -0.222
+59             C_long_HE10-13_if_35055__A_bound_lag1  test      136      34       0.578            2.31           0.537          0.471         0.158               3.03                -45.1       -21.7    1.45        0.921         -0.343
+26        P_follow_yesterday_sign_HE9-20_lag2_strict  test      528      44       0.162            1.94           0.511          0.545         0.033               0.64               -429.5      -122.8    0.23       -0.352          0.514
+23         P_follow_yesterday_sign_perHE_lag2_strict  test     1056      44      -1.028          -24.67           0.510          0.545        -0.116              -2.21              -2223.6      -426.8   -1.22       -1.389          0.361
+5                   B0refit_best_side_train_|t|>=1.5  test      220      44      -2.637          -13.18           0.591          0.523        -0.113              -2.15              -1119.8      -307.9   -0.99       -2.817          0.180
+
+-- train vs test EV --
+part                                                all   test  train  shrink_train_to_test
+rule                                                                                       
+B0_item3a_long_HE3,5,7-11                         1.232  1.556  0.986                -0.578
+B0refit_best_side_train_|t|>=1.5                  0.424 -2.637  2.746                 1.960
+B_always_long_all_HE                              0.606  1.681 -0.210                 9.005
+B_long_HE7-11_static                              1.354  1.754  1.050                -0.670
+B_short_HE14-18_static                            0.380  0.832  0.038               -20.895
+C_long_HE10-13_if_35055__A_bound_lag1             0.108  0.578 -0.254                 3.276
+C_long_HE10-13_if_35055__A_bound_lag2             0.253  0.641 -0.054                12.870
+C_long_HE17-22_if_E_PASP_bound_lag1              -0.229  2.403 -2.456                 1.978
+C_long_HE17-22_if_E_PASP_bound_lag2              -0.736  2.403 -3.444                 1.698
+C_short_HE11-19_if_1715__B_bound_lag1             3.289  3.796  1.831                -1.073
+C_short_HE11-19_if_1715__B_bound_lag2             1.740  2.572 -0.992                 3.593
+C_short_HE14-18_if_STPWAP39_1_bound_lag1          0.478  0.962  0.092                -9.457
+C_short_HE14-18_if_STPWAP39_1_bound_lag2          0.677  0.837  0.546                -0.533
+C_short_HE14-18_if_any_HoustonImport_bound_lag1   0.384  0.832  0.032               -25.000
+C_short_HE14-18_if_any_HoustonImport_bound_lag2   0.574  0.832  0.369                -1.255
+P_follow_yesterday_sign_HE9-20_lag1_leaky         2.567  2.563  2.571                 0.003
+P_follow_yesterday_sign_HE9-20_lag2_strict        0.164  0.162  0.165                 0.018
+P_follow_yesterday_sign_perHE_lag1_leaky          1.765  1.259  2.155                 0.416
+P_follow_yesterday_sign_perHE_lag2_strict        -0.096 -1.028  0.636                 2.616
+R_long_HE7-11_if_rt_max_lag2_high                 1.709  1.438  2.208                 0.349
+R_long_HE7-11_if_rt_vol_lag1_high                 2.164  1.710  2.951                 0.421
+R_long_HE7-11_if_rt_vol_lag2_high                 1.740  1.516  2.116                 0.284
+R_long_HE7-11_if_wind_low_NEEDS_FC                3.112  3.664  2.706                -0.354
+X_B0_long + STPWAP_lag2_short_HE14-18             1.019  1.273  0.821                -0.551
+X_regime_long_HE7-11 + STPWAP_lag2_short_HE14-18  1.064  1.139  0.985                -0.156
+
+===== FULL =====
+                                                 rule  part  n_hours  n_days  ev_per_mwh  per_day_per_mw  hit_rate_hours  hit_rate_days  sharpe_daily  sharpe_annualised  max_drawdown_per_mw  worst_hour  t_stat  ev_sys_part  ev_basis_part
+92           P_follow_yesterday_sign_perHE_lag1_leaky  test     9070     378       3.005           72.10           0.577          0.653         0.119               2.28              -2780.9      -615.9    6.29        2.500          0.505
+95          P_follow_yesterday_sign_HE9-20_lag1_leaky  test     4536     378       2.537           30.45           0.590          0.680         0.213               4.06               -740.2      -443.6    5.80        1.883          0.654
+80                   B0refit_best_side_train_|t|>=1.5  test     3780     378       1.993           19.93           0.574          0.598         0.085               1.63              -1025.8      -615.9    3.39        1.998         -0.005
+122             C_short_HE11-19_if_1715__B_bound_lag1  test      205      41       1.769            8.84           0.639          0.659         0.238               4.54               -151.3       -43.1    2.46        0.659          1.109
+125             C_short_HE11-19_if_1715__B_bound_lag2  test      200      40       1.766            8.83           0.600          0.650         0.212               4.05               -175.9       -67.3    2.16        1.163          0.603
+89                             B_short_HE14-18_static  test     1890     378       1.320            6.60           0.581          0.603         0.096               1.84               -612.2      -148.7    3.62        1.351         -0.031
+101        P_follow_yesterday_sign_HE9-20_lag2_strict  test     4536     378       1.275           15.29           0.523          0.548         0.078               1.48              -1010.0      -238.2    2.90        1.136          0.139
+119          C_short_HE14-18_if_STPWAP39_1_bound_lag2  test      610     122       1.074            5.37           0.634          0.664         0.136               2.59               -282.5       -51.4    2.72        1.191         -0.117
+116          C_short_HE14-18_if_STPWAP39_1_bound_lag1  test      615     123       0.810            4.05           0.607          0.642         0.107               2.04               -395.0       -51.4    2.12        0.857         -0.046
+143   C_short_HE14-18_if_any_HoustonImport_bound_lag2  test     1170     234       0.694            3.47           0.592          0.607         0.071               1.36               -900.0      -148.7    1.99        0.573          0.122
+140   C_short_HE14-18_if_any_HoustonImport_bound_lag1  test     1175     235       0.689            3.44           0.593          0.617         0.069               1.32               -888.2      -148.7    1.92        0.474          0.215
+98          P_follow_yesterday_sign_perHE_lag2_strict  test     9070     378       0.631           15.15           0.533          0.550         0.036               0.69              -5889.9     -1460.2    1.32        0.015          0.616
+134             C_long_HE10-13_if_35055__A_bound_lag1  test      740     185      -0.034           -0.14           0.480          0.476        -0.005              -0.09               -511.9       -63.6   -0.11        0.138         -0.173
+137             C_long_HE10-13_if_35055__A_bound_lag2  test      736     184      -0.215           -0.86           0.471          0.467        -0.035              -0.67               -413.1       -32.2   -0.80       -0.050         -0.165
+146             X_B0_long + STPWAP_lag2_short_HE14-18  test     3256     378      -1.656          -14.26           0.477          0.476        -0.046              -0.88              -8321.4     -1300.0   -2.03       -2.015          0.360
+83                               B_always_long_all_HE  test     9071     378      -2.062          -49.47           0.415          0.415        -0.067              -1.27             -23172.2     -1460.2   -4.31       -1.971         -0.091
+131               C_long_HE17-22_if_E_PASP_bound_lag2  test     1986     331      -2.134          -12.81           0.383          0.408        -0.057              -1.09              -6071.5      -868.7   -2.04       -0.436         -1.698
+77                          B0_item3a_long_HE3,5,7-11  test     2646     378      -2.285          -16.00           0.441          0.437        -0.052              -0.99              -8378.9     -1300.0   -2.29       -2.755          0.469
+149  X_regime_long_HE7-11 + STPWAP_lag2_short_HE14-18  test     1175     209      -2.328          -13.09           0.522          0.541        -0.046              -0.87              -4645.7     -1300.0   -1.21       -2.523          0.195
+128               C_long_HE17-22_if_E_PASP_bound_lag1  test     1986     331      -2.415          -14.49           0.375          0.402        -0.064              -1.22              -6191.2      -868.7   -2.24       -0.657         -1.759
+86                               B_long_HE7-11_static  test     1890     378      -2.428          -12.14           0.441          0.437        -0.054              -1.04              -6138.3     -1300.0   -1.95       -2.959          0.531
+107                 R_long_HE7-11_if_rt_max_lag2_high  test      525     105      -5.951          -29.76           0.427          0.410        -0.074              -1.41              -4570.4     -1300.0   -1.39       -6.369          0.418
+104                 R_long_HE7-11_if_rt_vol_lag2_high  test      565     113      -6.001          -30.01           0.400          0.381        -0.077              -1.48              -4666.9     -1300.0   -1.51       -6.533          0.532
+110                 R_long_HE7-11_if_rt_vol_lag1_high  test      565     113      -7.984          -39.92           0.442          0.451        -0.099              -1.88              -6085.3     -1300.0   -1.94       -9.111          1.127
+113                R_long_HE7-11_if_wind_low_NEEDS_FC  test      465      93      -8.804          -44.02           0.465          0.441        -0.099              -1.90              -5308.2     -1300.0   -1.77      -10.350          1.545
+
+-- train vs test EV --
+part                                                all   test   train  shrink_train_to_test
+rule                                                                                        
+B0_item3a_long_HE3,5,7-11                        -1.876 -2.285  -1.634                -0.398
+B0refit_best_side_train_|t|>=1.5                  2.508  1.993   2.813                 0.292
+B_always_long_all_HE                             -1.874 -2.062  -1.764                -0.169
+B_long_HE7-11_static                             -2.369 -2.428  -2.333                -0.041
+B_short_HE14-18_static                            2.059  1.320   2.496                 0.471
+C_long_HE10-13_if_35055__A_bound_lag1            -0.182 -0.034  -0.862                 0.961
+C_long_HE10-13_if_35055__A_bound_lag2            -0.828 -0.215  -3.645                 0.941
+C_long_HE17-22_if_E_PASP_bound_lag1              -5.012 -2.415  -7.322                 0.670
+C_long_HE17-22_if_E_PASP_bound_lag2              -4.588 -2.134  -6.777                 0.685
+C_short_HE11-19_if_1715__B_bound_lag1             3.603  1.769  41.212                 0.957
+C_short_HE11-19_if_1715__B_bound_lag2             0.088  1.766 -33.477                 1.053
+C_short_HE14-18_if_STPWAP39_1_bound_lag1          4.085  0.810   6.335                 0.872
+C_short_HE14-18_if_STPWAP39_1_bound_lag2          3.168  1.074   4.596                 0.766
+C_short_HE14-18_if_any_HoustonImport_bound_lag1   2.727  0.689   5.063                 0.864
+C_short_HE14-18_if_any_HoustonImport_bound_lag2   2.455  0.694   4.464                 0.845
+P_follow_yesterday_sign_HE9-20_lag1_leaky         2.996  2.537   3.268                 0.224
+P_follow_yesterday_sign_HE9-20_lag2_strict        1.168  1.275   1.105                -0.154
+P_follow_yesterday_sign_perHE_lag1_leaky          2.760  3.005   2.615                -0.149
+P_follow_yesterday_sign_perHE_lag2_strict         0.902  0.631   1.062                 0.406
+R_long_HE7-11_if_rt_max_lag2_high                -4.907 -5.951  -4.390                -0.356
+R_long_HE7-11_if_rt_vol_lag1_high                -6.383 -7.984  -5.534                -0.443
+R_long_HE7-11_if_rt_vol_lag2_high                -6.312 -6.001  -6.478                 0.074
+R_long_HE7-11_if_wind_low_NEEDS_FC               -4.246 -8.804  -2.256                -2.902
+X_B0_long + STPWAP_lag2_short_HE14-18            -0.996 -1.656  -0.595                -1.783
+X_regime_long_HE7-11 + STPWAP_lag2_short_HE14-18 -1.754 -2.328  -1.409                -0.652
+
+-- FULL by year x season, selected rules --
+year                                                    2023   2024  2025   2026
+rule                                            season                          
+B0_item3a_long_HE3,5,7-11                       DJF     0.68 -10.62 -4.03 -15.62
+                                                JJA      NaN   0.77  0.13   0.98
+                                                MAM      NaN   1.02  1.00   0.08
+                                                SON      NaN  -0.23 -0.63   2.50
+C_short_HE14-18_if_STPWAP39_1_bound_lag2        DJF      NaN   9.50 -3.58  20.08
+                                                JJA      NaN  10.32  3.26   0.17
+                                                MAM      NaN -29.86  6.23   2.26
+                                                SON      NaN   5.74  2.56   3.10
+C_short_HE14-18_if_any_HoustonImport_bound_lag2 DJF      NaN   9.50 -1.21   1.37
+                                                JJA      NaN   8.41  3.47  -0.17
+                                                MAM      NaN -17.59  6.38   0.02
+                                                SON      NaN   5.74  1.99   2.39
+P_follow_yesterday_sign_perHE_lag1_leaky        DJF     1.64   4.68  0.08   8.86
+                                                JJA      NaN   6.23  1.96   1.45
+                                                MAM      NaN   3.07  2.16   2.37
+                                                SON      NaN  -0.05  1.87   3.71
+P_follow_yesterday_sign_perHE_lag2_strict       DJF     2.05   3.03 -0.34   1.97
+                                                JJA      NaN   0.59  0.55  -0.48
+                                                MAM      NaN   3.03 -0.06   0.70
+                                                SON      NaN  -0.29  1.03   2.30
+R_long_HE7-11_if_rt_vol_lag2_high               DJF    -3.52 -53.00 -6.94 -44.36
+                                                JJA      NaN   0.90  0.39   3.48
+                                                MAM      NaN   0.85 -1.20   0.65
+                                                SON      NaN  -1.54 -1.44   2.28
+X_B0_long + STPWAP_lag2_short_HE14-18           DJF     0.68 -10.46 -4.01 -15.19
+                                                JJA      NaN   2.72  1.30   0.66
+                                                MAM      NaN   0.09  2.27   0.34
+                                                SON      NaN   0.51 -0.35   2.70
+year                                                     2023    2024    2025    2026
+rule                                            season                               
+B0_item3a_long_HE3,5,7-11                       DJF     210.0   637.0   630.0   413.0
+                                                JJA       NaN   644.0   644.0   644.0
+                                                MAM       NaN   644.0   644.0   644.0
+                                                SON       NaN   637.0   637.0    91.0
+C_short_HE14-18_if_STPWAP39_1_bound_lag2        DJF       NaN     5.0    25.0     5.0
+                                                JJA       NaN   165.0   385.0   415.0
+                                                MAM       NaN    20.0   205.0    85.0
+                                                SON       NaN    90.0    60.0    45.0
+C_short_HE14-18_if_any_HoustonImport_bound_lag2 DJF       NaN     5.0   130.0    55.0
+                                                JJA       NaN   240.0   410.0   455.0
+                                                MAM       NaN    40.0   210.0   120.0
+                                                SON       NaN    90.0   375.0    65.0
+P_follow_yesterday_sign_perHE_lag1_leaky        DJF     696.0  2184.0  2160.0  1416.0
+                                                JJA       NaN  2208.0  2208.0  2208.0
+                                                MAM       NaN  2206.0  2206.0  2206.0
+                                                SON       NaN  2184.0  2184.0   312.0
+P_follow_yesterday_sign_perHE_lag2_strict       DJF     672.0  2184.0  2160.0  1416.0
+                                                JJA       NaN  2208.0  2208.0  2208.0
+                                                MAM       NaN  2206.0  2206.0  2206.0
+                                                SON       NaN  2184.0  2184.0   312.0
+R_long_HE7-11_if_rt_vol_lag2_high               DJF      25.0   105.0   140.0    80.0
+                                                JJA       NaN   130.0   165.0    70.0
+                                                MAM       NaN   180.0   215.0   115.0
+                                                SON       NaN   160.0   210.0    30.0
+X_B0_long + STPWAP_lag2_short_HE14-18           DJF     210.0   642.0   655.0   418.0
+                                                JJA       NaN   809.0  1029.0  1059.0
+                                                MAM       NaN   664.0   849.0   729.0
+                                                SON       NaN   727.0   697.0   136.0
+
+PERMUTATION NULL (REAL, regime x HE search): {
+ "n_features": 13,
+ "n_cells_approx": 936,
+ "observed_max_abs_t": 4.35,
+ "null_max_abs_t_p50": 4.15,
+ "null_max_abs_t_p90": 5.0,
+ "null_max_abs_t_p95": 5.37,
+ "p_value_family": 0.347,
+ "n_perm": 300,
+ "note": "day labels of every regime feature permuted jointly across days (hour structure and spread autocorrelation within day preserved); tests whether the largest in-sample |t| across all regime x HE cells exceeds what selection from noise gives"
+}

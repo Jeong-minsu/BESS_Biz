@@ -1,0 +1,120 @@
+
+TOP-10 by |cum MCC contribution| (DA+RT, $/MWh-h per MW, 2023-09..2026-09):
+MARKET                DA       RT    total  abs_total  abs_da_plus_rt
+CONSTRAINTNAME                                                       
+WHARTN           -4537.0 -11852.0 -16388.0    16388.0         16388.0
+BLESSI_PAVLOV1_1  8068.0   7417.0  15485.0    15485.0         15715.0
+E_PASP           -9239.0  -1255.0 -10494.0    10494.0         10586.0
+1710__C           8627.0   1075.0   9703.0     9703.0         10217.0
+HARGRO_TWINBU1_1  -658.0  -8104.0  -8762.0     8762.0          8985.0
+STPELM27_1       -3024.0  -4822.0  -7845.0     7845.0          7885.0
+630__B            3900.0   2169.0   6069.0     6069.0          6069.0
+STPWAP39_1        3166.0   2809.0   5975.0     5975.0          5975.0
+587__A            3836.0   1991.0   5827.0     5827.0          5830.0
+50__A            -2137.0  -3655.0  -5792.0     5792.0          6301.0
+WESTEX            -879.0   5832.0   4953.0     4953.0          6712.0
+35055__A         -3361.0  -1474.0  -4835.0     4835.0          4896.0
+ARROZ_EL_CAM1_1  -1290.0  -3263.0  -4553.0     4553.0          4553.0
+421__A            3192.0    986.0   4178.0     4178.0          4178.0
+FORTMA_YELWJC1_1 -1525.0  -2539.0  -4064.0     4064.0          6042.0
+
+Overlap SF check (2026-06..09), top-30 constraints by |MCC at RVN|: corr(sf_rvn, sf_proxy)=0.937, sign agree=1.00, sum|mcc| rvn=16486 proxy=16503
+                  hours  sf_rvn  sf_proxy   mcc_rvn  mcc_proxy  abs_mcc_rvn
+CONSTRAINTNAME                                                             
+35055__A            717   0.098     0.097 -3136.232  -3093.080     3136.232
+STPWAP39_1         1311  -0.023    -0.031  1991.385   2729.748     1991.385
+1710__A             580  -0.012    -0.011  1095.379    979.085     1095.379
+TREADW_YELWJC1_1   1519  -0.012    -0.011   837.787    801.038      837.787
+SEA_AAT1            806  -0.002    -0.001   786.288    704.098      786.288
+E_PASP              896   0.026     0.029  -778.436   -863.757      778.436
+FB_RS_60_A          305   0.348     0.165  -746.401   -380.889      746.401
+1715__B             364  -0.009    -0.007   704.981    552.851      704.981
+107__B              325  -0.061    -0.062   637.372    649.722      637.372
+378T387_1           209   0.009     0.008  -525.618   -487.604      525.618
+THWZEN98_A          415  -0.062    -0.066   521.200    556.137      521.200
+6200__F             679  -0.016    -0.016   501.002    511.240      501.002
+
+Net MCC by year (DA/RT):
+MARKET       DA       RT
+year                    
+2023     8035.0  -4298.0
+2024    13654.0 -23205.0
+2025    16960.0 -24959.0
+2026     6959.0  -8727.0
+gross |MCC| by year:
+MARKET       DA       RT
+year                    
+2023    14797.0  21225.0
+2024    48226.0  46671.0
+2025    58663.0  53953.0
+2026    56070.0  35414.0
+
+### WHARTN | - 0KV WHARTN [HOUSTON/LINE] ctg=BASE CASE sign=neg cum DA=-4536.8 RT=-11851.5 sf={'da': 0.4802, 'rt': 0.4657}
+  per_year: {2023: (-548.6, -2648.1), 2024: (-2290.3, -4835.9), 2025: (-1079.2, -2286.2), 2026: (-618.6, -2081.3)}
+  binding months: [2, 3, 4, 5, 9, 10, 11] | harder in RT ratio 0.38 | DA freq 0.049 λ 7.1 | RT freq 0.022 λ 39.1
+  agreement: {'hours_both_bind': 598, 'hours_da_only': 697, 'hours_rt_only': 224, 'sign_agree_when_both': 1.0, 'cum_spread_da_minus_rt': 7314.8, 'dart_lean': 'short (DA congestion richer)', 'pct_active_hours_short': 0.442}
+  forward: {'first_bind': '2023-11-22', 'last_bind': '2026-06-02', 'months_with_binding': 27, 'share_abs_contrib_last_12m': 0.218, 'share_abs_contrib_2026': 0.165, 'top3_days_share': 0.245, 'top3_days': ['2023-11-27', '2023-11-22', '2024-04-03'], 'limit_median_by_year': {2023: 470.0, 2024: 470.0, 2025: 536.0, 2026: 691.0}, 'src_share_rvn': 0.0}
+  sf_check: None
+
+### BLESSI_PAVLOV1_1 | BLESSING-PAVLOV 138KV BLESSI_PAVLOV1_1 [SOUTH/LINE] ctg=SSTPESP8 sign=pos cum DA=8068.2 RT=7417.3 sf={'da': -0.0636, 'rt': -0.067}
+  per_year: {2023: (5020.8, 5907.7), 2024: (2544.1, 1386.9), 2025: (399.3, 4.3), 2026: (104.0, 118.4)}
+  binding months: [1, 2, 10] | harder in DA ratio 1.06 | DA freq 0.115 λ 36.8 | RT freq 0.007 λ 570.1
+  agreement: {'hours_both_bind': 270, 'hours_da_only': 2798, 'hours_rt_only': 59, 'sign_agree_when_both': 0.989, 'cum_spread_da_minus_rt': 650.9, 'dart_lean': 'short (DA congestion richer)', 'pct_active_hours_short': 0.924}
+  forward: {'first_bind': '2023-09-29', 'last_bind': '2026-09-13', 'months_with_binding': 36, 'share_abs_contrib_last_12m': 0.018, 'share_abs_contrib_2026': 0.017, 'top3_days_share': 0.261, 'top3_days': ['2023-10-22', '2023-10-24', '2023-10-25'], 'limit_median_by_year': {2023: 157.0, 2024: 157.0, 2025: 157.0, 2026: 157.0}, 'src_share_rvn': 0.125}
+  sf_check: {'n_hours': 423, 'sf_rvn': -0.0546, 'sf_proxy': -0.0632}
+
+### E_PASP | - 0KV E_PASP [SOUTH/LINE] ctg=BASE CASE sign=neg cum DA=-9238.8 RT=-1255.4 sf={'da': 0.0322, 'rt': 0.0087}
+  per_year: {2024: (-1152.1, -147.3), 2025: (-3823.5, -841.7), 2026: (-4263.1, -266.4)}
+  binding months: [1, 5, 6, 7, 8, 12] | harder in DA ratio 7.21 | DA freq 0.214 λ 49.3 | RT freq 0.033 λ 133.0
+  agreement: {'hours_both_bind': 1251, 'hours_da_only': 4447, 'hours_rt_only': 236, 'sign_agree_when_both': 0.837, 'cum_spread_da_minus_rt': -7983.4, 'dart_lean': 'long (RT congestion richer)', 'pct_active_hours_short': 0.075}
+  forward: {'first_bind': '2024-03-07', 'last_bind': '2026-09-13', 'months_with_binding': 31, 'share_abs_contrib_last_12m': 0.532, 'share_abs_contrib_2026': 0.429, 'top3_days_share': 0.279, 'top3_days': ['2026-01-25', '2026-01-26', '2026-01-24'], 'limit_median_by_year': {2024: 541.0, 2025: 541.0, 2026: 541.0}, 'src_share_rvn': 0.125}
+  sf_check: {'n_hours': 896, 'sf_rvn': 0.0264, 'sf_proxy': 0.0294}
+
+### 1710__C | BELCNTY-SALSW 138KV 1710__C [NORTH/LINE] ctg=DSALHUT5 sign=pos cum DA=8627.1 RT=1075.4 sf={'da': -0.0154, 'rt': -0.0024}
+  per_year: {2023: (419.9, 71.2), 2024: (3941.1, 691.4), 2025: (4266.1, 312.8)}
+  binding months: [5, 6, 7, 8, 9, 10] | harder in DA ratio 5.65 | DA freq 0.098 λ 213.0 | RT freq 0.032 λ 792.9
+  agreement: {'hours_both_bind': 1028, 'hours_da_only': 1572, 'hours_rt_only': 145, 'sign_agree_when_both': 0.953, 'cum_spread_da_minus_rt': 7551.7, 'dart_lean': 'short (DA congestion richer)', 'pct_active_hours_short': 0.911}
+  forward: {'first_bind': '2023-09-01', 'last_bind': '2025-10-28', 'months_with_binding': 25, 'share_abs_contrib_last_12m': 0.491, 'share_abs_contrib_2026': 0.0, 'top3_days_share': 0.088, 'top3_days': ['2024-05-27', '2024-06-06', '2024-05-28'], 'limit_median_by_year': {2023: 233.0, 2024: 237.0, 2025: 234.0}, 'src_share_rvn': 0.0}
+  sf_check: None
+
+### HARGRO_TWINBU1_1 | TWINBU-HARGROVE 138KV HARGRO_TWINBU1_1 [WEST/LINE] ctg=DBAKCED5 sign=neg cum DA=-658.4 RT=-8103.6 sf={'da': 0.0, 'rt': 0.0042}
+  per_year: {2023: (-20.4, -994.6), 2024: (-204.9, -2300.9), 2025: (-348.6, -4077.9), 2026: (-84.5, -730.1)}
+  binding months: [1, 2, 3, 7, 8, 9, 12] | harder in RT ratio 0.11 | DA freq 0.471 λ 133.8 | RT freq 0.062 λ 1152.9
+  agreement: {'hours_both_bind': 1965, 'hours_da_only': 10493, 'hours_rt_only': 377, 'sign_agree_when_both': 0.931, 'cum_spread_da_minus_rt': 7445.2, 'dart_lean': 'short (DA congestion richer)', 'pct_active_hours_short': 0.354}
+  forward: {'first_bind': '2023-09-04', 'last_bind': '2026-09-13', 'months_with_binding': 37, 'share_abs_contrib_last_12m': 0.125, 'share_abs_contrib_2026': 0.092, 'top3_days_share': 0.044, 'top3_days': ['2024-03-16', '2023-12-01', '2023-12-05'], 'limit_median_by_year': {2023: 151.0, 2024: 151.0, 2025: 151.0, 2026: 151.0}, 'src_share_rvn': 0.055}
+  sf_check: {'n_hours': 816, 'sf_rvn': 0.0003, 'sf_proxy': 0.0003}
+
+### STPELM27_1 | STP-ELMCREEK 345KV STPELM27_1 [HOUSTON/LINE] ctg=DELMSTP5 sign=neg cum DA=-3023.6 RT=-4821.7 sf={'da': 0.0599, 'rt': 0.0455}
+  per_year: {2025: (-1851.6, -3358.4), 2026: (-1172.0, -1463.3)}
+  binding months: [1, 12] | harder in RT ratio 0.63 | DA freq 0.020 λ 93.6 | RT freq 0.004 λ 805.0
+  agreement: {'hours_both_bind': 111, 'hours_da_only': 431, 'hours_rt_only': 36, 'sign_agree_when_both': 1.0, 'cum_spread_da_minus_rt': 1798.1, 'dart_lean': 'short (DA congestion richer)', 'pct_active_hours_short': 0.17}
+  forward: {'first_bind': '2025-02-20', 'last_bind': '2026-01-27', 'months_with_binding': 9, 'share_abs_contrib_last_12m': 1.0, 'share_abs_contrib_2026': 0.334, 'top3_days_share': 0.513, 'top3_days': ['2026-01-25', '2025-12-01', '2025-12-02'], 'limit_median_by_year': {2025: 627.0, 2026: 627.0}, 'src_share_rvn': 0.0}
+  sf_check: None
+
+### 630__B | KLNSW-HHSTH 138KV 630__B [NORTH/LINE] ctg=DSALKLN5 sign=pos cum DA=3900.1 RT=2168.9 sf={'da': -0.0307, 'rt': -0.015}
+  per_year: {2023: (22.1, 65.6), 2024: (1166.5, 609.4), 2025: (1479.1, 706.6), 2026: (1232.3, 787.2)}
+  binding months: [2, 3, 4] | harder in DA ratio 1.8 | DA freq 0.042 λ 104.0 | RT freq 0.022 λ 222.9
+  agreement: {'hours_both_bind': 487, 'hours_da_only': 625, 'hours_rt_only': 295, 'sign_agree_when_both': 1.0, 'cum_spread_da_minus_rt': 1731.2, 'dart_lean': 'short (DA congestion richer)', 'pct_active_hours_short': 0.684}
+  forward: {'first_bind': '2023-09-20', 'last_bind': '2026-09-12', 'months_with_binding': 28, 'share_abs_contrib_last_12m': 0.344, 'share_abs_contrib_2026': 0.333, 'top3_days_share': 0.199, 'top3_days': ['2026-04-23', '2025-03-18', '2025-03-19'], 'limit_median_by_year': {2023: 382.0, 2024: 391.0, 2025: 394.0, 2026: 387.0}, 'src_share_rvn': 0.032}
+  sf_check: {'n_hours': 61, 'sf_rvn': -0.0231, 'sf_proxy': -0.023}
+
+### STPWAP39_1 | STP-WAP 345KV STPWAP39_1 [HOUSTON/LINE] ctg=DWPWFWP5 sign=pos cum DA=3166.0 RT=2808.7 sf={'da': -0.0282, 'rt': -0.0287}
+  per_year: {2023: (27.2, 0.8), 2024: (141.0, 338.8), 2025: (2111.4, 1161.0), 2026: (886.4, 1308.1)}
+  binding months: [5, 6, 7, 8] | harder in DA ratio 1.13 | DA freq 0.081 λ 43.0 | RT freq 0.041 λ 91.3
+  agreement: {'hours_both_bind': 1156, 'hours_da_only': 996, 'hours_rt_only': 354, 'sign_agree_when_both': 1.0, 'cum_spread_da_minus_rt': 357.2, 'dart_lean': 'short (DA congestion richer)', 'pct_active_hours_short': 0.552}
+  forward: {'first_bind': '2023-09-04', 'last_bind': '2026-09-13', 'months_with_binding': 29, 'share_abs_contrib_last_12m': 0.367, 'share_abs_contrib_2026': 0.367, 'top3_days_share': 0.205, 'top3_days': ['2025-05-14', '2025-05-13', '2025-06-05'], 'limit_median_by_year': {2023: 1249.0, 2024: 1259.0, 2025: 1325.0, 2026: 1325.0}, 'src_share_rvn': 0.358}
+  sf_check: {'n_hours': 1311, 'sf_rvn': -0.0233, 'sf_proxy': -0.0313}
+
+### 587__A | ARGYL-LWSVH 138KV 587__A [NORTH/LINE] ctg=MRNKDHM5 sign=pos cum DA=3836.3 RT=1991.0 sf={'da': -0.008, 'rt': -0.004}
+  per_year: {2023: (1.1, 0.0), 2024: (86.9, 75.2), 2025: (1780.3, 1067.2), 2026: (1968.1, 848.5)}
+  binding months: [1, 2, 3, 4, 11, 12] | harder in DA ratio 1.93 | DA freq 0.118 λ 140.7 | RT freq 0.044 λ 406.3
+  agreement: {'hours_both_bind': 1248, 'hours_da_only': 1884, 'hours_rt_only': 200, 'sign_agree_when_both': 0.998, 'cum_spread_da_minus_rt': 1845.4, 'dart_lean': 'short (DA congestion richer)', 'pct_active_hours_short': 0.802}
+  forward: {'first_bind': '2023-09-05', 'last_bind': '2026-09-12', 'months_with_binding': 30, 'share_abs_contrib_last_12m': 0.812, 'share_abs_contrib_2026': 0.483, 'top3_days_share': 0.096, 'top3_days': ['2026-01-08', '2025-11-29', '2026-01-16'], 'limit_median_by_year': {2023: 218.0, 2024: 216.0, 2025: 217.0, 2026: 218.0}, 'src_share_rvn': 0.031}
+  sf_check: {'n_hours': 142, 'sf_rvn': -0.0086, 'sf_proxy': -0.0088}
+
+### 50__A | JEWET-BBSES 345KV 50__A [NORTH/LINE] ctg=DNAVOUT5 sign=neg cum DA=-2137.3 RT=-3654.6 sf={'da': 0.1188, 'rt': 0.0486}
+  per_year: {2023: (0.2, 0.0), 2024: (162.2, -47.9), 2025: (-433.5, -1325.6), 2026: (-1866.1, -2281.1)}
+  binding months: [1, 2] | harder in RT ratio 0.68 | DA freq 0.017 λ 28.6 | RT freq 0.002 λ 703.2
+  agreement: {'hours_both_bind': 39, 'hours_da_only': 404, 'hours_rt_only': 46, 'sign_agree_when_both': 1.0, 'cum_spread_da_minus_rt': 1517.3, 'dart_lean': 'short (DA congestion richer)', 'pct_active_hours_short': 0.276}
+  forward: {'first_bind': '2023-10-27', 'last_bind': '2026-03-15', 'months_with_binding': 16, 'share_abs_contrib_last_12m': 0.669, 'share_abs_contrib_2026': 0.66, 'top3_days_share': 0.572, 'top3_days': ['2026-01-25', '2025-01-15', '2026-01-26'], 'limit_median_by_year': {2023: 1268.0, 2024: 1257.0, 2025: 1340.0, 2026: 1340.0}, 'src_share_rvn': 0.0}
+  sf_check: None

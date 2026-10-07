@@ -1,0 +1,8 @@
+﻿item,adjustment_MW,running_total_MW
+Start: YE2025 nameplate operational gas (ex-PUN),,57828
++ Sommers STG 1&2 add-back (announced retirement but online through summer 2026),880.0,58708
++ Seasonal-mothball units available in summer,145.0,58853
+"- Switchable capacity netted out (SPP-dedicated, negative SWGR-UNA rows)",-2596.0,56257
++ Friendswood GTs (synchronized Feb-2026),144.0,56401
+"+ Planned CDR-eligible gas online by summer 2026 (TEF peakers etc., 9 units)",1069.0,57470
+"- Nameplate -> summer net-sustainable-rating derate (CC -13.0%, GT -21.4%, ST -4.2%)",-7110.0,50355

@@ -1,0 +1,123 @@
+
+=== WHARTN | rel one-sided/negligible at one node | base band 0.16 | band HE12-HE17
+    {'driver': 'solar_ercot', 'auc': 0.588, 'sep': np.float64(0.088), 'direction': 'higher when binding', 'bind_mean': 18577.0, 'nonbind_mean': 16483.0}
+    {'driver': 'wind_coastal', 'auc': 0.421, 'sep': np.float64(0.079), 'direction': 'lower when binding', 'bind_mean': 1407.0, 'nonbind_mean': 1705.0}
+    {'driver': 'wind_south', 'auc': 0.431, 'sep': np.float64(0.069), 'direction': 'lower when binding', 'bind_mean': 824.0, 'nonbind_mean': 1014.0}
+    {'driver': 'solar_southeast', 'auc': 0.552, 'sep': np.float64(0.052), 'direction': 'higher when binding', 'bind_mean': 1777.0, 'nonbind_mean': 1647.0}
+    THR solar_ercot None None | bottom/top decile 0.051 0.198 | strong None
+    THR wind_coastal None None | bottom/top decile 0.195 0.064 | strong None
+    OUT {'element': 'FT-UW 138KV FT_UW_06', 'kv': 138, 'out_days': 16, 'co_bind_days': 14, 'p_bind_given_out': 0.875, 'lift': 4.65}
+    OUT {'element': 'UW-QAB 138KV QABUW_06', 'kv': 138, 'out_days': 16, 'co_bind_days': 14, 'p_bind_given_out': 0.875, 'lift': 4.65}
+    OUT {'element': 'GEB-WA 138KV GEBWA_65A', 'kv': 138, 'out_days': 17, 'co_bind_days': 13, 'p_bind_given_out': 0.765, 'lift': 4.06}
+
+=== BLESSI_PAVLOV1_1 | rel OPPOSING | base band 0.22 | band HE9-HE21
+    {'driver': 'load_farwest', 'auc': 0.189, 'sep': np.float64(0.311), 'direction': 'lower when binding', 'bind_mean': 6394.0, 'nonbind_mean': 7212.0}
+    {'driver': 'load_north', 'auc': 0.25, 'sep': np.float64(0.25), 'direction': 'lower when binding', 'bind_mean': 1582.0, 'nonbind_mean': 1858.0}
+    {'driver': 'south_net_export_proxy', 'auc': 0.674, 'sep': np.float64(0.174), 'direction': 'higher when binding', 'bind_mean': -767.0, 'nonbind_mean': -1792.0}
+    {'driver': 'wind_coastal', 'auc': 0.662, 'sep': np.float64(0.162), 'direction': 'higher when binding', 'bind_mean': 2026.0, 'nonbind_mean': 1456.0}
+    THR load_farwest load_farwest < 6407 MW 0.457 | bottom/top decile 0.521 0.018 | strong None
+    THR load_north load_north < 1388 MW 0.687 | bottom/top decile 0.687 0.074 | strong None
+    OUT {'element': 'CELANEBC-ESPERANZ 138KV CELANE_ESPERA11', 'kv': 138, 'out_days': 17, 'co_bind_days': 17, 'p_bind_given_out': 1.0, 'lift': 2.38}
+    OUT {'element': 'ESCARP-MANCHA 138KV 368T4201', 'kv': 138, 'out_days': 17, 'co_bind_days': 17, 'p_bind_given_out': 1.0, 'lift': 2.38}
+    OUT {'element': 'I_DUPSW-GREGORY POWER 138KV I_DUPS_LGE1', 'kv': 138, 'out_days': 15, 'co_bind_days': 15, 'p_bind_given_out': 1.0, 'lift': 2.38}
+
+=== E_PASP | rel same-sign (GKS/RVN magnitude ratio 7.9x) | base band 0.57 | band HE18-HE22
+    {'driver': 'load_ercot', 'auc': 0.782, 'sep': np.float64(0.282), 'direction': 'higher when binding', 'bind_mean': 71008.0, 'nonbind_mean': 59675.0}
+    {'driver': 'load_southcentral', 'auc': 0.777, 'sep': np.float64(0.277), 'direction': 'higher when binding', 'bind_mean': 12170.0, 'nonbind_mean': 9926.0}
+    {'driver': 'load_southern', 'auc': 0.774, 'sep': np.float64(0.274), 'direction': 'higher when binding', 'bind_mean': 5651.0, 'nonbind_mean': 4710.0}
+    {'driver': 'load_coast', 'auc': 0.772, 'sep': np.float64(0.272), 'direction': 'higher when binding', 'bind_mean': 17969.0, 'nonbind_mean': 14893.0}
+    THR load_ercot load_ercot > 74150 MW 0.779 | bottom/top decile 0.13 0.912 | strong load_ercot > 70971 MW
+    THR load_southcentral load_southcentral > 13398 MW 0.866 | bottom/top decile 0.156 0.908 | strong load_southcentral > 13398 MW
+    OUT {'element': 'AUSTRO-LOSTPINE 345KV CKT_3120', 'kv': 345, 'out_days': 18, 'co_bind_days': 18, 'p_bind_given_out': 1.0, 'lift': 1.27}
+    OUT {'element': 'COLETO CREEK-VICTORIA 138KV COLETO_VICTOR1', 'kv': 138, 'out_days': 19, 'co_bind_days': 19, 'p_bind_given_out': 1.0, 'lift': 1.27}
+    OUT {'element': 'DUNLAP-LOSTPINE 345KV CKT_31301', 'kv': 345, 'out_days': 15, 'co_bind_days': 15, 'p_bind_given_out': 1.0, 'lift': 1.27}
+
+=== 1710__C | rel same-sign (GKS/RVN magnitude ratio 1.6x) | base band 0.57 | band HE14-HE19
+    {'driver': 'load_southern', 'auc': 0.735, 'sep': np.float64(0.235), 'direction': 'higher when binding', 'bind_mean': 5865.0, 'nonbind_mean': 5331.0}
+    {'driver': 'solar_southeast', 'auc': 0.723, 'sep': np.float64(0.223), 'direction': 'higher when binding', 'bind_mean': 1852.0, 'nonbind_mean': 1195.0}
+    {'driver': 'solar_ercot', 'auc': 0.722, 'sep': np.float64(0.222), 'direction': 'higher when binding', 'bind_mean': 18019.0, 'nonbind_mean': 13209.0}
+    {'driver': 'temp_corpus', 'auc': 0.718, 'sep': np.float64(0.218), 'direction': 'higher when binding', 'bind_mean': 91.0, 'nonbind_mean': 87.0}
+    THR load_southern load_southern > 6151 MW 0.778 | bottom/top decile 0.112 0.81 | strong None
+    THR solar_southeast solar_southeast > 2491 MW 0.848 | bottom/top decile 0.178 0.868 | strong None
+    OUT {'element': 'NLPTP-EFTP1 138KV 3790_F', 'kv': 138, 'out_days': 15, 'co_bind_days': 15, 'p_bind_given_out': 1.0, 'lift': 1.43}
+    OUT {'element': 'NLPTP-NLRVP 138KV 3790_H', 'kv': 138, 'out_days': 15, 'co_bind_days': 15, 'p_bind_given_out': 1.0, 'lift': 1.43}
+    OUT {'element': 'PTENN 138KV MR1L XFMR', 'kv': 138, 'out_days': 16, 'co_bind_days': 16, 'p_bind_given_out': 1.0, 'lift': 1.43}
+
+=== HARGRO_TWINBU1_1 | rel one-sided/negligible at one node | base band 0.70 | band HE1-HE24
+    {'driver': 'wind_west_panhandle', 'auc': 0.367, 'sep': np.float64(0.133), 'direction': 'lower when binding', 'bind_mean': 10206.0, 'nonbind_mean': 12694.0}
+    {'driver': 'wind_west', 'auc': 0.37, 'sep': np.float64(0.13), 'direction': 'lower when binding', 'bind_mean': 8273.0, 'nonbind_mean': 10398.0}
+    {'driver': 'wind_ercot', 'auc': 0.371, 'sep': np.float64(0.129), 'direction': 'lower when binding', 'bind_mean': 14189.0, 'nonbind_mean': 17186.0}
+    {'driver': 'wind_north', 'auc': 0.374, 'sep': np.float64(0.126), 'direction': 'lower when binding', 'bind_mean': 1257.0, 'nonbind_mean': 1589.0}
+    THR wind_west_panhandle None None | bottom/top decile 0.852 0.592 | strong wind_west_panhandle < 3318 MW
+    THR wind_west None None | bottom/top decile 0.86 0.62 | strong wind_west < 4006 MW
+    OUT {'element': 'ABMB 138KV R-EL XFMR', 'kv': 138, 'out_days': 205, 'co_bind_days': 204, 'p_bind_given_out': 0.995, 'lift': 1.08}
+    OUT {'element': 'ACSSW-DHIDE 138KV 6112_C', 'kv': 138, 'out_days': 163, 'co_bind_days': 162, 'p_bind_given_out': 0.994, 'lift': 1.08}
+    OUT {'element': 'AILEEN-FTPP 138KV AILEEN_FTPP11', 'kv': 138, 'out_days': 18, 'co_bind_days': 18, 'p_bind_given_out': 1.0, 'lift': 1.08}
+
+=== STPELM27_1 | rel OPPOSING | base band 0.24 | band HE1-HE24
+    {'driver': 'wind_ercot', 'auc': 0.302, 'sep': np.float64(0.198), 'direction': 'lower when binding', 'bind_mean': 11711.0, 'nonbind_mean': 16319.0}
+    {'driver': 'wind_west', 'auc': 0.317, 'sep': np.float64(0.183), 'direction': 'lower when binding', 'bind_mean': 6364.0, 'nonbind_mean': 9745.0}
+    {'driver': 'wind_west_panhandle', 'auc': 0.322, 'sep': np.float64(0.178), 'direction': 'lower when binding', 'bind_mean': 8135.0, 'nonbind_mean': 11740.0}
+    {'driver': 'wind_north', 'auc': 0.338, 'sep': np.float64(0.162), 'direction': 'lower when binding', 'bind_mean': 1057.0, 'nonbind_mean': 1521.0}
+    THR wind_ercot wind_ercot < 8058 MW 0.518 | bottom/top decile 0.393 0.107 | strong wind_ercot < 5900 MW
+    THR wind_west wind_west < 1544 MW 0.5 | bottom/top decile 0.5 0.161 | strong wind_west < 1544 MW
+    OUT {'element': 'BCK 345KV KT1 XFMR', 'kv': 345, 'out_days': 19, 'co_bind_days': 19, 'p_bind_given_out': 1.0, 'lift': 1.9}
+    OUT {'element': 'BCK 345KV KT2 XFMR', 'kv': 345, 'out_days': 19, 'co_bind_days': 19, 'p_bind_given_out': 1.0, 'lift': 1.9}
+    OUT {'element': 'CCK-BCK 345KV BCKCCK01A', 'kv': 345, 'out_days': 19, 'co_bind_days': 19, 'p_bind_given_out': 1.0, 'lift': 1.9}
+
+=== 630__B | rel same-sign (GKS/RVN magnitude ratio 1.0x) | base band 0.13 | band HE1-HE24
+    {'driver': 'wind_ercot', 'auc': 0.735, 'sep': np.float64(0.235), 'direction': 'higher when binding', 'bind_mean': 22434.0, 'nonbind_mean': 17386.0}
+    {'driver': 'wind_west', 'auc': 0.73, 'sep': np.float64(0.23), 'direction': 'higher when binding', 'bind_mean': 13731.0, 'nonbind_mean': 10016.0}
+    {'driver': 'wind_west_panhandle', 'auc': 0.716, 'sep': np.float64(0.216), 'direction': 'higher when binding', 'bind_mean': 16262.0, 'nonbind_mean': 12250.0}
+    {'driver': 'temp_midland', 'auc': 0.709, 'sep': np.float64(0.209), 'direction': 'higher when binding', 'bind_mean': 62.0, 'nonbind_mean': 54.0}
+    THR wind_ercot None None | bottom/top decile 0.0 0.255 | strong None
+    THR wind_west wind_west > 14249 MW 0.319 | bottom/top decile 0.0 0.168 | strong None
+    OUT {'element': 'EMPOD-EMORY_RC 138KV 690_Z', 'kv': 138, 'out_days': 20, 'co_bind_days': 17, 'p_bind_given_out': 0.85, 'lift': 2.78}
+    OUT {'element': 'CHERYGRV-KLRPR 138KV 1055_A', 'kv': 138, 'out_days': 18, 'co_bind_days': 15, 'p_bind_given_out': 0.833, 'lift': 2.72}
+    OUT {'element': 'KLMTP-KLRPR 138KV 1075_E', 'kv': 138, 'out_days': 17, 'co_bind_days': 14, 'p_bind_given_out': 0.824, 'lift': 2.69}
+
+=== STPWAP39_1 | rel OPPOSING | base band 0.50 | band HE14-HE19
+    {'driver': 'solar_southeast', 'auc': 0.787, 'sep': np.float64(0.287), 'direction': 'higher when binding', 'bind_mean': 2450.0, 'nonbind_mean': 1611.0}
+    {'driver': 'solar_ercot', 'auc': 0.779, 'sep': np.float64(0.279), 'direction': 'higher when binding', 'bind_mean': 23199.0, 'nonbind_mean': 16960.0}
+    {'driver': 'wind_coastal', 'auc': 0.757, 'sep': np.float64(0.257), 'direction': 'higher when binding', 'bind_mean': 2420.0, 'nonbind_mean': 1568.0}
+    {'driver': 'load_coast', 'auc': 0.756, 'sep': np.float64(0.256), 'direction': 'higher when binding', 'bind_mean': 20308.0, 'nonbind_mean': 18034.0}
+    THR solar_southeast solar_southeast > 2400 MW 0.748 | bottom/top decile 0.122 0.766 | strong None
+    THR solar_ercot solar_ercot > 23864 MW 0.774 | bottom/top decile 0.108 0.797 | strong None
+    OUT {'element': 'GA-LM 138KV GA_LM_93A', 'kv': 138, 'out_days': 45, 'co_bind_days': 44, 'p_bind_given_out': 0.978, 'lift': 1.58}
+    OUT {'element': 'LJ-RT 138KV LJ_RT_02A', 'kv': 138, 'out_days': 31, 'co_bind_days': 30, 'p_bind_given_out': 0.968, 'lift': 1.56}
+    OUT {'element': 'JAR 345KV KT1 XFMR', 'kv': 345, 'out_days': 55, 'co_bind_days': 53, 'p_bind_given_out': 0.964, 'lift': 1.55}
+
+=== 587__A | rel same-sign (GKS/RVN magnitude ratio 0.6x) | base band 0.20 | band HE1-HE24
+    {'driver': 'wind_ercot', 'auc': 0.852, 'sep': np.float64(0.352), 'direction': 'higher when binding', 'bind_mean': 22668.0, 'nonbind_mean': 14793.0}
+    {'driver': 'wind_west', 'auc': 0.841, 'sep': np.float64(0.341), 'direction': 'higher when binding', 'bind_mean': 14020.0, 'nonbind_mean': 8489.0}
+    {'driver': 'wind_west_panhandle', 'auc': 0.83, 'sep': np.float64(0.33), 'direction': 'higher when binding', 'bind_mean': 16532.0, 'nonbind_mean': 10489.0}
+    {'driver': 'wind_north', 'auc': 0.817, 'sep': np.float64(0.317), 'direction': 'higher when binding', 'bind_mean': 2135.0, 'nonbind_mean': 1308.0}
+    THR wind_ercot wind_ercot > 22954 MW 0.469 | bottom/top decile 0.0 0.583 | strong None
+    THR wind_west wind_west > 14658 MW 0.475 | bottom/top decile 0.0 0.574 | strong None
+    OUT {'element': 'LFEST-HTYTP 138KV 1185_E', 'kv': 138, 'out_days': 20, 'co_bind_days': 19, 'p_bind_given_out': 0.95, 'lift': 2.55}
+    OUT {'element': 'PILOTPT-GTPOI 138KV 138_PPT_OGT1', 'kv': 138, 'out_days': 21, 'co_bind_days': 20, 'p_bind_given_out': 0.952, 'lift': 2.55}
+    OUT {'element': 'PJPTR-CLDPD 138KV 1640_D', 'kv': 138, 'out_days': 21, 'co_bind_days': 20, 'p_bind_given_out': 0.952, 'lift': 2.55}
+
+=== 50__A | rel same-sign (GKS/RVN magnitude ratio 1.3x) | base band 0.10 | band HE4-HE10
+    {'driver': 'net_load_ercot', 'auc': 0.784, 'sep': np.float64(0.284), 'direction': 'higher when binding', 'bind_mean': 45145.0, 'nonbind_mean': 33013.0}
+    {'driver': 'temp_dfw', 'auc': 0.229, 'sep': np.float64(0.271), 'direction': 'lower when binding', 'bind_mean': 33.0, 'nonbind_mean': 45.0}
+    {'driver': 'wind_west_panhandle', 'auc': 0.24, 'sep': np.float64(0.26), 'direction': 'lower when binding', 'bind_mean': 5627.0, 'nonbind_mean': 10593.0}
+    {'driver': 'wind_west', 'auc': 0.244, 'sep': np.float64(0.256), 'direction': 'lower when binding', 'bind_mean': 4410.0, 'nonbind_mean': 8644.0}
+    THR net_load_ercot net_load_ercot > 44765 MW 0.243 | bottom/top decile 0.0 0.308 | strong None
+    THR temp_dfw temp_dfw < 33 F 0.259 | bottom/top decile 0.31 0.029 | strong None
+    OUT {'element': 'WLVEE-WTRML 345KV 218_A', 'kv': 345, 'out_days': 15, 'co_bind_days': 12, 'p_bind_given_out': 0.8, 'lift': 2.97}
+    OUT {'element': 'SPVTP-COTONBLT 138KV 1830_E', 'kv': 138, 'out_days': 24, 'co_bind_days': 18, 'p_bind_given_out': 0.75, 'lift': 2.78}
+    OUT {'element': 'CLBSW-KEENE 138KV 780_C', 'kv': 138, 'out_days': 25, 'co_bind_days': 17, 'p_bind_given_out': 0.68, 'lift': 2.52}
+
+=== 35055__A | rel same-sign (GKS/RVN magnitude ratio 0.8x) | base band 0.21 | band HE13-HE18
+    {'driver': 'solar_ercot', 'auc': 0.851, 'sep': np.float64(0.351), 'direction': 'higher when binding', 'bind_mean': 25533.0, 'nonbind_mean': 15196.0}
+    {'driver': 'solar_southeast', 'auc': 0.827, 'sep': np.float64(0.327), 'direction': 'higher when binding', 'bind_mean': 2637.0, 'nonbind_mean': 1524.0}
+    {'driver': 'solar_farwest', 'auc': 0.728, 'sep': np.float64(0.228), 'direction': 'higher when binding', 'bind_mean': 3929.0, 'nonbind_mean': 2958.0}
+    {'driver': 'load_farwest', 'auc': 0.711, 'sep': np.float64(0.211), 'direction': 'higher when binding', 'bind_mean': 7799.0, 'nonbind_mean': 7347.0}
+    THR solar_ercot solar_ercot > 25018 MW 0.463 | bottom/top decile 0.003 0.794 | strong None
+    THR solar_southeast solar_southeast > 2810 MW 0.443 | bottom/top decile 0.006 0.648 | strong None
+    OUT {'element': 'APCH_BES 138KV T1 XFMR', 'kv': 138, 'out_days': 27, 'co_bind_days': 27, 'p_bind_given_out': 1.0, 'lift': 3.25}
+    OUT {'element': 'BRAN_ESS 345KV T1 XFMR', 'kv': 345, 'out_days': 27, 'co_bind_days': 27, 'p_bind_given_out': 1.0, 'lift': 3.25}
+    OUT {'element': 'BRAN_ESS 345KV T2 XFMR', 'kv': 345, 'out_days': 27, 'co_bind_days': 27, 'p_bind_given_out': 1.0, 'lift': 3.25}
+
+saved item7_congestion_drivers.json / .md

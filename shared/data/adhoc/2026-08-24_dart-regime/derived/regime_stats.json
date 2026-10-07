@@ -1,0 +1,4115 @@
+{
+  "period": {
+    "start": "2026-07-01",
+    "end": "2026-08-23"
+  },
+  "thresholds": {
+    "peak_netload_mw": 68000.0,
+    "wind_per_region_he20_mw": 2000.0,
+    "evening_he": [
+      18,
+      22
+    ],
+    "min_pos_mwh": 1.0
+  },
+  "day_counts": {
+    "normal": 42,
+    "scarcity_lambda": 6,
+    "scarcity_bearish": 6
+  },
+  "missing_tenaska_days": [],
+  "regimes": {
+    "normal": {
+      "n_days": 42,
+      "overall": {
+        "market": {
+          "n_hours": 1008,
+          "short_winrate": 0.57,
+          "short_pl_ratio": 1.22,
+          "avg_spread": 1.15,
+          "avg_win_spread": 5.26,
+          "avg_loss_spread": 4.31
+        },
+        "ours": {
+          "n_hours_with_pos": 374,
+          "n_short_hours": 228,
+          "n_long_hours": 146,
+          "short_mwh_sum": 10398.1,
+          "long_mwh_sum": 6834.5,
+          "short_mwh_avg": 45.6,
+          "long_mwh_avg": 46.8,
+          "participation": 0.371,
+          "winrate": 0.553,
+          "pl_ratio": 1.27,
+          "avg_short_mwh": 27.8,
+          "avg_long_mwh": 18.3,
+          "total_pnl_usd": 22494.0,
+          "avg_pnl_per_hr": 60.1,
+          "share_short_hours": 0.61
+        }
+      },
+      "by_he": {
+        "1": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.595,
+            "short_pl_ratio": 1.05,
+            "avg_spread": 0.89,
+            "avg_win_spread": 4.24,
+            "avg_loss_spread": 4.04
+          },
+          "ours": {
+            "n_hours_with_pos": 15,
+            "n_short_hours": 12,
+            "n_long_hours": 3,
+            "short_mwh_sum": 605.0,
+            "long_mwh_sum": 149.8,
+            "short_mwh_avg": 50.4,
+            "long_mwh_avg": 49.9,
+            "participation": 0.357,
+            "winrate": 0.6,
+            "pl_ratio": 1.11,
+            "avg_short_mwh": 40.3,
+            "avg_long_mwh": 10.0,
+            "total_pnl_usd": 765.0,
+            "avg_pnl_per_hr": 51.0,
+            "share_short_hours": 0.8
+          }
+        },
+        "2": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.548,
+            "short_pl_ratio": 0.99,
+            "avg_spread": 0.33,
+            "avg_win_spread": 3.58,
+            "avg_loss_spread": 3.6
+          },
+          "ours": {
+            "n_hours_with_pos": 16,
+            "n_short_hours": 11,
+            "n_long_hours": 5,
+            "short_mwh_sum": 575.1,
+            "long_mwh_sum": 224.4,
+            "short_mwh_avg": 52.3,
+            "long_mwh_avg": 44.9,
+            "participation": 0.381,
+            "winrate": 0.5,
+            "pl_ratio": 1.26,
+            "avg_short_mwh": 35.9,
+            "avg_long_mwh": 14.0,
+            "total_pnl_usd": 297.0,
+            "avg_pnl_per_hr": 18.5,
+            "share_short_hours": 0.688
+          }
+        },
+        "3": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.548,
+            "short_pl_ratio": 1.22,
+            "avg_spread": 0.61,
+            "avg_win_spread": 3.48,
+            "avg_loss_spread": 2.86
+          },
+          "ours": {
+            "n_hours_with_pos": 15,
+            "n_short_hours": 9,
+            "n_long_hours": 6,
+            "short_mwh_sum": 450.0,
+            "long_mwh_sum": 259.8,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": 43.3,
+            "participation": 0.357,
+            "winrate": 0.467,
+            "pl_ratio": 1.52,
+            "avg_short_mwh": 30.0,
+            "avg_long_mwh": 17.3,
+            "total_pnl_usd": 232.0,
+            "avg_pnl_per_hr": 15.5,
+            "share_short_hours": 0.6
+          }
+        },
+        "4": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.571,
+            "short_pl_ratio": 1.38,
+            "avg_spread": 0.92,
+            "avg_win_spread": 3.55,
+            "avg_loss_spread": 2.58
+          },
+          "ours": {
+            "n_hours_with_pos": 19,
+            "n_short_hours": 7,
+            "n_long_hours": 12,
+            "short_mwh_sum": 350.0,
+            "long_mwh_sum": 598.8,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": 49.9,
+            "participation": 0.452,
+            "winrate": 0.368,
+            "pl_ratio": 0.85,
+            "avg_short_mwh": 18.4,
+            "avg_long_mwh": 31.5,
+            "total_pnl_usd": -813.0,
+            "avg_pnl_per_hr": -42.8,
+            "share_short_hours": 0.368
+          }
+        },
+        "5": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.524,
+            "short_pl_ratio": 1.71,
+            "avg_spread": 1.01,
+            "avg_win_spread": 4.1,
+            "avg_loss_spread": 2.4
+          },
+          "ours": {
+            "n_hours_with_pos": 17,
+            "n_short_hours": 8,
+            "n_long_hours": 9,
+            "short_mwh_sum": 400.0,
+            "long_mwh_sum": 449.2,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": 49.9,
+            "participation": 0.405,
+            "winrate": 0.588,
+            "pl_ratio": 1.78,
+            "avg_short_mwh": 23.5,
+            "avg_long_mwh": 26.4,
+            "total_pnl_usd": 766.0,
+            "avg_pnl_per_hr": 45.1,
+            "share_short_hours": 0.471
+          }
+        },
+        "6": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.595,
+            "short_pl_ratio": 0.82,
+            "avg_spread": 0.39,
+            "avg_win_spread": 3.81,
+            "avg_loss_spread": 4.64
+          },
+          "ours": {
+            "n_hours_with_pos": 16,
+            "n_short_hours": 8,
+            "n_long_hours": 8,
+            "short_mwh_sum": 425.0,
+            "long_mwh_sum": 399.3,
+            "short_mwh_avg": 53.1,
+            "long_mwh_avg": 49.9,
+            "participation": 0.381,
+            "winrate": 0.625,
+            "pl_ratio": 1.04,
+            "avg_short_mwh": 26.6,
+            "avg_long_mwh": 25.0,
+            "total_pnl_usd": 809.0,
+            "avg_pnl_per_hr": 50.6,
+            "share_short_hours": 0.5
+          }
+        },
+        "7": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.476,
+            "short_pl_ratio": 1.11,
+            "avg_spread": 0.01,
+            "avg_win_spread": 4.21,
+            "avg_loss_spread": 3.8
+          },
+          "ours": {
+            "n_hours_with_pos": 10,
+            "n_short_hours": 4,
+            "n_long_hours": 6,
+            "short_mwh_sum": 200.0,
+            "long_mwh_sum": 299.5,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": 49.9,
+            "participation": 0.238,
+            "winrate": 0.7,
+            "pl_ratio": 1.17,
+            "avg_short_mwh": 20.0,
+            "avg_long_mwh": 30.0,
+            "total_pnl_usd": 1265.0,
+            "avg_pnl_per_hr": 126.5,
+            "share_short_hours": 0.4
+          }
+        },
+        "8": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.619,
+            "short_pl_ratio": 0.97,
+            "avg_spread": 0.67,
+            "avg_win_spread": 2.98,
+            "avg_loss_spread": 3.08
+          },
+          "ours": {
+            "n_hours_with_pos": 7,
+            "n_short_hours": 2,
+            "n_long_hours": 5,
+            "short_mwh_sum": 100.0,
+            "long_mwh_sum": 206.2,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": 41.2,
+            "participation": 0.167,
+            "winrate": 0.857,
+            "pl_ratio": 7.73,
+            "avg_short_mwh": 14.3,
+            "avg_long_mwh": 29.5,
+            "total_pnl_usd": 1059.0,
+            "avg_pnl_per_hr": 151.3,
+            "share_short_hours": 0.286
+          }
+        },
+        "9": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.619,
+            "short_pl_ratio": 0.85,
+            "avg_spread": 0.38,
+            "avg_win_spread": 2.25,
+            "avg_loss_spread": 2.66
+          },
+          "ours": {
+            "n_hours_with_pos": 6,
+            "n_short_hours": 2,
+            "n_long_hours": 4,
+            "short_mwh_sum": 100.0,
+            "long_mwh_sum": 168.8,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": 42.2,
+            "participation": 0.143,
+            "winrate": 0.833,
+            "pl_ratio": 1.45,
+            "avg_short_mwh": 16.7,
+            "avg_long_mwh": 28.1,
+            "total_pnl_usd": 519.0,
+            "avg_pnl_per_hr": 86.5,
+            "share_short_hours": 0.333
+          }
+        },
+        "10": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.548,
+            "short_pl_ratio": 0.73,
+            "avg_spread": -0.19,
+            "avg_win_spread": 2.72,
+            "avg_loss_spread": 3.7
+          },
+          "ours": {
+            "n_hours_with_pos": 2,
+            "n_short_hours": 1,
+            "n_long_hours": 1,
+            "short_mwh_sum": 50.0,
+            "long_mwh_sum": 12.1,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": 12.1,
+            "participation": 0.048,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 25.0,
+            "avg_long_mwh": 6.0,
+            "total_pnl_usd": -134.0,
+            "avg_pnl_per_hr": -67.2,
+            "share_short_hours": 0.5
+          }
+        },
+        "11": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.476,
+            "short_pl_ratio": 1.25,
+            "avg_spread": 0.23,
+            "avg_win_spread": 4.06,
+            "avg_loss_spread": 3.26
+          },
+          "ours": {
+            "n_hours_with_pos": 5,
+            "n_short_hours": 2,
+            "n_long_hours": 3,
+            "short_mwh_sum": 40.7,
+            "long_mwh_sum": 85.9,
+            "short_mwh_avg": 20.4,
+            "long_mwh_avg": 28.6,
+            "participation": 0.119,
+            "winrate": 0.2,
+            "pl_ratio": 1.5,
+            "avg_short_mwh": 8.1,
+            "avg_long_mwh": 17.2,
+            "total_pnl_usd": -162.0,
+            "avg_pnl_per_hr": -32.4,
+            "share_short_hours": 0.4
+          }
+        },
+        "12": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 1.57,
+            "avg_spread": 1.06,
+            "avg_win_spread": 5.82,
+            "avg_loss_spread": 3.7
+          },
+          "ours": {
+            "n_hours_with_pos": 14,
+            "n_short_hours": 5,
+            "n_long_hours": 9,
+            "short_mwh_sum": 210.1,
+            "long_mwh_sum": 345.8,
+            "short_mwh_avg": 42.0,
+            "long_mwh_avg": 38.4,
+            "participation": 0.333,
+            "winrate": 0.571,
+            "pl_ratio": 0.16,
+            "avg_short_mwh": 15.0,
+            "avg_long_mwh": 24.7,
+            "total_pnl_usd": -1815.0,
+            "avg_pnl_per_hr": -129.6,
+            "share_short_hours": 0.357
+          }
+        },
+        "13": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.619,
+            "short_pl_ratio": 1.35,
+            "avg_spread": 2.01,
+            "avg_win_spread": 5.99,
+            "avg_loss_spread": 4.44
+          },
+          "ours": {
+            "n_hours_with_pos": 18,
+            "n_short_hours": 9,
+            "n_long_hours": 9,
+            "short_mwh_sum": 377.4,
+            "long_mwh_sum": 393.0,
+            "short_mwh_avg": 41.9,
+            "long_mwh_avg": 43.7,
+            "participation": 0.429,
+            "winrate": 0.389,
+            "pl_ratio": 0.57,
+            "avg_short_mwh": 21.0,
+            "avg_long_mwh": 21.8,
+            "total_pnl_usd": -2144.0,
+            "avg_pnl_per_hr": -119.1,
+            "share_short_hours": 0.5
+          }
+        },
+        "14": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.548,
+            "short_pl_ratio": 1.14,
+            "avg_spread": 0.94,
+            "avg_win_spread": 6.24,
+            "avg_loss_spread": 5.48
+          },
+          "ours": {
+            "n_hours_with_pos": 24,
+            "n_short_hours": 15,
+            "n_long_hours": 9,
+            "short_mwh_sum": 657.0,
+            "long_mwh_sum": 429.5,
+            "short_mwh_avg": 43.8,
+            "long_mwh_avg": 47.7,
+            "participation": 0.571,
+            "winrate": 0.5,
+            "pl_ratio": 0.64,
+            "avg_short_mwh": 27.4,
+            "avg_long_mwh": 17.9,
+            "total_pnl_usd": -1535.0,
+            "avg_pnl_per_hr": -64.0,
+            "share_short_hours": 0.625
+          }
+        },
+        "15": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 0.99,
+            "avg_spread": -0.05,
+            "avg_win_spread": 7.06,
+            "avg_loss_spread": 7.17
+          },
+          "ours": {
+            "n_hours_with_pos": 22,
+            "n_short_hours": 13,
+            "n_long_hours": 9,
+            "short_mwh_sum": 584.8,
+            "long_mwh_sum": 449.1,
+            "short_mwh_avg": 45.0,
+            "long_mwh_avg": 49.9,
+            "participation": 0.524,
+            "winrate": 0.364,
+            "pl_ratio": 1.23,
+            "avg_short_mwh": 26.6,
+            "avg_long_mwh": 20.4,
+            "total_pnl_usd": -1266.0,
+            "avg_pnl_per_hr": -57.6,
+            "share_short_hours": 0.591
+          }
+        },
+        "16": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 1.22,
+            "avg_spread": 0.64,
+            "avg_win_spread": 7.04,
+            "avg_loss_spread": 5.77
+          },
+          "ours": {
+            "n_hours_with_pos": 22,
+            "n_short_hours": 16,
+            "n_long_hours": 6,
+            "short_mwh_sum": 780.6,
+            "long_mwh_sum": 299.7,
+            "short_mwh_avg": 48.8,
+            "long_mwh_avg": 49.9,
+            "participation": 0.524,
+            "winrate": 0.409,
+            "pl_ratio": 1.47,
+            "avg_short_mwh": 35.5,
+            "avg_long_mwh": 13.6,
+            "total_pnl_usd": 69.0,
+            "avg_pnl_per_hr": 3.1,
+            "share_short_hours": 0.727
+          }
+        },
+        "17": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.524,
+            "short_pl_ratio": 1.35,
+            "avg_spread": 1.36,
+            "avg_win_spread": 7.17,
+            "avg_loss_spread": 5.3
+          },
+          "ours": {
+            "n_hours_with_pos": 27,
+            "n_short_hours": 18,
+            "n_long_hours": 9,
+            "short_mwh_sum": 919.0,
+            "long_mwh_sum": 437.0,
+            "short_mwh_avg": 51.1,
+            "long_mwh_avg": 48.6,
+            "participation": 0.643,
+            "winrate": 0.444,
+            "pl_ratio": 1.73,
+            "avg_short_mwh": 34.0,
+            "avg_long_mwh": 16.2,
+            "total_pnl_usd": 1705.0,
+            "avg_pnl_per_hr": 63.2,
+            "share_short_hours": 0.667
+          }
+        },
+        "18": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.571,
+            "short_pl_ratio": 1.55,
+            "avg_spread": 2.33,
+            "avg_win_spread": 7.9,
+            "avg_loss_spread": 5.09
+          },
+          "ours": {
+            "n_hours_with_pos": 26,
+            "n_short_hours": 18,
+            "n_long_hours": 8,
+            "short_mwh_sum": 914.0,
+            "long_mwh_sum": 397.7,
+            "short_mwh_avg": 50.8,
+            "long_mwh_avg": 49.7,
+            "participation": 0.619,
+            "winrate": 0.615,
+            "pl_ratio": 1.18,
+            "avg_short_mwh": 35.2,
+            "avg_long_mwh": 15.3,
+            "total_pnl_usd": 3114.0,
+            "avg_pnl_per_hr": 119.8,
+            "share_short_hours": 0.692
+          }
+        },
+        "19": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.595,
+            "short_pl_ratio": 1.52,
+            "avg_spread": 2.93,
+            "avg_win_spread": 8.9,
+            "avg_loss_spread": 5.84
+          },
+          "ours": {
+            "n_hours_with_pos": 25,
+            "n_short_hours": 19,
+            "n_long_hours": 6,
+            "short_mwh_sum": 941.1,
+            "long_mwh_sum": 299.7,
+            "short_mwh_avg": 49.5,
+            "long_mwh_avg": 49.9,
+            "participation": 0.595,
+            "winrate": 0.84,
+            "pl_ratio": 1.25,
+            "avg_short_mwh": 37.6,
+            "avg_long_mwh": 12.0,
+            "total_pnl_usd": 9150.0,
+            "avg_pnl_per_hr": 366.0,
+            "share_short_hours": 0.76
+          }
+        },
+        "20": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.69,
+            "short_pl_ratio": 1.09,
+            "avg_spread": 2.69,
+            "avg_win_spread": 6.6,
+            "avg_loss_spread": 6.05
+          },
+          "ours": {
+            "n_hours_with_pos": 24,
+            "n_short_hours": 17,
+            "n_long_hours": 7,
+            "short_mwh_sum": 668.1,
+            "long_mwh_sum": 349.8,
+            "short_mwh_avg": 39.3,
+            "long_mwh_avg": 50.0,
+            "participation": 0.571,
+            "winrate": 0.708,
+            "pl_ratio": 3.81,
+            "avg_short_mwh": 27.8,
+            "avg_long_mwh": 14.6,
+            "total_pnl_usd": 5612.0,
+            "avg_pnl_per_hr": 233.8,
+            "share_short_hours": 0.708
+          }
+        },
+        "21": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.643,
+            "short_pl_ratio": 1.58,
+            "avg_spread": 2.64,
+            "avg_win_spread": 6.33,
+            "avg_loss_spread": 4.0
+          },
+          "ours": {
+            "n_hours_with_pos": 22,
+            "n_short_hours": 15,
+            "n_long_hours": 7,
+            "short_mwh_sum": 470.1,
+            "long_mwh_sum": 349.9,
+            "short_mwh_avg": 31.3,
+            "long_mwh_avg": 50.0,
+            "participation": 0.524,
+            "winrate": 0.682,
+            "pl_ratio": 1.39,
+            "avg_short_mwh": 21.4,
+            "avg_long_mwh": 15.9,
+            "total_pnl_usd": 2100.0,
+            "avg_pnl_per_hr": 95.4,
+            "share_short_hours": 0.682
+          }
+        },
+        "22": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.667,
+            "short_pl_ratio": 1.29,
+            "avg_spread": 2.8,
+            "avg_win_spread": 6.84,
+            "avg_loss_spread": 5.3
+          },
+          "ours": {
+            "n_hours_with_pos": 16,
+            "n_short_hours": 13,
+            "n_long_hours": 3,
+            "short_mwh_sum": 453.8,
+            "long_mwh_sum": 149.8,
+            "short_mwh_avg": 34.9,
+            "long_mwh_avg": 49.9,
+            "participation": 0.381,
+            "winrate": 0.625,
+            "pl_ratio": 1.93,
+            "avg_short_mwh": 28.4,
+            "avg_long_mwh": 9.4,
+            "total_pnl_usd": 2702.0,
+            "avg_pnl_per_hr": 168.9,
+            "share_short_hours": 0.812
+          }
+        },
+        "23": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.595,
+            "short_pl_ratio": 1.18,
+            "avg_spread": 1.72,
+            "avg_win_spread": 6.79,
+            "avg_loss_spread": 5.74
+          },
+          "ours": {
+            "n_hours_with_pos": 5,
+            "n_short_hours": 4,
+            "n_long_hours": 1,
+            "short_mwh_sum": 126.3,
+            "long_mwh_sum": 29.8,
+            "short_mwh_avg": 31.6,
+            "long_mwh_avg": 29.8,
+            "participation": 0.119,
+            "winrate": 0.4,
+            "pl_ratio": 2.13,
+            "avg_short_mwh": 25.3,
+            "avg_long_mwh": 6.0,
+            "total_pnl_usd": 260.0,
+            "avg_pnl_per_hr": 51.9,
+            "share_short_hours": 0.8
+          }
+        },
+        "24": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.619,
+            "short_pl_ratio": 1.25,
+            "avg_spread": 1.31,
+            "avg_win_spread": 4.18,
+            "avg_loss_spread": 3.35
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 49.9,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 49.9,
+            "participation": 0.024,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 49.9,
+            "total_pnl_usd": -59.0,
+            "avg_pnl_per_hr": -59.4,
+            "share_short_hours": 0.0
+          }
+        }
+      },
+      "by_block": {
+        "HE1-6 overnight": {
+          "market": {
+            "n_hours": 252,
+            "short_winrate": 0.563,
+            "short_pl_ratio": 1.14,
+            "avg_spread": 0.69,
+            "avg_win_spread": 3.79,
+            "avg_loss_spread": 3.32
+          },
+          "ours": {
+            "n_hours_with_pos": 98,
+            "n_short_hours": 55,
+            "n_long_hours": 43,
+            "short_mwh_sum": 2805.1,
+            "long_mwh_sum": 2081.3,
+            "short_mwh_avg": 51.0,
+            "long_mwh_avg": 48.4,
+            "participation": 0.389,
+            "winrate": 0.52,
+            "pl_ratio": 1.23,
+            "avg_short_mwh": 28.6,
+            "avg_long_mwh": 21.2,
+            "total_pnl_usd": 2056.0,
+            "avg_pnl_per_hr": 21.0,
+            "share_short_hours": 0.561
+          }
+        },
+        "HE7-14 solar": {
+          "market": {
+            "n_hours": 336,
+            "short_winrate": 0.551,
+            "short_pl_ratio": 1.12,
+            "avg_spread": 0.64,
+            "avg_win_spread": 4.25,
+            "avg_loss_spread": 3.78
+          },
+          "ours": {
+            "n_hours_with_pos": 86,
+            "n_short_hours": 40,
+            "n_long_hours": 46,
+            "short_mwh_sum": 1735.2,
+            "long_mwh_sum": 1940.7,
+            "short_mwh_avg": 43.4,
+            "long_mwh_avg": 42.2,
+            "participation": 0.256,
+            "winrate": 0.535,
+            "pl_ratio": 0.64,
+            "avg_short_mwh": 20.2,
+            "avg_long_mwh": 22.6,
+            "total_pnl_usd": -2947.0,
+            "avg_pnl_per_hr": -34.3,
+            "share_short_hours": 0.465
+          }
+        },
+        "HE15-17 ramp": {
+          "market": {
+            "n_hours": 126,
+            "short_winrate": 0.508,
+            "short_pl_ratio": 1.16,
+            "avg_spread": 0.65,
+            "avg_win_spread": 7.1,
+            "avg_loss_spread": 6.1
+          },
+          "ours": {
+            "n_hours_with_pos": 71,
+            "n_short_hours": 47,
+            "n_long_hours": 24,
+            "short_mwh_sum": 2284.4,
+            "long_mwh_sum": 1185.8,
+            "short_mwh_avg": 48.6,
+            "long_mwh_avg": 49.4,
+            "participation": 0.563,
+            "winrate": 0.408,
+            "pl_ratio": 1.51,
+            "avg_short_mwh": 32.2,
+            "avg_long_mwh": 16.7,
+            "total_pnl_usd": 508.0,
+            "avg_pnl_per_hr": 7.2,
+            "share_short_hours": 0.662
+          }
+        },
+        "HE18-22 evening": {
+          "market": {
+            "n_hours": 210,
+            "short_winrate": 0.633,
+            "short_pl_ratio": 1.39,
+            "avg_spread": 2.68,
+            "avg_win_spread": 7.26,
+            "avg_loss_spread": 5.24
+          },
+          "ours": {
+            "n_hours_with_pos": 113,
+            "n_short_hours": 82,
+            "n_long_hours": 31,
+            "short_mwh_sum": 3447.1,
+            "long_mwh_sum": 1546.8,
+            "short_mwh_avg": 42.0,
+            "long_mwh_avg": 49.9,
+            "participation": 0.538,
+            "winrate": 0.699,
+            "pl_ratio": 1.64,
+            "avg_short_mwh": 30.5,
+            "avg_long_mwh": 13.7,
+            "total_pnl_usd": 22677.0,
+            "avg_pnl_per_hr": 200.7,
+            "share_short_hours": 0.726
+          }
+        },
+        "HE23-24 late": {
+          "market": {
+            "n_hours": 84,
+            "short_winrate": 0.607,
+            "short_pl_ratio": 1.19,
+            "avg_spread": 1.51,
+            "avg_win_spread": 5.46,
+            "avg_loss_spread": 4.58
+          },
+          "ours": {
+            "n_hours_with_pos": 6,
+            "n_short_hours": 4,
+            "n_long_hours": 2,
+            "short_mwh_sum": 126.3,
+            "long_mwh_sum": 79.8,
+            "short_mwh_avg": 31.6,
+            "long_mwh_avg": 39.9,
+            "participation": 0.071,
+            "winrate": 0.333,
+            "pl_ratio": 2.59,
+            "avg_short_mwh": 21.0,
+            "avg_long_mwh": 13.3,
+            "total_pnl_usd": 200.0,
+            "avg_pnl_per_hr": 33.4,
+            "share_short_hours": 0.667
+          }
+        }
+      }
+    },
+    "scarcity_bearish": {
+      "n_days": 6,
+      "overall": {
+        "market": {
+          "n_hours": 144,
+          "short_winrate": 0.576,
+          "short_pl_ratio": 0.37,
+          "avg_spread": -3.25,
+          "avg_win_spread": 5.71,
+          "avg_loss_spread": 15.43
+        },
+        "ours": {
+          "n_hours_with_pos": 53,
+          "n_short_hours": 14,
+          "n_long_hours": 39,
+          "short_mwh_sum": 548.4,
+          "long_mwh_sum": 1869.3,
+          "short_mwh_avg": 39.2,
+          "long_mwh_avg": 47.9,
+          "participation": 0.368,
+          "winrate": 0.415,
+          "pl_ratio": 0.46,
+          "avg_short_mwh": 10.3,
+          "avg_long_mwh": 35.3,
+          "total_pnl_usd": -10154.0,
+          "avg_pnl_per_hr": -191.6,
+          "share_short_hours": 0.264
+        }
+      },
+      "by_he": {
+        "1": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 0.13,
+            "avg_spread": -8.36,
+            "avg_win_spread": 2.55,
+            "avg_loss_spread": 19.27
+          },
+          "ours": {
+            "n_hours_with_pos": 2,
+            "n_short_hours": 2,
+            "n_long_hours": 0,
+            "short_mwh_sum": 81.7,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 40.9,
+            "long_mwh_avg": null,
+            "participation": 0.333,
+            "winrate": 0.5,
+            "pl_ratio": 0.01,
+            "avg_short_mwh": 40.9,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": -2239.0,
+            "avg_pnl_per_hr": -1119.3,
+            "share_short_hours": 1.0
+          }
+        },
+        "2": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 0.1,
+            "avg_spread": -6.9,
+            "avg_win_spread": 1.5,
+            "avg_loss_spread": 15.3
+          },
+          "ours": {
+            "n_hours_with_pos": 0,
+            "n_short_hours": 0,
+            "n_long_hours": 0,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": null,
+            "long_mwh_avg": null,
+            "participation": 0.0,
+            "winrate": null,
+            "pl_ratio": null,
+            "avg_short_mwh": null,
+            "avg_long_mwh": null,
+            "total_pnl_usd": 0,
+            "avg_pnl_per_hr": null,
+            "share_short_hours": null
+          }
+        },
+        "3": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 0.16,
+            "avg_spread": -3.78,
+            "avg_win_spread": 1.43,
+            "avg_loss_spread": 9.0
+          },
+          "ours": {
+            "n_hours_with_pos": 0,
+            "n_short_hours": 0,
+            "n_long_hours": 0,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": null,
+            "long_mwh_avg": null,
+            "participation": 0.0,
+            "winrate": null,
+            "pl_ratio": null,
+            "avg_short_mwh": null,
+            "avg_long_mwh": null,
+            "total_pnl_usd": 0,
+            "avg_pnl_per_hr": null,
+            "share_short_hours": null
+          }
+        },
+        "4": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 0.26,
+            "avg_spread": -2.67,
+            "avg_win_spread": 1.86,
+            "avg_loss_spread": 7.19
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 1,
+            "n_long_hours": 0,
+            "short_mwh_sum": 50.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": null,
+            "participation": 0.167,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 50.0,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": 60.0,
+            "avg_pnl_per_hr": 60.3,
+            "share_short_hours": 1.0
+          }
+        },
+        "5": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 0.78,
+            "avg_spread": -0.47,
+            "avg_win_spread": 3.41,
+            "avg_loss_spread": 4.35
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 49.8,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 49.8,
+            "participation": 0.167,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 49.8,
+            "total_pnl_usd": 364.0,
+            "avg_pnl_per_hr": 364.0,
+            "share_short_hours": 0.0
+          }
+        },
+        "6": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 0.7,
+            "avg_spread": -0.78,
+            "avg_win_spread": 3.58,
+            "avg_loss_spread": 5.13
+          },
+          "ours": {
+            "n_hours_with_pos": 0,
+            "n_short_hours": 0,
+            "n_long_hours": 0,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": null,
+            "long_mwh_avg": null,
+            "participation": 0.0,
+            "winrate": null,
+            "pl_ratio": null,
+            "avg_short_mwh": null,
+            "avg_long_mwh": null,
+            "total_pnl_usd": 0,
+            "avg_pnl_per_hr": null,
+            "share_short_hours": null
+          }
+        },
+        "7": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 0.58,
+            "avg_spread": -1.28,
+            "avg_win_spread": 3.51,
+            "avg_loss_spread": 6.06
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 49.9,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 49.9,
+            "participation": 0.167,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 49.9,
+            "total_pnl_usd": -107.0,
+            "avg_pnl_per_hr": -107.1,
+            "share_short_hours": 0.0
+          }
+        },
+        "8": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 0.97,
+            "avg_spread": -0.04,
+            "avg_win_spread": 2.72,
+            "avg_loss_spread": 2.8
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 49.9,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 49.9,
+            "participation": 0.167,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 49.9,
+            "total_pnl_usd": -114.0,
+            "avg_pnl_per_hr": -114.2,
+            "share_short_hours": 0.0
+          }
+        },
+        "9": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 1.05,
+            "avg_spread": 0.07,
+            "avg_win_spread": 2.78,
+            "avg_loss_spread": 2.64
+          },
+          "ours": {
+            "n_hours_with_pos": 0,
+            "n_short_hours": 0,
+            "n_long_hours": 0,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": null,
+            "long_mwh_avg": null,
+            "participation": 0.0,
+            "winrate": null,
+            "pl_ratio": null,
+            "avg_short_mwh": null,
+            "avg_long_mwh": null,
+            "total_pnl_usd": 0,
+            "avg_pnl_per_hr": null,
+            "share_short_hours": null
+          }
+        },
+        "10": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 0.45,
+            "avg_spread": -0.86,
+            "avg_win_spread": 1.43,
+            "avg_loss_spread": 3.15
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 30.4,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 30.4,
+            "participation": 0.167,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 30.4,
+            "total_pnl_usd": 196.0,
+            "avg_pnl_per_hr": 195.7,
+            "share_short_hours": 0.0
+          }
+        },
+        "11": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 0.44,
+            "avg_spread": -0.83,
+            "avg_win_spread": 1.32,
+            "avg_loss_spread": 2.97
+          },
+          "ours": {
+            "n_hours_with_pos": 2,
+            "n_short_hours": 0,
+            "n_long_hours": 2,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 30.6,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 15.3,
+            "participation": 0.333,
+            "winrate": 0.5,
+            "pl_ratio": 8.68,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 15.3,
+            "total_pnl_usd": 87.0,
+            "avg_pnl_per_hr": 43.6,
+            "share_short_hours": 0.0
+          }
+        },
+        "12": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.667,
+            "short_pl_ratio": 1.77,
+            "avg_spread": 1.17,
+            "avg_win_spread": 2.45,
+            "avg_loss_spread": 1.39
+          },
+          "ours": {
+            "n_hours_with_pos": 4,
+            "n_short_hours": 1,
+            "n_long_hours": 3,
+            "short_mwh_sum": 50.0,
+            "long_mwh_sum": 116.6,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": 38.9,
+            "participation": 0.667,
+            "winrate": 0.25,
+            "pl_ratio": 0.5,
+            "avg_short_mwh": 12.5,
+            "avg_long_mwh": 29.1,
+            "total_pnl_usd": -145.0,
+            "avg_pnl_per_hr": -36.4,
+            "share_short_hours": 0.25
+          }
+        },
+        "13": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.667,
+            "short_pl_ratio": 2.41,
+            "avg_spread": 2.38,
+            "avg_win_spread": 4.5,
+            "avg_loss_spread": 1.87
+          },
+          "ours": {
+            "n_hours_with_pos": 3,
+            "n_short_hours": 1,
+            "n_long_hours": 2,
+            "short_mwh_sum": 50.0,
+            "long_mwh_sum": 96.0,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": 48.0,
+            "participation": 0.5,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 16.7,
+            "avg_long_mwh": 32.0,
+            "total_pnl_usd": -492.0,
+            "avg_pnl_per_hr": -164.1,
+            "share_short_hours": 0.333
+          }
+        },
+        "14": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 0.89,
+            "avg_spread": -0.3,
+            "avg_win_spread": 4.73,
+            "avg_loss_spread": 5.33
+          },
+          "ours": {
+            "n_hours_with_pos": 3,
+            "n_short_hours": 1,
+            "n_long_hours": 2,
+            "short_mwh_sum": 30.1,
+            "long_mwh_sum": 99.5,
+            "short_mwh_avg": 30.1,
+            "long_mwh_avg": 49.8,
+            "participation": 0.5,
+            "winrate": 0.333,
+            "pl_ratio": 1.46,
+            "avg_short_mwh": 10.0,
+            "avg_long_mwh": 33.2,
+            "total_pnl_usd": -125.0,
+            "avg_pnl_per_hr": -41.6,
+            "share_short_hours": 0.333
+          }
+        },
+        "15": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.667,
+            "short_pl_ratio": 1.59,
+            "avg_spread": 1.5,
+            "avg_win_spread": 3.28,
+            "avg_loss_spread": 2.06
+          },
+          "ours": {
+            "n_hours_with_pos": 3,
+            "n_short_hours": 1,
+            "n_long_hours": 2,
+            "short_mwh_sum": 30.1,
+            "long_mwh_sum": 99.5,
+            "short_mwh_avg": 30.1,
+            "long_mwh_avg": 49.8,
+            "participation": 0.5,
+            "winrate": 0.667,
+            "pl_ratio": 7.59,
+            "avg_short_mwh": 10.0,
+            "avg_long_mwh": 33.2,
+            "total_pnl_usd": 261.0,
+            "avg_pnl_per_hr": 86.9,
+            "share_short_hours": 0.333
+          }
+        },
+        "16": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.667,
+            "short_pl_ratio": 2.56,
+            "avg_spread": 3.18,
+            "avg_win_spread": 5.92,
+            "avg_loss_spread": 2.31
+          },
+          "ours": {
+            "n_hours_with_pos": 2,
+            "n_short_hours": 1,
+            "n_long_hours": 1,
+            "short_mwh_sum": 30.1,
+            "long_mwh_sum": 49.7,
+            "short_mwh_avg": 30.1,
+            "long_mwh_avg": 49.7,
+            "participation": 0.333,
+            "winrate": 0.5,
+            "pl_ratio": 1.07,
+            "avg_short_mwh": 15.0,
+            "avg_long_mwh": 24.8,
+            "total_pnl_usd": 10.0,
+            "avg_pnl_per_hr": 5.0,
+            "share_short_hours": 0.5
+          }
+        },
+        "17": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.667,
+            "short_pl_ratio": 5.15,
+            "avg_spread": 4.09,
+            "avg_win_spread": 6.8,
+            "avg_loss_spread": 1.32
+          },
+          "ours": {
+            "n_hours_with_pos": 4,
+            "n_short_hours": 2,
+            "n_long_hours": 2,
+            "short_mwh_sum": 75.4,
+            "long_mwh_sum": 99.5,
+            "short_mwh_avg": 37.7,
+            "long_mwh_avg": 49.7,
+            "participation": 0.667,
+            "winrate": 0.75,
+            "pl_ratio": 0.22,
+            "avg_short_mwh": 18.9,
+            "avg_long_mwh": 24.9,
+            "total_pnl_usd": -171.0,
+            "avg_pnl_per_hr": -42.8,
+            "share_short_hours": 0.5
+          }
+        },
+        "18": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.667,
+            "short_pl_ratio": 0.46,
+            "avg_spread": -0.37,
+            "avg_win_spread": 6.36,
+            "avg_loss_spread": 13.84
+          },
+          "ours": {
+            "n_hours_with_pos": 4,
+            "n_short_hours": 1,
+            "n_long_hours": 3,
+            "short_mwh_sum": 30.0,
+            "long_mwh_sum": 149.3,
+            "short_mwh_avg": 30.0,
+            "long_mwh_avg": 49.8,
+            "participation": 0.667,
+            "winrate": 0.25,
+            "pl_ratio": 0.79,
+            "avg_short_mwh": 7.5,
+            "avg_long_mwh": 37.3,
+            "total_pnl_usd": -648.0,
+            "avg_pnl_per_hr": -161.9,
+            "share_short_hours": 0.25
+          }
+        },
+        "19": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.667,
+            "short_pl_ratio": 1.37,
+            "avg_spread": 5.34,
+            "avg_win_spread": 12.59,
+            "avg_loss_spread": 9.16
+          },
+          "ours": {
+            "n_hours_with_pos": 5,
+            "n_short_hours": 2,
+            "n_long_hours": 3,
+            "short_mwh_sum": 81.4,
+            "long_mwh_sum": 149.4,
+            "short_mwh_avg": 40.7,
+            "long_mwh_avg": 49.8,
+            "participation": 0.833,
+            "winrate": 0.4,
+            "pl_ratio": 0.32,
+            "avg_short_mwh": 16.3,
+            "avg_long_mwh": 29.9,
+            "total_pnl_usd": -1513.0,
+            "avg_pnl_per_hr": -302.7,
+            "share_short_hours": 0.4
+          }
+        },
+        "20": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 0.32,
+            "avg_spread": -13.51,
+            "avg_win_spread": 12.6,
+            "avg_loss_spread": 39.63
+          },
+          "ours": {
+            "n_hours_with_pos": 4,
+            "n_short_hours": 0,
+            "n_long_hours": 4,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 199.8,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 50.0,
+            "participation": 0.667,
+            "winrate": 0.5,
+            "pl_ratio": 0.43,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 50.0,
+            "total_pnl_usd": -752.0,
+            "avg_pnl_per_hr": -188.0,
+            "share_short_hours": 0.0
+          }
+        },
+        "21": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.333,
+            "short_pl_ratio": 0.26,
+            "avg_spread": -32.26,
+            "avg_win_spread": 14.32,
+            "avg_loss_spread": 55.55
+          },
+          "ours": {
+            "n_hours_with_pos": 4,
+            "n_short_hours": 0,
+            "n_long_hours": 4,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 200.0,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 50.0,
+            "participation": 0.667,
+            "winrate": 0.75,
+            "pl_ratio": 0.83,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 50.0,
+            "total_pnl_usd": 739.0,
+            "avg_pnl_per_hr": 184.7,
+            "share_short_hours": 0.0
+          }
+        },
+        "22": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.667,
+            "short_pl_ratio": 0.1,
+            "avg_spread": -36.44,
+            "avg_win_spread": 14.34,
+            "avg_loss_spread": 137.99
+          },
+          "ours": {
+            "n_hours_with_pos": 4,
+            "n_short_hours": 0,
+            "n_long_hours": 4,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 224.9,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 56.2,
+            "participation": 0.667,
+            "winrate": 0.25,
+            "pl_ratio": 0.82,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 56.2,
+            "total_pnl_usd": -1719.0,
+            "avg_pnl_per_hr": -429.8,
+            "share_short_hours": 0.0
+          }
+        },
+        "23": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.833,
+            "short_pl_ratio": 1.7,
+            "avg_spread": 10.55,
+            "avg_win_spread": 14.35,
+            "avg_loss_spread": 8.44
+          },
+          "ours": {
+            "n_hours_with_pos": 3,
+            "n_short_hours": 1,
+            "n_long_hours": 2,
+            "short_mwh_sum": 39.5,
+            "long_mwh_sum": 125.0,
+            "short_mwh_avg": 39.5,
+            "long_mwh_avg": 62.5,
+            "participation": 0.5,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 13.2,
+            "avg_long_mwh": 41.7,
+            "total_pnl_usd": -3430.0,
+            "avg_pnl_per_hr": -1143.4,
+            "share_short_hours": 0.333
+          }
+        },
+        "24": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.833,
+            "short_pl_ratio": 1.47,
+            "avg_spread": 2.65,
+            "avg_win_spread": 3.68,
+            "avg_loss_spread": 2.5
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 49.5,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 49.5,
+            "participation": 0.167,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 49.5,
+            "total_pnl_usd": -415.0,
+            "avg_pnl_per_hr": -415.3,
+            "share_short_hours": 0.0
+          }
+        }
+      },
+      "by_block": {
+        "HE1-6 overnight": {
+          "market": {
+            "n_hours": 36,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 0.24,
+            "avg_spread": -3.83,
+            "avg_win_spread": 2.39,
+            "avg_loss_spread": 10.04
+          },
+          "ours": {
+            "n_hours_with_pos": 4,
+            "n_short_hours": 3,
+            "n_long_hours": 1,
+            "short_mwh_sum": 131.7,
+            "long_mwh_sum": 49.8,
+            "short_mwh_avg": 43.9,
+            "long_mwh_avg": 49.8,
+            "participation": 0.111,
+            "winrate": 0.75,
+            "pl_ratio": 0.07,
+            "avg_short_mwh": 32.9,
+            "avg_long_mwh": 12.4,
+            "total_pnl_usd": -1814.0,
+            "avg_pnl_per_hr": -453.6,
+            "share_short_hours": 0.75
+          }
+        },
+        "HE7-14 solar": {
+          "market": {
+            "n_hours": 48,
+            "short_winrate": 0.542,
+            "short_pl_ratio": 0.87,
+            "avg_spread": 0.04,
+            "avg_win_spread": 2.97,
+            "avg_loss_spread": 3.43
+          },
+          "ours": {
+            "n_hours_with_pos": 15,
+            "n_short_hours": 3,
+            "n_long_hours": 12,
+            "short_mwh_sum": 130.1,
+            "long_mwh_sum": 472.9,
+            "short_mwh_avg": 43.4,
+            "long_mwh_avg": 39.4,
+            "participation": 0.312,
+            "winrate": 0.267,
+            "pl_ratio": 1.34,
+            "avg_short_mwh": 8.7,
+            "avg_long_mwh": 31.5,
+            "total_pnl_usd": -701.0,
+            "avg_pnl_per_hr": -46.7,
+            "share_short_hours": 0.2
+          }
+        },
+        "HE15-17 ramp": {
+          "market": {
+            "n_hours": 18,
+            "short_winrate": 0.667,
+            "short_pl_ratio": 2.81,
+            "avg_spread": 2.93,
+            "avg_win_spread": 5.34,
+            "avg_loss_spread": 1.9
+          },
+          "ours": {
+            "n_hours_with_pos": 9,
+            "n_short_hours": 4,
+            "n_long_hours": 5,
+            "short_mwh_sum": 135.6,
+            "long_mwh_sum": 248.7,
+            "short_mwh_avg": 33.9,
+            "long_mwh_avg": 49.7,
+            "participation": 0.5,
+            "winrate": 0.667,
+            "pl_ratio": 0.58,
+            "avg_short_mwh": 15.1,
+            "avg_long_mwh": 27.6,
+            "total_pnl_usd": 100.0,
+            "avg_pnl_per_hr": 11.1,
+            "share_short_hours": 0.444
+          }
+        },
+        "HE18-22 evening": {
+          "market": {
+            "n_hours": 30,
+            "short_winrate": 0.567,
+            "short_pl_ratio": 0.23,
+            "avg_spread": -15.45,
+            "avg_win_spread": 11.74,
+            "avg_loss_spread": 51.01
+          },
+          "ours": {
+            "n_hours_with_pos": 21,
+            "n_short_hours": 3,
+            "n_long_hours": 18,
+            "short_mwh_sum": 111.4,
+            "long_mwh_sum": 923.4,
+            "short_mwh_avg": 37.1,
+            "long_mwh_avg": 51.3,
+            "participation": 0.7,
+            "winrate": 0.429,
+            "pl_ratio": 0.59,
+            "avg_short_mwh": 5.3,
+            "avg_long_mwh": 44.0,
+            "total_pnl_usd": -3893.0,
+            "avg_pnl_per_hr": -185.4,
+            "share_short_hours": 0.143
+          }
+        },
+        "HE23-24 late": {
+          "market": {
+            "n_hours": 12,
+            "short_winrate": 0.833,
+            "short_pl_ratio": 1.65,
+            "avg_spread": 6.6,
+            "avg_win_spread": 9.01,
+            "avg_loss_spread": 5.47
+          },
+          "ours": {
+            "n_hours_with_pos": 4,
+            "n_short_hours": 1,
+            "n_long_hours": 3,
+            "short_mwh_sum": 39.5,
+            "long_mwh_sum": 174.5,
+            "short_mwh_avg": 39.5,
+            "long_mwh_avg": 58.2,
+            "participation": 0.333,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 9.9,
+            "avg_long_mwh": 43.6,
+            "total_pnl_usd": -3846.0,
+            "avg_pnl_per_hr": -961.4,
+            "share_short_hours": 0.25
+          }
+        }
+      }
+    },
+    "scarcity_lambda": {
+      "n_days": 6,
+      "overall": {
+        "market": {
+          "n_hours": 144,
+          "short_winrate": 0.514,
+          "short_pl_ratio": 0.5,
+          "avg_spread": -3.41,
+          "avg_win_spread": 7.59,
+          "avg_loss_spread": 15.05
+        },
+        "ours": {
+          "n_hours_with_pos": 40,
+          "n_short_hours": 19,
+          "n_long_hours": 21,
+          "short_mwh_sum": 873.4,
+          "long_mwh_sum": 855.8,
+          "short_mwh_avg": 46.0,
+          "long_mwh_avg": 40.8,
+          "participation": 0.278,
+          "winrate": 0.6,
+          "pl_ratio": 0.78,
+          "avg_short_mwh": 21.8,
+          "avg_long_mwh": 21.4,
+          "total_pnl_usd": 1469.0,
+          "avg_pnl_per_hr": 36.7,
+          "share_short_hours": 0.475
+        }
+      },
+      "by_he": {
+        "1": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 0.53,
+            "avg_spread": -0.42,
+            "avg_win_spread": 0.94,
+            "avg_loss_spread": 1.78
+          },
+          "ours": {
+            "n_hours_with_pos": 2,
+            "n_short_hours": 2,
+            "n_long_hours": 0,
+            "short_mwh_sum": 100.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": null,
+            "participation": 0.333,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 50.0,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": 68.0,
+            "avg_pnl_per_hr": 34.2,
+            "share_short_hours": 1.0
+          }
+        },
+        "2": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.667,
+            "short_pl_ratio": 2.06,
+            "avg_spread": 0.9,
+            "avg_win_spread": 1.78,
+            "avg_loss_spread": 0.87
+          },
+          "ours": {
+            "n_hours_with_pos": 0,
+            "n_short_hours": 0,
+            "n_long_hours": 0,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": null,
+            "long_mwh_avg": null,
+            "participation": 0.0,
+            "winrate": null,
+            "pl_ratio": null,
+            "avg_short_mwh": null,
+            "avg_long_mwh": null,
+            "total_pnl_usd": 0,
+            "avg_pnl_per_hr": null,
+            "share_short_hours": null
+          }
+        },
+        "3": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 0.85,
+            "avg_spread": -0.15,
+            "avg_win_spread": 1.76,
+            "avg_loss_spread": 2.06
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 49.8,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 49.8,
+            "participation": 0.167,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 49.8,
+            "total_pnl_usd": 119.0,
+            "avg_pnl_per_hr": 118.9,
+            "share_short_hours": 0.0
+          }
+        },
+        "4": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.667,
+            "short_pl_ratio": 0.54,
+            "avg_spread": 0.07,
+            "avg_win_spread": 1.41,
+            "avg_loss_spread": 2.62
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 49.9,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 49.9,
+            "participation": 0.167,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 49.9,
+            "total_pnl_usd": 240.0,
+            "avg_pnl_per_hr": 240.3,
+            "share_short_hours": 0.0
+          }
+        },
+        "5": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.333,
+            "short_pl_ratio": 0.71,
+            "avg_spread": -1.01,
+            "avg_win_spread": 1.67,
+            "avg_loss_spread": 2.35
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 49.9,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 49.9,
+            "participation": 0.167,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 49.9,
+            "total_pnl_usd": 102.0,
+            "avg_pnl_per_hr": 102.1,
+            "share_short_hours": 0.0
+          }
+        },
+        "6": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.333,
+            "short_pl_ratio": 0.67,
+            "avg_spread": -1.39,
+            "avg_win_spread": 2.12,
+            "avg_loss_spread": 3.15
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 1,
+            "n_long_hours": 0,
+            "short_mwh_sum": 50.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": null,
+            "participation": 0.167,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 50.0,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": -401.0,
+            "avg_pnl_per_hr": -400.6,
+            "share_short_hours": 1.0
+          }
+        },
+        "7": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.667,
+            "short_pl_ratio": 1.22,
+            "avg_spread": 1.37,
+            "avg_win_spread": 3.49,
+            "avg_loss_spread": 2.87
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 1,
+            "n_long_hours": 0,
+            "short_mwh_sum": 50.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": null,
+            "participation": 0.167,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 50.0,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": -95.0,
+            "avg_pnl_per_hr": -94.8,
+            "share_short_hours": 1.0
+          }
+        },
+        "8": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 0.72,
+            "avg_spread": -0.57,
+            "avg_win_spread": 2.92,
+            "avg_loss_spread": 4.05
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 1,
+            "n_long_hours": 0,
+            "short_mwh_sum": 50.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": null,
+            "participation": 0.167,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 50.0,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": -200.0,
+            "avg_pnl_per_hr": -200.1,
+            "share_short_hours": 1.0
+          }
+        },
+        "9": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.167,
+            "short_pl_ratio": 2.16,
+            "avg_spread": -0.89,
+            "avg_win_spread": 4.04,
+            "avg_loss_spread": 1.87
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 1.4,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 1.4,
+            "participation": 0.167,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 1.4,
+            "total_pnl_usd": 3.0,
+            "avg_pnl_per_hr": 3.1,
+            "share_short_hours": 0.0
+          }
+        },
+        "10": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.333,
+            "short_pl_ratio": 0.14,
+            "avg_spread": -2.56,
+            "avg_win_spread": 0.58,
+            "avg_loss_spread": 4.12
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 2.1,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 2.1,
+            "participation": 0.167,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 2.1,
+            "total_pnl_usd": -0.0,
+            "avg_pnl_per_hr": -0.5,
+            "share_short_hours": 0.0
+          }
+        },
+        "11": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 0.62,
+            "avg_spread": -0.69,
+            "avg_win_spread": 2.21,
+            "avg_loss_spread": 3.58
+          },
+          "ours": {
+            "n_hours_with_pos": 2,
+            "n_short_hours": 0,
+            "n_long_hours": 2,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 37.6,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 18.8,
+            "participation": 0.333,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 18.8,
+            "total_pnl_usd": 122.0,
+            "avg_pnl_per_hr": 61.2,
+            "share_short_hours": 0.0
+          }
+        },
+        "12": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.833,
+            "short_pl_ratio": 0.64,
+            "avg_spread": 1.22,
+            "avg_win_spread": 2.13,
+            "avg_loss_spread": 3.32
+          },
+          "ours": {
+            "n_hours_with_pos": 3,
+            "n_short_hours": 0,
+            "n_long_hours": 3,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 137.7,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 45.9,
+            "participation": 0.5,
+            "winrate": 0.333,
+            "pl_ratio": 1.04,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 45.9,
+            "total_pnl_usd": -138.0,
+            "avg_pnl_per_hr": -46.0,
+            "share_short_hours": 0.0
+          }
+        },
+        "13": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.333,
+            "short_pl_ratio": 1.2,
+            "avg_spread": -1.58,
+            "avg_win_spread": 7.03,
+            "avg_loss_spread": 5.88
+          },
+          "ours": {
+            "n_hours_with_pos": 0,
+            "n_short_hours": 0,
+            "n_long_hours": 0,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": null,
+            "long_mwh_avg": null,
+            "participation": 0.0,
+            "winrate": null,
+            "pl_ratio": null,
+            "avg_short_mwh": null,
+            "avg_long_mwh": null,
+            "total_pnl_usd": 0,
+            "avg_pnl_per_hr": null,
+            "share_short_hours": null
+          }
+        },
+        "14": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.333,
+            "short_pl_ratio": 1.0,
+            "avg_spread": -4.41,
+            "avg_win_spread": 13.33,
+            "avg_loss_spread": 13.29
+          },
+          "ours": {
+            "n_hours_with_pos": 2,
+            "n_short_hours": 1,
+            "n_long_hours": 1,
+            "short_mwh_sum": 30.0,
+            "long_mwh_sum": 50.0,
+            "short_mwh_avg": 30.0,
+            "long_mwh_avg": 50.0,
+            "participation": 0.333,
+            "winrate": 0.5,
+            "pl_ratio": 2.88,
+            "avg_short_mwh": 15.0,
+            "avg_long_mwh": 25.0,
+            "total_pnl_usd": 380.0,
+            "avg_pnl_per_hr": 190.1,
+            "share_short_hours": 0.5
+          }
+        },
+        "15": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.333,
+            "short_pl_ratio": 1.29,
+            "avg_spread": -2.99,
+            "avg_win_spread": 16.47,
+            "avg_loss_spread": 12.72
+          },
+          "ours": {
+            "n_hours_with_pos": 2,
+            "n_short_hours": 2,
+            "n_long_hours": 0,
+            "short_mwh_sum": 100.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": null,
+            "participation": 0.333,
+            "winrate": 0.5,
+            "pl_ratio": 5.93,
+            "avg_short_mwh": 50.0,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": 621.0,
+            "avg_pnl_per_hr": 310.6,
+            "share_short_hours": 1.0
+          }
+        },
+        "16": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 1.48,
+            "avg_spread": 2.96,
+            "avg_win_spread": 18.18,
+            "avg_loss_spread": 12.25
+          },
+          "ours": {
+            "n_hours_with_pos": 2,
+            "n_short_hours": 2,
+            "n_long_hours": 0,
+            "short_mwh_sum": 100.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": null,
+            "participation": 0.333,
+            "winrate": 0.5,
+            "pl_ratio": 4.27,
+            "avg_short_mwh": 50.0,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": 650.0,
+            "avg_pnl_per_hr": 325.1,
+            "share_short_hours": 1.0
+          }
+        },
+        "17": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.833,
+            "short_pl_ratio": 0.69,
+            "avg_spread": 8.47,
+            "avg_win_spread": 14.35,
+            "avg_loss_spread": 20.92
+          },
+          "ours": {
+            "n_hours_with_pos": 2,
+            "n_short_hours": 2,
+            "n_long_hours": 0,
+            "short_mwh_sum": 100.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": null,
+            "participation": 0.333,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 50.0,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": 1058.0,
+            "avg_pnl_per_hr": 529.1,
+            "share_short_hours": 1.0
+          }
+        },
+        "18": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.667,
+            "short_pl_ratio": 1.09,
+            "avg_spread": 5.18,
+            "avg_win_spread": 14.32,
+            "avg_loss_spread": 13.1
+          },
+          "ours": {
+            "n_hours_with_pos": 4,
+            "n_short_hours": 3,
+            "n_long_hours": 1,
+            "short_mwh_sum": 147.6,
+            "long_mwh_sum": 49.9,
+            "short_mwh_avg": 49.2,
+            "long_mwh_avg": 49.9,
+            "participation": 0.667,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 36.9,
+            "avg_long_mwh": 12.5,
+            "total_pnl_usd": 1602.0,
+            "avg_pnl_per_hr": 400.6,
+            "share_short_hours": 0.75
+          }
+        },
+        "19": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.333,
+            "short_pl_ratio": 0.76,
+            "avg_spread": -8.13,
+            "avg_win_spread": 15.07,
+            "avg_loss_spread": 19.74
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 1,
+            "n_long_hours": 0,
+            "short_mwh_sum": 46.7,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 46.7,
+            "long_mwh_avg": null,
+            "participation": 0.167,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 46.7,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": -2518.0,
+            "avg_pnl_per_hr": -2518.0,
+            "share_short_hours": 1.0
+          }
+        },
+        "20": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.667,
+            "short_pl_ratio": 1.43,
+            "avg_spread": 6.62,
+            "avg_win_spread": 15.26,
+            "avg_loss_spread": 10.64
+          },
+          "ours": {
+            "n_hours_with_pos": 3,
+            "n_short_hours": 1,
+            "n_long_hours": 2,
+            "short_mwh_sum": 36.7,
+            "long_mwh_sum": 99.7,
+            "short_mwh_avg": 36.7,
+            "long_mwh_avg": 49.9,
+            "participation": 0.5,
+            "winrate": 0.667,
+            "pl_ratio": 0.25,
+            "avg_short_mwh": 12.2,
+            "avg_long_mwh": 33.2,
+            "total_pnl_usd": -782.0,
+            "avg_pnl_per_hr": -260.5,
+            "share_short_hours": 0.333
+          }
+        },
+        "21": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 1.41,
+            "avg_spread": 2.3,
+            "avg_win_spread": 15.87,
+            "avg_loss_spread": 11.27
+          },
+          "ours": {
+            "n_hours_with_pos": 3,
+            "n_short_hours": 0,
+            "n_long_hours": 3,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 150.0,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 50.0,
+            "participation": 0.5,
+            "winrate": 0.333,
+            "pl_ratio": 1.12,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 50.0,
+            "total_pnl_usd": -901.0,
+            "avg_pnl_per_hr": -300.3,
+            "share_short_hours": 0.0
+          }
+        },
+        "22": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.833,
+            "short_pl_ratio": 0.08,
+            "avg_spread": -9.87,
+            "avg_win_spread": 7.48,
+            "avg_loss_spread": 96.65
+          },
+          "ours": {
+            "n_hours_with_pos": 4,
+            "n_short_hours": 2,
+            "n_long_hours": 2,
+            "short_mwh_sum": 62.4,
+            "long_mwh_sum": 78.0,
+            "short_mwh_avg": 31.2,
+            "long_mwh_avg": 39.0,
+            "participation": 0.667,
+            "winrate": 0.75,
+            "pl_ratio": 6.01,
+            "avg_short_mwh": 15.6,
+            "avg_long_mwh": 19.5,
+            "total_pnl_usd": 2663.0,
+            "avg_pnl_per_hr": 665.7,
+            "share_short_hours": 0.5
+          }
+        },
+        "23": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 0.16,
+            "avg_spread": -36.31,
+            "avg_win_spread": 13.65,
+            "avg_loss_spread": 86.26
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 49.9,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 49.9,
+            "participation": 0.167,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 49.9,
+            "total_pnl_usd": -699.0,
+            "avg_pnl_per_hr": -698.8,
+            "share_short_hours": 0.0
+          }
+        },
+        "24": {
+          "market": {
+            "n_hours": 6,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 0.05,
+            "avg_spread": -40.05,
+            "avg_win_spread": 4.59,
+            "avg_loss_spread": 84.69
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 49.9,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 49.9,
+            "participation": 0.167,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 49.9,
+            "total_pnl_usd": -428.0,
+            "avg_pnl_per_hr": -428.1,
+            "share_short_hours": 0.0
+          }
+        }
+      },
+      "by_block": {
+        "HE1-6 overnight": {
+          "market": {
+            "n_hours": 36,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 0.7,
+            "avg_spread": -0.33,
+            "avg_win_spread": 1.58,
+            "avg_loss_spread": 2.25
+          },
+          "ours": {
+            "n_hours_with_pos": 6,
+            "n_short_hours": 3,
+            "n_long_hours": 3,
+            "short_mwh_sum": 150.0,
+            "long_mwh_sum": 149.6,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": 49.9,
+            "participation": 0.167,
+            "winrate": 0.833,
+            "pl_ratio": 0.26,
+            "avg_short_mwh": 25.0,
+            "avg_long_mwh": 24.9,
+            "total_pnl_usd": 129.0,
+            "avg_pnl_per_hr": 21.5,
+            "share_short_hours": 0.5
+          }
+        },
+        "HE7-14 solar": {
+          "market": {
+            "n_hours": 48,
+            "short_winrate": 0.458,
+            "short_pl_ratio": 0.76,
+            "avg_spread": -1.01,
+            "avg_win_spread": 3.91,
+            "avg_loss_spread": 5.17
+          },
+          "ours": {
+            "n_hours_with_pos": 11,
+            "n_short_hours": 3,
+            "n_long_hours": 8,
+            "short_mwh_sum": 130.0,
+            "long_mwh_sum": 228.7,
+            "short_mwh_avg": 43.3,
+            "long_mwh_avg": 28.6,
+            "participation": 0.229,
+            "winrate": 0.455,
+            "pl_ratio": 1.31,
+            "avg_short_mwh": 11.8,
+            "avg_long_mwh": 20.8,
+            "total_pnl_usd": 72.0,
+            "avg_pnl_per_hr": 6.6,
+            "share_short_hours": 0.273
+          }
+        },
+        "HE15-17 ramp": {
+          "market": {
+            "n_hours": 18,
+            "short_winrate": 0.556,
+            "short_pl_ratio": 1.17,
+            "avg_spread": 2.81,
+            "avg_win_spread": 15.92,
+            "avg_loss_spread": 13.57
+          },
+          "ours": {
+            "n_hours_with_pos": 6,
+            "n_short_hours": 6,
+            "n_long_hours": 0,
+            "short_mwh_sum": 300.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": null,
+            "participation": 0.333,
+            "winrate": 0.667,
+            "pl_ratio": 4.09,
+            "avg_short_mwh": 50.0,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": 2329.0,
+            "avg_pnl_per_hr": 388.2,
+            "share_short_hours": 1.0
+          }
+        },
+        "HE18-22 evening": {
+          "market": {
+            "n_hours": 30,
+            "short_winrate": 0.6,
+            "short_pl_ratio": 0.61,
+            "avg_spread": -0.78,
+            "avg_win_spread": 12.97,
+            "avg_loss_spread": 21.41
+          },
+          "ours": {
+            "n_hours_with_pos": 15,
+            "n_short_hours": 7,
+            "n_long_hours": 8,
+            "short_mwh_sum": 293.4,
+            "long_mwh_sum": 377.6,
+            "short_mwh_avg": 41.9,
+            "long_mwh_avg": 47.2,
+            "participation": 0.5,
+            "winrate": 0.667,
+            "pl_ratio": 0.51,
+            "avg_short_mwh": 19.6,
+            "avg_long_mwh": 25.2,
+            "total_pnl_usd": 65.0,
+            "avg_pnl_per_hr": 4.3,
+            "share_short_hours": 0.467
+          }
+        },
+        "HE23-24 late": {
+          "market": {
+            "n_hours": 12,
+            "short_winrate": 0.5,
+            "short_pl_ratio": 0.11,
+            "avg_spread": -38.18,
+            "avg_win_spread": 9.12,
+            "avg_loss_spread": 85.47
+          },
+          "ours": {
+            "n_hours_with_pos": 2,
+            "n_short_hours": 0,
+            "n_long_hours": 2,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 99.9,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 49.9,
+            "participation": 0.167,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 49.9,
+            "total_pnl_usd": -1127.0,
+            "avg_pnl_per_hr": -563.5,
+            "share_short_hours": 0.0
+          }
+        }
+      }
+    }
+  },
+  "regimes_realized": {
+    "scarcity_bearish_rlz": {
+      "n_days": 7,
+      "overall": {
+        "market": {
+          "n_hours": 168,
+          "short_winrate": 0.607,
+          "short_pl_ratio": 0.3,
+          "avg_spread": -3.4,
+          "avg_win_spread": 4.91,
+          "avg_loss_spread": 16.24
+        },
+        "ours": {
+          "n_hours_with_pos": 56,
+          "n_short_hours": 14,
+          "n_long_hours": 42,
+          "short_mwh_sum": 601.8,
+          "long_mwh_sum": 2019.0,
+          "short_mwh_avg": 43.0,
+          "long_mwh_avg": 48.1,
+          "participation": 0.333,
+          "winrate": 0.429,
+          "pl_ratio": 0.61,
+          "avg_short_mwh": 10.7,
+          "avg_long_mwh": 36.1,
+          "total_pnl_usd": -8142.0,
+          "avg_pnl_per_hr": -145.4,
+          "share_short_hours": 0.25
+        }
+      },
+      "by_he": {
+        "1": {
+          "market": {
+            "n_hours": 7,
+            "short_winrate": 0.571,
+            "short_pl_ratio": 0.11,
+            "avg_spread": -7.01,
+            "avg_win_spread": 2.19,
+            "avg_loss_spread": 19.27
+          },
+          "ours": {
+            "n_hours_with_pos": 2,
+            "n_short_hours": 2,
+            "n_long_hours": 0,
+            "short_mwh_sum": 98.8,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 49.4,
+            "long_mwh_avg": null,
+            "participation": 0.286,
+            "winrate": 0.5,
+            "pl_ratio": 0.01,
+            "avg_short_mwh": 49.4,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": -2241.0,
+            "avg_pnl_per_hr": -1120.4,
+            "share_short_hours": 1.0
+          }
+        },
+        "2": {
+          "market": {
+            "n_hours": 7,
+            "short_winrate": 0.714,
+            "short_pl_ratio": 0.07,
+            "avg_spread": -5.08,
+            "avg_win_spread": 1.54,
+            "avg_loss_spread": 21.62
+          },
+          "ours": {
+            "n_hours_with_pos": 0,
+            "n_short_hours": 0,
+            "n_long_hours": 0,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": null,
+            "long_mwh_avg": null,
+            "participation": 0.0,
+            "winrate": null,
+            "pl_ratio": null,
+            "avg_short_mwh": null,
+            "avg_long_mwh": null,
+            "total_pnl_usd": 0,
+            "avg_pnl_per_hr": null,
+            "share_short_hours": null
+          }
+        },
+        "3": {
+          "market": {
+            "n_hours": 7,
+            "short_winrate": 0.571,
+            "short_pl_ratio": 0.18,
+            "avg_spread": -2.7,
+            "avg_win_spread": 1.45,
+            "avg_loss_spread": 8.23
+          },
+          "ours": {
+            "n_hours_with_pos": 0,
+            "n_short_hours": 0,
+            "n_long_hours": 0,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": null,
+            "long_mwh_avg": null,
+            "participation": 0.0,
+            "winrate": null,
+            "pl_ratio": null,
+            "avg_short_mwh": null,
+            "avg_long_mwh": null,
+            "total_pnl_usd": 0,
+            "avg_pnl_per_hr": null,
+            "share_short_hours": null
+          }
+        },
+        "4": {
+          "market": {
+            "n_hours": 7,
+            "short_winrate": 0.571,
+            "short_pl_ratio": 0.28,
+            "avg_spread": -1.77,
+            "avg_win_spread": 1.83,
+            "avg_loss_spread": 6.57
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 1,
+            "n_long_hours": 0,
+            "short_mwh_sum": 50.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": null,
+            "participation": 0.143,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 50.0,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": 60.0,
+            "avg_pnl_per_hr": 60.3,
+            "share_short_hours": 1.0
+          }
+        },
+        "5": {
+          "market": {
+            "n_hours": 7,
+            "short_winrate": 0.714,
+            "short_pl_ratio": 0.64,
+            "avg_spread": 0.73,
+            "avg_win_spread": 2.71,
+            "avg_loss_spread": 4.24
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 49.8,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 49.8,
+            "participation": 0.143,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 49.8,
+            "total_pnl_usd": 364.0,
+            "avg_pnl_per_hr": 364.0,
+            "share_short_hours": 0.0
+          }
+        },
+        "6": {
+          "market": {
+            "n_hours": 7,
+            "short_winrate": 0.571,
+            "short_pl_ratio": 0.84,
+            "avg_spread": 0.21,
+            "avg_win_spread": 3.55,
+            "avg_loss_spread": 4.25
+          },
+          "ours": {
+            "n_hours_with_pos": 0,
+            "n_short_hours": 0,
+            "n_long_hours": 0,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": null,
+            "long_mwh_avg": null,
+            "participation": 0.0,
+            "winrate": null,
+            "pl_ratio": null,
+            "avg_short_mwh": null,
+            "avg_long_mwh": null,
+            "total_pnl_usd": 0,
+            "avg_pnl_per_hr": null,
+            "share_short_hours": null
+          }
+        },
+        "7": {
+          "market": {
+            "n_hours": 7,
+            "short_winrate": 0.714,
+            "short_pl_ratio": 0.45,
+            "avg_spread": 0.29,
+            "avg_win_spread": 3.73,
+            "avg_loss_spread": 8.31
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 49.9,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 49.9,
+            "participation": 0.143,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 49.9,
+            "total_pnl_usd": -107.0,
+            "avg_pnl_per_hr": -107.1,
+            "share_short_hours": 0.0
+          }
+        },
+        "8": {
+          "market": {
+            "n_hours": 7,
+            "short_winrate": 0.714,
+            "short_pl_ratio": 0.86,
+            "avg_spread": 1.12,
+            "avg_win_spread": 2.95,
+            "avg_loss_spread": 3.43
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 49.9,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 49.9,
+            "participation": 0.143,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 49.9,
+            "total_pnl_usd": -114.0,
+            "avg_pnl_per_hr": -114.2,
+            "share_short_hours": 0.0
+          }
+        },
+        "9": {
+          "market": {
+            "n_hours": 7,
+            "short_winrate": 0.571,
+            "short_pl_ratio": 1.03,
+            "avg_spread": 0.48,
+            "avg_win_spread": 3.1,
+            "avg_loss_spread": 3.01
+          },
+          "ours": {
+            "n_hours_with_pos": 0,
+            "n_short_hours": 0,
+            "n_long_hours": 0,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": null,
+            "long_mwh_avg": null,
+            "participation": 0.0,
+            "winrate": null,
+            "pl_ratio": null,
+            "avg_short_mwh": null,
+            "avg_long_mwh": null,
+            "total_pnl_usd": 0,
+            "avg_pnl_per_hr": null,
+            "share_short_hours": null
+          }
+        },
+        "10": {
+          "market": {
+            "n_hours": 7,
+            "short_winrate": 0.571,
+            "short_pl_ratio": 0.4,
+            "avg_spread": -0.65,
+            "avg_win_spread": 1.31,
+            "avg_loss_spread": 3.27
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 30.4,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 30.4,
+            "participation": 0.143,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 30.4,
+            "total_pnl_usd": 196.0,
+            "avg_pnl_per_hr": 195.7,
+            "share_short_hours": 0.0
+          }
+        },
+        "11": {
+          "market": {
+            "n_hours": 7,
+            "short_winrate": 0.714,
+            "short_pl_ratio": 0.66,
+            "avg_spread": 0.42,
+            "avg_win_spread": 1.51,
+            "avg_loss_spread": 2.29
+          },
+          "ours": {
+            "n_hours_with_pos": 2,
+            "n_short_hours": 0,
+            "n_long_hours": 2,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 30.6,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 15.3,
+            "participation": 0.286,
+            "winrate": 0.5,
+            "pl_ratio": 8.68,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 15.3,
+            "total_pnl_usd": 87.0,
+            "avg_pnl_per_hr": 43.6,
+            "share_short_hours": 0.0
+          }
+        },
+        "12": {
+          "market": {
+            "n_hours": 7,
+            "short_winrate": 0.857,
+            "short_pl_ratio": 4.19,
+            "avg_spread": 1.93,
+            "avg_win_spread": 2.35,
+            "avg_loss_spread": 0.56
+          },
+          "ours": {
+            "n_hours_with_pos": 3,
+            "n_short_hours": 0,
+            "n_long_hours": 3,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 116.6,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 38.9,
+            "participation": 0.429,
+            "winrate": 0.333,
+            "pl_ratio": 0.91,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 38.9,
+            "total_pnl_usd": -35.0,
+            "avg_pnl_per_hr": -11.6,
+            "share_short_hours": 0.0
+          }
+        },
+        "13": {
+          "market": {
+            "n_hours": 7,
+            "short_winrate": 0.571,
+            "short_pl_ratio": 1.44,
+            "avg_spread": 1.24,
+            "avg_win_spread": 4.5,
+            "avg_loss_spread": 3.11
+          },
+          "ours": {
+            "n_hours_with_pos": 2,
+            "n_short_hours": 0,
+            "n_long_hours": 2,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 96.0,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 48.0,
+            "participation": 0.286,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 48.0,
+            "total_pnl_usd": -309.0,
+            "avg_pnl_per_hr": -154.7,
+            "share_short_hours": 0.0
+          }
+        },
+        "14": {
+          "market": {
+            "n_hours": 7,
+            "short_winrate": 0.429,
+            "short_pl_ratio": 0.74,
+            "avg_spread": -1.63,
+            "avg_win_spread": 4.73,
+            "avg_loss_spread": 6.39
+          },
+          "ours": {
+            "n_hours_with_pos": 4,
+            "n_short_hours": 1,
+            "n_long_hours": 3,
+            "short_mwh_sum": 30.0,
+            "long_mwh_sum": 149.5,
+            "short_mwh_avg": 30.0,
+            "long_mwh_avg": 49.8,
+            "participation": 0.571,
+            "winrate": 0.5,
+            "pl_ratio": 2.3,
+            "avg_short_mwh": 7.5,
+            "avg_long_mwh": 37.4,
+            "total_pnl_usd": 521.0,
+            "avg_pnl_per_hr": 130.1,
+            "share_short_hours": 0.25
+          }
+        },
+        "15": {
+          "market": {
+            "n_hours": 7,
+            "short_winrate": 0.429,
+            "short_pl_ratio": 1.12,
+            "avg_spread": -0.27,
+            "avg_win_spread": 3.25,
+            "avg_loss_spread": 2.91
+          },
+          "ours": {
+            "n_hours_with_pos": 3,
+            "n_short_hours": 1,
+            "n_long_hours": 2,
+            "short_mwh_sum": 50.0,
+            "long_mwh_sum": 99.5,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": 49.8,
+            "participation": 0.429,
+            "winrate": 0.333,
+            "pl_ratio": 2.46,
+            "avg_short_mwh": 16.7,
+            "avg_long_mwh": 33.2,
+            "total_pnl_usd": 33.0,
+            "avg_pnl_per_hr": 11.0,
+            "share_short_hours": 0.333
+          }
+        },
+        "16": {
+          "market": {
+            "n_hours": 7,
+            "short_winrate": 0.429,
+            "short_pl_ratio": 2.31,
+            "avg_spread": 1.14,
+            "avg_win_spread": 6.3,
+            "avg_loss_spread": 2.73
+          },
+          "ours": {
+            "n_hours_with_pos": 2,
+            "n_short_hours": 1,
+            "n_long_hours": 1,
+            "short_mwh_sum": 50.0,
+            "long_mwh_sum": 49.7,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": 49.7,
+            "participation": 0.286,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 25.0,
+            "avg_long_mwh": 24.8,
+            "total_pnl_usd": -333.0,
+            "avg_pnl_per_hr": -166.6,
+            "share_short_hours": 0.5
+          }
+        },
+        "17": {
+          "market": {
+            "n_hours": 7,
+            "short_winrate": 0.714,
+            "short_pl_ratio": 3.43,
+            "avg_spread": 2.86,
+            "avg_win_spread": 4.53,
+            "avg_loss_spread": 1.32
+          },
+          "ours": {
+            "n_hours_with_pos": 4,
+            "n_short_hours": 2,
+            "n_long_hours": 2,
+            "short_mwh_sum": 95.4,
+            "long_mwh_sum": 99.5,
+            "short_mwh_avg": 47.7,
+            "long_mwh_avg": 49.7,
+            "participation": 0.571,
+            "winrate": 0.75,
+            "pl_ratio": 0.12,
+            "avg_short_mwh": 23.9,
+            "avg_long_mwh": 24.9,
+            "total_pnl_usd": -323.0,
+            "avg_pnl_per_hr": -80.6,
+            "share_short_hours": 0.5
+          }
+        },
+        "18": {
+          "market": {
+            "n_hours": 7,
+            "short_winrate": 0.571,
+            "short_pl_ratio": 0.5,
+            "avg_spread": -1.31,
+            "avg_win_spread": 4.65,
+            "avg_loss_spread": 9.26
+          },
+          "ours": {
+            "n_hours_with_pos": 5,
+            "n_short_hours": 1,
+            "n_long_hours": 4,
+            "short_mwh_sum": 50.1,
+            "long_mwh_sum": 199.2,
+            "short_mwh_avg": 50.1,
+            "long_mwh_avg": 49.8,
+            "participation": 0.714,
+            "winrate": 0.4,
+            "pl_ratio": 0.08,
+            "avg_short_mwh": 10.0,
+            "avg_long_mwh": 39.8,
+            "total_pnl_usd": -833.0,
+            "avg_pnl_per_hr": -166.5,
+            "share_short_hours": 0.2
+          }
+        },
+        "19": {
+          "market": {
+            "n_hours": 7,
+            "short_winrate": 0.429,
+            "short_pl_ratio": 1.22,
+            "avg_spread": -0.45,
+            "avg_win_spread": 11.67,
+            "avg_loss_spread": 9.54
+          },
+          "ours": {
+            "n_hours_with_pos": 5,
+            "n_short_hours": 2,
+            "n_long_hours": 3,
+            "short_mwh_sum": 81.4,
+            "long_mwh_sum": 149.4,
+            "short_mwh_avg": 40.7,
+            "long_mwh_avg": 49.8,
+            "participation": 0.714,
+            "winrate": 0.4,
+            "pl_ratio": 0.32,
+            "avg_short_mwh": 16.3,
+            "avg_long_mwh": 29.9,
+            "total_pnl_usd": -1513.0,
+            "avg_pnl_per_hr": -302.7,
+            "share_short_hours": 0.4
+          }
+        },
+        "20": {
+          "market": {
+            "n_hours": 7,
+            "short_winrate": 0.571,
+            "short_pl_ratio": 0.29,
+            "avg_spread": -10.92,
+            "avg_win_spread": 12.29,
+            "avg_loss_spread": 41.86
+          },
+          "ours": {
+            "n_hours_with_pos": 5,
+            "n_short_hours": 1,
+            "n_long_hours": 4,
+            "short_mwh_sum": 36.7,
+            "long_mwh_sum": 199.6,
+            "short_mwh_avg": 36.7,
+            "long_mwh_avg": 49.9,
+            "participation": 0.714,
+            "winrate": 0.6,
+            "pl_ratio": 0.67,
+            "avg_short_mwh": 7.3,
+            "avg_long_mwh": 39.9,
+            "total_pnl_usd": -1.0,
+            "avg_pnl_per_hr": -0.3,
+            "share_short_hours": 0.2
+          }
+        },
+        "21": {
+          "market": {
+            "n_hours": 7,
+            "short_winrate": 0.429,
+            "short_pl_ratio": 0.16,
+            "avg_spread": -30.74,
+            "avg_win_spread": 10.0,
+            "avg_loss_spread": 61.29
+          },
+          "ours": {
+            "n_hours_with_pos": 5,
+            "n_short_hours": 0,
+            "n_long_hours": 5,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 249.9,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 50.0,
+            "participation": 0.714,
+            "winrate": 0.6,
+            "pl_ratio": 2.82,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 50.0,
+            "total_pnl_usd": 1819.0,
+            "avg_pnl_per_hr": 363.7,
+            "share_short_hours": 0.0
+          }
+        },
+        "22": {
+          "market": {
+            "n_hours": 7,
+            "short_winrate": 0.714,
+            "short_pl_ratio": 0.09,
+            "avg_spread": -30.81,
+            "avg_win_spread": 12.06,
+            "avg_loss_spread": 137.99
+          },
+          "ours": {
+            "n_hours_with_pos": 5,
+            "n_short_hours": 1,
+            "n_long_hours": 4,
+            "short_mwh_sum": 19.8,
+            "long_mwh_sum": 225.0,
+            "short_mwh_avg": 19.8,
+            "long_mwh_avg": 56.2,
+            "participation": 0.714,
+            "winrate": 0.4,
+            "pl_ratio": 0.48,
+            "avg_short_mwh": 4.0,
+            "avg_long_mwh": 45.0,
+            "total_pnl_usd": -1567.0,
+            "avg_pnl_per_hr": -313.4,
+            "share_short_hours": 0.2
+          }
+        },
+        "23": {
+          "market": {
+            "n_hours": 7,
+            "short_winrate": 0.714,
+            "short_pl_ratio": 0.47,
+            "avg_spread": 1.49,
+            "avg_win_spread": 14.64,
+            "avg_loss_spread": 31.39
+          },
+          "ours": {
+            "n_hours_with_pos": 3,
+            "n_short_hours": 1,
+            "n_long_hours": 2,
+            "short_mwh_sum": 39.5,
+            "long_mwh_sum": 125.0,
+            "short_mwh_avg": 39.5,
+            "long_mwh_avg": 62.5,
+            "participation": 0.429,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 13.2,
+            "avg_long_mwh": 41.7,
+            "total_pnl_usd": -3430.0,
+            "avg_pnl_per_hr": -1143.4,
+            "share_short_hours": 0.333
+          }
+        },
+        "24": {
+          "market": {
+            "n_hours": 7,
+            "short_winrate": 0.714,
+            "short_pl_ratio": 0.38,
+            "avg_spread": -0.2,
+            "avg_win_spread": 4.21,
+            "avg_loss_spread": 11.23
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 49.5,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 49.5,
+            "participation": 0.143,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 49.5,
+            "total_pnl_usd": -415.0,
+            "avg_pnl_per_hr": -415.3,
+            "share_short_hours": 0.0
+          }
+        }
+      },
+      "by_block": {
+        "HE1-6 overnight": {
+          "market": {
+            "n_hours": 42,
+            "short_winrate": 0.619,
+            "short_pl_ratio": 0.21,
+            "avg_spread": -2.6,
+            "avg_win_spread": 2.21,
+            "avg_loss_spread": 10.42
+          },
+          "ours": {
+            "n_hours_with_pos": 4,
+            "n_short_hours": 3,
+            "n_long_hours": 1,
+            "short_mwh_sum": 148.8,
+            "long_mwh_sum": 49.8,
+            "short_mwh_avg": 49.6,
+            "long_mwh_avg": 49.8,
+            "participation": 0.095,
+            "winrate": 0.75,
+            "pl_ratio": 0.07,
+            "avg_short_mwh": 37.2,
+            "avg_long_mwh": 12.4,
+            "total_pnl_usd": -1817.0,
+            "avg_pnl_per_hr": -454.1,
+            "share_short_hours": 0.75
+          }
+        },
+        "HE7-14 solar": {
+          "market": {
+            "n_hours": 56,
+            "short_winrate": 0.643,
+            "short_pl_ratio": 0.71,
+            "avg_spread": 0.4,
+            "avg_win_spread": 2.91,
+            "avg_loss_spread": 4.12
+          },
+          "ours": {
+            "n_hours_with_pos": 14,
+            "n_short_hours": 1,
+            "n_long_hours": 13,
+            "short_mwh_sum": 30.0,
+            "long_mwh_sum": 522.9,
+            "short_mwh_avg": 30.0,
+            "long_mwh_avg": 40.2,
+            "participation": 0.25,
+            "winrate": 0.357,
+            "pl_ratio": 2.23,
+            "avg_short_mwh": 2.1,
+            "avg_long_mwh": 37.4,
+            "total_pnl_usd": 238.0,
+            "avg_pnl_per_hr": 17.0,
+            "share_short_hours": 0.071
+          }
+        },
+        "HE15-17 ramp": {
+          "market": {
+            "n_hours": 21,
+            "short_winrate": 0.524,
+            "short_pl_ratio": 1.85,
+            "avg_spread": 1.24,
+            "avg_win_spread": 4.67,
+            "avg_loss_spread": 2.52
+          },
+          "ours": {
+            "n_hours_with_pos": 9,
+            "n_short_hours": 4,
+            "n_long_hours": 5,
+            "short_mwh_sum": 195.4,
+            "long_mwh_sum": 248.7,
+            "short_mwh_avg": 48.9,
+            "long_mwh_avg": 49.7,
+            "participation": 0.429,
+            "winrate": 0.444,
+            "pl_ratio": 0.46,
+            "avg_short_mwh": 21.7,
+            "avg_long_mwh": 27.6,
+            "total_pnl_usd": -623.0,
+            "avg_pnl_per_hr": -69.2,
+            "share_short_hours": 0.444
+          }
+        },
+        "HE18-22 evening": {
+          "market": {
+            "n_hours": 35,
+            "short_winrate": 0.543,
+            "short_pl_ratio": 0.23,
+            "avg_spread": -14.85,
+            "avg_win_spread": 10.16,
+            "avg_loss_spread": 44.54
+          },
+          "ours": {
+            "n_hours_with_pos": 25,
+            "n_short_hours": 5,
+            "n_long_hours": 20,
+            "short_mwh_sum": 188.0,
+            "long_mwh_sum": 1023.1,
+            "short_mwh_avg": 37.6,
+            "long_mwh_avg": 51.2,
+            "participation": 0.714,
+            "winrate": 0.48,
+            "pl_ratio": 0.76,
+            "avg_short_mwh": 7.5,
+            "avg_long_mwh": 40.9,
+            "total_pnl_usd": -2096.0,
+            "avg_pnl_per_hr": -83.8,
+            "share_short_hours": 0.2
+          }
+        },
+        "HE23-24 late": {
+          "market": {
+            "n_hours": 14,
+            "short_winrate": 0.714,
+            "short_pl_ratio": 0.44,
+            "avg_spread": 0.65,
+            "avg_win_spread": 9.43,
+            "avg_loss_spread": 21.31
+          },
+          "ours": {
+            "n_hours_with_pos": 4,
+            "n_short_hours": 1,
+            "n_long_hours": 3,
+            "short_mwh_sum": 39.5,
+            "long_mwh_sum": 174.5,
+            "short_mwh_avg": 39.5,
+            "long_mwh_avg": 58.2,
+            "participation": 0.286,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 9.9,
+            "avg_long_mwh": 43.6,
+            "total_pnl_usd": -3846.0,
+            "avg_pnl_per_hr": -961.4,
+            "share_short_hours": 0.25
+          }
+        }
+      }
+    },
+    "scarcity_lambda_rlz": {
+      "n_days": 5,
+      "overall": {
+        "market": {
+          "n_hours": 120,
+          "short_winrate": 0.458,
+          "short_pl_ratio": 0.69,
+          "avg_spread": -3.23,
+          "avg_win_spread": 9.73,
+          "avg_loss_spread": 14.19
+        },
+        "ours": {
+          "n_hours_with_pos": 37,
+          "n_short_hours": 19,
+          "n_long_hours": 18,
+          "short_mwh_sum": 820.0,
+          "long_mwh_sum": 706.2,
+          "short_mwh_avg": 43.2,
+          "long_mwh_avg": 39.2,
+          "participation": 0.308,
+          "winrate": 0.595,
+          "pl_ratio": 0.64,
+          "avg_short_mwh": 22.2,
+          "avg_long_mwh": 19.1,
+          "total_pnl_usd": -543.0,
+          "avg_pnl_per_hr": -14.7,
+          "share_short_hours": 0.514
+        }
+      },
+      "by_he": {
+        "1": {
+          "market": {
+            "n_hours": 5,
+            "short_winrate": 0.4,
+            "short_pl_ratio": 0.48,
+            "avg_spread": -0.72,
+            "avg_win_spread": 0.86,
+            "avg_loss_spread": 1.78
+          },
+          "ours": {
+            "n_hours_with_pos": 2,
+            "n_short_hours": 2,
+            "n_long_hours": 0,
+            "short_mwh_sum": 82.9,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 41.5,
+            "long_mwh_avg": null,
+            "participation": 0.4,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 41.5,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": 71.0,
+            "avg_pnl_per_hr": 35.3,
+            "share_short_hours": 1.0
+          }
+        },
+        "2": {
+          "market": {
+            "n_hours": 5,
+            "short_winrate": 0.4,
+            "short_pl_ratio": 1.35,
+            "avg_spread": -0.09,
+            "avg_win_spread": 1.97,
+            "avg_loss_spread": 1.47
+          },
+          "ours": {
+            "n_hours_with_pos": 0,
+            "n_short_hours": 0,
+            "n_long_hours": 0,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": null,
+            "long_mwh_avg": null,
+            "participation": 0.0,
+            "winrate": null,
+            "pl_ratio": null,
+            "avg_short_mwh": null,
+            "avg_long_mwh": null,
+            "total_pnl_usd": 0,
+            "avg_pnl_per_hr": null,
+            "share_short_hours": null
+          }
+        },
+        "3": {
+          "market": {
+            "n_hours": 5,
+            "short_winrate": 0.4,
+            "short_pl_ratio": 0.67,
+            "avg_spread": -0.94,
+            "avg_win_spread": 1.88,
+            "avg_loss_spread": 2.82
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 49.8,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 49.8,
+            "participation": 0.2,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 49.8,
+            "total_pnl_usd": 119.0,
+            "avg_pnl_per_hr": 118.9,
+            "share_short_hours": 0.0
+          }
+        },
+        "4": {
+          "market": {
+            "n_hours": 5,
+            "short_winrate": 0.6,
+            "short_pl_ratio": 0.36,
+            "avg_spread": -0.64,
+            "avg_win_spread": 1.29,
+            "avg_loss_spread": 3.55
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 49.9,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 49.9,
+            "participation": 0.2,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 49.9,
+            "total_pnl_usd": 240.0,
+            "avg_pnl_per_hr": 240.3,
+            "share_short_hours": 0.0
+          }
+        },
+        "5": {
+          "market": {
+            "n_hours": 5,
+            "short_winrate": 0.0,
+            "short_pl_ratio": null,
+            "avg_spread": -2.79,
+            "avg_win_spread": null,
+            "avg_loss_spread": 2.79
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 49.9,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 49.9,
+            "participation": 0.2,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 49.9,
+            "total_pnl_usd": 102.0,
+            "avg_pnl_per_hr": 102.1,
+            "share_short_hours": 0.0
+          }
+        },
+        "6": {
+          "market": {
+            "n_hours": 5,
+            "short_winrate": 0.2,
+            "short_pl_ratio": 0.21,
+            "avg_spread": -2.89,
+            "avg_win_spread": 0.79,
+            "avg_loss_spread": 3.81
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 1,
+            "n_long_hours": 0,
+            "short_mwh_sum": 50.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": null,
+            "participation": 0.2,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 50.0,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": -401.0,
+            "avg_pnl_per_hr": -400.6,
+            "share_short_hours": 1.0
+          }
+        },
+        "7": {
+          "market": {
+            "n_hours": 5,
+            "short_winrate": 0.4,
+            "short_pl_ratio": 1.2,
+            "avg_spread": -0.3,
+            "avg_win_spread": 2.91,
+            "avg_loss_spread": 2.44
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 1,
+            "n_long_hours": 0,
+            "short_mwh_sum": 50.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": null,
+            "participation": 0.2,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 50.0,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": -95.0,
+            "avg_pnl_per_hr": -94.8,
+            "share_short_hours": 1.0
+          }
+        },
+        "8": {
+          "market": {
+            "n_hours": 5,
+            "short_winrate": 0.2,
+            "short_pl_ratio": 0.64,
+            "avg_spread": -2.3,
+            "avg_win_spread": 2.19,
+            "avg_loss_spread": 3.42
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 1,
+            "n_long_hours": 0,
+            "short_mwh_sum": 50.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": null,
+            "participation": 0.2,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 50.0,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": -200.0,
+            "avg_pnl_per_hr": -200.1,
+            "share_short_hours": 1.0
+          }
+        },
+        "9": {
+          "market": {
+            "n_hours": 5,
+            "short_winrate": 0.0,
+            "short_pl_ratio": null,
+            "avg_spread": -1.66,
+            "avg_win_spread": null,
+            "avg_loss_spread": 1.66
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 1.4,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 1.4,
+            "participation": 0.2,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 1.4,
+            "total_pnl_usd": 3.0,
+            "avg_pnl_per_hr": 3.1,
+            "share_short_hours": 0.0
+          }
+        },
+        "10": {
+          "market": {
+            "n_hours": 5,
+            "short_winrate": 0.2,
+            "short_pl_ratio": 0.05,
+            "avg_spread": -3.19,
+            "avg_win_spread": 0.22,
+            "avg_loss_spread": 4.04
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 2.1,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 2.1,
+            "participation": 0.2,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 2.1,
+            "total_pnl_usd": -0.0,
+            "avg_pnl_per_hr": -0.5,
+            "share_short_hours": 0.0
+          }
+        },
+        "11": {
+          "market": {
+            "n_hours": 5,
+            "short_winrate": 0.2,
+            "short_pl_ratio": 0.8,
+            "avg_spread": -2.41,
+            "avg_win_spread": 3.03,
+            "avg_loss_spread": 3.77
+          },
+          "ours": {
+            "n_hours_with_pos": 2,
+            "n_short_hours": 0,
+            "n_long_hours": 2,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 37.6,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 18.8,
+            "participation": 0.4,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 18.8,
+            "total_pnl_usd": 122.0,
+            "avg_pnl_per_hr": 61.2,
+            "share_short_hours": 0.0
+          }
+        },
+        "12": {
+          "market": {
+            "n_hours": 5,
+            "short_winrate": 0.6,
+            "short_pl_ratio": 0.77,
+            "avg_spread": 0.17,
+            "avg_win_spread": 2.13,
+            "avg_loss_spread": 2.77
+          },
+          "ours": {
+            "n_hours_with_pos": 4,
+            "n_short_hours": 1,
+            "n_long_hours": 3,
+            "short_mwh_sum": 50.0,
+            "long_mwh_sum": 137.7,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": 45.9,
+            "participation": 0.8,
+            "winrate": 0.25,
+            "pl_ratio": 1.12,
+            "avg_short_mwh": 12.5,
+            "avg_long_mwh": 34.4,
+            "total_pnl_usd": -249.0,
+            "avg_pnl_per_hr": -62.1,
+            "share_short_hours": 0.25
+          }
+        },
+        "13": {
+          "market": {
+            "n_hours": 5,
+            "short_winrate": 0.4,
+            "short_pl_ratio": 1.18,
+            "avg_spread": -0.77,
+            "avg_win_spread": 7.03,
+            "avg_loss_spread": 5.97
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 1,
+            "n_long_hours": 0,
+            "short_mwh_sum": 50.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 50.0,
+            "long_mwh_avg": null,
+            "participation": 0.2,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 50.0,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": -183.0,
+            "avg_pnl_per_hr": -183.0,
+            "share_short_hours": 1.0
+          }
+        },
+        "14": {
+          "market": {
+            "n_hours": 5,
+            "short_winrate": 0.4,
+            "short_pl_ratio": 0.92,
+            "avg_spread": -3.38,
+            "avg_win_spread": 13.33,
+            "avg_loss_spread": 14.52
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 1,
+            "n_long_hours": 0,
+            "short_mwh_sum": 30.1,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 30.1,
+            "long_mwh_avg": null,
+            "participation": 0.2,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 30.1,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": -265.0,
+            "avg_pnl_per_hr": -265.1,
+            "share_short_hours": 1.0
+          }
+        },
+        "15": {
+          "market": {
+            "n_hours": 5,
+            "short_winrate": 0.6,
+            "short_pl_ratio": 0.56,
+            "avg_spread": -1.41,
+            "avg_win_spread": 12.1,
+            "avg_loss_spread": 21.67
+          },
+          "ours": {
+            "n_hours_with_pos": 2,
+            "n_short_hours": 2,
+            "n_long_hours": 0,
+            "short_mwh_sum": 80.1,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 40.0,
+            "long_mwh_avg": null,
+            "participation": 0.4,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 40.0,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": 849.0,
+            "avg_pnl_per_hr": 424.3,
+            "share_short_hours": 1.0
+          }
+        },
+        "16": {
+          "market": {
+            "n_hours": 5,
+            "short_winrate": 0.8,
+            "short_pl_ratio": 0.49,
+            "avg_spread": 5.77,
+            "avg_win_spread": 14.83,
+            "avg_loss_spread": 30.47
+          },
+          "ours": {
+            "n_hours_with_pos": 2,
+            "n_short_hours": 2,
+            "n_long_hours": 0,
+            "short_mwh_sum": 80.1,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 40.0,
+            "long_mwh_avg": null,
+            "participation": 0.4,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 40.0,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": 993.0,
+            "avg_pnl_per_hr": 496.7,
+            "share_short_hours": 1.0
+          }
+        },
+        "17": {
+          "market": {
+            "n_hours": 5,
+            "short_winrate": 0.8,
+            "short_pl_ratio": 0.91,
+            "avg_spread": 11.07,
+            "avg_win_spread": 19.07,
+            "avg_loss_spread": 20.92
+          },
+          "ours": {
+            "n_hours_with_pos": 2,
+            "n_short_hours": 2,
+            "n_long_hours": 0,
+            "short_mwh_sum": 80.0,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 40.0,
+            "long_mwh_avg": null,
+            "participation": 0.4,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 40.0,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": 1210.0,
+            "avg_pnl_per_hr": 604.8,
+            "share_short_hours": 1.0
+          }
+        },
+        "18": {
+          "market": {
+            "n_hours": 5,
+            "short_winrate": 0.8,
+            "short_pl_ratio": 0.61,
+            "avg_spread": 7.61,
+            "avg_win_spread": 16.04,
+            "avg_loss_spread": 26.12
+          },
+          "ours": {
+            "n_hours_with_pos": 3,
+            "n_short_hours": 3,
+            "n_long_hours": 0,
+            "short_mwh_sum": 127.5,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 42.5,
+            "long_mwh_avg": null,
+            "participation": 0.6,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 42.5,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": 1787.0,
+            "avg_pnl_per_hr": 595.7,
+            "share_short_hours": 1.0
+          }
+        },
+        "19": {
+          "market": {
+            "n_hours": 5,
+            "short_winrate": 0.6,
+            "short_pl_ratio": 0.51,
+            "avg_spread": -2.72,
+            "avg_win_spread": 15.17,
+            "avg_loss_spread": 29.56
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 1,
+            "n_long_hours": 0,
+            "short_mwh_sum": 46.7,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 46.7,
+            "long_mwh_avg": null,
+            "participation": 0.2,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 46.7,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": -2518.0,
+            "avg_pnl_per_hr": -2518.0,
+            "share_short_hours": 1.0
+          }
+        },
+        "20": {
+          "market": {
+            "n_hours": 5,
+            "short_winrate": 0.6,
+            "short_pl_ratio": 2.27,
+            "avg_spread": 7.02,
+            "avg_win_spread": 16.56,
+            "avg_loss_spread": 7.29
+          },
+          "ours": {
+            "n_hours_with_pos": 2,
+            "n_short_hours": 0,
+            "n_long_hours": 2,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 100.0,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 50.0,
+            "participation": 0.4,
+            "winrate": 0.5,
+            "pl_ratio": 0.01,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 50.0,
+            "total_pnl_usd": -1532.0,
+            "avg_pnl_per_hr": -766.0,
+            "share_short_hours": 0.0
+          }
+        },
+        "21": {
+          "market": {
+            "n_hours": 5,
+            "short_winrate": 0.4,
+            "short_pl_ratio": 6.39,
+            "avg_spread": 7.08,
+            "avg_win_spread": 23.13,
+            "avg_loss_spread": 3.62
+          },
+          "ours": {
+            "n_hours_with_pos": 2,
+            "n_short_hours": 0,
+            "n_long_hours": 2,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 100.0,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 50.0,
+            "participation": 0.4,
+            "winrate": 0.5,
+            "pl_ratio": 0.0,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 50.0,
+            "total_pnl_usd": -1980.0,
+            "avg_pnl_per_hr": -990.2,
+            "share_short_hours": 0.0
+          }
+        },
+        "22": {
+          "market": {
+            "n_hours": 5,
+            "short_winrate": 0.8,
+            "short_pl_ratio": 0.09,
+            "avg_spread": -12.43,
+            "avg_win_spread": 8.62,
+            "avg_loss_spread": 96.65
+          },
+          "ours": {
+            "n_hours_with_pos": 3,
+            "n_short_hours": 1,
+            "n_long_hours": 2,
+            "short_mwh_sum": 42.7,
+            "long_mwh_sum": 77.9,
+            "short_mwh_avg": 42.7,
+            "long_mwh_avg": 39.0,
+            "participation": 0.6,
+            "winrate": 0.667,
+            "pl_ratio": 6.1,
+            "avg_short_mwh": 14.2,
+            "avg_long_mwh": 26.0,
+            "total_pnl_usd": 2511.0,
+            "avg_pnl_per_hr": 836.8,
+            "share_short_hours": 0.333
+          }
+        },
+        "23": {
+          "market": {
+            "n_hours": 5,
+            "short_winrate": 0.6,
+            "short_pl_ratio": 0.13,
+            "avg_spread": -32.99,
+            "avg_win_spread": 13.15,
+            "avg_loss_spread": 102.22
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 49.9,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 49.9,
+            "participation": 0.2,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 49.9,
+            "total_pnl_usd": -699.0,
+            "avg_pnl_per_hr": -698.8,
+            "share_short_hours": 0.0
+          }
+        },
+        "24": {
+          "market": {
+            "n_hours": 5,
+            "short_winrate": 0.6,
+            "short_pl_ratio": 0.03,
+            "avg_spread": -44.6,
+            "avg_win_spread": 3.7,
+            "avg_loss_spread": 117.06
+          },
+          "ours": {
+            "n_hours_with_pos": 1,
+            "n_short_hours": 0,
+            "n_long_hours": 1,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 49.9,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 49.9,
+            "participation": 0.2,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 49.9,
+            "total_pnl_usd": -428.0,
+            "avg_pnl_per_hr": -428.1,
+            "share_short_hours": 0.0
+          }
+        }
+      },
+      "by_block": {
+        "HE1-6 overnight": {
+          "market": {
+            "n_hours": 30,
+            "short_winrate": 0.333,
+            "short_pl_ratio": 0.52,
+            "avg_spread": -1.35,
+            "avg_win_spread": 1.41,
+            "avg_loss_spread": 2.73
+          },
+          "ours": {
+            "n_hours_with_pos": 6,
+            "n_short_hours": 3,
+            "n_long_hours": 3,
+            "short_mwh_sum": 132.9,
+            "long_mwh_sum": 149.6,
+            "short_mwh_avg": 44.3,
+            "long_mwh_avg": 49.9,
+            "participation": 0.2,
+            "winrate": 0.833,
+            "pl_ratio": 0.27,
+            "avg_short_mwh": 22.2,
+            "avg_long_mwh": 24.9,
+            "total_pnl_usd": 131.0,
+            "avg_pnl_per_hr": 21.9,
+            "share_short_hours": 0.5
+          }
+        },
+        "HE7-14 solar": {
+          "market": {
+            "n_hours": 40,
+            "short_winrate": 0.3,
+            "short_pl_ratio": 1.07,
+            "avg_spread": -1.73,
+            "avg_win_spread": 4.87,
+            "avg_loss_spread": 4.55
+          },
+          "ours": {
+            "n_hours_with_pos": 12,
+            "n_short_hours": 5,
+            "n_long_hours": 7,
+            "short_mwh_sum": 230.1,
+            "long_mwh_sum": 178.8,
+            "short_mwh_avg": 46.0,
+            "long_mwh_avg": 25.5,
+            "participation": 0.3,
+            "winrate": 0.333,
+            "pl_ratio": 0.48,
+            "avg_short_mwh": 19.2,
+            "avg_long_mwh": 14.9,
+            "total_pnl_usd": -866.0,
+            "avg_pnl_per_hr": -72.2,
+            "share_short_hours": 0.417
+          }
+        },
+        "HE15-17 ramp": {
+          "market": {
+            "n_hours": 15,
+            "short_winrate": 0.733,
+            "short_pl_ratio": 0.66,
+            "avg_spread": 5.14,
+            "avg_win_spread": 15.63,
+            "avg_loss_spread": 23.69
+          },
+          "ours": {
+            "n_hours_with_pos": 6,
+            "n_short_hours": 6,
+            "n_long_hours": 0,
+            "short_mwh_sum": 240.2,
+            "long_mwh_sum": 0.0,
+            "short_mwh_avg": 40.0,
+            "long_mwh_avg": null,
+            "participation": 0.4,
+            "winrate": 1.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 40.0,
+            "avg_long_mwh": 0.0,
+            "total_pnl_usd": 3052.0,
+            "avg_pnl_per_hr": 508.6,
+            "share_short_hours": 1.0
+          }
+        },
+        "HE18-22 evening": {
+          "market": {
+            "n_hours": 25,
+            "short_winrate": 0.64,
+            "short_pl_ratio": 0.65,
+            "avg_spread": 1.31,
+            "avg_win_spread": 15.01,
+            "avg_loss_spread": 23.04
+          },
+          "ours": {
+            "n_hours_with_pos": 11,
+            "n_short_hours": 5,
+            "n_long_hours": 6,
+            "short_mwh_sum": 216.8,
+            "long_mwh_sum": 277.9,
+            "short_mwh_avg": 43.4,
+            "long_mwh_avg": 46.3,
+            "participation": 0.44,
+            "winrate": 0.636,
+            "pl_ratio": 0.41,
+            "avg_short_mwh": 19.7,
+            "avg_long_mwh": 25.3,
+            "total_pnl_usd": -1733.0,
+            "avg_pnl_per_hr": -157.5,
+            "share_short_hours": 0.455
+          }
+        },
+        "HE23-24 late": {
+          "market": {
+            "n_hours": 10,
+            "short_winrate": 0.6,
+            "short_pl_ratio": 0.08,
+            "avg_spread": -38.8,
+            "avg_win_spread": 8.42,
+            "avg_loss_spread": 109.64
+          },
+          "ours": {
+            "n_hours_with_pos": 2,
+            "n_short_hours": 0,
+            "n_long_hours": 2,
+            "short_mwh_sum": 0.0,
+            "long_mwh_sum": 99.9,
+            "short_mwh_avg": null,
+            "long_mwh_avg": 49.9,
+            "participation": 0.2,
+            "winrate": 0.0,
+            "pl_ratio": null,
+            "avg_short_mwh": 0.0,
+            "avg_long_mwh": 49.9,
+            "total_pnl_usd": -1127.0,
+            "avg_pnl_per_hr": -563.5,
+            "share_short_hours": 0.0
+          }
+        }
+      }
+    }
+  },
+  "day_counts_realized": {
+    "normal": 42,
+    "scarcity_bearish_rlz": 7,
+    "scarcity_lambda_rlz": 5
+  }
+}

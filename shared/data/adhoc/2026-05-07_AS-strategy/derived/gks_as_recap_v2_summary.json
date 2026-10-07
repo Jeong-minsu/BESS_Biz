@@ -1,0 +1,63 @@
+{
+ "window": [
+  "2026-01-01",
+  "2026-05-10"
+ ],
+ "hours": 3119,
+ "total": {
+  "DA_revenue": 419697.38,
+  "RT_buyback_cost": 188935.3410809819,
+  "net_AS_revenue": 230762.03891901812,
+  "buyback_PnL_vs_hold": 82825.26813300796
+ },
+ "by_product": {
+  "NSPIN": {
+   "avg_DA_qty": 50.16497754971135,
+   "avg_RT_delivered_qty": 10.81403078598841,
+   "avg_RT_buyback_qty": 41.09578859342073,
+   "avg_RT_extra_sale_qty": 1.7096032626238353,
+   "buyback_rate_pct": 81.92127376653673,
+   "avg_DA_price": 4.711366260423348,
+   "avg_RT_price": 2.3300475732307033,
+   "avg_DA_price_when_sold": 1.7292270531400966,
+   "avg_RT_price_when_buyback": 1.1015999462654489,
+   "DA_revenue": 263443.4,
+   "RT_buyback_cost": 131122.9246986073,
+   "net_AS_revenue": 132320.47530139273,
+   "spread_captured_on_buyback": 54569.88784149934,
+   "buyback_MWh": 128136.66883428583
+  },
+  "RRS": {
+   "avg_DA_qty": 9.82719692110327,
+   "avg_RT_delivered_qty": 5.6819508331539765,
+   "avg_RT_buyback_qty": 6.33194803762098,
+   "avg_RT_extra_sale_qty": 2.178362458952392,
+   "buyback_rate_pct": 64.43290073920804,
+   "avg_DA_price": 2.6503688261706215,
+   "avg_RT_price": 0.5752349262347659,
+   "avg_DA_price_when_sold": 3.659921052631579,
+   "avg_RT_price_when_buyback": 1.4589622222222225,
+   "DA_revenue": 106648.45999999999,
+   "RT_buyback_cost": 23348.214314325134,
+   "net_AS_revenue": 83300.24568567486,
+   "spread_captured_on_buyback": 31430.402775172985,
+   "buyback_MWh": 19743.013981302214
+  },
+  "ECRS": {
+   "avg_DA_qty": 4.709108402822322,
+   "avg_RT_delivered_qty": 2.9814685160878653,
+   "avg_RT_buyback_qty": 2.545251203028568,
+   "avg_RT_extra_sale_qty": 0.8176113162941115,
+   "buyback_rate_pct": 54.04953518383897,
+   "avg_DA_price": 2.8868986529826812,
+   "avg_RT_price": 0.8103549283728886,
+   "avg_DA_price_when_sold": 3.354157303370786,
+   "avg_RT_price_when_buyback": 3.364122516556291,
+   "DA_revenue": 49605.51999999999,
+   "RT_buyback_cost": 34464.20206804946,
+   "net_AS_revenue": 15141.317931950529,
+   "spread_captured_on_buyback": -3175.0224836643556,
+   "buyback_MWh": 7936.093251043076
+  }
+ }
+}

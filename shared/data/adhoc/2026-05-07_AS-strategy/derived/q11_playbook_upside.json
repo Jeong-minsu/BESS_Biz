@@ -1,0 +1,206 @@
+{
+  "all_days": {
+    "n_hours": 3287,
+    "baseline_always_nspin_da": 761206.0,
+    "oracle_strategy_c": 1539969.0,
+    "playbooks": {
+      "coarse_5": {
+        "label": "Coarse \u2014 5 HE buckets only",
+        "cohort_keys": [
+          "he_bucket"
+        ],
+        "n_cohorts": 5,
+        "total_revenue": 965294.0,
+        "uplift_vs_baseline_usd": 204089.0,
+        "uplift_vs_baseline_pct": 26.81,
+        "capture_of_oracle_pct": 62.7,
+        "combo_dist_across_cohorts": {
+          "RRS_DA": 1,
+          "RRS_RT": 0,
+          "ECRS_DA": 0,
+          "ECRS_RT": 0,
+          "NSPIN_DA": 3,
+          "NSPIN_RT": 1
+        }
+      },
+      "medium_25": {
+        "label": "Medium \u2014 HE bucket \u00d7 Net-load quintile",
+        "cohort_keys": [
+          "he_bucket",
+          "nl_q"
+        ],
+        "n_cohorts": 25,
+        "total_revenue": 1012251.0,
+        "uplift_vs_baseline_usd": 251045.0,
+        "uplift_vs_baseline_pct": 32.98,
+        "capture_of_oracle_pct": 65.7,
+        "combo_dist_across_cohorts": {
+          "RRS_DA": 2,
+          "RRS_RT": 0,
+          "ECRS_DA": 0,
+          "ECRS_RT": 1,
+          "NSPIN_DA": 17,
+          "NSPIN_RT": 5
+        }
+      },
+      "fine_125": {
+        "label": "Fine \u2014 HE bucket \u00d7 NL quintile \u00d7 Solar quintile",
+        "cohort_keys": [
+          "he_bucket",
+          "nl_q",
+          "solar_q"
+        ],
+        "n_cohorts": 124,
+        "total_revenue": 1211449.0,
+        "uplift_vs_baseline_usd": 450243.0,
+        "uplift_vs_baseline_pct": 59.15,
+        "capture_of_oracle_pct": 78.7,
+        "combo_dist_across_cohorts": {
+          "RRS_DA": 4,
+          "RRS_RT": 0,
+          "ECRS_DA": 6,
+          "ECRS_RT": 8,
+          "NSPIN_DA": 89,
+          "NSPIN_RT": 17
+        }
+      }
+    }
+  },
+  "filter_B_gks_days": {
+    "n_hours": 2495,
+    "n_days": 104,
+    "gks_actual_net": 229963.0,
+    "baseline_always_nspin_da": 214010.0,
+    "playbook_coarse": 330244.0,
+    "playbook_medium": 350950.0,
+    "playbook_fine": 460827.0,
+    "oracle_strategy_c": 719719.0
+  },
+  "medium_playbook_cohort_rules": {
+    "Night|Q3": {
+      "combo": "NSPIN_RT",
+      "hours": 168,
+      "total_revenue": 9428.0
+    },
+    "Night|Q4": {
+      "combo": "NSPIN_RT",
+      "hours": 162,
+      "total_revenue": 12415.0
+    },
+    "Morning|Q4": {
+      "combo": "ECRS_RT",
+      "hours": 108,
+      "total_revenue": 13686.0
+    },
+    "Midday|Q4": {
+      "combo": "NSPIN_DA",
+      "hours": 189,
+      "total_revenue": 12302.0
+    },
+    "Midday|Q3": {
+      "combo": "NSPIN_DA",
+      "hours": 196,
+      "total_revenue": 14003.0
+    },
+    "Evening|Q3": {
+      "combo": "NSPIN_DA",
+      "hours": 140,
+      "total_revenue": 33202.0
+    },
+    "Evening|Q2": {
+      "combo": "NSPIN_DA",
+      "hours": 135,
+      "total_revenue": 22109.0
+    },
+    "Evening|Q1": {
+      "combo": "NSPIN_DA",
+      "hours": 140,
+      "total_revenue": 16926.0
+    },
+    "LateEve|Q1": {
+      "combo": "NSPIN_DA",
+      "hours": 56,
+      "total_revenue": 8606.0
+    },
+    "Night|Q1": {
+      "combo": "NSPIN_DA",
+      "hours": 167,
+      "total_revenue": 15259.0
+    },
+    "Morning|Q1": {
+      "combo": "NSPIN_DA",
+      "hours": 112,
+      "total_revenue": 10308.0
+    },
+    "Morning|Q2": {
+      "combo": "NSPIN_DA",
+      "hours": 108,
+      "total_revenue": 7477.0
+    },
+    "Midday|Q2": {
+      "combo": "NSPIN_DA",
+      "hours": 189,
+      "total_revenue": 12887.0
+    },
+    "Evening|Q4": {
+      "combo": "NSPIN_RT",
+      "hours": 135,
+      "total_revenue": 25238.0
+    },
+    "LateEve|Q2": {
+      "combo": "NSPIN_DA",
+      "hours": 54,
+      "total_revenue": 14870.0
+    },
+    "Night|Q2": {
+      "combo": "NSPIN_DA",
+      "hours": 162,
+      "total_revenue": 14116.0
+    },
+    "Morning|Q3": {
+      "combo": "RRS_DA",
+      "hours": 112,
+      "total_revenue": 14230.0
+    },
+    "Evening|Q5": {
+      "combo": "NSPIN_RT",
+      "hours": 135,
+      "total_revenue": 122185.0
+    },
+    "LateEve|Q4": {
+      "combo": "NSPIN_DA",
+      "hours": 54,
+      "total_revenue": 17850.0
+    },
+    "Midday|Q1": {
+      "combo": "NSPIN_DA",
+      "hours": 196,
+      "total_revenue": 14206.0
+    },
+    "Morning|Q5": {
+      "combo": "RRS_DA",
+      "hours": 108,
+      "total_revenue": 296015.0
+    },
+    "Midday|Q5": {
+      "combo": "NSPIN_DA",
+      "hours": 189,
+      "total_revenue": 46236.0
+    },
+    "LateEve|Q3": {
+      "combo": "NSPIN_RT",
+      "hours": 56,
+      "total_revenue": 12870.0
+    },
+    "Night|Q5": {
+      "combo": "NSPIN_DA",
+      "hours": 162,
+      "total_revenue": 165042.0
+    },
+    "LateEve|Q5": {
+      "combo": "NSPIN_DA",
+      "hours": 54,
+      "total_revenue": 80784.0
+    }
+  }
+}

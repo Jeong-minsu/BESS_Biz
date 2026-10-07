@@ -1,0 +1,8 @@
+﻿item,adjustment_MW,running_total_MW
+"Start: CDR Dec-2025 operational gas, ex-PUN (incl. RMR 420, SPP switchable netted -2,596)",,57828
+"+ Gas-fired Private Use Network (industrial cogen; MORA hides in CC row, fn [2])",9850.0,67678
++ Switchable gross-up (SPP-committed capacity counted gross in MORA),2596.0,70274
+- Coal-to-gas conversion placeholder rows in CDR (Coleto Creek 655 + JK Spruce2 922; double-counted w/ coal),-1577.0,68697
+"+ New gas online Dec-2025 -> mid-Jun-2026 (TEF: TH Wharton 456, PIN Peaking 459, Timmerman 188, etc.)",1123.0,69820
+"+ Seasonal-mothball units available in September (Spencer 4/5, Powerlane)",145.0,69965
++ Rating updates / residual (0.05%),37.0,70002

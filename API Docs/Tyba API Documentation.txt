@@ -1,0 +1,1473 @@
+Installation
+This page will help you install the Tyba Python Client.
+
+Install the Python Client
+Make sure you have python 3.8 or later installed. You can follow the instructions here to do so.
+
+Install the Tyba python client
+
+pip install tyba-client
+Upgrade the Tyba python client
+
+pip install --upgrade tyba-client
+Install/upgrade client dependencies
+
+The Tyba Python Client has one important Tyba-maintained dependency, generation_models. It should be installed as part of the pip-installation of the client, but in the event it isn’t, you can easily install it with pip, e.g.
+
+pip install generation-models
+Note that in the pip index it is called generation-models.
+
+Perhaps more useful, as we make improvements to the client and its dependencies, you will need to update them to access the latest features. Again, this can be achieved via pip, e.g.
+
+pip install --upgrade generation-models
+Install JupyterLab (recommended)
+Jupyterlab is a browser-based interactive computing application that allows you to execute code, visualize results, and annotate your process in easily shareable “notebooks”. We recommend Jupyterlab to streamline the execution of your Python Client code. Installation instructions can be found here.
+
+Version History
+PyPi Package History (external link)
+
+Getting Started
+The main interface for the Tyba Python Client is the Client class:
+
+import os
+from tyba_client.client import Client
+PAT = os.environ["TYBA_PAT"]
+client = Client(PAT)
+As you can see in the above example, you must have a Tyba PAT (Personal Access Token) in order to use the Client. The Authentication section below explains how to store your PAT in your local environment. With the PAT stored and a client instance instantiated, we can easily simulate projects and pull energy price data.
+
+Run a Simulation
+Make the necessary imports:
+
+from generation_models import PVGenerationModel, PVSystemDesign, SingleAxisTracking
+Define a simple model:
+
+model = PVGenerationModel(
+   solar_resource=(40.6685396, -73.9345585),
+   inverter="Delta Electronics: M80U_XXX [480V]",
+   pv_module="Boviet Solar Technology Co._ Ltd. BVM6612M-315",
+   system_design=PVSystemDesign(
+       dc_capacity=2000.0,
+       ac_capacity=1500.0,
+       poi_limit=15000.0,
+       gcr=0.38,
+       tracking=SingleAxisTracking(
+           rotation_limit=45.0,
+           backtrack=True
+       )
+   ),
+  project_term=1
+)
+Schedule the model run and get the run id:
+
+res = client.schedule(model)
+id_ = res.json()["id"]
+print(res.text)
+You will see an id print, confirming that the run has been scheduled.
+
+Wait to receive the results:
+
+results = client.wait_on_result(id_)
+View and explore the results
+
+# Results is a dictionary. To review keys:
+print(results.keys())
+
+# Review System Power 8760
+results['system_power']
+Pull Historical Price Data
+Get a list of all the independent system operators (ISOs) represented in the dataset
+
+print(client.services.get_all_isos().json())
+Get a list of all of the Local Market Price (LMP) nodes for a given ISO
+
+price_nodes = client.lmp.get_all_nodes(iso='CAISO').json()
+node_directory = pd.DataFrame(price_nodes)
+print(node_directory.head())
+Get a pandas Series of LMP prices based on node id
+
+res = client.lmp.get_prices(
+          node_ids=['20000004677'],
+          market=Market.RT,
+          start_year=2024,
+          end_year=2024
+).json()
+res = res['20000004677']
+df = pd.Series(res['prices'], index=pd.to_datetime(res['datetimes'])).tz_localize(None)
+print(node_directory.head())
+Pull a Price Forecast
+Define a time range of interest
+
+tz = pytz.timezone("US/Central") # Can be any timezone but results will always be returned in the node-local timezone
+start_time = tz.localize(datetime(2023, 10, 10)) # localized datetime is required to avoid ambiguity
+end_time = tz.localize(datetime(2023, 10, 17)) # localized datetime is required to avoid ambiguity
+Pull the most recent forecast for an LMP node based on node name
+
+node_name = "HB_HOUSTON"  # Use client.lmp.get_all_nodes from the previous section to find your node name
+da_forecasts = forecast.most_recent(node_name, "da", start_time, end_time)
+# Results are a list of dicts. To see the first dict:
+print(da_forecasts[0])
+Next…
+Feel free to dig deeper with the the Project Simulation Service, Historical Price Service, and Price Forecast Service pages, which discuss the usage of their respective features in greater detail
+
+Authentication
+As mentioned above, you must have a Tyba PAT to use the Client. If you do not have or know your PAT, please contact us.
+
+Mac or Linux instructions
+Shell Environment (preferred)
+Save your Tyba PAT in the shell’s environment:
+
+Add TYBA_PAT="your-pat-in-quotes" to a new line in ~/.bashrc
+
+To check, open a new shell/terminal and run env and confirm TYBA_PAT is present and properly set
+
+This approach is preferred even if you are running a Jupyter notebook because it keeps the PAT from being exposed if the notebook/script is shared
+
+Jupyter Notebook
+Save your Tyba PAT in the notebook’s environment:
+
+In a notebook cell, enter the following:
+%env TYBA_PAT=your_pat_without_quotes
+The cell will return your key with “env: TYBA_PAT = your_pat_without_quotes”
+
+To keep the PAT secure, delete the previous cell. You will need to repeat this process each time you open the notebook
+
+Windows Instructions
+Shell Environment
+On a Windows machine, the simplest (but less secure) approach is to hardcode the PAT directly into your script, i.e. replace PAT = os.environ["TYBA_PAT"] with PAT="your-pat-in-quotes"
+
+Jupyter Notebook (preferred)
+See the Jupyter notebook section above.
+
+Historical Price Service
+Welcome to this walkthrough on the Tyba Historical API.
+
+By the end of this guide, you’ll know how to retrieve historical energy and ancillary prices.
+
+Also, the various code objects mentioned here all contain hyperlinks to the relevant parts of the Client API Reference, so make sure to click on them for more information!
+
+Setting Up
+First, ensure you’ve installed the Tyba Client. After instantiating a Tyba client instance, one can access the historical price client by calling client.services and its sub interfaces lmp and ancillary
+
+import os
+import pandas as pd
+from tyba_client.client import Client
+
+PAT = os.environ["TYBA_PAT"]
+client = Client(PAT)
+services = client.services
+lmp = services.lmp
+ancillary = services.ancillary
+Fetching Available ISOs
+The main use of the services interface is the get_all_isos() method. This method lists all of the regional transmission operators and independent system operators (all generally referred to as ISOs) that are represented in Tyba’s historical price dataset. Even if we are confident that the ISO we care about is in the dataset, we usually want to start here to make sure that we have the right string identifier for our ISO.
+
+isos = services.get_all_isos().json()
+print(isos)
+
+#returns
+['PJMISO', 'CAISO', 'NEISO', 'NYISO', 'ERCOT', 'SPPISO', 'MISO']
+Note that get_all_isos() actually returns a requests.Response object, so we have to extract the useful JSON data from the body of the response. This is the pattern used for all of the methods in the historical forecast API
+
+Fetching Historical Energy Prices For a Single Node
+Let’s suppose we’re interested in HB_HOUSTON’s day-ahead energy prices from 2020 through 2021. First, we use the lmp.search_nodes method to find the relevant node id
+
+res = lmp.search_nodes(node_name_filter="HB_HOUSTON")
+res.raise_for_status()  # this will raise an error if our search request was unsuccessful
+nodes_list = res.json()['nodes']
+print(nodes_list)
+
+#returns
+[{'node/id': '10000697077', 'node/name': 'HB_HOUSTON', 'node/iso': 'ERCOT'}]
+In this case, our node search returned data for a single node since we applied such a specific name filter. We can then extract the node id and use it to get a pandas Series of day-ahead prices with the lmp.get_prices method
+
+from tyba_client.client import Market
+import pandas as pd
+node_id = nodes_list[0]["node/id"]
+res = lmp.get_prices(
+    node_ids=[node_id], # note this has to be a list, even if there is just a single ID
+    market=Market.DA,
+    start_year=2020,
+    end_year=2021,
+)
+res.raise_for_status()
+price_data = res.json()[node_id]  # results are also organized by node ID
+price_data = pd.Series(index=pd.to_datetime(price_data["datetimes"]), data=price_data["prices"])
+print(price_data.head())
+
+#returns
+2020-01-01 00:00:00    11.27
+2020-01-01 01:00:00     9.73
+2020-01-01 02:00:00     9.58
+2020-01-01 03:00:00     9.65
+2020-01-01 04:00:00    10.18
+Working with Node Data
+The search_nodes() method provides the ability to search based on location, node name and ISO. For example, we can look at all the nodes around a particular location:
+
+res = lmp.search_nodes(location="29.760427, -95.369804")
+res.raise_for_status()  # this will raise an error if our search request was unsuccessful
+node_search_df = pd.DataFrame(res.json()['nodes'])
+print(node_search_df.head())
+
+#returns
+  node/iso    node/name      node/id  node/distance-meters
+0    ERCOT        CR_RN  10018267019           2061.858094
+1    ERCOT  BRHEIGHT_RN  10016437277           3692.691396
+2    ERCOT   TC_GTG2_RN  10017407316           6909.874096
+3    ERCOT      TC_PUN1  10000698825           6909.874096
+4    ERCOT      TC_PUN2  10000698826           6909.874096
+The data in node_search_df can be used to determine relevant nodes near a project site. However, note that the node data returned is related to the use of the location search parameter. To access other node data such as data start and end years, node type etc. we can use the lmp.get_all_nodes method
+
+res = lmp.get_all_nodes(iso="ERCOT")
+res.raise_for_status()
+node_df = pd.DataFrame(res.json())
+print(node_df.head())
+
+#returns
+   da_start_year  rt_end_year     zone          name       type      substation  da_end_year           id  rt_start_year
+0         2011.0         2025    SOUTH  OXY_OXY_CCG1  GENERATOR      OXYCHEM CC       2025.0  10000698721           2011
+1         2022.0         2025    SOUTH  SLCN_ESS_ALL  GENERATOR             NaN       2025.0  10016671726           2022
+2         2024.0         2025    SOUTH   ANEM_ESS_RN  GENERATOR             NaN       2025.0  10017318833           2024
+3         2011.0         2025    NORTH     WHCCS_CC1  GENERATOR WOLF HOLLOW GEN       2025.0  10000698379           2011
+4         2011.0         2025  HOUSTON     SCLP_PUN4  GENERATOR    SWEENY COGEN       2025.0  10000698780           2011
+Note that iso is a keyword argument, so simply typing lmp.get_all_nodes("ERCOT") won’t work.
+
+The search_nodes() and get_all_nodes() methods can be used together for more complex node filtering. For example, let’s suppose that we want the 3 closest unique nodes to our location that also have at least 3 years of real time price data
+
+node_df = node_df.set_index("id")  # set the id column as the index
+node_search_df = node_search_df.set_index("node/id")
+node_df = pd.concat([node_df, node_search_df], axis=1, join="inner")  # combine the 2 dfs by id, leaving only the subset in node_search_df
+node_df.index.name = "id"
+node_df = node_df[node_df["rt_end_year"] - node_df["rt_start_year"] >= 3]  # filter for data span
+node_df = node_df.reset_index().groupby("node/distance-meters").first().sort_index().reset_index().set_index("id")  # filter for unique distance from node
+print(node_df[["rt_start_year", "rt_end_year", "node/distance-meters"]].head(3))
+
+#returns
+             rt_start_year  rt_end_year  node/distance-meters
+id
+10016437277           2021         2025           3692.691396
+10000698826           2011         2025           6909.874096
+10000698744           2011         2024          12913.743104
+Fetching Historical Energy Prices For Multiple Nodes
+We can pass multiple node IDs to the lmp.get_prices method. Continuing the example from the previous section, let’s suppose that we are interested in real-time energy price data for the top 3 nodes in node_df and generate a real time price dataframe organized by node name
+
+node_df = node_df.reset_index()
+node_df = node_df.loc[:2, :]
+ids_names = dict(zip(node_df["id"], node_df["name"]))
+res = lmp.get_prices(
+    node_ids=node_df["id"].values.tolist(),
+    market=Market.RT,
+    start_year=2021,
+    end_year=2023,
+)
+res.raise_for_status()
+price_data = res.json()
+price_df = pd.concat([pd.Series(index=v["datetimes"], data=v["prices"], name=k) for k, v in price_data.items()], axis=1)
+price_df = price_df.rename(columns=ids_names)
+print(price_df.head())
+
+#returns
+                     BRHEIGHT_RN  TC_PUN2  PR_PR_G2
+2021-01-01T00:00:00      15.4500  15.4375   15.4125
+2021-01-01T01:00:00      14.8725  14.8750   14.8700
+2021-01-01T02:00:00      14.5350  14.5375   14.5350
+2021-01-01T03:00:00      15.8525  15.8475   15.8350
+2021-01-01T04:00:00      17.0200  16.9800   16.9175
+Please consult the LMP docs for more details and the Example Notebooks for more examples.
+
+Fetch Historical Ancillary Prices for a Single Region
+Let’s suppose we’re interested in Day-Ahead Regulation Up prices in the SP15 region in CAISO for the year 2020. For this task, we would use the ancillary.get_prices method
+
+from tyba_client.models import AncillaryService
+res = ancillary.get_prices(
+                iso="CAISO",
+                service=AncillaryService.REGULATION_UP,
+                market=Market.DA,
+                region="SP15",
+                start_year=2020,
+                end_year=2020,
+            )
+res.raise_for_status()
+as_prices = res.json()
+as_prices = pd.Series(index=pd.to_datetime(as_prices["datetimes"]).tz_localize(None), data=as_prices["prices"])
+print(as_prices.head())
+
+# returns
+2020-01-01 00:00:00    12.27
+2020-01-01 01:00:00     6.34
+2020-01-01 02:00:00     6.49
+2020-01-01 03:00:00    10.49
+2020-01-01 04:00:00     8.32
+Fetch Ancillary Prices for Multiple Regions, Services, and Markets
+Unlike the lmp.get_prices method, ancillary.get_prices only pulls a single price time series. As such, we pull multiple price series by iterating and combining afterwards. For example, let’s fetch Day-Ahead and Real-Time prices for Regulation Up and Down for both the SP15 and NP15 regions in CAISO in 2022
+
+regions = dict()
+for region in ["SP15", "NP15"]:
+    services = dict()
+    for service in [AncillaryService.REGULATION_DOWN, AncillaryService.REGULATION_UP]:
+        market_df = pd.DataFrame()
+        for market in [Market.DA, Market.RT]:
+            as_prices = ancillary.get_prices(
+                iso="CAISO",
+                service=service,
+                market=market,
+                region=region,
+                start_year=2022,
+                end_year=2022,
+            ).json()
+            market_df[market] = pd.Series(index=pd.to_datetime(as_prices["datetimes"]).tz_localize(None),
+                                          data=as_prices["prices"])  # df of market prices for each region-service combo
+        services[service] = market_df
+    regions[region] = pd.concat(services, axis=1)  # df for each region
+as_df = pd.concat(regions, axis=1)  # df combining regions
+print(as_df.head())
+
+# returns
+                                                               SP15                                          NP15
+                             Regulation Down          Regulation Up        Regulation Down          Regulation Up
+                           dayahead realtime      dayahead realtime      dayahead realtime      dayahead realtime
+2022-01-01 00:00:00            6.35      0.0          1.70     3.30          0.75      0.0          3.00     2.45
+2022-01-01 01:00:00            3.00      0.0          1.28     1.50          3.00      0.0          1.88     1.88
+2022-01-01 02:00:00            2.66      0.0          1.28     1.70          5.01      0.0          3.42     8.04
+2022-01-01 03:00:00            1.44      0.0          1.28     2.56          5.02      0.0          3.42     2.41
+2022-01-01 04:00:00            1.44      0.0          1.28     2.00         12.84      0.0          3.42     3.00
+Working with Ancillary Region Data
+The get_prices() method requires 5 data points to fetch prices: ISO, region, service, market, and date range. In the above examples, we knew which pricing regions we were interested in and, implicitly, that the combinations of region, service, market and year were available in the dataset. In situations where we don’t know what date ranges or even regions are available, we can use the ancillary.get_pricing_regions method to find out. We specify 3 of the input data points (ISO, service and market) and fetch the other 2 (available regions and their respective date ranges)
+
+res = ancillary.get_pricing_regions(
+    iso="CAISO",
+    service=AncillaryService.REGULATION_UP,
+    market=Market.DA)
+res.raise_for_status()
+as_regions = pd.DataFrame(res.json())
+print(as_regions.head())
+
+# returns
+                     region  start_year  end_year
+0  Pacific Northwest - SP15        2010      2025
+1                      WAPA        2010      2025
+2                      WAPA        2010      2025
+3                      WAPA        2010      2025
+4                      ZP26        2010      2025
+More complex analyses can be performed by combining the results of multiple calls to get_pricing_regions(). For example, let’s suppose we want to know the regions and date ranges that are available in CAISO for real-time and both regulation up and down
+
+import numpy as np
+dfs = dict()
+for service in [AncillaryService.REGULATION_UP, AncillaryService.REGULATION_DOWN]:
+    res = ancillary.get_pricing_regions(
+       iso="CAISO",
+       service=AncillaryService.REGULATION_UP,
+       market=Market.RT)
+    res.raise_for_status()
+    dfs[service] = pd.DataFrame(res.json()).drop_duplicates()  # currently duplicates returned in results
+as_regions = dfs[AncillaryService.REGULATION_UP].merge(dfs[AncillaryService.REGULATION_DOWN], on="region", suffixes=["_reg_up", "_reg_down"])
+as_regions["min_start_year"] = np.maximum(as_regions["start_year_reg_up"], as_regions["start_year_reg_down"])
+as_regions["max_end_year"] = np.minimum(as_regions["end_year_reg_up"], as_regions["end_year_reg_down"])
+print(as_regions[["region", "min_start_year", "max_end_year"]].head())
+
+# returns
+          region  min_start_year  max_end_year
+0        Arizona            2011          2025
+1          LADWP            2011          2025
+2         Mexico            2011          2025
+3  Nevada - NP26            2011          2025
+4  Nevada - SP15            2011          2025
+Please consult the Ancillary docs for more details and the Example Notebooks below for more examples.
+
+Price Forecast Service
+Welcome to this walkthrough on the Tyba Forecast API.
+
+By the end of this guide, you’ll know how to retrieve the most recent energy and ancillary price forecasts, as well as how to retrieve older vintages of forecasts.
+
+Setting Up:
+First, ensure you’ve installed the Tyba Client. After instantiating a Tyba client instance, one can access the forecast client by calling client.forecast
+
+from datetime import datetime, time
+import pytz
+import os
+import pandas as pd
+from tyba_client.client import Client
+
+PAT = os.environ["TYBA_PAT"]
+client = Client(PAT)
+forecast = client.forecast
+REST API vs. Python Client
+Everything in this guide is shown using the Python client, but the same functionality is available directly over a plain REST API — useful if you’re calling the Tyba Forecast API from a language other than Python, or would simply rather not use the client.
+
+Base URL: https://dev.tybaenergy.com/public/0.1/forecasts
+
+Requests are authenticated with the same personal access token used above, passed as the Authorization header (no Bearer prefix):
+
+GET https://dev.tybaenergy.com/public/0.1/forecasts/most_recent_forecast
+    ?object_name=<object_name>
+    &product=<product>
+    &start_time=<start_time>
+    &end_time=<end_time>
+
+Authorization: <personal_access_token>
+Each Python client method below maps to a corresponding REST endpoint under that base URL. The query parameters for each endpoint match the corresponding Python method’s arguments (e.g. object_name, product, start_time, end_time, quantiles, forecast_type, days_ago, before_time, predictions_per_hour, prediction_lead_time_mins, horizon_mins).
+
+Usage
+
+Python client method
+
+REST API endpoint
+
+Fetch most recent point forecasts
+
+most_recent_by_operating_date
+most_recent (deprecated)
+most_recent_forecast
+
+Fetch vintaged point forecasts
+
+vintaged_by_operating_date
+vintaged (deprecated)
+vintaged_forecast
+
+Fetch point forecasts by vintage
+
+by_vintage
+
+forecasts_by_vintage
+
+Fetch most recent probabilistic forecasts
+
+most_recent_probabilistic
+
+most_recent_probabilistic_forecast
+
+Fetch vintaged probabilistic forecasts
+
+vintaged_probabilistic
+
+vintaged_probabilistic_forecast
+
+Fetch probabilistic forecasts by vintage
+
+by_vintage_probabilistic
+
+probabilistic_forecasts_by_vintage
+
+Fetch actual prices
+
+actuals
+
+actuals
+
+Fetching Energy Price Forecasts
+For energy price forecasts (DA and RT), we recommend using the probabilistic endpoints which provide more detailed information about forecast uncertainty.
+
+Probabilistic Forecast Endpoints
+The Tyba Forecast API supports fetching probabilistic forecasts for energy prices. These endpoints allow users to request forecasts with specified quantiles, providing insights into the variability and confidence of the forecasted values.
+
+For all probabilistic endpoints, the minimum quantile one can request is 0.05 and the maximum is 0.95. Quantiles requested outside of the range will result in a 400 status code.
+
+Fetching Most Recent Probabilistic Forecasts
+Let’s suppose we’re interested in fetching probabilistic day-ahead and real-time energy price forecasts for a node from 10/10/23 until 10/17/23.
+
+node_name = "HB_HOUSTON"
+tz = pytz.timezone("US/Central") # Can be any timezone but results will always be returned in the node-local timezone
+start_time = tz.localize(datetime(2023, 10, 10)) # localized datetime is required to avoid ambiguity
+end_time = tz.localize(datetime(2023, 10, 17)) # localized datetime is required to avoid ambiguity
+Day-Ahead Forecasts
+For day-ahead forecasts, use the most_recent_probabilistic method without additional parameters:
+
+# Fetching probabilistic day-ahead forecasts
+quantiles = [0.10, 0.50, 0.90]
+da_forecasts = forecast.most_recent_probabilistic("HB_HOUSTON", "da", start_time, end_time, quantiles)
+Real-Time Forecasts
+For real-time forecasts, especially if you need subhourly data, use the most_recent_probabilistic method with additional parameters:
+
+Use product="rt_lmp" to fetch the RT energy price.
+
+# Fetching probabilistic real-time forecasts with subhourly data
+rt_forecasts = forecast.most_recent_probabilistic(
+    object_name="HB_HOUSTON",
+    product="rt_lmp",
+    start_time=start_time,
+    end_time=end_time,
+    quantiles=[0.10, 0.50, 0.90],
+    forecast_type="rolling-24hr",
+    predictions_per_hour=4,        # Default for subhourly RT forecasts
+    prediction_lead_time_mins=0,   # Default for rt_lmp
+    horizon_mins=1515              # Default for subhourly RT forecasts
+)
+Note: The parameters predictions_per_hour, prediction_lead_time_mins, and horizon_mins depend on the model you have access to. The values shown above are the recommended defaults for real-time forecasts.
+
+Understanding the Returned Data
+The most_recent_probabilistic endpoint returns a list of forecast dictionaries with the following structure:
+
+{
+  'quantiles': [0.1, 0.5, 0.9],
+  'values': [14.60, 16.42, 18.93],
+  'mean_value': 16.55,
+  'datetime': '2023-10-10T00:00:00-05:00',
+  'forecasted_at': '2023-10-09T09:00:00-05:00',
+  'forecast_type': 'PROBABILISTIC'
+}
+Each element represents:
+
+quantiles: The requested probability levels
+
+values: The corresponding forecasted values for each quantile
+
+mean_value: The mean expected value for the price
+
+datetime: The date and time the forecast corresponds to (timezone-aware)
+
+forecasted_at: When the forecast was made (timezone-aware)
+
+forecast_type: The type of forecast returned — "PROBABILISTIC" for these endpoints
+
+Note
+
+forecast_type means two different things depending on whether you are reading it or writing it. As a request parameter it selects the market — "day-ahead" or "rolling-24hr". In the response it describes the kind of model that produced the forecast — "POINT" or "PROBABILISTIC". A day-ahead probabilistic request therefore comes back with 'forecast_type': 'PROBABILISTIC', not 'day-ahead'.
+
+Processing Probabilistic Forecasts
+Here’s an example of how to process probabilistic forecasts into a more usable format:
+
+def process(df):
+    return (
+        df.assign(datetime=lambda d: pd.to_datetime(d["datetime"]))
+        .explode(["quantiles", "values"])
+        .drop(["forecasted_at", "forecast_type"], axis=1)
+        .pivot(index="datetime", columns="quantiles", values="values")
+        .assign(mean=lambda d: d.apply(lambda x: df.loc[df["datetime"] == x.name, "mean_value"].iloc[0], axis=1))
+        .tz_localize(None)
+    )
+This would convert the data into a pivot table like:
+
++----------------------+-----------+-----------+-----------+-----------+
+|  quantiles           | 0.1       | 0.5       | 0.9       | mean      |
++----------------------+-----------+-----------+-----------+-----------+
+|  datetime            |           |           |           |           |
++======================+===========+===========+===========+===========+
+| 2023-10-10 00:00:00  | 14.603392 | 16.423639 | 18.932876 | 16.55000  |
++----------------------+-----------+-----------+-----------+-----------+
+| 2023-10-10 01:00:00  | 14.126083 | 15.910089 | 17.825208 | 15.97123  |
++----------------------+-----------+-----------+-----------+-----------+
+Working with Vintaged Forecasts
+Similar to point forecasts, you can also retrieve vintaged probabilistic forecasts.
+
+Fetching Vintaged Probabilistic Forecasts
+To fetch day-ahead probabilistic forecasts made at a specific time before the forecast period:
+
+# Fetching vintaged probabilistic day-ahead forecasts made a day prior, before 10am
+da_vintaged_forecasts = forecast.vintaged_probabilistic(
+    "HB_HOUSTON",
+    "da",
+    start_time,
+    end_time,
+    quantiles=[0.10, 0.50, 0.90],
+    days_ago=1,
+    before_time=time(10, 0)
+)
+For real-time probabilistic forecasts with subhourly data:
+
+# Fetching vintaged probabilistic real-time forecasts with subhourly data
+rt_vintaged_forecasts = forecast.vintaged_probabilistic(
+    object_name="HB_HOUSTON",
+    product="rt_lmp",
+    start_time=start_time,
+    end_time=end_time,
+    quantiles=[0.10, 0.50, 0.90],
+    days_ago=1,
+    before_time=time(10, 0),
+    forecast_type="rolling-24hr",
+    predictions_per_hour=4,
+    prediction_lead_time_mins=0,
+    horizon_mins=1515
+)
+Fetching Forecasts by Vintage
+You may also fetch probabilistic forecasts based on when they were created:
+
+# Fetching day-ahead probabilistic forecasts by vintage time
+vintage_start_time = tz.localize(datetime(2023, 10, 9))
+vintage_end_time = tz.localize(datetime(2023, 10, 10))
+
+da_by_vintage = forecast.by_vintage_probabilistic(
+    "HB_HOUSTON",
+    "da",
+    [0.10, 0.50, 0.90],
+    vintage_start_time,
+    vintage_end_time
+)
+
+# Fetching real-time probabilistic forecasts by vintage time with subhourly data
+rt_by_vintage = forecast.by_vintage_probabilistic(
+    object_name="HB_HOUSTON",
+    product="rt_lmp",
+    quantiles=[0.10, 0.50, 0.90],
+    vintage_start_time=vintage_start_time,
+    vintage_end_time=vintage_end_time,
+    forecast_type="rolling-24hr",
+    predictions_per_hour=4,
+    prediction_lead_time_mins=0,
+    horizon_mins=1515
+)
+Working with Day-Ahead / Real-Time Win Probabilities
+During day-ahead bidding it may be useful in some cases (virtual bidding) to have a probability that the day-ahead price will exceed the real-time price for a given hour.
+
+da_energy_gt_rt_energy_probability — the probability that the day-ahead price exceeds the real-time price for a delivery interval, P(DA > RT).
+
+rt_energy_gt_da_energy_probability — the complement, P(RT > DA).
+
+The two are computed from the same underlying spread and always sum to 1.
+
+Fetching Day-Ahead / Real-Time Win Probabilities
+The probability of the spread direction is a single value and should be fetched with the point forecast methods most_recent_by_operating_date, vintaged_by_operating_date and by_vintage, passing the product names listed above:
+
+from datetime import date, datetime, time, timedelta
+import pytz
+from tyba_client.forecast import Product
+
+operating_date = date(2026, 9, 1)
+
+# The most recent P(DA > RT) forecast for each interval of the operating date
+p_da_gt_rt = forecast.most_recent_by_operating_date(
+    object_name="HB_HOUSTON",
+    product=Product.DA_ENERGY_GT_RT_ENERGY_PROBABILITY,
+    operating_date=operating_date,
+)
+
+# The P(RT > DA) forecast as it stood a day prior, before 10am.
+# as_of is a naive datetime in the object's local timezone, written out in full:
+p_rt_gt_da_vintaged = forecast.vintaged_by_operating_date(
+    object_name="HB_HOUSTON",
+    product=Product.RT_ENERGY_GT_DA_ENERGY_PROBABILITY,
+    operating_date=operating_date,
+    as_of=datetime.fromisoformat("2026-08-31T10:00"),
+)
+
+# The same request, deriving as_of from the operating date instead. Equivalent to the
+# call above, and easier to reuse when looping over a range of operating dates.
+p_rt_gt_da_vintaged = forecast.vintaged_by_operating_date(
+    object_name="HB_HOUSTON",
+    product=Product.RT_ENERGY_GT_DA_ENERGY_PROBABILITY,
+    operating_date=operating_date,
+    as_of=datetime.combine(operating_date - timedelta(days=1), time(10, 0)),
+)
+
+# Every P(DA > RT) forecast created within a vintage window.
+# by_vintage is unchanged and still takes localized datetimes.
+tz = pytz.timezone("US/Central")
+vintage_start_time = tz.localize(datetime(2026, 9, 1))
+vintage_end_time = tz.localize(datetime(2026, 9, 2))
+
+p_da_gt_rt_by_vintage = forecast.by_vintage(
+    object_name="HB_HOUSTON",
+    product=Product.DA_ENERGY_GT_RT_ENERGY_PROBABILITY,
+    vintage_start_time=vintage_start_time,
+    vintage_end_time=vintage_end_time,
+)
+most_recent_by_operating_date and vintaged_by_operating_date take a plain date as the operating_date and derive the query window from it, covering that whole local day — 24 hours normally, 23 or 25 across a DST transition. vintaged_by_operating_date additionally takes an as_of timestamp, the latest moment a forecast could have been made and still be returned; it is a naive datetime, read in the object’s local timezone.
+
+as_of may fall on the operating date itself, for a same-day vintage, and up to four days before it. The server stops looking further back than that, so an earlier as_of would match nothing; the client raises rather than returning an empty list.
+
+Leave forecast_type, predictions_per_hour, prediction_lead_time_mins and horizon_mins unset on by_vintage; the two by_operating_date methods do not accept them.
+
+The probabilistic methods (most_recent_probabilistic, vintaged_probabilistic, by_vintage_probabilistic) return a 400 for these products.
+
+Working with Ancillary Prices
+Ancillary prices are system-wide, not nodal. This means that to fetch them you pass the ISO name — e.g. "ERCOT" — as the object name rather than a node name.
+
+Ancillary prices should be fetched using the probabilistic endpoints — most_recent_probabilistic, vintaged_probabilistic and by_vintage_probabilistic — for both day-ahead and real-time products. This is the same guidance as for energy prices.
+
+There are two families of ancillary products:
+
+Service
+
+Day-ahead product
+
+Real-time product
+
+Resolution
+
+Regulation up
+
+reg_up
+
+rt_reg_up
+
+DA: hourly, RT: 15-minute
+
+Regulation down
+
+reg_down
+
+rt_reg_down
+
+DA: hourly, RT: 15-minute
+
+Responsive reserves
+
+reserves
+
+rt_reserves
+
+DA: hourly, RT: 15-minute
+
+Non-spinning reserves
+
+non_spin_reserves
+
+rt_non_spin_reserves
+
+DA: hourly, RT: 15-minute
+
+ERCOT Contingency Reserve Service
+
+ecrs
+
+rt_ecrs
+
+DA: hourly, RT: 15-minute
+
+The day-ahead products above are the ones cleared in the day-ahead ancillary auction. The rt_-prefixed products are the real-time ancillary prices that exist post-RTC+B, and they are a separate set of forecasts — passing forecast_type="rolling-24hr" with a day-ahead product name (e.g. product="reg_down") does not return them.
+
+Day-Ahead Ancillary Prices
+Day-ahead ancillary forecasts are hourly. Here’s how to fetch forecasts for reg_up and reg_down:
+
+reg_up_forecasts = forecast.most_recent_probabilistic(
+    object_name="ERCOT",
+    product="reg_up",
+    start_time=start_time,
+    end_time=end_time,
+    quantiles=[0.10, 0.50, 0.90],
+    forecast_type="day-ahead",
+    predictions_per_hour=1,       # hourly
+    horizon_mins=1440,
+)
+
+reg_down_forecasts = forecast.most_recent_probabilistic(
+    object_name="ERCOT",
+    product="reg_down",
+    start_time=start_time,
+    end_time=end_time,
+    quantiles=[0.10, 0.50, 0.90],
+    forecast_type="day-ahead",
+    predictions_per_hour=1,       # hourly
+    horizon_mins=1440,
+)
+Each forecast dictionary has the same probabilistic structure documented above:
+
+{
+  "quantiles": list[float],           # The quantiles you requested, in the order you requested them
+  "values": list[float],              # The forecasted value at each of those quantiles
+  "mean_value": float,                # The mean of the forecast distribution
+  "datetime": string (ISO 8601),      # The date and time the forecast is corresponding to (timezone-aware)
+  "forecasted_at": string (ISO 8601), # The date and time when the forecast was made (timezone-aware)
+  "forecast_type": string             # "PROBABILISTIC"
+}
+For vintaged ancillary forecasts, use the corresponding probabilistic methods:
+
+# Fetching vintaged ancillary forecasts a day prior, before 10am
+reg_up_vintaged = forecast.vintaged_probabilistic(
+    object_name="ERCOT",
+    product="reg_up",
+    start_time=start_time,
+    end_time=end_time,
+    quantiles=[0.10, 0.50, 0.90],
+    forecast_type="day-ahead",
+    days_ago=1,
+    before_time=time(10, 0),
+    predictions_per_hour=1,
+    horizon_mins=1440,
+)
+
+# Fetching ancillary forecasts by vintage time
+reg_down_by_vintage = forecast.by_vintage_probabilistic(
+    object_name="ERCOT",
+    product="reg_down",
+    quantiles=[0.10, 0.50, 0.90],
+    vintage_start_time=vintage_start_time,
+    vintage_end_time=vintage_end_time,
+    forecast_type="day-ahead",
+    predictions_per_hour=1,
+    horizon_mins=1440,
+)
+Real-Time Ancillary Prices
+Real-time ancillary forecasts are 15-minute, so they take a different set of subhourly parameters:
+
+rt_reg_down_forecasts = forecast.most_recent_probabilistic(
+    object_name="ERCOT",
+    product="rt_reg_down",
+    start_time=start_time,
+    end_time=end_time,
+    quantiles=[0.10, 0.50, 0.90],
+    forecast_type="rolling-24hr",
+    predictions_per_hour=4,       # 15-minute intervals
+    prediction_lead_time_mins=0,
+    horizon_mins=1515,
+)
+The same parameters apply to the vintaged variants:
+
+rt_ecrs_vintaged = forecast.vintaged_probabilistic(
+    object_name="ERCOT",
+    product="rt_ecrs",
+    start_time=start_time,
+    end_time=end_time,
+    quantiles=[0.10, 0.50, 0.90],
+    days_ago=1,
+    before_time=time(10, 0),
+    forecast_type="rolling-24hr",
+    predictions_per_hour=4,
+    prediction_lead_time_mins=0,
+    horizon_mins=1515,
+)
+The returned dictionaries have the same probabilistic structure documented above (quantiles, values, mean_value, datetime, forecasted_at, forecast_type), at 15-minute resolution.
+
+Note
+
+An empty response almost always means the request did not match a live model. The most common causes are using a day-ahead ancillary product name with forecast_type="rolling-24hr", or leaving predictions_per_hour and horizon_mins at their defaults (1 and 1440) for a real-time product.
+
+With the above steps, you’ve successfully learned how to fetch various types of forecasts using the Tyba client. Feel free to reach out with any questions!
+
+Additional Information on Subhourly Forecasts
+Note: Subhourly forecasts are available for the real-time products — real-time energy ("rt_lmp") and real-time ancillaries ("rt_reg_up", "rt_reg_down", "rt_reserves", "rt_non_spin_reserves", "rt_ecrs") — and require specifying forecast_type = "rolling-24hr".
+
+The parameters for subhourly forecasts are:
+
+predictions_per_hour (int): The number of predictions made per hour (e.g., 4 for 15-minute intervals).
+
+prediction_lead_time_mins (int): The lead time for the predictions in minutes (e.g., 0 for predictions made at the forecast time).
+
+horizon_mins (int): The horizon in minutes for which the forecasts are made (typically 1515).
+
+A request only returns data when these three values match a model you have access to, so they are effectively required rather than optional for real-time products. The recommended values are predictions_per_hour=4, prediction_lead_time_mins=0, and horizon_mins=1515 throughout, including for the real-time ancillary products.
+
+These parameters can be used in combination with existing methods for fetching both point and probabilistic forecasts, as shown in the examples above.
+
+Client API Reference
+tyba_client.client
+classMarket(*values)
+Indicator for which market to pull pricing data for
+
+RT= 'realtime'
+Indicates pricing data for the Real Time (RT) Market is desired
+
+DA= 'dayahead'
+Indicates pricing data for the Day Ahead (DA) Market is desired
+
+classAncillaryService(*values)
+Indicator for which service to pull pricing data for
+
+REGULATION_UP= 'Regulation Up'
+Indicates pricing data for the Regulation Up service is desired
+
+REGULATION_DOWN= 'Regulation Down'
+Indicates pricing data for the Regulation Down service is desired
+
+RESERVES= 'Reserves'
+Indicates pricing data for the Reserves service is desired
+
+ECRS= 'ECRS'
+Indicates pricing data for the ERCOT Contingency Reserve Service is desired
+
+classAncillary(services)
+Interface for accessing Tyba’s historical ancillary price data
+
+get_pricing_regions(*, iso, service, market)
+Get the name and available year ranges for all ancillary service pricing regions that meet the ISO, service and market criteria.
+
+Parameters
+:
+iso (str) – ISO name. Possible values can be found by calling Services.get_all_isos()
+
+service (AncillaryService) – specifies which ancillary service to pull prices for
+
+market (Market) – specifies whether to pull day ahead or real time prices for the given service
+
+Return type
+:
+Response
+
+Returns
+:
+Response containing an array of JSON objects with schema AncillaryRegionData. For example:
+
+[
+    {
+        'region': 'Pacific Northwest - SP15',
+        'start_year': 2010,
+        'end_year': 2025
+    },
+    {
+        'region': 'WAPA',
+        ...
+    },
+    ...
+]
+get_prices(*, iso, service, market, region, start_year, end_year)
+Get price time series data for a single region/service combination
+
+Parameters
+:
+iso (str) – ISO name. Possible values can be found by calling Services.get_all_isos()
+
+service (AncillaryService) – specifies which ancillary service to pull prices for
+
+market (Market) – specifies whether to pull day ahead or real time prices for the given service
+
+region (str) – specific region within the ISO to pull prices for. Possible values can be found by calling get_pricing_regions()
+
+start_year (int) – the year prices should start
+
+end_year (int) – the year prices should end
+
+Return type
+:
+Response
+
+Returns
+:
+Response containing a JSON object with schema PriceTimeSeries. For example:
+
+{
+    'prices': [
+        61.7929,
+        58.1359,
+        61.4939,
+        ....
+    ],
+    'datetimes': [
+        '2022-01-01T00:00:00Z',
+        '2022-01-01T01:00:00Z',
+        '2022-01-01T02:00:00Z',
+        ....
+    ],
+}
+classLMP(services)
+Interface for accessing Tyba’s historical energy price data
+
+get_all_nodes(*, iso)
+Get node names, IDs and other metadata for all nodes within the given ISO territory.
+
+Parameters
+:
+iso (str) – ISO name. Possible values can be found by calling Services.get_all_isos()
+
+Return type
+:
+Response
+
+Returns
+:
+Response containing an array of JSON objects with schema NodeData. For example:
+
+[
+    {'da_end_year': 2025,
+     'rt_end_year': 2025,
+     'rt_start_year': 2023,
+     'name': 'CLAP_WWRSR1-APND',
+     'id': '10017280350',
+     'da_start_year': 2023,
+     'zone': 'SDGE',
+     'type': 'GENERATOR'},
+    {'da_start_year': 2015,
+     'rt_end_year': 2025,
+     'zone': '',
+     'name': 'ELCENTRO_2_N001:IVLY2',
+     'type': 'SPTIE',
+     'substation': '',
+     'da_end_year': 2025,
+     'id': '10003899356',
+     'rt_start_year': 2015},
+    ...
+]
+get_prices(*, node_ids, market, start_year, end_year)
+Get price time series data for a list of node IDs
+
+Parameters
+:
+node_ids (list[str]) – list of IDs for which prices are desired - Maximum length is 8 IDS
+
+market (Market) – specifies whether to pull day ahead or real time market prices
+
+start_year (int) – the year prices should start
+
+end_year (int) – the year prices should end
+
+Return type
+:
+Response
+
+Returns
+:
+Response containing a JSON object whose keys are node IDs and whose values are objects with schema PriceTimeSeries. For example:
+
+{
+    '10000802793': {
+        'prices': [
+            61.7929,
+            58.1359,
+            61.4939,
+            ....
+        ],
+        'datetimes': [
+            '2022-01-01T00:00:00',
+            '2022-01-01T01:00:00',
+            '2022-01-01T02:00:00',
+            ....
+        ],
+        ...
+    },
+    '20000004677': {
+        ...
+    },
+    ...
+}
+search_nodes(location=None, node_name_filter=None, iso_override=None)
+Get a list of matching nodes based on search criteria. Multiple search criteria (e.g. location and node_name_filter) can be applied in a single request.
+
+Parameters
+:
+location (Optional[str]) –
+
+location information. There are 3 possible forms:
+
+city/state, e.g. ‘dallas, tx’
+
+address, e.g. ‘12345 Anywhere Street, Anywhere, TX 12345’
+
+latitude and longitude, e.g. ‘29.760427, -95.369804’
+
+node_name_filter (Optional[str]) – partial node name with which to perform a pattern-match, e.g. ‘HB_’
+
+iso_override (Optional[str]) – ISO signifier, used to constrain search to a single ISO. When equal to None, all ISOs are searched based on other criteria. Possible values can be found by calling Services.get_all_isos()
+
+Return type
+:
+Response
+
+Returns
+:
+Response containing a JSON object. If matching nodes are found, a ‘nodes’ item will contain an array of objects with schema NodeSearchData. If no matching nodes are found, an error code will be returned. As an example, a successful search result might look like:
+
+{
+    "nodes": [
+        {
+            "node/name": "HB_BUSAVG",
+            "node/id": "10000698380",
+            "node/iso": "ERCOT",
+            "node/lat": 30.850714,
+            "node/lng": -97.877628,
+            "node/distance-meters": 500.67458
+        },
+        {
+            "node/name": ...,
+            ...
+        },
+        ...
+    ]
+}
+classServices(client)
+Interface for accessing Tyba’s historical price data
+
+ancillary: Ancillary
+Interface for accessing Tyba’s historical ancillary price data
+
+lmp: LMP
+Interface for accessing Tyba’s historical energy price data
+
+get_all_isos()
+Get of list of all independent system operators and regional transmission operators (generally all referred to as ISOs) represented in Tyba’s historical price data
+
+Return type
+:
+Response
+
+Returns
+:
+Response containing JSON array of strings of the available ISO names
+
+classClient(personal_access_token, host='https://dev.tybaenergy.com', request_args=None)
+High level interface for interacting with Tyba’s API.
+
+Parameters
+:
+personal_access_token (str) – required for using the python client/API, contact Tyba to obtain
+
+services: Services
+Interface for accessing Tyba’s historical price data
+
+forecast: Forecast
+Interface for accessing Tyba’s historical price data
+
+propertyancillary: Ancillary
+Shortcut to client.services.ancillary
+
+ 
+propertylmp: LMP
+Shortcut to client.services.lmp
+
+schedule(model)
+Schedule a model simulation based on the given inputs
+
+Parameters
+:
+model (Union[StandaloneStorageModel, PVStorageModel, Union[PVGenerationModel, DCExternalGenerationModel, ACExternalGenerationModel]]) – a class instance of one of the model classes, e.g. StandaloneStorageModel. Contains all required inputs for running a simulation
+
+Return type
+:
+Response
+
+Returns
+:
+Response whose status code indicates whether the model was successfully scheduled. If successful, the response will contain a JSON object with an 'id' for the scheduled model run. This id can be used with the get_status() and wait_on_result() endpoints to retrieve status updates and model results. The presence of issues can be easily checked by calling the raise_for_status() method of the response object. For example:
+
+resp = client.schedule(pv)
+resp.raise-for_status()  # this will raise an error if the model was not successfully scheduled
+id_ = resp.json()["id"]
+res = client.wait_on_result(id_)
+get_status(run_id)
+Check the status and retrieve the results of a scheduled model simulation. If a simulation has not completed, this endpoint returns the simulation status/progress. If the simulation has completed, it returns the model results.
+
+Parameters
+:
+run_id (str) – ID of the scheduled model simulation
+
+Returns
+:
+Response containing a JSON object with schema ModelStatus
+
+wait_on_result(run_id, wait_time=5, log_progress=False)
+Poll for simulation status and, once complete, return the model results
+
+Parameters
+:
+run_id (str) – ID of the scheduled model simulation
+
+wait_time (int) – time in seconds to wait between polling/updates
+
+log_progress (bool) – indicate whether updates/progress should be logged/displayed. If True, will report both status and progress information
+
+Return type
+:
+dict
+
+Returns
+:
+results dictionary equivalent to ModelStatus.result returned by get_status(), with the exact schema depending on the model inputs
+
+classNodeType(*values)
+Indicator of which type of physical infrastructure is associated with a particular market node
+
+GENERATOR= 'GENERATOR'
+Not sure
+
+SPTIE= 'SPTIE'
+Not sure
+
+LOAD= 'LOAD'
+Not sure
+
+INTERTIE= 'INTERTIE'
+Not sure
+
+AGGREGATE= 'AGGREGATE'
+Not sure
+
+HUB= 'HUB'
+Not sure
+
+NA= 'N/A'
+Not sure
+
+classNodeData(**data)
+Schema for node metadata
+
+name: str
+Name of the node
+
+id: str
+ID of the node
+
+zone: str
+Zone where the node is located within the ISO territory
+
+type: NodeType
+Identifier that indicates physical infrastructure associated with this node
+
+da_start_year: float
+First year in the Day Ahead (DA) market price dataset for this node
+
+model_config: ClassVar[ConfigDict]= {}
+Configuration for the model, should be a dictionary conforming to [ConfigDict][pydantic.config.ConfigDict].
+
+da_end_year: float
+Final year in the Day Ahead (DA) market price dataset for this node
+
+rt_start_year: int
+First year in the Real Time (RT) market price dataset for this node
+
+rt_end_year: int
+Final year in the Real Time (RT) market price dataset for this node
+
+substation: str | None
+Indicator of the grid substation associated with this node (not always present)
+
+classPriceTimeSeries(**data)
+Schema for pricing data associated with a particular energy price node or ancillary pricing region
+
+model_config: ClassVar[ConfigDict]= {}
+Configuration for the model, should be a dictionary conforming to [ConfigDict][pydantic.config.ConfigDict].
+
+datetimes: list[str]
+Beginning-of-interval datetimes for the hourly pricing given in local time.
+
+For energy prices, the datetimes are timezone-naive (no timezone identifier) but given in the local timezone (i.e. including Daylight Savings Time or DST). E.g. The start of the year 2022 in ERCOT is given as ‘2022-01-01T00:00:00’ as opposed to ‘2022-01-01T00:00:00-6:00’. Leap days are represented by a single hour, which should be dropped as a post-processing step.
+
+For ancillary prices, the datetimes are in local standard time (i.e. not including DST) but appear to be in UTC (“Z” timezone identifier). E.g. The start of the year 2022 in ERCOT is given as ‘2022-01-01T00:00:00Z’ and not ‘2022-01-01T00:00:00-6:00’. Leap days are not included.
+
+prices: list[float]
+Average hourly settlement prices for hours represented by datetimes.
+
+classNodeSearchData(**data)
+Schema for search-specific node metadata. The (name ‘xxxx’) to the right of the field names can be ignored
+
+model_config: ClassVar[ConfigDict]= {}
+Configuration for the model, should be a dictionary conforming to [ConfigDict][pydantic.config.ConfigDict].
+
+node_name: str
+Name of the node
+
+node_id: str
+ID of the node
+
+node_iso: str
+ISO that the node belongs to
+
+node_longitude: float
+longitude of the point on the electrical grid associated with the node
+
+node_latitude: float
+latitude of the point on the electrical grid associated with the node
+
+node_distance_meters: float | None
+Distance from the node to the location parameter passed to search_nodes(). Not present if location is not given.
+
+classAncillaryRegionData(**data)
+Schema for ancillary region metadata
+
+model_config: ClassVar[ConfigDict]= {}
+Configuration for the model, should be a dictionary conforming to [ConfigDict][pydantic.config.ConfigDict].
+
+region: str
+Name of the region
+
+start_year: int
+First year in price dataset for the region and specified service
+
+da_end_year: int
+Final year in price dataset for the region and specified service
+
+classModelStatus(**data)
+Schema for model status and results
+
+model_config: ClassVar[ConfigDict]= {}
+Configuration for the model, should be a dictionary conforming to [ConfigDict][pydantic.config.ConfigDict].
+
+status: str
+Status of the scheduled run. Possible values are explained in Tyba Model Run Status Codes
+
+progress: str | None
+Percentage value indicating the progress towards completing a model simulation. Only present if status is not 'complete'.
+
+Note that in some cases the simulation may involve multiple optimization iterations, and the progress may appear to start over as each additional iteration is undertaken
+
+result: GenerationModelResults | PVStorageModelResults | StandaloneStorageModelSimpleResults | StandaloneStorageModelWithDownstreamResults | None
+Model simulation results dictionary with schema defined depending on the model inputs, e.g. scheduling a PVGenerationModel will return a dictionary with schema GenerationModelResults. Only present if status is 'complete'
+
+tyba_client.forecast
+classProduct(*values)
+classForecast(client)
+most_recent(object_name, product, start_time, end_time, forecast_type=None, predictions_per_hour=None, prediction_lead_time_mins=None, horizon_mins=None)
+Parameters
+:
+object_name (str)
+
+product (Product | str)
+
+start_time (datetime)
+
+end_time (datetime)
+
+forecast_type
+
+predictions_per_hour
+
+prediction_lead_time_mins
+
+horizon_mins
+
+Returns
+:
+most_recent_by_operating_date(object_name, product, operating_date)
+Fetch the most recent forecasts covering a single operating date.
+
+A convenience wrapper around most_recent() that turns the operating date into the start_time/end_time pair that endpoint expects.
+
+Parameters
+:
+object_name (str)
+
+product (Product)
+
+operating_date (date) – The operating date, e.g. date(2023, 10, 10). The window fetched covers that whole local day: 24 hours normally, 23 or 25 across a DST transition.
+
+Returns
+:
+most_recent_probabilistic(object_name, product, start_time, end_time, quantiles, forecast_type=None, predictions_per_hour=None, prediction_lead_time_mins=None, horizon_mins=None)
+Parameters
+:
+object_name (str)
+
+product (Product | str)
+
+start_time (datetime)
+
+end_time (datetime)
+
+quantiles (List[float])
+
+forecast_type
+
+predictions_per_hour
+
+prediction_lead_time_mins
+
+horizon_mins
+
+Returns
+:
+vintaged(object_name, product, start_time, end_time, days_ago, before_time, exact_vintage=False, forecast_type=None, predictions_per_hour=None, prediction_lead_time_mins=None, horizon_mins=None)
+Parameters
+:
+object_name (str)
+
+product (Product | str)
+
+start_time (datetime)
+
+end_time (datetime)
+
+days_ago (int)
+
+before_time (time)
+
+exact_vintage (bool)
+
+forecast_type
+
+predictions_per_hour
+
+prediction_lead_time_mins
+
+horizon_mins
+
+Returns
+:
+vintaged_by_operating_date(object_name, product, operating_date, as_of)
+Fetch the forecasts for a single operating date as they stood at a given point in time.
+
+A convenience wrapper around vintaged() that turns the operating date into the start_time/end_time pair and the as_of timestamp into the days_ago/before_time pair that endpoint expects.
+
+Parameters
+:
+object_name (str)
+
+product (Product)
+
+operating_date (date) – The operating date, e.g. date(2023, 10, 10). The window fetched covers that whole local day: 24 hours normally, 23 or 25 across a DST transition.
+
+as_of (datetime) – The vintage cutoff, i.e. the latest moment a forecast could have been made and still be returned, as a naive datetime in the object’s local timezone. It is split into days_ago (whole local days before the operating date) and before_time (its local time of day). Must not be later than the operating date.
+
+Returns
+:
+vintaged_probabilistic(object_name, product, start_time, end_time, quantiles, days_ago, before_time, exact_vintage=False, forecast_type=None, predictions_per_hour=None, prediction_lead_time_mins=None, horizon_mins=None)
+Parameters
+:
+object_name (str)
+
+product (Product | str)
+
+start_time (datetime)
+
+end_time (datetime)
+
+quantiles (List[float])
+
+days_ago (int)
+
+before_time (time)
+
+exact_vintage (bool)
+
+forecast_type
+
+predictions_per_hour
+
+prediction_lead_time_mins
+
+horizon_mins
+
+Returns
+:
+by_vintage(object_name, product, vintage_start_time, vintage_end_time, forecast_type=None, predictions_per_hour=None, prediction_lead_time_mins=None, horizon_mins=None)
+Parameters
+:
+object_name (str)
+
+product (Product | str)
+
+vintage_start_time (datetime)
+
+vintage_end_time (datetime)
+
+forecast_type
+
+predictions_per_hour
+
+prediction_lead_time_mins
+
+horizon_mins
+
+Returns
+:
+by_vintage_probabilistic(object_name, product, quantiles, vintage_start_time, vintage_end_time, forecast_type=None, predictions_per_hour=None, prediction_lead_time_mins=None, horizon_mins=None)
+Parameters
+:
+object_name (str)
+
+product (Product | str)
+
+quantiles (List[float])
+
+vintage_start_time (datetime)
+
+vintage_end_time (datetime)
+
+forecast_type
+
+predictions_per_hour
+
+prediction_lead_time_mins
+
+horizon_mins
+
+Returns
+:
+actuals(object_name, product, start_time, end_time, predictions_per_hour=None)
+Parameters
+:
+object_name (str)
+
+product (Product | str)
+
+start_time (datetime)
+
+end_time (datetime)
+
+Returns
+:
+

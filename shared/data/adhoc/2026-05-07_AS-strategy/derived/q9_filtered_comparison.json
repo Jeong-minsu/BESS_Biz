@@ -1,0 +1,119 @@
+{
+  "filter_A_unfiltered": {
+    "label": "A. UNFILTERED (full Tenaska window)",
+    "n_hours": 3119,
+    "n_days": 130,
+    "gks_gross_da": 419847.0,
+    "gks_imb_paid": 189884.0,
+    "gks_net": 229963.0,
+    "optimal_strategy_C": 1032005.0,
+    "gks_capture_pct": 22.3,
+    "uplift_x": 4.5,
+    "per_product": {
+      "RRS": {
+        "gks_gross_da": 106648.0,
+        "gks_imb_paid": 23395.0,
+        "gks_net": 83253.0,
+        "optimal_best_pp": 575458.0
+      },
+      "ECRS": {
+        "gks_gross_da": 49606.0,
+        "gks_imb_paid": 34449.0,
+        "gks_net": 15156.0,
+        "optimal_best_pp": 633336.0
+      },
+      "NSPIN": {
+        "gks_gross_da": 263593.0,
+        "gks_imb_paid": 132039.0,
+        "gks_net": 131554.0,
+        "optimal_best_pp": 884311.0
+      }
+    }
+  },
+  "filter_B_day_filtered": {
+    "label": "B. DAY-FILTERED (only days GKS bid any AS)",
+    "n_hours": 2495,
+    "n_days": 104,
+    "gks_gross_da": 419847.0,
+    "gks_imb_paid": 217592.0,
+    "gks_net": 202255.0,
+    "optimal_strategy_C": 474186.0,
+    "gks_capture_pct": 42.7,
+    "uplift_x": 2.3,
+    "per_product": {
+      "RRS": {
+        "gks_gross_da": 106648.0,
+        "gks_imb_paid": 31667.0,
+        "gks_net": 74981.0,
+        "optimal_best_pp": 209118.0
+      },
+      "ECRS": {
+        "gks_gross_da": 49606.0,
+        "gks_imb_paid": 35922.0,
+        "gks_net": 13684.0,
+        "optimal_best_pp": 233159.0
+      },
+      "NSPIN": {
+        "gks_gross_da": 263593.0,
+        "gks_imb_paid": 150003.0,
+        "gks_net": 113590.0,
+        "optimal_best_pp": 451691.0
+      }
+    }
+  },
+  "filter_C_product_hour": {
+    "RRS": {
+      "n_hours": 380,
+      "n_days": 50,
+      "gks_net": 70658.0,
+      "optimal_best_pp": 99826.0,
+      "capture_pct": 70.8,
+      "uplift_x": 1.4
+    },
+    "ECRS": {
+      "n_hours": 178,
+      "n_days": 33,
+      "gks_net": 10173.0,
+      "optimal_best_pp": 29132.0,
+      "capture_pct": 34.9,
+      "uplift_x": 2.9
+    },
+    "NSPIN": {
+      "n_hours": 1864,
+      "n_days": 99,
+      "gks_net": 96790.0,
+      "optimal_best_pp": 180093.0,
+      "capture_pct": 53.7,
+      "uplift_x": 1.9
+    }
+  },
+  "excluded_days_count": 26,
+  "excluded_days_sample": [
+    "2026-01-24",
+    "2026-01-25",
+    "2026-01-26",
+    "2026-03-25",
+    "2026-03-26",
+    "2026-03-27",
+    "2026-03-28",
+    "2026-03-29",
+    "2026-03-30",
+    "2026-03-31",
+    "2026-04-01",
+    "2026-04-02",
+    "2026-04-03",
+    "2026-04-04",
+    "2026-04-05",
+    "2026-04-06",
+    "2026-04-07",
+    "2026-04-08",
+    "2026-04-09",
+    "2026-04-10",
+    "2026-04-11",
+    "2026-04-12",
+    "2026-04-13",
+    "2026-04-14",
+    "2026-04-23",
+    "2026-04-24"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+ "n_features": 13,
+ "n_cells_approx": 936,
+ "observed_max_abs_t": 4.35,
+ "null_max_abs_t_p50": 4.15,
+ "null_max_abs_t_p90": 5.0,
+ "null_max_abs_t_p95": 5.37,
+ "p_value_family": 0.347,
+ "n_perm": 300,
+ "note": "day labels of every regime feature permuted jointly across days (hour structure and spread autocorrelation within day preserved); tests whether the largest in-sample |t| across all regime x HE cells exceeds what selection from noise gives"
+}

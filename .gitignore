@@ -84,3 +84,12 @@ reports/**/*.html
 # Ad-hoc derived caches — keep scripts/.json/.md, gitignore large parquet (re-fetchable from datalake)
 # =============================================================
 shared/data/adhoc/**/*.parquet
+
+# =============================================================
+# Added 2026-10-07 — local-only / large / confidential raw
+# =============================================================
+.claude/scheduled_tasks.lock
+Inputs/
+shared/data/pnl/all_bess/**/*.parquet
+shared/data/pnl/all_bess/energy_as/chunks/
+shared/data/adhoc/**/raw/tenaska_*/

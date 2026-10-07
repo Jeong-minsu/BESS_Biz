@@ -1,0 +1,418 @@
+{
+  "target": "RVN_RN",
+  "target_objectid": 10019925379,
+  "proxy_name": "nominated_nnls",
+  "nodes": [
+    "CBEC_ALL",
+    "RBN_BESS1",
+    "TAV_RN"
+  ],
+  "objectids": [
+    10001765766,
+    10017290064,
+    10016969364
+  ],
+  "weights": [
+    0.4148,
+    0.5407,
+    0.0445
+  ],
+  "intercept": -0.065,
+  "formula": "proxy_LMP = intercept + sum(w_i * LMP_i), same weights applied to DA and to RT",
+  "fit_window": "2026-06-04..2026-09-13 (refit on full overlap after OOS selection)",
+  "selected_by": "min over OOS(Aug1-Sep13; fit Jun4-Jul31) of mean(TB2_DA_MAE,TB2_RT_MAE)+daily_spread_MAE",
+  "oos_metrics": {
+    "tb2_da_true_mean": 47.88,
+    "tb2_da_proxy_mean": 47.38,
+    "tb2_da_mae": 0.52,
+    "tb2_da_bias": -0.5,
+    "tb2_rt_true_mean": 67.09,
+    "tb2_rt_proxy_mean": 66.42,
+    "tb2_rt_mae": 0.69,
+    "tb2_rt_bias": -0.67,
+    "spread_daily_mae": 0.34,
+    "spread_daily_bias": 0.29,
+    "spread_hourly_corr": 0.999,
+    "spread_hourly_sign_agree": 0.991,
+    "rmse_da_hourly": 1.09,
+    "rmse_rt_hourly": 0.87,
+    "n_days": 44
+  },
+  "r2_fit_full": 0.998,
+  "fallback": {
+    "applies_to": "flowdays before 2023-12-01 (RBN_BESS1 has no prices before 2023-12)",
+    "nodes": [
+      "TAV_RN"
+    ],
+    "objectids": [
+      10016969364
+    ],
+    "weights": [
+      1.0
+    ],
+    "intercept": 0.0,
+    "oos_metrics": {
+      "tb2_da_true_mean": 47.88,
+      "tb2_da_proxy_mean": 48.11,
+      "tb2_da_mae": 0.37,
+      "tb2_da_bias": 0.23,
+      "tb2_rt_true_mean": 67.09,
+      "tb2_rt_proxy_mean": 67.85,
+      "tb2_rt_mae": 1.08,
+      "tb2_rt_bias": 0.76,
+      "spread_daily_mae": 0.36,
+      "spread_daily_bias": 0.16,
+      "spread_hourly_corr": 0.996,
+      "spread_hourly_sign_agree": 0.98,
+      "rmse_da_hourly": 1.02,
+      "rmse_rt_hourly": 2.66,
+      "n_days": 44
+    },
+    "note": "TAV_RN = best full-history single node by OOS score (1.08 vs winner 0.94); use alone for 2023-09..2023-11"
+  },
+  "eligibility_rule": "blend members restricted to nodes with DA prices already in 2023-09 (full 3-yr history); WAL_RN (best raw match, online 2025-05) excluded for that reason",
+  "limitations": [
+    "overlap window is ~100 summer days (2026-06-04..09-13); proxy untested in winter/shoulder",
+    "RVN_RN online only since 2026-06; its own congestion footprint may still be settling"
+  ],
+  "alternatives": {
+    "single_best": {
+      "nodes": [
+        "SBE_RN_1"
+      ],
+      "weights": [
+        1.0
+      ],
+      "intercept": 0.0,
+      "oos": {
+        "tb2_da_true_mean": 47.88,
+        "tb2_da_proxy_mean": 47.1,
+        "tb2_da_mae": 0.79,
+        "tb2_da_bias": -0.78,
+        "tb2_rt_true_mean": 67.09,
+        "tb2_rt_proxy_mean": 66.27,
+        "tb2_rt_mae": 1.24,
+        "tb2_rt_bias": -0.82,
+        "spread_daily_mae": 0.41,
+        "spread_daily_bias": 0.23,
+        "spread_hourly_corr": 0.997,
+        "spread_hourly_sign_agree": 0.981,
+        "rmse_da_hourly": 1.03,
+        "rmse_rt_hourly": 2.47,
+        "n_days": 44
+      }
+    },
+    "single_TAV_RN": {
+      "nodes": [
+        "TAV_RN"
+      ],
+      "weights": [
+        1.0
+      ],
+      "intercept": 0.0,
+      "oos": {
+        "tb2_da_true_mean": 47.88,
+        "tb2_da_proxy_mean": 48.11,
+        "tb2_da_mae": 0.37,
+        "tb2_da_bias": 0.23,
+        "tb2_rt_true_mean": 67.09,
+        "tb2_rt_proxy_mean": 67.85,
+        "tb2_rt_mae": 1.08,
+        "tb2_rt_bias": 0.76,
+        "spread_daily_mae": 0.36,
+        "spread_daily_bias": 0.16,
+        "spread_hourly_corr": 0.996,
+        "spread_hourly_sign_agree": 0.98,
+        "rmse_da_hourly": 1.02,
+        "rmse_rt_hourly": 2.66,
+        "n_days": 44
+      }
+    },
+    "nominated_ols": {
+      "nodes": [
+        "CBEC_ALL",
+        "RBN_BESS1",
+        "TAV_RN"
+      ],
+      "weights": [
+        0.4065,
+        0.5481,
+        0.0425
+      ],
+      "intercept": -0.002,
+      "oos": {
+        "tb2_da_true_mean": 47.88,
+        "tb2_da_proxy_mean": 47.24,
+        "tb2_da_mae": 0.64,
+        "tb2_da_bias": -0.64,
+        "tb2_rt_true_mean": 67.09,
+        "tb2_rt_proxy_mean": 66.23,
+        "tb2_rt_mae": 0.87,
+        "tb2_rt_bias": -0.86,
+        "spread_daily_mae": 0.35,
+        "spread_daily_bias": 0.3,
+        "spread_hourly_corr": 0.999,
+        "spread_hourly_sign_agree": 0.991,
+        "rmse_da_hourly": 1.1,
+        "rmse_rt_hourly": 0.91,
+        "n_days": 44
+      }
+    },
+    "nominated_houston_only_ols": {
+      "nodes": [
+        "RBN_BESS1",
+        "TAV_RN"
+      ],
+      "weights": [
+        0.4161,
+        0.5653
+      ],
+      "intercept": 0.349,
+      "oos": {
+        "tb2_da_true_mean": 47.88,
+        "tb2_da_proxy_mean": 47.53,
+        "tb2_da_mae": 0.59,
+        "tb2_da_bias": -0.35,
+        "tb2_rt_true_mean": 67.09,
+        "tb2_rt_proxy_mean": 66.52,
+        "tb2_rt_mae": 1.17,
+        "tb2_rt_bias": -0.57,
+        "spread_daily_mae": 0.39,
+        "spread_daily_bias": 0.25,
+        "spread_hourly_corr": 0.998,
+        "spread_hourly_sign_agree": 0.988,
+        "rmse_da_hourly": 1.23,
+        "rmse_rt_hourly": 1.74,
+        "n_days": 44
+      }
+    },
+    "scan_ols": {
+      "nodes": [
+        "SBE_RN_1",
+        "WGU_RN",
+        "DAG_ALL"
+      ],
+      "weights": [
+        0.6638,
+        0.8075,
+        -0.4541
+      ],
+      "intercept": -0.402,
+      "oos": {
+        "tb2_da_true_mean": 47.88,
+        "tb2_da_proxy_mean": 47.59,
+        "tb2_da_mae": 0.6,
+        "tb2_da_bias": -0.29,
+        "tb2_rt_true_mean": 67.09,
+        "tb2_rt_proxy_mean": 66.53,
+        "tb2_rt_mae": 1.74,
+        "tb2_rt_bias": -0.56,
+        "spread_daily_mae": 0.45,
+        "spread_daily_bias": 0.24,
+        "spread_hourly_corr": 0.997,
+        "spread_hourly_sign_agree": 0.985,
+        "rmse_da_hourly": 0.95,
+        "rmse_rt_hourly": 2.01,
+        "n_days": 44
+      }
+    },
+    "scan_nnls": {
+      "nodes": [
+        "SBE_RN_1",
+        "WGU_RN",
+        "DAG_ALL"
+      ],
+      "weights": [
+        0.5308,
+        0.4692,
+        0.0
+      ],
+      "intercept": 0.315,
+      "oos": {
+        "tb2_da_true_mean": 47.88,
+        "tb2_da_proxy_mean": 46.33,
+        "tb2_da_mae": 1.55,
+        "tb2_da_bias": -1.55,
+        "tb2_rt_true_mean": 67.09,
+        "tb2_rt_proxy_mean": 64.92,
+        "tb2_rt_mae": 2.33,
+        "tb2_rt_bias": -2.17,
+        "spread_daily_mae": 0.52,
+        "spread_daily_bias": 0.29,
+        "spread_hourly_corr": 0.996,
+        "spread_hourly_sign_agree": 0.985,
+        "rmse_da_hourly": 1.17,
+        "rmse_rt_hourly": 2.39,
+        "n_days": 44
+      }
+    }
+  },
+  "caveat_wharton": {
+    "issue": "Constraint WHARTN (station-level, base-case, HOUSTON) has shift factor ~1.0 at CBEC_ALL/TAV_RN/SBE_RN_1/DAG_ALL and ~0 at RBN_BESS1/WGU_RN/WAL_RN/WES_ALL/NCO_RN. It last bound 2026-06-02, i.e. never while RVN_RN was priced, so RVN_RN's own SF to it is unobservable and the Jun-Sep 2026 price fit could not learn to exclude it.",
+    "effect_on_proxy": "the chosen blend carries 0.4148+0.0445 = 0.459 x WHARTN lambda into reconstructed RVN prices: cumulative -16,388 $/MWh-h per MW over 2023-09..2026-06 (DA -4,537 / RT -11,852), concentrated Feb-May and Sep-Nov, HE12-17; per-year DA/RT: 2023 -549/-2648, 2024 -2290/-4836, 2025 -1079/-2286, 2026 -619/-2081. If Raven is NOT behind WHARTN, proxy history has spurious midday dips of ~0.46 x lambda (mean lambda DA $7, RT $39; RT p90 $70, max $5,251) on those days, overstating reconstructed TB2 on those days.",
+    "forward_relevance": "low regardless: WHARTN limit raised 470 -> 536 -> 691 MW (2023->2026) and no binding since 2026-06-02.",
+    "wharton_free_alternatives_oos_score": {
+      "RBN+WGU": {
+        "weights": [
+          0.4108,
+          0.5892
+        ],
+        "nodes": [
+          "RBN_BESS1",
+          "WGU_RN"
+        ],
+        "intercept": -0.087,
+        "score": 1.94,
+        "full_refit": {
+          "nodes": [
+            "RBN_BESS1",
+            "WGU_RN"
+          ],
+          "ids": [
+            10017290064,
+            10016239529
+          ],
+          "weights": [
+            0.5035,
+            0.4965
+          ],
+          "intercept": -0.219
+        }
+      },
+      "RBN+WGU+WES": {
+        "weights": [
+          0.4728,
+          0.0,
+          0.5272
+        ],
+        "nodes": [
+          "RBN_BESS1",
+          "WGU_RN",
+          "WES_ALL"
+        ],
+        "intercept": 0.007,
+        "score": 1.84,
+        "full_refit": {
+          "nodes": [
+            "RBN_BESS1",
+            "WGU_RN",
+            "WES_ALL"
+          ],
+          "ids": [
+            10017290064,
+            10016239529,
+            10016920911
+          ],
+          "weights": [
+            0.5396,
+            0.0,
+            0.4604
+          ],
+          "intercept": -0.12
+        }
+      },
+      "WGU+NCO (full-hist)": {
+        "weights": [
+          1.0,
+          0.0
+        ],
+        "nodes": [
+          "WGU_RN",
+          "NCO_RN"
+        ],
+        "intercept": 0.301,
+        "score": 3.72,
+        "full_refit": {
+          "nodes": [
+            "WGU_RN",
+            "NCO_RN"
+          ],
+          "ids": [
+            10016239529,
+            10016736811
+          ],
+          "weights": [
+            1.0,
+            0.0
+          ],
+          "intercept": 0.316
+        }
+      },
+      "RBN+WAL+WGU (2025-05+)": {
+        "weights": [
+          0.0077,
+          0.7466,
+          0.2457
+        ],
+        "nodes": [
+          "RBN_BESS1",
+          "WAL_RN",
+          "WGU_RN"
+        ],
+        "intercept": 0.015,
+        "score": 0.9,
+        "full_refit": {
+          "nodes": [
+            "RBN_BESS1",
+            "WAL_RN",
+            "WGU_RN"
+          ],
+          "ids": [
+            10017290064,
+            10018682155,
+            10016239529
+          ],
+          "weights": [
+            0.0259,
+            0.7321,
+            0.2421
+          ],
+          "intercept": -0.084
+        }
+      }
+    },
+    "note": "WHARTN-free full-history blends score materially worse OOS (1.84-3.72 vs 0.94), so the nominated NNLS blend is kept; strip WHARTN using derived/item2_congestion_hourly_panel.parquet (CONSTRAINTNAME=='WHARTN', mcc_h) if Raven is confirmed not to be behind it."
+  },
+  "wharton_sf_by_node": {
+    "CBEC_ALL": {
+      "sf": 0.9993,
+      "n": 8431
+    },
+    "WGU_RN": {
+      "sf": -0.0008,
+      "n": 7136
+    },
+    "NCO_RN": {
+      "sf": -0.0008,
+      "n": 7136
+    },
+    "WES_ALL": {
+      "sf": -0.0008,
+      "n": 7136
+    },
+    "SBE_RN_1": {
+      "sf": 0.9993,
+      "n": 8431
+    },
+    "TAV_RN": {
+      "sf": 0.9993,
+      "n": 8431
+    },
+    "DAG_ALL": {
+      "sf": 0.9985,
+      "n": 8431
+    },
+    "RBN_BESS1": {
+      "sf": -0.0008,
+      "n": 7023
+    },
+    "OR_BESS_RN": {
+      "sf": -0.0008,
+      "n": 7023
+    },
+    "WAL_RN": {
+      "sf": -0.0009,
+      "n": 2165
+    }
+  }
+}

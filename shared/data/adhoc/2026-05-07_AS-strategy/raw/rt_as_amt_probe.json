@@ -1,0 +1,218 @@
+{
+ "2026-05-09|ESR_uuid_query_fillNulls": {
+  "datapoints": {
+   "Great Kiskadee Storage - ESR::CLR_ECRS_Qty": {
+    "n": 24,
+    "nz": 0,
+    "sample": [
+     null,
+     null,
+     null
+    ]
+   },
+   "Great Kiskadee Storage - ESR::BP_Dev_Amt": {
+    "n": 24,
+    "nz": 0,
+    "sample": [
+     null,
+     null,
+     null
+    ]
+   },
+   "Great Kiskadee Storage - ESR::CLR_Reg_Down_Qty": {
+    "n": 24,
+    "nz": 0,
+    "sample": [
+     null,
+     null,
+     null
+    ]
+   },
+   "Great Kiskadee Storage - ESR::CLR_Reg_Up_Qty": {
+    "n": 24,
+    "nz": 0,
+    "sample": [
+     null,
+     null,
+     null
+    ]
+   },
+   "Great Kiskadee Storage - ESR::CLR_NS_Qty": {
+    "n": 24,
+    "nz": 0,
+    "sample": [
+     null,
+     null,
+     null
+    ]
+   },
+   "Great Kiskadee Storage - ESR::RT_Reg_Up_Amt": {
+    "n": 24,
+    "nz": 0,
+    "sample": [
+     null,
+     null,
+     null
+    ]
+   },
+   "Great Kiskadee Storage - ESR::CLR_RRS_Qty": {
+    "n": 24,
+    "nz": 0,
+    "sample": [
+     null,
+     null,
+     null
+    ]
+   },
+   "Great Kiskadee Storage - ESR::RT_ECRS_Amt": {
+    "n": 24,
+    "nz": 0,
+    "sample": [
+     null,
+     null,
+     null
+    ]
+   },
+   "Great Kiskadee Storage - ESR::RT_Reg_Down_Amt": {
+    "n": 24,
+    "nz": 0,
+    "sample": [
+     null,
+     null,
+     null
+    ]
+   },
+   "Great Kiskadee Storage - ESR::RT_NS_Amt": {
+    "n": 24,
+    "nz": 0,
+    "sample": [
+     null,
+     null,
+     null
+    ]
+   },
+   "Great Kiskadee Storage - ESR::RT_RRS_Amt": {
+    "n": 24,
+    "nz": 0,
+    "sample": [
+     null,
+     null,
+     null
+    ]
+   },
+   "Great Kiskadee Storage, LLC::CLR_ECRS_Qty": {
+    "n": 24,
+    "nz": 0,
+    "sample": [
+     null,
+     null,
+     null
+    ]
+   },
+   "Great Kiskadee Storage, LLC::BP_Dev_Amt": {
+    "n": 24,
+    "nz": 0,
+    "sample": [
+     null,
+     null,
+     null
+    ]
+   },
+   "Great Kiskadee Storage, LLC::CLR_Reg_Down_Qty": {
+    "n": 24,
+    "nz": 0,
+    "sample": [
+     null,
+     null,
+     null
+    ]
+   },
+   "Great Kiskadee Storage, LLC::CLR_Reg_Up_Qty": {
+    "n": 24,
+    "nz": 0,
+    "sample": [
+     null,
+     null,
+     null
+    ]
+   },
+   "Great Kiskadee Storage, LLC::CLR_NS_Qty": {
+    "n": 24,
+    "nz": 0,
+    "sample": [
+     null,
+     null,
+     null
+    ]
+   },
+   "Great Kiskadee Storage, LLC::RT_Reg_Up_Amt": {
+    "n": 24,
+    "nz": 0,
+    "sample": [
+     null,
+     null,
+     null
+    ]
+   },
+   "Great Kiskadee Storage, LLC::CLR_RRS_Qty": {
+    "n": 24,
+    "nz": 0,
+    "sample": [
+     null,
+     null,
+     null
+    ]
+   },
+   "Great Kiskadee Storage, LLC::RT_ECRS_Amt": {
+    "n": 24,
+    "nz": 0,
+    "sample": [
+     null,
+     null,
+     null
+    ]
+   },
+   "Great Kiskadee Storage, LLC::RT_Reg_Down_Amt": {
+    "n": 24,
+    "nz": 0,
+    "sample": [
+     null,
+     null,
+     null
+    ]
+   },
+   "Great Kiskadee Storage, LLC::RT_NS_Amt": {
+    "n": 24,
+    "nz": 0,
+    "sample": [
+     null,
+     null,
+     null
+    ]
+   },
+   "Great Kiskadee Storage, LLC::RT_RRS_Amt": {
+    "n": 24,
+    "nz": 0,
+    "sample": [
+     null,
+     null,
+     null
+    ]
+   }
+  },
+  "validations": []
+ },
+ "2026-05-09|Kiskadee_Entity_filter": {
+  "datapoints": {},
+  "validations": []
+ },
+ "2026-05-09|Kiskadee_Generator_filter": "HTTP 400: {\"validations\":[{\"severity\":\"Error\",\"statusCode\":2105,\"parameter\":\"ElementDefinition\",\"message\":\"Element definition 'Generator' not found in list of 'Entity', '",
+ "2026-05-09|ESR_uuid_columnar": {
+  "datapoints": {},
+  "validations": []
+ },
+ "2026-05-09|ALL_static_no_filter": {
+  "datapoints": {},
+  "validations": []
+ }
+}

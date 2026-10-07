@@ -1,0 +1,78 @@
+{
+  "gks_actual": {
+    "RRS": {
+      "avg_bid_mw_when_active": 80.6,
+      "n_hours_bid": 380,
+      "participation_pct": 11.6,
+      "gross_da_revenue": 106648.0,
+      "rt_imb_paid": 23395.0,
+      "net_revenue": 83253.0,
+      "da_share_pct": 100.0,
+      "rt_share_pct": 0.0,
+      "revenue_share_pct": 36.2
+    },
+    "ECRS": {
+      "avg_bid_mw_when_active": 82.5,
+      "n_hours_bid": 178,
+      "participation_pct": 5.4,
+      "gross_da_revenue": 49606.0,
+      "rt_imb_paid": 34449.0,
+      "net_revenue": 15156.0,
+      "da_share_pct": 100.0,
+      "rt_share_pct": 0.0,
+      "revenue_share_pct": 6.6
+    },
+    "NSPIN": {
+      "avg_bid_mw_when_active": 84.0,
+      "n_hours_bid": 1864,
+      "participation_pct": 56.7,
+      "gross_da_revenue": 263593.0,
+      "rt_imb_paid": 132039.0,
+      "net_revenue": 131554.0,
+      "da_share_pct": 100.0,
+      "rt_share_pct": 0.0,
+      "revenue_share_pct": 57.2
+    }
+  },
+  "optimal_oracle_c": {
+    "RRS": {
+      "avg_active_mw": 62.0,
+      "n_hours_active": 138,
+      "active_pct": 4.2,
+      "total_revenue": 247197.0,
+      "revenue_share_pct": 23.4,
+      "da_revenue": 242761.0,
+      "rt_revenue": 4436.0,
+      "da_hours": 126,
+      "rt_hours": 12,
+      "da_share_pct": 91.3,
+      "rt_share_pct": 8.7
+    },
+    "ECRS": {
+      "avg_active_mw": 66.2,
+      "n_hours_active": 253,
+      "active_pct": 7.7,
+      "total_revenue": 120193.0,
+      "revenue_share_pct": 11.4,
+      "da_revenue": 96529.0,
+      "rt_revenue": 23665.0,
+      "da_hours": 198,
+      "rt_hours": 55,
+      "da_share_pct": 78.3,
+      "rt_share_pct": 21.7
+    },
+    "NSPIN": {
+      "avg_active_mw": 68.4,
+      "n_hours_active": 2452,
+      "active_pct": 74.6,
+      "total_revenue": 690678.0,
+      "revenue_share_pct": 65.3,
+      "da_revenue": 538153.0,
+      "rt_revenue": 152524.0,
+      "da_hours": 2102,
+      "rt_hours": 350,
+      "da_share_pct": 85.7,
+      "rt_share_pct": 14.3
+    }
+  }
+}

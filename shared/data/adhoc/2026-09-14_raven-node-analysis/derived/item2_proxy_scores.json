@@ -1,0 +1,9 @@
+{
+  "single_best": 1.425,
+  "single_TAV_RN": 1.085,
+  "nominated_ols": 1.105,
+  "nominated_nnls": 0.9450000000000001,
+  "nominated_houston_only_ols": 1.27,
+  "scan_ols": 1.6199999999999999,
+  "scan_nnls": 2.46
+}

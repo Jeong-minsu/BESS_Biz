@@ -1,0 +1,577 @@
+{
+ "source": "EIA-860M July 2026 (Operating/Retired/Planned), BA=ERCO, nameplate MW, all sectors",
+ "zone_definition": "ERCOT weather zone; Houston = COAST (contains Houston load zone and Raven)",
+ "years": [
+  2022,
+  2023,
+  2024,
+  2025,
+  2026
+ ],
+ "fuels": [
+  "Gas",
+  "Solar",
+  "Wind",
+  "ESS",
+  "Coal",
+  "Nuclear",
+  "Other"
+ ],
+ "ercot_total_by_fuel": {
+  "2022": {
+   "Gas": 65114.6,
+   "Solar": 11361.7,
+   "Wind": 35351.0,
+   "ESS": 2138.0,
+   "Coal": 15261.7,
+   "Nuclear": 5138.6,
+   "Other": 1837.5
+  },
+  "2023": {
+   "Gas": 65859.59999999999,
+   "Solar": 14914.5,
+   "Wind": 36801.8,
+   "ESS": 4177.5,
+   "Coal": 14329.7,
+   "Nuclear": 5138.6,
+   "Other": 1827.9
+  },
+  "2024": {
+   "Gas": 66484.8,
+   "Solar": 22201.4,
+   "Wind": 38536.7,
+   "ESS": 8293.800000000001,
+   "Coal": 14329.7,
+   "Nuclear": 5138.6,
+   "Other": 1803.0
+  },
+  "2025": {
+   "Gas": 66672.4,
+   "Solar": 29917.7,
+   "Wind": 40203.8,
+   "ESS": 13909.3,
+   "Coal": 14329.7,
+   "Nuclear": 5138.6,
+   "Other": 1866.9
+  },
+  "2026": {
+   "Gas": 67845.5,
+   "Solar": 32270.8,
+   "Wind": 40203.8,
+   "ESS": 18069.6,
+   "Coal": 14329.7,
+   "Nuclear": 5138.6,
+   "Other": 1876.8000000000002
+  }
+ },
+ "coast_by_fuel": {
+  "2022": {
+   "Gas": 20453.4,
+   "Solar": 608.1,
+   "Wind": 151.2,
+   "ESS": 289.1,
+   "Coal": 0.0,
+   "Nuclear": 2708.6,
+   "Other": 245.0
+  },
+  "2023": {
+   "Gas": 21181.6,
+   "Solar": 1488.6,
+   "Wind": 151.2,
+   "ESS": 299.1,
+   "Coal": 0.0,
+   "Nuclear": 2708.6,
+   "Other": 245.0
+  },
+  "2024": {
+   "Gas": 21871.4,
+   "Solar": 2144.9,
+   "Wind": 151.2,
+   "ESS": 1060.7,
+   "Coal": 0.0,
+   "Nuclear": 2708.6,
+   "Other": 245.0
+  },
+  "2025": {
+   "Gas": 21871.4,
+   "Solar": 2814.0,
+   "Wind": 759.9,
+   "ESS": 2122.7,
+   "Coal": 0.0,
+   "Nuclear": 2708.6,
+   "Other": 310.2
+  },
+  "2026": {
+   "Gas": 22392.5,
+   "Solar": 2816.4,
+   "Wind": 759.9,
+   "ESS": 3616.2,
+   "Coal": 0.0,
+   "Nuclear": 2708.6,
+   "Other": 310.2
+  }
+ },
+ "zone_comparison": [
+  {
+   "zone": "COAST",
+   "total_2026": 32603.800000000003,
+   "total_2023": 26074.099999999995,
+   "growth_mw_2023_2026": 6529.700000000008,
+   "growth_pct": 25.04285862215765,
+   "share_Gas": 68.68064458744072,
+   "share_Solar": 8.638256890301129,
+   "share_Wind": 2.3307099172489094,
+   "share_ESS": 11.091345180623117,
+   "share_Coal": 0.0,
+   "share_Nuclear": 8.307620584103693,
+   "share_Other": 0.951422840282421,
+   "add_Gas_2023_2026": 1210.9000000000015,
+   "add_Solar_2023_2026": 1327.8000000000002,
+   "add_Wind_2023_2026": 608.7,
+   "add_ESS_2023_2026": 3317.1,
+   "add_Coal_2023_2026": 0.0,
+   "add_Nuclear_2023_2026": 0.0,
+   "add_Other_2023_2026": 65.19999999999999,
+   "ess_mw_2026": 3616.2,
+   "ess_mw_2023": 299.1,
+   "planned_2027_ess": 1932.4,
+   "gas_ind_chp_share": 0.24033939935246176
+  },
+  {
+   "zone": "SOUTH",
+   "total_2026": 20712.399999999998,
+   "total_2023": 17060.4,
+   "growth_mw_2023_2026": 3651.9999999999964,
+   "growth_pct": 21.406297624909133,
+   "share_Gas": 30.180954404125067,
+   "share_Solar": 14.062590525482321,
+   "share_Wind": 43.37546590448235,
+   "share_ESS": 9.576871825573088,
+   "share_Coal": 1.9794905467256332,
+   "share_Nuclear": 0.0,
+   "share_Other": 0.8246267936115564,
+   "add_Gas_2023_2026": 0.0,
+   "add_Solar_2023_2026": 1772.9999999999998,
+   "add_Wind_2023_2026": 539.5,
+   "add_ESS_2023_2026": 1364.3999999999999,
+   "add_Coal_2023_2026": 0.0,
+   "add_Nuclear_2023_2026": 0.0,
+   "add_Other_2023_2026": -24.900000000000006,
+   "ess_mw_2026": 1983.6,
+   "ess_mw_2023": 619.2,
+   "planned_2027_ess": 1408.0,
+   "gas_ind_chp_share": 0.10557972869209112
+  },
+  {
+   "zone": "SOUTH_CENTRAL",
+   "total_2026": 33734.9,
+   "total_2023": 26631.6,
+   "growth_mw_2023_2026": 7103.300000000003,
+   "growth_pct": 26.67244927079111,
+   "share_Gas": 47.04030544035998,
+   "share_Solar": 15.096828506976452,
+   "share_Wind": 0.0,
+   "share_ESS": 11.079920201334522,
+   "share_Coal": 25.73684818985679,
+   "share_Nuclear": 0.0,
+   "share_Other": 1.046097661472244,
+   "add_Gas_2023_2026": 377.2000000000007,
+   "add_Solar_2023_2026": 3831.3999999999996,
+   "add_Wind_2023_2026": 0.0,
+   "add_ESS_2023_2026": 2894.7000000000003,
+   "add_Coal_2023_2026": 0.0,
+   "add_Nuclear_2023_2026": 0.0,
+   "add_Other_2023_2026": 0.0,
+   "ess_mw_2026": 3737.8,
+   "ess_mw_2023": 843.1,
+   "planned_2027_ess": 1580.5,
+   "gas_ind_chp_share": 0.0204864830802193
+  },
+  {
+   "zone": "NORTH_CENTRAL",
+   "total_2026": 34712.0,
+   "total_2023": 27906.6,
+   "growth_mw_2023_2026": 6805.4000000000015,
+   "growth_pct": 24.38634588233608,
+   "share_Gas": 47.22516708919106,
+   "share_Solar": 18.815395252362297,
+   "share_Wind": 8.85198202350772,
+   "share_ESS": 9.172044249827149,
+   "share_Coal": 8.23288776215718,
+   "share_Nuclear": 7.00046093569947,
+   "share_Other": 0.7020626872551279,
+   "add_Gas_2023_2026": 8.799999999999272,
+   "add_Solar_2023_2026": 3795.8999999999996,
+   "add_Wind_2023_2026": 557.5,
+   "add_ESS_2023_2026": 2444.5,
+   "add_Coal_2023_2026": 0.0,
+   "add_Nuclear_2023_2026": 0.0,
+   "add_Other_2023_2026": -1.3000000000000114,
+   "ess_mw_2026": 3183.8,
+   "ess_mw_2023": 739.3,
+   "planned_2027_ess": 1539.4,
+   "gas_ind_chp_share": 0.003147723390756917
+  },
+  {
+   "zone": "WEST",
+   "total_2026": 23763.5,
+   "total_2023": 20103.0,
+   "growth_mw_2023_2026": 3660.5,
+   "growth_pct": 18.208725065910556,
+   "share_Gas": 1.3848970059124288,
+   "share_Solar": 17.881204368043427,
+   "share_Wind": 70.87971048035854,
+   "share_ESS": 7.596944894481032,
+   "share_Coal": 0.0,
+   "share_Nuclear": 0.0,
+   "share_Other": 2.257243251204579,
+   "add_Gas_2023_2026": -75.0,
+   "add_Solar_2023_2026": 1384.2999999999997,
+   "add_Wind_2023_2026": 921.8999999999996,
+   "add_ESS_2023_2026": 1429.3,
+   "add_Coal_2023_2026": 0.0,
+   "add_Nuclear_2023_2026": 0.0,
+   "add_Other_2023_2026": 0.0,
+   "ess_mw_2026": 1805.3,
+   "ess_mw_2023": 376.0,
+   "planned_2027_ess": 1611.6,
+   "gas_ind_chp_share": 0.48040109389243385
+  },
+  {
+   "zone": "FAR_WEST",
+   "total_2026": 14370.399999999998,
+   "total_2023": 12047.6,
+   "growth_mw_2023_2026": 2322.7999999999975,
+   "growth_pct": 19.28018858527838,
+   "share_Gas": 17.62442242387129,
+   "share_Solar": 39.211852140511056,
+   "share_Wind": 23.78848187941881,
+   "share_ESS": 18.54019373155932,
+   "share_Coal": 0.0,
+   "share_Nuclear": 0.0,
+   "share_Other": 0.8350498246395369,
+   "add_Gas_2023_2026": 20.0,
+   "add_Solar_2023_2026": 759.3999999999996,
+   "add_Wind_2023_2026": 140.0,
+   "add_ESS_2023_2026": 1403.4,
+   "add_Coal_2023_2026": 0.0,
+   "add_Nuclear_2023_2026": 0.0,
+   "add_Other_2023_2026": 0.0,
+   "ess_mw_2026": 2664.3,
+   "ess_mw_2023": 1260.9,
+   "planned_2027_ess": 103.4,
+   "gas_ind_chp_share": 0.0014608915386741424
+  },
+  {
+   "zone": "NORTH",
+   "total_2026": 10617.3,
+   "total_2023": 7491.399999999999,
+   "growth_mw_2023_2026": 3125.9000000000005,
+   "growth_pct": 41.72651306831836,
+   "share_Gas": 6.742768877209837,
+   "share_Solar": 24.220847108021815,
+   "share_Wind": 67.10839855707195,
+   "share_ESS": 1.7885903195727728,
+   "share_Coal": 0.0,
+   "share_Nuclear": 0.0,
+   "share_Other": 0.13939513812362841,
+   "add_Gas_2023_2026": 0.0,
+   "add_Solar_2023_2026": 2331.6,
+   "add_Wind_2023_2026": 634.4000000000005,
+   "add_ESS_2023_2026": 150.0,
+   "add_Coal_2023_2026": 0.0,
+   "add_Nuclear_2023_2026": 0.0,
+   "add_Other_2023_2026": 9.9,
+   "ess_mw_2026": 189.9,
+   "ess_mw_2023": 39.9,
+   "planned_2027_ess": 300.0,
+   "gas_ind_chp_share": 0.0016762117614191926
+  },
+  {
+   "zone": "EAST",
+   "total_2026": 9220.5,
+   "total_2023": 5734.9,
+   "growth_mw_2023_2026": 3485.6000000000004,
+   "growth_pct": 60.778740692950194,
+   "share_Gas": 36.46548451819316,
+   "share_Solar": 26.700287403069247,
+   "share_Wind": 0.0,
+   "share_ESS": 9.638305948701264,
+   "share_Coal": 25.80771107857492,
+   "share_Nuclear": 0.0,
+   "share_Other": 1.3882110514614174,
+   "add_Gas_2023_2026": 444.0,
+   "add_Solar_2023_2026": 2152.9,
+   "add_Wind_2023_2026": 0.0,
+   "add_ESS_2023_2026": 888.7,
+   "add_Coal_2023_2026": 0.0,
+   "add_Nuclear_2023_2026": 0.0,
+   "add_Other_2023_2026": 0.0,
+   "ess_mw_2026": 888.7,
+   "ess_mw_2023": 0.0,
+   "planned_2027_ess": 1131.9,
+   "gas_ind_chp_share": 0.0
+  }
+ ],
+ "planned": [
+  {
+   "zone": "COAST",
+   "py": 2026.0,
+   "fuel": "ESS",
+   "mw": 1574.9
+  },
+  {
+   "zone": "COAST",
+   "py": 2026.0,
+   "fuel": "Solar",
+   "mw": 2222.0
+  },
+  {
+   "zone": "COAST",
+   "py": 2027.0,
+   "fuel": "ESS",
+   "mw": 1932.4
+  },
+  {
+   "zone": "COAST",
+   "py": 2027.0,
+   "fuel": "Solar",
+   "mw": 260.0
+  },
+  {
+   "zone": "EAST",
+   "py": 2026.0,
+   "fuel": "ESS",
+   "mw": 55.1
+  },
+  {
+   "zone": "EAST",
+   "py": 2026.0,
+   "fuel": "Solar",
+   "mw": 390.1
+  },
+  {
+   "zone": "EAST",
+   "py": 2027.0,
+   "fuel": "ESS",
+   "mw": 1131.9
+  },
+  {
+   "zone": "EAST",
+   "py": 2027.0,
+   "fuel": "Solar",
+   "mw": 759.0
+  },
+  {
+   "zone": "FAR_WEST",
+   "py": 2026.0,
+   "fuel": "ESS",
+   "mw": 312.9
+  },
+  {
+   "zone": "FAR_WEST",
+   "py": 2026.0,
+   "fuel": "Gas",
+   "mw": 19.9
+  },
+  {
+   "zone": "FAR_WEST",
+   "py": 2026.0,
+   "fuel": "Other",
+   "mw": 9.9
+  },
+  {
+   "zone": "FAR_WEST",
+   "py": 2026.0,
+   "fuel": "Solar",
+   "mw": 567.2
+  },
+  {
+   "zone": "FAR_WEST",
+   "py": 2026.0,
+   "fuel": "Wind",
+   "mw": 265.0
+  },
+  {
+   "zone": "FAR_WEST",
+   "py": 2027.0,
+   "fuel": "ESS",
+   "mw": 103.4
+  },
+  {
+   "zone": "FAR_WEST",
+   "py": 2027.0,
+   "fuel": "Gas",
+   "mw": 880.0
+  },
+  {
+   "zone": "FAR_WEST",
+   "py": 2027.0,
+   "fuel": "Other",
+   "mw": 9.9
+  },
+  {
+   "zone": "FAR_WEST",
+   "py": 2027.0,
+   "fuel": "Solar",
+   "mw": 850.0
+  },
+  {
+   "zone": "NORTH",
+   "py": 2027.0,
+   "fuel": "ESS",
+   "mw": 300.0
+  },
+  {
+   "zone": "NORTH",
+   "py": 2027.0,
+   "fuel": "Gas",
+   "mw": 2847.3
+  },
+  {
+   "zone": "NORTH",
+   "py": 2027.0,
+   "fuel": "Solar",
+   "mw": 1425.6
+  },
+  {
+   "zone": "NORTH",
+   "py": 2027.0,
+   "fuel": "Wind",
+   "mw": 585.3
+  },
+  {
+   "zone": "NORTH_CENTRAL",
+   "py": 2026.0,
+   "fuel": "ESS",
+   "mw": 978.4
+  },
+  {
+   "zone": "NORTH_CENTRAL",
+   "py": 2026.0,
+   "fuel": "Solar",
+   "mw": 1375.0
+  },
+  {
+   "zone": "NORTH_CENTRAL",
+   "py": 2026.0,
+   "fuel": "Wind",
+   "mw": 574.5
+  },
+  {
+   "zone": "NORTH_CENTRAL",
+   "py": 2027.0,
+   "fuel": "ESS",
+   "mw": 1539.4
+  },
+  {
+   "zone": "NORTH_CENTRAL",
+   "py": 2027.0,
+   "fuel": "Gas",
+   "mw": 43.4
+  },
+  {
+   "zone": "NORTH_CENTRAL",
+   "py": 2027.0,
+   "fuel": "Solar",
+   "mw": 2937.9
+  },
+  {
+   "zone": "NORTH_CENTRAL",
+   "py": 2027.0,
+   "fuel": "Wind",
+   "mw": 170.0
+  },
+  {
+   "zone": "SOUTH",
+   "py": 2026.0,
+   "fuel": "ESS",
+   "mw": 841.4
+  },
+  {
+   "zone": "SOUTH",
+   "py": 2026.0,
+   "fuel": "Solar",
+   "mw": 649.2
+  },
+  {
+   "zone": "SOUTH",
+   "py": 2027.0,
+   "fuel": "ESS",
+   "mw": 1408.0
+  },
+  {
+   "zone": "SOUTH",
+   "py": 2027.0,
+   "fuel": "Solar",
+   "mw": 1634.5
+  },
+  {
+   "zone": "SOUTH_CENTRAL",
+   "py": 2026.0,
+   "fuel": "ESS",
+   "mw": 1201.4
+  },
+  {
+   "zone": "SOUTH_CENTRAL",
+   "py": 2026.0,
+   "fuel": "Solar",
+   "mw": 2887.8
+  },
+  {
+   "zone": "SOUTH_CENTRAL",
+   "py": 2027.0,
+   "fuel": "ESS",
+   "mw": 1580.5
+  },
+  {
+   "zone": "SOUTH_CENTRAL",
+   "py": 2027.0,
+   "fuel": "Gas",
+   "mw": 126.80000000000001
+  },
+  {
+   "zone": "SOUTH_CENTRAL",
+   "py": 2027.0,
+   "fuel": "Solar",
+   "mw": 2019.4
+  },
+  {
+   "zone": "WEST",
+   "py": 2026.0,
+   "fuel": "ESS",
+   "mw": 854.8
+  },
+  {
+   "zone": "WEST",
+   "py": 2026.0,
+   "fuel": "Solar",
+   "mw": 3421.1
+  },
+  {
+   "zone": "WEST",
+   "py": 2026.0,
+   "fuel": "Wind",
+   "mw": 568.2
+  },
+  {
+   "zone": "WEST",
+   "py": 2027.0,
+   "fuel": "ESS",
+   "mw": 1611.6
+  },
+  {
+   "zone": "WEST",
+   "py": 2027.0,
+   "fuel": "Solar",
+   "mw": 2401.2
+  },
+  {
+   "zone": "WEST",
+   "py": 2027.0,
+   "fuel": "Wind",
+   "mw": 617.6
+  }
+ ],
+ "unmapped_operating_mw": 1400.0
+}

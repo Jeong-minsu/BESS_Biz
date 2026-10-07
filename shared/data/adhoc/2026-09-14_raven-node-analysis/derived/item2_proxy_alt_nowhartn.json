@@ -1,0 +1,210 @@
+{
+  "wharton_sf_by_node": {
+    "CBEC_ALL": {
+      "sf": 0.9993,
+      "n": 8431
+    },
+    "WGU_RN": {
+      "sf": -0.0008,
+      "n": 7136
+    },
+    "NCO_RN": {
+      "sf": -0.0008,
+      "n": 7136
+    },
+    "WES_ALL": {
+      "sf": -0.0008,
+      "n": 7136
+    },
+    "SBE_RN_1": {
+      "sf": 0.9993,
+      "n": 8431
+    },
+    "TAV_RN": {
+      "sf": 0.9993,
+      "n": 8431
+    },
+    "DAG_ALL": {
+      "sf": 0.9985,
+      "n": 8431
+    },
+    "RBN_BESS1": {
+      "sf": -0.0008,
+      "n": 7023
+    },
+    "OR_BESS_RN": {
+      "sf": -0.0008,
+      "n": 7023
+    },
+    "WAL_RN": {
+      "sf": -0.0009,
+      "n": 2165
+    }
+  },
+  "blends": {
+    "RBN+WGU": {
+      "nodes": [
+        "RBN_BESS1",
+        "WGU_RN"
+      ],
+      "ids": [
+        10017290064,
+        10016239529
+      ],
+      "weights": [
+        0.4108,
+        0.5892
+      ],
+      "intercept": -0.087,
+      "oos": {
+        "tb2_da_mae": 1.04,
+        "tb2_da_bias": -1.01,
+        "tb2_rt_mae": 1.74,
+        "tb2_rt_bias": -1.54,
+        "spread_daily_mae": 0.55,
+        "score": 1.94
+      },
+      "full_refit": {
+        "nodes": [
+          "RBN_BESS1",
+          "WGU_RN"
+        ],
+        "ids": [
+          10017290064,
+          10016239529
+        ],
+        "weights": [
+          0.5035,
+          0.4965
+        ],
+        "intercept": -0.219
+      }
+    },
+    "RBN+WGU+WES": {
+      "nodes": [
+        "RBN_BESS1",
+        "WGU_RN",
+        "WES_ALL"
+      ],
+      "ids": [
+        10017290064,
+        10016239529,
+        10016920911
+      ],
+      "weights": [
+        0.4728,
+        0.0,
+        0.5272
+      ],
+      "intercept": 0.007,
+      "oos": {
+        "tb2_da_mae": 1.02,
+        "tb2_da_bias": -0.99,
+        "tb2_rt_mae": 1.61,
+        "tb2_rt_bias": -1.47,
+        "spread_daily_mae": 0.52,
+        "score": 1.84
+      },
+      "full_refit": {
+        "nodes": [
+          "RBN_BESS1",
+          "WGU_RN",
+          "WES_ALL"
+        ],
+        "ids": [
+          10017290064,
+          10016239529,
+          10016920911
+        ],
+        "weights": [
+          0.5396,
+          0.0,
+          0.4604
+        ],
+        "intercept": -0.12
+      }
+    },
+    "WGU+NCO (full-hist)": {
+      "nodes": [
+        "WGU_RN",
+        "NCO_RN"
+      ],
+      "ids": [
+        10016239529,
+        10016736811
+      ],
+      "weights": [
+        1.0,
+        0.0
+      ],
+      "intercept": 0.301,
+      "oos": {
+        "tb2_da_mae": 2.4,
+        "tb2_da_bias": -2.39,
+        "tb2_rt_mae": 3.49,
+        "tb2_rt_bias": -3.18,
+        "spread_daily_mae": 0.77,
+        "score": 3.72
+      },
+      "full_refit": {
+        "nodes": [
+          "WGU_RN",
+          "NCO_RN"
+        ],
+        "ids": [
+          10016239529,
+          10016736811
+        ],
+        "weights": [
+          1.0,
+          0.0
+        ],
+        "intercept": 0.316
+      }
+    },
+    "RBN+WAL+WGU (2025-05+)": {
+      "nodes": [
+        "RBN_BESS1",
+        "WAL_RN",
+        "WGU_RN"
+      ],
+      "ids": [
+        10017290064,
+        10018682155,
+        10016239529
+      ],
+      "weights": [
+        0.0077,
+        0.7466,
+        0.2457
+      ],
+      "intercept": 0.015,
+      "oos": {
+        "tb2_da_mae": 0.37,
+        "tb2_da_bias": 0.25,
+        "tb2_rt_mae": 0.82,
+        "tb2_rt_bias": 0.48,
+        "spread_daily_mae": 0.31,
+        "score": 0.9
+      },
+      "full_refit": {
+        "nodes": [
+          "RBN_BESS1",
+          "WAL_RN",
+          "WGU_RN"
+        ],
+        "ids": [
+          10017290064,
+          10018682155,
+          10016239529
+        ],
+        "weights": [
+          0.0259,
+          0.7321,
+          0.2421
+        ],
+        "intercept": -0.084
+      }
+    }
+  }
+}

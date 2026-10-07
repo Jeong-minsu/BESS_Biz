@@ -1,0 +1,16 @@
+﻿type,note
+convention,"Actuals & forecast_nameplate: NAMEPLATE MW, operational+synchronized, ex-PUN, switchable gross. ESS = power MW (not MWh)."
+convention,forecast_CDR_summer_net: summer net sustainable rating; gas heat-derated; SPP switchable netted; mothball=0. Do NOT mix with nameplate series in one chart.
+convention,Three valid gas numbers: ~70 GW = physical fleet incl. 9.85 GW PUN cogen (MORA); ~57.8 GW = merchant grid gas nameplate; ~49-50 GW = summer deliverable.
+data_quality,"YE2025 gas 57,828 includes 1,577 MW coal-to-gas conversion placeholders double-counted with coal; cleaned value = 56,251."
+data_quality,"Forecast 2029-30 solar/ESS plateau = financial-security posting horizon (floor), not a build slowdown. EIA AEO is also a floor (NEMS builds ~no unplanned capacity pre-2030). Battery upside anchor: Modo 40-55 GW by 2029; EIA-860M 37 GW by end-2027."
+data_quality,"May-2026 CDR was skipped by ERCOT (PUCT Proj. 55999); Dec-2025 CDR is the latest full CDR. forecast_May2026_GRF sheet = interim update, 2027+ only."
+queue_verdict,"New battery queue entries: plateau 2023H1-2025H1 (120-140 proj / 20-26 GW per half), sharp break 2025H2 (-58% count), decline persisting H1-2026. Drivers: revenue compression ($192->$43/kW), OBBBA, 27% queue completion rate."
+source,ERCOT CDR Dec-2025: https://www.ercot.com/files/docs/2025/12/19/CapacityDemandandReservesReport_December2025.xlsx
+source,ERCOT MORA Sep-2026 (rel. 2026-07-02): https://www.ercot.com/files/docs/2026/07/02/MORA_September2026.pdf
+source,ERCOT Generation Resource Capacity Forecast May-2026: https://www.ercot.com/files/docs/2026/05/18/Generation_Resource_Forecast_May2026.xlsx
+source,ERCOT GIS reports (PG7-200-ER): https://www.ercot.com/mp/data-products/data-product-details?id=PG7-200-ER
+source,"EIA AEO 2026 (2026-04-08), TRE region, tables 54.1/56.1: https://www.eia.gov/outlooks/aeo/tables_ref.php"
+source,Modo Energy ERCOT Annual Buildout Report: https://modoenergy.com/research/en/ercot-battery-buildout-2025-annual-report
+source,ess-news 2026-02-06 (H2-2025 applications -50%): https://www.ess-news.com/2026/02/06/ercot-bess-interconnection-applications-drop-50-in-h2-2025-as-faults-in-the-boom-emerge/
+source,Potomac Economics 2025 SOM (cross-check of 2025 additions): https://www.potomaceconomics.com/wp-content/uploads/2026/06/2025-State-of-the-Market-Report-for-ERCOT.pdf

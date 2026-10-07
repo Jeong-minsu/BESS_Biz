@@ -1,0 +1,2177 @@
+{
+ "Settlement-Charge-Details": {
+  "schema_status": 200,
+  "schema_datapoints": [
+   "BLTRAMT",
+   "BSSAMT",
+   "DAECRAMT",
+   "DAEPAMT",
+   "DAESAMT",
+   "DAMWAMT",
+   "DANSAMT",
+   "DAOBLAMT",
+   "DAOPTAMT",
+   "DAPCECROAMT",
+   "DAPCNSOAMT",
+   "DAPCRDOAMT",
+   "DAPCRROAMT",
+   "DAPCRUOAMT",
+   "DARDAMT",
+   "DARRAMT",
+   "DARTOBLAMT",
+   "DARTOBLLOAMT",
+   "DARTPCECRAMT",
+   "DARTPCNSAMT",
+   "DARTPCRDAMT",
+   "DARTPCRRAMT",
+   "DARTPCRUAMT",
+   "DARUAMT",
+   "EMREAMT",
+   "ESACAMT",
+   "LABSSAMT",
+   "LACMRNZAMT",
+   "LACMRZAMT",
+   "LACRRAMT",
+   "LADAMWAMT",
+   "LAEMREAMT",
+   "LAFFSSAMT",
+   "LAHDLOEAMT",
+   "LARMRAMT",
+   "LARTDASAMT",
+   "LARTECRAMT",
+   "LARTNSAMT",
+   "LARTRDAMT",
+   "LARTRNAMT",
+   "LARTRRAMT",
+   "LARTRUAMT",
+   "LARUCAMT",
+   "LARUCCBAMT",
+   "LARUCDCAMT",
+   "LASPDAMT",
+   "LAVSSAMT",
+   "PCECRAMT",
+   "PCNSAMT",
+   "PCRDAMT",
+   "PCRRAMT",
+   "PCRUAMT",
+   "RMRAAMT",
+   "RMREAMT",
+   "RMRNPAMT",
+   "RMRSBAMT",
+   "RTCCAMT",
+   "RTDASAMT",
+   "RTDCIMPAMT",
+   "RTECRIMBAMT",
+   "RTECROAMT",
+   "RTECRTOAMT",
+   "RTEIAMT",
+   "RTESOGSAMT",
+   "RTNSIMBAMT",
+   "RTNSOAMT",
+   "RTNSTOAMT",
+   "RTOBLAMT",
+   "RTOBLLOAMT",
+   "RTRDIMBAMT",
+   "RTRDOAMT",
+   "RTRDTOAMT",
+   "RTRRIMBAMT",
+   "RTRROAMT",
+   "RTRRTOAMT",
+   "RTRUIMBAMT",
+   "RTRUOAMT",
+   "RTRUTOAMT",
+   "RUCCBAMT",
+   "RUCCSAMT",
+   "RUCDCAMT",
+   "RUCMWAMT",
+   "SPDAMT",
+   "SWMWAMT",
+   "VSSEAMT",
+   "VSSVARAMT",
+   "LASUCAMT",
+   "DACRRSAMT",
+   "LAERSAMT",
+   "ECRINFQAMT",
+   "ECRFQAMT",
+   "NSFQAMT",
+   "NSINFQAMT",
+   "RDINFQAMT",
+   "RDFQAMT",
+   "RUFQAMT",
+   "RUINFQAMT",
+   "RRINFQAMT",
+   "RRFQAMT",
+   "RTRDAMT",
+   "RTRUAMT",
+   "RTRRAMT",
+   "RTRDASIAMT",
+   "RTNSAMT",
+   "RTECRAMT",
+   "RTPCECRAMT",
+   "RTPCNSAMT",
+   "RTPCRDAMT",
+   "RTPCRUAMT",
+   "RTPCRRAMT",
+   "LAASIRNAMT",
+   "LARDASIRNAMT",
+   "BPDAMT",
+   "LABPDAMT"
+  ],
+  "schema_defs": null,
+  "query_ByIdentifier": {
+   "n_elements": 1,
+   "datapoints": {
+    "RTRUIMBAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RMRSBAMT": {
+     "n": 1,
+     "nonzero": 0,
+     "sample": [
+      0.0
+     ]
+    },
+    "RTRROAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "DAPCECROAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTNSOAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "LASPDAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTRUTOAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "LARTRDAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTNSIMBAMT": {
+     "n": 96,
+     "nonzero": 72,
+     "sample": [
+      39.087900733616614,
+      43.854328492339185,
+      55.2368926059833
+     ]
+    },
+    "RTNSTOAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "DAPCNSOAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTRDIMBAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "DARTPCRDAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "SWMWAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "DARTPCECRAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "LARTRRAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "LARTNSAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "SPDAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTECRIMBAMT": {
+     "n": 96,
+     "nonzero": 27,
+     "sample": [
+      -0.5075277896827017,
+      -0.05284105385532557,
+      -0.12346813129973055
+     ]
+    },
+    "LARTDASAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "VSSVARAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "DAPCRUOAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "VSSEAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTRRTOAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "LARTECRAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "LAERSAMT": {
+     "n": 1,
+     "nonzero": 0,
+     "sample": [
+      0.0
+     ]
+    },
+    "RTRDOAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTDASAMT": {
+     "n": 1,
+     "nonzero": 0,
+     "sample": [
+      0.0
+     ]
+    },
+    "DAPCRROAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RMRAAMT": {
+     "n": 1,
+     "nonzero": 0,
+     "sample": [
+      0.0
+     ]
+    },
+    "DAPCRDOAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RMRNPAMT": {
+     "n": 1,
+     "nonzero": 0,
+     "sample": [
+      0.0
+     ]
+    },
+    "DARTPCNSAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "DARTPCRRAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTRRIMBAMT": {
+     "n": 96,
+     "nonzero": 62,
+     "sample": [
+      -1.3525949308754766,
+      -1.6173916095288676,
+      -2.8253692584684424
+     ]
+    },
+    "RTRDTOAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTECROAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "LARTRUAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTECRTOAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "DARTPCRUAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTRUOAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "LASUCAMT": {
+     "n": 1,
+     "nonzero": 0,
+     "sample": [
+      0.0
+     ]
+    },
+    "DAESAMT": {
+     "n": 10,
+     "nonzero": 1,
+     "sample": [
+      -4.95
+     ]
+    },
+    "PCNSAMT": {
+     "n": 24,
+     "nonzero": 10,
+     "sample": [
+      -240.0,
+      -186.4,
+      -157.6
+     ]
+    },
+    "PCRRAMT": {
+     "n": 24,
+     "nonzero": 7,
+     "sample": [
+      -34.0,
+      -68.85,
+      -73.1
+     ]
+    },
+    "PCECRAMT": {
+     "n": 24,
+     "nonzero": 1,
+     "sample": [
+      -50.15
+     ]
+    },
+    "RTEIAMT": {
+     "n": 96,
+     "nonzero": 96,
+     "sample": [
+      2.214635919662584,
+      2.7415976073770354,
+      3.634449751159548
+     ]
+    },
+    "DAEPAMT": {
+     "n": 17,
+     "nonzero": 7,
+     "sample": [
+      1189.0,
+      1268.0,
+      1110.5
+     ]
+    }
+   }
+  },
+  "query_ByIdentifier_validations": []
+ },
+ "Settlement-Charge-Details-Market-Versioned": {
+  "schema_status": 200,
+  "schema_datapoints": [
+   "BLTRAMT",
+   "BSSAMT",
+   "DAECRAMT",
+   "DAEPAMT",
+   "DAESAMT",
+   "DAMWAMT",
+   "DANSAMT",
+   "DAOBLAMT",
+   "DAOPTAMT",
+   "DAPCECROAMT",
+   "DAPCNSOAMT",
+   "DAPCRDOAMT",
+   "DAPCRROAMT",
+   "DAPCRUOAMT",
+   "DARDAMT",
+   "DARRAMT",
+   "DARTOBLAMT",
+   "DARTOBLLOAMT",
+   "DARTPCECRAMT",
+   "DARTPCNSAMT",
+   "DARTPCRDAMT",
+   "DARTPCRRAMT",
+   "DARTPCRUAMT",
+   "DARUAMT",
+   "EMREAMT",
+   "ESACAMT",
+   "LABSSAMT",
+   "LACMRNZAMT",
+   "LACMRZAMT",
+   "LACRRAMT",
+   "LADAMWAMT",
+   "LAEMREAMT",
+   "LAFFSSAMT",
+   "LAHDLOEAMT",
+   "LARMRAMT",
+   "LARTDASAMT",
+   "LARTECRAMT",
+   "LARTNSAMT",
+   "LARTRDAMT",
+   "LARTRNAMT",
+   "LARTRRAMT",
+   "LARTRUAMT",
+   "LARUCAMT",
+   "LARUCCBAMT",
+   "LARUCDCAMT",
+   "LASPDAMT",
+   "LAVSSAMT",
+   "PCECRAMT",
+   "PCNSAMT",
+   "PCRDAMT",
+   "PCRRAMT",
+   "PCRUAMT",
+   "RMRAAMT",
+   "RMREAMT",
+   "RMRNPAMT",
+   "RMRSBAMT",
+   "RTCCAMT",
+   "RTDASAMT",
+   "RTDCIMPAMT",
+   "RTECRIMBAMT",
+   "RTECROAMT",
+   "RTECRTOAMT",
+   "RTEIAMT",
+   "RTESOGSAMT",
+   "RTNSIMBAMT",
+   "RTNSOAMT",
+   "RTNSTOAMT",
+   "RTOBLAMT",
+   "RTOBLLOAMT",
+   "RTRDIMBAMT",
+   "RTRDOAMT",
+   "RTRDTOAMT",
+   "RTRRIMBAMT",
+   "RTRROAMT",
+   "RTRRTOAMT",
+   "RTRUIMBAMT",
+   "RTRUOAMT",
+   "RTRUTOAMT",
+   "RUCCBAMT",
+   "RUCCSAMT",
+   "RUCDCAMT",
+   "RUCMWAMT",
+   "SPDAMT",
+   "SWMWAMT",
+   "VSSEAMT",
+   "VSSVARAMT",
+   "LASUCAMT",
+   "DACRRSAMT",
+   "LAERSAMT",
+   "ECRINFQAMT",
+   "ECRFQAMT",
+   "NSFQAMT",
+   "NSINFQAMT",
+   "RDINFQAMT",
+   "RDFQAMT",
+   "RUFQAMT",
+   "RUINFQAMT",
+   "RRINFQAMT",
+   "RRFQAMT",
+   "RTRDAMT",
+   "RTRUAMT",
+   "RTRRAMT",
+   "RTNSAMT",
+   "RTECRAMT",
+   "RTRDASIAMT",
+   "RTASIAMT",
+   "RTPCECRAMT",
+   "RTPCNSAMT",
+   "RTPCRDAMT",
+   "RTPCRUAMT",
+   "RTPCRRAMT",
+   "LAASIRNAMT",
+   "LARDASIRNAMT",
+   "BPDAMT",
+   "LABPDAMT"
+  ],
+  "schema_defs": null,
+  "query_ByIdentifier": {
+   "n_elements": 1,
+   "datapoints": {
+    "DAPCRDOAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "LARTRUAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "DARTPCNSAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTECRIMBAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "DARTPCRUAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTNSOAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "LARTDASAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTDASAMT": {
+     "n": 1,
+     "nonzero": 0,
+     "sample": [
+      0.0
+     ]
+    },
+    "RTNSTOAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTRDOAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "DACRRSAMT": {
+     "n": 1,
+     "nonzero": 0,
+     "sample": [
+      0.0
+     ]
+    },
+    "DARTPCRRAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTRUTOAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "DARTPCRDAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTRUIMBAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTECRTOAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTRUOAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTRRIMBAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTRROAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "LASPDAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTRRTOAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "BPDAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "LARTECRAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTRDTOAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "LASUCAMT": {
+     "n": 1,
+     "nonzero": 0,
+     "sample": [
+      0.0
+     ]
+    },
+    "DAPCECROAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTECROAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "SPDAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "DAPCRROAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "LARTRDAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "LARTNSAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "DAPCNSOAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "DAPCRUOAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "DARTPCECRAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "RTNSIMBAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "NSFQAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "LAASIRNAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "ECRFQAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "SWMWAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "LABPDAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "LARTRRAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "PCECRAMT": {
+     "n": 24,
+     "nonzero": 1,
+     "sample": [
+      -50.15
+     ]
+    },
+    "PCNSAMT": {
+     "n": 24,
+     "nonzero": 10,
+     "sample": [
+      -240.0,
+      -186.4,
+      -157.6
+     ]
+    },
+    "PCRRAMT": {
+     "n": 24,
+     "nonzero": 7,
+     "sample": [
+      -34.0,
+      -68.85,
+      -73.1
+     ]
+    },
+    "DAEPAMT": {
+     "n": 17,
+     "nonzero": 7,
+     "sample": [
+      1189.0,
+      1268.0,
+      1110.5
+     ]
+    },
+    "DAESAMT": {
+     "n": 10,
+     "nonzero": 1,
+     "sample": [
+      -4.95
+     ]
+    }
+   }
+  },
+  "query_ByIdentifier_validations": []
+ },
+ "Real-Time-Settlement-Amounts": {
+  "schema_status": 200,
+  "schema_datapoints": [
+   "NSFQAMT_Daily",
+   "RDFQAMT_Daily",
+   "RRFQAMT_Daily",
+   "RUCCSAMT_Daily",
+   "RUFQAMT_Daily",
+   "ECRFQAMT_Daily",
+   "RMRAMT_Daily",
+   "RMREAMT_Daily",
+   "NSINFQAMT_Daily",
+   "RDINFQAMT_Daily",
+   "RRINFQAMT_Daily",
+   "RUINFQAMT_Daily",
+   "ECRINFQAMT_Daily",
+   "LAASIRNAMT_Daily",
+   "LAEMREAMT_Daily",
+   "LARDASIRNAMT_Daily",
+   "LARUCAMT_Daily",
+   "LARUCCBAMT_Daily",
+   "LARUCDCAMT_Daily",
+   "LAVSSAMT_Daily",
+   "BPDAMT_Daily",
+   "BSSAMT_Daily",
+   "QNSAMT_Daily",
+   "RTASIAMT_Daily",
+   "RTRDASIAMT_Daily",
+   "EMREAMT_Daily",
+   "ESACAMT_Daily",
+   "LABPDAMT_Daily",
+   "LABSSAMT_Daily",
+   "LARMRAMT_Daily",
+   "LARTRNAMT_Daily",
+   "RTCCAMT_Daily",
+   "RTDCIMPAMT_Daily",
+   "RTEIAMT_Daily",
+   "RTNSAMT_Daily",
+   "RTOBLAMT_Daily",
+   "RTPCNSAMT_Daily",
+   "RTPCRRAMT_Daily",
+   "RTPCRUAMT_Daily",
+   "RTPCECRARMT_Daily",
+   "RTRDAMT_Daily",
+   "RTRRAMT_Daily",
+   "RTRUAMT_Daily",
+   "RTECRAMT_Daily",
+   "RUCCBAMT_Daily",
+   "RUCMWAMT_Daily",
+   "VSSEAMT_Daily",
+   "VSSVARAMT_Daily",
+   "RTPCRDAMT_Daily",
+   "RTESOGAMT_Daily",
+   "LAHDLOEAMT_Daily",
+   "NSFQAMT",
+   "RDFQAMT",
+   "RRFQAMT",
+   "RUCCSAMT",
+   "RUFQAMT",
+   "ECRFQAMT",
+   "RMREAMT",
+   "NSINFQAMT",
+   "RDINFQAMT",
+   "RRINFQAMT",
+   "RUINFQAMT",
+   "ECRINFQAMT",
+   "LAASIRNAMT",
+   "LAEMREAMT",
+   "LARDASIRNAMT",
+   "LARUCAMT",
+   "LARUCCBAMT",
+   "LARUCDCAMT",
+   "LAVSSAMT",
+   "BPDAMT",
+   "BSSAMT",
+   "QNSAMT",
+   "RTASIAMT",
+   "RTRDASIAMT",
+   "EMREAMT",
+   "ESACAMT",
+   "LABPDAMT",
+   "LABSSAMT",
+   "LARMRAMT",
+   "LARTRNAMT",
+   "RTCCAMT",
+   "RTDCIMPAMT",
+   "RTEIAMT",
+   "RTNSAMT",
+   "RTOBLAMT",
+   "RTPCNSAMT",
+   "RTPCRRAMT",
+   "RTPCRUAMT",
+   "RTPCECRAMT",
+   "RTRDAMT",
+   "RTRRAMT",
+   "RTRUAMT",
+   "RTECRAMT",
+   "RUCCBAMT",
+   "RUCMWAMT",
+   "VSSEAMT",
+   "VSSVARAMT",
+   "RTPCRDAMT",
+   "RTESOGAMT",
+   "LAHDLOEAMT"
+  ],
+  "schema_defs": null,
+  "query_ByIdentifier": {
+   "n_elements": 1,
+   "datapoints": {
+    "BPDAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "NSFQAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "LAASIRNAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "ECRFQAMT": {
+     "n": 24,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "LABPDAMT": {
+     "n": 96,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    }
+   }
+  },
+  "query_ByIdentifier_validations": []
+ },
+ "Real_Time_Daily_Settlement": {
+  "schema_status": 200,
+  "schema_datapoints": [
+   "NSFQAMT",
+   "RDFQAMT",
+   "RRFQAMT",
+   "RUFQAMT",
+   "ECRFQAMT",
+   "RUCCSAMT",
+   "RMRAMT",
+   "RMREAMT",
+   "NSINFQAMT",
+   "RDINFQAMT",
+   "RRINFQAMT",
+   "RUINFQAMT",
+   "ECRINFQAMT",
+   "LAASIRNAMT",
+   "LAEMREAMT",
+   "LARDASIRNAMT",
+   "LARUCAMT",
+   "LARUCCBAMT",
+   "LARUCDCAMT",
+   "LAVSSAMT",
+   "BPDAMT",
+   "BSSAMT",
+   "QNSAMT",
+   "RTASIAMT",
+   "RTRDASIAMT",
+   "EMREAMT",
+   "ESACAMT",
+   "LABPDAMT",
+   "LABSSAMT",
+   "LARMRAMT",
+   "LARTRNAMT",
+   "RTCCAMT",
+   "RTDCIMPAMT",
+   "RTEIAMT",
+   "RTOBLAMT",
+   "RTPCNSAMT",
+   "RTPCRRAMT",
+   "RTPCRDAMT",
+   "RTPCRUAMT",
+   "RTPCECRAMT",
+   "RTNSAMT",
+   "RTRDAMT",
+   "RTRRAMT",
+   "RTRUAMT",
+   "RTECRAMT",
+   "RUCCBAMT",
+   "RUCMWAMT",
+   "VSSEAMT",
+   "VSSVARAMT"
+  ],
+  "schema_defs": null,
+  "query_ByIdentifier": {
+   "n_elements": 0,
+   "datapoints": {}
+  },
+  "query_ByIdentifier_validations": [],
+  "query_ByParentAndFilter": {
+   "n_elements": 0,
+   "datapoints": {}
+  },
+  "query_ByParentAndFilter_validations": []
+ },
+ "Generator-Settlement-Data": {
+  "schema_status": 200,
+  "schema_datapoints": [
+   "AASP",
+   "AVGTLSL",
+   "BLTRAMT",
+   "BPDAMT",
+   "BSSAMT",
+   "DAES",
+   "DAESAMT",
+   "DAEP",
+   "DAEPAMT",
+   "DAMWAMT",
+   "EBPWAPRGEN",
+   "EBPWAPRLOAD",
+   "EMREAMT",
+   "EMREPRGEN",
+   "EMREPRLOAD",
+   "GSPLITPER",
+   "HSL",
+   "MEB",
+   "METERED_NET_GEN",
+   "PCECRAMT",
+   "PCECRR",
+   "PCNSAMT",
+   "PCNSR",
+   "PCRDAMT",
+   "PCRDR",
+   "PCRRAMT",
+   "PCRRR",
+   "PCRUAMT",
+   "PCRUR",
+   "RESOURCE_ID",
+   "RMREAMT",
+   "RMRNPAMT",
+   "RMRSBAMT",
+   "RTASIAMT",
+   "RTECRAWD",
+   "RTECRIMBAMT",
+   "RTECRWAPR",
+   "RTEIAMT",
+   "RTESOGSAMT",
+   "RTMCPCECRR",
+   "RTMCPCNSR",
+   "RTMCPCRDR",
+   "RTMCPCRRR",
+   "RTMCPCRUR",
+   "RTMG",
+   "RTNSAWD",
+   "RTNSIMBAMT",
+   "RTNSWAPR",
+   "RTPCECRAMT",
+   "RTPCNSAMT",
+   "RTPCRDAMT",
+   "RTPCRRAMT",
+   "RTPCRUAMT",
+   "RTRDASIAMT",
+   "RTRDAWD",
+   "RTRDIMBAMT",
+   "RTRDWAPR",
+   "RTRMPR",
+   "RTRMPRESR",
+   "RTRRAWD",
+   "RTRRIMBAMT",
+   "RTRRWAPR",
+   "RTRUAWD",
+   "RTRUIMBAMT",
+   "RTRUWAPR",
+   "RTSPPEW",
+   "RUCFLAG",
+   "RUCCBAMT",
+   "RUCDCAMT",
+   "RUCMWAMT",
+   "SETTLEMENT_POINT",
+   "SPDAMT",
+   "SWMWAMT",
+   "TWTG",
+   "VSSEAMT",
+   "VSSVARAMT",
+   "WSLTOT"
+  ],
+  "schema_defs": null,
+  "query_ByIdentifier": {
+   "n_elements": 0,
+   "datapoints": {}
+  },
+  "query_ByIdentifier_validations": [],
+  "query_ByParentAndFilter": {
+   "n_elements": 0,
+   "datapoints": {}
+  },
+  "query_ByParentAndFilter_validations": []
+ },
+ "DART-Energy-Details": {
+  "schema_status": 200,
+  "schema_datapoints": [
+   "Generator_DA_SPP",
+   "Generator_RT_SPP",
+   "TPO_QTY",
+   "TPO_DA_SPP",
+   "DAESAMT_TPO",
+   "EOO_QTY",
+   "EOO_DA_SPP",
+   "DAESAMT_EOO",
+   "DAEBID_QTY",
+   "DAEBID_DA_SPP",
+   "DAEPAMT_DAEBID",
+   "GEN_MWH_INT",
+   "GEN_MWH_HRLY",
+   "RTEI_QTY",
+   "Generation_Avg_Price",
+   "RTEIAMT"
+  ],
+  "schema_defs": null,
+  "query_ByIdentifier": {
+   "n_elements": 1,
+   "datapoints": {
+    "GEN_MWH_INT": {
+     "n": 57,
+     "nonzero": 54,
+     "sample": [
+      0.0003,
+      0.0002,
+      0.0005
+     ]
+    },
+    "EOO_DA_SPP": {
+     "n": 10,
+     "nonzero": 10,
+     "sample": [
+      39.68,
+      34.31,
+      22.7
+     ]
+    },
+    "Generation_Avg_Price": {
+     "n": 96,
+     "nonzero": 70,
+     "sample": [
+      -7382.119732208615,
+      -13707.988036885177,
+      -2924.5227014938932
+     ]
+    },
+    "DAEPAMT_DAEBID": {
+     "n": 17,
+     "nonzero": 7,
+     "sample": [
+      1189.0,
+      1268.0,
+      1110.5
+     ]
+    },
+    "DAEBID_DA_SPP": {
+     "n": 17,
+     "nonzero": 7,
+     "sample": [
+      23.78,
+      25.36,
+      22.21
+     ]
+    },
+    "DAESAMT_EOO": {
+     "n": 10,
+     "nonzero": 1,
+     "sample": [
+      -4.95
+     ]
+    },
+    "EOO_QTY": {
+     "n": 10,
+     "nonzero": 1,
+     "sample": [
+      0.1
+     ]
+    },
+    "GEN_MWH_HRLY": {
+     "n": 20,
+     "nonzero": 20,
+     "sample": [
+      0.0005,
+      0.0005,
+      0.0022
+     ]
+    },
+    "DAEBID_QTY": {
+     "n": 17,
+     "nonzero": 7,
+     "sample": [
+      50.0,
+      50.0,
+      50.0
+     ]
+    },
+    "RTEIAMT": {
+     "n": 96,
+     "nonzero": 96,
+     "sample": [
+      2.214635919662584,
+      2.7415976073770354,
+      3.634449751159548
+     ]
+    },
+    "RTEI_QTY": {
+     "n": 96,
+     "nonzero": 70,
+     "sample": [
+      0.0003,
+      0.0002,
+      0.0005
+     ]
+    }
+   }
+  },
+  "query_ByIdentifier_validations": []
+ },
+ "Real-Time-Unit-Position": {
+  "schema_status": 200,
+  "schema_datapoints": [
+   "CLR_Consumption",
+   "CLR_RT_Status",
+   "CLR_LPC",
+   "CLR_HSL",
+   "CLR_BP",
+   "CLR_Avg_Reg",
+   "CLR_Reg_Up_Responsibility",
+   "CLR_Reg_Down_Responsibility",
+   "CLR_RRS_Responsibility",
+   "CLR_NS_Responsibility",
+   "CLR_ECRS_Responsibility",
+   "CLR_Reg_Up_Schedule",
+   "CLR_Reg_Down_Schedule",
+   "CLR_RRS_Schedule",
+   "CLR_NS_Schedule",
+   "CLR_ECRS_Schedule",
+   "GEN_Production",
+   "GEN_RT_Status",
+   "GEN_LSL",
+   "GEN_HSL",
+   "GEN_BP",
+   "GEN_Avg_Reg",
+   "GEN_RRS_Responsibility",
+   "GEN_Reg_Up_Responsibility",
+   "GEN_Reg_Down_Responsibility",
+   "GEN_Non_Spin_Responsibility",
+   "GEN_ECRS_Responsibility",
+   "GEN_Reg_Up_Schedule",
+   "GEN_Reg_Down_Schedule",
+   "GEN_RRS_Schedule",
+   "GEN_NS_Schedule",
+   "GEN_ECRS_Schedule"
+  ],
+  "schema_defs": null,
+  "query_ByIdentifier": {
+   "n_elements": 0,
+   "datapoints": {}
+  },
+  "query_ByIdentifier_validations": [],
+  "query_ByParentAndFilter": {
+   "n_elements": 0,
+   "datapoints": {}
+  },
+  "query_ByParentAndFilter_validations": []
+ },
+ "Estimated-Settlement-Amounts": {
+  "schema_status": 200,
+  "schema_datapoints": [
+   "DAEPAMT_Daily",
+   "DAESAMT_Daily",
+   "DAMWAMT_Daily",
+   "LADAMWAMT_Daily",
+   "DANSAMT_Daily",
+   "DARDAMT_Daily",
+   "DARRAMT_Daily",
+   "DARUAMT_Daily",
+   "DAECRAMT_Daily",
+   "PCNSAMT_Daily",
+   "PCRDAMT_Daily",
+   "PCRRAMT_Daily",
+   "PCRUAMT_Daily",
+   "PCECRAMT_Daily",
+   "DARTOBLAMT_Daily",
+   "RTDCIMPAMT_Daily",
+   "RTEIAMT_Daily",
+   "ESACAMT_Daily",
+   "QNSAMT_Daily",
+   "LAEMREAMT_Daily",
+   "BPDAMT_Daily",
+   "LABPDAMT_Daily",
+   "RTNSAMT_Daily",
+   "RTRDAMT_Daily",
+   "RTRRAMT_Daily",
+   "RTRUAMT_Daily",
+   "RTECRAMT_Daily",
+   "NSFQAMT_Daily",
+   "RDFQAMT_Daily",
+   "RRFQAMT_Daily",
+   "RUFQAMT_Daily",
+   "ECRFQAMT_Daily",
+   "RTASIAMT_Daily",
+   "RTRDASIAMT_Daily",
+   "BSSAMT_Daily",
+   "LABSSAMT_Daily",
+   "LARTRNAMT_Daily",
+   "LARMRAMT_Daily",
+   "LAASIRNAMT_Daily",
+   "LARDASIRNAMT_Daily",
+   "RUCCSAMT_Daily",
+   "RTOBLAMT_Daily",
+   "EMREAMT_Daily",
+   "LAVSSAMT_Daily",
+   "DAOBLAMTOTOT_Daily",
+   "LASUCAMT_Daily",
+   "CRRAUCTIONAMT_Daily",
+   "RTPCNSAMT_Daily",
+   "RTPCRUAMT_Daily",
+   "RTPCRDAMT_Daily",
+   "RTPCRRAMT_Daily",
+   "RTPCECRAMT_Daily",
+   "DAEPAMT",
+   "DAESAMT",
+   "DAMWAMT",
+   "LADAMWAMT",
+   "DANSAMT",
+   "DARDAMT",
+   "DARRAMT",
+   "DARUAMT",
+   "DAECRAMT",
+   "PCNSAMT",
+   "PCRDAMT",
+   "PCRRAMT",
+   "PCRUAMT",
+   "PCECRAMT",
+   "DARTOBLAMT",
+   "RTDCIMPAMT",
+   "RTEIAMT",
+   "ESACAMT",
+   "QNSAMT",
+   "LAEMREAMT",
+   "BPDAMT",
+   "LABPDAMT",
+   "RTNSAMT",
+   "RTRDAMT",
+   "RTRRAMT",
+   "RTRUAMT",
+   "RTECRAMT",
+   "NSFQAMT",
+   "RDFQAMT",
+   "RRFQAMT",
+   "RUFQAMT",
+   "ECRFQAMT",
+   "RTASIAMT",
+   "RTRDASIAMT",
+   "BSSAMT",
+   "LABSSAMT",
+   "LARTRNAMT",
+   "LARMRAMT",
+   "LAASIRNAMT",
+   "LARDASIRNAMT",
+   "RUCCSAMT",
+   "RTOBLAMT",
+   "EMREAMT",
+   "LAVSSAMT",
+   "DAOBLAMTOTOT",
+   "RTPCNSAMT",
+   "RTPCRUAMT",
+   "RTPCRDAMT",
+   "RTPCRRAMT",
+   "RTPCECRAMT"
+  ],
+  "schema_defs": null,
+  "query_ByIdentifier": {
+   "n_elements": 1,
+   "datapoints": {
+    "DAESAMT_Daily": {
+     "n": 1,
+     "nonzero": 1,
+     "sample": [
+      -4.95
+     ]
+    },
+    "PCNSAMT_Daily": {
+     "n": 1,
+     "nonzero": 1,
+     "sample": [
+      -1533.9
+     ]
+    },
+    "PCECRAMT_Daily": {
+     "n": 1,
+     "nonzero": 1,
+     "sample": [
+      -50.15
+     ]
+    },
+    "PCRRAMT_Daily": {
+     "n": 1,
+     "nonzero": 1,
+     "sample": [
+      -1275.85
+     ]
+    },
+    "DAEPAMT": {
+     "n": 17,
+     "nonzero": 7,
+     "sample": [
+      1189.0,
+      1268.0,
+      1110.5
+     ]
+    },
+    "RTEIAMT_Daily": {
+     "n": 1,
+     "nonzero": 1,
+     "sample": [
+      -13605.072091613509
+     ]
+    },
+    "RTEIAMT": {
+     "n": 96,
+     "nonzero": 96,
+     "sample": [
+      2.214635919662584,
+      2.7415976073770354,
+      3.634449751159548
+     ]
+    },
+    "QNSAMT_Daily": {
+     "n": 1,
+     "nonzero": 0,
+     "sample": [
+      0.0
+     ]
+    },
+    "DAEPAMT_Daily": {
+     "n": 1,
+     "nonzero": 1,
+     "sample": [
+      10263.0
+     ]
+    },
+    "QNSAMT": {
+     "n": 54,
+     "nonzero": 0,
+     "sample": [
+      0.0,
+      0.0,
+      0.0
+     ]
+    },
+    "PCECRAMT": {
+     "n": 1,
+     "nonzero": 1,
+     "sample": [
+      -50.1499999915
+     ]
+    },
+    "PCRRAMT": {
+     "n": 7,
+     "nonzero": 7,
+     "sample": [
+      -34.0,
+      -68.85,
+      -73.1
+     ]
+    },
+    "PCNSAMT": {
+     "n": 10,
+     "nonzero": 10,
+     "sample": [
+      -240.0,
+      -186.4,
+      -157.6
+     ]
+    },
+    "DAESAMT": {
+     "n": 10,
+     "nonzero": 1,
+     "sample": [
+      -4.95
+     ]
+    }
+   }
+  },
+  "query_ByIdentifier_validations": []
+ },
+ "Settlement-Summary": {
+  "schema_status": 200,
+  "schema_datapoints": [
+   "DA_Generation",
+   "RT_Generation",
+   "DA_Energy_Charge",
+   "DA_Market_Charges",
+   "RT_Energy_Charge",
+   "RT_Market_Charges"
+  ],
+  "schema_defs": null,
+  "query_ByIdentifier": {
+   "n_elements": 1,
+   "datapoints": {
+    "DA_Market_Charges": {
+     "n": 1,
+     "nonzero": 1,
+     "sample": [
+      10258.05
+     ]
+    },
+    "DA_Energy_Charge": {
+     "n": 1,
+     "nonzero": 1,
+     "sample": [
+      -2859.9
+     ]
+    },
+    "DA_Generation": {
+     "n": 1,
+     "nonzero": 1,
+     "sample": [
+      0.1
+     ]
+    }
+   }
+  },
+  "query_ByIdentifier_validations": []
+ },
+ "ERCOT-Statement-Values": {
+  "schema_status": 200,
+  "schema_datapoints": [
+   "BLTRAMTQSETOT_Statement",
+   "BLTRAMTQSETOT_StatementBilled",
+   "BLTRAMTQSETOT_StatementTotal",
+   "BPDAMTQSETOT_Statement",
+   "BPDAMTQSETOT_StatementBilled",
+   "BPDAMTQSETOT_StatementTotal",
+   "BSSAMTQSETOT_Statement",
+   "BSSAMTQSETOT_StatementBilled",
+   "BSSAMTQSETOT_StatementTotal",
+   "DAECRAMT_Statement",
+   "DAECRAMT_StatementBilled",
+   "DAECRAMT_StatementTotal",
+   "DAEPAMTQSETOT_Statement",
+   "DAEPAMTQSETOT_StatementBilled",
+   "DAEPAMTQSETOT_StatementTotal",
+   "DAESAMTQSETOT_Statement",
+   "DAESAMTQSETOT_StatementBilled",
+   "DAESAMTQSETOT_StatementTotal",
+   "DAMWAMTQSETOT_Statement",
+   "DAMWAMTQSETOT_StatementBilled",
+   "DAMWAMTQSETOT_StatementTotal",
+   "DANSAMT_Statement",
+   "DANSAMT_StatementBilled",
+   "DANSAMT_StatementTotal",
+   "DAOBLRAMTOTOT_Statement",
+   "DAOBLRAMTOTOT_StatementBilled",
+   "DAOBLRAMTOTOT_StatementTotal",
+   "DAOPTRAMTOTOT_Statement",
+   "DAOPTRAMTOTOT_StatementBillAmt",
+   "DAOPTRAMTOTOT_StatementTotal",
+   "DAPCECROAMT_Statement",
+   "DAPCECROAMT_StatementBilled",
+   "DAPCECROAMT_StatementTotal",
+   "DAPCNSOAMT_Statement",
+   "DAPCNSOAMT_StatementBilled",
+   "DAPCNSOAMT_StatementTotal",
+   "DAPCRDOAMT_Statement",
+   "DAPCRDOAMT_StatementBilled",
+   "DAPCRDOAMT_StatementTotal",
+   "DAPCRROAMT_Statement",
+   "DAPCRROAMT_StatementBilled",
+   "DAPCRROAMT_StatementTotal",
+   "DAPCRUOAMT_Statement",
+   "DAPCRUOAMT_StatementBilled",
+   "DAPCRUOAMT_StatementTotal",
+   "DARDAMT_Statement",
+   "DARDAMT_StatementBilled",
+   "DARDAMT_StatementTotal",
+   "DARRAMT_Statement",
+   "DARRAMT_StatementBilled",
+   "DARRAMT_StatementTotal",
+   "DARTOBLAMTQSETOT_Statement",
+   "DARTOBLAMTQSETOT_StatementBilled",
+   "DARTOBLAMTQSETOT_StatementTotal",
+   "DARTOBLLOAMTQSETOT_Statement",
+   "DARTOBLLOAMTQSETOT_StatementBilled",
+   "DARTOBLLOAMTQSETOT_StatementTotal",
+   "DARTPCECRAMT_Statement",
+   "DARTPCECRAMT_StatementBilled",
+   "DARTPCECRAMT_StatementTotal",
+   "DARTPCNSAMT_Statement",
+   "DARTPCNSAMT_StatementBilled",
+   "DARTPCNSAMT_StatementTotal",
+   "DARTPCRDAMT_Statement",
+   "DARTPCRDAMT_StatementBilled",
+   "DARTPCRDAMT_StatementTotal",
+   "DARTPCRRAMT_Statement",
+   "DARTPCRRAMT_StatementBilled",
+   "DARTPCRRAMT_StatementTotal",
+   "DARTPCRUAMT_Statement",
+   "DARTPCRUAMT_StatementBilled",
+   "DARTPCRUAMT_StatementTotal",
+   "DARUAMT_Statement",
+   "DARUAMT_StatementBilled",
+   "DARUAMT_StatementTotal",
+   "ECRFQAMTQSETOT_Statement",
+   "ECRFQAMTQSETOT_StatementBilled",
+   "ECRFQAMTQSETOT_StatementTotal",
+   "ECRINFQAMT_Statement",
+   "ECRINFQAMT_StatementBilled",
+   "ECRINFQAMT_StatementTotal",
+   "EMREAMTQSETOT_Statement",
+   "EMREAMTQSETOT_StatementBilled",
+   "EMREAMTQSETOT_StatementTotal",
+   "ERSPAMTQSETOT_Statement",
+   "ERSPAMTQSETOT_StatementBilled",
+   "ERSPAMTQSETOT_StatementTotal",
+   "ESACAMT_Statement",
+   "ESACAMT_StatementBilled",
+   "ESACAMT_StatementTotal",
+   "HDLOEAMTQSETOT_Statement",
+   "HDLOEAMTQSETOT_StatementBilled",
+   "HDLOEAMTQSETOT_StatementTotal",
+   "LAASIRNAMT_Statement",
+   "LAASIRNAMT_StatementBilled",
+   "LAASIRNAMT_StatementTotal",
+   "LABPDAMT_Statement",
+   "LABPDAMT_StatementBilled",
+   "LABPDAMT_StatementTotal",
+   "LABSSAMT_Statement",
+   "LABSSAMT_StatementBilled",
+   "LABSSAMT_StatementTotal",
+   "LADAMWAMT_Statement",
+   "LADAMWAMT_StatementBilled",
+   "LADAMWAMT_StatementTotal",
+   "LAEMREAMT_Statement",
+   "LAEMREAMT_StatementBilled",
+   "LAEMREAMT_StatementTotal",
+   "LAERSAMTQSETOT_Statement",
+   "LAERSAMTQSETOT_StatementBilled",
+   "LAERSAMTQSETOT_StatementTotal",
+   "LAFFSSAMT_Statement",
+   "LAFFSSAMT_StatementBilled",
+   "LAFFSSAMT_StatementTotal",
+   "LAHDLOEAMT_Statement",
+   "LAHDLOEAMT_StatementBilled",
+   "LAHDLOEAMT_StatementTotal",
+   "LAMBLTAMT_Statement",
+   "LAMBLTAMT_StatementBilled",
+   "LAMBLTAMT_StatementTotal",
+   "LARDASIRNAMT_Statement",
+   "LARDASIRNAMT_StatementBilled",
+   "LARDASIRNAMT_StatementTotal",
+   "LARMRAMT_Statement",
+   "LARMRAMT_StatementBilled",
+   "LARMRAMT_StatementTotal",
+   "LARTDASAMT_Statement",
+   "LARTDASAMT_StatementBilled",
+   "LARTDASAMT_StatementTotal",
+   "LARTECRAMT_Statement",
+   "LARTECRAMT_StatementBilled",
+   "LARTECRAMT_StatementTotal",
+   "LARTNSAMT_Statement",
+   "LARTNSAMT_StatementBilled",
+   "LARTNSAMT_StatementTotal",
+   "LARTRDAMT_Statement",
+   "LARTRDAMT_StatementBilled",
+   "LARTRDAMT_StatementTotal",
+   "LARTRNAMT_Statement",
+   "LARTRNAMT_StatementBilled",
+   "LARTRNAMT_StatementTotal",
+   "LARTRRAMT_Statement",
+   "LARTRRAMT_StatementBilled",
+   "LARTRRAMT_StatementTotal",
+   "LARTRUAMT_Statement",
+   "LARTRUAMT_StatementBilled",
+   "LARTRUAMT_StatementTotal",
+   "LARUCAMT_Statement",
+   "LARUCAMT_StatementBilled",
+   "LARUCAMT_StatementTotal",
+   "LARUCCBAMT_Statement",
+   "LARUCCBAMT_StatementBilled",
+   "LARUCCBAMT_StatementTotal",
+   "LARUCDCAMT_Statement",
+   "LARUCDCAMT_StatementBilled",
+   "LARUCDCAMT_StatementTotal",
+   "LASPDAMT_Statement",
+   "LASPDAMT_StatementBilled",
+   "LASPDAMT_StatementTotal",
+   "LAVSSAMT_Statement",
+   "LAVSSAMT_StatementBilled",
+   "LAVSSAMT_StatementTotal",
+   "MBLTAMTQSETOT_Statement",
+   "MBLTAMTQSETOT_StatementBilled",
+   "MBLTAMTQSETOT_StatementTotal",
+   "NSFQAMTQSETOT_Statement",
+   "NSFQAMTQSETOT_StatementBilled",
+   "NSFQAMTQSETOT_StatementTotal",
+   "NSINFQAMT_Statement",
+   "NSINFQAMT_StatementBilled",
+   "NSINFQAMT_StatementTotal",
+   "PCECRAMT_Statement",
+   "PCECRAMT_StatementBilled",
+   "PCECRAMT_StatementTotal",
+   "PCNSAMT_Statement",
+   "PCNSAMT_StatementBilled",
+   "PCNSAMT_StatementTotal",
+   "PCRDAMT_Statement",
+   "PCRDAMT_StatementBilled",
+   "PCRDAMT_StatementTotal",
+   "PCRRAMT_Statement",
+   "PCRRAMT_StatementBilled",
+   "PCRRAMT_StatementTotal",
+   "PCRUAMT_Statement",
+   "PCRUAMT_StatementBilled",
+   "PCRUAMT_StatementTotal",
+   "RDFQAMTQSETOT_Statement",
+   "RDFQAMTQSETOT_StatementBilled",
+   "RDFQAMTQSETOT_StatementTotal",
+   "RDINFQAMT_Statement",
+   "RDINFQAMT_StatementBilled",
+   "RDINFQAMT_StatementTotal",
+   "RMRAAMT_Statement",
+   "RMRAAMT_StatementBilled",
+   "RMRAAMT_StatementTotal",
+   "RMREAMTQSETOT_Statement",
+   "RMREAMTQSETOT_StatementBilled",
+   "RMREAMTQSETOT_StatementTotal",
+   "RMRNPAMTQSETOT_Statement",
+   "RMRNPAMTQSETOT_StatementBilled",
+   "RMRNPAMTQSETOT_StatementTotal",
+   "RMRSBAMTQSETOT_Statement",
+   "RMRSBAMTQSETOT_StatementBilled",
+   "RMRSBAMTQSETOT_StatementTotal",
+   "RRFQAMTQSETOT_Statement",
+   "RRFQAMTQSETOT_StatementBilled",
+   "RRFQAMTQSETOT_StatementTotal",
+   "RRINFQAMT_Statement",
+   "RRINFQAMT_StatementBilled",
+   "RRINFQAMT_StatementTotal",
+   "RTASIAMT_Statement",
+   "RTASIAMT_StatementBilled",
+   "RTASIAMT_StatementTotal",
+   "RTCCAMTQSETOT_Statement",
+   "RTCCAMTQSETOT_StatementBilled",
+   "RTCCAMTQSETOT_StatementTotal",
+   "RTDASAMT_Statement",
+   "RTDASAMT_StatementBilled",
+   "RTDASAMT_StatementTotal",
+   "RTDCIMPAMTQSETOT_Statement",
+   "RTDCIMPAMTQSETOT_StatementBilled",
+   "RTDCIMPAMTQSETOT_StatementTotal",
+   "RTECRAMT_Statement",
+   "RTECRAMT_StatementBilled",
+   "RTECRAMT_StatementTotal",
+   "RTECRIMBAMT_Statement",
+   "RTECRIMBAMT_StatementBilled",
+   "RTECRIMBAMT_StatementTotal",
+   "RTECROAMT_Statement",
+   "RTECROAMT_StatementBilled",
+   "RTECROAMT_StatementTotal",
+   "RTECRTOAMT_Statement",
+   "RTECRTOAMT_StatementBilled",
+   "RTECRTOAMT_StatementTotal",
+   "RTEIAMTQSETOT_Statement",
+   "RTEIAMTQSETOT_StatementBilled",
+   "RTEIAMTQSETOT_StatementTotal",
+   "RTESOGAMTQSETOT_Statement",
+   "RTESOGAMTQSETOT_StatementBilled",
+   "RTESOGAMTQSETOT_StatementTotal",
+   "RTNSAMT_Statement",
+   "RTNSAMT_StatementBilled",
+   "RTNSAMT_StatementTotal",
+   "RTNSIMBAMT_Statement",
+   "RTNSIMBAMT_StatementBilled",
+   "RTNSIMBAMT_StatementTotal",
+   "RTNSOAMT_Statement",
+   "RTNSOAMT_StatementBilled",
+   "RTNSOAMT_StatementTotal",
+   "RTNSTOAMT_Statement",
+   "RTNSTOAMT_StatementBilled",
+   "RTNSTOAMT_StatementTotal",
+   "RTOBLAMTQSETOT_Statement",
+   "RTOBLAMTQSETOT_StatementBilled",
+   "RTOBLAMTQSETOT_StatementTotal",
+   "RTOBLLOAMTQSETOT_Statement",
+   "RTOBLLOAMTQSETOT_StatementBilled",
+   "RTOBLLOAMTQSETOT_StatementTotal",
+   "RTPCECRAMTQSETOT_Statement",
+   "RTPCECRAMTQSETOT_StatementBilled",
+   "RTPCECRAMTQSETOT_StatementTotal",
+   "RTPCNSAMTQSETOT_Statement",
+   "RTPCNSAMTQSETOT_StatementBilled",
+   "RTPCNSAMTQSETOT_StatementTotal",
+   "RTPCRDAMTQSETOT_Statement",
+   "RTPCRDAMTQSETOT_StatementBilled",
+   "RTPCRDAMTQSETOT_StatementTotal",
+   "RTPCRRAMTQSETOT_Statement",
+   "RTPCRRAMTQSETOT_StatementBilled",
+   "RTPCRRAMTQSETOT_StatementTotal",
+   "RTPCRUAMTQSETOT_Statement",
+   "RTPCRUAMTQSETOT_StatementBilled",
+   "RTPCRUAMTQSETOT_StatementTotal",
+   "RTRDAMT_Statement",
+   "RTRDAMT_StatementBilled",
+   "RTRDAMT_StatementTotal",
+   "RTRDASIAMT_Statement",
+   "RTRDASIAMT_StatementBilled",
+   "RTRDASIAMT_StatementTotal",
+   "RTRDIMBAMT_Statement",
+   "RTRDIMBAMT_StatementBilled",
+   "RTRDIMBAMT_StatementTotal",
+   "RTRDOAMT_Statement",
+   "RTRDOAMT_StatementBilled",
+   "RTRDOAMT_StatementTotal",
+   "RTRDRUCRSVAMT_Statement",
+   "RTRDRUCRSVAMT_StatementBilled",
+   "RTRDRUCRSVAMT_StatementTotal",
+   "RTRDTOAMT_Statement",
+   "RTRDTOAMT_StatementBilled",
+   "RTRDTOAMT_StatementTotal",
+   "RTRRAMT_Statement",
+   "RTRRAMT_StatementBilled",
+   "RTRRAMT_StatementTotal",
+   "RTRRIMBAMT_Statement",
+   "RTRRIMBAMT_StatementBilled",
+   "RTRRIMBAMT_StatementTotal",
+   "RTRROAMT_Statement",
+   "RTRROAMT_StatementBilled",
+   "RTRROAMT_StatementTotal",
+   "RTRRTOAMT_Statement",
+   "RTRRTOAMT_StatementBilled",
+   "RTRRTOAMT_StatementTotal",
+   "RTRUAMT_Statement",
+   "RTRUAMT_StatementBilled",
+   "RTRUAMT_StatementTotal",
+   "RTRUCRSVAMT_Statement",
+   "RTRUCRSVAMT_StatementBilled",
+   "RTRUCRSVAMT_StatementTotal",
+   "RTRUIMBAMT_Statement",
+   "RTRUIMBAMT_StatementBilled",
+   "RTRUIMBAMT_StatementTotal",
+   "RTRUOAMT_Statement",
+   "RTRUOAMT_StatementBilled",
+   "RTRUOAMT_StatementTotal",
+   "RTRUTOAMT_Statement",
+   "RTRUTOAMT_StatementBilled",
+   "RTRUTOAMT_StatementTotal",
+   "RUCCBAMTQSETOT_StatementBilled",
+   "RUCCBAMTQSETOT_StatementTotal",
+   "RUCCSAMTQSETOT_StatementBilled",
+   "RUCCSAMTQSETOT_StatementTotal",
+   "RUCDCAMTQSETOT_StatementBilled",
+   "RUCDCAMTQSETOT_StatementTotal",
+   "RUCMWAMTQSETOT_StatementBilled",
+   "RUCMWAMTQSETOT_StatementTotal",
+   "RUFQAMTQSETOT_Statement",
+   "RUFQAMTQSETOT_StatementBilled",
+   "RUFQAMTQSETOT_StatementTotal",
+   "RUINFQAMT_Statement",
+   "RUINFQAMT_StatementBilled",
+   "RUINFQAMT_StatementTotal",
+   "SPDAMTQSETOT_StatementBilled",
+   "SPDAMTQSETOT_StatementTotal",
+   "VSSEAMTQSETOT_StatementBilled",
+   "VSSEAMTQSETOT_StatementTotal",
+   "VSSVARAMTQSETOT_StatementBilled",
+   "VSSVARAMTQSETOT_StatementTotal"
+  ],
+  "schema_defs": null,
+  "query_ByIdentifier": {
+   "n_elements": 0,
+   "datapoints": {}
+  },
+  "query_ByIdentifier_validations": [],
+  "query_ByParentAndFilter": {
+   "n_elements": 0,
+   "datapoints": {}
+  },
+  "query_ByParentAndFilter_validations": []
+ }
+}

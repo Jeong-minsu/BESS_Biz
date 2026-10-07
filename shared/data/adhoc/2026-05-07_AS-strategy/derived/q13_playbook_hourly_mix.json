@@ -1,0 +1,796 @@
+{
+  "combo_order": [
+    "RRS_DA",
+    "RRS_RT",
+    "ECRS_DA",
+    "ECRS_RT",
+    "NSPIN_DA",
+    "NSPIN_RT"
+  ],
+  "n_hours": 3287,
+  "n_days": 137,
+  "date_range": [
+    "2026-01-01 00:00:00-06:00",
+    "2026-05-17 23:00:00-05:00"
+  ],
+  "medium": {
+    "hours": {
+      "1": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 110,
+        "NSPIN_RT": 27
+      },
+      "2": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 110,
+        "NSPIN_RT": 27
+      },
+      "3": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 108,
+        "NSPIN_RT": 28
+      },
+      "4": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 110,
+        "NSPIN_RT": 27
+      },
+      "5": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 110,
+        "NSPIN_RT": 27
+      },
+      "6": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 110,
+        "NSPIN_RT": 27
+      },
+      "7": {
+        "RRS_DA": 55,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 27,
+        "NSPIN_DA": 55,
+        "NSPIN_RT": 0
+      },
+      "8": {
+        "RRS_DA": 55,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 27,
+        "NSPIN_DA": 55,
+        "NSPIN_RT": 0
+      },
+      "9": {
+        "RRS_DA": 55,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 27,
+        "NSPIN_DA": 55,
+        "NSPIN_RT": 0
+      },
+      "10": {
+        "RRS_DA": 55,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 27,
+        "NSPIN_DA": 55,
+        "NSPIN_RT": 0
+      },
+      "11": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 137,
+        "NSPIN_RT": 0
+      },
+      "12": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 137,
+        "NSPIN_RT": 0
+      },
+      "13": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 137,
+        "NSPIN_RT": 0
+      },
+      "14": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 137,
+        "NSPIN_RT": 0
+      },
+      "15": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 137,
+        "NSPIN_RT": 0
+      },
+      "16": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 137,
+        "NSPIN_RT": 0
+      },
+      "17": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 137,
+        "NSPIN_RT": 0
+      },
+      "18": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 82,
+        "NSPIN_RT": 55
+      },
+      "19": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 82,
+        "NSPIN_RT": 55
+      },
+      "20": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 82,
+        "NSPIN_RT": 55
+      },
+      "21": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 82,
+        "NSPIN_RT": 55
+      },
+      "22": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 82,
+        "NSPIN_RT": 55
+      },
+      "23": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 110,
+        "NSPIN_RT": 27
+      },
+      "24": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 110,
+        "NSPIN_RT": 27
+      }
+    },
+    "pct": {
+      "1": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 80.3,
+        "NSPIN_RT": 19.7
+      },
+      "2": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 80.3,
+        "NSPIN_RT": 19.7
+      },
+      "3": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 79.4,
+        "NSPIN_RT": 20.6
+      },
+      "4": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 80.3,
+        "NSPIN_RT": 19.7
+      },
+      "5": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 80.3,
+        "NSPIN_RT": 19.7
+      },
+      "6": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 80.3,
+        "NSPIN_RT": 19.7
+      },
+      "7": {
+        "RRS_DA": 40.1,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 19.7,
+        "NSPIN_DA": 40.1,
+        "NSPIN_RT": 0.0
+      },
+      "8": {
+        "RRS_DA": 40.1,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 19.7,
+        "NSPIN_DA": 40.1,
+        "NSPIN_RT": 0.0
+      },
+      "9": {
+        "RRS_DA": 40.1,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 19.7,
+        "NSPIN_DA": 40.1,
+        "NSPIN_RT": 0.0
+      },
+      "10": {
+        "RRS_DA": 40.1,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 19.7,
+        "NSPIN_DA": 40.1,
+        "NSPIN_RT": 0.0
+      },
+      "11": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 100.0,
+        "NSPIN_RT": 0.0
+      },
+      "12": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 100.0,
+        "NSPIN_RT": 0.0
+      },
+      "13": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 100.0,
+        "NSPIN_RT": 0.0
+      },
+      "14": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 100.0,
+        "NSPIN_RT": 0.0
+      },
+      "15": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 100.0,
+        "NSPIN_RT": 0.0
+      },
+      "16": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 100.0,
+        "NSPIN_RT": 0.0
+      },
+      "17": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 100.0,
+        "NSPIN_RT": 0.0
+      },
+      "18": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 59.9,
+        "NSPIN_RT": 40.1
+      },
+      "19": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 59.9,
+        "NSPIN_RT": 40.1
+      },
+      "20": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 59.9,
+        "NSPIN_RT": 40.1
+      },
+      "21": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 59.9,
+        "NSPIN_RT": 40.1
+      },
+      "22": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 59.9,
+        "NSPIN_RT": 40.1
+      },
+      "23": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 80.3,
+        "NSPIN_RT": 19.7
+      },
+      "24": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 80.3,
+        "NSPIN_RT": 19.7
+      }
+    }
+  },
+  "fine": {
+    "hours": {
+      "1": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 110,
+        "NSPIN_RT": 27
+      },
+      "2": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 109,
+        "NSPIN_RT": 28
+      },
+      "3": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 108,
+        "NSPIN_RT": 28
+      },
+      "4": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 110,
+        "NSPIN_RT": 27
+      },
+      "5": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 110,
+        "NSPIN_RT": 27
+      },
+      "6": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 110,
+        "NSPIN_RT": 27
+      },
+      "7": {
+        "RRS_DA": 16,
+        "RRS_RT": 0,
+        "ECRS_DA": 31,
+        "ECRS_RT": 17,
+        "NSPIN_DA": 73,
+        "NSPIN_RT": 0
+      },
+      "8": {
+        "RRS_DA": 28,
+        "RRS_RT": 5,
+        "ECRS_DA": 25,
+        "ECRS_RT": 20,
+        "NSPIN_DA": 59,
+        "NSPIN_RT": 0
+      },
+      "9": {
+        "RRS_DA": 19,
+        "RRS_RT": 8,
+        "ECRS_DA": 35,
+        "ECRS_RT": 20,
+        "NSPIN_DA": 55,
+        "NSPIN_RT": 0
+      },
+      "10": {
+        "RRS_DA": 19,
+        "RRS_RT": 7,
+        "ECRS_DA": 28,
+        "ECRS_RT": 29,
+        "NSPIN_DA": 54,
+        "NSPIN_RT": 0
+      },
+      "11": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 6,
+        "NSPIN_DA": 131,
+        "NSPIN_RT": 0
+      },
+      "12": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 7,
+        "NSPIN_DA": 130,
+        "NSPIN_RT": 0
+      },
+      "13": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 7,
+        "NSPIN_DA": 130,
+        "NSPIN_RT": 0
+      },
+      "14": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 5,
+        "NSPIN_DA": 132,
+        "NSPIN_RT": 0
+      },
+      "15": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 7,
+        "NSPIN_DA": 130,
+        "NSPIN_RT": 0
+      },
+      "16": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 6,
+        "NSPIN_DA": 131,
+        "NSPIN_RT": 0
+      },
+      "17": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 10,
+        "NSPIN_DA": 127,
+        "NSPIN_RT": 0
+      },
+      "18": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 13,
+        "ECRS_RT": 25,
+        "NSPIN_DA": 89,
+        "NSPIN_RT": 10
+      },
+      "19": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 15,
+        "ECRS_RT": 23,
+        "NSPIN_DA": 90,
+        "NSPIN_RT": 9
+      },
+      "20": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 16,
+        "ECRS_RT": 10,
+        "NSPIN_DA": 80,
+        "NSPIN_RT": 31
+      },
+      "21": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 15,
+        "ECRS_RT": 6,
+        "NSPIN_DA": 87,
+        "NSPIN_RT": 29
+      },
+      "22": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 28,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 55,
+        "NSPIN_RT": 54
+      },
+      "23": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 110,
+        "NSPIN_RT": 27
+      },
+      "24": {
+        "RRS_DA": 0,
+        "RRS_RT": 0,
+        "ECRS_DA": 0,
+        "ECRS_RT": 0,
+        "NSPIN_DA": 110,
+        "NSPIN_RT": 27
+      }
+    },
+    "pct": {
+      "1": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 80.3,
+        "NSPIN_RT": 19.7
+      },
+      "2": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 79.6,
+        "NSPIN_RT": 20.4
+      },
+      "3": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 79.4,
+        "NSPIN_RT": 20.6
+      },
+      "4": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 80.3,
+        "NSPIN_RT": 19.7
+      },
+      "5": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 80.3,
+        "NSPIN_RT": 19.7
+      },
+      "6": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 80.3,
+        "NSPIN_RT": 19.7
+      },
+      "7": {
+        "RRS_DA": 11.7,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 22.6,
+        "ECRS_RT": 12.4,
+        "NSPIN_DA": 53.3,
+        "NSPIN_RT": 0.0
+      },
+      "8": {
+        "RRS_DA": 20.4,
+        "RRS_RT": 3.6,
+        "ECRS_DA": 18.2,
+        "ECRS_RT": 14.6,
+        "NSPIN_DA": 43.1,
+        "NSPIN_RT": 0.0
+      },
+      "9": {
+        "RRS_DA": 13.9,
+        "RRS_RT": 5.8,
+        "ECRS_DA": 25.5,
+        "ECRS_RT": 14.6,
+        "NSPIN_DA": 40.1,
+        "NSPIN_RT": 0.0
+      },
+      "10": {
+        "RRS_DA": 13.9,
+        "RRS_RT": 5.1,
+        "ECRS_DA": 20.4,
+        "ECRS_RT": 21.2,
+        "NSPIN_DA": 39.4,
+        "NSPIN_RT": 0.0
+      },
+      "11": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 4.4,
+        "NSPIN_DA": 95.6,
+        "NSPIN_RT": 0.0
+      },
+      "12": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 5.1,
+        "NSPIN_DA": 94.9,
+        "NSPIN_RT": 0.0
+      },
+      "13": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 5.1,
+        "NSPIN_DA": 94.9,
+        "NSPIN_RT": 0.0
+      },
+      "14": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 3.6,
+        "NSPIN_DA": 96.4,
+        "NSPIN_RT": 0.0
+      },
+      "15": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 5.1,
+        "NSPIN_DA": 94.9,
+        "NSPIN_RT": 0.0
+      },
+      "16": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 4.4,
+        "NSPIN_DA": 95.6,
+        "NSPIN_RT": 0.0
+      },
+      "17": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 7.3,
+        "NSPIN_DA": 92.7,
+        "NSPIN_RT": 0.0
+      },
+      "18": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 9.5,
+        "ECRS_RT": 18.2,
+        "NSPIN_DA": 65.0,
+        "NSPIN_RT": 7.3
+      },
+      "19": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 10.9,
+        "ECRS_RT": 16.8,
+        "NSPIN_DA": 65.7,
+        "NSPIN_RT": 6.6
+      },
+      "20": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 11.7,
+        "ECRS_RT": 7.3,
+        "NSPIN_DA": 58.4,
+        "NSPIN_RT": 22.6
+      },
+      "21": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 10.9,
+        "ECRS_RT": 4.4,
+        "NSPIN_DA": 63.5,
+        "NSPIN_RT": 21.2
+      },
+      "22": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 20.4,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 40.1,
+        "NSPIN_RT": 39.4
+      },
+      "23": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 80.3,
+        "NSPIN_RT": 19.7
+      },
+      "24": {
+        "RRS_DA": 0.0,
+        "RRS_RT": 0.0,
+        "ECRS_DA": 0.0,
+        "ECRS_RT": 0.0,
+        "NSPIN_DA": 80.3,
+        "NSPIN_RT": 19.7
+      }
+    }
+  }
+}

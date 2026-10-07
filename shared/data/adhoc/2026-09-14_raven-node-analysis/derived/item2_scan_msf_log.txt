@@ -1,0 +1,48 @@
+wrote 202309.parquet: 226,821 rows, 30/30 days, 4s
+wrote 202310.parquet: 287,835 rows, 31/31 days, 2s
+wrote 202311.parquet: 240,634 rows, 30/30 days, 4s
+wrote 202312.parquet: 231,427 rows, 31/31 days, 4s
+wrote 202401.parquet: 335,030 rows, 31/31 days, 4s
+wrote 202402.parquet: 399,497 rows, 29/29 days, 3s
+wrote 202403.parquet: 468,149 rows, 31/31 days, 4s
+wrote 202404.parquet: 528,841 rows, 30/30 days, 245s
+wrote 202405.parquet: 450,009 rows, 31/31 days, 4s
+wrote 202406.parquet: 433,874 rows, 30/30 days, 3s
+wrote 202407.parquet: 327,355 rows, 31/31 days, 5s
+skip 202309.parquet
+skip 202310.parquet
+skip 202311.parquet
+skip 202312.parquet
+skip 202401.parquet
+skip 202402.parquet
+skip 202403.parquet
+skip 202404.parquet
+skip 202405.parquet
+skip 202406.parquet
+skip 202407.parquet
+wrote 202408.parquet: 299,878 rows, 31/31 days, 6s
+wrote 202409.parquet: 340,973 rows, 30/30 days, 3s
+wrote 202410.parquet: 444,068 rows, 31/31 days, 4s
+wrote 202411.parquet: 444,573 rows, 30/30 days, 3s
+wrote 202412.parquet: 348,379 rows, 31/31 days, 4s
+wrote 202501.parquet: 425,156 rows, 31/31 days, 3s
+wrote 202502.parquet: 424,504 rows, 28/28 days, 3s
+wrote 202503.parquet: 647,375 rows, 31/31 days, 7s
+wrote 202504.parquet: 803,315 rows, 30/30 days, 10s
+wrote 202505.parquet: 596,590 rows, 31/31 days, 5s
+wrote 202506.parquet: 633,605 rows, 30/30 days, 5s
+wrote 202507.parquet: 583,523 rows, 31/31 days, 4s
+wrote 202508.parquet: 497,289 rows, 31/31 days, 6s
+wrote 202509.parquet: 468,410 rows, 30/30 days, 4s
+wrote 202510.parquet: 580,168 rows, 31/31 days, 6s
+wrote 202511.parquet: 536,054 rows, 30/30 days, 3s
+wrote 202512.parquet: 495,038 rows, 31/31 days, 6s
+wrote 202601.parquet: 471,775 rows, 31/31 days, 6s
+wrote 202602.parquet: 493,138 rows, 28/28 days, 5s
+wrote 202603.parquet: 772,440 rows, 31/31 days, 6s
+wrote 202604.parquet: 652,873 rows, 30/30 days, 6s
+wrote 202605.parquet: 551,835 rows, 31/31 days, 4s
+wrote 202606.parquet: 744,912 rows, 30/30 days, 6s
+wrote 202607.parquet: 593,360 rows, 31/31 days, 7s
+wrote 202608.parquet: 621,977 rows, 31/31 days, 4s
+wrote 202609.parquet: 198,362 rows, 13/13 days, 2s
