@@ -1,0 +1,45 @@
+{
+  "flowday": "2026-06-05",
+  "source": "Tenaska PTP Battery-Settlement-Details (actual settled)",
+  "data_status": "PARTIAL — HSL: 0 rows returned; DA Energy Bid: 0 rows; DA Energy Offer: 0 rows; DART virtual not separately reported in Tenaska fields",
+  "generated_at_utc": "2026-06-06T12:09:36Z",
+  "gks_actual": {
+    "da_energy_revenue": 9432.05,
+    "rt_energy_revenue": -11066.48,
+    "as_revenue_ecrs": 467.20,
+    "as_revenue_nonspin": 1577.60,
+    "as_revenue_rrs": 0.00,
+    "as_revenue_regup": 0.00,
+    "as_revenue_regdown": 0.00,
+    "rt_ancillary_imbalance": 0.00,
+    "rt_reliability_deployment_imbalance": 0.00,
+    "dart_virtual_revenue": "N/A",
+    "dart_virtual_note": "DART virtual not separately reported in Tenaska Battery-Settlement-Details; DA_Energy_Amt and RT_Energy_Amt include combined physical+virtual settlement",
+    "total_revenue_excl_dart_virtual": 410.37,
+    "energy_injection_mwh": 107.90,
+    "energy_consumption_mwh": 140.56,
+    "net_mwh": -32.66,
+    "da_sales_qty_mwh": 250.40,
+    "cycles_equivalent": 0.70,
+    "hsl_note": "PARTIAL — HSL data returned 0 rows; HSL availability N/A"
+  },
+  "smartbidder_benchmark": {
+    "strategy": "AA - Mount Blue Sky with Virtuals (RTC version)",
+    "data_status": "estimate (not settled)",
+    "da_energy_revenue": 3141.46,
+    "rt_energy_revenue_lmp5": -4616.03,
+    "da_virtual_energy": 20273.00,
+    "rt_virtual_energy": -31286.75,
+    "dart_virtual_net": -11013.75,
+    "da_ecrs": 68.42,
+    "rt_ecrs": 12.04,
+    "da_nonspin": 2551.74,
+    "rt_nonspin": -3256.10,
+    "total_revenue": -13112.22
+  },
+  "comparison": {
+    "note": "GKS DART virtual not separately available from Tenaska; direct product-level comparison is approximate. Smartbidder total includes DART virtual (-11,013.75) which accounts for most of the gap.",
+    "total_delta_gks_vs_sb": 13522.59,
+    "total_delta_note": "GKS 410.37 vs SB -13112.22; GKS outperforms SB by +13,522.59 on reported fields (excl DART virtual in SB)"
+  }
+}

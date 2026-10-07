@@ -1,0 +1,39 @@
+{
+  "flowday": "2026-09-14",
+  "generated_at_utc": "2026-09-15T12:30:00Z",
+  "data_source": "Tenaska PTP (production)",
+  "smartbidder_benchmark": "DEGRADED - client_secret expired",
+  "resource": "Great Kiskadee Storage - ESR",
+  "capacity_mw": 100,
+  "energy_mwh": 200,
+  "revenue": {
+    "da_energy_revenue": 21750.75,
+    "rt_energy_revenue": -14955.4079,
+    "as_revenue_regup": 0.0,
+    "as_revenue_regdown": 0.0,
+    "as_revenue_rrs": 304.2,
+    "as_revenue_ecrs": 0.0,
+    "as_revenue_nonspin": 3817.85,
+    "dart_virtual_revenue": 6795.3421,
+    "total_revenue": 10917.3921
+  },
+  "energy_throughput": {
+    "energy_injection_mwh": 85.726,
+    "energy_consumption_mwh": 106.756,
+    "net_mwh": -21.03,
+    "cycles_equivalent": 0.48,
+    "da_sales_qty_mwh": 585.1,
+    "da_purchases_qty_mwh": 0.0
+  },
+  "hsl": {
+    "avg_hsl_mw": 66.72,
+    "nameplate_mw": 100,
+    "availability_pct": 66.7
+  },
+  "prices": {
+    "avg_daspp": 31.62,
+    "avg_rtspp": 27.70,
+    "spread_da_minus_rt": 3.92
+  },
+  "notes": "DA_Energy_Amt reflects DA sell positions cleared via Smartbidder. RT_Energy_Amt includes physical RT settlement plus imbalance from DA short positions. DA_Sales_Qty=585.1 MWh vs RT_Generation=85.7 MWh indicates significant virtual (DART) position. DA_Purchases_Qty=0 (no DA buy side). HSL averaged 66.7 MW (nameplate 100 MW), SOC-constrained."
+}

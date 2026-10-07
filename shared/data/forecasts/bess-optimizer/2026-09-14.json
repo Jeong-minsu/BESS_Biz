@@ -1,0 +1,128 @@
+{
+  "meta": {
+    "asset": "GKS_BESS_RN",
+    "node": "GKS_BESS_A_UNIT1",
+    "capacity_mw": 100,
+    "capacity_mwh": 200,
+    "market_day": "2026-09-14",
+    "filed_date": "2026-09-13",
+    "day_type": "WDPEAK",
+    "congestion_grade": "THREE-SIGNAL EXTREME",
+    "data_quality": "PARTIAL",
+    "sources": {
+      "yes_energy": "PRODUCTION",
+      "smartbidder": "ABSENT_DAY49",
+      "market_analyst": "PRODUCTION",
+      "congestion_analyst": "PRODUCTION_STAGE0_PROVISIONAL",
+      "as_playbook": "ABSENT",
+      "tenaska_ptp": "DOWN_43PLUS_FLOWDAYS"
+    },
+    "assumptions": {
+      "starting_soc_mwh": 40.0,
+      "starting_soc_source": "RULE7_DEFAULT",
+      "charge_efficiency": 0.85,
+      "discharge_efficiency": 0.92,
+      "min_soc_mwh": 20.0,
+      "max_soc_mwh": 190.0,
+      "hsl_mw": 100,
+      "hsl_source": "ASSUMED_NAMEPLATE"
+    },
+    "strategy": "Stack A — EXTREME Duck Canyon Charge HE10-11 + AS Hold HE12-18 + SOUTH_HOUSTON Evening Discharge HE19-20",
+    "primary_stack": "A",
+    "rule8_active": true
+  },
+  "key_signals": {
+    "nl_trough_he": 11,
+    "nl_trough_mw": 20669.4,
+    "nl_trough_tier": "EXTREME",
+    "nl_trough_margin_mw": -1330.6,
+    "nl_peak_he": 20,
+    "nl_peak_mw": 56584.3,
+    "nl_spread_mw": 35914.9,
+    "solar_peak_he": 12,
+    "solar_peak_mw": 32307.8,
+    "duck_curve_amplitude_mw": 35914.9,
+    "evening_ramp_mw": 18906.0,
+    "evening_ramp_vs_binding_floor_mw": 971.0,
+    "south_houston_binding_probability_he20": 0.28,
+    "west_to_north_medium_hours": 22,
+    "gr_west_peak_mw": 14121.7,
+    "gr_west_peak_he": 24,
+    "d2_continuity_trigger": true,
+    "panhandle_breach": false
+  },
+  "top_hours": {
+    "discharge": [
+      {"he": 20, "nl_mw": 56584.3, "reason": "Daily NL peak; SOUTH_HOUSTON P(binding)=22-35%; GKS MCC +$2-4 conditional", "floor_per_mwh": 60},
+      {"he": 19, "nl_mw": 47351.7, "reason": "Solar cliff -11,895 MW; first scarcity tier; WEST_TO_NORTH MEDIUM SCI 0.428", "floor_per_mwh": 50}
+    ],
+    "charge": [
+      {"he": 11, "nl_mw": 20669.4, "reason": "EXTREME trough 1,331 MW into zone; GKS MCC -$7.0/MWh; deepest WDPEAK Sep 2026 Stage 0", "ceiling_per_mwh": 15},
+      {"he": 10, "nl_mw": 21164.7, "reason": "EXTREME 835 MW into zone; GKS MCC -$6.0/MWh; solar 26,905 MW", "ceiling_per_mwh": 20}
+    ]
+  },
+  "schedule": [
+    {"he": 1,  "mode": "Idle",        "energy_mw": 0,    "soc_before_mwh": 40.0,  "soc_after_mwh": 40.0,  "nonspin_mw": 0,  "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdn_mw": 0, "gks_mcc_est": -2.5, "nl_mw": 42344.9, "venue": null,   "bid_floor_ceiling": null},
+    {"he": 2,  "mode": "Idle",        "energy_mw": 0,    "soc_before_mwh": 40.0,  "soc_after_mwh": 40.0,  "nonspin_mw": 0,  "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdn_mw": 0, "gks_mcc_est": -2.5, "nl_mw": 39588.1, "venue": null,   "bid_floor_ceiling": null},
+    {"he": 3,  "mode": "Idle",        "energy_mw": 0,    "soc_before_mwh": 40.0,  "soc_after_mwh": 40.0,  "nonspin_mw": 0,  "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdn_mw": 0, "gks_mcc_est": -3.0, "nl_mw": 37955.1, "venue": null,   "bid_floor_ceiling": null},
+    {"he": 4,  "mode": "Idle",        "energy_mw": 0,    "soc_before_mwh": 40.0,  "soc_after_mwh": 40.0,  "nonspin_mw": 0,  "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdn_mw": 0, "gks_mcc_est": -2.5, "nl_mw": 37225.9, "venue": null,   "bid_floor_ceiling": null},
+    {"he": 5,  "mode": "Idle",        "energy_mw": 0,    "soc_before_mwh": 40.0,  "soc_after_mwh": 40.0,  "nonspin_mw": 0,  "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdn_mw": 0, "gks_mcc_est": -2.0, "nl_mw": 37835.3, "venue": null,   "bid_floor_ceiling": null},
+    {"he": 6,  "mode": "Idle",        "energy_mw": 0,    "soc_before_mwh": 40.0,  "soc_after_mwh": 40.0,  "nonspin_mw": 0,  "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdn_mw": 0, "gks_mcc_est": -1.5, "nl_mw": 39546.6, "venue": null,   "bid_floor_ceiling": null},
+    {"he": 7,  "mode": "Idle",        "energy_mw": 0,    "soc_before_mwh": 40.0,  "soc_after_mwh": 40.0,  "nonspin_mw": 0,  "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdn_mw": 0, "gks_mcc_est": -1.0, "nl_mw": 42292.6, "venue": null,   "bid_floor_ceiling": null},
+    {"he": 8,  "mode": "Idle",        "energy_mw": 0,    "soc_before_mwh": 40.0,  "soc_after_mwh": 40.0,  "nonspin_mw": 0,  "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdn_mw": 0, "gks_mcc_est": -0.8, "nl_mw": 42450.8, "venue": null,   "bid_floor_ceiling": null},
+    {"he": 9,  "mode": "Idle",        "energy_mw": 0,    "soc_before_mwh": 40.0,  "soc_after_mwh": 40.0,  "nonspin_mw": 0,  "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdn_mw": 0, "gks_mcc_est": -0.8, "nl_mw": 31627.7, "venue": null,   "bid_floor_ceiling": null},
+    {"he": 10, "mode": "Charge_DA",   "energy_mw": -100, "soc_before_mwh": 40.0,  "soc_after_mwh": 125.0, "nonspin_mw": 0,  "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdn_mw": 0, "gks_mcc_est": -6.0, "nl_mw": 21164.7, "venue": "DA",   "bid_floor_ceiling": {"ceiling_per_mwh": 20, "note": "if_negative_accept_revenue"}},
+    {"he": 11, "mode": "Charge_DA",   "energy_mw": -77,  "soc_before_mwh": 125.0, "soc_after_mwh": 190.0, "nonspin_mw": 0,  "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdn_mw": 0, "gks_mcc_est": -7.0, "nl_mw": 20669.4, "venue": "DA",   "bid_floor_ceiling": {"ceiling_per_mwh": 15, "note": "CHARGE_ONLY_no_AS_bid_overlap_sep11_learning"}},
+    {"he": 12, "mode": "AS_Hold",     "energy_mw": 0,    "soc_before_mwh": 190.0, "soc_after_mwh": 190.0, "nonspin_mw": 60, "ecrs_mw": 40, "rrs_mw": 0, "regup_mw": 0, "regdn_mw": 0, "gks_mcc_est": -1.5, "nl_mw": 23417.3, "venue": "DA",   "bid_floor_ceiling": null},
+    {"he": 13, "mode": "AS_Hold",     "energy_mw": 0,    "soc_before_mwh": 190.0, "soc_after_mwh": 190.0, "nonspin_mw": 60, "ecrs_mw": 40, "rrs_mw": 0, "regup_mw": 0, "regdn_mw": 0, "gks_mcc_est": -2.0, "nl_mw": 27386.9, "venue": "DA",   "bid_floor_ceiling": null},
+    {"he": 14, "mode": "AS_Hold",     "energy_mw": 0,    "soc_before_mwh": 190.0, "soc_after_mwh": 190.0, "nonspin_mw": 60, "ecrs_mw": 40, "rrs_mw": 0, "regup_mw": 0, "regdn_mw": 0, "gks_mcc_est": -2.0, "nl_mw": 30569.7, "venue": "DA",   "bid_floor_ceiling": null},
+    {"he": 15, "mode": "AS_Hold",     "energy_mw": 0,    "soc_before_mwh": 190.0, "soc_after_mwh": 190.0, "nonspin_mw": 60, "ecrs_mw": 40, "rrs_mw": 0, "regup_mw": 0, "regdn_mw": 0, "gks_mcc_est": -2.0, "nl_mw": 32112.1, "venue": "DA",   "bid_floor_ceiling": null},
+    {"he": 16, "mode": "AS_Hold",     "energy_mw": 0,    "soc_before_mwh": 190.0, "soc_after_mwh": 190.0, "nonspin_mw": 60, "ecrs_mw": 40, "rrs_mw": 0, "regup_mw": 0, "regdn_mw": 0, "gks_mcc_est": -2.0, "nl_mw": 32994.4, "venue": "DA",   "bid_floor_ceiling": null},
+    {"he": 17, "mode": "AS_Hold",     "energy_mw": 0,    "soc_before_mwh": 190.0, "soc_after_mwh": 190.0, "nonspin_mw": 60, "ecrs_mw": 40, "rrs_mw": 0, "regup_mw": 0, "regdn_mw": 0, "gks_mcc_est": -2.0, "nl_mw": 34448.4, "venue": "DA",   "bid_floor_ceiling": null},
+    {"he": 18, "mode": "AS_Hold",     "energy_mw": 0,    "soc_before_mwh": 190.0, "soc_after_mwh": 190.0, "nonspin_mw": 60, "ecrs_mw": 40, "rrs_mw": 0, "regup_mw": 0, "regdn_mw": 0, "gks_mcc_est": -1.5, "nl_mw": 37678.4, "venue": "DA",   "bid_floor_ceiling": null},
+    {"he": 19, "mode": "Discharge_DA","energy_mw": 56,   "soc_before_mwh": 190.0, "soc_after_mwh": 129.1, "nonspin_mw": 0,  "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdn_mw": 0, "gks_mcc_est": -1.5, "nl_mw": 47351.7, "venue": "DA",   "bid_floor_ceiling": {"floor_per_mwh": 50}},
+    {"he": 20, "mode": "Discharge_DA","energy_mw": 100,  "soc_before_mwh": 129.1, "soc_after_mwh": 20.0,  "nonspin_mw": 0,  "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdn_mw": 0, "gks_mcc_est": 1.5,  "nl_mw": 56584.3, "venue": "DA",   "bid_floor_ceiling": {"floor_per_mwh": 60, "note": "SOUTH_HOUSTON_P22-35_binding_upside"}},
+    {"he": 21, "mode": "Idle",        "energy_mw": 0,    "soc_before_mwh": 20.0,  "soc_after_mwh": 20.0,  "nonspin_mw": 0,  "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdn_mw": 0, "gks_mcc_est": -1.0, "nl_mw": 55137.9, "venue": null,   "bid_floor_ceiling": null},
+    {"he": 22, "mode": "Idle",        "energy_mw": 0,    "soc_before_mwh": 20.0,  "soc_after_mwh": 20.0,  "nonspin_mw": 0,  "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdn_mw": 0, "gks_mcc_est": -2.0, "nl_mw": 51171.6, "venue": null,   "bid_floor_ceiling": null},
+    {"he": 23, "mode": "Idle",        "energy_mw": 0,    "soc_before_mwh": 20.0,  "soc_after_mwh": 20.0,  "nonspin_mw": 0,  "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdn_mw": 0, "gks_mcc_est": -2.5, "nl_mw": 47071.3, "venue": null,   "bid_floor_ceiling": null},
+    {"he": 24, "mode": "Idle",        "energy_mw": 0,    "soc_before_mwh": 20.0,  "soc_after_mwh": 20.0,  "nonspin_mw": 0,  "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdn_mw": 0, "gks_mcc_est": -3.0, "nl_mw": 42865.3, "venue": null,   "bid_floor_ceiling": {"note": "D2_trigger_SCI_0.473_GR_WEST_14122_MW"}}
+  ],
+  "soc_accounting": {
+    "start_mwh": 40.0,
+    "he10_charge_mwh": 85.0,
+    "he11_charge_mwh": 65.45,
+    "he12_18_change_mwh": 0.0,
+    "he19_discharge_mwh": -60.87,
+    "he20_discharge_mwh": -108.70,
+    "end_mwh": 20.0,
+    "total_grid_purchases_mwh": 177,
+    "total_grid_sales_mwh": 156,
+    "realized_roundtrip_efficiency": 0.881
+  },
+  "revenue_estimate": {
+    "currency": "USD",
+    "basis": "STRUCTURAL_RANGE_NO_SMARTBIDDER",
+    "da_energy_gross_range": [10860, 35960],
+    "after_rt_imbalance_rule2_range": [8688, 28768],
+    "net_after_charge_cost_range": [6688, 28768],
+    "as_nonspin_range": [300, 700],
+    "as_ecrs_range": [1200, 2500],
+    "as_total_range": [1500, 3200],
+    "total_range": [8188, 31968],
+    "central_estimate": [12000, 17000],
+    "central_estimate_basis": "DEGRADED_Sep08_calibrated_plus_structural_analog",
+    "scenario_base_clean_rt": [9038, 31118],
+    "scenario_degraded_sep11_pattern": [2786, 5300],
+    "scenario_most_likely_rule8_unresolved": [5000, 17000],
+    "scenario_south_houston_binding_tail_probability": 0.15,
+    "scenario_south_houston_binding_tail_range": [25000, 40000],
+    "scenario_negative_charge_probability": 0.25,
+    "scenario_negative_charge_additional_revenue": 2155
+  },
+  "alternative_stack": {
+    "name": "Stack B — Wind Bust",
+    "activate_condition": "GR_WEST_HE11 < 9500 MW at 10:30 CT intraday check",
+    "changes": "HE11 extend to 100MW; HE20 floor raised to $75/MWh",
+    "revenue_estimate_central": [13500, 28000]
+  }
+}

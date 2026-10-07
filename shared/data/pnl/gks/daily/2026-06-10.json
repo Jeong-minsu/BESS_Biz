@@ -1,0 +1,83 @@
+{
+  "flowday": "2026-06-10",
+  "generated_at_utc": "2026-06-11T00:00:00Z",
+  "data_source": "PRODUCTION (Tenaska PTP Battery-Settlement-Details) + ESTIMATE (Smartbidder DART virtual)",
+  "coverage_utc": "2026-06-10T05:00:00Z to 2026-06-11T05:00:00Z (HE01-HE24 CDT)",
+  "notes": {
+    "da_energy_bid_rows": 0,
+    "da_energy_offer_rows": 0,
+    "da_bid_offer_status": "0 rows — GKS submits via Smartbidder, not Tenaska Submissions endpoints. Expected.",
+    "energy_as_detail_rows": 377,
+    "virtual_pnl_source": "Smartbidder Revenue Summary — DA Virtual Energy + RT Virtual Energy columns. ESTIMATE (not invoiced settlement).",
+    "benchmark_note": "Smartbidder benchmark 'AA - Mount Blue Sky with Virtuals (RTC version)' is ESTIMATE only — not invoiced settlement.",
+    "da_rrs_amt_status": "All-zero — no RRS position cleared on 2026-06-10.",
+    "da_ecrs_amt_status": "All-zero — no ECRS position cleared on 2026-06-10.",
+    "da_regup_amt_status": "All-zero — no Reg-Up clearing on 2026-06-10.",
+    "da_regdn_amt_status": "All-zero — no Reg-Down clearing on 2026-06-10."
+  },
+  "daily_summary": {
+    "da_energy_revenue": 6419.98,
+    "rt_energy_revenue": -6949.54,
+    "dart_virtual_revenue": 146.75,
+    "as_revenue_nonspin": 1862.40,
+    "as_revenue_rrs": 0.00,
+    "as_revenue_ecrs": 0.00,
+    "as_revenue_regup": 0.00,
+    "as_revenue_regdown": 0.00,
+    "total_revenue": 1479.59
+  },
+  "battery_state": {
+    "energy_injection_mwh": 19.50,
+    "energy_consumption_mwh": 142.14,
+    "net_mwh": -122.64,
+    "cycles_equivalent": 0.71,
+    "gen_ns_qty_mw_all_hours": 80.0,
+    "hsl_availability_note": "HSL endpoint not separately available; Gen_NS_Qty=80 MW all 24 HE indicates full availability."
+  },
+  "smartbidder_benchmark": {
+    "strategy": "AA - Mount Blue Sky with Virtuals (RTC version)",
+    "total_revenue": 2718.80,
+    "components": {
+      "rt_energy_lmp5": -57.27,
+      "da_nonspin": 2822.40,
+      "rt_nonspin": -363.80,
+      "da_rrs": 151.16,
+      "rt_rrs": -13.19,
+      "da_ecrs": 32.76,
+      "rt_ecrs": 0.00,
+      "da_virtual_energy": 3284.00,
+      "rt_virtual_energy": -3137.25
+    },
+    "data_source": "ESTIMATE — not invoiced settlement"
+  },
+  "vs_benchmark": {
+    "delta_total": -1239.21,
+    "delta_pct": -45.6
+  },
+  "hourly": [
+    {"he": "HE01", "ct_hour": "00:00", "da_energy": 0.00, "rt_energy": -20.27, "da_nonspin": 192.00, "da_rrs": 0.00, "da_ecrs": 0.00, "dart_virtual": 0.00, "total": 171.73, "rt_gen_mwh": 0.00, "rt_cons_mwh": 0.6873},
+    {"he": "HE02", "ct_hour": "01:00", "da_energy": 0.00, "rt_energy": -19.51, "da_nonspin": 153.60, "da_rrs": 0.00, "da_ecrs": 0.00, "dart_virtual": 0.00, "total": 134.09, "rt_gen_mwh": 0.00, "rt_cons_mwh": 0.7184},
+    {"he": "HE03", "ct_hour": "02:00", "da_energy": 0.00, "rt_energy": -18.02, "da_nonspin": 120.00, "da_rrs": 0.00, "da_ecrs": 0.00, "dart_virtual": 0.00, "total": 101.98, "rt_gen_mwh": 0.00, "rt_cons_mwh": 0.7321},
+    {"he": "HE04", "ct_hour": "03:00", "da_energy": 0.00, "rt_energy": -16.62, "da_nonspin": 84.00, "da_rrs": 0.00, "da_ecrs": 0.00, "dart_virtual": 0.00, "total": 67.38, "rt_gen_mwh": 0.00, "rt_cons_mwh": 0.7324},
+    {"he": "HE05", "ct_hour": "04:00", "da_energy": 0.00, "rt_energy": -14.64, "da_nonspin": 89.60, "da_rrs": 0.00, "da_ecrs": 0.00, "dart_virtual": 0.00, "total": 74.96, "rt_gen_mwh": 0.0146, "rt_cons_mwh": 0.6641},
+    {"he": "HE06", "ct_hour": "05:00", "da_energy": 0.00, "rt_energy": -17.38, "da_nonspin": 138.40, "da_rrs": 0.00, "da_ecrs": 0.00, "dart_virtual": 0.00, "total": 121.02, "rt_gen_mwh": 0.00, "rt_cons_mwh": 0.7283},
+    {"he": "HE07", "ct_hour": "06:00", "da_energy": 0.00, "rt_energy": -20.36, "da_nonspin": 120.00, "da_rrs": 0.00, "da_ecrs": 0.00, "dart_virtual": 0.00, "total": 99.64, "rt_gen_mwh": 0.00, "rt_cons_mwh": 0.7360},
+    {"he": "HE08", "ct_hour": "07:00", "da_energy": 0.00, "rt_energy": -12.75, "da_nonspin": 80.00, "da_rrs": 0.00, "da_ecrs": 0.00, "dart_virtual": 0.00, "total": 67.25, "rt_gen_mwh": 0.033, "rt_cons_mwh": 0.5630},
+    {"he": "HE09", "ct_hour": "08:00", "da_energy": 0.00, "rt_energy": -628.29, "da_nonspin": 80.00, "da_rrs": 0.00, "da_ecrs": 0.00, "dart_virtual": 0.00, "total": -548.29, "rt_gen_mwh": 0.0378, "rt_cons_mwh": 29.0666},
+    {"he": "HE10", "ct_hour": "09:00", "da_energy": 0.00, "rt_energy": -979.57, "da_nonspin": 75.20, "da_rrs": 0.00, "da_ecrs": 0.00, "dart_virtual": 0.00, "total": -904.37, "rt_gen_mwh": 0.00, "rt_cons_mwh": 51.0358},
+    {"he": "HE11", "ct_hour": "10:00", "da_energy": 0.00, "rt_energy": -658.57, "da_nonspin": 62.40, "da_rrs": 0.00, "da_ecrs": 0.00, "dart_virtual": 0.00, "total": -596.17, "rt_gen_mwh": 0.00, "rt_cons_mwh": 41.0419},
+    {"he": "HE12", "ct_hour": "11:00", "da_energy": 0.00, "rt_energy": -118.90, "da_nonspin": 60.00, "da_rrs": 0.00, "da_ecrs": 0.00, "dart_virtual": 0.00, "total": -58.90, "rt_gen_mwh": 0.003, "rt_cons_mwh": 7.8831},
+    {"he": "HE13", "ct_hour": "12:00", "da_energy": 0.00, "rt_energy": -46.43, "da_nonspin": 54.40, "da_rrs": 0.00, "da_ecrs": 0.00, "dart_virtual": 0.00, "total": 7.97, "rt_gen_mwh": 0.0207, "rt_cons_mwh": 2.2881},
+    {"he": "HE14", "ct_hour": "13:00", "da_energy": 0.00, "rt_energy": -40.92, "da_nonspin": 40.00, "da_rrs": 0.00, "da_ecrs": 0.00, "dart_virtual": 0.00, "total": -0.92, "rt_gen_mwh": 0.0207, "rt_cons_mwh": 2.1618},
+    {"he": "HE15", "ct_hour": "14:00", "da_energy": 1402.50, "rt_energy": -853.99, "da_nonspin": 49.60, "da_rrs": 0.00, "da_ecrs": 0.00, "dart_virtual": 0.00, "total": 598.11, "rt_gen_mwh": 0.1293, "rt_cons_mwh": 0.1521},
+    {"he": "HE16", "ct_hour": "15:00", "da_energy": 1354.00, "rt_energy": -633.35, "da_nonspin": 60.00, "da_rrs": 0.00, "da_ecrs": 0.00, "dart_virtual": 0.00, "total": 780.65, "rt_gen_mwh": 0.029, "rt_cons_mwh": 0.2925},
+    {"he": "HE17", "ct_hour": "16:00", "da_energy": 1132.50, "rt_energy": -592.30, "da_nonspin": 67.20, "da_rrs": 0.00, "da_ecrs": 0.00, "dart_virtual": 0.00, "total": 607.40, "rt_gen_mwh": 0.0276, "rt_cons_mwh": 0.2542},
+    {"he": "HE18", "ct_hour": "17:00", "da_energy": 0.00, "rt_energy": -2.44, "da_nonspin": 76.00, "da_rrs": 0.00, "da_ecrs": 0.00, "dart_virtual": 0.00, "total": 73.56, "rt_gen_mwh": 0.0774, "rt_cons_mwh": 0.2633},
+    {"he": "HE19", "ct_hour": "18:00", "da_energy": 2.31, "rt_energy": -2.92, "da_nonspin": 80.00, "da_rrs": 0.00, "da_ecrs": 0.00, "dart_virtual": 0.00, "total": 79.39, "rt_gen_mwh": 0.1371, "rt_cons_mwh": 0.1966},
+    {"he": "HE20", "ct_hour": "19:00", "da_energy": -375.33, "rt_energy": 682.14, "da_nonspin": 180.00, "da_rrs": 0.00, "da_ecrs": 0.00, "dart_virtual": 0.00, "total": 486.81, "rt_gen_mwh": 5.0843, "rt_cons_mwh": 0.1286},
+    {"he": "HE21", "ct_hour": "20:00", "da_energy": 1404.00, "rt_energy": -1307.13, "da_nonspin": 0.00, "da_rrs": 0.00, "da_ecrs": 0.00, "dart_virtual": 0.00, "total": 96.88, "rt_gen_mwh": 11.4641, "rt_cons_mwh": 0.2783},
+    {"he": "HE22", "ct_hour": "21:00", "da_energy": 1500.00, "rt_energy": -1637.37, "da_nonspin": 0.00, "da_rrs": 0.00, "da_ecrs": 0.00, "dart_virtual": 146.75, "total": 9.38, "rt_gen_mwh": 1.1393, "rt_cons_mwh": 0.3265},
+    {"he": "HE23", "ct_hour": "22:00", "da_energy": 0.00, "rt_energy": 28.55, "da_nonspin": 0.00, "da_rrs": 0.00, "da_ecrs": 0.00, "dart_virtual": 0.00, "total": 28.55, "rt_gen_mwh": 1.2748, "rt_cons_mwh": 0.4528},
+    {"he": "HE24", "ct_hour": "23:00", "da_energy": 0.00, "rt_energy": -18.51, "da_nonspin": 0.00, "da_rrs": 0.00, "da_ecrs": 0.00, "dart_virtual": 0.00, "total": -18.51, "rt_gen_mwh": 0.0105, "rt_cons_mwh": 0.6582}
+  ]
+}

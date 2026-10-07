@@ -1,0 +1,43 @@
+{
+  "asset": "GKS_BESS_RN",
+  "flowday": "2026-07-08",
+  "prepared": "2026-07-07",
+  "capacity_mw": 100,
+  "capacity_mwh": 200,
+  "rte_pct": 85,
+  "start_soc_mwh": 100.0,
+  "strategy": "Stack A: charge HE10 solar trough, NonSpin hold midday, discharge HE21-22 evening peak",
+  "expected_revenue_usd": 7344,
+  "revenue_breakdown": {
+    "da_energy_charge_usd": -1210,
+    "da_energy_discharge_usd": 6478,
+    "as_nonspin_usd": 1992,
+    "as_regup_usd": 84
+  },
+  "hours": [
+    {"he": 1,  "action": "nonspin",     "mw": 0,    "soc_pct": 50,  "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 100, "regup_mw": 0,  "regdn_mw": 0, "da_price": 24.80, "rt_price": 26.40, "node_price": 24.80, "expected_usd": 160},
+    {"he": 2,  "action": "nonspin",     "mw": 0,    "soc_pct": 50,  "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 100, "regup_mw": 0,  "regdn_mw": 0, "da_price": 24.80, "rt_price": 26.10, "node_price": 24.80, "expected_usd": 200},
+    {"he": 3,  "action": "nonspin",     "mw": 0,    "soc_pct": 50,  "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 100, "regup_mw": 0,  "regdn_mw": 0, "da_price": 24.80, "rt_price": 26.10, "node_price": 24.80, "expected_usd": 230},
+    {"he": 4,  "action": "nonspin",     "mw": 0,    "soc_pct": 50,  "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 100, "regup_mw": 0,  "regdn_mw": 0, "da_price": 24.80, "rt_price": 26.40, "node_price": 24.80, "expected_usd": 251},
+    {"he": 5,  "action": "nonspin",     "mw": 0,    "soc_pct": 50,  "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 100, "regup_mw": 0,  "regdn_mw": 0, "da_price": 24.80, "rt_price": 26.65, "node_price": 24.80, "expected_usd": 220},
+    {"he": 6,  "action": "nonspin",     "mw": 0,    "soc_pct": 50,  "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 100, "regup_mw": 0,  "regdn_mw": 0, "da_price": 24.80, "rt_price": 26.65, "node_price": 24.80, "expected_usd": 170},
+    {"he": 7,  "action": "nonspin",     "mw": 0,    "soc_pct": 50,  "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 100, "regup_mw": 0,  "regdn_mw": 0, "da_price": 25.00, "rt_price": 25.40, "node_price": 25.00, "expected_usd": 90},
+    {"he": 8,  "action": "nonspin",     "mw": 0,    "soc_pct": 50,  "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 100, "regup_mw": 0,  "regdn_mw": 0, "da_price": 24.50, "rt_price": 24.90, "node_price": 24.50, "expected_usd": 66},
+    {"he": 9,  "action": "nonspin",     "mw": 0,    "soc_pct": 50,  "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 100, "regup_mw": 0,  "regdn_mw": 0, "da_price": 17.10, "rt_price": 17.30, "node_price": 13.60, "mcc": -3.50, "expected_usd": 103},
+    {"he": 10, "action": "charge_da",   "mw": -100, "soc_pct": 100, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 0,   "regup_mw": 0,  "regdn_mw": 0, "da_price": 16.60, "rt_price": 16.29, "node_price": 12.10, "mcc": -4.50, "expected_usd": -1210},
+    {"he": 11, "action": "nonspin",     "mw": 0,    "soc_pct": 100, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 100, "regup_mw": 0,  "regdn_mw": 0, "da_price": 18.00, "rt_price": 16.98, "node_price": 14.00, "mcc": -4.00, "expected_usd": 103},
+    {"he": 12, "action": "nonspin",     "mw": 0,    "soc_pct": 100, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 100, "regup_mw": 0,  "regdn_mw": 0, "da_price": 19.50, "rt_price": 18.50, "node_price": 16.00, "mcc": -3.50, "expected_usd": 53},
+    {"he": 13, "action": "nonspin",     "mw": 0,    "soc_pct": 100, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 100, "regup_mw": 0,  "regdn_mw": 0, "da_price": 21.00, "rt_price": 19.80, "node_price": 17.50, "mcc": -3.50, "expected_usd": 50},
+    {"he": 14, "action": "nonspin",     "mw": 0,    "soc_pct": 100, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 100, "regup_mw": 0,  "regdn_mw": 0, "da_price": 22.50, "rt_price": 21.50, "node_price": 21.00, "mcc": -1.50, "expected_usd": 48},
+    {"he": 15, "action": "nonspin",     "mw": 0,    "soc_pct": 100, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 100, "regup_mw": 0,  "regdn_mw": 0, "da_price": 23.50, "rt_price": 22.50, "node_price": 22.00, "mcc": -1.50, "expected_usd": 53},
+    {"he": 16, "action": "nonspin",     "mw": 0,    "soc_pct": 100, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 100, "regup_mw": 0,  "regdn_mw": 0, "da_price": 24.00, "rt_price": 23.00, "node_price": 22.50, "mcc": -1.50, "expected_usd": 47},
+    {"he": 17, "action": "nonspin",     "mw": 0,    "soc_pct": 100, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 100, "regup_mw": 0,  "regdn_mw": 0, "da_price": 24.50, "rt_price": 23.50, "node_price": 23.00, "mcc": -1.50, "expected_usd": 53},
+    {"he": 18, "action": "nonspin",     "mw": 0,    "soc_pct": 100, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 100, "regup_mw": 0,  "regdn_mw": 0, "da_price": 25.00, "rt_price": 24.00, "node_price": 23.50, "mcc": -1.50, "expected_usd": 53},
+    {"he": 19, "action": "nonspin",     "mw": 0,    "soc_pct": 100, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 100, "regup_mw": 0,  "regdn_mw": 0, "da_price": 25.89, "rt_price": 24.80, "node_price": 25.89, "mcc": 0.00, "expected_usd": 42},
+    {"he": 20, "action": "idle",        "mw": 0,    "soc_pct": 100, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 0,   "regup_mw": 0,  "regdn_mw": 0, "da_price": 32.57, "rt_price": 28.50, "node_price": 33.37, "mcc": 0.80, "expected_usd": 0},
+    {"he": 21, "action": "discharge_da","mw": 100,  "soc_pct": 41,  "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 0,   "regup_mw": 0,  "regdn_mw": 0, "da_price": 40.87, "rt_price": 30.20, "node_price": 41.67, "mcc": 0.80, "expected_usd": 4167},
+    {"he": 22, "action": "discharge_da","mw": 70,   "soc_pct": 0,   "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 0,   "regup_mw": 30, "regdn_mw": 0, "da_price": 32.21, "rt_price": 28.31, "node_price": 33.01, "mcc": 0.80, "expected_usd": 2395},
+    {"he": 23, "action": "idle",        "mw": 0,    "soc_pct": 0,   "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 0,   "regup_mw": 0,  "regdn_mw": 0, "da_price": 27.00, "rt_price": 25.50, "node_price": 26.25, "mcc": -0.75, "expected_usd": 0},
+    {"he": 24, "action": "idle",        "mw": 0,    "soc_pct": 0,   "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 0,   "regup_mw": 0,  "regdn_mw": 0, "da_price": 25.50, "rt_price": 24.80, "node_price": 24.75, "mcc": -0.75, "expected_usd": 0}
+  ]
+}

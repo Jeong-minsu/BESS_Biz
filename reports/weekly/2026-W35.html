@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERCOT 전력 트레이딩 Weekly Report — 2026-W35</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; padding: 0; background: #f1f5f9; color: #1e293b; font-size: 14px; line-height: 1.5; }
+  .page-wrap { max-width: 1200px; margin: 0 auto; padding: 24px 20px 60px; }
+
+  /* Header */
+  .report-header { background: #1e3a5f; color: #fff; border-radius: 12px; padding: 28px 32px; margin-bottom: 24px; }
+  .report-header h1 { margin: 0 0 6px; font-size: 1.5em; font-weight: 700; }
+  .report-header .meta { opacity: 0.8; font-size: 0.82em; margin-bottom: 12px; }
+  .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .badge { background: rgba(255,255,255,0.15); border-radius: 5px; padding: 4px 12px; font-size: 0.78em; }
+  .badge.warn { background: rgba(245,158,11,0.35); }
+  .badge.danger { background: rgba(239,68,68,0.35); }
+
+  /* Alert Box */
+  .alert-box { background: #fff7ed; border: 2px solid #fb923c; border-radius: 10px; padding: 18px 22px; margin-bottom: 24px; }
+  .alert-box h2 { margin: 0 0 12px; color: #c2410c; font-size: 1.05em; }
+
+  /* Section */
+  .section { background: #fff; border-radius: 10px; padding: 22px 26px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+  .section h2 { margin: 0 0 14px; font-size: 1.05em; color: #1e3a5f; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
+  .section h3 { margin: 18px 0 10px; font-size: 0.95em; color: #334155; }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; font-size: 0.84em; margin-bottom: 10px; }
+  th { background: #1e3a5f; color: #fff; padding: 8px 10px; text-align: left; font-weight: 600; white-space: nowrap; }
+  td { padding: 7px 10px; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+  tr:hover td { background: #f8fafc; }
+  .tfoot-row td { background: #dbeafe; font-weight: 700; }
+  .row-degraded td { background: #fef2f2 !important; opacity: 0.75; }
+  .row-prod td { background: #f0fdf4; }
+  .row-partial td { background: #fffbeb; }
+  .row-warn td { background: #fffbeb; }
+
+  /* KPI grid */
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 14px; }
+  .kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px; }
+  .kpi-label { font-size: 0.72em; color: #64748b; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+  .kpi-value { font-size: 1.25em; font-weight: 700; color: #1e3a5f; }
+  .kpi-value.neg { color: #dc2626; }
+  .kpi-value.warn { color: #d97706; }
+
+  /* Score table colors */
+  .score-a { color: #16a34a; font-weight: 700; }
+  .score-b { color: #2563eb; font-weight: 700; }
+  .score-c { color: #d97706; font-weight: 700; }
+  .score-d { color: #dc2626; font-weight: 700; }
+
+  /* Tag pills */
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.75em; font-weight: 600; }
+  .tag-prod { background: #dcfce7; color: #166534; }
+  .tag-deg { background: #fee2e2; color: #991b1b; }
+  .tag-partial { background: #fef9c3; color: #92400e; }
+  .tag-p0 { background: #fee2e2; color: #991b1b; }
+  .tag-crit { background: #fef3c7; color: #92400e; }
+  .tag-maj { background: #eff6ff; color: #1d4ed8; }
+
+  /* Note box */
+  .note { background: #fef9c3; border-left: 4px solid #f59e0b; padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 0.83em; margin: 10px 0; }
+  .note-blue { background: #eff6ff; border-left: 4px solid #3b82f6; padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 0.83em; margin: 10px 0; }
+
+  /* Action items */
+  .action-list { list-style: none; padding: 0; margin: 0; }
+  .action-list li { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid #f1f5f9; }
+  .action-list li:last-child { border-bottom: none; }
+  .action-num { background: #1e3a5f; color: #fff; width: 24px; height: 24px; min-width: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.78em; font-weight: 700; margin-top: 2px; }
+
+  /* Top 10 compact */
+  .rank-badge { background: #1e3a5f; color: #fff; border-radius: 4px; padding: 2px 7px; font-size: 0.78em; font-weight: 700; }
+  .rank-gks { background: #f59e0b; color: #fff; }
+
+  /* Footer */
+  .footer { text-align: center; color: #94a3b8; font-size: 0.78em; padding: 20px 0 0; }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    th, td { padding: 5px 6px; font-size: 0.78em; }
+    .report-header h1 { font-size: 1.15em; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<!-- ========== HEADER ========== -->
+<div class="report-header">
+  <h1>ERCOT 전력 트레이딩 Weekly Report — 2026-W35</h1>
+  <div class="meta">
+    평가 주간: 2026-08-24 (Mon) ~ 2026-08-30 (Sun) &nbsp;|&nbsp; Heat Wave Days 5–11 &nbsp;|&nbsp;
+    생성: 2026-08-31 (Monday) CT &nbsp;|&nbsp; reporter agent
+  </div>
+  <div class="meta" style="margin-top:4px">
+    출처: pnl-manager · market-analyst · evaluator · 7개 Daily Reports (Aug 24-30) &nbsp;|&nbsp; 자체 분석 없음 — 순수 취합
+  </div>
+  <div class="badge-row">
+    <span class="badge warn">Smartbidder: EXPIRED Day 35+</span>
+    <span class="badge warn">Tenaska: DEGRADED Aug 24-26 / PROD Aug 27-30</span>
+    <span class="badge warn">AG2/Enverus: 8회 연속 미수집 (Enverus Aug 30 복귀)</span>
+    <span class="badge danger">GKS W35 P&amp;L: 4/7일만 확인 ($19,697)</span>
+    <span class="badge danger">Benchmark 비교: 6주 연속 N/A</span>
+  </div>
+</div>
+
+<!-- ========== DATA QUALITY ALERT ========== -->
+<div class="alert-box">
+  <h2>DATA QUALITY ALERT — W35</h2>
+  <table>
+    <thead><tr><th>항목</th><th>상태</th><th>상세</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Tenaska PTP</strong></td><td><span class="tag tag-deg">DEGRADED Aug 24-26</span> / <span class="tag tag-prod">PRODUCTION Aug 27-29</span> / <span class="tag tag-partial">PARTIAL Aug 30</span></td><td>IP 화이트리스트 미등록으로 Aug 24-26 데이터 전무. Aug 30 RT AS preliminary (sequence=null).</td></tr>
+      <tr><td><strong>Smartbidder MSAL</strong></td><td><span class="tag tag-deg">EXPIRED Day 29~35</span></td><td>2026-07-25~ AADSTS7000222. DA/RT 가격, AS clearing, benchmark 비교 W35 전 기간 N/A.</td></tr>
+      <tr><td><strong>AG2 WSI Trader</strong></td><td><span class="tag tag-deg">8회 연속 미수집</span></td><td>풍력 단일 소스(Yes Energy) 의존. 가격 forecast bias 탐지 불가.</td></tr>
+      <tr><td><strong>Enverus Mosaic</strong></td><td><span class="tag tag-partial">Aug 30 1회 복귀</span></td><td>Aug 30 NL HE10 격차 확인: YE 19,918 MW vs Enverus 24,861 MW (4,943 MW, 25%).</td></tr>
+      <tr><td><strong>Hub-pair LMP</strong></td><td><span class="tag tag-deg">100~101회 연속 미수집</span></td><td>DART basis trade 불가; congestion MCC 크기 교정 불가.</td></tr>
+      <tr><td><strong>GKS W35 P&amp;L 가용일</strong></td><td><span class="tag tag-partial">4/7일</span></td><td>Aug 24-26 DEGRADED, Aug 30 PARTIAL. 7일 합산 불가.</td></tr>
+    </tbody>
+  </table>
+  <div class="note" style="margin-top:12px">
+    <strong>사용자 즉시 조치:</strong> Smartbidder client_secret 갱신 (P0 — Ascend rep 즉시 연락), Tenaska IP whitelist 등록 (P0 — T+2 10건+ 적체), dart-virtual-trader 에이전트 경로 하드코드 승인 (9주 연속 Critical).
+  </div>
+</div>
+
+<!-- ========== SECTION 1: GKS P&L ========== -->
+<div class="section">
+  <h2>1. GKS W35 P&amp;L — 일별/주간 실적</h2>
+  <p style="font-size:0.83em;color:#64748b;margin:0 0 14px">출처: pnl-manager — <code>reports/weekly/bess-revenue-dashboard/2026-W35.html</code> | GKS 가용: Aug 27(PROD) · Aug 28(PROD) · Aug 29(PROD) · Aug 30(PARTIAL). Aug 24-26 DEGRADED.</p>
+
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">W35 총 수익 (4일)</div><div class="kpi-value">$19,697</div></div>
+    <div class="kpi"><div class="kpi-label">DA Energy 합계</div><div class="kpi-value">$27,402</div></div>
+    <div class="kpi"><div class="kpi-label">RT Energy 합계</div><div class="kpi-value neg">-$19,655</div></div>
+    <div class="kpi"><div class="kpi-label">ECRS 합계</div><div class="kpi-value">$2,896</div></div>
+    <div class="kpi"><div class="kpi-label">Non-Spin 합계</div><div class="kpi-value">$8,776</div></div>
+    <div class="kpi"><div class="kpi-label">Smartbidder Benchmark</div><div class="kpi-value warn">N/A (Day 37+)</div></div>
+    <div class="kpi"><div class="kpi-label">가용일</div><div class="kpi-value warn">4 / 7일</div></div>
+  </div>
+
+  <h3>일별 P&amp;L 상세</h3>
+  <div style="overflow-x:auto">
+  <table>
+    <thead>
+      <tr>
+        <th>날짜</th><th>요일</th><th>HW Day</th><th>상태</th>
+        <th style="text-align:right">DA Energy</th>
+        <th style="text-align:right">RT Energy</th>
+        <th style="text-align:right">ECRS</th>
+        <th style="text-align:right">Non-Spin</th>
+        <th style="text-align:right">RRS</th>
+        <th style="text-align:right">합계</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row-degraded">
+        <td>Aug 24</td><td>Mon</td><td>Day 5</td>
+        <td><span class="tag tag-deg">DEGRADED</span></td>
+        <td colspan="5" style="color:#94a3b8;text-align:center">Tenaska PTP fetch failed — IP whitelist 미등록</td>
+        <td style="text-align:right"><strong>N/A</strong></td>
+      </tr>
+      <tr class="row-degraded">
+        <td>Aug 25</td><td>Tue</td><td>Day 6</td>
+        <td><span class="tag tag-deg">DEGRADED</span></td>
+        <td colspan="5" style="color:#94a3b8;text-align:center">Tenaska PTP fetch failed</td>
+        <td style="text-align:right"><strong>N/A</strong></td>
+      </tr>
+      <tr class="row-degraded">
+        <td>Aug 26</td><td>Wed</td><td>Day 7</td>
+        <td><span class="tag tag-deg">DEGRADED</span></td>
+        <td colspan="5" style="color:#94a3b8;text-align:center">Tenaska PTP fetch failed</td>
+        <td style="text-align:right"><strong>N/A</strong></td>
+      </tr>
+      <tr class="row-prod">
+        <td>Aug 27</td><td>Thu</td><td>Day 8</td>
+        <td><span class="tag tag-prod">PRODUCTION</span></td>
+        <td style="text-align:right">$6,931</td>
+        <td style="text-align:right;color:#dc2626">-$3,514</td>
+        <td style="text-align:right">$859</td>
+        <td style="text-align:right">$4,003</td>
+        <td style="text-align:right">$0</td>
+        <td style="text-align:right"><strong>$8,278</strong></td>
+      </tr>
+      <tr>
+        <td>Aug 28</td><td>Fri</td><td>Day 9</td>
+        <td><span class="tag tag-prod">PRODUCTION</span></td>
+        <td style="text-align:right;color:#dc2626">-$3,227</td>
+        <td style="text-align:right;color:#dc2626">-$969</td>
+        <td style="text-align:right">$1,438</td>
+        <td style="text-align:right">$161</td>
+        <td style="text-align:right">$0</td>
+        <td style="text-align:right;color:#dc2626"><strong>-$2,596</strong></td>
+      </tr>
+      <tr class="row-prod">
+        <td>Aug 29</td><td>Sat</td><td>Day 10</td>
+        <td><span class="tag tag-prod">PRODUCTION</span></td>
+        <td style="text-align:right">$7,863</td>
+        <td style="text-align:right;color:#dc2626">-$968</td>
+        <td style="text-align:right">$599</td>
+        <td style="text-align:right">$728</td>
+        <td style="text-align:right">$0</td>
+        <td style="text-align:right"><strong>$8,222</strong></td>
+      </tr>
+      <tr class="row-partial">
+        <td>Aug 30</td><td>Sun</td><td>Day 11</td>
+        <td><span class="tag tag-partial">PARTIAL</span></td>
+        <td style="text-align:right">$15,834</td>
+        <td style="text-align:right;color:#dc2626">-$14,203</td>
+        <td style="text-align:right">$0</td>
+        <td style="text-align:right">$3,884</td>
+        <td style="text-align:right">$278</td>
+        <td style="text-align:right"><strong>$5,792</strong></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr class="tfoot-row">
+        <td colspan="4"><strong>W35 소계 (4일 가용)</strong></td>
+        <td style="text-align:right">$27,402</td>
+        <td style="text-align:right;color:#dc2626">-$19,655</td>
+        <td style="text-align:right">$2,896</td>
+        <td style="text-align:right">$8,776</td>
+        <td style="text-align:right">$278</td>
+        <td style="text-align:right"><strong>$19,697</strong></td>
+      </tr>
+    </tfoot>
+  </table>
+  </div>
+  <div class="note">
+    <strong>주의:</strong> Aug 24-26 (3일) DEGRADED 제외. Smartbidder benchmark 전 기간 N/A (Day 37+) — 6주 연속 GKS vs benchmark 비교 불가. Aug 30 RT AS preliminary (sequence=null) — 48-72h 후 재확인 필요. DART Virtual: W35 전 기간 물리 분리 불가 (Aug 29 명시값 $0.00 제외).
+  </div>
+
+  <h3>운영 하이라이트</h3>
+  <ul style="margin:0;padding-left:18px;font-size:0.87em">
+    <li><strong>최고 수익일 Aug 27 ($8,278)</strong>: Non-Spin $4,003 dominant (48.4%). HE22 단일 최대 +$4,753. 단, HE15 DA-RT 역전 손실 -$1,920 (DA $48.05 방전 vs RT $87.60 급등).</li>
+    <li><strong>손실일 Aug 28 (-$2,596)</strong>: DA 충전 bid 미집행으로 RT 양수 가격(+$12~16/MWh)에 충전 역방향 실행. ECRS $1,438 부분 상쇄. bess-optimizer 다음 사이클 즉시 자기정정.</li>
+    <li><strong>Day 10 토요일 Aug 29 ($8,222)</strong>: 시리즈 최심 duck curve(NL 28,394 MW) 활용 — DA Energy $7,863 (95.6%) dominant. RT Energy -$968으로 제한.</li>
+    <li><strong>Day 11 PARTIAL Aug 30 ($5,792)</strong>: DA 충전 HE09-10 음가격 수익 $15,834 vs RT -$14,203 상쇄. RT AS preliminary 재확인 필요.</li>
+  </ul>
+</div>
+
+<!-- ========== SECTION 2: BESS 랭킹 ========== -->
+<div class="section">
+  <h2>2. 全 BESS 랭킹 (Energy/AS + DART Virtual)</h2>
+  <p style="font-size:0.83em;color:#64748b;margin:0 0 14px">출처: pnl-manager — <code>bess-revenue-dashboard/2026-W35.html</code> / <code>bess-dart-virtual-dashboard/2026-W35.html</code><br>
+  데이터: ERCOT 60일 공시 기반 추정. Energy+AS: Jan 1–Jul 13, 2026 (333개 자원). DART: Jan 1–Jul 9, 2026 (286개 노드). ESTIMATE, 인보이스 정산 아님.</p>
+
+  <h3>2-A. GKS Energy+AS 지위</h3>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">GKS Fleet Rank (YTD)</div><div class="kpi-value">#90 / 333</div></div>
+    <div class="kpi"><div class="kpi-label">GKS YTD Revenue (est.)</div><div class="kpi-value">$737,926</div></div>
+    <div class="kpi"><div class="kpi-label">GKS Opt Rate</div><div class="kpi-value">1,379%</div></div>
+    <div class="kpi"><div class="kpi-label">Coverage</div><div class="kpi-value warn">Jan–Jul 13</div></div>
+  </div>
+
+  <h3>플리트 Top 10 Energy+AS (Jan 1 – Jul 13, 2026)</h3>
+  <div style="overflow-x:auto">
+  <table>
+    <thead><tr><th>#</th><th>자원명</th><th>개발사</th><th style="text-align:right">합계 (est.)</th></tr></thead>
+    <tbody>
+      <tr><td><span class="rank-badge">1</span></td><td>ANOL_ESS_ESR1</td><td>esVolta</td><td style="text-align:right"><strong>$3,899,504</strong></td></tr>
+      <tr><td><span class="rank-badge">2</span></td><td>CNLY_ESS_ESR1</td><td>YBTCOS</td><td style="text-align:right">$3,747,537</td></tr>
+      <tr><td><span class="rank-badge">3</span></td><td>BOCO_ESS_ESR1</td><td>Aypa Power</td><td style="text-align:right">$3,236,356</td></tr>
+      <tr><td><span class="rank-badge">4</span></td><td>WAL_ESR1</td><td>Tesla</td><td style="text-align:right">$3,207,041</td></tr>
+      <tr><td><span class="rank-badge">5</span></td><td>AVIL_ESS_ESR1</td><td>ENGIE</td><td style="text-align:right">$3,187,026</td></tr>
+      <tr><td><span class="rank-badge">6</span></td><td>CACH_ESS_ESR1</td><td>ENGIE</td><td style="text-align:right">$2,963,276</td></tr>
+      <tr><td><span class="rank-badge">7</span></td><td>BLVN_SLR_ESR1</td><td>National Grid Renewables</td><td style="text-align:right">$2,921,632</td></tr>
+      <tr><td><span class="rank-badge">8</span></td><td>SHAMROCK_ESR1</td><td>NextEra Energy Resources</td><td style="text-align:right">$2,845,599</td></tr>
+      <tr><td><span class="rank-badge">9</span></td><td>TURQBESS_ESR1</td><td>YBTCUN</td><td style="text-align:right">$2,618,449</td></tr>
+      <tr><td><span class="rank-badge">10</span></td><td>BLSUMMIT_ESR2</td><td>NextEra Energy Resources</td><td style="text-align:right">$2,397,488</td></tr>
+      <tr style="background:#fef9c3"><td><span class="rank-badge rank-gks">90</span></td><td><strong>GKS_BESS_RN</strong></td><td><strong>GK Systems</strong></td><td style="text-align:right"><strong>$737,926</strong></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>2-B. GKS DART Virtual 지위</h3>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">GKS DART Rank</div><div class="kpi-value neg">#286 / 286 (최하위)</div></div>
+    <div class="kpi"><div class="kpi-label">GKS YTD DART (est.)</div><div class="kpi-value neg">-$208,214</div></div>
+    <div class="kpi"><div class="kpi-label">GKS Win Rate</div><div class="kpi-value neg">40.3%</div></div>
+    <div class="kpi"><div class="kpi-label">W35 DART Revenue</div><div class="kpi-value warn">N/A / Aug 29: $0</div></div>
+  </div>
+
+  <h3>플리트 Top 10 DART Virtual (Jan 1 – Jul 9, 2026)</h3>
+  <div style="overflow-x:auto">
+  <table>
+    <thead><tr><th>#</th><th>노드</th><th style="text-align:right">순 수익 (est.)</th><th style="text-align:right">승률</th></tr></thead>
+    <tbody>
+      <tr><td><span class="rank-badge">1</span></td><td>RRANCHES_ALL</td><td style="text-align:right;color:#16a34a">$1,098,874</td><td style="text-align:right">44.5%</td></tr>
+      <tr><td><span class="rank-badge">2</span></td><td>EBNY_ESS_RN</td><td style="text-align:right;color:#16a34a">$812,531</td><td style="text-align:right">44.1%</td></tr>
+      <tr><td><span class="rank-badge">3</span></td><td>BLVN_RN</td><td style="text-align:right;color:#16a34a">$407,817</td><td style="text-align:right">45.0%</td></tr>
+      <tr><td><span class="rank-badge">4</span></td><td>SG_BES_BESS1</td><td style="text-align:right;color:#16a34a">$335,689</td><td style="text-align:right">44.5%</td></tr>
+      <tr><td><span class="rank-badge">5</span></td><td>RADN_SLR_ALL</td><td style="text-align:right;color:#16a34a">$295,467</td><td style="text-align:right">43.2%</td></tr>
+      <tr><td><span class="rank-badge">6</span></td><td>GIGA_ESS_RN</td><td style="text-align:right;color:#16a34a">$246,570</td><td style="text-align:right">47.1%</td></tr>
+      <tr><td><span class="rank-badge">7</span></td><td>PALACIOS_RN</td><td style="text-align:right;color:#16a34a">$229,015</td><td style="text-align:right">49.7%</td></tr>
+      <tr><td><span class="rank-badge">8</span></td><td>BCK_RN</td><td style="text-align:right;color:#16a34a">$206,339</td><td style="text-align:right">43.9%</td></tr>
+      <tr><td><span class="rank-badge">9</span></td><td>CORALSLR_ALL</td><td style="text-align:right;color:#16a34a">$181,561</td><td style="text-align:right">46.1%</td></tr>
+      <tr><td><span class="rank-badge">10</span></td><td>TBWF_ES_BES1</td><td style="text-align:right;color:#16a34a">$157,639</td><td style="text-align:right">35.7%</td></tr>
+      <tr style="background:#fee2e2"><td><span class="rank-badge rank-gks">286</span></td><td><strong>GKS_BESS_RN</strong></td><td style="text-align:right;color:#dc2626"><strong>-$208,214</strong></td><td style="text-align:right;color:#dc2626">40.3%</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note">GKS는 W35에서도 advisory-only 모드 유지 (2026-07-13~). 실제 DART 포지션 ERCOT 미제출. 전체 랭킹: <code>reports/weekly/bess-dart-virtual-dashboard/2026-W35.html</code></div>
+</div>
+
+<!-- ========== SECTION 3: 시장 구조 ========== -->
+<div class="section">
+  <h2>3. 시장 구조 업데이트</h2>
+  <p style="font-size:0.83em;color:#64748b;margin:0 0 14px">출처: market-analyst — <code>reports/weekly/structural-update/2026-W35.md</code></p>
+
+  <h3>정책/규제</h3>
+  <ul style="margin:0;padding-left:18px;font-size:0.87em">
+    <li><strong>PUCT August 28 — 765-kV STEP Permian 2개 구간 CCN 최종 승인 (핵심 이벤트)</strong>: Permian Basin Reliability Plan 기반 규제 승인 첫 사례. 30개 이상 카운티 걸친 2개 구간. 실제 착공·준공까지 최소 2~3년(2028~2029) — 단기 GR_WEST 혼잡 해소 없음. 잔여 구간 청문: Sep 25, Oct 2.</li>
+    <li><strong>Batch Zero 감사 — RFI 발송 개시</strong>: 75 MW 이상 데이터센터 약 300건 대상. ERCOT 보고서 Dec 10, PUCT 검토 Dec 17. 동결 규모 49.8 GW+. 2026년 내 실질 신규 연결 없음.</li>
+    <li><strong>ERCOT TAC August 27 — 2026 AS Methodology 투표 완료</strong>: 확률론적 ECRS/Non-Spin 방법론(8.3 GW 조달) W35 열파에서 실증. 11일 연속 86~92 GW 수요 환경에서 Conservation Appeal 없이 계통 안정 유지.</li>
+  </ul>
+
+  <h3>발전 Mix 트렌드 (W35 기록 경신)</h3>
+  <div style="overflow-x:auto">
+  <table>
+    <thead><tr><th>지표</th><th>날짜</th><th style="text-align:right">기록값</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>태양광 단일 시간 최고출력</td><td>Aug 30 (Day 11)</td><td style="text-align:right"><strong>33,396 MW</strong> (HE12)</td><td>시리즈 최고 — Aug 29 33,090 MW 갱신</td></tr>
+      <tr><td>야간 풍력 ERCOT 최고출력</td><td>Aug 30 (Day 11)</td><td style="text-align:right"><strong>21,916 MW</strong> (HE01)</td><td>능선 퇴각 신호</td></tr>
+      <tr><td>Duck Curve 스프레드 최대</td><td>Aug 24 (Day 5)</td><td style="text-align:right">43,252 MW</td><td>HE10 trough~HE17 peak</td></tr>
+      <tr><td>태양광 절벽 단일 시간 최대</td><td>Aug 24 (Day 5)</td><td style="text-align:right">-14,586 MW</td><td>HE19→HE20</td></tr>
+      <tr><td>Cap-Out 최고치 (열파 시리즈)</td><td>Aug 30 (Day 11)</td><td style="text-align:right"><strong>11,058 MW</strong></td><td>11일 열파 중 최고 (Day 1: 6,965 MW → +4 GW)</td></tr>
+      <tr><td>전력 피크 수요 (2026 하절기)</td><td>Aug 24 (Day 5)</td><td style="text-align:right"><strong>92,172 MW</strong></td><td>HE17 CT — Jul 22 91,308 MW 갱신</td></tr>
+      <tr><td>주말 순부하 최저 (EXTREME)</td><td>Aug 29 (Day 10)</td><td style="text-align:right">28,394 MW (YE)</td><td>Enverus 24,861 MW; 격차 4,943 MW (25%)</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>ERCOT BESS 플리트 현황 (W34 → W35)</h3>
+  <table style="width:auto">
+    <thead><tr><th>지표</th><th>W34</th><th>W35</th><th>변화</th></tr></thead>
+    <tbody>
+      <tr><td>운영 용량</td><td>~16.5 GW</td><td>~17.0 GW</td><td>+~500 MW</td></tr>
+      <tr><td>운영 프로젝트 수</td><td>~236개</td><td>243개</td><td>+7개</td></tr>
+      <tr><td>에너지 용량 (GWh)</td><td>~28.8 GWh</td><td>~29.5 GWh (추정)</td><td>+~700 MWh</td></tr>
+    </tbody>
+  </table>
+  <div class="note-blue">성장 둔화 원인: OBBBA 세액공제 불확실성, FEOC 공급망 제한, Batch Zero 동결로 PPA 파이프라인 위축.</div>
+</div>
+
+<!-- ========== SECTION 4: 시황 요약 ========== -->
+<div class="section">
+  <h2>4. W35 시황 주간 요약</h2>
+  <p style="font-size:0.83em;color:#64748b;margin:0 0 14px">출처: market-analyst · congestion-analyst daily reports — <code>reports/daily/2026-08-24.md</code> through <code>2026-08-30.md</code></p>
+
+  <h3>일별 시황 요약</h3>
+  <div style="overflow-x:auto">
+  <table>
+    <thead>
+      <tr>
+        <th>날짜</th><th>Day #</th><th>NL 최저 (MW)</th><th>피크 부하 (MW)</th><th>Cap-Out 피크 (MW)</th><th>저녁 DA est. (HE20)</th><th>핵심 이벤트</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Aug 24 Mon</td><td>Day 5</td><td>25,454 (SEVERE)</td><td><strong>92,172</strong> 2026 신기록</td><td>9,120</td><td>$85~175+/MWh</td><td>Duck curve 43,252 MW 시리즈 최대; 태양광 절벽 -14,586 MW</td></tr>
+      <tr><td>Aug 25 Tue</td><td>Day 6</td><td>33,816 (MILD)</td><td>90,589</td><td>6,945</td><td>$55~120/MWh</td><td>야간 W2N 첫 sustained congestion (SCI 0.554); duck curve 대폭 완화</td></tr>
+      <tr class="row-warn"><td>Aug 26 Wed</td><td>Day 7</td><td>42,908 (MOD)</td><td>88,956</td><td>6,918</td><td>$90~200+/MWh</td><td>GR_WEST HE11 918 MW (준기록); NL HE21 72,329 MW 시리즈 최고; dart secondary trigger 최초 발동</td></tr>
+      <tr class="row-prod"><td>Aug 27 Thu</td><td>Day 8</td><td>41,232 (NORMAL)</td><td>87,096</td><td>8,548</td><td>$60~130/MWh</td><td>GR_WEST HE01 4,353 MW; zero congestion; Tenaska 복귀; GKS $8,278</td></tr>
+      <tr><td>Aug 28 Fri</td><td>Day 9</td><td>37,239 (MILD)</td><td>86,985</td><td>8,262</td><td>$50~90/MWh</td><td>GR_WEST 저녁 회복 HE24 7,991 MW; 태양광 절벽 최대 -11,060 MW; GKS -$2,596</td></tr>
+      <tr class="row-warn"><td>Aug 29 Sat</td><td>Day 10</td><td>28,394 (MOD)</td><td>~68,000</td><td>9,419</td><td>$55~95/MWh</td><td>주말 NL 시리즈 최저; HOUSTON_SOUTH 581 MW gap; GKS $8,222</td></tr>
+      <tr style="background:#fef2f2"><td>Aug 30 Sun</td><td>Day 11</td><td><strong>19,918 EXTREME</strong> (YE)</td><td>~71,000</td><td><strong>11,058</strong></td><td>$45~80/MWh</td><td>태양광 33,396 MW 신기록; 풍력 21,916 MW 신기록; 능선 퇴각; GKS $5,792 PARTIAL</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>W35 주간 핵심 테마</h3>
+  <ol style="margin:0;padding-left:18px;font-size:0.87em">
+    <li><strong>11일 연속 열파 (Days 5-11)</strong>: Aug 20(W34)에 시작, Aug 30까지 지속. ERCOT Conservation Appeal 없이 전 기간 처리.</li>
+    <li><strong>극단 Duck Curve 시퀀스</strong>: SEVERE(Day 5) → MILD(Day 6) → MODERATE(Day 7) → NORMAL(Day 8) → MILD(Day 9) → MODERATE(Day 10) → EXTREME(Day 11). 풍력 강약과 주중/주말 요일 효과 복합.</li>
+    <li><strong>반시클론 능선 이벤트</strong>: Day 6 야간 GR_WEST 16,615 MW 정점 → Day 8-9 미드데이 863 MW 붕괴 → Day 11 야간 21,916 MW 급반등(퇴각 확인).</li>
+    <li><strong>Cap-Out 4 GW 누적</strong>: 6,918 MW(Day 7) → 11,058 MW(Day 11). HOUSTON_SOUTH 이중 트리거 Day 10에 581 MW 이내 접근.</li>
+    <li><strong>Tenaska 부분 복귀 (Aug 27+)</strong>: GKS 실적 2주 공백 후 복귀. Day 8에서 시리즈 최대 추정 오차(-67~-71%) 발생 및 즉시 자기정정.</li>
+  </ol>
+</div>
+
+<!-- ========== SECTION 5: 포지션/전략 ========== -->
+<div class="section">
+  <h2>5. W35 포지션/전략 요약</h2>
+  <p style="font-size:0.83em;color:#64748b;margin:0 0 14px">출처: bess-optimizer · dart-virtual-trader daily reports 취합 (Aug 24-30)</p>
+
+  <h3>bess-optimizer 주간 패턴</h3>
+  <div style="overflow-x:auto">
+  <table>
+    <thead><tr><th>날짜</th><th>Stack</th><th>충전 시간</th><th>방전 시간</th><th>주요 AS</th><th style="text-align:right">Expected P40</th><th style="text-align:right">실적</th></tr></thead>
+    <tbody>
+      <tr><td>Aug 24</td><td>A</td><td>HE09-10 (-100MW)</td><td>HE20-21 (+100MW)</td><td>NS HE01-08, ECRS HE18-19, RRS HE13-17</td><td style="text-align:right">~$27k-32k</td><td style="text-align:right;color:#94a3b8">N/A</td></tr>
+      <tr><td>Aug 25</td><td>A</td><td>HE10-11 (-100/-63MW)</td><td>HE20-21 (+100/+84MW)</td><td>NS HE01-09, RRS HE12-18, ECRS HE18-19</td><td style="text-align:right">~$17k-18.5k</td><td style="text-align:right;color:#94a3b8">N/A</td></tr>
+      <tr><td>Aug 26</td><td>A</td><td>HE10-11 (-100/-17MW)</td><td>HE20-21 (+100/+84MW)</td><td>NS HE01-09, RRS HE12-17, ECRS HE18-19</td><td style="text-align:right">~$24,711</td><td style="text-align:right;color:#94a3b8">N/A</td></tr>
+      <tr class="row-warn"><td>Aug 27</td><td>B</td><td>HE10-11 (-100/-86MW)</td><td>HE20-21 (+100/+100MW)</td><td>NS HE01-07, ECRS HE08-09, RegUp+RRS HE12-19</td><td style="text-align:right">~$25.7k-28.7k</td><td style="text-align:right"><strong>$8,278</strong> <span style="color:#dc2626;font-size:0.8em">(-67%)</span></td></tr>
+      <tr style="background:#fef2f2"><td>Aug 28</td><td>B</td><td>HE10-11 (-100/-86MW)</td><td>HE20-21 (+100/+100MW)</td><td>NS HE01-07, ECRS HE08-09, RegUp+RRS HE12-19</td><td style="text-align:right">~$23k-25k</td><td style="text-align:right;color:#dc2626"><strong>-$2,596</strong></td></tr>
+      <tr class="row-prod"><td>Aug 29</td><td>B</td><td>HE10-11 (-100/-77MW)</td><td>HE20-21 (+100/+100MW)</td><td>NS HE01-08, ECRS HE09+HE12-18, RegUp HE14-18</td><td style="text-align:right">~$27,990</td><td style="text-align:right"><strong>$8,222</strong></td></tr>
+      <tr class="row-partial"><td>Aug 30</td><td>A</td><td>HE09-10 (-100/-100MW)</td><td>HE19-20 (+70/+100MW)</td><td>NS HE01-08, ECRS HE11-18</td><td style="text-align:right">~$31,700</td><td style="text-align:right"><strong>$5,792</strong> PARTIAL</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note">Day 8 오차(-67%) 자기정정 (Day 10 적용): NS $2→$4/MW-hr, RegUp/RRS 70% 할인, 충전 임계치 NL ≤33-34 GW 명확화, Aug 28 RT 역방향 충전 진단 → Aug 30 DA bid 적극 제출.</div>
+
+  <h3>dart-virtual-trader 주간 포지션 (Advisory-only mode)</h3>
+  <div style="overflow-x:auto">
+  <table>
+    <thead><tr><th>날짜</th><th>결정</th><th>방향</th><th>주요 HE / MW</th><th style="text-align:right">E[P50 sym]</th><th>근거 요약</th></tr></thead>
+    <tbody>
+      <tr><td>Aug 24</td><td>ENTER DEC</td><td>HB_NORTH</td><td>HE10 15MW, HE11 10MW</td><td style="text-align:right">+$120</td><td>SEVERE NL 25,454 MW duck floor DEC</td></tr>
+      <tr><td>Aug 25</td><td>ENTER DEC</td><td>HB_NORTH</td><td>HE10 10MW</td><td style="text-align:right">+$19</td><td>MILD NL 33,816 MW duck floor DEC</td></tr>
+      <tr class="row-warn"><td>Aug 26</td><td><strong>Evening Secondary Trigger 최초 발동</strong></td><td>HB_NORTH DEC</td><td>HE20 15MW, HE21 20MW</td><td style="text-align:right">+$240</td><td>NL 72,329 MW(시리즈 최고) + cap-out 6,918 MW — cond2 첫 사례</td></tr>
+      <tr><td>Aug 27</td><td><strong>FLAT</strong></td><td>—</td><td>없음 (0 MW)</td><td style="text-align:right">$0</td><td>NL 41,232 MW NORMAL; cond1 5,670 MW 미달; secondary 양 조건 실패</td></tr>
+      <tr><td>Aug 28</td><td>ENTER DEC</td><td>HB_NORTH</td><td>HE10 10MW</td><td style="text-align:right">+$10</td><td>NL 37,239 MW + market-analyst "-$20 to $0" 명시</td></tr>
+      <tr><td>Aug 29</td><td>ENTER DEC</td><td>HB_NORTH</td><td>HE10 20MW, HE11 15MW</td><td style="text-align:right">+$296</td><td>NL 28,394 MW MODERATE duck floor (토요일 첫 사례)</td></tr>
+      <tr class="row-warn"><td>Aug 30</td><td><strong>INC (방향 전환)</strong></td><td>HB_NORTH INC</td><td>HE10 15MW, HE11 15MW</td><td style="text-align:right">+$148</td><td>NL 19,918 MW EXTREME tier — INC 방향 최초 적용 (Aug 11 선례 + Aug 29 양수 spread)</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note-blue">T+2 결산 누적: Aug 17~29 포지션 10건+ 미결산 (Tenaska IP whitelist 차단 지속). 7/7 learnings W35 내 최초 달성 (W35 최대 긍정 발전).</div>
+
+  <h3>crr-trader</h3>
+  <p style="font-size:0.87em">비활성 — W35 CRR 옥션 사이클 해당 없음. 산출물 없음.</p>
+</div>
+
+<!-- ========== SECTION 6: Evaluator Scorecard ========== -->
+<div class="section">
+  <h2>6. Evaluator W35 Scorecard 요약</h2>
+  <p style="font-size:0.83em;color:#64748b;margin:0 0 14px">출처: evaluator — <code>reports/weekly/evaluator/2026-W35.md</code></p>
+
+  <div style="overflow-x:auto">
+  <table>
+    <thead><tr><th>Agent</th><th>Process</th><th>Approach</th><th>Resource</th><th>Overall</th><th>Trend</th><th>주요 사항</th></tr></thead>
+    <tbody>
+      <tr><td>market-analyst</td><td class="score-b">B</td><td class="score-a">A-</td><td class="score-b">B+</td><td class="score-b"><strong>B+</strong></td><td>→</td><td>6/7 dir; BRIEFING_TEMPLATE 5주째 미생성; 분석 품질 유지; duck curve 외삽 오류 자기 인식</td></tr>
+      <tr><td>bess-optimizer</td><td class="score-c">C+</td><td class="score-c">C</td><td class="score-b">B-</td><td class="score-c"><strong>C+</strong></td><td>↑</td><td>4/7 dir (개선); Day 8 P40 -67% 오차; 자기정정 우수; OUTPUT_DIRECTORY.md 5주째 부재</td></tr>
+      <tr><td>dart-virtual-trader</td><td class="score-d">D</td><td>N/A</td><td class="score-c">C+</td><td class="score-d"><strong>D+</strong></td><td>↑</td><td>2/7 dir (9주 연속 미달); 7/7 learnings 최초 달성; 분석 논리 건전</td></tr>
+      <tr><td>crr-trader</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>비활성 (W35 비옥션)</td></tr>
+      <tr><td>congestion-analyst</td><td class="score-c">C+</td><td class="score-a">A-</td><td class="score-b">B-</td><td class="score-b"><strong>B-</strong></td><td>→</td><td>7/7 dir 유지; stage-0-rules.md 6주 연속 부재; 분석 품질 높음 (Top Performer)</td></tr>
+      <tr><td>pnl-manager</td><td class="score-c">C</td><td class="score-b">B</td><td class="score-c">C</td><td class="score-d"><strong>C- (Critical)</strong></td><td>↓</td><td>7/7 reports; 0/7 learnings 3주 연속 Critical; PRODUCTION 실적에도 미작성</td></tr>
+      <tr><td>reporter</td><td class="score-b">B-</td><td class="score-b">B</td><td class="score-b">B-</td><td class="score-b"><strong>B-</strong></td><td>↑</td><td>7/7 reports (W34 6/7→W35 7/7); 경로 검증 5주째 미구현</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h3>W35 Plan Compliance</h3>
+  <table>
+    <thead><tr><th>Plan</th><th>대상</th><th>W34 목표</th><th>W35 결과</th></tr></thead>
+    <tbody>
+      <tr><td>dart-virtual-trader 디렉토리</td><td>dart-virtual-trader</td><td>7/7 정확 디렉토리</td><td><span class="tag tag-p0">PARTIAL FAIL — 2/7</span></td></tr>
+      <tr><td>stage-0-rules.md 생성</td><td>congestion-analyst</td><td>미시행 시 정지</td><td><span class="tag tag-p0">FAILED — 6주째; 정지 미시행</span></td></tr>
+      <tr><td>경로 검증 섹션</td><td>reporter</td><td>전 리포트 Path Verification</td><td><span class="tag tag-p0">FAILED — 5주째 미구현</span></td></tr>
+      <tr><td>bess-optimizer 디렉토리</td><td>bess-optimizer</td><td>7/7 + OUTPUT_DIRECTORY.md</td><td><span class="tag tag-crit">PARTIAL FAIL — 4/7</span></td></tr>
+      <tr><td>BRIEFING_TEMPLATE.md</td><td>market-analyst</td><td>W35 첫 사이클 전 생성</td><td><span class="tag tag-p0">FAILED — 5주째 부재</span></td></tr>
+      <tr><td>pnl-manager learnings</td><td>pnl-manager</td><td>W35 7/7 learnings</td><td><span class="tag tag-p0">FAILED — 0/7 (3주 연속)</span></td></tr>
+    </tbody>
+  </table>
+  <div class="note"><strong>해결 0건 | 부분 개선 2건 (dart-virtual-trader, bess-optimizer) | 완전 실패 4건</strong></div>
+
+  <h3>W35 Positive Developments (evaluator 인용)</h3>
+  <ol style="margin:0;padding-left:18px;font-size:0.87em">
+    <li>Tenaska PTP PRODUCTION 복귀 (Aug 27-28 flowday) — 2주 이상 공백 후 복귀</li>
+    <li>dart-virtual-trader 7/7 learnings — 역대 최초 달성 (방향 결정 근거 상세 문서화)</li>
+    <li>Enverus PRODUCTION 복귀 (Aug 30) — YE-Enverus 교차 검증 즉시 수행</li>
+    <li>bess-optimizer 급속 자기정정 — Day 8 -67% 오차를 Day 10 전면 수정 (NS, RegUp/RRS, 충전 임계치)</li>
+    <li>reporter 7/7 reports 달성 — W34 6/7 패턴 해소</li>
+  </ol>
+</div>
+
+<!-- ========== SECTION 7: 즉시 조치 ========== -->
+<div class="section">
+  <h2>7. 사용자 즉시 조치 필요 항목</h2>
+  <p style="font-size:0.83em;color:#64748b;margin:0 0 14px">출처: evaluator W35 Critical Issues + 인프라 이슈 취합</p>
+
+  <ul class="action-list">
+    <li>
+      <div class="action-num">1</div>
+      <div>
+        <strong><span class="tag tag-p0">P0</span> Smartbidder MSAL client_secret 갱신</strong><br>
+        <span style="font-size:0.87em">Day 35+ 초과 만료 (2026-07-25~). Ascend rep 즉시 연락. DA/RT 가격, AS spread, benchmark 전면 차단. W36 복구 필수. 매일 추정 손실 $1,000-$5,000.</span>
+      </div>
+    </li>
+    <li>
+      <div class="action-num">2</div>
+      <div>
+        <strong><span class="tag tag-p0">P0</span> Tenaska IP whitelist 원격 환경 등록</strong><br>
+        <span style="font-size:0.87em">IP 미등록으로 Aug 24-26 데이터 전무. T+2 결산 10건+ 적체. DART 캘리브레이션 루프 동결. Ascend rep에 원격 환경 IP 등록 요청.</span>
+      </div>
+    </li>
+    <li>
+      <div class="action-num">3</div>
+      <div>
+        <strong><span class="tag tag-p0">P0 (Critical)</span> dart-virtual-trader 디렉토리 하드코딩 승인</strong><br>
+        <span style="font-size:0.87em">9주 연속 비준수. 에이전트 자체 수정 불가 확인 완료. <code>.claude/agents/dart-virtual-trader.md</code>에 <code>reports/daily/dart-virtual-trader/YYYY-MM-DD.md</code> 경로 명시 1회 사용자 승인 필요.</span>
+      </div>
+    </li>
+    <li>
+      <div class="action-num">4</div>
+      <div>
+        <strong><span class="tag tag-crit">Critical</span> congestion-analyst stage-0-rules.md 조항 결정</strong><br>
+        <span style="font-size:0.87em">6주 연속 부재. W35에서 정지 미시행. (a) 즉시 생성 명령 또는 (b) 정지 조항 철회 결정. 사용자 명시 지시 필요.</span>
+      </div>
+    </li>
+    <li>
+      <div class="action-num">5</div>
+      <div>
+        <strong><span class="tag tag-crit">Critical</span> pnl-manager learnings 재활성화</strong><br>
+        <span style="font-size:0.87em">0/7 learnings 3주 연속. PRODUCTION 실적(Aug 27-28)이 있었음에도 미작성. W36 PRODUCTION 날 즉시 learnings 작성 의무 재확인.</span>
+      </div>
+    </li>
+    <li>
+      <div class="action-num">6</div>
+      <div>
+        <strong><span class="tag tag-crit">Critical</span> bess-optimizer 디렉토리 하드코딩 검토</strong><br>
+        <span style="font-size:0.87em">4/7 (개선 중이나 목표 미달). OUTPUT_DIRECTORY.md 5주째 부재. <code>.claude/agents/bess-optimizer.md</code> 정규 경로 명시 검토 (dart-virtual-trader 동일 패턴).</span>
+      </div>
+    </li>
+    <li>
+      <div class="action-num">7</div>
+      <div>
+        <strong><span class="tag tag-crit">Critical</span> market-analyst BRIEFING_TEMPLATE.md 생성</strong><br>
+        <span style="font-size:0.87em">5주 연속 부재. W36 Day 1 전 <code>memory/market-analyst/BRIEFING_TEMPLATE.md</code> 생성 요청.</span>
+      </div>
+    </li>
+    <li>
+      <div class="action-num">8</div>
+      <div>
+        <strong><span class="tag tag-maj">P1</span> DART T+2 결산 10건+ 소급 처리</strong><br>
+        <span style="font-size:0.87em">Aug 17~30 포지션 미결산. Tenaska 복구 즉시 전량 확인. EXTREME tier INC 방향 첫 캘리브레이션 포인트.</span>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<!-- ========== SECTION 8: W36 Preview ========== -->
+<div class="section">
+  <h2>8. W36 Preview</h2>
+  <p style="font-size:0.83em;color:#64748b;margin:0 0 14px">출처: market-analyst — <code>reports/weekly/structural-update/2026-W35.md</code> Section 6</p>
+
+  <h3>기상 전망 (열파 종료)</h3>
+  <p style="font-size:0.87em">Aug 30(Day 11) 야간 GR_WEST 21,916 MW 급반등 = 반시클론 능선 퇴각의 명확한 신호. W36 (Sep 1~6) 기상 정상화 예상:</p>
+  <ul style="font-size:0.87em;margin:0;padding-left:18px">
+    <li>풍력 24h avg: 10~18 GW 수준 회복 예상 (열파 기간 4~10 GW 대비 대폭 개선)</li>
+    <li>Duck curve: MODERATE tier (HE10 NL ~35~42 GW)로 완화 예상 — EXTREME 반복 없을 것</li>
+    <li>Cap-out: 11,058 MW 피크에서 점진적 완화 예상 — 일부 유닛 정비 복귀</li>
+    <li>부하: WZ_ERCOT 24h avg ~65~70 GW (9월 평년 수준)로 정상화 예상</li>
+  </ul>
+  <div class="note-blue">GR_WEST가 10 GW+ 복귀 시 WEST_TO_NORTH_345 야간 혼잡이 다시 시장 지배 신호로 부상 예상.</div>
+
+  <h3>W36 주요 일정</h3>
+  <table>
+    <thead><tr><th>이벤트</th><th>예정일</th><th>중요도</th><th>비고</th></tr></thead>
+    <tbody>
+      <tr><td>ERCOT ROS 정기 회의</td><td>Sep 3, 2026</td><td>높음</td><td>Batch Zero 감사 현황, 대용량 부하 통합, DRRS 후속</td></tr>
+      <tr><td>STEP Permian 추가 구간 CCN 청문</td><td>Sep 25, 2026</td><td>높음</td><td>Aug 28 승인 2개 구간 외 추가 구간</td></tr>
+      <tr><td>Batch Zero RFI 1차 파동 완료</td><td>Sep 중</td><td>높음</td><td>300개 데이터센터 RFI 발송 진행 중</td></tr>
+      <tr style="background:#fee2e2"><td><strong>Smartbidder MSAL 갱신</strong></td><td><strong>즉시 (P0)</strong></td><td><strong>최고</strong></td><td>Ascend rep 즉시 연락. W36 DA/RT 예측·AS spread 복구 위해 필수.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>W36 주의사항</h3>
+  <ol style="font-size:0.87em;margin:0;padding-left:18px">
+    <li><strong>Smartbidder 복구 1순위</strong>: Day 35+ 초과 — 갱신 즉시 AS spread, P(DA>RT), benchmark 비교 복구. W36 첫 사이클부터 가격 검증 재개 목표.</li>
+    <li><strong>열파 종료 후 전략 전환</strong>: EXTREME duck curve 규칙(INC 방향, deep bid)을 MODERATE/MILD 환경으로 재조정. bess-optimizer Stack A/B 임계치 재점검.</li>
+    <li><strong>DART T+2 소급 처리</strong>: Tenaska 복구 즉시 Aug 17~30 포지션 10건+ 결산 확인 — EXTREME tier INC 방향 첫 캘리브레이션 이벤트.</li>
+    <li><strong>Enverus 수집 안정화</strong>: Aug 30 1회 복귀 확인 — W36 매일 수집 재개 여부 점검.</li>
+  </ol>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<div class="footer">
+  BESS_Biz Weekly Report — 2026-W35 &nbsp;|&nbsp; 생성: reporter agent, 2026-08-31 (Monday) CT &nbsp;|&nbsp;
+  출처: pnl-manager · market-analyst · evaluator · Daily Reports Aug 24-30 &nbsp;|&nbsp; 자체 분석 없음 — 순수 취합<br>
+  저장: <code>reports/weekly/2026-W35.md</code> &nbsp;|&nbsp; <code>reports/weekly/2026-W35.html</code> &nbsp;|&nbsp; 사본: <code>memory/reporter/history/2026-W35.md</code>
+</div>
+
+</div><!-- .page-wrap -->
+</body>
+</html>

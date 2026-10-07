@@ -18,6 +18,10 @@ credentials
 # =============================================================
 shared/data/raw/
 
+# Project-level raw + interim data (re-fetchable, multi-GB parquet; vendor-licensed)
+data/raw/
+data/interim/*.parquet
+
 # 산출물 데이터 (Tenaska 실적 등은 사외 공개 X)
 shared/data/pnl/gks/hourly/*.json
 shared/data/pnl/gks/daily/*.parquet
@@ -77,8 +81,12 @@ temp/
 
 # =============================================================
 # Reports — keep .md (review-able), gitignore .html (large, generated)
+# Weekly dashboard HTML deliverables are explicitly included
 # =============================================================
 reports/**/*.html
+!reports/weekly/*.html
+!reports/weekly/bess-revenue-dashboard/*.html
+!reports/weekly/bess-dart-virtual-dashboard/*.html
 
 # =============================================================
 # Ad-hoc derived caches — keep scripts/.json/.md, gitignore large parquet (re-fetchable from datalake)

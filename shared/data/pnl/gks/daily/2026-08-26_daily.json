@@ -1,0 +1,17 @@
+{
+  "flowday": "2026-08-26",
+  "generated": "2026-08-27",
+  "status": "DEGRADED",
+  "source": "NONE — Tenaska PTP fetch failed (IP whitelist); Smartbidder client_secret expired Day 33",
+  "da_energy_revenue": null,
+  "rt_energy_revenue": null,
+  "as_revenue_regup": null,
+  "as_revenue_regdown": null,
+  "as_revenue_rrs": null,
+  "as_revenue_ecrs": null,
+  "as_revenue_nonspin": null,
+  "dart_virtual_revenue": null,
+  "energy_injection_mwh": null,
+  "energy_consumption_mwh": null,
+  "total_revenue": null
+}

@@ -1,0 +1,68 @@
+{
+  "date": "2026-08-05",
+  "issued_at_ct": "2026-08-04T07:30:00-05:00",
+  "asset": "GKS_BESS_RN",
+  "capacity_mw": 100,
+  "capacity_mwh": 200,
+  "rte": 0.85,
+  "soc_init_mwh": 0,
+  "data_status": "YES_ENERGY=PROD | SMARTBIDDER=DEGRADED(11th day) | AS_PLAYBOOK=ABSENT",
+  "stack": "A",
+  "strategy": "Duck charge HE09-11 (SEVERE trough HE10) → NS 90MW all-day → DA discharge HE20-21 (solar cliff NL peak 64,530 MW) → ECRS HE22-24",
+  "schedule": [
+    {"he": 1,  "da_mw": 0,    "mode": "NS_HOLD",      "as_nonspin_mw": 90, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 0,   "price_floor_cap": null},
+    {"he": 2,  "da_mw": 0,    "mode": "NS_HOLD",      "as_nonspin_mw": 90, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 0,   "price_floor_cap": null},
+    {"he": 3,  "da_mw": 0,    "mode": "NS_HOLD",      "as_nonspin_mw": 90, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 0,   "price_floor_cap": null},
+    {"he": 4,  "da_mw": 0,    "mode": "NS_HOLD",      "as_nonspin_mw": 90, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 0,   "price_floor_cap": null},
+    {"he": 5,  "da_mw": 0,    "mode": "NS_HOLD",      "as_nonspin_mw": 90, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 0,   "price_floor_cap": null},
+    {"he": 6,  "da_mw": 0,    "mode": "NS_HOLD",      "as_nonspin_mw": 90, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 0,   "price_floor_cap": null},
+    {"he": 7,  "da_mw": 0,    "mode": "NS_HOLD",      "as_nonspin_mw": 90, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 0,   "price_floor_cap": null},
+    {"he": 8,  "da_mw": 0,    "mode": "NS_HOLD",      "as_nonspin_mw": 90, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 0,   "price_floor_cap": null},
+    {"he": 9,  "da_mw": -100, "mode": "DA_CHARGE",    "as_nonspin_mw": 90, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 85,  "price_floor_cap": "node_buy_le_20"},
+    {"he": 10, "da_mw": -100, "mode": "DA_CHARGE",    "as_nonspin_mw": 90, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 170, "price_floor_cap": "node_buy_le_15"},
+    {"he": 11, "da_mw": -35,  "mode": "DA_CHARGE",    "as_nonspin_mw": 90, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": "node_buy_le_18"},
+    {"he": 12, "da_mw": 0,    "mode": "NS_HOLD",      "as_nonspin_mw": 90, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": null},
+    {"he": 13, "da_mw": 0,    "mode": "NS_HOLD",      "as_nonspin_mw": 90, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": null},
+    {"he": 14, "da_mw": 0,    "mode": "NS_HOLD",      "as_nonspin_mw": 90, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": null},
+    {"he": 15, "da_mw": 0,    "mode": "NS_HOLD",      "as_nonspin_mw": 90, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": null},
+    {"he": 16, "da_mw": 0,    "mode": "NS_HOLD",      "as_nonspin_mw": 90, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": null},
+    {"he": 17, "da_mw": 0,    "mode": "NS_HOLD",      "as_nonspin_mw": 90, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": null},
+    {"he": 18, "da_mw": 0,    "mode": "NS_HOLD",      "as_nonspin_mw": 90, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": null},
+    {"he": 19, "da_mw": 0,    "mode": "NS_SOC_HOLD",  "as_nonspin_mw": 45, "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 200, "price_floor_cap": null},
+    {"he": 20, "da_mw": 100,  "mode": "DA_DISCHARGE", "as_nonspin_mw": 0,  "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 100, "price_floor_cap": "node_sell_ge_50"},
+    {"he": 21, "da_mw": 100,  "mode": "DA_DISCHARGE", "as_nonspin_mw": 0,  "as_ecrs_mw": 0,  "as_rrs_mw": 0, "soc_end_mwh": 0,   "price_floor_cap": "node_sell_ge_60"},
+    {"he": 22, "da_mw": 0,    "mode": "ECRS_NS_HOLD", "as_nonspin_mw": 45, "as_ecrs_mw": 45, "as_rrs_mw": 0, "soc_end_mwh": 0,   "price_floor_cap": null},
+    {"he": 23, "da_mw": 0,    "mode": "ECRS_NS_HOLD", "as_nonspin_mw": 45, "as_ecrs_mw": 45, "as_rrs_mw": 0, "soc_end_mwh": 0,   "price_floor_cap": null},
+    {"he": 24, "da_mw": 0,    "mode": "ECRS_NS_HOLD", "as_nonspin_mw": 45, "as_ecrs_mw": 45, "as_rrs_mw": 0, "soc_end_mwh": 0,   "price_floor_cap": null}
+  ],
+  "soc_balance": {
+    "soc_init_mwh": 0,
+    "charge_grid_mwh": 235,
+    "charge_stored_mwh": 199.75,
+    "discharge_mwh": 200,
+    "soc_terminal_mwh": 0,
+    "feasible": true
+  },
+  "hsl_check": {
+    "max_energy_mw_per_hour": 100,
+    "hsl_mw": 100,
+    "feasible": true,
+    "note": "NS MW during charge hours is concurrent capacity commitment, not additive energy MW — consistent with 2026-08-03 observed execution"
+  },
+  "expected_revenue": {
+    "p10_usd": 8500,
+    "p50_usd": 18000,
+    "p90_usd": 35000,
+    "breakdown_p50": {
+      "da_energy_net_usd": 14870,
+      "as_nonspin_usd": 2520,
+      "as_ecrs_usd": 346,
+      "as_rrs_usd": 0,
+      "total_usd": 17736
+    }
+  },
+  "stack_c_trigger": {
+    "description": "Switch HE20-21 to RT-only if P(SOUTH_HOUSTON binding) confirmed >= 35% by 09:30 CT",
+    "p50_stack_c_usd": 22000
+  }
+}

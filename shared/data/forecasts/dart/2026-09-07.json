@@ -1,0 +1,209 @@
+{
+  "meta": {
+    "flowday": "2026-09-07",
+    "filed": "2026-09-06T07:30:00-05:00",
+    "day_type": "WEPEAK_HOLIDAY",
+    "ercot_day_type": "WEPEAK",
+    "holiday": "Labor Day",
+    "model_version": "v3-no-SB-DEGRADED",
+    "advisory_only": true,
+    "data_quality": {
+      "yes_energy_bidclose": "PRODUCTION",
+      "smartbidder": "UNAVAILABLE",
+      "smartbidder_absent_days": 43,
+      "enverus": "ABSENT",
+      "ag2": "ABSENT",
+      "hub_pair_lmp": "ABSENT",
+      "hub_pair_lmp_absent_cycles": 109,
+      "degraded_penalty_ppt": -4,
+      "effective_raw_floor_pct": 59
+    }
+  },
+  "summary": {
+    "net_direction": "DEC",
+    "active_hours": 2,
+    "skip_hours": 22,
+    "total_dec_mw": 40,
+    "total_inc_mw": 0,
+    "net_exposure_mw": -40,
+    "expected_pnl_p50_gross_usd": 588,
+    "expected_pnl_confidence_weighted_usd": 338,
+    "trigger": "Scarcity Cliff DEC — NL HE20 66605 MW (+6605 MW above gate), NL HE21 65404 MW (+5404 MW above gate)"
+  },
+  "key_inputs": {
+    "nl_trough_mw": 32175,
+    "nl_trough_he": 10,
+    "nl_peak_mw": 66605,
+    "nl_peak_he": 20,
+    "duck_curve_amplitude_mw": 34430,
+    "solar_peak_mw": 32896,
+    "solar_peak_he": 12,
+    "solar_cliff_he19_to_he20_mw": -10087,
+    "wind_avg_24h_mw": 9230,
+    "wind_he20_mw": 13462,
+    "wind_he21_mw": 14625,
+    "gr_west_daytime_min_mw": 1681,
+    "gr_west_he24_mw": 9418,
+    "cap_out_he10_to_16_mw": 8540,
+    "cap_out_he20_21_mw": 8279,
+    "load_avg_24h_mw": 72089,
+    "load_peak_mw": 87279,
+    "load_peak_he": 18,
+    "p_rt_spike_gt150_he20_21_pct_low": 15,
+    "p_rt_spike_gt150_he20_21_pct_high": 25
+  },
+  "positions": [
+    {
+      "he": 20,
+      "direction": "DEC",
+      "label": "Long DA / Short RT",
+      "hub": "HB_NORTH",
+      "mw": 25,
+      "dec_bid_price_usd": 170,
+      "p_win_raw_pct": 64,
+      "p_win_adj_pct": 60,
+      "conviction": "HIGH",
+      "e_spread_win_usd_mwh": 40,
+      "e_spread_lose_usd_mwh": 20,
+      "w_l_ratio": 2.0,
+      "e_p50_gross_usd": 400,
+      "da_estimate_range_usd": "90-160",
+      "trigger": "Scarcity Cliff DEC (NL 66605 MW, gate 60000 MW, margin +6605 MW)",
+      "risk_note": "Wind 13462 MW partial RT suppression; Labor Day load uncertainty +/-2-3 GW"
+    },
+    {
+      "he": 21,
+      "direction": "DEC",
+      "label": "Long DA / Short RT",
+      "hub": "HB_NORTH",
+      "mw": 15,
+      "dec_bid_price_usd": 80,
+      "p_win_raw_pct": 59,
+      "p_win_adj_pct": 55,
+      "conviction": "MEDIUM",
+      "e_spread_win_usd_mwh": 35,
+      "e_spread_lose_usd_mwh": 15,
+      "w_l_ratio": 2.33,
+      "e_p50_gross_usd": 188,
+      "da_estimate_range_usd": "40-75",
+      "trigger": "Scarcity Cliff DEC (NL 65404 MW, gate 60000 MW, margin +5404 MW); Sep2 DA-collapse+RTspike analog",
+      "risk_note": "Wind 14625 MW building — dominant RT suppression risk at HE21; borderline conviction"
+    }
+  ],
+  "skipped_signals": [
+    {
+      "hours": "01-06",
+      "type": "INC overnight W2N",
+      "reason": "GR_WEST max 7698 MW < 11000 MW hard gate; OFFPEAK"
+    },
+    {
+      "hours": "07-09",
+      "type": "INC morning ramp",
+      "reason": "Solar surge; INC veto active; no trigger"
+    },
+    {
+      "hours": "10-12",
+      "type": "INC duck belly",
+      "reason": "P_adj 49-53% < 55% floor; INC veto active (GR_WEST 1681-1692 MW < 5500 MW). Near-MODERATE duck (NL 32175 MW, 175 MW margin) upgrades raw P to 53-57% but DEGRADED penalty blocks entry."
+    },
+    {
+      "hours": "13-18",
+      "type": "DEC/INC afternoon",
+      "reason": "NL < 60000 MW; no directional trigger"
+    },
+    {
+      "he": 19,
+      "type": "DEC onset",
+      "reason": "NL 59664 MW — 336 MW below 60000 MW DEC gate"
+    },
+    {
+      "he": 22,
+      "type": "DEC late WEPEAK",
+      "reason": "Wind 15871 MW extreme — RT suppression dominant; P_adj ~49% < 55% floor"
+    },
+    {
+      "hours": "23-24",
+      "type": "INC overnight W2N",
+      "reason": "GR_WEST 9155-9418 MW < 11000 MW gate; SCI proxy 0.307-0.315 < MEDIUM 0.350; OFFPEAK"
+    }
+  ],
+  "congestion_overlay": {
+    "duck_curve_midday_he09_12": {
+      "p_binding_pct_low": 12,
+      "p_binding_pct_high": 18,
+      "e_lambda_usd": 15,
+      "gks_mcc_central_usd_mwh": -0.8,
+      "gks_mcc_p90_usd_mwh": -3.5,
+      "impact_on_positions": "No HE10-12 position held; indirect signal only"
+    },
+    "south_houston_import_he19_21": {
+      "p_binding_pct_low": 3,
+      "p_binding_pct_high": 6,
+      "e_lambda_usd": 35,
+      "impact_on_positions": "P(binding) insufficient for directional shift; hub-level (HB_NORTH) DEC unaffected"
+    },
+    "west_to_north_he23_24": {
+      "p_binding_pct_low": 5,
+      "p_binding_pct_high": 9,
+      "sci_proxy_max": 0.315,
+      "impact_on_positions": "No overnight INC position; gate not met regardless"
+    },
+    "stage": "Stage 0 provisional",
+    "decision_weight": "MINIMUM"
+  },
+  "model_rules_applied": {
+    "dec_gate_nl_mw": 60000,
+    "inc_gr_west_overnight_gate_mw": 11000,
+    "inc_daytime_veto_gr_west_threshold_mw": 5500,
+    "full_size_mw": 25,
+    "half_size_mw": 15,
+    "p_win_threshold_pct": 55,
+    "high_conviction_p_pct": 60,
+    "high_conviction_wl_ratio": 1.5,
+    "degraded_penalty_ppt": 4,
+    "spread_sign_convention": "DA minus RT; positive = INC signal; negative = DEC signal"
+  },
+  "risks": [
+    {
+      "rank": 1,
+      "severity": "HIGH",
+      "description": "Wind ramp in RT exceeds BidClose at HE20-21 — 13462-14625 MW forecast; +1500 MW overperform suppresses RT below DA -> DEC loss",
+      "probability_pct": "20-25"
+    },
+    {
+      "rank": 2,
+      "severity": "HIGH",
+      "description": "Labor Day load lighter than BidClose — actual HE20 load 3-5% below 87279 MW; spread magnitude shrinks",
+      "probability_pct": "15-20"
+    },
+    {
+      "rank": 3,
+      "severity": "MEDIUM",
+      "description": "DA prices below lower estimate at HE20 ($75-90 vs $90-160 range) — narrow or positive spread; single-source uncertainty",
+      "probability_pct": "15-20"
+    },
+    {
+      "rank": 4,
+      "severity": "MEDIUM",
+      "description": "HE21 DA not collapsing — wind recovery priced into DA, RT also suppressed; spread positive -> DEC loss",
+      "probability_pct": "20-25"
+    },
+    {
+      "rank": 5,
+      "severity": "CRITICAL_ONGOING",
+      "description": "Smartbidder MSAL Day 43+ — -4 ppt DEGRADED penalty in effect every cycle; duck belly INC and marginal positions permanently blocked",
+      "probability_pct": "100"
+    }
+  ],
+  "backtest_recent": {
+    "sep_2_win_rate": "2/2 = 100%",
+    "sep_2_gross_pnl_usd": 257.90,
+    "sep_3_status": "TBD (T+2 Sep 5)",
+    "sep_4_gross_pnl_usd": 0,
+    "sep_5_gross_pnl_usd": 0,
+    "sep_6_status": "TBD (T+2 Sep 8)",
+    "sep_6_e_p50_usd": 372,
+    "cumulative_confirmed_sep_usd": 257.90,
+    "dart_virtual_revenue_field": "NULL (42+ flowdays)"
+  }
+}

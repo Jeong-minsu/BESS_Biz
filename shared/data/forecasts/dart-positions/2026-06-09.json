@@ -1,0 +1,184 @@
+{
+  "flow_date": "2026-06-09",
+  "day_type": "Tuesday",
+  "issued": "2026-06-08T07:30:00-05:00",
+  "authored_by": "dart-virtual-trader",
+  "spread_convention": "spread = DA - RT; positive => DA expensive => SHORT DA signal",
+  "data_status": {
+    "smartbidder": "PRESENT",
+    "smartbidder_confidence_houston": 0.95,
+    "hb_west_confidence": 0.80,
+    "congestion_stage": "Stage 0 heuristic",
+    "tenaska_settlement": "UNAVAILABLE",
+    "first_confirmed_settlement": "2026-06-06 (-$5266 confirmed)"
+  },
+  "summary": {
+    "active_positions": 5,
+    "total_mw_notional": 175,
+    "max_simultaneous_mw": 125,
+    "expected_gross_pnl_usd": 1825,
+    "risk_adjusted_ev_usd": 1434,
+    "net_direction": "SHORT DA bias",
+    "windows": ["HB_WEST HE10-12", "HB_HOUSTON HE19-20"]
+  },
+  "positions": [
+    {
+      "he": 10,
+      "node": "HB_WEST",
+      "direction": "SHORT_DA",
+      "mw": 50,
+      "da_bid_usd_mwh": 15.56,
+      "est_rt_usd_mwh": 5.0,
+      "e_spread_usd_mwh": 10.6,
+      "e_pnl_usd": 530,
+      "p_win": 0.64,
+      "wl_ratio": 2.1,
+      "tier": "HIGH",
+      "spread_components": {
+        "system_da_rt_est": -0.5,
+        "e_mcc_hb_west": -10.0,
+        "nodal_spread_est": 10.6
+      },
+      "key_signals": {
+        "sci_he10": 1.895,
+        "gr_west_mw_trough_he08": 11083,
+        "west_to_north_p_binding": "25-40% HIGH",
+        "smartbidder_p_da_gt_rt_system": 0.39
+      },
+      "risk_notes": "Pure basis trade at HB_WEST. System-level P(DA>RT) < 0.5 — alpha comes entirely from nodal MCC. If WEST_TO_NORTH does not bind, spread near zero or negative at HB_WEST."
+    },
+    {
+      "he": 11,
+      "node": "HB_WEST",
+      "direction": "SHORT_DA",
+      "mw": 50,
+      "da_bid_usd_mwh": 15.58,
+      "est_rt_usd_mwh": 5.0,
+      "e_spread_usd_mwh": 10.5,
+      "e_pnl_usd": 525,
+      "p_win": 0.63,
+      "wl_ratio": 2.0,
+      "tier": "HIGH",
+      "spread_components": {
+        "system_da_rt_est": -0.5,
+        "e_mcc_hb_west": -10.0,
+        "nodal_spread_est": 10.5
+      },
+      "key_signals": {
+        "sci_he11_est": 2.03,
+        "gr_west_mw": 11319,
+        "west_to_north_p_binding": "25-40% HIGH",
+        "smartbidder_p_da_gt_rt_system": 0.38
+      },
+      "risk_notes": "SCI peak hour (est 2.03). GR_WEST recovering from trough but still near absolute trigger. Overgeneration window at maximum."
+    },
+    {
+      "he": 12,
+      "node": "HB_WEST",
+      "direction": "SHORT_DA",
+      "mw": 25,
+      "da_bid_usd_mwh": 15.58,
+      "est_rt_usd_mwh": 5.5,
+      "e_spread_usd_mwh": 10.0,
+      "e_pnl_usd": 250,
+      "p_win": 0.62,
+      "wl_ratio": 1.9,
+      "tier": "MED",
+      "spread_components": {
+        "system_da_rt_est": -0.3,
+        "e_mcc_hb_west": -9.5,
+        "nodal_spread_est": 10.0
+      },
+      "key_signals": {
+        "sci_he12_est": 1.80,
+        "west_to_north_p_binding": "25-40% HIGH",
+        "gr_west_recovering": true
+      },
+      "risk_notes": "SCI declining from HE10-11 peak. MED sizing (25 MW) vs HIGH at HE10-11. Spread still strong but GR_WEST recovery compresses MCC slightly."
+    },
+    {
+      "he": 19,
+      "node": "HB_HOUSTON",
+      "direction": "SHORT_DA",
+      "mw": 25,
+      "da_bid_usd_mwh": 31.14,
+      "est_rt_usd_mwh": 21.5,
+      "e_spread_usd_mwh": 9.6,
+      "e_pnl_usd": 240,
+      "p_win": 0.624,
+      "wl_ratio": 2.0,
+      "tier": "HIGH",
+      "spread_components": {
+        "system_da_rt_smartbidder": 4.5,
+        "e_mcc_hb_houston": 5.1,
+        "nodal_spread_est": 9.6
+      },
+      "key_signals": {
+        "smartbidder_p_da_gt_rt": 0.624,
+        "houston_import_p_binding": "30-50% HIGH",
+        "e_mcc_hb_houston_unconditional": 6.0,
+        "nl_ramp_he17_he21_mw": 22931,
+        "non_spin_da_usd_mwh": null,
+        "solar_mw_he19_est": 18000
+      },
+      "risk_notes": "Solar still ~18,000 MW at HE19 — RT cushion. Sized 25 MW (not 50 MW) for this reason vs HE20. HOUSTON_IMPORT activating."
+    },
+    {
+      "he": 20,
+      "node": "HB_HOUSTON",
+      "direction": "SHORT_DA",
+      "mw": 25,
+      "da_bid_usd_mwh": 34.24,
+      "est_rt_usd_mwh": 23.0,
+      "e_spread_usd_mwh": 11.2,
+      "e_pnl_usd": 280,
+      "p_win": 0.641,
+      "wl_ratio": 2.1,
+      "tier": "HIGH",
+      "spread_components": {
+        "system_da_rt_smartbidder": 5.0,
+        "e_mcc_hb_houston": 6.0,
+        "nodal_spread_est": 11.2
+      },
+      "key_signals": {
+        "smartbidder_p_da_gt_rt": 0.641,
+        "houston_import_p_binding": "30-50% HIGH",
+        "e_mcc_hb_houston_unconditional": 6.0,
+        "nl_ramp_he17_he21_mw": 22931,
+        "non_spin_da_usd_mwh": 5.12,
+        "solar_mw_he20_est": 8000,
+        "da_price_usd_mwh": 34.24
+      },
+      "risk_notes": "Anchor evening hour. P=0.641 cycle-peak system probability. Non-Spin $5.12 (scarcity signal, below $8 modifier threshold). Solar effectively exited. Load near 78,913 MW peak."
+    }
+  ],
+  "skipped_notable": [
+    {
+      "he": 21,
+      "node": "HB_HOUSTON",
+      "est_p_win": 0.645,
+      "est_spread_usd_mwh": 7.5,
+      "non_spin_da_usd_mwh": 9.89,
+      "reason_skipped": "Excluded per top-5 quality-over-quantity filter only. Signal qualifies HIGH (P=0.645, Non-Spin $9.89 exceeds $8 scarcity modifier). Would be included in full 24-hour position run at HIGH 25-50 MW.",
+      "flagged_for_review": true
+    }
+  ],
+  "portfolio_risk": {
+    "scenario_bullish_pnl": 3250,
+    "scenario_central_pnl": 1825,
+    "scenario_bearish_pnl": 550,
+    "scenario_adverse_pnl": -600,
+    "top_risks": [
+      "WEST_TO_NORTH non-binding (Enverus wind 18711 MW vs YE 11083 MW at trough — 2424 MW divergence)",
+      "Tuesday load softens to Enverus range (76857 MW vs YE 78913 MW)",
+      "Evening RT spike above DA repeats 2026-06-06 pattern (Non-Spin HE21 $9.89 elevated scarcity)",
+      "HB_WEST MCC model unvalidated — third cycle, no confirmed settlement"
+    ]
+  },
+  "model_notes": {
+    "hb_west_basis": "Pure nodal basis trade. System-level P(DA>RT) < 0.5 midday. Alpha = E[MCC HB_WEST] from WEST_TO_NORTH constraint. Confidence 0.80.",
+    "hb_houston_basis": "Smartbidder system P(DA>RT) + HOUSTON_IMPORT MCC uplift. Confidence 0.95.",
+    "confirmed_loss_flag": "2026-06-06 directional loss -$5266 confirmed. Evening SHORT DA can fail when RT spikes above DA. Risk elevated for HE19-20.",
+    "he21_note": "HE21 strongest P(win)=0.645 + Non-Spin $9.89 but excluded per top-5 specification. Flagged for self-review."
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "flowday": "2026-09-04",
+    "filed_at": "2026-09-03T07:30:00-05:00",
+    "day_type": "WDPEAK",
+    "heat_wave_day": 15,
+    "model_version": "v3 no-SB",
+    "advisory_only": true,
+    "spread_convention": "DA - RT. Positive => INC (Short DA / Long RT). Negative => DEC (Long DA / Short RT).",
+    "data_cycle": "DEGRADED",
+    "sources_used": ["Enverus STPF (PRODUCTION)", "AG2 WSI weather (PRODUCTION)"],
+    "sources_absent": ["Yes Energy BidClose (rate throttle)", "Smartbidder (MSAL expired Day 40)", "Hub-pair LMP (absent cycle 106)", "Tenaska PTP settlement (40+ flowday backlog)"]
+  },
+  "decision": "FLAT",
+  "trigger_summary": {
+    "rt_spike_veto": {
+      "status": "TRIGGERED",
+      "metric": "Est. GR_WEST HE13 = ~3034 MW",
+      "threshold_mw": 5500,
+      "gap_mw": -2466,
+      "effect": "Blocks ALL INC positions HE09-21"
+    },
+    "duck_floor_dec_he10_11": {
+      "status": "NOT_FIRED",
+      "nl_trough_mw": 35398,
+      "nl_threshold_mild_mw": 33816,
+      "gap_mw": 1582,
+      "da_price_estimate": "$5-22/MWh",
+      "requires_explicit_negative": true,
+      "has_explicit_negative": false,
+      "note": "NL above MILD trigger; market-analyst gives $5-22/MWh (not explicit negative); data degraded"
+    },
+    "secondary_dec_he20": {
+      "status": "NOT_FIRED",
+      "nl_he20_mw": 57400,
+      "nl_gate_mw": 70000,
+      "nl_gap_mw": -12600,
+      "capout_est_mw": 9100,
+      "capout_gate_mw": 7000,
+      "capout_gap_mw": 2100,
+      "result": "Double FAIL"
+    },
+    "cond1_evening_dec": {
+      "status": "NOT_FIRED",
+      "ramp_he18_to_he21_mw": 8746,
+      "threshold_mw": 20000,
+      "gap_mw": -11254
+    },
+    "w2n_overnight_he01_03": {
+      "status": "SKIP",
+      "sci_range": [0.380, 0.413],
+      "p_binding_pct": [15, 22],
+      "blocker": "Hub-pair LMP absent (cycle 106)"
+    },
+    "w2n_late_night_he22_24": {
+      "status": "SKIP",
+      "sci_range": [0.361, 0.392],
+      "p_binding_pct": [12, 20],
+      "blocker": "Hub-pair LMP absent (cycle 106)"
+    },
+    "south_houston_inc_he18_21": {
+      "status": "NOT_FIRED",
+      "p_binding_pct": 2,
+      "threshold_pct": 22,
+      "gap_pct": -20
+    },
+    "enverus_only_discount": {
+      "applied": true,
+      "penalty_ppt": -2,
+      "note": "Single-source cycle; -2 ppt applied to all confidence signals"
+    }
+  },
+  "portfolio": {
+    "total_short_da_mw": 0,
+    "total_long_da_mw": 0,
+    "active_hours": 0,
+    "total_hours": 24,
+    "expected_pnl_p50_usd": 0,
+    "expected_pnl_p90_usd": 0
+  },
+  "positions": [
+    {"he": 1,  "direction": "FLAT", "mw": 0, "da_est_low": 18, "da_est_high": 30, "rt_est_low": 15, "rt_est_high": 33, "spread_est_low": -3, "spread_est_high": 5,  "p_win": null, "note": "W2N SCI 0.413 MEDIUM; hub-pair LMP absent; OFFPEAK"},
+    {"he": 2,  "direction": "FLAT", "mw": 0, "da_est_low": 20, "da_est_high": 30, "rt_est_low": 18, "rt_est_high": 33, "spread_est_low": -3, "spread_est_high": 5,  "p_win": null, "note": "W2N SCI 0.391 MEDIUM; hub-pair LMP absent; OFFPEAK"},
+    {"he": 3,  "direction": "FLAT", "mw": 0, "da_est_low": 20, "da_est_high": 32, "rt_est_low": 18, "rt_est_high": 32, "spread_est_low":  0, "spread_est_high": 5,  "p_win": null, "note": "W2N SCI 0.380 MEDIUM; hub-pair LMP absent; OFFPEAK"},
+    {"he": 4,  "direction": "FLAT", "mw": 0, "da_est_low": 18, "da_est_high": 28, "rt_est_low": 18, "rt_est_high": 30, "spread_est_low": -2, "spread_est_high": 3,  "p_win": null, "note": "W2N borderline SCI 0.345; hub-pair LMP absent; wind declining 18,819 MW"},
+    {"he": 5,  "direction": "FLAT", "mw": 0, "da_est_low": 18, "da_est_high": 28, "rt_est_low": 18, "rt_est_high": 28, "spread_est_low":  0, "spread_est_high": 3,  "p_win": null, "note": "NL load trough HE05 = 57,732 MW; OFFPEAK; no trigger"},
+    {"he": 6,  "direction": "FLAT", "mw": 0, "da_est_low": 18, "da_est_high": 28, "rt_est_low": 18, "rt_est_high": 30, "spread_est_low": -2, "spread_est_high": 3,  "p_win": null, "note": "OFFPEAK; wind 16,056 MW; no structural signal"},
+    {"he": 7,  "direction": "FLAT", "mw": 0, "da_est_low": 30, "da_est_high": 55, "rt_est_low": 28, "rt_est_high": 55, "spread_est_low": -5, "spread_est_high": 5,  "p_win": null, "note": "WDPEAK onset; morning ramp; no trigger"},
+    {"he": 8,  "direction": "FLAT", "mw": 0, "da_est_low": 30, "da_est_high": 55, "rt_est_low": 25, "rt_est_high": 55, "spread_est_low": -5, "spread_est_high": 8,  "p_win": null, "note": "Solar onset 689 MW; NL ~65 GW; no trigger"},
+    {"he": 9,  "direction": "FLAT", "mw": 0, "da_est_low": 20, "da_est_high": 40, "rt_est_low": 15, "rt_est_high": 45, "spread_est_low": -5, "spread_est_high": 8,  "p_win": null, "note": "Solar ramp 11,317 MW; RT spike veto (GR_WEST ~5,292 MW < 5,500 MW)"},
+    {"he": 10, "direction": "FLAT", "mw": 0, "da_est_low": 5,  "da_est_high": 22, "rt_est_low": 0,  "rt_est_high": 22, "spread_est_low":  0, "spread_est_high": 10, "p_win": null, "note": "NL trough 35,398 MW; duck-floor DEC NOT FIRED (+1,582 MW above MILD trigger; no explicit neg price); RT spike veto ACTIVE"},
+    {"he": 11, "direction": "FLAT", "mw": 0, "da_est_low": 10, "da_est_high": 28, "rt_est_low": 5,  "rt_est_high": 25, "spread_est_low":  2, "spread_est_high": 8,  "p_win": null, "note": "NL ~37-39 GW; RT spike veto ACTIVE; no trigger"},
+    {"he": 12, "direction": "FLAT", "mw": 0, "da_est_low": 25, "da_est_high": 45, "rt_est_low": 20, "rt_est_high": 40, "spread_est_low":  2, "spread_est_high": 8,  "p_win": null, "note": "Solar near-peak; NL ~40 GW recovering; RT spike veto ACTIVE"},
+    {"he": 13, "direction": "FLAT", "mw": 0, "da_est_low": 40, "da_est_high": 65, "rt_est_low": 35, "rt_est_high": 70, "spread_est_low": -5, "spread_est_high": 10, "p_win": null, "note": "Est. GR_WEST floor ~3,034 MW (HE13); RT spike veto ACTIVE"},
+    {"he": 14, "direction": "FLAT", "mw": 0, "da_est_low": 40, "da_est_high": 65, "rt_est_low": 35, "rt_est_high": 70, "spread_est_low": -5, "spread_est_high": 10, "p_win": null, "note": "Solar plateau 27,101-27,580 MW; GR_WEST ~3,061 MW; RT spike veto ACTIVE"},
+    {"he": 15, "direction": "FLAT", "mw": 0, "da_est_low": 40, "da_est_high": 65, "rt_est_low": 35, "rt_est_high": 72, "spread_est_low": -7, "spread_est_high": 10, "p_win": null, "note": "NL ~46 GW; wind 6,884 MW recovering; RT spike veto ACTIVE"},
+    {"he": 16, "direction": "FLAT", "mw": 0, "da_est_low": 55, "da_est_high": 90, "rt_est_low": 50, "rt_est_high": 100,"spread_est_low":-10, "spread_est_high": 12, "p_win": null, "note": "Load peak plateau 80,209 MW; solar waning; RT spike veto ACTIVE"},
+    {"he": 17, "direction": "FLAT", "mw": 0, "da_est_low": 55, "da_est_high": 90, "rt_est_low": 50, "rt_est_high": 105,"spread_est_low":-15, "spread_est_high": 10, "p_win": null, "note": "Load peak 80,237 MW; wind 10,012 MW; RT spike veto ACTIVE"},
+    {"he": 18, "direction": "FLAT", "mw": 0, "da_est_low": 65, "da_est_high":100, "rt_est_low": 60, "rt_est_high": 110,"spread_est_low":-10, "spread_est_high": 12, "p_win": null, "note": "Solar declining; NL 47,928 MW; RT spike veto ACTIVE; cond1 NOT FIRED"},
+    {"he": 19, "direction": "FLAT", "mw": 0, "da_est_low": 90, "da_est_high":140, "rt_est_low": 80, "rt_est_high": 160,"spread_est_low":-20, "spread_est_high": 20, "p_win": null, "note": "Solar cliff onset; NL ramp +3,638 MW; no trigger; bilateral RT risk; wide uncertainty"},
+    {"he": 20, "direction": "FLAT", "mw": 0, "da_est_low":110, "da_est_high":180, "rt_est_low": 90, "rt_est_high": 250,"spread_est_low":-70, "spread_est_high": 30, "p_win": null, "note": "NL peak 57,400 MW; secondary DEC FAIL (NL 57.4k << 70k; cap-out ~9.1k >> 7k); P(RT>$300) ~4-8%; WATCHLIST bilateral"},
+    {"he": 21, "direction": "FLAT", "mw": 0, "da_est_low": 60, "da_est_high": 95, "rt_est_low": 50, "rt_est_high": 120,"spread_est_low":-25, "spread_est_high": 20, "p_win": null, "note": "Evening step-down; wind 17,172 MW; cond1 FAIL; NL 56,674 MW; SOUTH_HOUSTON NEGLIGIBLE"},
+    {"he": 22, "direction": "FLAT", "mw": 0, "da_est_low": 30, "da_est_high": 55, "rt_est_low": 25, "rt_est_high": 55, "spread_est_low": -5, "spread_est_high": 5,  "p_win": null, "note": "W2N SCI 0.361 MEDIUM; hub-pair LMP absent; OFFPEAK transition"},
+    {"he": 23, "direction": "FLAT", "mw": 0, "da_est_low": 20, "da_est_high": 38, "rt_est_low": 18, "rt_est_high": 38, "spread_est_low": -3, "spread_est_high": 5,  "p_win": null, "note": "W2N SCI 0.382 MEDIUM; hub-pair LMP absent; OFFPEAK; wind 20,842 MW"},
+    {"he": 24, "direction": "FLAT", "mw": 0, "da_est_low": 20, "da_est_high": 38, "rt_est_low": 18, "rt_est_high": 40, "spread_est_low": -3, "spread_est_high": 5,  "p_win": null, "note": "W2N SCI 0.392 MEDIUM; hub-pair LMP absent; OFFPEAK; wind 21,398 MW"}
+  ],
+  "watchlist": [
+    {"he": 10, "signal": "duck-floor DEC borderline", "gap": "NL 35,398 MW (+1,582 MW above MILD trigger of ~33,816 MW); no explicit negative DA price call"},
+    {"he": 20, "signal": "RT spike bilateral risk", "gap": "NL 57,400 MW (12,600 MW below 70k secondary gate); cap-out ~9.1k (2.1k above 7k gate)"},
+    {"he": "01-03", "signal": "W2N overnight congestion basis", "gap": "Hub-pair LMP absent (cycle 106)"},
+    {"he": "22-24", "signal": "W2N late-night congestion basis", "gap": "Hub-pair LMP absent (cycle 106)"}
+  ],
+  "key_structural_data": {
+    "nl_trough_he10_mw": 35398,
+    "nl_peak_he20_mw": 57400,
+    "solar_peak_he13_mw": 27580,
+    "wind_ercot_24h_avg_mw": 13943,
+    "wind_ercot_floor_he13_mw": 5517,
+    "est_grwest_floor_he13_mw": 3034,
+    "load_peak_he17_mw": 80237,
+    "nl_ramp_he18_to_he21_mw": 8746,
+    "da_avg_est_low": 50,
+    "da_avg_est_high": 70,
+    "kdfw_peak_temp_f": 93,
+    "capout_est_low_mw": 8800,
+    "capout_est_high_mw": 9400
+  },
+  "data_quality": {
+    "enverus_stpf": "PRODUCTION",
+    "ag2_weather": "PRODUCTION",
+    "yes_energy_bidclose": "ABSENT (rate throttle)",
+    "smartbidder": "ABSENT (MSAL expired Day 40)",
+    "hub_pair_lmp": "ABSENT (cycle 106)",
+    "tenaska_ptp_settlement": "ABSENT (40+ flowday backlog)",
+    "grwest_estimation": "55% zone ratio applied to Enverus ERCOT total wind; +/-15-20% uncertainty"
+  }
+}

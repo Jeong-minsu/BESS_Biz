@@ -1,22 +1,548 @@
 # Evaluator Improvement Tracker
 
-Last updated: 2026-05-25 (Week 2026-21)
+Last updated: 2026-10-05 (Week 2026-W40)
 
 ---
 
-## Week 2026-21 Plans Registered
+## Week 2026-W40 Plans Registered
 
 | Plan File | Agent | Priority | Status | Description |
 |---|---|---|---|---|
-| `memory/pnl-manager/plans/2026-21-tenaska-whitelist-permanent-fix.md` | pnl-manager | CRITICAL | OPEN — user action required | Permanent Tenaska IP whitelist registration with Ascend |
-| `memory/pnl-manager/plans/2026-21-dart-virtual-isolation.md` | pnl-manager | MAJOR | OPEN | Separate DART virtual P&L from DA_Energy_Amt |
-| `memory/bess-optimizer/plans/2026-21-da-rt-venue-alignment.md` | bess-optimizer | CRITICAL | OPEN — user action required | Confirm DA vs RT venue with Tenaska/Operations |
-| `memory/bess-optimizer/plans/2026-21-structural-as-defaults.md` | bess-optimizer | MAJOR | OPEN — agent to implement | Embed ECRS HE07-10 / RRS HE22-24 / solar trough charge as template defaults |
-| `memory/dart-virtual-trader/plans/2026-21-smartbidder-p-csv-fix.md` | dart-virtual-trader | CRITICAL | OPEN — user action required | Diagnose and fix Smartbidder P(DA>RT) CSV empty response |
-| `memory/dart-virtual-trader/plans/2026-21-hit-rate-tracking-setup.md` | dart-virtual-trader | MAJOR | OPEN — agent to implement | Establish per-cycle hit rate log using Smartbidder DART proxy |
-| `memory/market-analyst/plans/2026-21-as-timing-correction.md` | market-analyst | MAJOR | OPEN — agent to implement | Add empirical ECRS/Non-Spin override to briefing AS section |
-| `memory/congestion-analyst/plans/2026-21-west-binding-calibration.md` | congestion-analyst | MAJOR | OPEN — agent to implement | Cap WEST_TO_NORTH at MEDIUM; add heuristic threshold rule |
-| `memory/reporter/plans/2026-21-language-consistency.md` | reporter | MINOR | OPEN — user decision needed for language policy | Fix section ordering; user to decide language (EN vs KR) |
+| `memory/dart-virtual-trader/plans/2026-W40.md` | dart-virtual-trader | CRITICAL | OPEN — 14th consecutive path miss; Sep 30 in dart-virtual/ (WRONG); Oct 6 in dart-virtual-trader/ (CORRECT); 1/2; consequence clause triggered 8th time; hard-code authorization pending 12 weeks | Achieve 7/7 directory compliance in W41 or enforce consequence clause. October DEC gate model gap. DEGRADED penalty schedule formalization. |
+| `memory/bess-optimizer/plans/2026-W40.md` | bess-optimizer | MAJOR carry-forward | OPEN — Rule 8 unresolved Day 22+; Yes Energy rate-limit fallback protocol needed; directory RESOLVED (downgraded from CRITICAL) | Confirm Rule 8 on Tenaska restoration; document Yes Energy fallback protocol; add October seasonal parameters to standing-rules.md. |
+| `memory/market-analyst/plans/2026-W40.md` | market-analyst | MAJOR | OPEN — AG2/Enverus not called (3rd consecutive miss); BRIEFING_TEMPLATE.md RESOLVED | Call AG2/Enverus on next W41 run day; document October seasonal anchor after first PRODUCTION Yes Energy cycle. |
+| `memory/congestion-analyst/plans/2026-W40.md` | congestion-analyst | CRITICAL | OPEN — stage-0-rules.md absent 11th consecutive week; suspension clause unenforced 5th time | Create stage-0-rules.md immediately (agent-executable). User policy decision required on suspension. |
+| `memory/pnl-manager/plans/2026-W40.md` | pnl-manager | MAJOR carry-forward | OPEN — Tenaska PTP HTTP 401 Day 21+; Smartbidder MSAL expired Day 22+; learnings gap Sep-Oct | Contact Ascend (P0); file backfill priority list in data-quality.md; file infrastructure learnings entry. |
+| `memory/reporter/plans/2026-W40.md` | reporter | CRITICAL (new) | OPEN — W40 weekly report not filed; canonical-paths.md absent 10th week; Cycle Health missing | File W40 weekly report today; create canonical-paths.md immediately; add Cycle Health section to all W41 reports. |
+| `memory/crr-trader/plans/2026-W40.md` | crr-trader | MONITORING | OPEN — inactive; infrastructure readiness checklist filed | All 4 primary dependencies degraded. Pre-auction readiness checklist documented. |
+
+---
+
+## Week 2026-W40 W39 Plan Compliance Update
+
+| Plan | Agent | W39 Deadline | W40 Status |
+|---|---|---|---|
+| `2026-W39-directory-thirteenth-suspension-final.md` — dir compliance | dart-virtual-trader | 7/7 dir | **PARTIALLY IMPROVED — 1/2 correct (Oct 6 correct; Sep 30 dart-virtual/ WRONG). 14th consecutive miss. Consequence clause triggered 8th time.** |
+| `2026-W39-directory-critical-regression.md` — dir compliance | bess-optimizer | 7/7 dir | **RESOLVED — 2/2 correct (bess-optimizer/ both Sep 30 and Oct 6). Critical downgraded to monitoring.** |
+| `2026-W39-briefing-template-ninth-miss.md` — BRIEFING_TEMPLATE.md | market-analyst | Persist through W40 | **RESOLVED — BRIEFING_TEMPLATE.md created Sep 28 (W40 Day 1) and persisted through W40. 9-week streak confirmed broken.** |
+| `2026-W39-stage0rules-tenth-miss.md` — stage-0-rules.md | congestion-analyst | Before W40 Day 1 | **FAILED — stage-0-rules.md absent 11th consecutive week. Suspension clause unenforced 5th time.** |
+| `2026-W39-canonical-paths-ninth-miss.md` — canonical-paths.md | reporter | W40 all days | **FAILED — canonical-paths.md absent 10th consecutive week.** |
+
+**Resolved**: 2 (bess-optimizer dir CRITICAL, market-analyst BRIEFING_TEMPLATE) | **Partially improved**: 1 (dart-virtual-trader 0/2→1/2) | **Failed**: 2 (congestion-analyst stage-0-rules, reporter canonical-paths)
+
+---
+
+## Week 2026-W39 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-W39-directory-thirteenth-suspension-final.md` | dart-virtual-trader | CRITICAL | OPEN — regression to 0/2 correct (including Monday); 13th consecutive CRITICAL; consequence clause triggered 6th time; agent definition hard-code authorization pending W32 (11 weeks); evaluator recommends suspension with no further deferral | dart-position/ Sep 21 (Mon) AND Sep 26 (Sat); even Monday regressed from W38; 0/2 correct on run days |
+| `memory/bess-optimizer/plans/2026-W39-directory-critical-regression.md` | bess-optimizer | CRITICAL (escalated from Major) | OPEN — regression to 0/2 correct (bess-stack/ Sep 21 Mon AND Sep 26 Sat); DEGRADED conditions now displace path on all sessions; user authorization for agent definition hard-code requested | 0/2 correct; W38 had 4/7 correct (Mon-Thu); full regression; elevation to CRITICAL justified by regression trend |
+| `memory/market-analyst/plans/2026-W39-briefing-template-ninth-miss.md` | market-analyst | CRITICAL → PARTIALLY RESOLVED | PARTIALLY RESOLVED post-period — BRIEFING_TEMPLATE.md absent during W39 (Sep 21-27); created Sep 28 (W40 Day 1) per `2026-W39-briefing-template-resolved.md`. 9-week streak broken. W40: verify file persists; agent definition hard-code decision still pending. | Sep 26 briefing: action 1 (Duck curve check) + action 2 (HE18 row) first implemented; action 3 (AG2/Enverus) still missing; BRIEFING_TEMPLATE.md created Sep 28 |
+| `memory/congestion-analyst/plans/2026-W39-stage0rules-tenth-miss.md` | congestion-analyst | CRITICAL | OPEN — stage-0-rules.md absent 10th consecutive week; suspension clause unenforced 4th time; agent-executable task with no user dependency | stage-progress.md in plans/ (not root); Sep 24 learning high quality; 2/2 correct dir on run days |
+| `memory/reporter/plans/2026-W39-canonical-paths-ninth-miss.md` | reporter | MAJOR | OPEN — canonical-paths.md absent 9th week; template-issues.md created but EMPTY (hollow compliance); Cycle Health section absent; Sep 25 report quality significantly improved | Sep 25 report: SYSTEM STATUS table, ACTION ITEMS table, cross-agent consistency table — best structural format to date; canonical-paths.md still absent |
+
+---
+
+## Week 2026-W39 W38 Plan Compliance Update
+
+| Plan | Agent | W38 Deadline | W39 Status |
+|---|---|---|---|
+| `2026-W38-directory-twelfth-consequence-clause.md` — dir compliance | dart-virtual-trader | 7/7 dir | **FAILED — REGRESSION. W38 4/7 (Mon-Thu correct). W39 0/2 (dart-position/ Sep 21 Mon AND Sep 26 Sat). Even Monday regressed. 13th consecutive CRITICAL. Consequence clause triggered 6th time.** |
+| `2026-W38-bess-stack-weekend-persistence.md` — dir compliance | bess-optimizer | 7/7 dir | **FAILED — REGRESSION. W38 4/7 (Mon-Thu correct). W39 0/2 (bess-stack/ Sep 21 Mon AND Sep 26 Sat). Full regression. Elevated to CRITICAL.** |
+| `2026-W38-briefing-template-eighth-miss.md` — BRIEFING_TEMPLATE.md | market-analyst | Before W39 Day 1 | **FAILED during W39 period (Sep 21-27) — 9th consecutive miss. PARTIALLY RESOLVED post-period: file created Sep 28 (W40 Day 1). Streak broken effective W40. Positive: Sep 26 briefing quality improved (actions 1+2 implemented).** |
+| `2026-W38-stage0rules-ninth-miss.md` — stage-0-rules.md | congestion-analyst | Before W39 Day 1 | **FAILED — stage-0-rules.md still absent (10th consecutive miss). Suspension clause unenforced 4th time.** |
+| `2026-W38-canonical-paths-eighth-miss.md` — reporter canonical-paths + Cycle Health | reporter | W39 all days; canonical-paths.md before W39 Day 1 | **FAILED — canonical-paths.md absent (9th miss). template-issues.md created but EMPTY. Cycle Health section absent. Positive: Sep 25 report structure significantly improved.** |
+
+**Resolved**: 0 | **Partially resolved (post-period)**: 1 (market-analyst BRIEFING_TEMPLATE created Sep 28) | **Failed during W39 period**: 5 | **Failed with regression**: 2 (dart-virtual-trader, bess-optimizer)
+
+---
+
+## Week 2026-W38 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-W38-directory-twelfth-consequence-clause.md` | dart-virtual-trader | CRITICAL | OPEN — consequence clause triggered; user authorization for hard-code still pending (12th week); 4/7 dir (improvement from W37's 1/7); Mon-Thu correct; Fri-Sun wrong (dart/ Sep 18, dart-position/ Sep 19-20); consequence clause: suspend DART section from Daily Report until hard-code authorized or 7/7 achieved | dart-virtual-trader/ 4/7; dart/ 1/7 (Sep 18); dart-position/ 2/7 (Sep 19-20) |
+| `memory/market-analyst/plans/2026-W38-briefing-template-eighth-miss.md` | market-analyst | CRITICAL | OPEN — agent to create BRIEFING_TEMPLATE.md immediately (NEXT session); user authorization for agent definition hard-code confirmed recommended after 8 misses | 7/7 dir ✓; 5/7 learnings (Sep 16,20 absent — DEGRADED cascade); BRIEFING_TEMPLATE.md absent 8th week |
+| `memory/congestion-analyst/plans/2026-W38-stage0rules-ninth-miss.md` | congestion-analyst | CRITICAL | OPEN — agent to create stage-0-rules.md immediately; user to confirm suspension clause (triggered W36, unenforced 3 cycles W36-W38) | 7/7 dir ✓; 6/7 learnings; stage-0-rules.md absent 9th week; hub-pair LMP absent ~122 cycles (Stage 1 blocked) |
+| `memory/bess-optimizer/plans/2026-W38-bess-stack-weekend-persistence.md` | bess-optimizer | MAJOR | OPEN — agent to apply path anchor on DEGRADED/weekend sessions; same root cause as dart-virtual-trader Pattern 21 variant | 4/7 dir (same as W37; bess-stack/ Sep 18-20); no missing-output days (improvement: no Sep 13-type gap) |
+| `memory/reporter/plans/2026-W38-canonical-paths-eighth-miss.md` | reporter | MAJOR | OPEN — agent to create canonical-paths.md immediately; add Cycle Health section all W39 reports | 7/7 dir ✓; canonical-paths.md absent 8th week; Cycle Health section absent 8th week; W38 wrong-dir failures by dart-virtual-trader and bess-optimizer not surfaced to user |
+
+---
+
+## Week 2026-W38 W37 Plan Compliance Update
+
+| Plan | Agent | W37 Deadline | W38 Status |
+|---|---|---|---|
+| `2026-W37-directory-eleventh-critical.md` — dir compliance | dart-virtual-trader | 7/7 dir; user authorization hard-code | **PARTIALLY IMPROVED — 4/7 correct (dart-virtual-trader/ Sep 14-17). dart/ Sep 18 (1 instance); dart-position/ Sep 19-20 (2 instances). Still < 7/7; consequence clause triggered per W37 registered plan.** |
+| `2026-W37-bess-stack-persistence-plus-rt-imbalance.md` — dir + RT imbalance | bess-optimizer | 7/7 dir; RT offset tracking | **FAILED — 4/7 correct (same as W37). bess-stack/ 3 instances (Sep 18-20). No missing-output day (improvement). RT benchmark still unavailable (Smartbidder DEGRADED).** |
+| `2026-W37-briefing-template-seventh-miss.md` — BRIEFING_TEMPLATE.md | market-analyst | Before W38 Day 1 | **FAILED — BRIEFING_TEMPLATE.md still absent (8th consecutive miss). 7/7 dir maintained.** |
+| `2026-W37-stage0rules-eighth-miss.md` — stage-0-rules.md | congestion-analyst | Before W38 Day 1 | **FAILED — stage-0-rules.md still absent (9th consecutive miss). 7/7 dir maintained. 6/7 learnings (improvement from W37's 5/7).** |
+| `2026-W37-canonical-paths-seventh-miss.md` — reporter canonical-paths + Cycle Health | reporter | W38 all 7 days; canonical-paths.md before W38 Day 1 | **FAILED — both canonical-paths.md and Cycle Health section absent (8th consecutive miss). 7/7 dir and coverage maintained.** |
+
+**Resolved**: 0 | **Partially improved**: 1 (dart-virtual-trader 1/7→4/7) | **Failed**: 4
+
+---
+
+## Week 2026-W37 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-W37-directory-eleventh-critical.md` | dart-virtual-trader | CRITICAL | OPEN — user authorization for agent definition hard-code still pending (11th consecutive non-compliant week); dart-virtual/ is NEW third wrong-dir variant (regression); dart/ variant dominant (4 instances) | 1/7 dir; new dart-virtual/ variant Sep 11-12; dart/ Sep 7,8,10,13; consequence clause W38: suspend DART section from Daily Report if < 7/7 |
+| `memory/market-analyst/plans/2026-W37-briefing-template-seventh-miss.md` | market-analyst | CRITICAL | OPEN — agent to create BRIEFING_TEMPLATE.md immediately; user authorization for agent definition hard-code now recommended (7th consecutive miss, exceeds escalation threshold) | 7/7 dir ✓; 5/7 learnings (Sep 8,12 absent — DEGRADED cascade); BRIEFING_TEMPLATE.md absent 7th week |
+| `memory/congestion-analyst/plans/2026-W37-stage0rules-eighth-miss.md` | congestion-analyst | CRITICAL | OPEN — agent to create stage-0-rules.md immediately; user to confirm suspension clause (triggered W36, unenforced W36-W37) | 7/7 dir ✓; 5/7 learnings (Sep 8,12 absent — DEGRADED cascade); stage-0-rules.md absent 8th week; hub-pair LMP absent ~113 cycles (Stage 1 blocked) |
+| `memory/bess-optimizer/plans/2026-W37-bess-stack-persistence-plus-rt-imbalance.md` | bess-optimizer | MAJOR | OPEN — agent to apply path anchor at session start; Sep 13 missing recovery; RT-offset ratio tracking when Smartbidder resumes | 4/7 dir (bess-stack/ Sep 7-8; Sep 13 missing); DA charge W36 Critical PARTIALLY RESOLVED (charge moved HE03-10; DA energy confirmed clearing); AS+Energy overlap rule applied; RT offset ratio 89% Sep 8 (benchmark unavailable) |
+| `memory/reporter/plans/2026-W37-canonical-paths-seventh-miss.md` | reporter | MAJOR | OPEN — agent to create canonical-paths.md immediately; add Cycle Health section to all W38 daily reports | 7/7 dir ✓; 7/7 history ✓; canonical-paths.md absent 7th week; Cycle Health section absent 7th week; user-facing transparency issue (directory failures invisible in daily reports) |
+
+---
+
+## Week 2026-W37 W36 Plan Compliance Update
+
+| Plan | Agent | W36 Deadline | W37 Status |
+|---|---|---|---|
+| `2026-W36-directory-tenth-critical.md` — dir compliance | dart-virtual-trader | ≥7/7 dir; user authorization hard-code | **FAILED — 1/7 (REGRESSION: new dart-virtual/ 3rd wrong-dir variant; dart/ dominant 4 instances); user authorization still not received** |
+| `2026-W36-da-charge-failure-critical.md` — DA charge + AS overlap | bess-optimizer | DA charge bid fix; AS+Energy gate; 7/7 dir | **PARTIALLY RESOLVED — DA charge moved HE03-10 (no longer HE10-11); Sep 8 PRODUCTION confirms DA energy $15,774 cleared; AS+Energy overlap rule applied in W37. bess-stack/ persists Sep 7-8; Sep 13 output MISSING. Dir = 4/7 (same as W36, no directory improvement)** |
+| `2026-W36-learnings-fourth-near-zero.md` — pnl-manager history | pnl-manager | ≥5/7 learnings; PRODUCTION days same-day | **SUBSTANTIALLY RESOLVED — 6/7 history (up from 1/7 in W36); Sep 11 only miss (DEGRADED cascade). Near-closed.** |
+| `2026-W36-briefing-template-sixth-miss.md` — BRIEFING_TEMPLATE.md | market-analyst | Before W37 Day 1 | **FAILED — BRIEFING_TEMPLATE.md still absent (7th consecutive miss). 7/7 dir maintained.** |
+| `2026-W36-stage0rules-seventh-miss.md` — stage-0-rules.md | congestion-analyst | Before W37 Day 1 | **FAILED — stage-0-rules.md still absent (8th consecutive miss). 7/7 dir maintained.** |
+| `2026-W36-path-verification-sixth-miss.md` — reporter canonical-paths + Cycle Health | reporter | W37 all 7 days; canonical-paths.md before W37 Day 1 | **FAILED — both canonical-paths.md and Cycle Health section absent (7th consecutive miss). 7/7 dir and 7/7 history maintained.** |
+
+**Resolved**: 0 | **Substantially resolved**: 1 (pnl-manager 1/7→6/7 history) | **Partially resolved**: 1 (bess-optimizer DA charge) | **Failed**: 4 | **User authorization pending**: 1 (dart-virtual-trader hard-code)
+
+---
+
+## Week 2026-W36 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-W36-directory-tenth-critical.md` | dart-virtual-trader | CRITICAL | OPEN — user authorization for agent definition hard-code still pending (10th consecutive non-compliant week); dart/ variant now dominant (5/7) | 1/7 dir (REGRESSION from 2/7); 5/7 learnings (regression from 7/7); dart/ 5 instances + dart-position/ 1 instance |
+| `memory/bess-optimizer/plans/2026-W36-da-charge-failure-critical.md` | bess-optimizer | CRITICAL | OPEN — user to escalate to Tenaska ops team for DA charge bid audit; agent to implement Energy+AS 100MW gate immediately | 4/7 dir (same as W35, no improvement); DA charge bid failure 7th+ cycle (-$15,668 Sep 2); AS+Energy overlap 3rd cycle (-$2,227 Sep 2); Sep 6 output missing; OUTPUT_DIRECTORY.md absent 6th week |
+| `memory/pnl-manager/plans/2026-W36-learnings-fourth-near-zero.md` | pnl-manager | CRITICAL | OPEN — agent to file learnings on all PRODUCTION days in W37; Aug 31 and Sep 2 learnings absent despite PRODUCTION data available | 1/7 learnings (4th consecutive 0-1/7); PRODUCTION 3 days (Aug 31, Sep 1, Sep 2) but only Sep 1 filed |
+| `memory/market-analyst/plans/2026-W36-briefing-template-sixth-miss.md` | market-analyst | CRITICAL | OPEN — agent to create BRIEFING_TEMPLATE.md before W37 Day 1; 7/7 dir achieved (positive) | 7/7 dir FIRST EVER; 5/7 learnings; BRIEFING_TEMPLATE.md absent 6th consecutive week |
+| `memory/congestion-analyst/plans/2026-W36-stage0rules-seventh-miss.md` | congestion-analyst | CRITICAL | OPEN — user to confirm or override suspension clause (7th consecutive miss); agent to create stage-0-rules.md immediately | 7/7 dir; 5/7 learnings; stage-0-rules.md absent 7th consecutive week; analytical quality A- |
+| `memory/reporter/plans/2026-W36-path-verification-sixth-miss.md` | reporter | MAJOR | OPEN — agent to implement Path Verification section W37 all 7 days; create canonical-paths.md before W37 Day 1 | 7/7 reports; [WRONG DIR] tags absent; sep 4: bess-stack/ and dart-position/ wrong citations unflagged; canonical-paths.md absent |
+| `memory/crr-trader/plans/2026-W36-inactive.md` | crr-trader | N/A | OPEN — inactive; pre-activation checklist review | No auction cycle W36 |
+
+---
+
+## Week 2026-W36 W35 Plan Compliance Update
+
+| Plan | Agent | W35 Deadline | W36 Status |
+|---|---|---|---|
+| `2026-W35.md` — dir compliance | dart-virtual-trader | ≥3/7 dir; user authorization hard-code | **FAILED — 1/7 (REGRESSION from 2/7; dart/ variant now dominant 5 instances)** |
+| `2026-W35.md` — stage-0-rules.md | congestion-analyst | stage-0-rules.md before W36 Day 1 | **FAILED — stage-0-rules.md still absent (7th consecutive miss)** |
+| `2026-W35.md` — Path Verification section | reporter | 7/7 Path Verification; canonical-paths.md | **FAILED — section not implemented (6th consecutive miss); canonical-paths.md not created** |
+| `2026-W35.md` — dir improvement past 4/7; OUTPUT_DIRECTORY.md | bess-optimizer | 5/7; OUTPUT_DIRECTORY.md | **FAILED — 4/7 unchanged; OUTPUT_DIRECTORY.md absent 6th week; Sep 6 output missing** |
+| `2026-W35.md` — BRIEFING_TEMPLATE.md | market-analyst | Before W36 Day 1 | **FAILED — BRIEFING_TEMPLATE.md absent (6th consecutive miss)** |
+| `2026-W35.md` — 5/7 learnings | pnl-manager | ≥5/7; PRODUCTION days same-day | **MINIMAL — 1/7 (0→1; PRODUCTION Aug 31 and Sep 2 unfiled)** |
+
+**Resolved**: 0 | **Minimal improvement**: 1 (pnl-manager 0→1) | **Failed**: 5 | **User pending (open)**: 2 (Smartbidder, Tenaska endpoint)
+
+---
+
+## Week 2026-W35 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-W35.md` | dart-virtual-trader | CRITICAL | OPEN — user authorization for agent definition hard-code still pending (9th consecutive non-compliant week) | 2/7 dir (29%); 7/7 learnings first-ever; new dart/ variant W35; T+2 queue 10+ positions |
+| `memory/congestion-analyst/plans/2026-W35.md` | congestion-analyst | CRITICAL | OPEN — user to confirm or override suspension clause (W34 suspension not implemented; stage-0-rules.md 6th consecutive miss) | 7/7 dir; 5/7 learnings; analytical quality high |
+| `memory/pnl-manager/plans/2026-W35.md` | pnl-manager | CRITICAL | OPEN — agent to file minimum 5/7 learnings in W36; Tenaska PRODUCTION data already available Aug 27-28 | 0/7 learnings 3rd consecutive zero; 7/7 reports |
+| `memory/market-analyst/plans/2026-W35.md` | market-analyst | CRITICAL | OPEN — agent to create BRIEFING_TEMPLATE.md before W36 Day 1; fix Aug 27 path regression | 6/7 dir (Aug 27 opath); 5/7 learnings; BRIEFING_TEMPLATE absent 5th consecutive week |
+| `memory/bess-optimizer/plans/2026-W35.md` | bess-optimizer | CRITICAL | OPEN — agent to create OUTPUT_DIRECTORY.md immediately; user to consider agent definition hard-code | 4/7 dir (57% improved); Day 8 P40 -67% calibration error (self-corrected Day 10); OUTPUT_DIRECTORY absent 5th week |
+| `memory/reporter/plans/2026-W35.md` | reporter | MAJOR | OPEN — agent to implement Path Verification section W36 all 7 days; create canonical-paths.md | 7/7 reports; data status tables added; path verification 5th consecutive miss |
+| `memory/crr-trader/plans/2026-W35.md` | crr-trader | N/A | OPEN — inactive; pre-activation checklist review | No auction cycle W35 |
+
+---
+
+## Week 2026-W35 W34 Plan Compliance Update
+
+| Plan | Agent | W34 Deadline | W35 Status |
+|---|---|---|---|
+| `2026-34-directory-eighth-critical.md` | dart-virtual-trader | 7/7 dir; user authorization hard-code | **PARTIAL FAIL** — 2/7 (0%→29%; improvement but target missed; user authorization still not received) |
+| `2026-34-stage0rules-suspension.md` | congestion-analyst | stage-0-rules.md created; suspension if W35 missed | **FAILED** — stage-0-rules.md still absent (6th miss); W35 suspension not implemented; user override not confirmed |
+| `2026-34-path-verification-fourth-critical.md` | reporter | Path Verification section in all 7 W35 reports | **FAILED** — section not implemented; data status tables added (partial improvement) |
+| `2026-34-directory-critical-regression.md` | bess-optimizer | 7/7 dir; OUTPUT_DIRECTORY.md creation | **PARTIAL FAIL** — 4/7 (14%→57% meaningful improvement); OUTPUT_DIRECTORY.md absent 5th week |
+| `2026-34-briefing-template-critical.md` | market-analyst | BRIEFING_TEMPLATE.md before W35 Day 1 | **FAILED** — BRIEFING_TEMPLATE.md absent (5th consecutive miss) |
+| `2026-34-learnings-zero.md` | pnl-manager | 7/7 learnings in W35 | **FAILED** — 0/7 learnings (3rd consecutive zero; Tenaska PRODUCTION Aug 27-28 available but unused) |
+
+**Resolved**: 0 | **Partial improvement**: 2 (dart 0→29%; bess-optimizer 14→57%) | **Failed**: 4 | **User pending (open)**: 2 (Smartbidder, Tenaska endpoint)
+
+---
+
+## Week 2026-34 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-34-directory-eighth-critical.md` | dart-virtual-trader | CRITICAL | OPEN — user authorization for agent definition hard-code still pending; W35 consequence clause: reporter exclusion if not resolved | 8th consecutive Critical; 0/7 (0%) compliance — worst on record; new dart-position/ variant (5th distinct wrong dir); user authorization unreceived since W32 request |
+| `memory/congestion-analyst/plans/2026-34-stage0rules-suspension.md` | congestion-analyst | CRITICAL | OPEN — user to confirm or override suspension consequence clause (suppress congestion section from Daily Report until file created) | 5th consecutive deadline missed; W33 suspension consequence clause triggered; file content available in learnings but never consolidated |
+| `memory/reporter/plans/2026-34-path-verification-fourth-critical.md` | reporter | CRITICAL | OPEN — agent to implement "Cycle Health — Path Verification" section in all W35 reports | 4th consecutive Critical miss; reporter propagating wrong paths (dart/..., bess-stack/...) without flag; Aug 17 Monday gap also noted |
+| `memory/bess-optimizer/plans/2026-34-directory-critical-regression.md` | bess-optimizer | CRITICAL | OPEN — agent to create OUTPUT_DIRECTORY.md immediately; user to consider agent definition update | Escalated from Major; 1/7 (14%) — regression from 5/7 W33 streak; bess-strategy/ new variant introduced; OUTPUT_DIRECTORY.md absent 4th consecutive miss |
+| `memory/market-analyst/plans/2026-34-briefing-template-critical.md` | market-analyst | CRITICAL | OPEN — agent to create BRIEFING_TEMPLATE.md before W35 Day 1 (2026-08-25 07:30 CT) | W33 escalation clause triggered (4th consecutive miss); analytical quality strong but template procedural compliance failure persists |
+| `memory/pnl-manager/plans/2026-34-learnings-zero.md` | pnl-manager | MAJOR | OPEN — agent to file minimum 5/7 learnings in W35 | 0/7 learnings in W34 — regression from 1/7 in W33; Tenaska PRODUCTION Aug 20-23 available but no learnings filed |
+| `memory/crr-trader/plans/2026-34-inactive.md` | crr-trader | MINOR/N/A | OPEN — no action required; next-activation checklist registered | Inactive; no auction cycle in W34 |
+
+---
+
+## Week 2026-W33 W34 Plan Compliance Update
+
+| Plan | Agent | W33 Deadline | W34 Status |
+|---|---|---|---|
+| `2026-33-directory-seventh-critical.md` | dart-virtual-trader | W34 7/7; user authorization for hard-code | **FAILED — 0/7 (0%); dart-position/ new variant (5th distinct); user authorization still not received; new Critical plan registered** |
+| `2026-33-stage0rules-fourth-miss.md` | congestion-analyst | Create stage-0-rules.md before next daily cycle | **FAILED — file still absent (5th consecutive miss); suspension consequence clause triggered; new Critical plan registered** |
+| `2026-33-path-verification-critical.md` | reporter | Implement path verification in all 7 W34 reports | **FAILED — section not implemented; wrong paths cited without flag; new Critical plan registered** |
+| `2026-33-directory-regression.md` | bess-optimizer | 7/7 correct directory; create OUTPUT_DIRECTORY.md | **FAILED — 1/7 (14%); bess-strategy/ new variant; OUTPUT_DIRECTORY.md absent 4th week; escalated to Critical** |
+| `2026-33-briefing-template-third-miss.md` | market-analyst | Create BRIEFING_TEMPLATE.md; escalate to Critical if W34 missed | **FAILED — BRIEFING_TEMPLATE.md not created (4th miss); escalation clause triggered; new Critical plan registered** |
+| `2026-33-learnings-gap.md` | pnl-manager | 7/7 learnings in W34 | **FAILED — 0/7 learnings in W34 (regression from 1/7); new Major plan registered** |
+
+**Resolved in W34**: 0 | **Partial improvement**: 0 | **Failed / Escalated**: 6 | **User pending (open)**: 2 (Smartbidder, Tenaska endpoint cache)
+
+---
+
+## Week 2026-33 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-33-directory-seventh-critical.md` | dart-virtual-trader | CRITICAL | OPEN — user authorization for agent definition hard-code still pending (requested since W32) | 7th consecutive Critical; 4/7 (57%) compliance; 4 distinct wrong-path variants W33; duplicate file on Aug 13; user authorization still not received |
+| `memory/congestion-analyst/plans/2026-33-stage0rules-fourth-miss.md` | congestion-analyst | CRITICAL | OPEN — agent to create stage-0-rules.md before next daily cycle (4th consecutive deadline missed) | 4th consecutive missed deadline (W29-W33 chain); hard deadline Aug 11 missed; consequence clause: recommend suspending daily output if W34 also missed |
+| `memory/reporter/plans/2026-33-path-verification-critical.md` | reporter | CRITICAL | OPEN — agent to implement formal "Cycle Health — Path Verification" section in all 7 W34 reports | Escalated from Major per W32 plan clause; 4th consecutive miss; partial improvement (full path now cited); [WRONG DIR] flag still absent |
+| `memory/bess-optimizer/plans/2026-33-directory-regression.md` | bess-optimizer | MAJOR | OPEN — agent to create OUTPUT_DIRECTORY.md immediately; 3rd consecutive miss of this specific file | New bess-schedule/ variant Aug 10-11; 5 consecutive correct Aug 12-16; OUTPUT_DIRECTORY.md absent 3rd consecutive week; 5/7 = 71% |
+| `memory/market-analyst/plans/2026-33-briefing-template-third-miss.md` | market-analyst | MAJOR | OPEN — agent to create BRIEFING_TEMPLATE.md before next cycle; escalation to Critical if W34 missed | 3rd consecutive miss; content quality excellent (7/7 briefings, strong analysis); template consolidation only |
+| `memory/pnl-manager/plans/2026-33-learnings-gap.md` | pnl-manager | MAJOR | OPEN — agent to file 7/7 learnings in W34 | 1/7 learnings filed in W33 (14%); significant decline; Smartbidder DEGRADED Day 16-23 does not excuse absence |
+
+---
+
+## Week 2026-W32 W33 Plan Compliance Update
+
+| Plan | Agent | W32 Deadline | W33 Status |
+|---|---|---|---|
+| `2026-W32-directory-sixth-critical.md` | dart-virtual-trader | W33 7/7; user authorization for hard-code | **FAILED — 4/7 (57%); duplicate file added Aug 13; 3 new wrong-path variants; user authorization still not received; new W33 Critical plan registered** |
+| `2026-W32-stage0rules-critical-escalation.md` | congestion-analyst | 2026-08-11 (hard deadline) | **FAILED — hard deadline Aug 11 missed; 4th consecutive deadline missed; new W33 Critical plan registered with suspension consequence clause** |
+| `2026-W32-directory-monitoring.md` | bess-optimizer | W33 7/7 correct; OUTPUT_DIRECTORY.md creation | **PARTIALLY RESOLVED — 5/7 (71%); 5 consecutive correct Aug 12-16; new bess-schedule/ variant Aug 10-11; OUTPUT_DIRECTORY.md still not created; new W33 Major plan registered** |
+| `2026-W32-briefing-template-second-miss.md` | market-analyst | W33 briefings; BRIEFING_TEMPLATE.md creation | **FAILED — BRIEFING_TEMPLATE.md not created (3rd consecutive miss); briefing quality and 7/7 learnings excellent; template procedural step still absent; new W33 Major plan registered** |
+| `2026-W32-path-verification-major-escalation.md` | reporter | W33 7/7 with path verification section | **FAILED (ESCALATED TO CRITICAL) — partial improvement (full paths now cited including wrong ones) but no [WRONG DIR] flag and no formal verification section; new W33 Critical plan registered** |
+| `2026-W32-self-review-gap.md` | market-analyst (cross-agent) | W33 7/7 learnings all 4 front/middle agents | **PARTIALLY RESOLVED — market-analyst 7/7 learnings; congestion-analyst 7/7 (up from 4/7); bess-optimizer 6/7 (Aug 16 absent); dart-virtual-trader 7/7 learnings (improvement); pnl-manager 1/7 (regression to Major gap); cross-agent compliance improved but pnl-manager regression notable** |
+| `2026-W32-saturday-collection-gap.md` | pnl-manager | User policy confirm | **STILL OPEN — user policy not confirmed; Aug 14-15 Tenaska FULLY DEGRADED (cloud IP failure); Aug 16 PRODUCTION; structural policy gap continues** |
+
+**Resolved in W33**: 0 | **Partial improvement**: 2 (bess-optimizer dir 83%→71% with 5-day correct streak; cross-agent learnings improved) | **Failed / Escalated**: 4 | **User pending (open)**: 1
+
+---
+
+## Week 2026-W32 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-W32-directory-sixth-critical.md` | dart-virtual-trader | CRITICAL | OPEN — user authorization for agent definition hard-code formally triggered (W32 = 2/6, below 5/7 threshold) | 6th consecutive Critical; 33% compliance; 4 distinct wrong-path variants in W32 alone; W31 trigger condition met |
+| `memory/congestion-analyst/plans/2026-W32-stage0rules-critical-escalation.md` | congestion-analyst | CRITICAL | OPEN — agent to write stage-0-rules.md by 2026-08-11 (next business day; hard deadline) | Hard deadline Aug 8 missed; content available in learnings files; consolidation task only; escalated from Major per W31 plan terms |
+| `memory/bess-optimizer/plans/2026-W32-directory-monitoring.md` | bess-optimizer | MAJOR | OPEN — agent to create OUTPUT_DIRECTORY.md and read at session start | 5/6 correct (83%, improvement); Aug 7 root-dir violation (same pattern as W31 Aug 1); OUTPUT_DIRECTORY.md not yet created |
+| `memory/market-analyst/plans/2026-W32-briefing-template-second-miss.md` | market-analyst | MAJOR | OPEN — agent to create BRIEFING_TEMPLATE.md with 4 mandatory sections | 3rd consecutive week wind protocol formalization deferred; analytical quality improved but procedural template absent |
+| `memory/reporter/plans/2026-W32-path-verification-major-escalation.md` | reporter | MAJOR | OPEN — agent to implement path verification section in all W33 daily reports | 3rd consecutive miss; escalated from Minor per W31 escalation warning; Aug 7 report propagated bess-optimizer wrong path without flag |
+| `memory/market-analyst/plans/2026-W32-self-review-gap.md` | market-analyst (cross-agent applies to all 4 front/middle) | MAJOR | OPEN — all 4 agents to file learnings every operational day including DEGRADED-condition days | Aug 6 and Aug 7 learnings absent for all 4 front/middle agents; Aug 7 report used 2-day-old learnings; DEGRADED-condition filing required |
+| `memory/pnl-manager/plans/2026-W32-saturday-collection-gap.md` | pnl-manager | MINOR | OPEN — user policy decision required: confirm whether weekend P&L catch-up run is in scope | pnl/2026-08-06.md missing; Friday flowday T+2 collection falls Saturday when cycle not running; structural policy gap |
+
+---
+
+## Week 2026-W31 W32 Plan Compliance Update
+
+| Plan | Agent | W31 Deadline | W32 Status |
+|---|---|---|---|
+| `2026-W31-directory-persistence.md` | dart-virtual-trader | W32 ≥ 5/7 | **FAILED — 2/6 (33%); trigger condition met; user authorization for agent definition hard-code formally triggered; new W32 plan registered** |
+| `2026-W31-directory-regression.md` | bess-optimizer | W32 daily compliance; OUTPUT_DIRECTORY.md | **PARTIALLY RESOLVED — 5/6 (83%), up from 43%; Aug 7 violation (same root-dir pattern); OUTPUT_DIRECTORY.md still not created; new W32 plan registered** |
+| `2026-W31-stage0rules-final-deadline.md` | congestion-analyst | 2026-08-08 (hard deadline) | **FAILED — hard deadline Aug 8 missed; file absent; escalated to Critical; new W32 Critical plan registered with 2026-08-11 hard deadline** |
+| `2026-W31-wind-protocol-embed.md` | market-analyst | W32 briefings; BRIEFING_TEMPLATE.md creation | **FAILED — BRIEFING_TEMPLATE.md not created (2nd consecutive miss); analytical quality improved but template procedural step absent; new W32 plan registered** |
+| `2026-W31-tenaska-endpoint-cache.md` | pnl-manager | User action | **STILL OPEN — user action pending; Aug 9 Tenaska FAILED again citing same root causes; no new plan (original plan remains active)** |
+| `2026-W31-path-verification-final.md` | reporter | W32 daily reports | **FAILED — not implemented (3rd consecutive miss); escalated from Minor to Major per W31 escalation warning; new W32 plan registered** |
+
+**Resolved in W32**: 0 | **Partial improvement**: 1 (bess-optimizer dir 43% → 83%) | **Failed**: 4 | **User pending (open)**: 1
+
+---
+
+## Week 2026-W31 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-W31-directory-persistence.md` | dart-virtual-trader | CRITICAL | FAILED — 2/6 (33%) in W32; trigger condition met; user authorization for agent definition hard-code triggered; superseded by 2026-W32-directory-sixth-critical.md | 2/7 (29%) compliance; 5th consecutive Critical; new dart-trader/ variant (4th distinct wrong dir); directory proliferation continues |
+| `memory/bess-optimizer/plans/2026-W31-directory-regression.md` | bess-optimizer | CRITICAL | PARTIALLY RESOLVED — 5/6 (83%) in W32, up from 43%; Aug 7 violation; OUTPUT_DIRECTORY.md still absent; superseded by 2026-W32-directory-monitoring.md | 3/7 (43%) compliance; REGRESSION from 4/7 W30; bess-stack/ ban violated 3 days; NEW: root dir + wrong filename Aug 1 |
+| `memory/congestion-analyst/plans/2026-W31-stage0rules-final-deadline.md` | congestion-analyst | MAJOR | FAILED — hard deadline Aug 8 missed; escalated to Critical; superseded by 2026-W32-stage0rules-critical-escalation.md | stage-0-rules.md absent 13 days past W30 deadline (Jul 21); content available in learnings/2026-07-31.md |
+| `memory/market-analyst/plans/2026-W31-wind-protocol-embed.md` | market-analyst | MAJOR | FAILED — BRIEFING_TEMPLATE.md not created (2nd consecutive miss); superseded by 2026-W32-briefing-template-second-miss.md | Wind protocol in prose only; not embedded as named mandatory template step; W30 plan unfulfilled |
+| `memory/pnl-manager/plans/2026-W31-tenaska-endpoint-cache.md` | pnl-manager | MAJOR | STILL OPEN — user action pending; Aug 9 Tenaska FAILED again; plan remains active | NEW technical root cause: endpoint cache env vars not set; non-interactive cloud env blocks endpoint discovery; 31-day DEGRADED backlog |
+| `memory/reporter/plans/2026-W31-path-verification-final.md` | reporter | MINOR | FAILED — not implemented (3rd consecutive miss); escalated to Major; superseded by 2026-W32-path-verification-major-escalation.md | Path verification not implemented 2nd consecutive week; escalated to Major per W31 warning |
+
+---
+
+## Week 2026-W31 W30 Plan Compliance Update
+
+| Plan | Agent | W30 Deadline | W31 Status |
+|---|---|---|---|
+| dart-virtual-trader directory final escalation | dart-virtual-trader | W31 7/7 | **FAILED — 2/7 (29%); marginal improvement from 14% but below threshold; CRITICAL continues; new wrong-dir variant** |
+| dart-virtual-trader advisory-only-mode | dart-virtual-trader | 2026-07-28 | **RESOLVED — advisory-only-mode.md created 2026-07-28; W30 Critical item closed** |
+| Smartbidder secret expired | pnl-manager (all agents) | User action (2026-07-30) | **STILL OPEN — expired 8+ consecutive days (Jul 25 – Aug 2); user action pending** |
+| bess-optimizer directory escalation | bess-optimizer | W31 7/7 | **REGRESSION — 3/7 (43%); down from 4/7 W30; bess-stack/ ban violated 3x; new root-dir violation; escalated to Critical** |
+| congestion stage-0-rules.md | congestion-analyst | 2026-07-21 (W30 deadline) | **STILL OPEN — 13 days overdue; file absent; new hard deadline 2026-08-08** |
+| market-analyst wind protocol | market-analyst | W31 | **OPEN — not embedded as named template step; W30 plan unfulfilled** |
+| reporter path verification | reporter | W31 | **OPEN — not implemented 2nd consecutive week; Minor escalating to Major threshold if W32 also misses** |
+| pnl-manager Saturday coverage | pnl-manager | User confirm | **INDETERMINATE — Jul 30 P&L report not confirmed present; Jul 30 was DEGRADED (Tenaska FAILED)** |
+
+**RESOLVED**: 1 (dart advisory-only-mode.md) | **REGRESSION**: 1 (bess-optimizer dir) | **STILL OPEN/FAILED**: 5 | **USER PENDING**: 2
+
+---
+
+## Week 2026-W30 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-W30-directory-final-escalation.md` | dart-virtual-trader | CRITICAL | OPEN — agent must read plan at start of every cycle; user authorization for reporter exclusion if W31 < 7/7 | 1/7 (14%) compliance — regression from 33% in W29; 4th consecutive CRITICAL; new dart-position/ variant added |
+| `memory/dart-virtual-trader/plans/2026-W30-advisory-only-escalation.md` | dart-virtual-trader | CRITICAL | OPEN — agent to create advisory-only-mode.md by 2026-07-28; user to authorize reporter exclusion if absent at W31 | advisory-only-mode.md absent 3rd consecutive week; W28/W29/W30 deadlines all missed |
+| `memory/pnl-manager/plans/2026-W30-smartbidder-secret-expired.md` | pnl-manager (+ bess-optimizer, market-analyst, dart-virtual-trader) | CRITICAL | OPEN — user to contact Ascend rep by 2026-07-30; agents to apply no-SB fallback until renewed | Smartbidder MSAL client_secret expired 2026-07-25 (AADSTS7000222); 2nd consecutive failure day 2026-07-26 |
+| `memory/bess-optimizer/plans/2026-W30-directory-escalation.md` | bess-optimizer | MAJOR | OPEN — agent to read plan at session start; 7/7 compliance required W31 | 4/7 (57%) compliance; bess-stack/ ban violated twice (07-22, 07-23); new bess-schedule/ variant 07-21; self-review missing 07-24 and 07-25 |
+| `memory/congestion-analyst/plans/2026-W30-stage0rules-overdue.md` | congestion-analyst | MAJOR | OPEN — agent to create stage-0-rules.md by 2026-07-28 | stage-0-rules.md deadline was 2026-07-21 (W29 plan); 6 days overdue; file still absent |
+| `memory/market-analyst/plans/2026-W30-wind-protocol-formalize.md` | market-analyst | MAJOR | OPEN — agent to embed wind divergence step in briefing template by W31 | Wind DA adjustment applied conceptually but not formalized as named standing step; threshold revision to 1.5 GW discussed in learnings but not hardcoded |
+| `memory/reporter/plans/2026-W30-path-verification.md` | reporter | MINOR | OPEN — agent to implement canonical path check in Cycle Health; flag [WRONG DIR] | Wrong dart-virtual-trader and bess-optimizer paths cited in Cycle Health tables; W29 plan (verify paths) not implemented |
+| `memory/pnl-manager/plans/2026-W30-saturday-coverage.md` | pnl-manager | MINOR | OPEN — user to confirm weekend coverage policy | 07-23 (Saturday) pnl report absent; weekend coverage policy unconfirmed since W29 evaluator request |
+
+---
+
+## Week 2026-W30 W29 Plan Compliance Update
+
+| Plan | Agent | W29 Deadline | W30 Status |
+|---|---|---|---|
+| advisory-only-mode.md creation | dart-virtual-trader | 2026-07-21 | **MISSED — 3rd consecutive week; escalated to 2026-W30-advisory-only-escalation.md** |
+| Output directory 7/7 (dart-virtual-trader/) | dart-virtual-trader | W30 | **FAILED — 14% compliance (1/7), REGRESSION; escalated to 2026-W30-directory-final-escalation.md** |
+| Tenaska Ascend whitelist | pnl-manager | User action (W31 deadline) | **STILL OPEN — 27th (07-22) and 28th (07-26) failures this week** |
+| 7/7 daily reports | reporter | W30 | PARTIALLY MET — 6/7 (improvement from 5/7; 07-23 Saturday absent) |
+| Verify source paths | reporter | W30 | NOT IMPLEMENTED — wrong paths still cited in Cycle Health; escalated to 2026-W30-path-verification.md |
+| No bess-stack/ use | bess-optimizer | W30 | **VIOLATED — 07-22 and 07-23 filed to bess-stack/; escalated to 2026-W30-directory-escalation.md** |
+| stage-0-rules.md by 2026-07-21 | congestion-analyst | 2026-07-21 | **MISSED — 6 days overdue; escalated to 2026-W30-stage0rules-overdue.md** |
+| Wind protocol as standing step | market-analyst | W30 | PARTIALLY MET — protocol applied conceptually, threshold revision discussed; not formalized; escalated to 2026-W30-wind-protocol-formalize.md |
+| Jul 17 orchestration skip (user confirm) | system-wide | W29/30 | UNCONFIRMED — user has not responded; also applies to Jul 23 Saturday gap |
+
+**MISSED/FAILED**: 5 | **PARTIALLY MET**: 2 | **STILL OPEN (user)**: 2
+
+---
+
+## Week 2026-29 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-29-advisory-only-mode-missed.md` | dart-virtual-trader | CRITICAL | OPEN — agent must create advisory-only-mode.md by 2026-07-21 (W30 Day 1); user approval for escalation path requested | advisory-only-mode.md due Jul 18 per W28 plan; still absent as of 2026-07-20; second consecutive week missed |
+| `memory/dart-virtual-trader/plans/2026-29-directory-proliferation.md` | dart-virtual-trader | CRITICAL (escalated from MAJOR) | OPEN — user approval for monitoring threshold; agent to implement first-line path anchor W30 | 4 distinct wrong directories used in W29 (2 correct / 4 wrong, 33% compliance vs 100% required) |
+| `memory/pnl-manager/plans/2026-29-tenaska-whitelist-critical.md` | pnl-manager | CRITICAL | OPEN — user to submit Ascend whitelist request (overdue since W22); user to set resolution deadline | 26th+ failure event; Jul 15 missing even DEGRADED report (secondary process failure) |
+| `memory/reporter/plans/2026-29-coverage-regression.md` | reporter | MAJOR | OPEN — agent to file 7/7 reports W30; agent to verify source paths before citing | 5/7 coverage in W29 (down from 7/7 in W28); Jul 17 and Jul 19 missing; source citation error Jul 15 |
+| `memory/bess-optimizer/plans/2026-29-directory-jul19.md` | bess-optimizer | MAJOR | OPEN — agent to never use bess-stack/ directory W30 | Jul 19 filed to bess-stack/ instead of bess-optimizer/; confirmed by reporter Cycle Health table |
+| `memory/congestion-analyst/plans/2026-29-w3-overdue-escalation.md` | congestion-analyst | MAJOR | OPEN — stage-0-rules.md due 2026-07-21; agent to confirm exact blocker for W3/0.09 and 0.10 | W3 items 0.09/0.10 blocked 59th cycle; stage-0-rules.md outstanding despite Jul 21 deadline |
+| `memory/market-analyst/plans/2026-29-wind-da-adjustment-protocol.md` | market-analyst | MAJOR | OPEN — agent to add AG2 vs YE wind divergence check as standing step W30 | DA HE20-21 overforecast Jul 19 (-$12 to -$18/MWh error) due to YE 9.9 GW vs market AG2/Enverus 12-15 GW wind |
+| `memory/evaluator/plans/2026-29-orchestration-skip-jul17.md` | system-wide | MAJOR | OPEN — user to confirm whether Jul 17 (Saturday) skip was intentional; if unintentional, add weekend coverage rule | All agents missed D+1 planning for Jul 17; reporter, bess-optimizer, market-analyst, congestion-analyst, dart-virtual-trader all have Jul 17 gaps |
+
+---
+
+## Week 2026-29 W28 Plan Compliance Update
+
+| Plan | Agent | W28 Deadline | W29 Status |
+|---|---|---|---|
+| advisory-only-mode.md creation | dart-virtual-trader | 2026-07-18 | MISSED — file absent as of 2026-07-20; escalated to 2026-29-advisory-only-mode-missed.md |
+| Output directory 7/7 (dart-virtual-trader/) | dart-virtual-trader | W29 (7 days) | FAILED — 33% compliance (2/4 active days correct); escalated to 2026-29-directory-proliferation.md |
+| STRATEGIC BENCHMARK header | bess-optimizer | 2026-07-14 | PARTIALLY MET — header in place from Jul 16 (2 days late); partially closed |
+| Output directory 7/7 (bess-optimizer/) | bess-optimizer | W29 (7 days) | PARTIALLY FAILED — 5/6 correct; Jul 19 wrong (bess-stack/); escalated to 2026-29-directory-jul19.md |
+| Smartbidder recalibration note | bess-optimizer | 2026-07-18 | UNCONFIRMED — no evidence in available W29 outputs; carried forward |
+| Escalation plan confirmed (Jul 14) | congestion-analyst | 2026-07-14 | UNCONFIRMED — no explicit confirmation file found in W29 |
+| stage-0-rules.md creation | congestion-analyst | 2026-07-21 | OUTSTANDING — deadline tomorrow (2026-07-21); escalated to 2026-29-w3-overdue-escalation.md |
+| P(DA>RT) false negative fix | market-analyst | 2026-07-14 | RESOLVED — no P(DA>RT) false negative recurrence observed in W29 evidence |
+| Tenaska Ascend whitelist | pnl-manager | User action | UNRESOLVED — 26th+ failure; user action still pending; escalated to 2026-29-tenaska-whitelist-critical.md |
+
+**MISSED**: 2 | **PARTIALLY MET/FAILED**: 2 | **OUTSTANDING**: 1 | **UNCONFIRMED**: 2 | **RESOLVED**: 1 | **USER UNRESOLVED**: 1
+
+---
+
+## Week 2026-28 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-28-improvements.md` | dart-virtual-trader | CRITICAL | OPEN — user to confirm execution scope (ADVISORY ONLY now default); agent to create advisory-only-mode.md by 2026-07-18 | W27 deadline expired 2026-07-13 with no user response; ADVISORY ONLY in effect; 30th+ dart_virtual_revenue null |
+| `memory/bess-optimizer/plans/2026-28-improvements.md` | bess-optimizer | CRITICAL | OPEN — user to confirm execution role (STRATEGIC BENCHMARK now default); agent to update report header and produce recalibration note by 2026-07-18 | W27 deadline expired 2026-07-13 with no user response; STRATEGIC BENCHMARK in effect; Jul 6-7 directory instability |
+| `memory/pnl-manager/plans/2026-28-improvements.md` | pnl-manager | CRITICAL | OPEN — user to contact Ascend for permanent whitelist; agent to diagnose DA bid/offer 0-row on first PRODUCTION day | 23rd Tenaska failure; 22 backlog days; 4 consecutive DEGRADED Jul 8-11 |
+| `memory/congestion-analyst/plans/2026-28-improvements.md` | congestion-analyst | MAJOR | OPEN — agent to confirm 2026-07-10 escalation plan filed; create stage-0-rules.md by 2026-07-21 | W3 item 0.10 60+ days overdue; data still blocked; escalation note referenced but not confirmed |
+| `memory/market-analyst/plans/2026-28-improvements.md` | market-analyst | MINOR | OPEN — agent to fix P(DA>RT) detection by 2026-07-14 (W29 Day 1) | Smartbidder P(DA>RT) false negative Jul 7; caught by reporter cross-check |
+
+---
+
+## Week 2026-28 W27 Plan Compliance Update
+
+| Plan | Agent | W27 Deadline | W28 Status |
+|---|---|---|---|
+| `2026-27-execution-final-deadline.md` | dart-virtual-trader | 2026-07-13 | CLOSED BY POLICY — no user response; ADVISORY ONLY in effect per plan terms |
+| `2026-27-execution-divergence-escalation.md` | bess-optimizer | 2026-07-13 | CLOSED BY POLICY — no user response; STRATEGIC BENCHMARK in effect per plan terms |
+| `2026-27-w3-item010-60day-crisis.md` | congestion-analyst | 2026-07-10 | PARTIALLY RESOLVED — escalation note referenced in Jul 10 report; file existence unconfirmed |
+| `2026-27-missing-daily-trigger.md` | reporter | 2026-07-10 / 2026-07-13 | PARTIALLY RESOLVED — W28 had 7/7 daily coverage; Jul 3 retroactive not confirmed |
+| `2026-27-output-directory-critical.md` | dart-virtual-trader | 2026-07-10 | MISSED THEN SELF-RESOLVED — 4 directories through Jul 10; resolved Jul 11 per agent statement |
+| `2026-27-da-bid-row-inquiry.md` | pnl-manager | 2026-07-10 | BLOCKED — Jul 8-11 all DEGRADED; diagnosis impossible; carried forward to 2026-28-improvements.md |
+| `2026-27-ag2-smartbidder-fallback.md` | market-analyst | 2026-07-13 | PARTIALLY RESOLVED — AG2 parsed Jul 6 (4 sources, correct); Smartbidder 70% calibration trust in use; P(DA>RT) false negative Jul 7 (new MINOR issue) |
+
+**W27 CLOSED BY POLICY**: 2 | **PARTIALLY RESOLVED**: 3 | **BLOCKED/CARRIED FORWARD**: 1 | **MISSED THEN SELF-RESOLVED**: 1
+
+---
+
+## Week 2026-27 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-27-execution-final-deadline.md` | dart-virtual-trader | CRITICAL | CLOSED BY POLICY (2026-07-13) | 20th escalation; W26 deadline 2026-07-03 MISSED; ADVISORY ONLY now in effect |
+| `memory/bess-optimizer/plans/2026-27-execution-divergence-escalation.md` | bess-optimizer | CRITICAL | CLOSED BY POLICY (2026-07-13) | 6th consecutive [EXECUTION-DIVERGENCE] cycle; STRATEGIC BENCHMARK now in effect |
+| `memory/congestion-analyst/plans/2026-27-w3-item010-60day-crisis.md` | congestion-analyst | CRITICAL | PARTIALLY RESOLVED — escalation note referenced; superseded by 2026-28-improvements.md | 60-day milestone Jul 10; agent acknowledged and referenced escalation plan |
+| `memory/reporter/plans/2026-27-missing-daily-trigger.md` | reporter | MAJOR | PARTIALLY RESOLVED — W28 7/7 coverage; Jul 3 retroactive unconfirmed | July 3 consolidated daily report missing; upstream inputs were available |
+| `memory/dart-virtual-trader/plans/2026-27-output-directory-critical.md` | dart-virtual-trader | MAJOR | MISSED THEN SELF-RESOLVED (2026-07-11) — superseded by 2026-28-improvements.md | 4 directories used in W28; resolved Jul 11; deadline Jul 10 MISSED |
+| `memory/pnl-manager/plans/2026-27-da-bid-row-inquiry.md` | pnl-manager | MAJOR | BLOCKED — superseded by 2026-28-improvements.md | DEGRADED days prevented Jul 10 diagnosis; carried forward |
+| `memory/market-analyst/plans/2026-27-ag2-smartbidder-fallback.md` | market-analyst | MINOR | PARTIALLY RESOLVED — new issue (P(DA>RT) false neg) in 2026-28-improvements.md | AG2 parsed correctly; Smartbidder calibration trust in use |
+
+---
+
+## Week 2026-27 W26 Plan Compliance Update
+
+| Plan | Agent | W26 Deadline | W27 Status |
+|---|---|---|---|
+| `2026-26-execution-confirmation-critical.md` | dart-virtual-trader | 2026-07-03 | MISSED — escalated to 2026-27-execution-final-deadline.md |
+| `2026-26-tenaska-whitelist-critical.md` | pnl-manager | User action | PARTIALLY RESOLVED — 3 consecutive PRODUCTION days (Jun 30–Jul 2) then 19th failure Jul 3; still OPEN |
+| `2026-26-execution-divergence-critical.md` | bess-optimizer | 2026-07-03 | MISSED — escalated to 2026-27-execution-divergence-escalation.md |
+| `2026-26-w3-item010-overdue.md` | congestion-analyst | 2026-07-06 | IN PROGRESS — L13/L14/L15 partial; TODAY is deadline; escalated to 2026-27-w3-item010-60day-crisis.md |
+| `2026-26-output-directory-final.md` | dart-virtual-trader | 2026-06-30 | MISSED — 2 variants still active in W27; escalated to 2026-27-output-directory-critical.md |
+| `2026-26-dart-isolation-final.md` | pnl-manager | User action | OPEN — DA bid/offer 0 rows 5+ consecutive; new plan 2026-27-da-bid-row-inquiry.md registered |
+| `2026-26-smartbidder-probability-absent.md` | dart-virtual-trader | 2026-06-30 | PARTIALLY RESOLVED — Smartbidder returned July 5 (70% cap applied); calibration trust uncertain |
+| `2026-26-ag2-data-separation.md` | market-analyst | 2026-06-30 | PARTIALLY CLOSED — timestamps added; CSV body not parsed; new plan 2026-27-ag2-smartbidder-fallback.md |
+| `2026-26-section-numbering.md` | reporter | 2026-06-29 | CLOSED — W27 reports have correct section ordering and numbering (verified) |
+
+**W26 CLOSED**: 1 | **PARTIALLY CLOSED/RESOLVED**: 3 | **OPEN/MISSED/ESCALATED**: 5
+
+---
+
+## Week 2026-26 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-26-execution-confirmation-critical.md` | dart-virtual-trader | CRITICAL | OPEN — user to confirm execution scope by 2026-07-03 | 14th escalation; hit rate uncomputable 6+ weeks; GKS DART rank #276/276; possible non-execution Jun 24 |
+| `memory/pnl-manager/plans/2026-26-tenaska-whitelist-critical.md` | pnl-manager | CRITICAL | OPEN — user to contact Ascend to re-whitelist cloud IP | 17th failure; 50% rate; 16 DEGRADED days; cascades to 4 agents |
+| `memory/bess-optimizer/plans/2026-26-execution-divergence-critical.md` | bess-optimizer | CRITICAL | OPEN — user to confirm root cause by 2026-07-03 | 5+ cycles of DA position divergence; Jun 24 -$3,221 vs benchmark; Jun 26 -$446 vs benchmark |
+| `memory/congestion-analyst/plans/2026-26-w3-item010-overdue.md` | congestion-analyst | MAJOR | OPEN — user to confirm access path; agent to document workaround by 2026-07-06 | 38 consecutive blocked cycles; 27 days past W23 deadline; trigger date 2026-06-29 reached |
+| `memory/dart-virtual-trader/plans/2026-26-output-directory-final.md` | dart-virtual-trader | MAJOR | OPEN — agent to declare canonical path by 2026-06-30 | W25 deadline missed; 4 path variants in W26; final warning |
+| `memory/pnl-manager/plans/2026-26-dart-isolation-final.md` | pnl-manager | MAJOR | OPEN — user to contact Tenaska re: virtual settlement endpoint | 14 cycles without DART virtual P&L isolation; Jun 24 "DART Virtual Net" confirmed as physical BESS charging |
+| `memory/dart-virtual-trader/plans/2026-26-smartbidder-probability-absent.md` | dart-virtual-trader | MAJOR | OPEN — user to investigate CSV format change; agent to add fallback protocol by 2026-06-30 | 13+ consecutive cycles absent; forced minimum 25 MW cap on all positions |
+| `memory/market-analyst/plans/2026-26-ag2-data-separation.md` | market-analyst | MINOR | OPEN — agent to add AG2 data provenance note starting 2026-06-30 | AG2 D+1 data vintage not labeled in briefings; CLAUDE.md data leakage compliance not visibly auditable |
+| `memory/reporter/plans/2026-26-section-numbering.md` | reporter | MINOR | OPEN — agent to fix starting 2026-06-29 report | Jun 28 report section numbering starts at "0"; format drift from W26 convention |
+
+---
+
+## Week 2026-26 W25 Plan Compliance Update
+
+| Plan | Agent | W25 Deadline | W26 Status |
+|---|---|---|---|
+| `2026-25-standing-rules-gap.md` | bess-optimizer | 2026-06-24 | CLOSED — standing-rules.md created 2026-06-23 (1 day late) |
+| `2026-25-direction-inversion-fix.md` | dart-virtual-trader | 2026-06-23 | PARTIALLY CLOSED — direction-reason gate implemented and PASS every W26 cycle; execution still unconfirmed |
+| `2026-25-output-directory-standardization.md` | dart-virtual-trader | 2026-06-23 | OPEN — deadline MISSED; 4 variants still in W26; superseded by 2026-26-output-directory-final.md |
+| `2026-25-tenaska-whitelist-escalation.md` | pnl-manager | User action | OPEN — no resolution; 17th failure; superseded by 2026-26-tenaska-whitelist-critical.md |
+| `2026-25-smartbidder-fallback-protocol.md` | market-analyst | 2026-06-24 | PARTIALLY CLOSED — qualitative fallback in use; not formally documented in memory |
+| `2026-25-settlement-infrastructure.md` | dart-virtual-trader | User confirm | OPEN — no user response; superseded by 2026-26-execution-confirmation-critical.md |
+| `2026-25-w3-item010-critical-escalation.md` | congestion-analyst | Trigger 2026-06-29 | OPEN — trigger date reached; 38 blocked cycles; superseded by 2026-26-w3-item010-overdue.md |
+| `2026-25-weekend-high-wind-haircut.md` | congestion-analyst | Next Sat/Sun cycle | CLOSED — haircut applied correctly Jun 27-28 |
+
+---
+
+## Week 2026-25 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/pnl-manager/plans/2026-25-tenaska-whitelist-escalation.md` | pnl-manager | CRITICAL | OPEN — user to submit IP whitelist to Ascend; agent to add IP pre-check | 15th whitelist failure; 52% cloud failure rate; 13+ DEGRADED day backlog; cascades to 4 agents |
+| `memory/dart-virtual-trader/plans/2026-25-output-directory-standardization.md` | dart-virtual-trader | CRITICAL | OPEN — agent to implement by 2026-06-23 | 6 path variants used in W25; canonical path is reports/daily/dart-virtual-trader/ |
+| `memory/dart-virtual-trader/plans/2026-25-direction-inversion-fix.md` | dart-virtual-trader | CRITICAL | OPEN — agent to add direction-reason consistency check by 2026-06-23 | DEC issued with DA>RT rationale on 2 consecutive weekend cycles; hit rate ~14-25% |
+| `memory/congestion-analyst/plans/2026-25-w3-item010-critical-escalation.md` | congestion-analyst | MAJOR | OPEN — agent to start immediately; user to confirm data access | 11 days past evaluator deadline; 32 consecutive blocked cycles; escalates to CRITICAL if not started by 2026-06-29 |
+| `memory/market-analyst/plans/2026-25-smartbidder-fallback-protocol.md` | market-analyst | MAJOR | OPEN — agent to implement by 2026-06-24 | Smartbidder absent 3+ W25 days; no fallback quantitative estimates provided; downstream agents left without P(DA>RT) |
+| `memory/dart-virtual-trader/plans/2026-25-settlement-infrastructure.md` | dart-virtual-trader | MAJOR | OPEN — user to confirm DART execution scope; agent to create hit-rate-log.md | 40+ positions unresolved; hit rate uncalculable; below-floor cap violated 2026-06-18 |
+| `memory/bess-optimizer/plans/2026-25-standing-rules-gap.md` | bess-optimizer | MAJOR | OPEN — agent to implement by 2026-06-24 | standing-rules.md 6 days past self-committed deadline; ECRS rule not formalized |
+| `memory/congestion-analyst/plans/2026-25-weekend-high-wind-haircut.md` | congestion-analyst | MAJOR | OPEN — agent to implement in next Sat/Sun cycle | GR_WEST >15,000 MW suppresses HOUSTON_IMPORT binding; 10-15 ppt haircut needed; WEST_TO_NORTH timing +1hr bias |
+
+---
+
+## Week 2026-24 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/congestion-analyst/plans/2026-24-w3-item010-final-escalation.md` | congestion-analyst | CRITICAL | OPEN — 0% started, 11 days past deadline; superseded by 2026-25 plan | W3 item 0.10 now 32 cycles unstarted |
+| `memory/dart-virtual-trader/plans/2026-24-settlement-infrastructure-gap.md` | dart-virtual-trader | CRITICAL | OPEN — no confirmed progress; superseded by 2026-25 plan | Settlement blind now 6+ weeks; 40+ positions unresolved |
+| `memory/bess-optimizer/plans/2026-24-ecrs-nonspun-execution-gap.md` | bess-optimizer | MAJOR | PARTIALLY OPEN — ECRS awareness improved in learnings; standing-rules.md not created; superseded by 2026-25 plan | standing-rules.md missed 2026-06-16 deadline |
+| `memory/pnl-manager/plans/2026-24-whitelist-and-dart-isolation.md` | pnl-manager | CRITICAL | OPEN — 15th failure in W25; no IP whitelist change; superseded by 2026-25 plan | Now 52% cloud failure rate; 13+ day backlog |
+| `memory/market-analyst/plans/2026-24-weekend-direction-and-as-fallback.md` | market-analyst | MAJOR | PARTIALLY OPEN — weekend checklist in learnings; Smartbidder fallback not implemented; superseded by 2026-25 plan | Smartbidder absent 3+ W25 days; no fallback quantitative output |
+
+---
+
+## Week 2026-W23 Plans — Updated Status
+
+| Plan File | Agent | Priority | W24 Status | Notes |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-W23-improvement.md` | dart-virtual-trader | CRITICAL | PARTIALLY IMPLEMENTED | Saturday 25 MW cap applied 2026-06-13 (confirmed); dual-direction scarcity skip applied and validated 2026-06-14; hit-rate log in learnings table but no dedicated file created; superseded by 2026-24 plan for new issues |
+| `memory/market-analyst/plans/2026-W23-improvement.md` | market-analyst | MAJOR | OPEN — 4th weekend miss | Weekend RT checklist documented but not applied Sunday 2026-06-14; superseded by 2026-24 plan |
+| `memory/congestion-analyst/plans/2026-W23-improvement.md` | congestion-analyst | MAJOR | CRITICAL OPEN | Item 0.10 deadline (2026-06-11) missed by 5 cycles; MCC sign correction applied (positive); superseded by 2026-24 escalation plan |
+| `memory/bess-optimizer/plans/2026-W23-improvement.md` | bess-optimizer | MAJOR | OPEN (NEW DIMENSION) | RT dispatch mechanism past 2026-06-15 deadline; ECRS gap is new compounding issue; superseded by 2026-24 plan |
+| `memory/pnl-manager/plans/2026-W23-improvement.md` | pnl-manager | MAJOR | CRITICAL OPEN | No implementation progress on DART isolation or backfill; whitelist failures continuing; superseded by 2026-24 plan |
+
+---
+
+## Resolved Items (W24)
+
+| Item | Resolution | Evidence |
+|---|---|---|
+| reporter W22 format stabilization | RESOLVED | All 7 W24 daily reports have consistent footer, section structure, data banner. Plan `2026-22-format-stabilization.md` CLOSED. |
+
+---
+
+## Week 2026-W23 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-W23-improvement.md` | dart-virtual-trader | CRITICAL | OPEN — agent to implement Saturday cap + dual-direction rule | First confirmed settlement: 0% hit rate, -$5,266; Saturday regime failure identified |
+| `memory/market-analyst/plans/2026-W23-improvement.md` | market-analyst | MAJOR | OPEN — agent to implement weekend RT checklist | Weekend RT direction 3-cycle systematic failure; rule written but not applied |
+| `memory/congestion-analyst/plans/2026-W23-improvement.md` | congestion-analyst | MAJOR | OPEN — agent to start W3 item 0.10; user to confirm disk | 18-cycle hub-pair LMP gap; lambda P90 underprediction confirmed with calibration fix |
+| `memory/bess-optimizer/plans/2026-W23-improvement.md` | bess-optimizer | MAJOR | OPEN — user action required for RT dispatch mechanism | Involuntary RT dispatch -$4,520 unresolved; AS Playbook 9-cycle gap |
+| `memory/pnl-manager/plans/2026-W23-improvement.md` | pnl-manager | MAJOR | OPEN — user/agent to implement DART virtual endpoint | DART virtual isolation 3 cycles deferred; data-quality.md update needed |
+
+---
+
+## Week 2026-22 Plans — Updated Status
+
+| Plan File | Agent | Priority | W23 Status | Notes |
+|---|---|---|---|---|
+| `memory/pnl-manager/plans/2026-22-tenaska-whitelist-escalation.md` | pnl-manager | CRITICAL | PARTIALLY RESOLVED | 5 PRODUCTION days in W23 vs 1 in W22; recovery mechanism undocumented; 3 W23 days still DEGRADED; superseded by 2026-W23 plan |
+| `memory/market-analyst/plans/2026-22-as-template-persistent-gap.md` | market-analyst | MAJOR | PARTIALLY RESOLVED | Non-Spin overnight improving; ECRS morning ramp inconsistent; NEW priority: weekend RT direction; superseded by 2026-W23 plan |
+| `memory/congestion-analyst/plans/2026-22-w3-disk-verification-blocker.md` | congestion-analyst | MAJOR | OPEN ESCALATING | 18 cycles (was 12 in W22); lambda underprediction now confirmed with commercial impact; superseded by 2026-W23 plan |
+| `memory/dart-virtual-trader/plans/2026-22-hit-rate-tracking-unresolved.md` | dart-virtual-trader | MAJOR | ESCALATED TO CRITICAL | First confirmed settlement 0/5 hit rate; proxy methodology demonstrated unreliable; superseded by 2026-W23 plan |
+| `memory/reporter/plans/2026-22-format-stabilization.md` | reporter | MINOR | PARTIALLY IMPLEMENTED | Footer missing some reports; section count improving; no new plan needed |
+| `memory/bess-optimizer/plans/2026-22-da-rt-venue-follow-up.md` | bess-optimizer | CRITICAL | OPEN — NEW DIMENSION | Tenaska DA venue still unconfirmed; involuntary RT dispatch adds new layer; superseded by 2026-W23 plan |
+| `memory/bess-optimizer/plans/2026-22-model-calibration-drift.md` | bess-optimizer | MAJOR | IN PROGRESS (IMPROVING) | 3 more data points in W23; lessons applied; involuntary RT dispatch is new separate issue |
+
+---
+
+## Week 2026-22 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/pnl-manager/plans/2026-22-tenaska-whitelist-escalation.md` | pnl-manager | CRITICAL | OPEN — user action required | Escalation: 7 failures in 11 days; code pre-check still unimplemented |
+| `memory/market-analyst/plans/2026-22-as-template-persistent-gap.md` | market-analyst | MAJOR | OPEN — agent to implement | Non-Spin overnight + ECRS morning ramp bullets — 7-cycle miss |
+| `memory/congestion-analyst/plans/2026-22-w3-disk-verification-blocker.md` | congestion-analyst | MAJOR | OPEN — agent to implement | Run disk check; begin W3 item 0.10 (hub/zone LMP) |
+| `memory/dart-virtual-trader/plans/2026-22-hit-rate-tracking-unresolved.md` | dart-virtual-trader | MAJOR | OPEN — agent to implement | Create hit-rate-log.md; recalibrate +20% bias correction |
+| `memory/reporter/plans/2026-22-format-stabilization.md` | reporter | MINOR | OPEN — agent to implement | Lock 8-section template; fix attribution footer |
+| `memory/bess-optimizer/plans/2026-22-da-rt-venue-follow-up.md` | bess-optimizer | CRITICAL | OPEN — user action required | Follow-up: Tenaska DA venue confirmation still pending |
+| `memory/bess-optimizer/plans/2026-22-model-calibration-drift.md` | bess-optimizer | MAJOR | IN PROGRESS | Agent identified and partially addressed; 3-data-point rule applied |
+
+---
+
+## Week 2026-21 Plans — Updated Status
+
+| Plan File | Agent | Priority | 2026-22 Status | Notes |
+|---|---|---|---|---|
+| `memory/pnl-manager/plans/2026-21-tenaska-whitelist-permanent-fix.md` | pnl-manager | CRITICAL | OPEN — escalated | No code changes implemented; superseded by 2026-22 escalation plan |
+| `memory/pnl-manager/plans/2026-21-dart-virtual-isolation.md` | pnl-manager | MAJOR | OPEN | No progress; blocked by whitelist failure |
+| `memory/bess-optimizer/plans/2026-21-da-rt-venue-alignment.md` | bess-optimizer | CRITICAL | PARTIALLY MITIGATED | 0.80x haircut applied; Tenaska confirmation still pending; superseded by 2026-22-da-rt-venue-follow-up |
+| `memory/bess-optimizer/plans/2026-21-structural-as-defaults.md` | bess-optimizer | MAJOR | CLOSED | ECRS HE07-10 / RRS HE19-24 / solar trough charge now in standard schedule template across all Week 22 cycles |
+| `memory/dart-virtual-trader/plans/2026-21-smartbidder-p-csv-fix.md` | dart-virtual-trader | CRITICAL | CLOSED | P file returned 2026-05-27; maintained through end of week |
+| `memory/dart-virtual-trader/plans/2026-21-hit-rate-tracking-setup.md` | dart-virtual-trader | MAJOR | OPEN — superseded | Log not created; superseded by 2026-22-hit-rate-tracking-unresolved |
+| `memory/market-analyst/plans/2026-21-as-timing-correction.md` | market-analyst | MAJOR | PARTIALLY CLOSED | Smartbidder peak adjustment and solar ±1h range added; Non-Spin overnight + ECRS morning ramp still absent; superseded by 2026-22-as-template-persistent-gap |
+| `memory/congestion-analyst/plans/2026-21-west-binding-calibration.md` | congestion-analyst | MAJOR | CLOSED | Calibration revised; MEDIUM/MEDIUM-HIGH/HIGH used correctly throughout Week 22; no HIGH overcall recurrence |
+| `memory/reporter/plans/2026-21-language-consistency.md` | reporter | MINOR | PARTIALLY CLOSED | Language (Korean) stabilized; section ordering still inconsistent; superseded by 2026-22-format-stabilization |
 
 ---
 
@@ -24,11 +550,12 @@ Last updated: 2026-05-25 (Week 2026-21)
 
 - **OPEN — user action required**: Plan requires user decision or external action (e.g., Tenaska, Smartbidder). Agent cannot complete alone.
 - **OPEN — agent to implement**: Agent can implement in the next daily cycle without external dependency.
-- **IN PROGRESS**: Agent has begun implementation.
-- **CLOSED**: Plan fully implemented and verified at next evaluation.
+- **IN PROGRESS**: Agent has begun implementation; not yet verified closed.
+- **PARTIALLY MITIGATED / PARTIALLY CLOSED**: The original issue has been reduced but not fully resolved; a follow-up plan may supersede.
+- **CLOSED**: Plan fully implemented and verified at this evaluation.
 
 ---
 
 ## Prior Weeks
 
-None — this is the first evaluation cycle (Week 2026-21).
+Week 2026-21 — initial evaluation cycle. See table above for status updates.

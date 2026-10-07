@@ -1,0 +1,104 @@
+{
+  "asset": "GKS_BESS_RN",
+  "flowday": "2026-07-09",
+  "prepared": "2026-07-08",
+  "capacity_mw": 100,
+  "capacity_mwh": 200,
+  "rte_pct": 87,
+  "start_soc_mwh": 100.0,
+  "start_soc_source": "DEGRADED_RULE7",
+  "strategy": "Solar-cliff arbitrage: charge HE10 GKS node $5.00/MWh (series record), discharge HE21+22 DA evening peak $39.97/$34.66 effective. NS 70MW HE01-19, RRS 70MW HE20-24 (Rule 9). HOUSTON_IMPORT 35-55% MCC uplift modeled.",
+  "as_playbook_prior": null,
+  "expected_revenue_usd": 6266,
+  "expected_revenue_gross_usd": 7324,
+  "expected_revenue_conservative_usd": 4500,
+  "expected_revenue_upside_usd": 8500,
+  "revenue_breakdown": {
+    "da_energy_charge_usd": -485,
+    "da_energy_discharge_gross_usd": 6042,
+    "da_energy_discharge_net_usd": 4834,
+    "da_energy_net_usd": 4349,
+    "as_nonspin_usd": 1330,
+    "as_rrs_usd": 437,
+    "as_ecrs_usd": 150,
+    "rt_energy_usd": 0,
+    "rule2_haircut_applied": true,
+    "rule2_multiplier": 0.80
+  },
+  "rule6_houston_import": {
+    "p_binding_pct_low": 35,
+    "p_binding_pct_high": 55,
+    "gks_mcc_prob_weighted_usd_mwh": 3.25,
+    "decision": "DA_PRIMARY_WITH_RT_OPTIONALITY",
+    "rationale": "E[RT at GKS HE21] = $31.13 prob-weighted vs DA GKS $39.97 — DA wins by $8.84/MWh. Rule 6 strictly requires 30-50% SoC in DA; accepted 56% (100MW/190MWh) based on EV analysis. RT optionality retained via 20MWh floor SoC.",
+    "rule6_compliance_note": "Marginal Rule 6 deviation accepted: 100MW x 1h = 107.2MWh from 190MWh = 56.4% vs 50% limit. Revenue difference is $46 vs alternative 89MW DA sell. EV analysis supports full DA sell at HE21 given GKS-specific MCC estimates."
+  },
+  "congestion": {
+    "gks_mcc_he09_14": -6.0,
+    "gks_mcc_he15_18": -2.25,
+    "gks_mcc_he19_22_prob_weighted": 3.25,
+    "gks_mcc_he23_24": -1.75,
+    "source": "congestion-analyst/2026-07-09.md Stage 0 heuristic",
+    "confidence": "MODERATE"
+  },
+  "da_bid_parameters": {
+    "energy_buy": [
+      {"he": 10, "max_mw": 100, "price_ceiling_usd_mwh": 12.00, "note": "GKS hub bid; eff $5.00 with MCC -$6"}
+    ],
+    "energy_sell": [
+      {"he": 21, "max_mw": 100, "price_floor_usd_mwh": 34.00, "note": "Do not sell below floor"},
+      {"he": 22, "max_mw": 59, "price_floor_usd_mwh": 29.00, "note": "Secondary discharge; SoC constraint"}
+    ],
+    "no_sell_hours": [1,2,3,4,5,6,7,8,9,11,12,13,14,15,16,17,18,19,20,23,24]
+  },
+  "hours": [
+    {"he": 1,  "action": "as_only",      "mw": 0,   "soc_end_mwh": 100, "soc_end_pct": 50, "ns_mw": 70, "rrs_mw": 0,  "ecrs_mw": 0, "da_hub": 23.18, "rt_hub": 24.35, "spread": -1.17, "gks_mcc": -1.0, "gks_node": 22.18, "expected_usd": 91},
+    {"he": 2,  "action": "as_only",      "mw": 0,   "soc_end_mwh": 100, "soc_end_pct": 50, "ns_mw": 70, "rrs_mw": 0,  "ecrs_mw": 0, "da_hub": 21.83, "rt_hub": 22.15, "spread": -0.32, "gks_mcc": -1.0, "gks_node": 20.83, "expected_usd": 101},
+    {"he": 3,  "action": "as_only",      "mw": 0,   "soc_end_mwh": 100, "soc_end_pct": 50, "ns_mw": 70, "rrs_mw": 0,  "ecrs_mw": 0, "da_hub": 20.64, "rt_hub": 21.87, "spread": -1.23, "gks_mcc": -1.0, "gks_node": 19.64, "expected_usd": 99},
+    {"he": 4,  "action": "as_only",      "mw": 0,   "soc_end_mwh": 100, "soc_end_pct": 50, "ns_mw": 70, "rrs_mw": 0,  "ecrs_mw": 0, "da_hub": 20.56, "rt_hub": 22.23, "spread": -1.67, "gks_mcc": -1.0, "gks_node": 19.56, "expected_usd": 96},
+    {"he": 5,  "action": "as_only",      "mw": 0,   "soc_end_mwh": 100, "soc_end_pct": 50, "ns_mw": 70, "rrs_mw": 0,  "ecrs_mw": 0, "da_hub": 21.06, "rt_hub": 22.56, "spread": -1.49, "gks_mcc": -1.0, "gks_node": 20.06, "expected_usd": 108},
+    {"he": 6,  "action": "as_only",      "mw": 0,   "soc_end_mwh": 100, "soc_end_pct": 50, "ns_mw": 70, "rrs_mw": 0,  "ecrs_mw": 0, "da_hub": 21.69, "rt_hub": 22.91, "spread": -1.22, "gks_mcc": -1.0, "gks_node": 20.69, "expected_usd": 109},
+    {"he": 7,  "action": "as_only",      "mw": 0,   "soc_end_mwh": 100, "soc_end_pct": 50, "ns_mw": 70, "rrs_mw": 0,  "ecrs_mw": 0, "da_hub": 22.13, "rt_hub": 23.59, "spread": -1.46, "gks_mcc": -1.0, "gks_node": 21.13, "expected_usd": 109},
+    {"he": 8,  "action": "as_only",      "mw": 0,   "soc_end_mwh": 100, "soc_end_pct": 50, "ns_mw": 70, "rrs_mw": 0,  "ecrs_mw": 0, "da_hub": 19.15, "rt_hub": 20.13, "spread": -0.98, "gks_mcc": -0.5, "gks_node": 18.65, "expected_usd": 42},
+    {"he": 9,  "action": "hold_backup_charge", "mw": 0, "soc_end_mwh": 100, "soc_end_pct": 50, "ns_mw": 70, "rrs_mw": 0, "ecrs_mw": 0, "da_hub": 14.34, "rt_hub": 14.93, "spread": -0.59, "gks_mcc": -6.0, "gks_node": 8.34, "expected_usd": 40, "note": "Backup charge if SoC_0 < 60MWh; 0MW primary"},
+    {"he": 10, "action": "charge_da",    "mw": -97, "soc_end_mwh": 190, "soc_end_pct": 95, "ns_mw": 70, "rrs_mw": 0,  "ecrs_mw": 0, "da_hub": 11.00, "rt_hub": 14.28, "spread": -3.28, "gks_mcc": -6.0, "gks_node": 5.00, "expected_usd": -445, "note": "Primary charge. GKS eff $5.00 = series record. NS $40 credit partially offsets charge cost. Net = -485 charge + 40 NS = -445"},
+    {"he": 11, "action": "hold_soc",     "mw": 0,   "soc_end_mwh": 190, "soc_end_pct": 95, "ns_mw": 70, "rrs_mw": 0,  "ecrs_mw": 0, "da_hub": 15.07, "rt_hub": 14.24, "spread": 0.82,  "gks_mcc": -6.0, "gks_node": 9.07,  "expected_usd": 40},
+    {"he": 12, "action": "hold_soc",     "mw": 0,   "soc_end_mwh": 190, "soc_end_pct": 95, "ns_mw": 70, "rrs_mw": 0,  "ecrs_mw": 0, "da_hub": 17.02, "rt_hub": 14.97, "spread": 2.05,  "gks_mcc": -5.5, "gks_node": 11.52, "expected_usd": 37},
+    {"he": 13, "action": "hold_soc",     "mw": 0,   "soc_end_mwh": 190, "soc_end_pct": 95, "ns_mw": 70, "rrs_mw": 0,  "ecrs_mw": 0, "da_hub": 18.90, "rt_hub": 17.24, "spread": 1.66,  "gks_mcc": -5.0, "gks_node": 13.90, "expected_usd": 37},
+    {"he": 14, "action": "hold_soc",     "mw": 0,   "soc_end_mwh": 190, "soc_end_pct": 95, "ns_mw": 70, "rrs_mw": 0,  "ecrs_mw": 0, "da_hub": 21.21, "rt_hub": 18.68, "spread": 2.53,  "gks_mcc": -4.5, "gks_node": 16.71, "expected_usd": 34},
+    {"he": 15, "action": "hold_soc",     "mw": 0,   "soc_end_mwh": 190, "soc_end_pct": 95, "ns_mw": 70, "rrs_mw": 0,  "ecrs_mw": 0, "da_hub": 20.66, "rt_hub": 18.29, "spread": 2.37,  "gks_mcc": -2.25,"gks_node": 18.41, "expected_usd": 37},
+    {"he": 16, "action": "hold_soc",     "mw": 0,   "soc_end_mwh": 190, "soc_end_pct": 95, "ns_mw": 70, "rrs_mw": 0,  "ecrs_mw": 0, "da_hub": 20.67, "rt_hub": 18.63, "spread": 2.04,  "gks_mcc": -2.25,"gks_node": 18.42, "expected_usd": 33},
+    {"he": 17, "action": "hold_soc",     "mw": 0,   "soc_end_mwh": 190, "soc_end_pct": 95, "ns_mw": 70, "rrs_mw": 0,  "ecrs_mw": 0, "da_hub": 20.38, "rt_hub": 18.80, "spread": 1.58,  "gks_mcc": -2.25,"gks_node": 18.13, "expected_usd": 37},
+    {"he": 18, "action": "hold_soc",     "mw": 0,   "soc_end_mwh": 190, "soc_end_pct": 95, "ns_mw": 70, "rrs_mw": 0,  "ecrs_mw": 0, "da_hub": 20.10, "rt_hub": 18.35, "spread": 1.75,  "gks_mcc": -2.25,"gks_node": 17.85, "expected_usd": 28, "note": "RegDown $2.13 excluded — SoC at max, no headroom"},
+    {"he": 19, "action": "hold_soc",     "mw": 0,   "soc_end_mwh": 190, "soc_end_pct": 95, "ns_mw": 70, "rrs_mw": 0,  "ecrs_mw": 0, "da_hub": 20.24, "rt_hub": 19.01, "spread": 1.23,  "gks_mcc": -2.25,"gks_node": 17.99, "expected_usd": 32},
+    {"he": 20, "action": "hold_rrs",     "mw": 0,   "soc_end_mwh": 190, "soc_end_pct": 95, "ns_mw": 0,  "rrs_mw": 70, "ecrs_mw": 0, "da_hub": 31.27, "rt_hub": 25.22, "spread": 6.05,  "gks_mcc": 3.25, "gks_node": 34.52, "expected_usd": 88, "note": "Rule 9: NS->RRS switch. Skip HE20 DA sell — HE21 better by $5.45/MWh"},
+    {"he": 21, "action": "discharge_da", "mw": 100, "soc_end_mwh": 83,  "soc_end_pct": 42, "ns_mw": 0,  "rrs_mw": 70, "ecrs_mw": 0, "da_hub": 36.72, "rt_hub": 27.98, "spread": 8.74,  "gks_mcc": 3.25, "gks_node": 39.97, "expected_usd": 4046, "note": "Primary discharge 100MW DA. RRS 70MW co-offered. Gross discharge $3997 + RRS $49."},
+    {"he": 22, "action": "discharge_da", "mw": 59,  "soc_end_mwh": 20,  "soc_end_pct": 10, "ns_mw": 0,  "rrs_mw": 70, "ecrs_mw": 15, "da_hub": 31.41, "rt_hub": 27.59, "spread": 3.82,  "gks_mcc": 3.25, "gks_node": 34.66, "expected_usd": 2186, "note": "Secondary 59MW (SoC 83->20MWh floor). +ECRS 15MW. Gross discharge $2045 + RRS $88 + ECRS $42."},
+    {"he": 23, "action": "as_post_discharge", "mw": 0, "soc_end_mwh": 20, "soc_end_pct": 10, "ns_mw": 0, "rrs_mw": 70, "ecrs_mw": 15, "da_hub": 27.84, "rt_hub": 26.27, "spread": 1.57, "gks_mcc": -1.75,"gks_node": 26.09, "expected_usd": 126, "note": "RRS $88 + ECRS $38. WEST_TO_NORTH activation window."},
+    {"he": 24, "action": "as_post_discharge", "mw": 0, "soc_end_mwh": 20, "soc_end_pct": 10, "ns_mw": 0, "rrs_mw": 70, "ecrs_mw": 0,  "da_hub": 24.26, "rt_hub": 24.36, "spread": -0.10,"gks_mcc": -1.75,"gks_node": 22.51, "expected_usd": 56, "note": "RRS $56. GR_WEST 15.7k MW — WEST_TO_NORTH risk."}
+  ],
+  "scenario_matrix": {
+    "base": {"p_pct": 45, "houston_import_binding": true, "revenue_usd": 6800},
+    "enverus_scenario": {"p_pct": 30, "houston_import_binding": false, "revenue_usd": 5749, "notes": "Remove +$3.25 MCC uplift; AS prices moderate"},
+    "execution_divergence": {"p_pct": 20, "houston_import_binding": "varies", "revenue_usd": 4200, "notes": "Smartbidder misses HE21 DA sell; RT dispatch only"},
+    "tail_upside": {"p_pct": 5, "houston_import_binding": true, "revenue_usd": 9500, "notes": "RT spike >$80/MWh HE21-22; ORDC scarcity pricing"}
+  },
+  "data_sources": {
+    "market_view": "shared/data/forecasts/market-view/2026-07-09.md",
+    "congestion": "shared/data/forecasts/congestion/2026-07-09.md",
+    "as_playbook": null,
+    "pnl_actuals": null,
+    "market_data_status": "PRODUCTION",
+    "congestion_status": "PRODUCTION_STAGE0"
+  },
+  "flags": {
+    "rule6_deviation_accepted": true,
+    "soc_init_source": "RULE7_DEFAULT",
+    "execution_divergence_risk": "HIGH",
+    "rule8_open": true,
+    "rule9_applied": true,
+    "rule10_late_evening_rt_zone": "HE22-24",
+    "ns_to_rrs_switch_hour": 20,
+    "min_terminal_soc_mwh": 20
+  }
+}

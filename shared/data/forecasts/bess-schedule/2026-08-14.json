@@ -1,0 +1,67 @@
+{
+  "flowday": "2026-08-14",
+  "generated": "2026-08-13",
+  "agent": "bess-optimizer",
+  "asset": "GKS_BESS_RN",
+  "capacity_mw": 100,
+  "capacity_mwh": 200,
+  "rte_assumption": 0.85,
+  "stack": "A",
+  "stack_description": "NS Overnight Anchor + Duck Floor Charge HE10-11 + Evening Discharge HE20-21",
+  "soc_init_mwh": 20,
+  "soc_final_mwh": 0,
+  "cycles_est": 0.92,
+  "data_status": {
+    "smartbidder": "DEGRADED_DAY19",
+    "as_playbook": "ABSENT",
+    "yes_energy": "PRODUCTION",
+    "congestion": "STAGE0_HEURISTIC"
+  },
+  "revenue_estimate": {
+    "p10_usd": 7190,
+    "p50_usd": 11218,
+    "p90_usd": 18043,
+    "energy_p50_usd": 7748,
+    "ns_as_p50_usd": 3670,
+    "rt_imbalance_p50_usd": -200,
+    "benchmark_delta": "N/A_SMARTBIDDER_DEGRADED"
+  },
+  "hours": {
+    "HE01": {"mode": "NS_HOLD", "energy_mw": 0, "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 90, "soc_end_mwh": 20, "da_price_est_hub": "12-22", "gks_mcc_est": "-6_to_-15"},
+    "HE02": {"mode": "NS_HOLD", "energy_mw": 0, "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 90, "soc_end_mwh": 20, "da_price_est_hub": "10-20", "gks_mcc_est": "-6_to_-15"},
+    "HE03": {"mode": "NS_HOLD", "energy_mw": 0, "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 90, "soc_end_mwh": 20, "da_price_est_hub": "10-18", "gks_mcc_est": "-6_to_-15"},
+    "HE04": {"mode": "NS_HOLD", "energy_mw": 0, "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 90, "soc_end_mwh": 20, "da_price_est_hub": "10-18", "gks_mcc_est": "-6_to_-15"},
+    "HE05": {"mode": "NS_HOLD", "energy_mw": 0, "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 90, "soc_end_mwh": 20, "da_price_est_hub": "10-18", "gks_mcc_est": "-6_to_-15"},
+    "HE06": {"mode": "NS_HOLD", "energy_mw": 0, "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 90, "soc_end_mwh": 20, "da_price_est_hub": "10-18", "gks_mcc_est": "-6_to_-15"},
+    "HE07": {"mode": "NS_HOLD", "energy_mw": 0, "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 90, "soc_end_mwh": 20, "da_price_est_hub": "10-18", "gks_mcc_est": "-0.5_to_-3"},
+    "HE08": {"mode": "NS_HOLD", "energy_mw": 0, "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 90, "soc_end_mwh": 20, "da_price_est_hub": "8-16", "gks_mcc_est": "-0.5_to_-3"},
+    "HE09": {"mode": "NS_HOLD", "energy_mw": 0, "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 90, "soc_end_mwh": 20, "da_price_est_hub": "0-8", "gks_mcc_est": "-0.3_to_-1.5"},
+    "HE10": {"mode": "DA_CHARGE", "energy_mw": -100, "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 40, "soc_end_mwh": 112, "da_price_est_hub": "-5_to_-15", "gks_mcc_est": "-3_to_-8", "gks_eff_price_center": -13.5, "da_bid_floor": -5.0, "note": "EXTREME duck floor barely (NL 21796 MW, 204 MW below boundary); max charge rate; revenue from negative-price charging"},
+    "HE11": {"mode": "DA_CHARGE", "energy_mw": -96, "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 40, "soc_end_mwh": 200, "da_price_est_hub": "-2_to_-8", "gks_mcc_est": "-1_to_-3", "gks_eff_price_center": -7.5, "da_bid_floor": -2.0, "note": "SEVERE tier (NL 24223 MW); top-off to 200 MWh FULL; 96 MW = exact fill rate"},
+    "HE12": {"mode": "NS_HOLD", "energy_mw": 0, "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 90, "soc_end_mwh": 200, "da_price_est_hub": "0-5", "gks_mcc_est": "0"},
+    "HE13": {"mode": "NS_HOLD", "energy_mw": 0, "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 90, "soc_end_mwh": 200, "da_price_est_hub": "5-15", "gks_mcc_est": "0_to_-0.5", "note": "GR_WEST daytime trough 9531 MW; shoulder premium $10/MWh center; NOT discharged — breakeven discharge price = $26.5/MWh (HE21 center); shoulder $10 < $26.5"},
+    "HE14": {"mode": "NS_HOLD", "energy_mw": 0, "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 90, "soc_end_mwh": 200, "da_price_est_hub": "10-20", "gks_mcc_est": "0_to_-0.5"},
+    "HE15": {"mode": "NS_HOLD", "energy_mw": 0, "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 90, "soc_end_mwh": 200, "da_price_est_hub": "12-22", "gks_mcc_est": "0"},
+    "HE16": {"mode": "NS_HOLD", "energy_mw": 0, "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 90, "soc_end_mwh": 200, "da_price_est_hub": "12-22", "gks_mcc_est": "0"},
+    "HE17": {"mode": "NS_HOLD", "energy_mw": 0, "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 90, "soc_end_mwh": 200, "da_price_est_hub": "14-24", "gks_mcc_est": "0"},
+    "HE18": {"mode": "NS_HOLD", "energy_mw": 0, "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 90, "soc_end_mwh": 200, "da_price_est_hub": "14-24", "gks_mcc_est": "0"},
+    "HE19": {"mode": "NS_SOC_HOLD", "energy_mw": 0, "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 45, "soc_end_mwh": 200, "da_price_est_hub": "18-35", "gks_mcc_est": "+0.2_to_+1.0", "note": "SOC full 200 MWh preserved for HE20-21 discharge; NS reduced 45 MW as ramp buffer; SOUTH_HOUSTON onset hour"},
+    "HE20": {"mode": "DA_DISCHARGE", "energy_mw": 100, "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 0, "soc_end_mwh": 91, "da_price_est_hub": "20-42", "gks_mcc_est": "+0.2_to_+1.0", "gks_eff_price_center": 31.6, "da_offer_floor": 20.0, "note": "PRIMARY discharge; solar cliff -12285 MW; NL ramp +11059 MW; SOUTH_HOUSTON MED-HIGH 25-40%"},
+    "HE21": {"mode": "DA_DISCHARGE", "energy_mw": 84, "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 0, "soc_end_mwh": 0, "da_price_est_hub": "18-35", "gks_mcc_est": "+0.2_to_+1.0", "gks_eff_price_center": 27.1, "da_offer_floor": 18.0, "note": "Partial discharge limited by SoC; 84 MW = max deliverable from 91 MWh SoC at 0.922 efficiency; NL peak 55431 MW"},
+    "HE22": {"mode": "NS_HOLD", "energy_mw": 0, "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 90, "soc_end_mwh": 0, "da_price_est_hub": "14-26", "gks_mcc_est": "-0.5_to_-2", "note": "WEST_TO_NORTH MEDIUM SCI 0.448; avoid DA discharge HE22 (sign ambiguity)"},
+    "HE23": {"mode": "NS_HOLD", "energy_mw": 0, "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 90, "soc_end_mwh": 0, "da_price_est_hub": "10-20", "gks_mcc_est": "-0.5_to_-2"},
+    "HE24": {"mode": "NS_HOLD", "energy_mw": 0, "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "ns_mw": 90, "soc_end_mwh": 0, "da_price_est_hub": "8-16", "gks_mcc_est": "-0.5_to_-2"}
+  },
+  "alternative_stack": {
+    "label": "Stack B",
+    "trigger": "GR_WEST HE09 real-time > 14000 MW (STWPF: 13438 MW); duck floor NL > 22000 MW; prices $0-5/MWh",
+    "changes": {
+      "HE08": "DA_CHARGE -50 MW (shift from NS_HOLD)",
+      "HE09": "DA_CHARGE -75 MW (shift from NS_HOLD)",
+      "HE10": "DA_CHARGE -71 MW (top-off; SoC full after HE08-09 pre-charge)",
+      "HE11": "NS_HOLD (SoC full)",
+      "HE20_21": "Maintain; higher discharge price expected in bear wind scenario"
+    },
+    "revenue_p50_usd": 9500
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "flowday": "2026-09-09",
+  "generated_at": "2026-09-10",
+  "resource": "GKS_BESS_ESR1",
+  "status": "DEGRADED",
+  "reason": {
+    "tenaska_ptp": "Cloud IP not whitelisted by Tenaska Ascend. All settlement data unavailable.",
+    "smartbidder": "MSAL authentication error AADSTS7000222 — client_secret expired. Benchmark data unavailable."
+  },
+  "data": {
+    "da_energy_revenue": null,
+    "rt_energy_revenue": null,
+    "as_revenue_regup": null,
+    "as_revenue_regdown": null,
+    "as_revenue_rrs": null,
+    "as_revenue_ecrs": null,
+    "as_revenue_nonspin": null,
+    "dart_virtual_revenue": null,
+    "energy_injection_mwh": null,
+    "energy_consumption_mwh": null,
+    "total_revenue": null
+  },
+  "benchmark": {
+    "smartbidder_strategy": "Mount Blue Sky with Virtuals (RTC Version)",
+    "total_revenue": null,
+    "delta_usd": null,
+    "delta_pct": null,
+    "status": "DEGRADED"
+  },
+  "action_items": [
+    "Tenaska IP whitelist: notify Ascend team of cloud execution IP, or re-run fetch_pnl_data.py from VPN/local environment.",
+    "Smartbidder client_secret renewal: request new Azure AD app registration secret from Ascend rep, then update .env [Smartbidder] section.",
+    "Re-run fetch_pnl_data.py after both issues resolved and regenerate this report."
+  ]
+}

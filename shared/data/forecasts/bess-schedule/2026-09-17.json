@@ -1,0 +1,259 @@
+{
+  "date": "2026-09-17",
+  "source": "DEGRADED",
+  "asset": "GKS_BESS_RN",
+  "generation_time": "2026-09-16T07:30:00-05:00",
+  "data_quality": "DEGRADED — Yes Energy throttled Day 4+; Smartbidder MSAL expired Day 54+; AG2/Enverus unconfirmed; all NL/price estimates from D+2 analog continuity only",
+  "soc_start_mwh": 20,
+  "soc_start_source": "ASSUMED — Rule 7 Override (Sep 16 recommendation targeted near-full discharge; residual ~20 MWh assumed)",
+  "rte": 0.85,
+  "capacity_mw": 100,
+  "capacity_mwh": 200,
+  "primary_strategy": "Charge HE09-11 (duck curve trough); Discharge HE19-20 (NL daily peak); AS NonSpin primary HE12-18",
+  "da_rt_spread_call": "P(RT>DA) elevated HE18-20 per market-analyst (Sep 11 RT $103 analog); DA-RT HYBRID discharge — high DA offer floors to preserve RT optionality",
+  "stack_b_trigger": "GR_WEST HE20 wind tracking < 12 GW by 11:00 CT intraday; activate full RT-hold at HE19-20",
+  "hourly": [
+    {
+      "he": 1,
+      "charge_mw": 0, "discharge_mw": 0,
+      "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 20,
+      "soc_end_mwh": 20,
+      "mode": "as_only",
+      "da_offer_floor_usd": null,
+      "notes": "Overnight; SoC 20 MWh limits AS to 20 MW NonSpin max (10 MWh at 30-min sustained); WEST_TO_NORTH P14-24%"
+    },
+    {
+      "he": 2,
+      "charge_mw": 0, "discharge_mw": 0,
+      "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 20,
+      "soc_end_mwh": 20,
+      "mode": "as_only",
+      "da_offer_floor_usd": null,
+      "notes": "WEST_TO_NORTH peak window HE01-03; no energy dispatch"
+    },
+    {
+      "he": 3,
+      "charge_mw": 0, "discharge_mw": 0,
+      "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 20,
+      "soc_end_mwh": 20,
+      "mode": "as_only",
+      "da_offer_floor_usd": null,
+      "notes": "W2N window end; overnight stable"
+    },
+    {
+      "he": 4,
+      "charge_mw": 0, "discharge_mw": 0,
+      "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 20,
+      "soc_end_mwh": 20,
+      "mode": "as_only",
+      "da_offer_floor_usd": null,
+      "notes": "Stable overnight; low NL; GKS MCC -$0.4 to -$0.9/MWh no positive signal"
+    },
+    {
+      "he": 5,
+      "charge_mw": 0, "discharge_mw": 0,
+      "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 20,
+      "soc_end_mwh": 20,
+      "mode": "as_only",
+      "da_offer_floor_usd": null,
+      "notes": "Stable overnight"
+    },
+    {
+      "he": 6,
+      "charge_mw": 0, "discharge_mw": 0,
+      "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 20,
+      "soc_end_mwh": 20,
+      "mode": "as_only",
+      "da_offer_floor_usd": null,
+      "notes": "Pre-dawn; load still low; hold SoC for HE09 charge"
+    },
+    {
+      "he": 7,
+      "charge_mw": 0, "discharge_mw": 0,
+      "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 15, "nonspin_mw": 20,
+      "soc_end_mwh": 20,
+      "mode": "as_only",
+      "da_offer_floor_usd": null,
+      "notes": "WDPEAK begins; Rule 1 ECRS morning ramp 15 MW; SoC constraint: 20 MWh allows 15 MW ECRS + 20 MW NonSpin (35 MW total, 17.5 MWh at 30-min sustained — within SoC)"
+    },
+    {
+      "he": 8,
+      "charge_mw": 0, "discharge_mw": 0,
+      "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 15, "nonspin_mw": 20,
+      "soc_end_mwh": 20,
+      "mode": "as_only",
+      "da_offer_floor_usd": null,
+      "notes": "Pre-charge staging; Rule 1 ECRS morning ramp continues; prices rising but NL still above trough"
+    },
+    {
+      "he": 9,
+      "charge_mw": 70, "discharge_mw": 0,
+      "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 0,
+      "soc_end_mwh": 79.5,
+      "mode": "charge_da",
+      "da_bid_ceiling_usd": 28,
+      "notes": "Duck curve entry; solar ramping 29-31 GW; NL falling fast; DA charge bid ceiling $28/MWh; CHARGE ONLY per Rule 8 (no AS during charge); SoC: 20+59.5=79.5 MWh"
+    },
+    {
+      "he": 10,
+      "charge_mw": 100, "discharge_mw": 0,
+      "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 0,
+      "soc_end_mwh": 164.5,
+      "mode": "charge_da",
+      "da_bid_ceiling_usd": 25,
+      "notes": "NL trough; cheapest charging window ($10-25/MWh est.); max charge 100 MW; CHARGE ONLY; SoC: 79.5+85=164.5 MWh"
+    },
+    {
+      "he": 11,
+      "charge_mw": 42, "discharge_mw": 0,
+      "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 0,
+      "soc_end_mwh": 200,
+      "mode": "charge_da",
+      "da_bid_ceiling_usd": 28,
+      "notes": "Complete fill to 200 MWh; 42 MW x 0.85 = 35.7 MWh stored; ceiling $28/MWh; CHARGE ONLY; SoC: 164.5+35.7=200 MWh (capped)"
+    },
+    {
+      "he": 12,
+      "charge_mw": 0, "discharge_mw": 0,
+      "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 80,
+      "soc_end_mwh": 200,
+      "mode": "as_only",
+      "da_offer_floor_usd": null,
+      "notes": "Solar peak HE12 (29-31 GW); SoC full 200 MWh; NonSpin primary 80 MW; DUCK_CURVE_MIDDAY P(MILD)10-18% / P(MODERATE+)20-32%"
+    },
+    {
+      "he": 13,
+      "charge_mw": 0, "discharge_mw": 0,
+      "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 15, "nonspin_mw": 80,
+      "soc_end_mwh": 200,
+      "mode": "as_only",
+      "da_offer_floor_usd": null,
+      "notes": "Afternoon hold; ECRS co-offer resumes (Rule 1 summer); SoC full; hold for evening discharge"
+    },
+    {
+      "he": 14,
+      "charge_mw": 0, "discharge_mw": 0,
+      "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 15, "nonspin_mw": 80,
+      "soc_end_mwh": 200,
+      "mode": "as_only",
+      "da_offer_floor_usd": null,
+      "notes": "Do NOT discharge; Sep 14 learning: HE14 DA-RT spread was negative (RT>DA); AS hold correct"
+    },
+    {
+      "he": 15,
+      "charge_mw": 0, "discharge_mw": 0,
+      "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 15, "nonspin_mw": 80,
+      "soc_end_mwh": 200,
+      "mode": "as_only",
+      "da_offer_floor_usd": null,
+      "notes": "Load peak approaching HE16-17; NL still solar-suppressed; hold SoC"
+    },
+    {
+      "he": 16,
+      "charge_mw": 0, "discharge_mw": 0,
+      "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 15, "nonspin_mw": 80,
+      "soc_end_mwh": 200,
+      "mode": "as_only",
+      "da_offer_floor_usd": null,
+      "notes": "Load peak 84,000-87,000 MW; but NL suppressed by solar — do NOT discharge here (Sep 14: HE16-17 AS Hold correct; DA $37-39 vs HE19-20 DA $54-55)"
+    },
+    {
+      "he": 17,
+      "charge_mw": 0, "discharge_mw": 0,
+      "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 20, "nonspin_mw": 80,
+      "soc_end_mwh": 200,
+      "mode": "as_only",
+      "da_offer_floor_usd": null,
+      "notes": "Solar rapid decline; ECRS elevated to 20 MW (Rule 1); W2N chain building; final pre-discharge hold"
+    },
+    {
+      "he": 18,
+      "charge_mw": 0, "discharge_mw": 0,
+      "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 20, "nonspin_mw": 80,
+      "soc_end_mwh": 200,
+      "mode": "as_only",
+      "da_offer_floor_usd": null,
+      "notes": "Solar cliff begins; NL ramp +14-20 GW over HE18-20; W2N P12-22%; hold full SoC for HE19-20; ECRS 20 MW maintained; NL ~47-50 GW — below optimal discharge threshold"
+    },
+    {
+      "he": 19,
+      "charge_mw": 0, "discharge_mw": 100,
+      "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 0,
+      "soc_end_mwh": 100,
+      "mode": "discharge_da_rt_hybrid",
+      "da_offer_floor_usd": 80,
+      "notes": "NL surge HE19 (est. 54,000-63,000 MW); DA offer floor $80/MWh; P(RT>DA) elevated — if DA clears at $80+, accept; if RT forecasted > $80, hold for RT; full 100 MW capacity; SoC: 200-100=100 MWh"
+    },
+    {
+      "he": 20,
+      "charge_mw": 0, "discharge_mw": 100,
+      "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 0,
+      "soc_end_mwh": 0,
+      "mode": "discharge_da_rt_hybrid",
+      "da_offer_floor_usd": 90,
+      "notes": "NL daily peak 63,000-73,000 MW (est.); DA offer floor $90/MWh; wind tail risk: if AG2 scenario (wind <12 GW), RT spike to $150-200+; Stack B: full RT hold if trigger met; SoC: 100-100=0 MWh (fully depleted)"
+    },
+    {
+      "he": 21,
+      "charge_mw": 0, "discharge_mw": 0,
+      "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 0,
+      "soc_end_mwh": 0,
+      "mode": "idle",
+      "da_offer_floor_usd": null,
+      "notes": "SoC depleted to 0 MWh; no energy or AS capability; ECRS excluded per Rule 1 exception (SoC insufficient)"
+    },
+    {
+      "he": 22,
+      "charge_mw": 0, "discharge_mw": 0,
+      "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 0,
+      "soc_end_mwh": 0,
+      "mode": "idle",
+      "da_offer_floor_usd": null,
+      "notes": "SoC depleted; idle"
+    },
+    {
+      "he": 23,
+      "charge_mw": 0, "discharge_mw": 0,
+      "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 0,
+      "soc_end_mwh": 0,
+      "mode": "idle",
+      "da_offer_floor_usd": null,
+      "notes": "SoC depleted; idle; operator may begin manual overnight recharge for Sep 18"
+    },
+    {
+      "he": 24,
+      "charge_mw": 0, "discharge_mw": 0,
+      "regup_mw": 0, "regdown_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 0,
+      "soc_end_mwh": 0,
+      "mode": "idle",
+      "da_offer_floor_usd": null,
+      "notes": "End of day; SoC 0 MWh; Sep 18 D+1 cycle begins next morning"
+    }
+  ],
+  "summary": {
+    "total_charge_mwh_from_grid": 212,
+    "total_discharge_mwh_to_grid": 200,
+    "net_grid_consumption_mwh": 12,
+    "rte_implied": 0.85,
+    "charge_hours": [9, 10, 11],
+    "discharge_hours": [19, 20],
+    "as_primary_hours": [1, 2, 3, 4, 5, 6, 7, 8, 12, 13, 14, 15, 16, 17, 18],
+    "idle_hours": [21, 22, 23, 24],
+    "expected_revenue_usd": {
+      "da_energy_discharge_gross": 22500,
+      "da_energy_haircut_factor": 0.80,
+      "da_energy_discharge_net": 18000,
+      "da_energy_charge_cost": -4404,
+      "net_energy_margin": 13596,
+      "nonspin_estimated": 3040,
+      "ecrs_estimated": 0,
+      "rrs_estimated": 0,
+      "total_base_case": 16636,
+      "total_range_low": 12000,
+      "total_range_high": 20000,
+      "confidence": "DEGRADED — ±30%; no Smartbidder price forecasts; NL-analog inference only",
+      "dart_virtual": "TBD by dart-virtual-trader"
+    },
+    "standing_rules_applied": ["Rule 1 (ECRS summer HE07-08, HE13-18)", "Rule 2 (0.80x DA haircut)", "Rule 7 Override (SoC assumed 20 MWh)", "Rule 8 (CHARGE ONLY flag)", "Rule 8 (RT dispatch risk disclosure)"]
+  }
+}

@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "flowday": "2026-09-30",
+    "resource": "GKS_BESS_RN (Great Kiskadee Storage)",
+    "capacity_mw": 100,
+    "capacity_mwh": 200,
+    "roundtrip_efficiency": 0.85,
+    "filed_at_ct": "2026-09-29T07:30:00",
+    "strategy": "Stack A — Concentrated Duck Charge + DA Discharge + ECRS Mandate (Final Day)",
+    "day_type": "Wednesday WDPEAK",
+    "smartbidder_status": "DEGRADED (MSAL expired Day 16+)",
+    "as_playbook_prior": "ABSENT",
+    "tenaska_ptp": "UNAVAILABLE (HTTP 401 chronic)",
+    "data_sources": ["Yes Energy BIDCLOSE PRODUCTION (2026-09-29 fetch)"],
+    "congestion_view": "Stage 0 provisional (CI ±8-12 ppt); single-source YES_ENERGY",
+    "spread_convention": "DA minus RT; positive = DA expensive = short DA / long RT signal",
+    "starting_soc_mwh": 100,
+    "starting_soc_source": "ASSUMED (Rule 7 — Tenaska unavailable)",
+    "rule_6_status": "LOW (SOUTH_HOUSTON_IMPORT P(binding) <3%) — DA-primary strategy",
+    "rule_1_status": "ACTIVE — FINAL DAY (Jun 1 – Sep 30 mandate expires HE24 tonight)",
+    "notes": [
+      "SoC start: 100 MWh assumed (Rule 7). Multiple untracked days Sep 27-29 elapsed.",
+      "Charge HE10 at -100 MW: SoC 100 -> 185 MWh (100 * 0.85 = +85 MWh stored).",
+      "Charge HE11 at -18 MW: SoC 185 -> 200 MWh (18 * 0.85 = +15.3 MWh, capped at 200).",
+      "Hold HE12-18: Full SoC 200 MWh; AS only (ECRS 50 MW + RRS 20 MW + NonSpin 30 MW).",
+      "Discharge HE19 +100 MW: SoC 200 -> 100 MWh.",
+      "Discharge HE20 +100 MW: SoC 100 -> 0 MWh.",
+      "Total charged from grid: 118 MWh gross. Total discharged to grid: 200 MWh.",
+      "ECRS mandate: FINAL DAY Sep 30. Oct 1 cycle must drop ECRS from default (Rule 1).",
+      "Rule 6 LOW: DA-primary venue for HE19-20 discharge. No RT hybrid holdback.",
+      "Rule 8: PROHIBITED BID SLOTS HE01-09 (energy), HE12-18 (energy), HE21-24 (energy).",
+      "Congestion: GKS MCC -$3 to -$5/MWh during HE10-12 duck window — beneficial for charging.",
+      "SOUTH_HOUSTON_IMPORT P(binding) <3%: GKS evening price near hub level.",
+      "DUCK_CURVE_MIDDAY P(binding) 57-72% HE10-12: high probability of near-zero/negative prices at GKS."
+    ]
+  },
+  "expected_revenue": {
+    "charge_cost_usd": -944,
+    "discharge_revenue_gross_usd": 26000,
+    "discharge_revenue_haircutted_usd": 20800,
+    "energy_net_usd": 19856,
+    "ecrs_revenue_usd": 3100,
+    "rrs_revenue_usd": 800,
+    "nonspin_revenue_usd": 2865,
+    "total_as_usd": 6765,
+    "total_usd": 26621,
+    "price_sensitivity_range_usd": [17300, 35900],
+    "basis": "DEGRADED. HE10 GKS ~$8/MWh (hub $12 - MCC $4). HE11 GKS ~$5/MWh (hub $8 - MCC $3). HE19 DA ~$110/MWh (NL 55,585 MW + 12,394 MW outage). HE20 DA ~$150/MWh (NL 59,723 MW + 12,308 MW outage). ECRS $8/MWh elevated (12,809 MW avg outage). RTE 0.85 applied to charge; gross MW delivered for discharge.",
+    "confidence": "LOW — Smartbidder absent, single Yes Energy source, magnitude uncertainty ±30-40%"
+  },
+  "hours": {
+    "HE01": {"mode": "idle", "da_energy_mw": 0, "reg_up_mw": 0, "reg_down_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 80, "soc_end_mwh": 100, "est_da_price_hub": 22, "est_gks_mcc": -2.5, "est_gks_price": 19.5, "notes": "GR_WEST 25,502 MW; NL 36,306 MW; WEST_TO_NORTH P35-50%; idle energy"},
+    "HE02": {"mode": "idle", "da_energy_mw": 0, "reg_up_mw": 0, "reg_down_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 80, "soc_end_mwh": 100, "est_da_price_hub": 20, "est_gks_mcc": -2.5, "est_gks_price": 17.5, "notes": "Overnight low-price window"},
+    "HE03": {"mode": "idle", "da_energy_mw": 0, "reg_up_mw": 0, "reg_down_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 80, "soc_end_mwh": 100, "est_da_price_hub": 18, "est_gks_mcc": -3.0, "est_gks_price": 15.0, "notes": "GR_WEST peak 25,679 MW (SCI 0.552); NL 32,351 MW; WEST_TO_NORTH + PANHANDLE_EXPORT binding risk"},
+    "HE04": {"mode": "idle", "da_energy_mw": 0, "reg_up_mw": 0, "reg_down_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 80, "soc_end_mwh": 100, "est_da_price_hub": 18, "est_gks_mcc": -2.5, "est_gks_price": 15.5, "notes": ""},
+    "HE05": {"mode": "idle", "da_energy_mw": 0, "reg_up_mw": 0, "reg_down_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 80, "soc_end_mwh": 100, "est_da_price_hub": 15, "est_gks_mcc": -2.5, "est_gks_price": 12.5, "notes": "Load trough 57,739 MW"},
+    "HE06": {"mode": "idle", "da_energy_mw": 0, "reg_up_mw": 0, "reg_down_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 80, "soc_end_mwh": 100, "est_da_price_hub": 18, "est_gks_mcc": -2.0, "est_gks_price": 16.0, "notes": "GR_WEST 23,944 MW; wind declining"},
+    "HE07": {"mode": "as_only", "da_energy_mw": 0, "reg_up_mw": 0, "reg_down_mw": 0, "rrs_mw": 0, "ecrs_mw": 15, "nonspin_mw": 65, "soc_end_mwh": 100, "est_da_price_hub": 28, "est_gks_mcc": 0.0, "est_gks_price": 28.0, "notes": "Rule 1 ECRS morning ramp; WDPEAK start"},
+    "HE08": {"mode": "as_only", "da_energy_mw": 0, "reg_up_mw": 0, "reg_down_mw": 0, "rrs_mw": 0, "ecrs_mw": 15, "nonspin_mw": 65, "soc_end_mwh": 100, "est_da_price_hub": 26, "est_gks_mcc": 0.0, "est_gks_price": 26.0, "notes": "Rule 1 ECRS; solar onset 512 MW"},
+    "HE09": {"mode": "as_only", "da_energy_mw": 0, "reg_up_mw": 0, "reg_down_mw": 0, "rrs_mw": 0, "ecrs_mw": 15, "nonspin_mw": 65, "soc_end_mwh": 100, "est_da_price_hub": 20, "est_gks_mcc": 0.0, "est_gks_price": 20.0, "notes": "NL 31,200 MW; solar 6,769 MW ramping; hold charge for HE10 duck window; Rule 1 ECRS last morning hour"},
+    "HE10": {"mode": "charge", "da_energy_mw": -100, "reg_up_mw": 0, "reg_down_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 0, "soc_end_mwh": 185, "est_da_price_hub": 12, "est_gks_mcc": -4.0, "est_gks_effective_price": 8.0, "da_bid_ceiling": 25, "est_charge_cost_usd": -800, "notes": "Duck curve entry; DUCK_CURVE_MIDDAY P(binding) 57-72%; GKS MCC -$3/-$5 → effective GKS price $8/MWh est. Ceiling $25/MWh."},
+    "HE11": {"mode": "charge", "da_energy_mw": -18, "reg_up_mw": 0, "reg_down_mw": 0, "rrs_mw": 20, "ecrs_mw": 15, "nonspin_mw": 0, "soc_end_mwh": 200, "est_da_price_hub": 8, "est_gks_mcc": -4.5, "est_gks_effective_price": 3.5, "da_bid_ceiling": 15, "est_charge_cost_usd": -63, "notes": "NL TROUGH 23,195 MW — SEVERE duck. GKS MCC -$4.5 est. → effective price ~$3.5/MWh. Ceiling $15. SoC fills to 200 MWh. 82 MW headroom → RRS 20 MW + ECRS 15 MW offered."},
+    "HE12": {"mode": "hold", "da_energy_mw": 0, "reg_up_mw": 0, "reg_down_mw": 0, "rrs_mw": 20, "ecrs_mw": 50, "nonspin_mw": 30, "soc_end_mwh": 200, "est_da_price_hub": 18, "est_gks_mcc": -2.5, "est_ecrs_price": 8, "est_rrs_price": 5, "notes": "Full SoC 200 MWh; max AS headroom; ECRS 50 MW + RRS 20 MW + NonSpin 30 MW = 100 MW total upward"},
+    "HE13": {"mode": "hold", "da_energy_mw": 0, "reg_up_mw": 0, "reg_down_mw": 0, "rrs_mw": 20, "ecrs_mw": 50, "nonspin_mw": 30, "soc_end_mwh": 200, "est_da_price_hub": 25, "est_gks_mcc": -1.0, "notes": "NL 27,958 MW; duck plateau; AS hold"},
+    "HE14": {"mode": "hold", "da_energy_mw": 0, "reg_up_mw": 0, "reg_down_mw": 0, "rrs_mw": 20, "ecrs_mw": 50, "nonspin_mw": 30, "soc_end_mwh": 200, "est_da_price_hub": 35, "est_gks_mcc": 0.0, "notes": "Solar peak HE14 23,772 MW; NL rising slowly"},
+    "HE15": {"mode": "hold", "da_energy_mw": 0, "reg_up_mw": 0, "reg_down_mw": 0, "rrs_mw": 20, "ecrs_mw": 50, "nonspin_mw": 30, "soc_end_mwh": 200, "est_da_price_hub": 50, "est_gks_mcc": 0.0, "notes": "Afternoon buildup; load rising"},
+    "HE16": {"mode": "hold", "da_energy_mw": 0, "reg_up_mw": 0, "reg_down_mw": 0, "rrs_mw": 20, "ecrs_mw": 50, "nonspin_mw": 30, "soc_end_mwh": 200, "est_da_price_hub": 65, "est_gks_mcc": 0.0, "notes": "NL 39,653 MW; load 81,547 MW; do NOT discharge"},
+    "HE17": {"mode": "hold", "da_energy_mw": 0, "reg_up_mw": 0, "reg_down_mw": 0, "rrs_mw": 20, "ecrs_mw": 50, "nonspin_mw": 30, "soc_end_mwh": 200, "est_da_price_hub": 80, "est_gks_mcc": 0.0, "notes": "Load PEAK 81,647 MW; NL 43,545 MW; transition hour — do NOT discharge early; preserve full SoC for HE19-20"},
+    "HE18": {"mode": "hold", "da_energy_mw": 0, "reg_up_mw": 0, "reg_down_mw": 0, "rrs_mw": 20, "ecrs_mw": 30, "nonspin_mw": 20, "soc_end_mwh": 200, "est_da_price_hub": 95, "est_gks_mcc": 0.0, "notes": "NL 48,635 MW; solar 12,829 MW still declining; spike entering; ECRS/NonSpin stepped down; prepare HE19 discharge"},
+    "HE19": {"mode": "discharge", "da_energy_mw": 100, "reg_up_mw": 0, "reg_down_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 0, "soc_start_mwh": 200, "soc_end_mwh": 100, "da_offer_floor": 50, "est_da_price_hub": 110, "est_gks_mcc": 0.2, "est_gks_price": 110.2, "est_revenue_usd": 11020, "notes": "NL spike +6,950 MW vs HE18; solar crash 12,829 -> 4,856 MW; primary discharge hour. Rule 6 LOW -> DA primary. Floor $50/MWh. GKS MCC near zero (SOUTH_HOUSTON P<3%)."},
+    "HE20": {"mode": "discharge", "da_energy_mw": 100, "reg_up_mw": 0, "reg_down_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 0, "soc_start_mwh": 100, "soc_end_mwh": 0, "da_offer_floor": 60, "est_da_price_hub": 150, "est_gks_mcc": 0.0, "est_gks_price": 150.0, "est_revenue_usd": 15000, "notes": "NL DAILY MAX 59,723 MW; solar fully exited (238 MW); wind 16,671 MW still declining; 12,308 MW outage. Full SoC consumed. Floor $60/MWh."},
+    "HE21": {"mode": "idle", "da_energy_mw": 0, "reg_up_mw": 0, "reg_down_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 0, "soc_end_mwh": 0, "notes": "SoC depleted; NL 58,364 MW declining; no AS capability at SoC=0"},
+    "HE22": {"mode": "idle", "da_energy_mw": 0, "reg_up_mw": 0, "reg_down_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 0, "soc_end_mwh": 0, "notes": "SoC=0; WDPEAK ending"},
+    "HE23": {"mode": "idle", "da_energy_mw": 0, "reg_up_mw": 0, "reg_down_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 0, "soc_end_mwh": 0, "notes": "SoC=0; OFFPEAK; NL 53,035 MW; no capability"},
+    "HE24": {"mode": "idle", "da_energy_mw": 0, "reg_up_mw": 0, "reg_down_mw": 0, "rrs_mw": 0, "ecrs_mw": 0, "nonspin_mw": 0, "soc_end_mwh": 0, "notes": "SoC=0; Rule 1 ECRS mandate expires at end of HE24. Oct 1 cycle: drop ECRS from default."}
+  },
+  "da_rt_spread_calls": {
+    "energy_he10_11": "DA charge preferred. Duck structural suppression makes DA prices very low ($5-12/MWh est. GKS). DA commit provides execution certainty vs RT SCED interruption risk.",
+    "energy_he19_20": "DA-PRIMARY (Rule 6 LOW). SOUTH_HOUSTON_IMPORT P(binding) <3% → no nodal RT premium expected at GKS. Lock in DA clearing. Spread = DA - RT; expected negative (RT > DA on strong-ramp evening) but Rule 6 LOW overrides RT-hold strategy.",
+    "ecrs_da_rt": "Unknown — Smartbidder absent. Default DA offering. Elevated clearing probability given 12,809 MW outage (highest Sep 2026 series).",
+    "rrs_da_rt": "Unknown. Include RRS 20 MW in hold hours (HE11-18) for AS diversification."
+  },
+  "scenarios": {
+    "primary_stack_a_concentrated_arbitrage": {
+      "description": "Full duck charge HE10-11; hold HE12-18 with full AS; DA discharge HE19-20; ECRS mandate complied on final mandate day.",
+      "total_expected_usd": 26621,
+      "energy_net_usd": 19856,
+      "as_usd": 6765,
+      "confidence": "DEGRADED",
+      "risk": "Execution gap (Rule 8); ECRS non-clearing; charge price higher than expected"
+    },
+    "alternative_stack_b_extended_discharge": {
+      "description": "Charge same (HE10-11); discharge HE18 +50 MW, HE19 +100 MW, HE20 +50 MW. Spreads discharge over 3 hours.",
+      "total_expected_usd_est": 22000,
+      "trigger": "Intraday check at 11:00 CT: GR_WEST tracking ≥3 GW below forecast (implies weaker HE18 price but stronger HE20). Only if wind data clearly diverges.",
+      "risk": "Dilutes concentration in top 2 hours; likely lower total if HE20 is peak"
+    },
+    "alternative_stack_c_as_heavy": {
+      "description": "Discharge only 50 MW each HE19-20; add ECRS 30 MW + NonSpin 30 MW at those hours. Retains AS revenue hedge.",
+      "total_expected_usd_est": 15000,
+      "trigger": "Only if HE19-20 DA clearing fails to reach $50/MWh floor (extreme bear case). NOT recommended under current NL structure.",
+      "risk": "Leaves significant energy arbitrage uncaptured"
+    }
+  },
+  "rule_flags": {
+    "rule_1_ecrs": "ACTIVE — FINAL DAY. Include ECRS HE07-09 (15 MW morning) + HE11-18 (15-50 MW). ECRS excluded at HE19-20 per Rule 1 exception (SoC committed to energy). Rule expires HE24. OCT 1: must drop ECRS from default.",
+    "rule_2_haircut": "APPLIED — 0.80x on DA Energy discharge revenue ($26,000 gross → $20,800 haircutted). AS not haircutted.",
+    "rule_4_calibration": "NO UPDATE — fewer than 3 new PRODUCTION data points since last calibration (Tenaska 401 chronic). 0.80x multiplier unchanged.",
+    "rule_5_tenaska": "DA Energy bids submitted via Smartbidder/Ascend; Tenaska PTP Submissions endpoint returns 0 rows (expected).",
+    "rule_6_congestion": "LOW — SOUTH_HOUSTON_IMPORT P(binding) <3%. DA-primary strategy for HE19-20. No RT holdback.",
+    "rule_7_soc": "ASSUMED 100 MWh (Tenaska unavailable, multiple untracked days). Update if Tenaska data recovered before 10:00 CT DAM cutoff.",
+    "rule_8_rt_dispatch": "OPEN. Prohibited bid slots: HE01-09 (energy), HE12-18 (energy), HE21-24 (energy). Root cause unconfirmed."
+  }
+}

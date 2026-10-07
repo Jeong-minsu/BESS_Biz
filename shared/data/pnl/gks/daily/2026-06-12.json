@@ -1,0 +1,49 @@
+{
+  "flowday": "2026-06-12",
+  "generated_at_utc": "2026-06-13T12:06:35Z",
+  "data_source": "Tenaska PTP api.ptp.energy — Battery-Settlement-Details (production)",
+  "data_quality": {
+    "energy_as_detail_rows": 375,
+    "da_energy_bid_rows": 0,
+    "da_energy_offer_rows": 0,
+    "hsl_available": false,
+    "notes": "DA energy bid/offer clearing returned 0 rows — DEGRADED. HSL file absent — N/A."
+  },
+  "gks_actual": {
+    "da_energy_revenue": -6164.48,
+    "rt_energy_revenue": 5863.29,
+    "as_revenue_nonspin": 6339.36,
+    "as_revenue_rrs": 0.00,
+    "as_revenue_ecrs": 962.56,
+    "as_revenue_regup": 0.00,
+    "as_revenue_regdown": 0.00,
+    "rt_ancillary_imbalance": 0.00,
+    "rt_reliability_deployment_imbalance": 0.00,
+    "dart_virtual_revenue": -301.19,
+    "total_revenue": 7000.73
+  },
+  "battery_state": {
+    "rt_generation_mwh": 27.54,
+    "rt_consumption_mwh": 148.40,
+    "rt_net_mwh": -120.86,
+    "da_sales_mwh": 200.10,
+    "da_purchases_mwh": 425.00,
+    "cycles_equivalent_rt": 0.60,
+    "hsl_availability_pct": null
+  },
+  "smartbidder_benchmark": {
+    "strategy": "AA - Mount Blue Sky with Virtuals (RTC version)",
+    "data_type": "estimate_not_settled",
+    "energy_lmp5_revenue": -64.29,
+    "da_nonspin_revenue": 6417.48,
+    "rt_nonspin_imbalance": -868.95,
+    "da_rrs_revenue": 54.28,
+    "rt_rrs_imbalance": -2.11,
+    "total_revenue": 5536.41
+  },
+  "comparison": {
+    "delta_total_usd": 1464.32,
+    "delta_total_pct": 26.4,
+    "gks_vs_benchmark": "outperformed"
+  }
+}

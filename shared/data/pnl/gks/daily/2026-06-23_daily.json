@@ -1,0 +1,51 @@
+{
+  "metadata": {
+    "flowday": "2026-06-23",
+    "resource": "Great Kiskadee Storage - ESR",
+    "source": "Tenaska PTP — Battery-Settlement-Details (production data)",
+    "fetched_at_utc": "2026-06-24T12:07:17.299776Z",
+    "data_status": "PRODUCTION",
+    "note": "Settlement data — NOT invoice-reconciled. RT_Energy_Amt includes all RT energy imbalance charges/credits."
+  },
+  "gks_actuals": {
+    "da_energy_revenue": 7270.48,
+    "rt_energy_revenue": -3449.05,
+    "da_ns_revenue": 4618.50,
+    "da_ecrs_revenue": 0.00,
+    "da_rrs_revenue": 0.00,
+    "da_regup_revenue": 0.00,
+    "da_regdown_revenue": 0.00,
+    "rt_ancillary_imbalance": 0.00,
+    "rt_reliability_deployment_imbalance": 0.00,
+    "dart_virtual_revenue": null,
+    "total_revenue": 8439.93,
+    "da_sales_qty_mwh": 250.30,
+    "rt_generation_qty_mwh": 104.03,
+    "rt_consumption_qty_mwh": 88.13,
+    "net_injection_mwh": 15.90,
+    "da_ns_cleared_qty_mwh": 1800.00
+  },
+  "smartbidder_benchmark": {
+    "strategy": "AA - Mount Blue Sky with Virtuals (RTC version)",
+    "data_status": "ESTIMATE (not settled)",
+    "da_energy_revenue": 3113.32,
+    "rt_energy_revenue": -3539.01,
+    "da_ns_revenue": 2580.32,
+    "da_ecrs_revenue": 76.16,
+    "da_rrs_revenue": 1.31,
+    "da_regup_revenue": 0.00,
+    "da_regdown_revenue": 0.00,
+    "rt_ns_revenue": -1244.72,
+    "da_virtual_energy_revenue": 11834.00,
+    "rt_virtual_energy_revenue": -7221.25,
+    "dart_virtual_net_revenue": 4612.75,
+    "total_revenue": 5600.13
+  },
+  "comparison": {
+    "note": "GKS actual vs Smartbidder benchmark. GKS total excludes DART virtual (not available in Tenaska settlement data). Smartbidder total includes DART virtual.",
+    "gks_ex_dart_virtual_total": 8439.93,
+    "benchmark_ex_dart_virtual_total": 987.38,
+    "gks_vs_benchmark_ex_dart": 7452.55,
+    "benchmark_total_incl_dart": 5600.13
+  }
+}

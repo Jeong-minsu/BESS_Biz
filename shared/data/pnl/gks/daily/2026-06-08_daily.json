@@ -1,0 +1,59 @@
+{
+  "flowday": "2026-06-08",
+  "generated_at_utc": "2026-06-09T00:00:00Z",
+  "data_source": "PRODUCTION (Tenaska live + Smartbidder executed strategy)",
+  "notes": {
+    "da_energy_bid_rows": 0,
+    "da_energy_offer_rows": 0,
+    "da_bid_offer_status": "DEGRADED — Tenaska Submissions endpoints returned 0 rows for 2026-06-08. DA energy quantities inferred from DA_Energy_Amt settlement in Battery-Settlement-Details.",
+    "tenaska_physical_total": 308.26,
+    "virtual_pnl_source": "Smartbidder executed strategy (DA Virtual Energy + RT Virtual Energy columns)",
+    "smartbidder_note": "ESTIMATE (not invoiced settlement). Virtual P&L = DA Virtual + RT Virtual from Smartbidder file."
+  },
+  "daily_summary": {
+    "da_energy_revenue": 269.88,
+    "rt_energy_revenue": -159.54,
+    "dart_virtual_revenue": 1821.00,
+    "as_revenue_regup": 0.00,
+    "as_revenue_regdown": 0.00,
+    "as_revenue_rrs": 66.91,
+    "as_revenue_ecrs": 0.00,
+    "as_revenue_nonspin": 1674.52,
+    "total_revenue": 3672.78
+  },
+  "battery_state": {
+    "energy_injection_mwh": 52.81,
+    "energy_consumption_mwh": 144.31,
+    "net_mwh": -91.50,
+    "cycles_equivalent": 0.722,
+    "hsl_availability_pct": 94.1,
+    "hsl_avg_discharge_mw": 54.55,
+    "hsl_avg_charge_mw": 52.55
+  },
+  "hourly": [
+    {"he": "HE01", "ct_hour": "00:00", "da_energy": 0.00, "rt_energy": 0.00, "dart_virtual": 0.00, "nonspin": 80.69, "rrs": 0.00, "ecrs": 0.00, "regup": 0.00, "regdn": 0.00, "total": 80.69, "rt_gen_mwh": 0.0006, "rt_cons_mwh": 0.6968},
+    {"he": "HE02", "ct_hour": "01:00", "da_energy": 0.00, "rt_energy": 0.00, "dart_virtual": 0.00, "nonspin": 63.22, "rrs": 0.00, "ecrs": 0.00, "regup": 0.00, "regdn": 0.00, "total": 63.22, "rt_gen_mwh": 0.0001, "rt_cons_mwh": 0.7235},
+    {"he": "HE03", "ct_hour": "02:00", "da_energy": 0.00, "rt_energy": 0.00, "dart_virtual": 0.00, "nonspin": 32.38, "rrs": 0.00, "ecrs": 0.00, "regup": 0.00, "regdn": 0.00, "total": 32.38, "rt_gen_mwh": 0.0001, "rt_cons_mwh": 0.6183},
+    {"he": "HE04", "ct_hour": "03:00", "da_energy": 0.00, "rt_energy": 0.00, "dart_virtual": 0.00, "nonspin": 39.41, "rrs": 0.00, "ecrs": 0.00, "regup": 0.00, "regdn": 0.00, "total": 39.41, "rt_gen_mwh": 0.0010, "rt_cons_mwh": 0.6240},
+    {"he": "HE05", "ct_hour": "04:00", "da_energy": 0.00, "rt_energy": 0.00, "dart_virtual": 0.00, "nonspin": 31.23, "rrs": 0.00, "ecrs": 0.00, "regup": 0.00, "regdn": 0.00, "total": 31.23, "rt_gen_mwh": 0.0001, "rt_cons_mwh": 0.6262},
+    {"he": "HE06", "ct_hour": "05:00", "da_energy": 0.00, "rt_energy": 0.00, "dart_virtual": 0.00, "nonspin": 55.57, "rrs": 0.00, "ecrs": 0.00, "regup": 0.00, "regdn": 0.00, "total": 55.57, "rt_gen_mwh": 0.0016, "rt_cons_mwh": 0.5166},
+    {"he": "HE07", "ct_hour": "06:00", "da_energy": 0.00, "rt_energy": 0.00, "dart_virtual": 0.00, "nonspin": 10.31, "rrs": 0.00, "ecrs": 0.00, "regup": 0.00, "regdn": 0.00, "total": 10.31, "rt_gen_mwh": 0.0003, "rt_cons_mwh": 0.5540},
+    {"he": "HE08", "ct_hour": "07:00", "da_energy": 0.00, "rt_energy": 111.68, "dart_virtual": 0.00, "nonspin": 7.66, "rrs": 0.00, "ecrs": 0.00, "regup": 0.00, "regdn": 0.00, "total": 119.34, "rt_gen_mwh": 0.0067, "rt_cons_mwh": 0.4979},
+    {"he": "HE09", "ct_hour": "08:00", "da_energy": 0.00, "rt_energy": -58.63, "dart_virtual": 0.00, "nonspin": 4.01, "rrs": 0.00, "ecrs": 0.00, "regup": 0.00, "regdn": 0.00, "total": -54.61, "rt_gen_mwh": 0.8277, "rt_cons_mwh": 0.2022},
+    {"he": "HE10", "ct_hour": "09:00", "da_energy": 0.00, "rt_energy": 127.01, "dart_virtual": 0.00, "nonspin": 1.28, "rrs": 0.00, "ecrs": 0.00, "regup": 0.00, "regdn": 0.00, "total": 128.29, "rt_gen_mwh": 0.0290, "rt_cons_mwh": 0.4477},
+    {"he": "HE11", "ct_hour": "10:00", "da_energy": 0.00, "rt_energy": 165.44, "dart_virtual": 0.00, "nonspin": 2.83, "rrs": 0.00, "ecrs": 0.00, "regup": 0.00, "regdn": 0.00, "total": 168.27, "rt_gen_mwh": 0.0000, "rt_cons_mwh": 58.6381},
+    {"he": "HE12", "ct_hour": "11:00", "da_energy": 0.00, "rt_energy": -14.39, "dart_virtual": 610.50, "nonspin": 49.31, "rrs": 0.00, "ecrs": 0.00, "regup": 0.00, "regdn": 0.00, "total": 645.42, "rt_gen_mwh": 0.0000, "rt_cons_mwh": 57.1650},
+    {"he": "HE13", "ct_hour": "12:00", "da_energy": 0.00, "rt_energy": -30.85, "dart_virtual": 1101.50, "nonspin": 32.71, "rrs": 0.00, "ecrs": 0.00, "regup": 0.00, "regdn": 0.00, "total": 1103.35, "rt_gen_mwh": 0.0000, "rt_cons_mwh": 9.4275},
+    {"he": "HE14", "ct_hour": "13:00", "da_energy": 0.00, "rt_energy": -38.92, "dart_virtual": 0.00, "nonspin": 32.72, "rrs": 0.00, "ecrs": 0.00, "regup": 0.00, "regdn": 0.00, "total": -6.21, "rt_gen_mwh": 0.0000, "rt_cons_mwh": 2.9633},
+    {"he": "HE15", "ct_hour": "14:00", "da_energy": 0.00, "rt_energy": -87.92, "dart_virtual": 0.00, "nonspin": 2.80, "rrs": 6.21, "ecrs": 0.00, "regup": 0.00, "regdn": 0.00, "total": -78.91, "rt_gen_mwh": 0.0013, "rt_cons_mwh": 2.4479},
+    {"he": "HE16", "ct_hour": "15:00", "da_energy": 0.00, "rt_energy": -51.26, "dart_virtual": 0.00, "nonspin": 2.31, "rrs": 16.56, "ecrs": 0.00, "regup": 0.00, "regdn": 0.00, "total": -32.39, "rt_gen_mwh": 0.0000, "rt_cons_mwh": 2.8702},
+    {"he": "HE17", "ct_hour": "16:00", "da_energy": 0.00, "rt_energy": -3.38, "dart_virtual": 0.00, "nonspin": 5.14, "rrs": 18.11, "ecrs": 0.00, "regup": 0.00, "regdn": 0.00, "total": 19.87, "rt_gen_mwh": 0.0006, "rt_cons_mwh": 1.8928},
+    {"he": "HE18", "ct_hour": "17:00", "da_energy": 0.00, "rt_energy": 0.00, "dart_virtual": 87.50, "nonspin": 44.74, "rrs": 0.00, "ecrs": 0.00, "regup": 0.00, "regdn": 0.00, "total": 132.24, "rt_gen_mwh": 0.1625, "rt_cons_mwh": 0.6482},
+    {"he": "HE19", "ct_hour": "18:00", "da_energy": 269.88, "rt_energy": 0.00, "dart_virtual": 21.50, "nonspin": 16.33, "rrs": 26.03, "ecrs": 0.00, "regup": 0.00, "regdn": 0.00, "total": 333.74, "rt_gen_mwh": 0.0033, "rt_cons_mwh": 0.5469},
+    {"he": "HE20", "ct_hour": "19:00", "da_energy": 0.00, "rt_energy": -278.32, "dart_virtual": 0.00, "nonspin": 3.97, "rrs": 0.00, "ecrs": 0.00, "regup": 0.00, "regdn": 0.00, "total": -274.36, "rt_gen_mwh": 36.8639, "rt_cons_mwh": 0.1828},
+    {"he": "HE21", "ct_hour": "20:00", "da_energy": 0.00, "rt_energy": 0.00, "dart_virtual": 0.00, "nonspin": 303.22, "rrs": 0.00, "ecrs": 0.00, "regup": 0.00, "regdn": 0.00, "total": 303.22, "rt_gen_mwh": 14.8857, "rt_cons_mwh": 0.2099},
+    {"he": "HE22", "ct_hour": "21:00", "da_energy": 0.00, "rt_energy": 0.00, "dart_virtual": 0.00, "nonspin": 469.36, "rrs": 0.00, "ecrs": 0.00, "regup": 0.00, "regdn": 0.00, "total": 469.36, "rt_gen_mwh": 0.0000, "rt_cons_mwh": 0.5959},
+    {"he": "HE23", "ct_hour": "22:00", "da_energy": 0.00, "rt_energy": 0.00, "dart_virtual": 0.00, "nonspin": 249.57, "rrs": 0.00, "ecrs": 0.00, "regup": 0.00, "regdn": 0.00, "total": 249.57, "rt_gen_mwh": 0.0270, "rt_cons_mwh": 0.5333},
+    {"he": "HE24", "ct_hour": "23:00", "da_energy": 0.00, "rt_energy": 0.00, "dart_virtual": 0.00, "nonspin": 133.77, "rrs": 0.00, "ecrs": 0.00, "regup": 0.00, "regdn": 0.00, "total": 133.77, "rt_gen_mwh": 0.0000, "rt_cons_mwh": 0.6838}
+  ]
+}

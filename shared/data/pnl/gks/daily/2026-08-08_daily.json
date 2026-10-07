@@ -1,0 +1,91 @@
+{
+  "date": "2026-08-08",
+  "resource": "Great Kiskadee Storage - ESR",
+  "generated_at": "2026-08-09",
+  "source": "Tenaska PTP (production) — Battery-Settlement-Details",
+  "smartbidder_benchmark_status": "DEGRADED — AADSTS7000222 client_secret 만료, Ascend rep 갱신 필요",
+  "revenue": {
+    "da_energy_revenue": 6452.46,
+    "rt_energy_revenue": -3994.31,
+    "as_revenue_regup": 0.00,
+    "as_revenue_regdown": 0.00,
+    "as_revenue_rrs": 0.00,
+    "as_revenue_ecrs": 0.00,
+    "as_revenue_nonspin": 3213.00,
+    "rt_ancillary_imbalance": 0.00,
+    "rt_reliability_deployment_imbalance": 0.00,
+    "dart_virtual_revenue": 0.00,
+    "da_total": 6452.46,
+    "rt_total": -3994.31,
+    "nonspin_total": 3213.00,
+    "grand_total": 5671.15
+  },
+  "volume": {
+    "da_purchases_qty_mwh": 150.0,
+    "da_sales_qty_mwh": 340.1,
+    "rt_consumption_qty_mwh": 196.50,
+    "rt_generation_qty_mwh": 167.69,
+    "rt_net_mwh": -28.81,
+    "gen_ns_qty_mw_intervals": 2160,
+    "gen_ns_mw_per_hour": 90.0,
+    "cycle_equivalent_rt": 0.98
+  },
+  "price_summary": {
+    "daspp_24h_sum": 658.86,
+    "rtspp_avg_24h_sum": 696.20,
+    "daspp_24h_avg": 27.45,
+    "rtspp_avg_24h_avg": 29.01
+  },
+  "as_clearings": {
+    "regup_cleared_hours": 0,
+    "regdown_cleared_hours": 0,
+    "rrs_cleared_hours": 0,
+    "ecrs_cleared_hours": 0,
+    "nonspin_cleared_hours": 24,
+    "nonspin_mw_offered": 90.0
+  },
+  "hsl_telemetry": {
+    "intervals_total": 288,
+    "intervals_hsl_gt0": 288,
+    "availability_pct": 100.0,
+    "hsl_min_mw": 9.85,
+    "hsl_max_mw": 93.87,
+    "hsl_avg_mw": 52.6,
+    "gredp_daily_score": 0.9688,
+    "gredp_failed_intervals": 9,
+    "gredp_total_intervals": 288
+  },
+  "flags": {
+    "rt_reliability_deployment_imbalance": false,
+    "rt_ancillary_imbalance": false,
+    "da_bid_rows": 0,
+    "da_offer_rows": 0,
+    "dart_virtual_isolable": false
+  },
+  "hourly": [
+    {"he": 1,  "utc_start": "2026-08-08T05:00:00Z", "cdt": "HE01", "daspp": 28.61, "rtspp_avg": 37.06, "da_energy": 0.00,     "rt_energy": -11.54,    "ns": 216.00, "he_total": 204.46,    "da_purch_mwh": 0.0,  "da_sales_mwh": 0.0,  "rt_cons_mwh": 0.3106,  "rt_gen_mwh": 0.0000,  "gen_ns_mw": 90},
+    {"he": 2,  "utc_start": "2026-08-08T06:00:00Z", "cdt": "HE02", "daspp": 26.50, "rtspp_avg": 32.80, "da_energy": 0.00,     "rt_energy": -11.19,    "ns": 216.90, "he_total": 205.71,    "da_purch_mwh": 0.0,  "da_sales_mwh": 0.0,  "rt_cons_mwh": 0.3413,  "rt_gen_mwh": 0.0000,  "gen_ns_mw": 90},
+    {"he": 3,  "utc_start": "2026-08-08T07:00:00Z", "cdt": "HE03", "daspp": 26.34, "rtspp_avg": 27.31, "da_energy": 0.00,     "rt_energy": -9.32,     "ns": 155.70, "he_total": 146.38,    "da_purch_mwh": 0.0,  "da_sales_mwh": 0.0,  "rt_cons_mwh": 0.3413,  "rt_gen_mwh": 0.0000,  "gen_ns_mw": 90},
+    {"he": 4,  "utc_start": "2026-08-08T08:00:00Z", "cdt": "HE04", "daspp": 25.37, "rtspp_avg": 25.20, "da_energy": 0.00,     "rt_energy": -8.08,     "ns": 155.70, "he_total": 147.62,    "da_purch_mwh": 0.0,  "da_sales_mwh": 0.0,  "rt_cons_mwh": 0.3204,  "rt_gen_mwh": 0.0000,  "gen_ns_mw": 90},
+    {"he": 5,  "utc_start": "2026-08-08T09:00:00Z", "cdt": "HE05", "daspp": 25.12, "rtspp_avg": 26.12, "da_energy": 0.00,     "rt_energy": -8.41,     "ns": 127.80, "he_total": 119.39,    "da_purch_mwh": 0.0,  "da_sales_mwh": 0.0,  "rt_cons_mwh": 0.3219,  "rt_gen_mwh": 0.0000,  "gen_ns_mw": 90},
+    {"he": 6,  "utc_start": "2026-08-08T10:00:00Z", "cdt": "HE06", "daspp": 25.88, "rtspp_avg": 31.24, "da_energy": 0.00,     "rt_energy": -10.23,    "ns": 147.60, "he_total": 137.37,    "da_purch_mwh": 0.0,  "da_sales_mwh": 0.0,  "rt_cons_mwh": 0.3272,  "rt_gen_mwh": 0.0000,  "gen_ns_mw": 90},
+    {"he": 7,  "utc_start": "2026-08-08T11:00:00Z", "cdt": "HE07", "daspp": 24.75, "rtspp_avg": 28.06, "da_energy": -1237.50, "rt_energy": 1395.00,   "ns": 126.00, "he_total": 283.50,    "da_purch_mwh": 50.0, "da_sales_mwh": 0.0,  "rt_cons_mwh": 0.2754,  "rt_gen_mwh": 0.0000,  "gen_ns_mw": 90},
+    {"he": 8,  "utc_start": "2026-08-08T12:00:00Z", "cdt": "HE08", "daspp": 24.60, "rtspp_avg": 26.94, "da_energy": -1230.00, "rt_energy": 1342.19,   "ns": 84.60,  "he_total": 196.79,    "da_purch_mwh": 50.0, "da_sales_mwh": 0.0,  "rt_cons_mwh": 0.1746,  "rt_gen_mwh": 0.0000,  "gen_ns_mw": 90},
+    {"he": 9,  "utc_start": "2026-08-08T13:00:00Z", "cdt": "HE09", "daspp": 19.04, "rtspp_avg": 21.06, "da_energy": -952.00,  "rt_energy": 399.23,    "ns": 63.00,  "he_total": -489.77,   "da_purch_mwh": 50.0, "da_sales_mwh": 0.0,  "rt_cons_mwh": 31.0198, "rt_gen_mwh": 0.0000,  "gen_ns_mw": 90},
+    {"he": 10, "utc_start": "2026-08-08T14:00:00Z", "cdt": "HE10", "daspp": 18.98, "rtspp_avg": 21.77, "da_energy": 0.00,     "rt_energy": -1277.86,  "ns": 33.30,  "he_total": -1244.56,  "da_purch_mwh": 0.0,  "da_sales_mwh": 0.0,  "rt_cons_mwh": 58.6908, "rt_gen_mwh": 0.0000,  "gen_ns_mw": 90},
+    {"he": 11, "utc_start": "2026-08-08T15:00:00Z", "cdt": "HE11", "daspp": 20.09, "rtspp_avg": 23.95, "da_energy": 0.00,     "rt_energy": -894.64,   "ns": 33.30,  "he_total": -861.34,   "da_purch_mwh": 0.0,  "da_sales_mwh": 0.0,  "rt_cons_mwh": 37.3858, "rt_gen_mwh": 0.0000,  "gen_ns_mw": 90},
+    {"he": 12, "utc_start": "2026-08-08T16:00:00Z", "cdt": "HE12", "daspp": 24.38, "rtspp_avg": 24.35, "da_energy": 1219.00,  "rt_energy": -1330.79,  "ns": 33.30,  "he_total": -78.49,    "da_purch_mwh": 0.0,  "da_sales_mwh": 50.0, "rt_cons_mwh": 4.7865,  "rt_gen_mwh": 0.0000,  "gen_ns_mw": 90},
+    {"he": 13, "utc_start": "2026-08-08T17:00:00Z", "cdt": "HE13", "daspp": 26.09, "rtspp_avg": 33.54, "da_energy": 1304.50,  "rt_energy": -1209.31,  "ns": 36.90,  "he_total": 132.09,    "da_purch_mwh": 0.0,  "da_sales_mwh": 50.0, "rt_cons_mwh": 0.1557,  "rt_gen_mwh": 12.9846, "gen_ns_mw": 90},
+    {"he": 14, "utc_start": "2026-08-08T18:00:00Z", "cdt": "HE14", "daspp": 27.42, "rtspp_avg": 30.25, "da_energy": 1371.00,  "rt_energy": -1421.65,  "ns": 36.00,  "he_total": -14.65,    "da_purch_mwh": 0.0,  "da_sales_mwh": 50.0, "rt_cons_mwh": 0.3455,  "rt_gen_mwh": 3.0282,  "gen_ns_mw": 90},
+    {"he": 15, "utc_start": "2026-08-08T19:00:00Z", "cdt": "HE15", "daspp": 28.67, "rtspp_avg": 35.27, "da_energy": 860.10,   "rt_energy": -720.98,   "ns": 36.00,  "he_total": 175.12,    "da_purch_mwh": 0.0,  "da_sales_mwh": 30.0, "rt_cons_mwh": 0.1533,  "rt_gen_mwh": 9.0633,  "gen_ns_mw": 90},
+    {"he": 16, "utc_start": "2026-08-08T20:00:00Z", "cdt": "HE16", "daspp": 30.87, "rtspp_avg": 41.63, "da_energy": 926.10,   "rt_energy": -230.73,   "ns": 33.30,  "he_total": 728.67,    "da_purch_mwh": 0.0,  "da_sales_mwh": 30.0, "rt_cons_mwh": 0.0018,  "rt_gen_mwh": 24.4593, "gen_ns_mw": 90},
+    {"he": 17, "utc_start": "2026-08-08T21:00:00Z", "cdt": "HE17", "daspp": 28.61, "rtspp_avg": 37.60, "da_energy": 858.30,   "rt_energy": -405.37,   "ns": 32.40,  "he_total": 485.33,    "da_purch_mwh": 0.0,  "da_sales_mwh": 30.0, "rt_cons_mwh": 0.0334,  "rt_gen_mwh": 17.4466, "gen_ns_mw": 90},
+    {"he": 18, "utc_start": "2026-08-08T22:00:00Z", "cdt": "HE18", "daspp": 25.56, "rtspp_avg": 23.11, "da_energy": 0.00,     "rt_energy": -688.98,   "ns": 34.20,  "he_total": -654.78,   "da_purch_mwh": 0.0,  "da_sales_mwh": 0.0,  "rt_cons_mwh": 32.0556, "rt_gen_mwh": 0.0143,  "gen_ns_mw": 90},
+    {"he": 19, "utc_start": "2026-08-08T23:00:00Z", "cdt": "HE19", "daspp": 29.77, "rtspp_avg": 12.03, "da_energy": 1488.50,  "rt_energy": -896.79,   "ns": 42.30,  "he_total": 634.01,    "da_purch_mwh": 0.0,  "da_sales_mwh": 50.0, "rt_cons_mwh": 26.9360, "rt_gen_mwh": 0.0000,  "gen_ns_mw": 90},
+    {"he": 20, "utc_start": "2026-08-09T00:00:00Z", "cdt": "HE20", "daspp": 34.59, "rtspp_avg": 23.79, "da_energy": 3.46,     "rt_energy": -34.69,    "ns": 90.00,  "he_total": 58.77,     "da_purch_mwh": 0.0,  "da_sales_mwh": 0.1,  "rt_cons_mwh": 1.7045,  "rt_gen_mwh": 0.0022,  "gen_ns_mw": 90},
+    {"he": 21, "utc_start": "2026-08-09T01:00:00Z", "cdt": "HE21", "daspp": 36.82, "rtspp_avg": 30.54, "da_energy": 1841.00,  "rt_energy": -1127.56,  "ns": 243.90, "he_total": 957.34,    "da_purch_mwh": 0.0,  "da_sales_mwh": 50.0, "rt_cons_mwh": 0.3287,  "rt_gen_mwh": 12.4662, "gen_ns_mw": 90},
+    {"he": 22, "utc_start": "2026-08-09T02:00:00Z", "cdt": "HE22", "daspp": 37.39, "rtspp_avg": 37.11, "da_energy": 0.00,     "rt_energy": 1877.62,   "ns": 355.50, "he_total": 2233.12,   "da_purch_mwh": 0.0,  "da_sales_mwh": 0.0,  "rt_cons_mwh": 0.0009,  "rt_gen_mwh": 50.5730, "gen_ns_mw": 90},
+    {"he": 23, "utc_start": "2026-08-09T03:00:00Z", "cdt": "HE23", "daspp": 34.67, "rtspp_avg": 34.60, "da_energy": 0.00,     "rt_energy": 1268.72,   "ns": 504.00, "he_total": 1772.72,   "da_purch_mwh": 0.0,  "da_sales_mwh": 0.0,  "rt_cons_mwh": 0.0054,  "rt_gen_mwh": 36.4987, "gen_ns_mw": 90},
+    {"he": 24, "utc_start": "2026-08-09T04:00:00Z", "cdt": "HE24", "daspp": 28.74, "rtspp_avg": 30.86, "da_energy": 0.00,     "rt_energy": 21.03,     "ns": 375.30, "he_total": 396.33,    "da_purch_mwh": 0.0,  "da_sales_mwh": 0.0,  "rt_cons_mwh": 0.4879,  "rt_gen_mwh": 1.1570,  "gen_ns_mw": 90}
+  ]
+}

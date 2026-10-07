@@ -1,0 +1,336 @@
+{
+  "flowday": "2026-07-04",
+  "issued_at": "2026-07-03",
+  "asset": "GKS_BESS_RN",
+  "capacity_mw": 100,
+  "capacity_mwh": 200,
+  "efficiency_rte": 0.87,
+  "initial_soc_mwh": 20.0,
+  "soc_source": "ASSUMED",
+  "soc_note": "Rule7 override: 7/3 recommendation terminal SoC = 0 MWh; partial residual lower bound 20 MWh. Tenaska 7/3 actuals delayed to 7/5-6 (Independence Day holiday).",
+  "primary_stack": "A",
+  "primary_stack_label": "AS-Heavy + Evening 2-Hour Discharge (HE20+HE21)",
+  "da_rt_haircut": 0.80,
+  "as_playbook_prior": "ABSENT",
+  "houston_import_p_binding": "0.12-0.18",
+  "rule6_mode": "HYBRID_LOW",
+  "smartbidder_data": "ABSENT_42nd_cycle",
+  "calendar": "Independence Day Saturday. WEPEAK HE07-22 / OFFPEAK HE01-06, HE23-24. Holiday load discount -3.4% vs prior Thursday.",
+  "solar_peak_mw": 30107,
+  "solar_peak_he": "HE13",
+  "net_load_trough_mw": 23278,
+  "net_load_trough_he": "HE10",
+  "net_load_peak_mw": 57598,
+  "net_load_peak_he": "HE21",
+  "grwest_afternoon_min_mw": 3393,
+  "grwest_afternoon_min_he": "HE15",
+  "he20_net_load_jump_mw": 9260,
+  "hours": {
+    "HE01": {
+      "energy_mw": 0, "mode": "standby_as", "soc_end_mwh": 20.0,
+      "ns_mw": 80, "ecrs_mw": 10, "rrs_mw": 10, "regup_mw": 0, "regdown_mw": 0,
+      "da_price_estimate_usd_mwh": 22.0, "net_load_mw": 43960,
+      "expected_revenue_usd": 190.00,
+      "note": "OFFPEAK. Overnight standby. High wind HE1-6 avg 13,000 MW GR_WEST."
+    },
+    "HE02": {
+      "energy_mw": 0, "mode": "standby_as", "soc_end_mwh": 20.0,
+      "ns_mw": 80, "ecrs_mw": 10, "rrs_mw": 10, "regup_mw": 0, "regdown_mw": 0,
+      "da_price_estimate_usd_mwh": 21.0, "net_load_mw": 41717,
+      "expected_revenue_usd": 190.00,
+      "note": "OFFPEAK. GR_WEST 13,849 MW (overnight high)."
+    },
+    "HE03": {
+      "energy_mw": 0, "mode": "standby_as", "soc_end_mwh": 20.0,
+      "ns_mw": 80, "ecrs_mw": 10, "rrs_mw": 10, "regup_mw": 0, "regdown_mw": 0,
+      "da_price_estimate_usd_mwh": 21.0, "net_load_mw": 40342,
+      "expected_revenue_usd": 190.00,
+      "note": "OFFPEAK. GR_WEST peak 14,014 MW (overnight max). Holiday low demand."
+    },
+    "HE04": {
+      "energy_mw": 0, "mode": "standby_as", "soc_end_mwh": 20.0,
+      "ns_mw": 80, "ecrs_mw": 10, "rrs_mw": 10, "regup_mw": 0, "regdown_mw": 0,
+      "da_price_estimate_usd_mwh": 21.0, "net_load_mw": 39389,
+      "expected_revenue_usd": 190.00,
+      "note": "OFFPEAK. Net load trough of overnight hours."
+    },
+    "HE05": {
+      "energy_mw": 0, "mode": "standby_as", "soc_end_mwh": 20.0,
+      "ns_mw": 80, "ecrs_mw": 10, "rrs_mw": 10, "regup_mw": 0, "regdown_mw": 0,
+      "da_price_estimate_usd_mwh": 22.0, "net_load_mw": 38825,
+      "expected_revenue_usd": 190.00,
+      "note": "OFFPEAK. Daily net load minimum 38,825 MW."
+    },
+    "HE06": {
+      "energy_mw": 0, "mode": "standby_as", "soc_end_mwh": 20.0,
+      "ns_mw": 80, "ecrs_mw": 10, "rrs_mw": 10, "regup_mw": 0, "regdown_mw": 0,
+      "da_price_estimate_usd_mwh": 23.0, "net_load_mw": 38692,
+      "expected_revenue_usd": 190.00,
+      "note": "OFFPEAK. GR_WEST 12,873 MW still high."
+    },
+    "HE07": {
+      "energy_mw": 0, "mode": "standby_as", "soc_end_mwh": 20.0,
+      "ns_mw": 80, "ecrs_mw": 10, "rrs_mw": 10, "regup_mw": 0, "regdown_mw": 0,
+      "da_price_estimate_usd_mwh": 23.0, "net_load_mw": 37148,
+      "expected_revenue_usd": 190.00,
+      "note": "WEPEAK starts. Solar begins (199 MW). Net load falling as solar ramps."
+    },
+    "HE08": {
+      "energy_mw": 0, "mode": "standby_as", "soc_end_mwh": 20.0,
+      "ns_mw": 80, "ecrs_mw": 10, "rrs_mw": 10, "regup_mw": 0, "regdown_mw": 0,
+      "da_price_estimate_usd_mwh": 18.0, "net_load_mw": 32878,
+      "expected_revenue_usd": 190.00,
+      "note": "Solar 5,430 MW ramping fast. Net load 32,878 MW."
+    },
+    "HE09": {
+      "energy_mw": -100, "mode": "charge_da", "soc_end_mwh": 107.0,
+      "ns_mw": 0, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdown_mw": 0,
+      "da_bid_ceiling_usd_mwh": 12.0,
+      "da_price_estimate_usd_mwh": 5.0,
+      "net_load_mw": 25845, "solar_mw": 17554, "wind_mw": 13198,
+      "expected_revenue_usd": -500.00,
+      "note": "Solar 17,554 MW. Net load plunging to 25,845 MW. Charge window opens. SoC: 20 + 87 = 107 MWh."
+    },
+    "HE10": {
+      "energy_mw": -100, "mode": "charge_da", "soc_end_mwh": 194.0,
+      "ns_mw": 0, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdown_mw": 0,
+      "da_bid_ceiling_usd_mwh": 8.0,
+      "da_price_estimate_usd_mwh": 0.0,
+      "net_load_mw": 23278, "solar_mw": 25349, "wind_mw": 12249,
+      "expected_revenue_usd": 0.00,
+      "note": "NET LOAD TROUGH: 23,278 MW — July series lowest. Solar 25,349 MW. Negative DA LMP possible (-$3 to -$5/MWh upside scenario). Primary charge hour. SoC: 107 + 87 = 194 MWh. GKS MCC est. -$4.0 to -$5.0 (Finding 7 solar suppression maximum).",
+      "negative_price_upside_scenario": "If DA clears at -$3/MWh: revenue +$300 instead of $0. Total upside ~$300-500 vs base."
+    },
+    "HE11": {
+      "energy_mw": -7, "mode": "charge_da_partial", "soc_end_mwh": 200.0,
+      "ns_mw": 0, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdown_mw": 0,
+      "da_bid_ceiling_usd_mwh": 10.0,
+      "da_price_estimate_usd_mwh": 5.0,
+      "net_load_mw": 26555, "solar_mw": 28097, "wind_mw": 10632,
+      "expected_revenue_usd": -35.00,
+      "note": "Partial fill to 200 MWh. 7 MW x 0.87 eff = 6.09 MWh stored → SoC 194 + 6 = 200 MWh. Solar still 28,097 MW. Net load 26,555 MW recovering but low."
+    },
+    "HE12": {
+      "energy_mw": 0, "mode": "standby_hold_soc", "soc_end_mwh": 200.0,
+      "ns_mw": 50, "ecrs_mw": 20, "rrs_mw": 20, "regup_mw": 0, "regdown_mw": 0,
+      "da_price_estimate_usd_mwh": 10.0, "net_load_mw": 30902, "solar_mw": 29798,
+      "expected_revenue_usd": 185.00,
+      "note": "Solar near peak 29,798 MW. Net load 30,902 MW. Hold SoC 200 MWh. AS from capacity."
+    },
+    "HE13": {
+      "energy_mw": 0, "mode": "standby_hold_soc", "soc_end_mwh": 200.0,
+      "ns_mw": 50, "ecrs_mw": 20, "rrs_mw": 20, "regup_mw": 0, "regdown_mw": 0,
+      "da_price_estimate_usd_mwh": 18.0, "net_load_mw": 35437, "solar_mw": 30107,
+      "expected_revenue_usd": 185.00,
+      "note": "SOLAR PEAK: 30,107 MW — July series record. Net load 35,437 MW. GKS MCC most negative this hour (Finding 7 max)."
+    },
+    "HE14": {
+      "energy_mw": 0, "mode": "standby_hold_soc", "soc_end_mwh": 200.0,
+      "ns_mw": 50, "ecrs_mw": 20, "rrs_mw": 20, "regup_mw": 0, "regdown_mw": 0,
+      "da_price_estimate_usd_mwh": 25.0, "net_load_mw": 39077, "solar_mw": 29325,
+      "expected_revenue_usd": 185.00,
+      "note": "Net load rising to 39,077 MW. Load peak approaching. Solar still 29,325 MW suppresses absolute price. 7/2 actual HE14 DA $27.63 (for reference). NO DA DISCHARGE per 7/1+7/2 lessons."
+    },
+    "HE15": {
+      "energy_mw": 0, "mode": "standby_hold_soc", "soc_end_mwh": 200.0,
+      "ns_mw": 50, "ecrs_mw": 20, "rrs_mw": 20, "regup_mw": 0, "regdown_mw": 0,
+      "da_price_estimate_usd_mwh": 30.0, "net_load_mw": 38492, "solar_mw": 29447,
+      "expected_revenue_usd": 185.00,
+      "note": "GR_WEST absolute daily minimum: 3,393 MW. HOWEVER solar 29,447 MW still suppresses net load to 38,492 MW. 7/4 HE15-17 RT spike risk LOW (unlike 7/2) — solar still dominant. NO DA DISCHARGE."
+    },
+    "HE16": {
+      "energy_mw": 0, "mode": "standby_hold_soc", "soc_end_mwh": 200.0,
+      "ns_mw": 50, "ecrs_mw": 20, "rrs_mw": 20, "regup_mw": 0, "regdown_mw": 0,
+      "da_price_estimate_usd_mwh": 32.0, "net_load_mw": 38431, "solar_mw": 28741,
+      "expected_revenue_usd": 185.00,
+      "note": "Load peak 79,645 MW. But solar 28,741 MW → net load only 38,431 MW. GR_WEST 3,491 MW. RT spike risk LOW (solar suppresses). SoC hold."
+    },
+    "HE17": {
+      "energy_mw": 0, "mode": "standby_hold_soc", "soc_end_mwh": 200.0,
+      "ns_mw": 50, "ecrs_mw": 20, "rrs_mw": 20, "regup_mw": 0, "regdown_mw": 0,
+      "da_price_estimate_usd_mwh": 35.0, "net_load_mw": 39048, "solar_mw": 26894,
+      "expected_revenue_usd": 185.00,
+      "note": "7/2 lesson: HE17 DA $27.95 but RT $36.05 (spread -$8.10). Even though 7/4 spike risk lower (solar 26,894 MW still high vs 7/2), NO DA DISCHARGE mandatory. SoC = 200 MWh preserved for HE20-21."
+    },
+    "HE18": {
+      "energy_mw": 0, "mode": "standby_hold_soc", "soc_end_mwh": 200.0,
+      "ns_mw": 50, "ecrs_mw": 20, "rrs_mw": 20, "regup_mw": 0, "regdown_mw": 0,
+      "da_price_estimate_usd_mwh": 38.0, "net_load_mw": 40176, "solar_mw": 24425,
+      "expected_revenue_usd": 185.00,
+      "note": "Solar declining 24,425 MW. Net load rising to 40,176 MW. Evening ramp beginning. Hold SoC. AS revenue."
+    },
+    "HE19": {
+      "energy_mw": 0, "mode": "standby_hybrid_as", "soc_end_mwh": 200.0,
+      "ns_mw": 50, "ecrs_mw": 20, "rrs_mw": 15, "regup_mw": 0, "regdown_mw": 0,
+      "da_price_estimate_usd_mwh": 42.0, "net_load_mw": 43155, "solar_mw": 18947,
+      "expected_revenue_usd": 205.00,
+      "note": "Rule6_HYBRID_LOW: HOUSTON_IMPORT P=12-18%. Hold full 200 MWh SoC. Solar 18,947 MW → 8,072 MW collapse next hour (-10,875 MW). Net load 43,155 → 52,415 MW next hour (+9,260 MW). RT optionality preserved but AS is default position. ECRS 20 MW (Rule 1 summer)."
+    },
+    "HE20": {
+      "energy_mw": 100, "mode": "discharge_da", "soc_end_mwh": 100.0,
+      "ns_mw": 0, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdown_mw": 0,
+      "da_bid_floor_usd_mwh": 42.0,
+      "da_price_estimate_usd_mwh": 50.0,
+      "net_load_mw": 52415, "solar_mw": 8072, "wind_mw": 14186,
+      "expected_revenue_usd": 4000.00,
+      "note": "PRIMARY DISCHARGE HOUR. Solar collapse: -10,875 MW HE19→HE20. Net load surge +9,260 MW (largest single-hour ramp in July series). Expected DA ~$50/MWh. 0.80x haircut applied: 100 MW x $50 x 0.80 = $4,000. SoC: 200 - 100 = 100 MWh."
+    },
+    "HE21": {
+      "energy_mw": 100, "mode": "discharge_da", "soc_end_mwh": 0.0,
+      "ns_mw": 0, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdown_mw": 0,
+      "da_bid_floor_usd_mwh": 40.0,
+      "da_price_estimate_usd_mwh": 47.0,
+      "net_load_mw": 57598, "solar_mw": 837, "wind_mw": 15368,
+      "expected_revenue_usd": 3760.00,
+      "note": "SECONDARY DISCHARGE HOUR. Net load daily peak 57,598 MW. Solar effectively zero (837 MW). Expected DA ~$47/MWh. 0.80x haircut: 100 MW x $47 x 0.80 = $3,760. SoC: 100 - 100 = 0 MWh. Stack B trigger: if actual DA HE21 clears < $40/MWh, switch to Stack B (HE19+HE20)."
+    },
+    "HE22": {
+      "energy_mw": 0, "mode": "standby_as_post_discharge", "soc_end_mwh": 0.0,
+      "ns_mw": 88, "ecrs_mw": 12, "rrs_mw": 0, "regup_mw": 0, "regdown_mw": 0,
+      "da_price_estimate_usd_mwh": 38.0, "net_load_mw": 55364, "solar_mw": 0, "wind_mw": 16999,
+      "expected_revenue_usd": 464.00,
+      "note": "Rule3_scarcity + Rule1_ECRS_summer. SoC=0. NS 88 MW max. NS price est. $5.00/MWh: 88 x $5.00 = $440 + ECRS 12 x $2.00 = $24 = $464. 7/2 actual HE22 NS $7.79/MWh (holiday discount applied)."
+    },
+    "HE23": {
+      "energy_mw": 0, "mode": "standby_as_post_discharge", "soc_end_mwh": 0.0,
+      "ns_mw": 88, "ecrs_mw": 12, "rrs_mw": 0, "regup_mw": 0, "regdown_mw": 0,
+      "da_price_estimate_usd_mwh": 30.0, "net_load_mw": 51036,
+      "expected_revenue_usd": 552.00,
+      "note": "OFFPEAK. Rule3 highest scarcity hour. NS $6.00/MWh est.: 88 x $6.00 = $528 + ECRS $24 = $552. 7/2 actual HE23 NS $9.12/MWh (weekday). Holiday 30-40% discount applied."
+    },
+    "HE24": {
+      "energy_mw": 0, "mode": "standby_as_post_discharge", "soc_end_mwh": 0.0,
+      "ns_mw": 88, "ecrs_mw": 12, "rrs_mw": 0, "regup_mw": 0, "regdown_mw": 0,
+      "da_price_estimate_usd_mwh": 25.0, "net_load_mw": 47327,
+      "expected_revenue_usd": 420.00,
+      "note": "OFFPEAK. Wind recovering (GR_WEST 11,777 MW). NS $4.50/MWh est.: 88 x $4.50 = $396 + ECRS $24 = $420."
+    }
+  },
+  "expected_revenue": {
+    "da_energy_charge_cost_usd": -535.00,
+    "da_energy_discharge_raw_usd": 9700.00,
+    "da_energy_discharge_haircut_usd": 7760.00,
+    "da_energy_net_usd": 7225.00,
+    "non_spin_usd": 3669.00,
+    "ecrs_usd": 552.00,
+    "ecrs_confidence": "LOW (7/2 actual $0, clearing failure pattern persists per Rule 4)",
+    "rrs_usd": 235.00,
+    "rrs_confidence": "LOW",
+    "regup_usd": 0.00,
+    "regdown_usd": 0.00,
+    "total_usd": 11681.00,
+    "note": "Smartbidder absent 42nd cycle. All prices estimated from Yes Energy supply-demand + 7/2 actuals. DA Energy uncertainty +/-$1,000 (holiday thin market). Rule2 0.80x haircut applied to discharge only. HE10 negative price upside: +$300-500 if DA clears negative.",
+    "vs_7_3_recommendation_usd": 471.00,
+    "vs_7_2_actual_usd": 9668.00
+  },
+  "charge_summary": {
+    "hours": ["HE09", "HE10", "HE11"],
+    "total_grid_consumption_mwh": 207.0,
+    "total_soc_stored_mwh": 180.09,
+    "avg_charge_price_usd_mwh": 2.59,
+    "charge_cost_usd": 535.00,
+    "soc_start_mwh": 20.0,
+    "soc_end_mwh": 200.0,
+    "key_insight": "HE10 at $0/MWh base case (vs $3 on 7/3, $16.6 on 7/2). Net load 23,278 MW = July series trough. Cheapest charge window of any cycle this month."
+  },
+  "discharge_summary": {
+    "hours": ["HE20", "HE21"],
+    "total_discharge_mwh": 200.0,
+    "avg_discharge_price_estimate_usd_mwh": 48.5,
+    "avg_discharge_price_floor_usd_mwh": 41.0,
+    "discharge_raw_usd": 9700.00,
+    "discharge_haircut_usd": 7760.00,
+    "soc_start_mwh": 200.0,
+    "soc_end_mwh": 0.0,
+    "key_insight": "HE20 net load jump +9,260 MW = largest single-hour ramp in July series. Solar collapse HE19->HE20 (-10,875 MW) is primary price driver."
+  },
+  "da_rt_spread_view": {
+    "HE09_11": {
+      "spread_estimate": "+$0 to +$5",
+      "direction": "DA approx equal to RT",
+      "action": "DA charge — cheapest window"
+    },
+    "HE12_18": {
+      "spread_estimate": "variable; +$3 to +$10",
+      "direction": "DA > RT likely",
+      "action": "AS-only hold SoC. No DA discharge. Solar suppression moderates prices."
+    },
+    "HE15_17_spike_assessment": {
+      "vs_7_2": "LOWER risk on 7/4. Solar 26,894-29,447 MW at HE15-17 suppresses net load to 38-39 GW. 7/2 spike (HE17 RT $36.05 vs DA $27.95) occurred with less solar. 7/4 spike window shifts to HE19-21.",
+      "action": "No spike protection needed at HE15-17. Standard AS-only hold."
+    },
+    "HE19": {
+      "spread_estimate": "-$5 to +$8",
+      "direction": "Uncertain (solar still 18,947 MW)",
+      "action": "Rule6 HYBRID_LOW hold. AS from capacity."
+    },
+    "HE20_21": {
+      "spread_estimate": "+$5 to +$20",
+      "direction": "DA > RT (P~65%); Holiday thin market widens range",
+      "action": "DA discharge 100 MW each. Primary revenue window."
+    }
+  },
+  "alternative_stack": {
+    "label": "Stack B — HE19+HE20 discharge (1-hour earlier)",
+    "trigger": "DAM results: DA HE21 clears < $40/MWh OR HE20-21 avg < $43/MWh, OR GR_WEST RT actual at HE17 falls > 3,000 MW below STWPF (earlier evening ramp signal)",
+    "discharge_hours": ["HE19", "HE20"],
+    "he19_price_estimate_usd_mwh": 42.0,
+    "he20_price_estimate_usd_mwh": 50.0,
+    "energy_discharge_raw_usd": 9200.00,
+    "energy_discharge_haircut_usd": 7360.00,
+    "energy_net_usd": 6825.00,
+    "lost_he19_as_usd": -205.00,
+    "gained_he21_as_usd": 376.00,
+    "expected_total_usd": 11452.00,
+    "delta_vs_primary_usd": -229.00,
+    "breakeven_he21_price": "Stack B better when actual HE21 DA < $42/MWh (base est $47)"
+  },
+  "congestion_flags": {
+    "HOUSTON_IMPORT_345": {
+      "hours": "HE20-22",
+      "p_binding": "0.12-0.18",
+      "rule6_applied": true,
+      "rule6_mode": "HYBRID_LOW",
+      "conditional_mcc_upside_usd_mwh": "0.05-0.15 prob-weighted (negligible)",
+      "l1_timing_offset": "Historical binding onset HE17. If binding, onset may be earlier than HE20.",
+      "note": "Holiday Saturday -8 to -12 ppt discount from weekday baseline. Stage 0 provisional."
+    },
+    "GKS_MCC_HE09_15": {
+      "direction": "strongly_negative",
+      "estimate_usd_mwh": "-4.0 to -5.0",
+      "peak_hour": "HE13 (solar 30,107 MW = July series max)",
+      "effect": "Lowers effective charge cost at GKS node vs hub. HE10 MCC effect maximized (net load trough + solar peak). Stage 0 low confidence.",
+      "note": "Finding 7 maximum activation on 7/4: deepest NL trough in July series."
+    },
+    "PANHANDLE_EXPORT_345": "NEGLIGIBLE (<3%). GR_WEST all 24h below 15,000 MW threshold (Day 4 post-W25 structural low).",
+    "WEST_TO_NORTH_345": "NEGLIGIBLE (<3%). GR_WEST HE22-24 recovering 9,178-11,777 MW but structural low persists."
+  },
+  "rt_operation_guide": {
+    "HE15_17_spike_risk": "LOW on 7/4 (unlike 7/2). Solar 26,894-29,447 MW suppresses net load to 38-39 GW. No action needed.",
+    "HE19_optionality": "If RT approaches $55+/MWh at HE19, Smartbidder may trigger RT discharge. This is Smartbidder RT layer decision. Base position is AS hold.",
+    "HE20_21_primary": "DA discharge 100 MW each. Do NOT add HE14-19 DA sell (Rule 8 execution divergence prevention).",
+    "soc_buffer_alert": "If SoC drops below 200 MWh during HE12-19, flag as unauthorized discharge. Rule 8 escalation trigger.",
+    "holiday_thin_market_note": "Wider price confidence intervals. Both spike and crash scenarios more probable than weekday. ORDC activation at HE20 (+9,260 MW ramp) could push RT above DA."
+  },
+  "soc_trajectory": {
+    "HE00_start": 20.0,
+    "HE08_end": 20.0,
+    "HE09_end": 107.0,
+    "HE10_end": 194.0,
+    "HE11_end": 200.0,
+    "HE19_end": 200.0,
+    "HE20_end": 100.0,
+    "HE21_end": 0.0,
+    "HE24_end": 0.0
+  },
+  "standing_rules_applied": [
+    "Rule1_ECRS_summer_inclusion_HE12_24",
+    "Rule2_DA_haircut_0.80x_discharge_only",
+    "Rule3_NonSpin_scarcity_HE22_24_88MW",
+    "Rule5_DA_bid_row_discrepancy_expected",
+    "Rule6_HOUSTON_IMPORT_HYBRID_LOW_12_18pct",
+    "Rule7_SoC_init_20MWh_assumed_7_3_terminal_zero",
+    "Rule8_RT_dispatch_risk_unresolved_CRITICAL"
+  ],
+  "execution_warning": "CRITICAL: HE20+HE21 100 MW discharge only. DO NOT add DA sell at HE14-19. 7/2 Smartbidder divergence (300 MWh vs 200 MWh recommended) cost estimated -$3,551 vs recommendation. Same pattern in 7/4 = -$3,000 to -$5,000 risk."
+}

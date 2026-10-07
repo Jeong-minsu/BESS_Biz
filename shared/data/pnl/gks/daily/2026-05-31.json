@@ -1,0 +1,81 @@
+{
+  "flowday": "2026-05-31",
+  "resource": "Great Kiskadee Storage - ESR (GKS)",
+  "data_source": "Production data (Tenaska PTP + Smartbidder)",
+  "generated_at_utc": "2026-06-01T12:11:44Z",
+  "tenaska_row_count": 379,
+  "gks_actual": {
+    "da_energy_revenue": -1855.84,
+    "rt_energy_revenue": 3667.74,
+    "as_revenue_nonspin": 1776.80,
+    "as_revenue_rrs": 769.60,
+    "as_revenue_regup": 0.00,
+    "as_revenue_regdown": 0.00,
+    "as_revenue_ecrs": 0.00,
+    "as_revenue_rt_ancillary_imbalance": 0.00,
+    "as_revenue_rt_reliability_deployment_imbalance": 0.00,
+    "dart_virtual_revenue": null,
+    "dart_virtual_revenue_note": "Not separately tracked in Tenaska settlement; total energy PnL (DA+RT) = +1811.90",
+    "total_revenue": 4358.30
+  },
+  "energy_quantities_mwh": {
+    "energy_injection_mwh": 195.53,
+    "energy_consumption_mwh": 404.43,
+    "net_mwh": -208.90,
+    "cycles_equivalent": 2.02,
+    "da_purchases_qty_mwh": 277.70,
+    "da_sales_qty_mwh": 100.10,
+    "rt_generation_qty_mwh": 95.4305,
+    "rt_consumption_qty_mwh": 126.7311
+  },
+  "as_cleared_mwh": {
+    "gen_ns_qty_mw_sum": 1600.0,
+    "gen_rrs_qty_mw_sum": 320.0,
+    "gen_ecrs_qty_mw_sum": 0.0,
+    "note": "MW-hour sums across all 24 HEs (not capacity in MW)"
+  },
+  "smartbidder_benchmark": {
+    "strategy": "AA - Mount Blue Sky with Virtuals (RTC version)",
+    "is_estimate": true,
+    "da_energy_revenue": 1563.74,
+    "rt_energy_revenue_lmp5": -2311.60,
+    "da_nonspin_revenue": 3580.28,
+    "rt_nonspin_revenue": -1547.92,
+    "da_rrs_revenue": 49.16,
+    "rt_rrs_revenue": -2.94,
+    "total_revenue": 1330.72
+  },
+  "benchmark_comparison": {
+    "gks_total": 4358.30,
+    "sb_total": 1330.72,
+    "delta_abs": 3027.58,
+    "delta_pct": 227.5,
+    "gks_outperformed": true
+  },
+  "hourly": {
+    "HE01": {"da_energy": -637.10, "rt_energy": 618.15, "nonspin": 136.00, "rrs": 0.00, "total": 117.04, "sb_total": 59.78},
+    "HE02": {"da_energy": -1092.50, "rt_energy": 1082.97, "nonspin": 108.00, "rrs": 0.00, "total": 98.47, "sb_total": 39.10},
+    "HE03": {"da_energy": -1076.50, "rt_energy": 1023.89, "nonspin": 84.80, "rrs": 0.00, "total": 32.19, "sb_total": 29.16},
+    "HE04": {"da_energy": -1060.00, "rt_energy": 1099.78, "nonspin": 83.20, "rrs": 0.00, "total": 122.98, "sb_total": 29.85},
+    "HE05": {"da_energy": -1053.00, "rt_energy": 1127.17, "nonspin": 84.00, "rrs": 0.00, "total": 158.17, "sb_total": 30.43},
+    "HE06": {"da_energy": 0.00, "rt_energy": -11.67, "nonspin": 84.80, "rrs": 0.00, "total": 73.13, "sb_total": 53.93},
+    "HE07": {"da_energy": 0.00, "rt_energy": -11.31, "nonspin": 119.20, "rrs": 0.00, "total": 107.89, "sb_total": 74.58},
+    "HE08": {"da_energy": 0.00, "rt_energy": -369.57, "nonspin": 80.80, "rrs": 0.00, "total": -288.77, "sb_total": 127.38},
+    "HE09": {"da_energy": 0.00, "rt_energy": -900.78, "nonspin": 61.60, "rrs": 0.00, "total": -839.18, "sb_total": 10.43},
+    "HE10": {"da_energy": 0.00, "rt_energy": -483.36, "nonspin": 104.80, "rrs": 0.00, "total": -378.56, "sb_total": -70.98},
+    "HE11": {"da_energy": 0.00, "rt_energy": -68.10, "nonspin": 120.00, "rrs": 0.00, "total": 51.90, "sb_total": -69.39},
+    "HE12": {"da_energy": 0.00, "rt_energy": -52.05, "nonspin": 126.40, "rrs": 0.00, "total": 74.35, "sb_total": 10.92},
+    "HE13": {"da_energy": -1092.50, "rt_energy": 1202.83, "nonspin": 88.80, "rrs": 0.00, "total": 199.13, "sb_total": -88.84},
+    "HE14": {"da_energy": 0.00, "rt_energy": -1.39, "nonspin": 32.00, "rrs": 0.00, "total": 30.61, "sb_total": -4.73},
+    "HE15": {"da_energy": 0.00, "rt_energy": -3.54, "nonspin": 31.20, "rrs": 0.00, "total": 27.66, "sb_total": 9.10},
+    "HE16": {"da_energy": 0.00, "rt_energy": -4.09, "nonspin": 33.60, "rrs": 0.00, "total": 29.51, "sb_total": 12.19},
+    "HE17": {"da_energy": 0.00, "rt_energy": -3.34, "nonspin": 32.00, "rrs": 0.00, "total": 28.66, "sb_total": 12.75},
+    "HE18": {"da_energy": 0.00, "rt_energy": -6.15, "nonspin": 32.80, "rrs": 0.00, "total": 26.65, "sb_total": 10.78},
+    "HE19": {"da_energy": 0.00, "rt_energy": 18.39, "nonspin": 46.40, "rrs": 0.00, "total": 64.79, "sb_total": 1566.45},
+    "HE20": {"da_energy": 3.76, "rt_energy": 1322.86, "nonspin": 0.00, "rrs": 41.60, "total": 1368.22, "sb_total": -354.76},
+    "HE21": {"da_energy": 2105.00, "rt_energy": -683.03, "nonspin": 0.00, "rrs": 79.20, "total": 1501.17, "sb_total": -811.74},
+    "HE22": {"da_energy": 2047.00, "rt_energy": -1250.03, "nonspin": 0.00, "rrs": 250.40, "total": 1047.37, "sb_total": 504.44},
+    "HE23": {"da_energy": 0.00, "rt_energy": 45.27, "nonspin": 0.00, "rrs": 398.40, "total": 443.67, "sb_total": 159.09},
+    "HE24": {"da_energy": 0.00, "rt_energy": -25.15, "nonspin": 286.40, "rrs": 0.00, "total": 261.25, "sb_total": -9.21}
+  }
+}

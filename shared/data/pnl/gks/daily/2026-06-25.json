@@ -1,0 +1,32 @@
+{
+  "status": "DEGRADED",
+  "degraded_reason": "DEGRADED -- Tenaska P&L unavailable. fetch_pnl_data.py FAILED for 2026-06-25 flowday -- cloud execution IP not on Ascend/Tenaska whitelist. Interactive endpoint discovery not possible in cloud environment.",
+  "flowday": "2026-06-25",
+  "generated_at": "2026-06-26",
+  "resource": "GKS",
+  "iso": "ERCOT",
+  "tenaska_fetch_result": "FAILED",
+  "tenaska_fail_reason": "Cloud execution IP not on Ascend whitelist. Endpoints: energy_as_detail, da_energy_bid, da_energy_offer, hsl -- all 0 rows or unreachable.",
+  "smartbidder_benchmark_result": "DEGRADED -- prior-day benchmark revenue not present in raw files for 2026-06-25 (only D+1 forecast files for 2026-06-27 available).",
+  "actuals": {
+    "da_energy_revenue": null,
+    "rt_energy_revenue": null,
+    "as_revenue_regup": null,
+    "as_revenue_regdown": null,
+    "as_revenue_rrs": null,
+    "as_revenue_ecrs": null,
+    "as_revenue_nonspin": null,
+    "dart_virtual_revenue": null,
+    "total_revenue": null,
+    "energy_injection_mwh": null,
+    "energy_consumption_mwh": null,
+    "hsl_availability_pct": null
+  },
+  "benchmark": {
+    "strategy": "Mount Blue Sky with Virtuals (RTC Version)",
+    "total_revenue": null,
+    "note": "ESTIMATE -- not settled. Benchmark revenue unavailable for this flowday."
+  },
+  "resolution": "Re-run fetch_pnl_data.py from Ascend-whitelisted IP for flowday 2026-06-25 and regenerate this file.",
+  "occurrence_note": "Sixteenth occurrence of cloud-IP-whitelist failure pattern. See memory/pnl-manager/data-quality.md for full history."
+}

@@ -1,0 +1,26 @@
+{
+  "flowday": "2026-06-16",
+  "generated_at": "2026-06-17",
+  "status": "DEGRADED",
+  "degraded_reason": "Tenaska PTP fetch failed — cloud execution IP not on Ascend whitelist. No raw data written to shared/data/raw/. Smartbidder benchmark also unavailable (raw directory contains D+1 forecast files only).",
+  "tenaska_data_available": false,
+  "smartbidder_benchmark_available": false,
+  "actuals": {
+    "da_energy_revenue": null,
+    "rt_energy_revenue": null,
+    "as_revenue_regup": null,
+    "as_revenue_regdown": null,
+    "as_revenue_rrs": null,
+    "as_revenue_ecrs": null,
+    "as_revenue_nonspin": null,
+    "dart_virtual_revenue": null,
+    "energy_injection_mwh": null,
+    "energy_consumption_mwh": null,
+    "total_revenue": null
+  },
+  "benchmark": {
+    "strategy": "Mount Blue Sky with Virtuals (RTC Version)",
+    "total_revenue": null
+  },
+  "resolution": "Re-run shared/scripts/fetch_pnl_data.py from Ascend-whitelisted IP for flowday 2026-06-16, then re-run pnl-manager."
+}

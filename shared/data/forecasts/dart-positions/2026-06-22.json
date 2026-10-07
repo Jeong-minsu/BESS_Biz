@@ -1,0 +1,243 @@
+{
+  "meta": {
+    "flow_date": "2026-06-22",
+    "issued_date": "2026-06-21",
+    "issued_time_ct": "07:30",
+    "agent": "dart-virtual-trader",
+    "cycle": "D+1 07:30 CT daily",
+    "spread_convention": "spread = DA - RT; positive => DA expensive => Short DA / Long RT (INC); negative => RT expensive => Long DA / Short RT (DEC)",
+    "data_type": "PRODUCTION",
+    "data_sources": {
+      "market_analyst_briefing": "shared/data/forecasts/market-view/2026-06-22.md",
+      "congestion_outlook": "shared/data/forecasts/congestion/2026-06-22.md",
+      "yes_energy_raw": "shared/data/raw/yes-energy/2026-06-22.csv",
+      "yes_energy_vintage": "2026-06-21T12:06:47Z",
+      "smartbidder": "ABSENT",
+      "tenaska_settlement": "DEGRADED (7th+ consecutive cycle)"
+    },
+    "leakage_check": "COMPLIANT — all vintages confirmed pre-DAM cutoff (2026-06-21 10:00 CT)",
+    "day_type": "Monday — full commercial",
+    "smartbidder_absent_cap_mw": 25,
+    "override_count": 2,
+    "override_cap": 2,
+    "override_basis": "HOUSTON_SOUTH_MIDDAY_LOCAL MEDIUM (22-35%) dual-trigger: cap-out >= 11,500 MW AND load >= 60,000 MW at HE10-11",
+    "w23_scarcity_rule_applied": true,
+    "w23_nl_ramp_he18_he21_mw": 19639,
+    "w23_threshold_mw": 8000,
+    "w23_energy_positions_skipped": [19, 20, 21],
+    "ecrs_non_spin_skip_rule_applied": true,
+    "ecrs_he21_mwh": 4.70,
+    "non_spin_he21_mwh": 15.4,
+    "houston_import_p_binding_range": "40-58% HIGH (HE19-22)",
+    "houston_south_midday_p_binding_range": "22-35% MEDIUM (HE10-14)",
+    "west_to_north_p_binding_range": "10-18% LOW (HE23-24) — below 20% threshold, no HB_WEST positions",
+    "total_active_positions": 5,
+    "total_notional_mw": 125,
+    "energy_dec_notional_mw": 50,
+    "basis_notional_mw": 75,
+    "expected_gross_pnl_p50_usd": 299,
+    "expected_gross_pnl_p90_usd": 800,
+    "expected_gross_pnl_p10_usd": -150,
+    "compression_factor_applied": 0.6,
+    "structural_hit_rate_proxy": 0.58,
+    "avg_win_loss_ratio_proxy": 1.42,
+    "metrics_status": "STALE — Tenaska DEGRADED 7+ cycles; calibration frozen since 2026-06-15"
+  },
+  "positions": [
+    {
+      "he": 1, "node": null, "direction": "SKIP", "mw": 0,
+      "da_bid_price": 21.00, "p_win": null, "e_spread_0x6_mwh": null, "e_pnl_usd": 0,
+      "reason": "Overnight; P(DEC)=0.62 but E[|spread|] < $4 floor; 0.6x EV < $4"
+    },
+    {
+      "he": 2, "node": null, "direction": "SKIP", "mw": 0,
+      "da_bid_price": 20.50, "p_win": null, "e_spread_0x6_mwh": null, "e_pnl_usd": 0,
+      "reason": "Overnight; spread below $4 floor"
+    },
+    {
+      "he": 3, "node": null, "direction": "SKIP", "mw": 0,
+      "da_bid_price": 20.00, "p_win": null, "e_spread_0x6_mwh": null, "e_pnl_usd": 0,
+      "reason": "Overnight; spread below $4 floor"
+    },
+    {
+      "he": 4, "node": null, "direction": "SKIP", "mw": 0,
+      "da_bid_price": 19.50, "p_win": null, "e_spread_0x6_mwh": null, "e_pnl_usd": 0,
+      "reason": "Overnight; spread below $4 floor; cap-out 12,550 MW (high) but NL stable"
+    },
+    {
+      "he": 5, "node": null, "direction": "SKIP", "mw": 0,
+      "da_bid_price": 19.50, "p_win": null, "e_spread_0x6_mwh": null, "e_pnl_usd": 0,
+      "reason": "Overnight; spread below $4 floor"
+    },
+    {
+      "he": 6, "node": null, "direction": "SKIP", "mw": 0,
+      "da_bid_price": 20.00, "p_win": null, "e_spread_0x6_mwh": null, "e_pnl_usd": 0,
+      "reason": "Overnight; spread below $4 floor"
+    },
+    {
+      "he": 7, "node": null, "direction": "SKIP", "mw": 0,
+      "da_bid_price": 20.50, "p_win": null, "e_spread_0x6_mwh": null, "e_pnl_usd": 0,
+      "reason": "Morning ramp; cloud cover 74-88% (AG2 KIAH); solar only 194 MW; spread below $4 floor"
+    },
+    {
+      "he": 8, "node": null, "direction": "SKIP", "mw": 0,
+      "da_bid_price": 21.00, "p_win": null, "e_spread_0x6_mwh": null, "e_pnl_usd": 0,
+      "reason": "Solar ramping (4,444 MW); DEC signal P=0.60; spread below $4 floor; dual-trigger not yet active (load 58,116 MW)"
+    },
+    {
+      "he": 9, "node": null, "direction": "SKIP", "mw": 0,
+      "da_bid_price": 16.29, "p_win": 0.62, "e_spread_0x6_mwh": -2.10, "e_pnl_usd": 0,
+      "reason": "DEC signal P=0.62; dual-trigger active (cap-out 12,196 MW, load 60,909 MW); 0.6x EV $2.10 below $4 floor; 2-override cap allocated to HE10-11 (higher EV hours); SKIP per cap discipline"
+    },
+    {
+      "he": 10,
+      "node": "HB_HOUSTON",
+      "direction": "Long DA / Short RT (DEC)",
+      "mw": 25,
+      "da_bid_price": 16.62,
+      "p_win": 0.62,
+      "e_spread_raw_mwh": -4.50,
+      "e_spread_0x6_mwh": -2.70,
+      "e_pnl_usd": 14,
+      "confidence": "Low-Medium (below-floor override)",
+      "override_count": 1,
+      "houston_south_dual_trigger": true,
+      "cap_out_mw": 12196,
+      "nl_mw": 22778,
+      "load_mw": 64489,
+      "solar_mw": 20286,
+      "reason": "Override #1 of 2: NL absolute trough 22,778 MW; cap-out 12,196 MW > 11,500 MW threshold; load 64,489 MW > 60,000 MW threshold; HOUSTON_SOUTH_MIDDAY_LOCAL MEDIUM dual-trigger; AG2 morning cloud cover supports RT > DA"
+    },
+    {
+      "he": 11,
+      "node": "HB_HOUSTON",
+      "direction": "Long DA / Short RT (DEC)",
+      "mw": 25,
+      "da_bid_price": 17.50,
+      "p_win": 0.60,
+      "e_spread_raw_mwh": -4.00,
+      "e_spread_0x6_mwh": -2.40,
+      "e_pnl_usd": 10,
+      "confidence": "Low-Medium (below-floor override)",
+      "override_count": 2,
+      "override_cap_reached": true,
+      "houston_south_dual_trigger": true,
+      "cap_out_mw": 12246,
+      "nl_mw": 24212,
+      "load_mw": 68286,
+      "solar_mw": 23387,
+      "reason": "Override #2 of 2 (CAP REACHED): cap-out 12,246 MW (rising toward 12,276 MW peak); load 68,286 MW; NL 24,212 MW; HOUSTON_SOUTH_MIDDAY_LOCAL MEDIUM dual-trigger sustained; no further overrides permitted"
+    },
+    {
+      "he": 12, "node": null, "direction": "SKIP", "mw": 0,
+      "da_bid_price": 19.00, "p_win": 0.60, "e_spread_0x6_mwh": -2.16, "e_pnl_usd": 0,
+      "reason": "DEC signal P=0.60; cap-out 12,276 MW (peak for day); dual-trigger active; 0.6x EV $2.16 below $4 floor; 2-override cap exhausted by HE10-11"
+    },
+    {
+      "he": 13, "node": null, "direction": "SKIP", "mw": 0,
+      "da_bid_price": 21.00, "p_win": 0.58, "e_spread_0x6_mwh": -1.80, "e_pnl_usd": 0,
+      "reason": "DEC signal weakening P=0.58; NL rising to 30,029 MW; 2-override cap exhausted"
+    },
+    {
+      "he": 14, "node": null, "direction": "SKIP", "mw": 0,
+      "da_bid_price": 23.50, "p_win": 0.57, "e_spread_0x6_mwh": 1.89, "e_pnl_usd": 0,
+      "reason": "Transition to INC direction; P(INC)=0.57; 0.6x EV $1.89 below $4 floor; no valid override basis for afternoon INC"
+    },
+    {
+      "he": 15, "node": null, "direction": "SKIP", "mw": 0,
+      "da_bid_price": 25.00, "p_win": 0.58, "e_spread_0x6_mwh": 2.16, "e_pnl_usd": 0,
+      "reason": "INC signal P=0.58; solar peak 27,484 MW; 0.6x EV $2.16 below $4 floor; HOUSTON_SOUTH_MIDDAY_LOCAL MEDIUM but afternoon position — no override basis"
+    },
+    {
+      "he": 16, "node": null, "direction": "SKIP", "mw": 0,
+      "da_bid_price": 27.00, "p_win": 0.58, "e_spread_0x6_mwh": 2.34, "e_pnl_usd": 0,
+      "reason": "INC signal P=0.58; load 80,438 MW approaching peak; 0.6x EV $2.34 below $4 floor"
+    },
+    {
+      "he": 17, "node": null, "direction": "SKIP", "mw": 0,
+      "da_bid_price": 29.00, "p_win": 0.58, "e_spread_0x6_mwh": 2.52, "e_pnl_usd": 0,
+      "reason": "INC signal P=0.58; load peak 81,081 MW; 0.6x EV $2.52 below $4 floor; no override basis for INC at load peak hours"
+    },
+    {
+      "he": 18, "node": null, "direction": "SKIP", "mw": 0,
+      "da_bid_price": 31.00, "p_win": 0.57, "e_spread_0x6_mwh": 2.16, "e_pnl_usd": 0,
+      "reason": "INC signal P=0.57; solar 25,428 MW still significant; NL ramp beginning (34,560 MW); 0.6x EV $2.16 below $4 floor"
+    },
+    {
+      "he": 19,
+      "node": "HB_HOUSTON vs HB_NORTH",
+      "direction": "Long HB_HOUSTON DA / Short HB_NORTH DA (Basis)",
+      "mw": 25,
+      "da_bid_price": null,
+      "p_win": null,
+      "p_houston_import_binding": "40-50%",
+      "e_basis_unconditional_mwh": 3.0,
+      "e_basis_p90_mwh": 15.0,
+      "e_pnl_usd": 75,
+      "energy_position": "SKIP (W23 dual-direction scarcity: NL ramp +19,639 MW > 8,000 MW threshold)",
+      "nl_mw": 37954,
+      "reason": "HOUSTON_IMPORT_345 HIGH 40-50%; W23 energy INC/DEC skip; basis captures congestion premium structurally; NL ramp initiation HE19"
+    },
+    {
+      "he": 20,
+      "node": "HB_HOUSTON vs HB_NORTH",
+      "direction": "Long HB_HOUSTON DA / Short HB_NORTH DA (Basis)",
+      "mw": 25,
+      "da_bid_price": null,
+      "p_win": null,
+      "p_houston_import_binding": "45-58%",
+      "e_basis_unconditional_mwh": 4.0,
+      "e_basis_p90_mwh": 20.0,
+      "e_pnl_usd": 100,
+      "energy_position": "SKIP (W23; Non-Spin DA $11.2/MWh at HE20 — scarcity active)",
+      "nl_mw": 48170,
+      "non_spin_da_mwh": 11.2,
+      "reason": "HOUSTON_IMPORT_345 HIGH 45-58% (peak probability hour); Non-Spin $11.2 scarcity signal may widen basis; NL 48,170 MW; W23 energy INC/DEC skip"
+    },
+    {
+      "he": 21,
+      "node": "HB_HOUSTON vs HB_NORTH",
+      "direction": "Long HB_HOUSTON DA / Short HB_NORTH DA (Basis)",
+      "mw": 25,
+      "da_bid_price": null,
+      "p_win": null,
+      "p_houston_import_binding": "40-55%",
+      "e_basis_unconditional_mwh": 4.0,
+      "e_basis_p90_mwh": 25.0,
+      "e_pnl_usd": 100,
+      "energy_position": "SKIP (W23 + ECRS $4.70 >= $3 AND Non-Spin $15.4 >= $10 -> provisional INC skip rule)",
+      "nl_mw": 54199,
+      "non_spin_da_mwh": 15.4,
+      "ecrs_da_mwh": 4.70,
+      "reason": "HOUSTON_IMPORT_345 HIGH 40-55%; NL peak 54,199 MW (series-day maximum); Non-Spin $15.4 + ECRS $4.70 both exceed thresholds -> energy INC skip per 2026-06-17 provisional rule; basis only"
+    },
+    {
+      "he": 22, "node": null, "direction": "SKIP", "mw": 0,
+      "da_bid_price": 28.00, "p_win": 0.55, "e_spread_0x6_mwh": null, "e_pnl_usd": 0,
+      "reason": "Basis SKIP: HOUSTON_IMPORT P(binding) declining post-NL-peak; P(INC energy)=0.55 insufficient alone; 0.6x EV below $4 floor"
+    },
+    {
+      "he": 23, "node": null, "direction": "SKIP", "mw": 0,
+      "da_bid_price": 24.00, "p_win": 0.53, "e_spread_0x6_mwh": null, "e_pnl_usd": 0,
+      "reason": "INC signal P=0.53; WEST_TO_NORTH LOW 10-18% < 20% threshold for HB_WEST entry; spread below floor"
+    },
+    {
+      "he": 24, "node": null, "direction": "SKIP", "mw": 0,
+      "da_bid_price": 22.00, "p_win": 0.50, "e_spread_0x6_mwh": null, "e_pnl_usd": 0,
+      "reason": "P ~0.50; no directional signal; cap-out 9,238 MW (reduced); SKIP"
+    }
+  ],
+  "active_positions_summary": {
+    "count": 5,
+    "hours": [10, 11, 19, 20, 21],
+    "total_mw": 125,
+    "energy_dec_hours": [10, 11],
+    "energy_dec_mw": 50,
+    "basis_hours": [19, 20, 21],
+    "basis_mw": 75,
+    "basis_type": "Long HB_HOUSTON DA / Short HB_NORTH DA",
+    "expected_gross_pnl_p50_usd": 299,
+    "expected_gross_pnl_p90_usd": 800,
+    "expected_gross_pnl_p10_usd": -150
+  }
+}

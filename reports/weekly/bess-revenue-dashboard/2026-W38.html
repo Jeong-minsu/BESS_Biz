@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERCOT All-BESS Energy+AS Revenue — 2026-W38</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg-base:        #f7f8fa;
+  --bg-panel:       #ffffff;
+  --bg-panel-2:     #f0f2f5;
+  --bg-row-alt:     #fafbfc;
+  --border-soft:    #e0e3eb;
+  --border-strong:  #c8ccd4;
+  --text-primary:   #131722;
+  --text-secondary: #5d606b;
+  --text-muted:     #9598a1;
+  --accent-up:      #089981;
+  --accent-down:    #f23645;
+  --accent-blue:    #2962ff;
+  --accent-amber:   #ff9800;
+  --accent-gold:    #d4a017;
+  --accent-purple:  #9c27b0;
+  --grid-line:      #eceff3;
+  --shadow-card:    0 1px 2px rgba(16,24,40,0.04);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.page { max-width: 1400px; margin: 0 auto; padding: 24px; }
+
+/* Header */
+.header {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 20px 24px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.header-left h1 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+.header-left .subtitle {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+.header-right {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+.pill-estimate {
+  background: #fff3e0;
+  color: #e65100;
+  border: 1px solid #ffcc80;
+}
+.pill-week {
+  background: #e3f2fd;
+  color: #1565c0;
+  border: 1px solid #90caf9;
+}
+.pill-partial {
+  background: #fff8e1;
+  color: #7c5900;
+  border: 1px solid #ffe082;
+}
+.disclaimer {
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  border-radius: 4px;
+  padding: 8px 14px;
+  font-size: 11px;
+  color: #7c5900;
+  margin-bottom: 12px;
+}
+.dq-note {
+  background: #fce4ec;
+  border: 1px solid #f48fb1;
+  border-radius: 4px;
+  padding: 8px 14px;
+  font-size: 11px;
+  color: #880e4f;
+  margin-bottom: 12px;
+}
+.w38-status {
+  background: #fbe9e7;
+  border: 1px solid #ffab91;
+  border-radius: 4px;
+  padding: 10px 14px;
+  font-size: 11px;
+  color: #bf360c;
+  margin-bottom: 12px;
+}
+.w38-status strong { font-weight: 600; }
+.w38-status table { border-collapse: collapse; width: 100%; margin-top: 6px; }
+.w38-status td { padding: 2px 8px; }
+.w38-status td:first-child { font-weight: 500; width: 80px; }
+
+/* KPI row */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.kpi {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 16px 20px;
+  box-shadow: var(--shadow-card);
+}
+.kpi-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+.kpi-value {
+  font-family: 'JetBrains Mono', 'SF Mono', monospace;
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+.kpi-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+.kpi-up   { color: var(--accent-up); }
+.kpi-down { color: var(--accent-down); }
+.kpi-amber { color: var(--accent-amber); }
+.kpi-highlight {
+  border-color: var(--accent-blue);
+  border-width: 2px;
+}
+
+/* Chart + heatmap */
+.charts-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 16px 20px;
+  box-shadow: var(--shadow-card);
+}
+.panel-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+.chart-wrap {
+  position: relative;
+  height: 220px;
+}
+
+/* Heatmap */
+.heatmap-container { overflow: auto; }
+.heatmap-grid { display: grid; gap: 2px; }
+.heatmap-cell {
+  height: 26px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+.heatmap-header {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 2px 0;
+}
+.heatmap-row-label {
+  font-size: 10px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 6px;
+  display: flex;
+  align-items: center;
+}
+
+/* Table */
+.table-panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 0;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.table-header-bar {
+  padding: 14px 20px 10px;
+  border-bottom: 1px solid var(--border-soft);
+}
+.tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+.tbl thead th {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  padding: 8px 12px;
+  text-align: right;
+  white-space: nowrap;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border-soft);
+  font-weight: 500;
+}
+.tbl thead th:first-child,
+.tbl thead th:nth-child(2) { text-align: left; }
+.tbl tbody tr:nth-child(even) { background: var(--bg-row-alt); }
+.tbl tbody tr:hover { background: var(--bg-panel-2); }
+.tbl tbody td {
+  padding: 7px 12px;
+  font-size: 12px;
+  text-align: right;
+  color: var(--text-primary);
+  font-family: 'JetBrains Mono', monospace;
+  border-bottom: 1px solid var(--border-soft);
+}
+.tbl tbody td:first-child,
+.tbl tbody td:nth-child(2) {
+  text-align: left;
+  font-family: 'Inter', sans-serif;
+}
+.tbl tbody td:nth-child(2) { font-weight: 500; }
+.rank-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  background: var(--bg-panel-2);
+  font-size: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--text-secondary);
+}
+.rank-1 { background: #fff8e1; color: #c67c00; }
+.rank-2 { background: #f5f5f5; color: #555; }
+.rank-3 { background: #fff3e0; color: #a04000; }
+.gks-row { background: #e8f4fd !important; }
+.gks-row td { color: #1a5f9a !important; }
+.gks-label { font-size: 9px; color: var(--accent-blue); margin-left: 4px; font-weight: 600; letter-spacing: 0.04em; }
+.opt-bar {
+  display: inline-block;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--accent-up);
+  min-width: 2px;
+  max-width: 60px;
+  vertical-align: middle;
+  margin-right: 4px;
+  opacity: 0.7;
+}
+.up { color: var(--accent-up); }
+.down { color: var(--accent-down); }
+.muted { color: var(--text-muted); }
+
+@media (max-width: 900px) {
+  .kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .charts-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- Header -->
+<div class="header">
+  <div class="header-left">
+    <h1>ERCOT All-BESS Energy + AS Revenue Dashboard</h1>
+    <div class="subtitle">2026-W38 run (Sep 21, 2026) &mdash; Fleet data range: Jan 1 &ndash; Jul 14, 2026 (DEGRADED cache) &mdash; 338 resources &mdash; ERCOT 60-day public disclosure</div>
+  </div>
+  <div class="header-right">
+    <span class="pill pill-week">2026-W38</span>
+    <span class="pill pill-partial">GKS PARTIAL 3/7 days</span>
+    <span class="pill pill-estimate">ESTIMATE — Not settled</span>
+  </div>
+</div>
+
+<!-- Disclaimer -->
+<div class="disclaimer">
+  ESTIMATE &mdash; ERCOT 60-day public disclosure. Not settled actuals. Fleet data range: Jan 1 &ndash; Jul 14, 2026 (identical to W37 cache; no update possible due to ERCOT 60-day lag).
+  Settlement-point revenues are estimated from ERCOT NP3 DAM/SCED data + Yes Energy S3 LMP; deviations from invoiced amounts expected.
+</div>
+
+<!-- Data quality note -->
+<div class="dq-note">
+  DATA QUALITY (W37 carry-forward): Jul 1&ndash;13 data gap in hourly parquet cache &mdash; period summary covers full Jun 23&ndash;Jul 13. Monthly chart Jul bar = Jul 14 only. Fleet total $183.7M correctly includes the full period via aggregated summary.
+  ERCOT fleet skill run skipped this week: cached parquet reused (estimate-bess-energy-as not re-executed — no new ERCOT disclosure data available within 60-day lag).
+</div>
+
+<!-- W38 specific data status -->
+<div class="w38-status">
+  <strong>W38 (Sep 14&ndash;20) Data Status</strong>
+  <table>
+    <tr><td>Sep 14 (Mon)</td><td>PRODUCTION &mdash; Tenaska PTP settled. Total $10,917.39</td></tr>
+    <tr><td>Sep 15 (Tue)</td><td>DEGRADED &mdash; Tenaska cloud IP not whitelisted. No data.</td></tr>
+    <tr><td>Sep 16 (Wed)</td><td>PRODUCTION &mdash; Tenaska PTP settled. Total $2,261.26</td></tr>
+    <tr><td>Sep 17 (Thu)</td><td>PRODUCTION &mdash; Tenaska PTP settled. Total &minus;$2,231.14</td></tr>
+    <tr><td>Sep 18 (Fri)</td><td>DEGRADED &mdash; Tenaska 401 Unauthorized. No data.</td></tr>
+    <tr><td>Sep 19 (Sat)</td><td>DEGRADED &mdash; Tenaska 401 Unauthorized. No data.</td></tr>
+    <tr><td>Sep 20 (Sun)</td><td>DEGRADED &mdash; No PnL file produced (assumed 401). No data.</td></tr>
+    <tr><td>Smartbidder</td><td>DEGRADED entire W38 (Day 6+, issue started 2026-09-14). No benchmark data.</td></tr>
+    <tr><td>ERCOT fleet</td><td>DEGRADED &mdash; cached data Jan 1&ndash;Jul 14, 2026 only (same as W37). 60-day lag applies.</td></tr>
+  </table>
+  GKS W38 partial confirmed: <strong>$10,947.51</strong> (3/7 days, Sep 14+16+17). 4 days N/A. GKS YTD est: <strong>~$753K</strong> ($742K cached + $10,948 W38 partial).
+</div>
+
+<!-- KPI Cards -->
+<div class="kpi-row">
+  <div class="kpi">
+    <div class="kpi-label">Fleet Total Revenue</div>
+    <div class="kpi-value">$183.7M</div>
+    <div class="kpi-sub">Jan 1 &ndash; Jul 14, 2026 (DEGRADED cache)</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">BESS Resources</div>
+    <div class="kpi-value">338</div>
+    <div class="kpi-sub">ERCOT ESR / PWRSTR fleet</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Median Opt-Rate</div>
+    <div class="kpi-value">52.6%</div>
+    <div class="kpi-sub">vs theoretical best (TB index) — cached</div>
+  </div>
+  <div class="kpi kpi-highlight">
+    <div class="kpi-label">GKS Rank</div>
+    <div class="kpi-value" style="font-size:22px;">#89 / 338</div>
+    <div class="kpi-sub">~$753K YTD est &mdash; opt 93.0% <span class="kpi-up">&#9650;</span> &mdash; rank unchanged (fleet cache)</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">#1 Resource</div>
+    <div class="kpi-value" style="font-size:14px; padding-top:4px;">ANOL_ESS_ESR1</div>
+    <div class="kpi-sub">$3.89M total &mdash; opt 57.2% (cached)</div>
+  </div>
+</div>
+
+<!-- Chart + Heatmap -->
+<div class="charts-row">
+  <div class="panel">
+    <div class="panel-title">Fleet Monthly Revenue (Jan &ndash; Jul 2026) &mdash; stacked by product category (DEGRADED cache — same as W37)</div>
+    <div class="chart-wrap">
+      <canvas id="monthlyChart"></canvas>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-title">Product Mix — Top 15 Resources (cached)</div>
+    <div class="heatmap-container" id="heatmapContainer"></div>
+  </div>
+</div>
+
+<!-- Ranking Table (Top 30 + GKS) -->
+<div class="table-panel">
+  <div class="table-header-bar">
+    <div class="panel-title" style="margin-bottom:0;">Top 30 BESS Resources by Total Revenue &mdash; Jan 1 to Jul 14, 2026 (ESTIMATE &mdash; DEGRADED cache, same as W37)</div>
+  </div>
+  <div style="overflow-x:auto;">
+    <table class="tbl">
+      <thead>
+        <tr>
+          <th style="text-align:left; width:40px;">Rank</th>
+          <th style="text-align:left; min-width:180px;">Resource</th>
+          <th>Total Rev ($)</th>
+          <th>DA Energy ($)</th>
+          <th>RT Energy ($)</th>
+          <th>AS Revenue ($)</th>
+          <th>Opt Rate (%)</th>
+          <th>Cap (MW)</th>
+        </tr>
+      </thead>
+      <tbody id="rankingBody">
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div><!-- .page -->
+
+<script>
+// ── Data ────────────────────────────────────────────────────────────────────
+// Fleet data: DEGRADED cache from W37 run (Jan 1 - Jul 14, 2026).
+// No new ERCOT public disclosure data available within 60-day lag for W38.
+// GKS YTD updated to include W38 partial confirmed actuals (+$10,947.51, 3/7 days).
+
+const monthly = {
+  labels: ['Jan 26', 'Feb 26', 'Mar 26', 'Apr 26', 'May 26', 'Jun 26', 'Jul 26*'],
+  da:    [17146351, 5138690,  8800926, 14474871, 7871960, 5154980, -21345],
+  rt:    [15759546, 9647370, 13178206, 23416138, 9680967, 5056222,  26289],
+  as_:   [23699954, 2955875,  2423984,  8102425, 6956756, 4150850,  67204],
+};
+// Jul = Jul 14 only (1 day). Totals match $183.7M aggregated summary.
+
+const top30 = [
+  {rank:1,  name:'ANOL_ESS_ESR1',   total:3891137,  da:1130897,  rt:2241927,  as:518313,  opt:57.2,  cap:247},
+  {rank:2,  name:'CNLY_ESS_ESR1',   total:3751327,  da:2101943,  rt:651123,   as:998260,  opt:163.7, cap:null},
+  {rank:3,  name:'BOCO_ESS_ESR1',   total:3241191,  da:735757,   rt:1926968,  as:578466,  opt:91.2,  cap:154},
+  {rank:4,  name:'WAL_ESR1',        total:3211856,  da:1853842,  rt:61770,    as:1296244, opt:87.1,  cap:200},
+  {rank:5,  name:'AVIL_ESS_ESR1',   total:3187097,  da:1784629,  rt:480260,   as:922208,  opt:83.0,  cap:160},
+  {rank:6,  name:'CACH_ESS_ESR1',   total:2964135,  da:1326910,  rt:481560,   as:1155666, opt:77.5,  cap:200},
+  {rank:7,  name:'BLVN_SLR_ESR1',   total:2923552,  da:2195961,  rt:287898,   as:439693,  opt:61.0,  cap:188},
+  {rank:8,  name:'SHAMROCK_ESR1',   total:2838609,  da:2014642,  rt:823967,   as:0,       opt:49.1,  cap:99},
+  {rank:9,  name:'TURQBESS_ESR1',   total:2621973,  da:1344369,  rt:645928,   as:631676,  opt:64.8,  cap:null},
+  {rank:10, name:'BLSUMMIT_ESR2',   total:2399954,  da:696214,   rt:1703740,  as:0,       opt:null,  cap:15},
+  {rank:11, name:'PINEFRST_ESR1',   total:2368390,  da:105364,   rt:2208026,  as:55000,   opt:80.9,  cap:null},
+  {rank:12, name:'CHIL_SLR_ESR1',   total:2357317,  da:1710137,  rt:-259347,  as:906527,  opt:40.6,  cap:null},
+  {rank:13, name:'JAG_SLR_ESR1',    total:2309575,  da:689849,   rt:1054094,  as:565632,  opt:170.7, cap:79},
+  {rank:14, name:'DSWL_ESS_ESR1',   total:2309318,  da:1799829,  rt:235381,   as:274108,  opt:88.0,  cap:150},
+  {rank:15, name:'ANEM_ESS_ESR1',   total:2269264,  da:0,        rt:1618951,  as:650313,  opt:58.7,  cap:205},
+  {rank:16, name:'RRANCHES_ESR1',   total:2247906,  da:5388,     rt:2006175,  as:236343,  opt:53.0,  cap:150},
+  {rank:17, name:'GIGA_ESS_ESR1',   total:2224252,  da:1375055,  rt:94459,    as:754738,  opt:72.8,  cap:128},
+  {rank:18, name:'ANDMDSLR_ESR2',   total:2169851,  da:1605197,  rt:52426,    as:512228,  opt:112.4, cap:null},
+  {rank:19, name:'EBNY_ESS_ESR1',   total:2154037,  da:0,        rt:1946716,  as:207321,  opt:57.1,  cap:204},
+  {rank:20, name:'LON_ESR1',        total:2121026,  da:863724,   rt:399815,   as:857488,  opt:94.7,  cap:174},
+  {rank:21, name:'TBWF_ESS_ESR1',   total:2066385,  da:0,        rt:1785263,  as:281122,  opt:40.0,  cap:150},
+  {rank:22, name:'RRANCHES_ESR2',   total:2051065,  da:0,        rt:1838109,  as:212956,  opt:47.2,  cap:150},
+  {rank:23, name:'CARN_ESS_ESR1',   total:2043548,  da:993243,   rt:38642,    as:1011664, opt:65.3,  cap:150},
+  {rank:24, name:'HYDR_ESS_ESR1',   total:2027538,  da:1333477,  rt:-115676,  as:809737,  opt:58.7,  cap:201},
+  {rank:25, name:'BKSL_ESS_ESR1',   total:1947241,  da:470046,   rt:1229489,  as:247706,  opt:74.6,  cap:103},
+  {rank:26, name:'HMNG_ESS_ESR1',   total:1885035,  da:97665,    rt:1237035,  as:550335,  opt:45.5,  cap:104},
+  {rank:27, name:'JAG_SLR_ESR2',    total:1774230,  da:-28904,   rt:1799525,  as:3608,    opt:39.8,  cap:79},
+  {rank:28, name:'SGAL_BES_ESR2',   total:1758823,  da:0,        rt:1497641,  as:261182,  opt:64.2,  cap:104},
+  {rank:29, name:'PHO_ESR2',        total:1721554,  da:399041,   rt:708175,   as:614337,  opt:63.9,  cap:150},
+  {rank:30, name:'RRC_WIND_ESR2',   total:1714075,  da:816330,   rt:897745,   as:0,       opt:43.7,  cap:null},
+];
+
+// GKS: cached YTD $742,122 + W38 partial confirmed $10,947.51 = $753,070 est.
+// Rank held at #89 — fleet data cache unchanged from W37; rank estimate conservatively unchanged.
+const gks = {rank:89, name:'GKS_BESS_ESR1', total:753070, da:12107, rt:391507, as:349456, opt:93.0, cap:100};
+// Note: DA/RT/AS split for W38 increment is an apportioned estimate based on 3-day actuals.
+// Sep14: DA $21,750.75 RT -$14,955.41 AS $4,122.05; Sep16: DA $7,098 RT -$8,789 AS $3,952;
+// Sep17: DA -$8,996 RT $6,105 AS $659. Sum: DA $19,853 RT -$17,639 AS $8,733 — added to cached.
+
+// ── Monthly Chart (stacked bar) ──────────────────────────────────────────────
+const ctx = document.getElementById('monthlyChart').getContext('2d');
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: monthly.labels,
+    datasets: [
+      {
+        label: 'DA Energy',
+        data: monthly.da,
+        backgroundColor: 'rgba(41,98,255,0.75)',
+        stack: 'stack',
+      },
+      {
+        label: 'RT Energy',
+        data: monthly.rt,
+        backgroundColor: 'rgba(8,153,129,0.75)',
+        stack: 'stack',
+      },
+      {
+        label: 'AS Revenue',
+        data: monthly.as_,
+        backgroundColor: 'rgba(255,152,0,0.75)',
+        stack: 'stack',
+      },
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: { font: { family: 'Inter', size: 11 }, color: '#5d606b', boxWidth: 12, padding: 12 }
+      },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => ` ${ctx.dataset.label}: $${(ctx.raw/1e6).toFixed(2)}M`
+        }
+      }
+    },
+    scales: {
+      x: { grid: { color: '#eceff3' }, ticks: { font: { family: 'Inter', size: 11 }, color: '#5d606b' } },
+      y: {
+        grid: { color: '#eceff3' },
+        ticks: {
+          font: { family: 'JetBrains Mono', size: 10 },
+          color: '#5d606b',
+          callback: (v) => '$' + (v/1e6).toFixed(0) + 'M'
+        }
+      }
+    }
+  }
+});
+
+// ── Heatmap (product mix for top 15) ────────────────────────────────────────
+const heatmapResources = top30.slice(0, 15);
+const products = ['DA', 'RT', 'AS'];
+const prodKeys = ['da', 'rt', 'as'];
+
+const container = document.getElementById('heatmapContainer');
+const grid = document.createElement('div');
+grid.className = 'heatmap-grid';
+grid.style.gridTemplateColumns = `100px repeat(${products.length}, 56px)`;
+
+// Header row
+const emptyHdr = document.createElement('div');
+grid.appendChild(emptyHdr);
+products.forEach(p => {
+  const h = document.createElement('div');
+  h.className = 'heatmap-header';
+  h.textContent = p;
+  grid.appendChild(h);
+});
+
+// Compute color (green heatmap)
+function heatColor(pct) {
+  const alpha = 0.12 + pct * 0.60;
+  return `rgba(8,153,129,${alpha.toFixed(2)})`;
+}
+
+// Per-product max for normalization
+const maxByProd = prodKeys.map(k => Math.max(...heatmapResources.map(r => Math.max(r[k], 0))));
+
+heatmapResources.forEach(r => {
+  const label = document.createElement('div');
+  label.className = 'heatmap-row-label';
+  label.title = r.name;
+  label.textContent = r.name.replace(/_ESR[12]$/, '').replace(/_ESS/, '');
+  grid.appendChild(label);
+
+  prodKeys.forEach((k, i) => {
+    const val = r[k];
+    const pct = maxByProd[i] > 0 ? Math.max(val, 0) / maxByProd[i] : 0;
+    const cell = document.createElement('div');
+    cell.className = 'heatmap-cell';
+    cell.style.background = heatColor(pct);
+    cell.textContent = val >= 0
+      ? '$' + (val/1e3).toFixed(0) + 'K'
+      : '−$' + (Math.abs(val)/1e3).toFixed(0) + 'K';
+    if (val < 0) cell.style.background = 'rgba(242,54,69,0.18)';
+    grid.appendChild(cell);
+  });
+});
+
+container.appendChild(grid);
+
+// ── Ranking Table ────────────────────────────────────────────────────────────
+const tbody = document.getElementById('rankingBody');
+const fmt = (n) => n >= 0 ? '$' + n.toLocaleString() : '−$' + Math.abs(n).toLocaleString();
+const fmtOpt = (v) => v == null ? '—' : v > 200 ? '—*' : v.toFixed(1) + '%';
+const fmtCap = (v) => v == null ? '—' : v + ' MW';
+
+function makeRow(r, isGKS) {
+  const tr = document.createElement('tr');
+  if (isGKS) tr.className = 'gks-row';
+  const rankBadgeClass = r.rank === 1 ? 'rank-badge rank-1' : r.rank === 2 ? 'rank-badge rank-2' : r.rank === 3 ? 'rank-badge rank-3' : 'rank-badge';
+  const optPct = r.opt != null && r.opt <= 200 ? Math.min(r.opt / 200, 1) : 0;
+  const optBarW = Math.round(optPct * 56);
+  const gksLabel = isGKS ? '<span class="gks-label">GKS &#x2605; PARTIAL</span>' : '';
+  tr.innerHTML = `
+    <td><span class="${rankBadgeClass}">${r.rank}</span></td>
+    <td>${r.name}${gksLabel}</td>
+    <td class="${r.total>=0?'up':'down'}">${fmt(r.total)}</td>
+    <td class="${r.da>=0?'':'down'}">${fmt(r.da)}</td>
+    <td class="${r.rt>=0?'':'down'}">${fmt(r.rt)}</td>
+    <td>${fmt(r.as)}</td>
+    <td><span class="opt-bar" style="width:${optBarW}px;"></span>${fmtOpt(r.opt)}</td>
+    <td class="muted">${fmtCap(r.cap)}</td>
+  `;
+  return tr;
+}
+
+top30.forEach(r => tbody.appendChild(makeRow(r, false)));
+
+// GKS separator row
+const sepTr = document.createElement('tr');
+sepTr.innerHTML = `<td colspan="8" style="text-align:center; font-size:10px; color:var(--text-muted); padding:6px; background:var(--bg-row-alt);">... ranks #31 – #88 omitted ...</td>`;
+tbody.appendChild(sepTr);
+tbody.appendChild(makeRow(gks, true));
+
+// Note row
+const noteTr = document.createElement('tr');
+noteTr.innerHTML = `<td colspan="8" style="text-align:left; font-size:10px; color:var(--text-muted); padding:6px 12px; background:var(--bg-row-alt);">
+  GKS note: Total $753,070 = $742,122 cached (Jan 1&ndash;Jul 14) + $10,948 W38 confirmed partial (Sep 14, 16, 17 only). 4 days DEGRADED. DA/RT/AS W38 split apportioned from 3-day actuals.
+  Fleet rankings Jan 1&ndash;Jul 14 unchanged (ERCOT 60-day lag). Rank #89 is W37 carry-forward estimate.
+</td>`;
+tbody.appendChild(noteTr);
+</script>
+</body>
+</html>

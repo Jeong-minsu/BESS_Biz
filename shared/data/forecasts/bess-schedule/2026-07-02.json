@@ -1,0 +1,73 @@
+{
+  "flowday": "2026-07-02",
+  "issued_at": "2026-07-01",
+  "asset": "GKS_BESS_RN",
+  "capacity_mw": 100,
+  "capacity_mwh": 200,
+  "efficiency_rte": 0.87,
+  "initial_soc_mwh": 0.0,
+  "soc_source": "ASSUMED",
+  "primary_stack": "A",
+  "primary_stack_label": "AS-Heavy + 2-hour Energy Arbitrage",
+  "da_rt_haircut": 0.80,
+  "as_playbook_prior": "N/A",
+  "houston_import_p_binding": "0.15-0.28",
+  "rule6_mode": "HYBRID_LOW_MEDIUM",
+  "hours": {
+    "HE01": {"energy_mw": 0, "mode": "standby_as", "soc_end_mwh": 0.0, "ns_mw": 80, "ecrs_mw": 10, "rrs_mw": 10, "regup_mw": 0, "regdown_mw": 0, "expected_revenue_usd": 165.00},
+    "HE02": {"energy_mw": 0, "mode": "standby_as", "soc_end_mwh": 0.0, "ns_mw": 80, "ecrs_mw": 10, "rrs_mw": 10, "regup_mw": 0, "regdown_mw": 0, "expected_revenue_usd": 165.00},
+    "HE03": {"energy_mw": 0, "mode": "standby_as", "soc_end_mwh": 0.0, "ns_mw": 80, "ecrs_mw": 10, "rrs_mw": 10, "regup_mw": 0, "regdown_mw": 0, "expected_revenue_usd": 148.80},
+    "HE04": {"energy_mw": 0, "mode": "standby_as", "soc_end_mwh": 0.0, "ns_mw": 80, "ecrs_mw": 10, "rrs_mw": 10, "regup_mw": 0, "regdown_mw": 0, "expected_revenue_usd": 148.60},
+    "HE05": {"energy_mw": 0, "mode": "standby_as", "soc_end_mwh": 0.0, "ns_mw": 80, "ecrs_mw": 10, "rrs_mw": 10, "regup_mw": 0, "regdown_mw": 0, "expected_revenue_usd": 148.60},
+    "HE06": {"energy_mw": 0, "mode": "standby_as", "soc_end_mwh": 0.0, "ns_mw": 80, "ecrs_mw": 10, "rrs_mw": 10, "regup_mw": 0, "regdown_mw": 0, "expected_revenue_usd": 164.80},
+    "HE07": {"energy_mw": 0, "mode": "standby_as", "soc_end_mwh": 0.0, "ns_mw": 80, "ecrs_mw": 10, "rrs_mw": 10, "regup_mw": 0, "regdown_mw": 0, "expected_revenue_usd": 181.50},
+    "HE08": {"energy_mw": 0, "mode": "standby_as", "soc_end_mwh": 0.0, "ns_mw": 80, "ecrs_mw": 10, "rrs_mw": 10, "regup_mw": 0, "regdown_mw": 0, "expected_revenue_usd": 165.50},
+    "HE09": {"energy_mw": -30, "mode": "charge_da", "soc_end_mwh": 26.1, "ns_mw": 0, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "da_price_usd_mwh": 18.3, "expected_revenue_usd": -549.00},
+    "HE10": {"energy_mw": -100, "mode": "charge_da", "soc_end_mwh": 113.1, "ns_mw": 0, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "da_price_usd_mwh": 16.6, "expected_revenue_usd": -1660.00},
+    "HE11": {"energy_mw": -100, "mode": "charge_da", "soc_end_mwh": 200.0, "ns_mw": 0, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "da_price_usd_mwh": 18.2, "expected_revenue_usd": -1820.00},
+    "HE12": {"energy_mw": 0, "mode": "standby_hold_soc", "soc_end_mwh": 200.0, "ns_mw": 50, "ecrs_mw": 20, "rrs_mw": 20, "regup_mw": 0, "regdown_mw": 0, "expected_revenue_usd": 102.40},
+    "HE13": {"energy_mw": 0, "mode": "standby_hold_soc", "soc_end_mwh": 200.0, "ns_mw": 50, "ecrs_mw": 20, "rrs_mw": 20, "regup_mw": 0, "regdown_mw": 0, "expected_revenue_usd": 114.40},
+    "HE14": {"energy_mw": 0, "mode": "standby_hold_soc", "soc_end_mwh": 200.0, "ns_mw": 50, "ecrs_mw": 20, "rrs_mw": 20, "regup_mw": 0, "regdown_mw": 0, "expected_revenue_usd": 126.40},
+    "HE15": {"energy_mw": 0, "mode": "standby_hold_soc", "soc_end_mwh": 200.0, "ns_mw": 50, "ecrs_mw": 20, "rrs_mw": 20, "regup_mw": 0, "regdown_mw": 0, "expected_revenue_usd": 133.40},
+    "HE16": {"energy_mw": 0, "mode": "standby_hold_soc", "soc_end_mwh": 200.0, "ns_mw": 50, "ecrs_mw": 20, "rrs_mw": 20, "regup_mw": 0, "regdown_mw": 0, "expected_revenue_usd": 145.40},
+    "HE17": {"energy_mw": 0, "mode": "standby_hold_soc", "soc_end_mwh": 200.0, "ns_mw": 50, "ecrs_mw": 20, "rrs_mw": 20, "regup_mw": 0, "regdown_mw": 0, "expected_revenue_usd": 147.40},
+    "HE18": {"energy_mw": 0, "mode": "standby_hold_soc", "soc_end_mwh": 200.0, "ns_mw": 50, "ecrs_mw": 20, "rrs_mw": 20, "regup_mw": 0, "regdown_mw": 0, "expected_revenue_usd": 149.40},
+    "HE19": {"energy_mw": 0, "mode": "standby_hybrid_as", "soc_end_mwh": 200.0, "ns_mw": 50, "ecrs_mw": 20, "rrs_mw": 15, "regup_mw": 0, "regdown_mw": 0, "note": "Rule6_HYBRID: hold SoC for HE20-21 discharge; AS from full capacity", "expected_revenue_usd": 211.00},
+    "HE20": {"energy_mw": 100, "mode": "discharge_da", "soc_end_mwh": 100.0, "ns_mw": 0, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "da_price_usd_mwh": 40.5, "expected_revenue_usd": 3240.00},
+    "HE21": {"energy_mw": 100, "mode": "discharge_da", "soc_end_mwh": 0.0, "ns_mw": 0, "ecrs_mw": 0, "rrs_mw": 0, "regup_mw": 0, "regdown_mw": 0, "da_price_usd_mwh": 35.5, "expected_revenue_usd": 2840.00},
+    "HE22": {"energy_mw": 0, "mode": "standby_as_heavy", "soc_end_mwh": 0.0, "ns_mw": 70, "ecrs_mw": 20, "rrs_mw": 10, "regup_mw": 0, "regdown_mw": 0, "note": "Rule3_scarcity + Rule1_ECRS_summer", "expected_revenue_usd": 694.80},
+    "HE23": {"energy_mw": 0, "mode": "standby_as_heavy", "soc_end_mwh": 0.0, "ns_mw": 70, "ecrs_mw": 20, "rrs_mw": 10, "regup_mw": 0, "regdown_mw": 0, "expected_revenue_usd": 309.00},
+    "HE24": {"energy_mw": 0, "mode": "standby_as_heavy", "soc_end_mwh": 0.0, "ns_mw": 70, "ecrs_mw": 20, "rrs_mw": 10, "regup_mw": 0, "regdown_mw": 0, "expected_revenue_usd": 229.50}
+  },
+  "expected_revenue": {
+    "da_energy_charge_cost_usd": -4029.00,
+    "da_energy_discharge_raw_usd": 7600.00,
+    "da_energy_discharge_haircut_usd": 6080.00,
+    "da_energy_net_usd": 2051.00,
+    "non_spin_usd": 3340.00,
+    "ecrs_usd": 241.20,
+    "rrs_usd": 69.70,
+    "regup_usd": 0.00,
+    "regdown_usd": 0.00,
+    "total_usd": 5701.90
+  },
+  "charge_summary": {
+    "hours": ["HE09", "HE10", "HE11"],
+    "total_grid_consumption_mwh": 230.0,
+    "total_soc_stored_mwh": 200.0,
+    "avg_charge_price_usd_mwh": 17.52
+  },
+  "discharge_summary": {
+    "hours": ["HE20", "HE21"],
+    "total_discharge_mwh": 200.0,
+    "avg_discharge_price_usd_mwh": 38.0
+  },
+  "alternative_stack": {
+    "label": "Stack B — HE19+HE20 discharge",
+    "trigger": "DA HE20 clears below $37/MWh OR Enverus wind actuals fall >2000 MW below forecast",
+    "discharge_hours": ["HE19", "HE20"],
+    "expected_total_usd": 4726.00,
+    "delta_vs_primary_usd": -975.90
+  },
+  "standing_rules_applied": ["Rule1_ECRS_summer", "Rule2_DA_haircut_0.80x", "Rule3_NonSpin_scarcity", "Rule5_DA_bid_row_discrepancy", "Rule6_HOUSTON_IMPORT_LOW_MEDIUM_Hybrid", "Rule7_SoC_init_assumed", "Rule8_RT_dispatch_risk_unresolved"]
+}

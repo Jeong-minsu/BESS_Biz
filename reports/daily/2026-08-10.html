@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GKS BESS Daily Report — 2026-08-10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --bg-base:        #f7f8fa;
+  --bg-panel:       #ffffff;
+  --bg-panel-2:     #f0f2f5;
+  --bg-row-alt:     #fafbfc;
+  --border-soft:    #e0e3eb;
+  --border-strong:  #c8ccd4;
+  --text-primary:   #131722;
+  --text-secondary: #5d606b;
+  --text-muted:     #9598a1;
+  --accent-up:      #089981;
+  --accent-down:    #f23645;
+  --accent-blue:    #2962ff;
+  --accent-amber:   #ff9800;
+  --accent-purple:  #9c27b0;
+  --grid-line:      #eceff3;
+  --shadow-card:    0 1px 2px rgba(16,24,40,0.04);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg-base);color:var(--text-primary);font-family:'Inter',-apple-system,system-ui,sans-serif;font-size:13px;line-height:1.5;padding:24px;min-height:100vh;}
+.dashboard{max-width:1400px;margin:0 auto;display:flex;flex-direction:column;gap:12px;}
+
+/* HEADER */
+.header{display:flex;justify-content:space-between;align-items:flex-end;padding-bottom:16px;border-bottom:1px solid var(--border-soft);margin-bottom:4px;}
+.header h1{font-size:22px;font-weight:600;letter-spacing:-0.01em;}
+.header .subtitle{color:var(--text-secondary);font-size:12px;margin-top:4px;font-variant-numeric:tabular-nums;}
+.header-right{display:flex;gap:8px;align-items:center;}
+.status-pill{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border:1px solid var(--border-soft);border-radius:4px;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-secondary);background:var(--bg-panel);}
+.status-pill.ok::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent-up);}
+.status-pill.warn::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent-amber);}
+.status-pill.crit::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent-down);}
+
+/* ALERT BANNER */
+.alert-banner{background:#fff8f0;border:1px solid #ffd6a0;border-radius:6px;padding:12px 16px;display:flex;align-items:flex-start;gap:10px;}
+.alert-icon{font-size:16px;line-height:1;flex-shrink:0;margin-top:1px;}
+.alert-body{flex:1;}
+.alert-title{font-weight:600;font-size:13px;color:#b45309;margin-bottom:2px;}
+.alert-text{font-size:12px;color:#92400e;line-height:1.6;}
+
+/* PANEL */
+.panel{background:var(--bg-panel);border:1px solid var(--border-soft);border-radius:6px;overflow:hidden;box-shadow:var(--shadow-card);}
+.panel-header{padding:10px 16px;border-bottom:1px solid var(--border-soft);display:flex;justify-content:space-between;align-items:center;}
+.panel-title{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-secondary);font-weight:500;}
+.panel-badge{font-size:10px;padding:2px 8px;border-radius:3px;font-weight:500;background:var(--bg-panel-2);color:var(--text-secondary);}
+.panel-badge.prod{background:#e8f5e9;color:#1b5e20;}
+.panel-badge.deg{background:#fdecea;color:#b71c1c;}
+.panel-body{padding:16px;}
+
+/* KPI ROW */
+.kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
+@media(max-width:1100px){.kpi-row{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:700px){.kpi-row{grid-template-columns:repeat(2,1fr);}}
+.kpi{background:var(--bg-panel);border:1px solid var(--border-soft);border-radius:6px;padding:16px 18px;box-shadow:var(--shadow-card);}
+.kpi-label{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-secondary);margin-bottom:8px;}
+.kpi-value{font-family:'JetBrains Mono','SF Mono',monospace;font-size:26px;font-weight:500;color:var(--text-primary);font-variant-numeric:tabular-nums;line-height:1.1;}
+.kpi-value.warn{color:var(--accent-amber);}
+.kpi-value.crit{color:var(--accent-down);}
+.kpi-change{font-family:'JetBrains Mono',monospace;font-size:11px;margin-top:6px;font-variant-numeric:tabular-nums;}
+.up{color:var(--accent-up);}
+.down{color:var(--accent-down);}
+.neutral{color:var(--text-secondary);}
+.amber{color:var(--accent-amber);}
+
+/* MAIN GRID */
+.main-grid{display:grid;grid-template-columns:2fr 1fr;gap:12px;}
+@media(max-width:1000px){.main-grid{grid-template-columns:1fr;}}
+.chart-wrap{height:360px;padding:16px;}
+
+/* HEATMAP */
+.hm-container{padding:12px 16px;}
+.hm-title{font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-secondary);margin-bottom:8px;}
+.heatmap-grid{display:grid;gap:2px;}
+.hm-label{font-size:9px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.04em;display:flex;align-items:center;padding-right:4px;white-space:nowrap;overflow:hidden;}
+.hm-col-label{font-size:8px;color:var(--text-secondary);display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums;}
+.hm-cell{height:28px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:8px;font-variant-numeric:tabular-nums;border-radius:2px;cursor:default;position:relative;}
+.hm-cell:hover::after{content:attr(data-tip);position:absolute;bottom:110%;left:50%;transform:translateX(-50%);background:#131722;color:#fff;padding:4px 8px;border-radius:4px;font-size:10px;white-space:nowrap;z-index:10;pointer-events:none;}
+
+/* TWO-COL GRID */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:900px){.two-col{grid-template-columns:1fr;}}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse;font-size:12px;}
+thead th{text-align:left;padding:9px 14px;font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-secondary);font-weight:500;border-bottom:1px solid var(--border-soft);background:var(--bg-panel);}
+thead th.num{text-align:right;}
+tbody td{padding:9px 14px;border-bottom:1px solid var(--grid-line);}
+tbody td.num{text-align:right;font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums;}
+tbody tr:nth-child(even){background:var(--bg-row-alt);}
+tbody tr:hover{background:var(--bg-panel-2);}
+.rank{color:var(--text-muted);font-family:'JetBrains Mono',monospace;}
+.ticker{font-weight:600;}
+.mode-charge{color:var(--accent-blue);font-weight:600;}
+.mode-discharge{color:var(--accent-down);font-weight:600;}
+.mode-ns{color:var(--accent-up);}
+.mode-ecrs{color:var(--accent-purple);}
+.mode-hold{color:var(--text-secondary);}
+.badge-inc{display:inline-block;padding:1px 6px;border-radius:3px;background:#e3edff;color:var(--accent-blue);font-size:10px;font-weight:600;}
+.badge-skip{display:inline-block;padding:1px 6px;border-radius:3px;background:var(--bg-panel-2);color:var(--text-muted);font-size:10px;}
+.badge-veto{display:inline-block;padding:1px 6px;border-radius:3px;background:#fdecea;color:var(--accent-down);font-size:10px;font-weight:600;}
+
+/* SECTION LABEL */
+.section-sep{margin-top:4px;}
+
+/* SELF-REVIEW */
+.sr-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:800px){.sr-grid{grid-template-columns:1fr;}}
+.sr-card{background:var(--bg-panel);border:1px solid var(--border-soft);border-radius:6px;padding:14px 16px;box-shadow:var(--shadow-card);}
+.sr-agent{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;color:var(--accent-blue);}
+.sr-text{font-size:12px;color:var(--text-primary);line-height:1.7;}
+
+/* WATCH ITEMS */
+.watch-row{display:flex;gap:8px;padding:8px 16px;border-bottom:1px solid var(--grid-line);align-items:flex-start;}
+.watch-row:last-child{border-bottom:none;}
+.watch-tag{flex-shrink:0;display:inline-block;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;}
+.tag-ok{background:#e8f5e9;color:#2e7d32;}
+.tag-flag{background:#fff3e0;color:#e65100;}
+.tag-consistent{background:#e3edff;color:#1a237e;}
+.watch-text{font-size:12px;color:var(--text-primary);line-height:1.6;}
+
+/* FOOTER */
+.footer{font-size:11px;color:var(--text-muted);text-align:center;padding-top:8px;border-top:1px solid var(--border-soft);}
+</style>
+</head>
+<body>
+<div class="dashboard">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <h1>GKS BESS Daily Report — D+1 2026-08-10 (Monday)</h1>
+      <div class="subtitle">작성: 2026-08-09 07:30 CT | 어제 리뷰: 2026-08-08 | 출처: market-analyst · congestion-analyst · bess-optimizer · dart-virtual-trader · pnl-manager</div>
+    </div>
+    <div class="header-right">
+      <span class="status-pill prod">YES ENERGY PROD</span>
+      <span class="status-pill crit">SB DEGRADED D15</span>
+      <span class="status-pill warn">HEAT EVENT W3-D16</span>
+    </div>
+  </div>
+
+  <!-- ALERT BANNER -->
+  <div class="alert-banner">
+    <div class="alert-icon">⚠</div>
+    <div class="alert-body">
+      <div class="alert-title">CRITICAL — Smartbidder client_secret 만료 15일차 (2026-07-26 이후)</div>
+      <div class="alert-text">
+        모든 DA/RT 정량 가격 예측·P(DA&gt;RT)·AS clearing 추정 차단. 15일간 100 MW BESS DA 입찰 전량 정성 추정 기반 실행.
+        Ascend 임원 + GKS Management 즉시 에스컬레이션 필요. 하드 데드라인: <strong>2026-08-10 09:00 CT</strong>.
+        이 조건이 해결되지 않으면 08-11 report에도 동일 경고 유지.
+      </div>
+    </div>
+  </div>
+
+  <!-- KPI ROW -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-label">GKS 실적 (08-08)</div>
+      <div class="kpi-value">$5,671</div>
+      <div class="kpi-change up">▲ +$209 / +3.8% vs 08-07</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">D+1 P50 예상수익 (08-10)</div>
+      <div class="kpi-value up">$7,000</div>
+      <div class="kpi-change up">▲ +$1,329 vs 08-08 actual</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">08-08 DA-RT Spread (24h avg)</div>
+      <div class="kpi-value down">-$1.56</div>
+      <div class="kpi-change down">▼ RT premium 전일</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">D+1 HE20-21 spike 전망</div>
+      <div class="kpi-value">$30-55</div>
+      <div class="kpi-change amber">Bear: $55-90 / GR_WEST &lt;4GW 시</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Smartbidder 상태</div>
+      <div class="kpi-value crit">D15</div>
+      <div class="kpi-change down">▼ AADSTS7000222 만료</div>
+    </div>
+  </div>
+
+  <!-- MAIN GRID: Chart + Heatmap -->
+  <div class="main-grid">
+
+    <!-- Main Chart: Yesterday Actual vs D+1 Expected hourly revenue -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">시간별 수익 비교 — 08-08 Actual vs 08-10 Expected (P50)</span>
+        <span class="panel-badge">$/hour</span>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="revenueChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Heatmap: Yesterday HE × Product -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">08-08 실적 히트맵 — HE × 수익원</span>
+        <span class="panel-badge">실측</span>
+      </div>
+      <div class="hm-container">
+        <div class="hm-title">행=수익원 | 열=HE01-24 | 색=크기·부호</div>
+        <div class="heatmap-grid" id="heatmapGrid"
+             style="grid-template-columns: 52px repeat(24, 1fr); grid-template-rows: 18px repeat(3, 28px);">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONGESTION + D+1 BESS SCHEDULE side by side -->
+  <div class="two-col">
+
+    <!-- Congestion Constraints -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">D+1 혼잡 전망 — Top Constraints (08-10)</span>
+        <span class="panel-badge">Stage 0 provisional</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>제약</th>
+            <th>HE 범위</th>
+            <th class="num">P(binding)</th>
+            <th class="num">GKS MCC $/MWh</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="rank">1</td>
+            <td class="ticker">WEST_TO_NORTH_345</td>
+            <td>HE01-07</td>
+            <td class="num down">MEDIUM 22-32%</td>
+            <td class="num down">-$2 to -$5</td>
+          </tr>
+          <tr>
+            <td class="rank">2</td>
+            <td class="ticker">Finding 7 Duck Curve</td>
+            <td>HE10-11</td>
+            <td class="num amber">MODERATE lower</td>
+            <td class="num down">-$1.5 to -$3.5</td>
+          </tr>
+          <tr>
+            <td class="rank">3</td>
+            <td class="ticker">SOUTH_HOUSTON_IMPORT</td>
+            <td>HE19-21</td>
+            <td class="num neutral">LOW-MED 13-23%</td>
+            <td class="num up">+$0.2 to +$1.8</td>
+          </tr>
+          <tr>
+            <td class="rank">4</td>
+            <td class="ticker">WEST_TO_NORTH_345</td>
+            <td>HE22-24</td>
+            <td class="num down">MEDIUM 22-32%</td>
+            <td class="num down">-$2 to -$6</td>
+          </tr>
+          <tr>
+            <td class="rank">—</td>
+            <td class="ticker">PANHANDLE_EXPORT_345</td>
+            <td>All</td>
+            <td class="num neutral">&lt;2% NEGLIGIBLE</td>
+            <td class="num neutral">$0</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="panel-body" style="padding:10px 16px;border-top:1px solid var(--grid-line);font-size:11px;color:var(--text-secondary);">
+        Hub-pair LMP 80번째 연속 미수집 — 방향 신뢰도 MEDIUM, 크기 LOW. NL trough 26,477 MW HE10 (477 MW from SEVERE 26,000 MW).
+        HE24 SCI 0.466 = Aug 2026 series max evening SCI (MEDIUM-HIGH 근접). GR_WEST bear (&lt;4,000 MW) 시 HE19-21 MCC
+        양전환 가능.
+      </div>
+    </div>
+
+    <!-- D+1 Market View Bullets -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">D+1 시황 요약 (08-10) — market-analyst</span>
+        <span class="panel-badge prod">YES ENERGY PROD</span>
+      </div>
+      <div class="panel-body">
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+          <li style="display:flex;gap:8px;align-items:flex-start;">
+            <span style="color:var(--accent-up);font-size:13px;flex-shrink:0;">▲</span>
+            <span><strong>GR_WEST 열돔 회복</strong>: HE13-14 = 5,156 MW (+3,214 MW vs 08/09 1,942 MW). 6일 하락 추세 첫 반전. 시스템 풍력 24h avg 15,871 MW (+4,602 MW). 단, STWPF 단일 소스 — AG2 미확인 15일째.</span>
+          </li>
+          <li style="display:flex;gap:8px;align-items:flex-start;">
+            <span style="color:var(--accent-down);font-size:13px;flex-shrink:0;">▼</span>
+            <span><strong>Solar cliff 신기록</strong>: HE19→HE20 -13,103 MW (이벤트 최대). Net-load ramp +10,159 MW (단일 시간 최대). DA HE20 gas commitment 미흡 시 RT 급등 위험.</span>
+          </li>
+          <li style="display:flex;gap:8px;align-items:flex-start;">
+            <span style="color:var(--accent-blue);font-size:13px;flex-shrink:0;">→</span>
+            <span><strong>저녁 peak 완화</strong>: HE21 net load 59,284 MW (-2,782 MW vs 08/09). Monday 상업 부하(gross +1,822 MW avg)에도 풍력이 상쇄. GR_COASTAL HE19 = 3,594 MW (이벤트 최고 해풍).</span>
+          </li>
+          <li style="display:flex;gap:8px;align-items:flex-start;">
+            <span style="color:var(--accent-amber);font-size:13px;flex-shrink:0;">!</span>
+            <span><strong>Duck floor</strong>: HE10 = 26,477 MW (MODERATE; 477 MW above SEVERE). Cap-out 9,702 MW (이벤트 최고, dual-trigger 298 MW 미만). Solar +1.7% 초과 시 SEVERE 진입 P≈15-22%.</span>
+          </li>
+          <li style="display:flex;gap:8px;align-items:flex-start;">
+            <span style="color:var(--text-secondary);font-size:13px;flex-shrink:0;">$</span>
+            <span><strong>LMP 전망 (정성)</strong>: DA avg ~$15-20/MWh. Duck HE09-11: $5-15/MWh. Evening HE20-21: $30-55/MWh base / Bear $55-90/MWh. HE12 SCED에서 GR_WEST &lt;4,000 MW 시 Bear로 즉시 전환.</span>
+          </li>
+          <li style="display:flex;gap:8px;align-items:flex-start;">
+            <span style="color:var(--accent-purple);font-size:13px;flex-shrink:0;">↩</span>
+            <span><strong>HE24 cap-out 정상화</strong>: 6,991 MW (-1,815 MW vs HE23). 정비 반환 신호 → 08/11 reserve margin 개선 기대. 단, 반환 지연 시 cap-out 8,800 MW+ 유지 → 08-11 watch item.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- D+1 BESS SCHEDULE TABLE -->
+  <div class="panel section-sep">
+    <div class="panel-header">
+      <span class="panel-title">D+1 GKS BESS 스케줄 — Stack A Primary (08-10) — bess-optimizer</span>
+      <span style="display:flex;gap:6px;">
+        <span class="panel-badge prod">P50 $7,000</span>
+        <span class="panel-badge">P10 $5,200 / P90 $9,500</span>
+      </span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th class="num">HE</th>
+          <th>Mode</th>
+          <th class="num">Energy (MW)</th>
+          <th class="num">NonSpin (MW)</th>
+          <th class="num">ECRS (MW)</th>
+          <th class="num">SoC End (MWh)</th>
+          <th class="num">Est. Node Price ($/MWh)</th>
+        </tr>
+      </thead>
+      <tbody id="bessScheduleBody">
+      </tbody>
+    </table>
+    <div class="panel-body" style="padding:10px 16px;border-top:1px solid var(--grid-line);font-size:11px;color:var(--text-secondary);">
+      Stack B 전환 조건: HE12-13 SCED GR_WEST &lt;4,000 MW <strong>AND</strong> HE19 RT &gt;$45/MWh 동시 충족.
+      Stack B P50 ~$8,500 (Bear 시나리오). 야간 충전(W2N MEDIUM HE01-07) 거부 이유: duck floor
+      ~$5.5/MWh 저렴 (경제 최적화 우선). SoC init 10 MWh 가정 (08-09 terminal 전량 방전 전제).
+    </div>
+  </div>
+
+  <!-- DART POSITIONS -->
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title">D+1 DART Virtual Position (08-10) — dart-virtual-trader</span>
+      <span style="display:flex;gap:6px;">
+        <span class="panel-badge">E[P50 sym] +$40.6</span>
+        <span class="panel-badge">Advisory Only</span>
+      </span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>HE</th>
+          <th>Direction</th>
+          <th class="num">Size (MW)</th>
+          <th class="num">DA Offer ($/MWh)</th>
+          <th class="num">P(win)</th>
+          <th class="num">E[P50 sym] ($)</th>
+          <th>비고</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>01-06</td>
+          <td><span class="badge-skip">SKIP</span></td>
+          <td class="num">0</td><td class="num">—</td><td class="num">~49%</td><td class="num">—</td>
+          <td style="font-size:11px;color:var(--text-secondary);">W2N INC BLOCK (22-32% upper &gt;20%)</td>
+        </tr>
+        <tr>
+          <td>07-09</td>
+          <td><span class="badge-skip">SKIP</span></td>
+          <td class="num">0</td><td class="num">—</td><td class="num">~49-51%</td><td class="num">—</td>
+          <td style="font-size:11px;color:var(--text-secondary);">P &lt;55%</td>
+        </tr>
+        <tr style="background:#e3edff20;">
+          <td><strong>10</strong></td>
+          <td><span class="badge-inc">INC (Short DA)</span></td>
+          <td class="num"><strong>20</strong></td>
+          <td class="num"><strong>$10</strong></td>
+          <td class="num up"><strong>60%</strong></td>
+          <td class="num up"><strong>+$28.0</strong></td>
+          <td style="font-size:11px;">Duck 26,477 MW; 477 MW from SEVERE</td>
+        </tr>
+        <tr style="background:#e3edff20;">
+          <td><strong>11</strong></td>
+          <td><span class="badge-inc">INC (Short DA)</span></td>
+          <td class="num"><strong>10</strong></td>
+          <td class="num"><strong>$13</strong></td>
+          <td class="num up"><strong>59%</strong></td>
+          <td class="num up"><strong>+$12.6</strong></td>
+          <td style="font-size:11px;">MODERATE duck 28,130 MW</td>
+        </tr>
+        <tr>
+          <td>12-13</td>
+          <td><span class="badge-skip">SKIP</span></td>
+          <td class="num">0</td><td class="num">—</td><td class="num">~47-48%</td><td class="num">—</td>
+          <td style="font-size:11px;color:var(--text-secondary);">NL 32.8-37.2k MW; P &lt;50%</td>
+        </tr>
+        <tr>
+          <td>14-15</td>
+          <td><span class="badge-veto">VETO</span></td>
+          <td class="num">0</td><td class="num">—</td><td class="num">—</td><td class="num">—</td>
+          <td style="font-size:11px;color:var(--accent-down);">GR_WEST &lt;5,500 AND Load &gt;80k MW (양조건)</td>
+        </tr>
+        <tr>
+          <td>16-18</td>
+          <td><span class="badge-skip">SKIP</span></td>
+          <td class="num">0</td><td class="num">—</td><td class="num">~47-48%</td><td class="num">—</td>
+          <td style="font-size:11px;color:var(--text-secondary);">NL 41k MW 구간</td>
+        </tr>
+        <tr>
+          <td>19-21</td>
+          <td><span class="badge-skip">DEC SKIP</span></td>
+          <td class="num">0</td><td class="num">—</td><td class="num">~31%</td><td class="num">—</td>
+          <td style="font-size:11px;color:var(--text-secondary);">DEC v5 FAIL: ramp 17,605 MW &lt;20,000 MW 임계값</td>
+        </tr>
+        <tr>
+          <td>22-24</td>
+          <td><span class="badge-skip">SKIP+BLOCK</span></td>
+          <td class="num">0</td><td class="num">—</td><td class="num">~49-50%</td><td class="num">—</td>
+          <td style="font-size:11px;color:var(--text-secondary);">W2N INC BLOCK + P SKIP 독립 충족</td>
+        </tr>
+        <tr style="background:var(--bg-panel-2);font-weight:600;">
+          <td colspan="2">합계 / Net</td>
+          <td class="num">30 MW</td>
+          <td class="num">—</td>
+          <td class="num up">59.7% avg</td>
+          <td class="num up">+$40.6</td>
+          <td style="font-size:11px;">Conservative (+$11.6 at $2 spread); Max loss -$210</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SELF-FEEDBACK -->
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title">Self-Feedback — 2026-08-08 Learnings (Front/Middle 4개 에이전트)</span>
+    </div>
+    <div class="panel-body">
+      <div class="sr-grid">
+        <div class="sr-card">
+          <div class="sr-agent">market-analyst</div>
+          <div class="sr-text">
+            DA 24h avg MAE <strong>$0.45/MWh</strong> — NL 기반 가격 앵커 방법론 유효 확인.
+            <span style="color:var(--accent-down);">오류:</span> 오후 RT spike(HE13-17, HE16 $41.63) 및 HE19 DA-RT 역전(+$17.74) 완전 미예측.
+            원인: 토요일 전용 시장 구조(저부하·정비 집중·저녁 풍력 회복) 미반영 + Smartbidder DEGRADED.
+            <span style="color:var(--accent-up);">개선:</span> 08-10부터 08-08 P&L 신규 앵커 적용. 금요일 브리핑에 Weekend Market Structure 섹션 추가 예정.
+          </div>
+        </div>
+        <div class="sr-card">
+          <div class="sr-agent">congestion-analyst</div>
+          <div class="sr-text">
+            토요일 D+1 forecast 미발행 — 이벤트 기간 최대 DART 기회(HE19 spread <strong>+$17.74</strong>) 완전 미포착.
+            <span style="color:var(--accent-down);">구조적 갭:</span> 주말 SOUTH_HOUSTON DAM-binding/RT-non-binding 분리 체계 부재.
+            오후 RT premium(HE13-17 avg +$7.33/MWh) 프레임워크 미포함.
+            <span style="color:var(--accent-up);">개선:</span> 토요일 provisional outlook 추가; 주말 SOUTH_HOUSTON P(DAM) vs P(RT) 분리.
+            Hub-pair LMP(80th cycle) 미수집이 구조적 원인 식별 차단.
+          </div>
+        </div>
+        <div class="sr-card">
+          <div class="sr-agent">bess-optimizer</div>
+          <div class="sr-text">
+            NS 90 MW 전 시간 청산 실증($1.487/MW-h) → <span style="color:var(--accent-down);">75 MW 보수적 설정 오류</span> 판정.
+            08-10 목표 90 MW 상향(단, 현재 발행본 75 MW).
+            RT imbalance -$3,994 원인: Smartbidder 분산매도(DA 340 MWh vs 물리 HE22-24 집중) 구조적 패턴.
+            <span style="color:var(--accent-up);">개선:</span> DA 매도 볼륨별 RT imbalance 차감 수익 추정 반영 필요.
+            충전 HE07-09 조기 진입(duck 최적 HE10-11 이탈) — Smartbidder 자동 실행 패턴.
+          </div>
+        </div>
+        <div class="sr-card">
+          <div class="sr-agent">dart-virtual-trader</div>
+          <div class="sr-text">
+            파일링 갭으로 포지션 미실행(dart_virtual_revenue $0.00).
+            WEPEAK Saturday duck INC <span style="color:var(--accent-down);">방향 오류 실증</span>(HE09-11 실측 RT&gt;DA by $2-$4).
+            <span style="color:var(--accent-up);">성공:</span> VETO HE13-17 손실 방지 <strong>$366</strong> 정상 작동.
+            <span style="color:var(--accent-amber);">기회 손실:</span> DEC HE19-21 미진입($17.74/$10.80/$6.28 spread) — v5 외 별도 solar cliff 신호 개발 필요.
+            <span style="color:var(--accent-up);">적용:</span> Saturday INC -5ppt 추가 패널티 신규 공식화 예정.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WATCH ITEMS -->
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title">Watch Items — Cross-Agent Consistency Check</span>
+    </div>
+    <div>
+      <div class="watch-row">
+        <span class="watch-tag tag-consistent">CONSISTENT</span>
+        <span class="watch-text"><strong>방전 시간대</strong>: market-analyst HE20-21 primary spike view → bess-optimizer DA_DISCHARGE HE20-21 → dart-virtual-trader INC skip (DEC v5 FAIL on ramp). 모두 일치.</span>
+      </div>
+      <div class="watch-row">
+        <span class="watch-tag tag-consistent">CONSISTENT</span>
+        <span class="watch-text"><strong>충전 시간대</strong>: market-analyst "Begin charging HE09, maximize HE10" → bess-optimizer DA_CHARGE HE09-10 (-100 MW each). 일치.</span>
+      </div>
+      <div class="watch-row">
+        <span class="watch-tag tag-flag">FLAG</span>
+        <span class="watch-text"><strong>야간 충전 우선순위 불일치</strong>: congestion-analyst #1 charge priority = HE01-07 (7-hour MEDIUM W2N, Aug record) vs bess-optimizer 야간 충전 거부 (duck floor ~$5.5/MWh 절약 경제 최적화). 모순 아님 — 경제적 합리성 근거 있음($1,045 절약 추정). 에이전트 간 검토 권장이나 긴급 에스컬레이션 불필요.</span>
+      </div>
+      <div class="watch-row">
+        <span class="watch-tag tag-consistent">CONSISTENT</span>
+        <span class="watch-text"><strong>HE22-24 방향</strong>: congestion-analyst "tertiary charge window" (W2N MEDIUM) → bess-optimizer ECRS_HOLD (SoC 10 MWh, 충전 불가). 경제적 귀결 일치.</span>
+      </div>
+      <div class="watch-row">
+        <span class="watch-tag tag-consistent">CONSISTENT</span>
+        <span class="watch-text"><strong>Duck INC 신호 방향</strong>: dart-virtual-trader HE10-11 INC (RT&lt;DA 기대) ↔ bess-optimizer DA_CHARGE HE10-11. 동일 방향성 — duck floor 저가 전제 공유.</span>
+      </div>
+      <div class="watch-row">
+        <span class="watch-tag tag-consistent">CONSISTENT</span>
+        <span class="watch-text"><strong>GR_WEST 단일 소스 리스크</strong>: market-analyst, congestion-analyst, bess-optimizer, dart-virtual-trader 모두 STWPF 단일 소스 불확실성 공유 인지. AG2 미수집 15일째. HE12 SCED checkpoint 공통 모니터링 지점.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    reporter | reports/daily/2026-08-10.html | Light theme | 작성 2026-08-09 07:30 CT | 순수 취합 — 자체 분석 추가 없음
+  </div>
+
+</div><!-- end .dashboard -->
+
+<script>
+Chart.defaults.color = '#5d606b';
+Chart.defaults.borderColor = '#eceff3';
+Chart.defaults.font.family = "'Inter', sans-serif";
+Chart.defaults.font.size = 11;
+
+// ── DATA ──────────────────────────────────────────────────────────────────
+const heLabels = ['HE1','HE2','HE3','HE4','HE5','HE6','HE7','HE8','HE9','HE10',
+                  'HE11','HE12','HE13','HE14','HE15','HE16','HE17','HE18','HE19',
+                  'HE20','HE21','HE22','HE23','HE24'];
+
+// Yesterday actual total by HE (08-08)
+const actual08 = [204.46, 205.71, 146.38, 147.62, 119.39, 137.37, 283.50, 196.79,
+                  -489.77, -1244.56, -861.34, -78.49, 132.09, -14.65, 175.12,
+                  728.67, 485.33, -654.78, 634.01, 58.77, 957.34, 2233.12, 1772.72, 396.33];
+
+// D+1 expected total by HE (08-10, P50 approx)
+const expected10 = [105, 105, 105, 105, 105, 105, 105, 105,
+                    -945, -745, -159, 105, 105, 105, 105, 105, 105, 105, 63,
+                    4300, 2975, 50, 50, 50];
+
+// Heatmap data (yesterday 08-08 per product per HE)
+const daData = [0, 0, 0, 0, 0, 0, -1237.50, -1230.00, -952.00, 0, 0,
+                1219.00, 1304.50, 1371.00, 860.10, 926.10, 858.30, 0,
+                1488.50, 3.46, 1841.00, 0, 0, 0];
+const rtData = [-11.54, -11.19, -9.32, -8.08, -8.41, -10.23, 1395.00, 1342.19,
+                399.23, -1277.86, -894.64, -1330.79, -1209.31, -1421.65, -720.98,
+                -230.73, -405.37, -688.98, -896.79, -34.69, -1127.56, 1877.62, 1268.72, 21.03];
+const nsData = [216.00, 216.90, 155.70, 155.70, 127.80, 147.60, 126.00, 84.60,
+                63.00, 33.30, 33.30, 33.30, 36.90, 36.00, 36.00, 33.30, 32.40,
+                34.20, 42.30, 90.00, 243.90, 355.50, 504.00, 375.30];
+
+// ── MAIN CHART (bar comparison) ───────────────────────────────────────────
+const ctx = document.getElementById('revenueChart').getContext('2d');
+new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: heLabels,
+    datasets: [
+      {
+        label: '08-08 Actual ($)',
+        data: actual08,
+        backgroundColor: actual08.map(v => v >= 0 ? 'rgba(8,153,129,0.55)' : 'rgba(242,54,69,0.55)'),
+        borderColor: actual08.map(v => v >= 0 ? '#089981' : '#f23645'),
+        borderWidth: 1,
+        borderRadius: 2,
+        order: 2
+      },
+      {
+        label: '08-10 Expected P50 ($)',
+        data: expected10,
+        type: 'line',
+        borderColor: '#2962ff',
+        backgroundColor: 'rgba(41,98,255,0.08)',
+        borderWidth: 2,
+        fill: true,
+        tension: 0.3,
+        pointRadius: 3,
+        pointBackgroundColor: '#2962ff',
+        order: 1
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top',
+        align: 'end',
+        labels: { boxWidth: 12, padding: 12, font: { size: 11 } }
+      },
+      tooltip: {
+        mode: 'index',
+        intersect: false,
+        callbacks: {
+          label: ctx => `${ctx.dataset.label}: $${ctx.parsed.y.toFixed(0)}`
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: '#eceff3', drawTicks: false },
+        border: { display: false },
+        ticks: { maxRotation: 0, font: { size: 10 } }
+      },
+      y: {
+        grid: { color: '#eceff3', drawTicks: false },
+        border: { display: false },
+        ticks: { padding: 8, callback: v => '$' + v.toLocaleString() }
+      }
+    },
+    interaction: { mode: 'index', intersect: false }
+  }
+});
+
+// ── HEATMAP ───────────────────────────────────────────────────────────────
+function heatColorLight(v) {
+  v = Math.max(-1, Math.min(1, v));
+  if (v >= 0) return `rgba(8,153,129,${(0.20 + v * 0.65).toFixed(2)})`;
+  return `rgba(242,54,69,${(0.20 + (-v) * 0.65).toFixed(2)})`;
+}
+
+const grid = document.getElementById('heatmapGrid');
+const products = [
+  { label: 'DA Energy', data: daData,  maxAbs: 1841.00 },
+  { label: 'RT Energy', data: rtData,  maxAbs: 1877.62 },
+  { label: 'Non-Spin',  data: nsData,  maxAbs: 504.00  }
+];
+
+// Header row: empty corner + HE labels
+const corner = document.createElement('div');
+corner.className = 'hm-label';
+grid.appendChild(corner);
+
+for (let h = 1; h <= 24; h++) {
+  const lbl = document.createElement('div');
+  lbl.className = 'hm-col-label';
+  lbl.textContent = h;
+  grid.appendChild(lbl);
+}
+
+// Data rows
+products.forEach(prod => {
+  const rowLabel = document.createElement('div');
+  rowLabel.className = 'hm-label';
+  rowLabel.textContent = prod.label;
+  rowLabel.style.fontSize = '9px';
+  grid.appendChild(rowLabel);
+
+  prod.data.forEach((val, i) => {
+    const cell = document.createElement('div');
+    cell.className = 'hm-cell';
+    const norm = prod.maxAbs > 0 ? val / prod.maxAbs : 0;
+    cell.style.background = heatColorLight(norm);
+    const absVal = Math.abs(val);
+    if (absVal >= 200) {
+      cell.textContent = (val >= 0 ? '+' : '') + Math.round(val / 100) * 100;
+      cell.style.fontSize = '8px';
+      cell.style.color = 'rgba(19,23,34,0.85)';
+    }
+    cell.setAttribute('data-tip', `HE${i+1} ${prod.label}: $${val.toFixed(0)}`);
+    grid.appendChild(cell);
+  });
+});
+
+// ── BESS SCHEDULE TABLE ───────────────────────────────────────────────────
+const scheduleData = [
+  [1,'NS_HOLD',0,75,0,10,'$14-22'],
+  [2,'NS_HOLD',0,75,0,10,'$12-20'],
+  [3,'NS_HOLD',0,75,0,10,'$12-20'],
+  [4,'NS_HOLD',0,75,0,10,'$12-18'],
+  [5,'NS_HOLD',0,75,0,10,'$12-18'],
+  [6,'NS_HOLD',0,75,0,10,'$13-20'],
+  [7,'NS_HOLD',0,75,0,10,'$14-22'],
+  [8,'NS_HOLD',0,75,0,10,'$13-20'],
+  [9,'DA_CHARGE',-100,75,0,95,'$8-16 (eff. ~$10-11)'],
+  [10,'DA_CHARGE',-100,75,0,180,'$5-14 (eff. ~$7-9.5)'],
+  [11,'DA_CHARGE_TOPOFF',-24,75,0,200,'$8-16 (eff. ~$11)'],
+  [12,'NS_HOLD',0,75,0,200,'$13-22'],
+  [13,'NS_HOLD_WATCH',0,75,0,200,'$18-30'],
+  [14,'NS_HOLD',0,75,0,200,'$20-33'],
+  [15,'NS_HOLD',0,75,0,200,'$22-36'],
+  [16,'NS_HOLD',0,75,0,200,'$25-38'],
+  [17,'NS_HOLD',0,75,0,200,'$28-42'],
+  [18,'NS_HOLD',0,75,0,200,'$30-45'],
+  [19,'NS_SOC_HOLD',0,45,0,200,'$32-50'],
+  [20,'DA_DISCHARGE',100,0,0,91,'$38-60 (floor $38)'],
+  [21,'DA_DISCHARGE_ECRS',75,0,25,10,'$30-55 (floor $35)'],
+  [22,'ECRS_HOLD',0,0,25,10,'$25-42'],
+  [23,'ECRS_HOLD',0,0,25,10,'$20-35'],
+  [24,'ECRS_HOLD',0,0,25,10,'$15-25'],
+];
+
+const modeClass = {
+  'DA_CHARGE': 'mode-charge',
+  'DA_CHARGE_TOPOFF': 'mode-charge',
+  'DA_DISCHARGE': 'mode-discharge',
+  'DA_DISCHARGE_ECRS': 'mode-discharge',
+  'NS_HOLD': 'mode-ns',
+  'NS_HOLD_WATCH': 'mode-ns',
+  'NS_SOC_HOLD': 'mode-ns',
+  'ECRS_HOLD': 'mode-ecrs',
+};
+
+const tbody = document.getElementById('bessScheduleBody');
+scheduleData.forEach(([he, mode, energy, ns, ecrs, soc, price]) => {
+  const tr = document.createElement('tr');
+  const cls = modeClass[mode] || 'mode-hold';
+  const energyStr = energy === 0 ? '—' : (energy > 0 ? '+'+energy : energy);
+  tr.innerHTML = `
+    <td class="num">${he}</td>
+    <td class="${cls}">${mode}</td>
+    <td class="num">${energyStr}</td>
+    <td class="num">${ns > 0 ? ns : '—'}</td>
+    <td class="num">${ecrs > 0 ? ecrs : '—'}</td>
+    <td class="num">${soc}</td>
+    <td class="num" style="font-size:11px;">${price}</td>
+  `;
+  if (he === 9 || he === 10 || he === 11 || he === 20 || he === 21) {
+    tr.style.background = 'rgba(41,98,255,0.04)';
+  }
+  tbody.appendChild(tr);
+});
+</script>
+</body>
+</html>

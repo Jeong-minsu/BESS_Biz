@@ -1,0 +1,41 @@
+{
+  "flowday": "2026-06-14",
+  "data_source": "Production",
+  "tenaska_endpoint": "Battery-Settlement-Details",
+  "da_energy_revenue": -1867.2,
+  "rt_energy_revenue": 5737.27,
+  "as_revenue_nonspin": 5337.2,
+  "as_revenue_rrs": 0.0,
+  "as_revenue_regup": 0.0,
+  "as_revenue_regdown": 0.0,
+  "as_revenue_ecrs": 612.48,
+  "dart_virtual_revenue": 0.0,
+  "energy_injection_mwh": 123.53,
+  "energy_consumption_mwh": 119.86,
+  "as_revenue_total": 5949.68,
+  "total_revenue": 9819.75,
+  "net_energy_mwh": 3.67,
+  "smartbidder_benchmark": {
+    "da_energy": 637.18,
+    "da_virtual_energy": 8964.0,
+    "rt_energy_lmp5": -3749.09,
+    "rt_virtual_energy": -11473.0,
+    "dart_virtual_net": -2509.0,
+    "da_nonspin": 5129.18,
+    "rt_nonspin": -2799.24,
+    "nonspin_net": 2329.94,
+    "da_ecrs": 86.46,
+    "rt_ecrs": 0.11,
+    "ecrs_net": 86.57,
+    "rt_rrs": 0.2,
+    "total": -3204.2
+  },
+  "notes": [
+    "RT_Energy_Amt confirmed $5,737.27 per Tenaska Battery-Settlement-Details",
+    "RT_Generation_Qty=123.53 MWh, RT_Consumption_Qty=119.86 MWh confirmed",
+    "Gen_NS_Qty=1,936.00 MW-hr aggregate (88 MW x 22h) confirmed",
+    "DA energy bid/offer row_counts=0 (no DA energy market participation this flowday)",
+    "DART virtual revenue not separately available in Battery-Settlement-Details; included in DA_Energy_Amt",
+    "Smartbidder benchmark is estimate, not settled"
+  ]
+}

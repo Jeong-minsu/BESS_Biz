@@ -1,6 +1,6 @@
 # Evaluator Cross-Agent Patterns
 
-Last updated: 2026-05-25 (Week 2026-21 evaluation)
+Last updated: 2026-10-05 (Week 2026-W40 evaluation)
 
 ---
 
@@ -64,7 +64,231 @@ bess-optimizer recommended DA Energy discharge both days. Tenaska executed RT En
 
 ## Pattern 7: Agents Show High Cross-Agent Consistency on Evening Peak Window
 
-**Observed**: Weeks 2026-21 (all 5 daily reports)
+**Observed**: Weeks 2026-21 through 2026-22 (all 11 daily reports)
 **Agents affected**: market-analyst, bess-optimizer, dart-virtual-trader, congestion-analyst
 
-All four front/middle agents have consistently agreed on HE20-21 (sometimes HE19-22) as the primary revenue window every day this week. The evening duck curve + Houston import constraint is the dominant cross-agent consensus. No material contradiction observed across any cycle. This is a strength of the multi-agent architecture — independent analyses converge on the same operational conclusion.
+All four front/middle agents have consistently agreed on HE20-21 (sometimes HE19-22) as the primary revenue window. The evening duck curve + Houston import constraint is the dominant cross-agent consensus. No material contradiction observed across any cycle. This alignment is confirmed structurally across normal weekdays, Saturdays, Sundays, and the Memorial Day holiday weekend.
+
+---
+
+## Pattern 8: Tenaska Data Outage Cascades to All Learning Loops
+
+**Observed**: Weeks 2026-21 through 2026-22 (7 failures in 11 operating days)
+**Agents affected**: bess-optimizer, dart-virtual-trader, market-analyst, congestion-analyst, pnl-manager
+
+All Front/Middle agent self-reviews cite Tenaska data absence as the primary limitation. The calibration anchors for bess-optimizer (0.80x haircut), dart-virtual-trader (+20% bias correction), and market-analyst (RT overestimate discount) were all established on 2026-05-24 data and are now 15+ days stale as of week end. This is a single-point infrastructure dependency: a cloud IP not on the Ascend whitelist is cascading into broken learning loops for 4 agents simultaneously.
+
+---
+
+## Pattern 9: Agent Self-Identification Exceeds Implementation Rate for Template-Level Changes
+
+**Observed**: Week 2026-22 (most visible in market-analyst; also in dart-virtual-trader)
+**Agents affected**: market-analyst, dart-virtual-trader
+
+Agents correctly identify fixes in self-reviews but do not physically apply them in subsequent cycles. market-analyst identified Non-Spin overnight and ECRS morning ramp gaps in 7 consecutive self-reviews without implementing the template fix. dart-virtual-trader identified the need for a hit rate log but did not create it. This is distinct from incremental rule changes (which are applied quickly, e.g., bess-optimizer applying lessons within 1-2 cycles) — it specifically affects template/infrastructure changes that require a one-time structural edit rather than a per-cycle decision.
+
+---
+
+## Pattern 11: Weekend Evening is a Distinct Regime — RT Systematically Exceeds DA in Scarcity
+
+**Observed**: Week 2026-W23 (3 consecutive weekend evenings: 2026-06-05 Fri, 2026-06-06 Sat, 2026-06-07 Sun)
+**Agents affected**: market-analyst (briefing framing), dart-virtual-trader (directional model), bess-optimizer (indirectly)
+
+On all three weekend evenings, actual RT exceeded DA by $15-30+/MWh at HE18-22 while Smartbidder P(DA>RT) predicted the opposite direction. The physical GKS battery profited from RT dispatch on these evenings (confirming RT>DA at the node); the DART virtual SHORT DA positions lost (-$5,266 confirmed on 2026-06-06). Two structural explanations: (a) Saturday thin DAM liquidity causes DA to clear below RT when scarcity materializes; (b) Extreme Non-Spin (>$10/MWh) signals RT scarcity, which is ambiguous — consistent with either DA-expensive or RT-spiking scenarios. The Friday case (2026-06-05) also showed RT>DA, suggesting the weekend effect may extend to Friday evening in scarcity weeks. All agents should treat weekend evening Smartbidder P(DA>RT) as "reference only" when prior-day RT>DA evidence exists.
+
+---
+
+## Pattern 12: GKS Execution May Be Independent of bess-optimizer Recommendation
+
+**Observed**: Week 2026-W23 (2026-06-05: involuntary RT charging HE13-15; 2026-06-07: DA energy cleared HE05-06 not in recommendation)
+**Agents affected**: bess-optimizer (execution assumption), pnl-manager (benchmark comparison structure)
+
+Tenaska settlement shows GKS being dispatched in hours not recommended by bess-optimizer, and in modes (RT charging at $28-44/MWh) that are directly contrary to the DA-sell strategy. Two possibilities: (a) Smartbidder/Tenaska submits bids independently with a separate RT co-optimization layer; (b) ERCOT automated demand response dispatched GKS involuntarily. Until the execution flow is confirmed, plan-vs-actual comparison for bess-optimizer may be comparing the recommendation against a different execution, making accuracy scoring invalid. User confirmation of the Tenaska/Smartbidder bid submission process is the prerequisite for valid bess-optimizer performance benchmarking.
+
+---
+
+## Pattern 13: Execution Divergence Is Structural, Not Episodic
+
+**Observed**: Week 2026-24 (confirmed PRODUCTION days 2026-06-10, 2026-06-12, 2026-06-14)
+**Agents affected**: bess-optimizer (primary), dart-virtual-trader (suspected), pnl-manager (benchmark structure)
+
+On all three PRODUCTION days in W24 where bess-optimizer vs actual comparison was possible, Smartbidder/Tenaska executed a fundamentally different strategy than recommended (RT-first cycling vs DA-first discharge). GKS actual exceeded the bess-optimizer recommendation by 26-50%. This is not a random deviation — it is consistent RT co-optimization by Smartbidder operating independently of the bess-optimizer advisory. If this is also true for dart-virtual-trader (Hypothesis C: Smartbidder runs its own virtual book independently), both Front Office agents are advisory-only layers above Smartbidder execution. This is an architectural question requiring user confirmation.
+
+---
+
+## Pattern 14: ECRS DA Clearing Is a Recurring Feature in June–September ERCOT, Not a Tail Event
+
+**Observed**: Week 2026-24 (4 of 7 days: 2026-06-08, 2026-06-12, 2026-06-13, 2026-06-14)
+**Agents affected**: bess-optimizer (ECRS exclusion error), market-analyst (AS section), dart-virtual-trader (ECRS as INC risk indicator)
+
+ECRS cleared in the DA market in the evening hours (HE20-24 CT) on 4 of 7 W24 days. bess-optimizer excluded ECRS from recommendations on each day (citing "zero clearing 4+ consecutive days"). market-analyst either lacked Smartbidder AS data (null endpoint) or did not provide ECRS estimates in the briefing. dart-virtual-trader confirmed on 2026-06-14 that ECRS clearing is a confirmed INC contra-indicator (ECRS clears → RT scarcity → RT > DA → INC loses). All three agents need to treat ECRS clearing in the HE20-24 window as a standing expectation during the June–September heat season, not a surprise.
+
+---
+
+## Pattern 15: Agent Learning Loop Speed Varies Systematically by Change Type
+
+**Observed**: Weeks 2026-21 through 2026-24 (all agents, most visible in bess-optimizer and market-analyst)
+**Agents affected**: All 5 Front/Middle agents; pnl-manager (DART virtual isolation)
+
+Per-cycle rule changes (e.g., adjusting charge window timing, applying a P90 multiplier, changing position sizes) are implemented within 1-2 cycles. Structural/persistent changes (creating a standing-rules document, implementing an API endpoint, adding a mandatory pre-briefing checklist step, creating a hit-rate-log file) are deferred indefinitely. The evaluator has documented ECRS standing offer for bess-optimizer across 4 cycles; weekend RT override for market-analyst across 4 cycles; DART virtual isolation for pnl-manager across 4 cycles; hit-rate-log creation for dart-virtual-trader across 3 cycles. The common pattern: structural changes require creating a new persistent artifact (document, file, code change) rather than modifying a per-cycle decision. No agent has a mechanism for consuming the evaluator's improvement-tracker to ensure structural changes are executed.
+
+---
+
+## Pattern 16: Simultaneous Multi-Constraint Active Days Produce Correlated Calibration Failures
+
+**Observed**: Week 2026-25 (2026-06-21 summer solstice — all 4 tracked constraints active simultaneously)
+**Agents affected**: congestion-analyst, dart-virtual-trader, bess-optimizer (indirectly)
+
+On the summer solstice (2026-06-21), GR_WEST peaked at 18,103 MW (series record) while NL ramp was
+elevated and 4 constraints were simultaneously active: HOUSTON_IMPORT HIGH, WEST_TO_NORTH MEDIUM,
+HOUSTON_SOUTH_MIDDAY_LOCAL MEDIUM, PANHANDLE LOW-MEDIUM. Actual outcome: HOUSTON_IMPORT call failed
+(RT crashed, not spiked), WEST_TO_NORTH partial (1-hr timing bias), HOUSTON_SOUTH_MIDDAY_LOCAL wrong
+direction.
+
+When multiple constraints activate simultaneously under high-GR_WEST conditions, Stage 0 heuristics
+overestimate all of them because:
+(a) Mutual suppression effects between constraints are not modeled (binding one constraint relieves others)
+(b) High GR_WEST wind exports from West suppress evening DA prices AND reduce South-to-Houston import pressure
+(c) Stage 0 has no mechanism to downweight when conditions combine to create unusual market structure
+
+This pattern will recur on summer peak days (July-August heat events, solstice-adjacent weekends).
+All agents should treat "4+ constraints simultaneously flagged HIGH/MEDIUM" as a signal to apply
+an additional 10-15 ppt confidence haircut to all probability calls, not just individual ones.
+
+---
+
+## Pattern 17: Smartbidder D+1 CSV Intermittent Recovery After Extended Absence
+
+**Observed**: Week 2026-27 (2026-07-05 return after 43+ consecutive absent cycles)
+**Agents affected**: market-analyst, dart-virtual-trader
+
+Smartbidder DA-RT probability CSV (used by dart-virtual-trader for position sizing and by market-analyst for P(DA>RT) input) disappeared after approximately Week 22 and was absent for 43+ consecutive production cycles. It returned on 2026-07-05. Dart-virtual-trader correctly applied a 70% size cap on return, citing "calibration trust low." Pattern: long absence → brief return → unknown reliability. Agents should not restore full weight to the CSV without a calibration trust protocol (proposed: 5 consecutive production days before treating as primary source). This pattern may recur if the CSV is tied to a Smartbidder model cycle or parameter change.
+
+---
+
+## Pattern 18: Tenaska Access in VPN-Linked Clusters
+
+**Observed**: Weeks 2026-26–2026-27 (confirmed: June 30, July 1, July 2 PRODUCTION; July 3 FAILED)
+**Agents affected**: pnl-manager (primary); cascades to all agents via DEGRADED backlog
+
+Tenaska PTP access succeeds in consecutive clusters of 2-3 days when user runs fetch_pnl_data.py from a VPN-whitelisted machine, then fails again when cloud execution resumes. The intermittent PRODUCTION pattern (3 consecutive success → fail) is not a permanent fix — cloud IP remains unwhitelisted. 19 total failures as of W27, 18 DEGRADED days in backlog. Implication: user must run the script from VPN for each day's data, or Ascend must permanently whitelist the cloud IP. A daily VPN execution window is not a scalable solution beyond the current backlog.
+
+---
+
+## Pattern 19: Smartbidder Execution Default — NS 80 MW Flat + HE14-22 DA
+
+**Observed**: Week 2026-27 (quantified in bess-optimizer learnings 2026-07-02; 6 consecutive cycles)
+**Agents affected**: bess-optimizer (recommendations), pnl-manager (benchmark), dart-virtual-trader (cross-strategy consistency)
+
+Confirmed in bess-optimizer learnings: Smartbidder strategy "Mount Blue Sky with Virtuals (RTC Version)" executes NS at 80 MW × 24h flat and DA sells HE14-22 regardless of bess-optimizer recommendations. bess-optimizer recommendations (which vary NS hours and DA sell window) are not implemented. This is a structural execution gap — not a per-cycle issue. Consequences: (1) bess-optimizer expected revenue calculations are systematically higher than realized because they assume recommendation adherence; (2) dart-virtual-trader position logic (which assumes BESS discharge at bess-optimizer's recommended hours) may be stale for cross-strategy consistency checks; (3) pnl-manager benchmark (Smartbidder strategy) reflects the 80 MW flat / HE14-22 pattern, not the bess-optimizer-optimal one. Until the execution gap is resolved, GKS actual performance should be benchmarked against the Smartbidder default strategy, not the bess-optimizer recommendation.
+
+---
+
+## Pattern 20: Smartbidder Calibration Recovery Protocol Working as Designed
+
+**Observed**: Week 2026-28 (Jul 8-12 — 8 consecutive cycles at 85-90%+ calibration after 43+ absent cycles)
+**Agents affected**: dart-virtual-trader (primary), market-analyst (secondary)
+
+After 43+ absent cycles, Smartbidder DA-RT probability CSV returned Jul 5. dart-virtual-trader correctly applied the calibration ramp: 70% cap on return (Jul 5) → 85% cap (4th cycle Jul 8) → 88% (5th cycle Jul 9) → 90%+ and 45 MW ceiling (7th-8th cycles Jul 11-12). The calibration trust protocol, while informal, is functioning as designed. Pattern 17 (extended absence → uncertain reliability on return) predicted this would require 5+ consecutive cycles before restoring significant weight — validated. If the CSV remains present through W29, evaluator recommends formalizing "full trust" criteria (e.g., 10 consecutive cycles at 90%) to prevent premature ceiling removal. The calibration schedule should be documented as a standing rule in dart-virtual-trader's model notes, not rediscovered on each re-entry.
+
+---
+
+## Pattern 21: bess-optimizer Rule-Creation Cycles Produce Output Directory Instability
+
+**Observed**: Week 2026-28 (Jul 6-7 — new Rules 9 and 10 established in Jul 6 learnings; output filed to bess-stack/ and bess-schedule/ respectively)
+**Agents affected**: bess-optimizer (primary); similar pattern observed in dart-virtual-trader in prior weeks
+
+On the same day bess-optimizer formalized new Rules 9 and 10 (Jul 6), output was filed to the wrong directory. Jul 7 (first application day of new rules) also used the wrong directory. Jul 8 onward was correct. This is consistent with Pattern 9 (agents self-identify fixes but do not implement structural checklist items). The specific form here: cognitive load during rule-formalization displaces rote process steps like output path verification. Mitigation: agents should use a fixed first-step checklist entry ("verify output directory") that precedes any analysis or decision-making in the daily cycle. This must be a mechanical check, not a memory-dependent step, to survive high-cognitive-load days.
+
+---
+
+## Pattern 22: Reporter Cross-Agent Consistency Check Adds Material Value
+
+**Observed**: Week 2026-28 (Jul 7 — caught Smartbidder P(DA>RT) discrepancy between market-analyst and dart-virtual-trader)
+**Agents affected**: reporter (implements), market-analyst, dart-virtual-trader (subject agents)
+
+The reporter's cross-agent consistency check caught a data discrepancy on Jul 7 that neither market-analyst nor dart-virtual-trader flagged in their own reports. market-analyst listed Smartbidder P(DA>RT) as "N/A" while dart-virtual-trader confirmed the file was present and used it for position sizing. This is the first confirmed instance of the cross-agent check providing unique quality control value — a discrepancy invisible to the individual agents' self-reviews. The cross-agent check is now a standing feature, not an experimental addition. It should be retained in all future reporter consolidated daily reports. Future enhancement: when a flag is raised, the reporter should note which agent's data was confirmed correct (in this case, dart-virtual-trader's direct file access was the ground truth).
+
+---
+
+## Pattern 23: Wind Source Divergence (YE vs AG2) Produces Systematic DA Evening Overforecast
+
+**Observed**: Week 2026-29 (2026-07-19 — quantified in market-analyst learnings 2026-07-19.md)
+**Agents affected**: market-analyst (primary), bess-optimizer (evening discharge timing), dart-virtual-trader (spread direction for INC/DEC)
+
+On 2026-07-19, Smartbidder and Yes Energy agreed on wind at ~9.9 GW for the evening hours, while AG2/Enverus showed 12-15 GW. The market cleared on the higher wind basis, causing DA prices in HE20-21 to clear well below RT (DA $15-17/MWh vs RT $32-34/MWh). market-analyst overforecast DA by -$12 to -$18/MWh in those hours, issuing a DA-premium view (consistent with low-wind tight supply) when the actual was a large RT-premium event.
+
+The divergence: YE low-wind → DA expensive (Pattern 2); AG2 high-wind → solar + wind oversupply suppresses DA → RT premium. Both scenarios are internally consistent. The market followed AG2.
+
+Agent-proposed rule: when AG2 > YE wind by 2+ GW in HE18-23, apply a -$5 to -$15/MWh DA evening adjustment. This should be propagated downstream: market-analyst should flag wind source divergence when it occurs so bess-optimizer (discharge timing) and dart-virtual-trader (INC/DEC direction) can adjust their own assumptions.
+
+This pattern is distinct from Pattern 2 (Smartbidder absolute overestimation) — the source is a specific data divergence between wind forecast vendors, not a generic model bias.
+
+---
+
+## Pattern 24: Orchestration Cycle Skip Cascades Identically to All Front/Middle Agents
+
+**Observed**: Week 2026-29 (2026-07-16 — no D+1 cycle for Jul 17 planning); W31 analog (2026-07-28 — ALL data sources DEGRADED simultaneously)
+**Agents affected**: bess-optimizer, dart-virtual-trader, market-analyst, congestion-analyst, reporter (all simultaneously absent or unable to produce self-review)
+
+On 2026-07-16, the entire daily orchestration cycle for Jul 17 D+1 planning was not executed. All five front/middle agents have a Jul 17 gap simultaneously — this is the signature of an orchestration skip rather than individual agent failures. The reporter also failed to file a "DEGRADED — no inputs" notice.
+
+**W31 analog (2026-07-28)**: YE rate-limited + Smartbidder FAILED day 4 + AG2/Enverus absent simultaneously. Market-analyst filed a DEGRADED briefing with appropriate uncertainty flags but no other front/middle agent produced self-review learnings for Jul 28. The self-review step appears to be suppressed when data sources are universally absent — an orchestration-level behavior, not individual agent failure.
+
+This pattern has different causes from Pattern 8 (Tenaska outage cascades). Pattern 8 affects the *self-review learning loop* (prior-day settlement absent) but leaves the D+1 planning cycle intact. Pattern 24 is a complete orchestration stop — neither the D+1 planning nor the settlement review occurs. The two patterns can compound: the Jul 17 orchestration skip meant that when Jul 17 settlement data would have arrived (T+2), there was no learning cycle anchored to that day's recommendations.
+
+Detection: if 4+ agents all have the same day absent from their output directories, the root cause is almost certainly orchestration-level rather than individual agent failure. The W31 variant shows Pattern 24 can manifest as self-review suppression (outputs filed but learning step skipped) rather than full output absence.
+
+---
+
+## Pattern 25: bess-optimizer High-Stakes Hour Misidentification Persists Across Multiple Self-Reviews
+
+**Observed**: Week 2026-29 (2026-07-13 self-review — documented in memory/bess-optimizer/learnings/2026-07-13.md)
+**Agents affected**: bess-optimizer (primary); downstream impact on dart-virtual-trader (discharge window alignment)
+
+On 2026-07-13, bess-optimizer completely inverted the top and bottom revenue hours:
+- Recommended HE04-05 as cheapest charge hours: actual price was $34.95-$35.50/MWh (most expensive hours)
+- Recommended HE22-23 as peak discharge: actual peak was HE07 at $41.31/MWh
+- Missed 2-cycle throughput opportunity (actual ~405 MWh vs 1-cycle recommendation)
+- ECRS missed: $161 actual vs $0 recommended
+
+This is the largest calibration miss observed in any single self-review — complete directional inversion of all key decisions. The Jul 16 self-review showed the agent immediately correcting the charge window to HE10-11 (within 1-2 cycles), consistent with Pattern 15 (per-cycle rule changes applied quickly). However, the Jul 13 miss severity suggests the base calibration model for overnight vs daytime price structure requires more systematic revision, not just a one-cycle correction.
+
+Root cause: the bess-optimizer model assumed a conventional summer price curve (overnight cheap, afternoon/evening expensive). The Jul 13 actual showed a compressed midday trough with peak at HE07 (morning ramp), consistent with a high-solar, moderate-wind, tight early-morning supply day. This is a pattern the model should be able to recognize from the AS price structure (Non-Spin elevated overnight → market expects tight morning supply).
+
+---
+
+## Pattern 26: Compound Infrastructure DEGRADED + Absence of Orchestrator Trigger Produces Multi-Day Cycle Void
+
+**Observed**: Week 2026-W39 (Sep 22-25, 2026 — 4 consecutive cycle gaps; Sep 27 also missing; 5 of 7 W39 days not executed)
+**Agents affected**: All agents simultaneously
+
+When Smartbidder is DEGRADED (Day 8+) AND Tenaska PTP is DOWN simultaneously, the daily cycle is at risk of complete abandonment if the orchestration trigger is not enforced independently of data availability. In W39, this compound condition produced a 4-day operational void (Sep 22-25 with Sep 27 also missing) — 5 of 7 operational days not executed.
+
+This is an extension of Pattern 24 (orchestration cycle skip) but with a different root cause: in W39 the issue was not a one-day skip but a multi-day accumulated suppression under sustained infrastructure DEGRADED conditions. Agent self-reviews cite "오케스트레이터 트리거 부재(일일 07:30 CT 사이클 자동화 미동작) 가능성" — suggesting the orchestrator failed to trigger the cycle on DEGRADED days.
+
+**Key distinction from Pattern 8**: Pattern 8 breaks the self-review loop (T+2 settlement absent) but leaves D+1 planning intact. Pattern 26 breaks both D+1 planning AND T+2 review simultaneously. The compound effect means no recommendations, no learning updates, and (if actuals were available) no benchmark comparison — a complete operational blackout.
+
+**Mitigation**: A DEGRADED-mode minimum cycle protocol should exist. Even with both Smartbidder and Tenaska DOWN, a minimal cycle using Yes Energy only (which was PRODUCTION on both run days) should generate: (1) market-analyst briefing, (2) bess-optimizer DEGRADED-flagged stack, (3) dart-virtual-trader DEGRADED positions. A DEGRADED recommendation is materially better than no recommendation — the Sep 17 loss (-$2,231.14) resulted from Smartbidder autonomously executing a strategy that contradicted the bess-optimizer recommendation. During the Sep 22-25 gap, with no recommendation present, Smartbidder likely continued autonomous execution with no oversight.
+
+---
+
+## Pattern 27: Persistent Document Creation Failure — Three Agents, Three Files, 10-11 Weeks
+
+**Observed**: Weeks 2026-W30 through 2026-W40 (ongoing)
+**Agents affected**: congestion-analyst (stage-0-rules.md, 11 weeks), reporter (canonical-paths.md, 10 weeks), reporter (template-issues.md, EMPTY)
+
+Three agents have each failed to create or populate simple agent-executable persistent files across 10-11 consecutive weeks. None of these files have infrastructure dependencies — each can be created in a single session in under 5 minutes. The pattern is identical: an evaluator plan is registered with a specific file to be created, the plan is not executed, a follow-up plan is registered the next week, and the cycle repeats.
+
+This is distinct from Pattern 9 (template-level changes identified but not implemented across cycles). The difference is that Pattern 9 involves recurring per-cycle decisions (applying a format fix each cycle), while Pattern 27 involves a one-time file creation that, once done, would be complete. The persistence of this failure across 10-11 weeks suggests that either (a) agents are not reading their open plans at session start, or (b) the gap between "analysis session" and "infrastructure maintenance session" means file creation tasks are never prioritized.
+
+**Implication for agent definitions**: Consider adding a mandatory session-start step: "Read all open CRITICAL/MAJOR plans in memory/<agent>/plans/. Execute any plan items requiring <5 minutes before proceeding to analysis." This structural addition would catch one-time file creation tasks that are currently being deferred indefinitely.
+
+---
+
+## Pattern 10: RT Energy Dispatch Is an Unmodeled Revenue Source for bess-optimizer
+
+**Observed**: Week 2026-22 (confirmed 2026-05-29 settlement)
+**Agents affected**: bess-optimizer, pnl-manager
+
+On 2026-05-29, GKS generated $3,830.36 in RT Energy revenue that was not in the bess-optimizer recommended schedule. The DA-focused recommendation does not prevent RT dispatch — Smartbidder/Tenaska co-optimization submits RT offers independently. This is an upside source that systematically underestimates total GKS revenue in bess-optimizer plans. Since Week 22, bess-optimizer has added an explicit "RT Energy Optionality Upside: $1,500-$3,000" note. However, the mechanism is not yet modeled, so the base-case plan revenue estimate will continue to understate actuals until the RT dispatch structure is clarified with Tenaska.

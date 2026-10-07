@@ -1,0 +1,291 @@
+{
+  "meta": {
+    "date": "2026-09-06",
+    "filed": "2026-09-05",
+    "asset": "GKS_BESS_RN",
+    "capacity_mw": 100,
+    "duration_mwh": 200,
+    "rte_pct": 85,
+    "day_type": "WEPEAK",
+    "calendar": "Sunday",
+    "event": "Labor Day Weekend",
+    "primary_stack": "C",
+    "confidence": "LOW-MEDIUM",
+    "data_sources": {
+      "yes_energy": "PRODUCTION",
+      "smartbidder": "UNAVAILABLE_DAY43",
+      "as_playbook": "ABSENT",
+      "tenaska_ptp": "BLOCKED"
+    },
+    "soc_start_mwh": 0,
+    "soc_assumption": "conservative_fully_discharged"
+  },
+  "schedule": [
+    {
+      "he": 1,
+      "mode": "idle",
+      "energy_mw": 0,
+      "soc_end_mwh": 0.0,
+      "as": { "reg_up": 0, "reg_down": 0, "rrs": 0, "ecrs": 0, "non_spin": 30 },
+      "da_bid": null,
+      "notes": "Overnight wind 14,262 MW; NS capacity offered at low overnight bid"
+    },
+    {
+      "he": 2,
+      "mode": "idle",
+      "energy_mw": 0,
+      "soc_end_mwh": 0.0,
+      "as": { "reg_up": 0, "reg_down": 0, "rrs": 0, "ecrs": 0, "non_spin": 30 },
+      "da_bid": null,
+      "notes": "Wind 12,850 MW; low load 60,531 MW"
+    },
+    {
+      "he": 3,
+      "mode": "charge",
+      "energy_mw": -100,
+      "soc_end_mwh": 92.2,
+      "as": { "reg_up": 0, "reg_down": 0, "rrs": 0, "ecrs": 0, "non_spin": 0 },
+      "da_bid": { "type": "charge", "ceiling_mwh": 30.0 },
+      "notes": "PRIMARY CHARGE - confirmed execution window per learnings; ZERO AS (energy hour rule)"
+    },
+    {
+      "he": 4,
+      "mode": "charge",
+      "energy_mw": -100,
+      "soc_end_mwh": 184.4,
+      "as": { "reg_up": 0, "reg_down": 0, "rrs": 0, "ecrs": 0, "non_spin": 0 },
+      "da_bid": { "type": "charge", "ceiling_mwh": 30.0 },
+      "notes": "PRIMARY CHARGE - targets 184 MWh SoC; ZERO AS (energy hour rule); reduce MW if SoC start > 20 MWh"
+    },
+    {
+      "he": 5,
+      "mode": "idle",
+      "energy_mw": 0,
+      "soc_end_mwh": 184.4,
+      "as": { "reg_up": 0, "reg_down": 0, "rrs": 0, "ecrs": 0, "non_spin": 30 },
+      "da_bid": null,
+      "notes": "Post-charge buffer; last OFFPEAK hour before HE06 end"
+    },
+    {
+      "he": 6,
+      "mode": "idle",
+      "energy_mw": 0,
+      "soc_end_mwh": 184.4,
+      "as": { "reg_up": 0, "reg_down": 0, "rrs": 0, "ecrs": 0, "non_spin": 30 },
+      "da_bid": null,
+      "notes": "OFFPEAK; wind 6,826 MW declining; NS offered"
+    },
+    {
+      "he": 7,
+      "mode": "idle",
+      "energy_mw": 0,
+      "soc_end_mwh": 184.4,
+      "as": { "reg_up": 0, "reg_down": 0, "rrs": 0, "ecrs": 0, "non_spin": 30 },
+      "da_bid": null,
+      "notes": "WEPEAK start; load 55,393 MW; wind 5,302 MW"
+    },
+    {
+      "he": 8,
+      "mode": "idle",
+      "energy_mw": 0,
+      "soc_end_mwh": 184.4,
+      "as": { "reg_up": 0, "reg_down": 0, "rrs": 0, "ecrs": 0, "non_spin": 30 },
+      "da_bid": null,
+      "notes": "Solar ramp begins 1,477 MW; net load 49,535 MW"
+    },
+    {
+      "he": 9,
+      "mode": "idle",
+      "energy_mw": 0,
+      "soc_end_mwh": 184.4,
+      "as": { "reg_up": 0, "reg_down": 0, "rrs": 0, "ecrs": 0, "non_spin": 30 },
+      "da_bid": null,
+      "notes": "Solar surge 14,479 MW; net load drops to 40,255 MW; DA $15-28 est."
+    },
+    {
+      "he": 10,
+      "mode": "idle",
+      "energy_mw": 0,
+      "soc_end_mwh": 184.4,
+      "as": { "reg_up": 0, "reg_down": 0, "rrs": 0, "ecrs": 0, "non_spin": 30 },
+      "da_bid": null,
+      "notes": "DUCK BELLY - net load trough 32,970 MW; DA $8-22 est.; DA charge EXCLUDED per 7+ consecutive failure history"
+    },
+    {
+      "he": 11,
+      "mode": "idle",
+      "energy_mw": 0,
+      "soc_end_mwh": 184.4,
+      "as": { "reg_up": 0, "reg_down": 0, "rrs": 0, "ecrs": 0, "non_spin": 30 },
+      "da_bid": null,
+      "notes": "Net load 33,855 MW; solar near-peak 30,793 MW"
+    },
+    {
+      "he": 12,
+      "mode": "idle",
+      "energy_mw": 0,
+      "soc_end_mwh": 184.4,
+      "as": { "reg_up": 0, "reg_down": 0, "rrs": 0, "ecrs": 0, "non_spin": 30 },
+      "da_bid": null,
+      "notes": "Solar peak 31,914 MW; GR_WEST min 893 MW; duck curve MILD"
+    },
+    {
+      "he": 13,
+      "mode": "idle",
+      "energy_mw": 0,
+      "soc_end_mwh": 184.4,
+      "as": { "reg_up": 0, "reg_down": 0, "rrs": 0, "ecrs": 0, "non_spin": 85 },
+      "da_bid": null,
+      "notes": "Afternoon build; net load 41,180 MW; NS 85 MW (confirmed clearing pattern per Sep 2 actuals)"
+    },
+    {
+      "he": 14,
+      "mode": "idle",
+      "energy_mw": 0,
+      "soc_end_mwh": 184.4,
+      "as": { "reg_up": 0, "reg_down": 0, "rrs": 0, "ecrs": 0, "non_spin": 85 },
+      "da_bid": null,
+      "notes": "Net load 45,497 MW; solar 29,755 MW; DA $22-48 est."
+    },
+    {
+      "he": 15,
+      "mode": "idle",
+      "energy_mw": 0,
+      "soc_end_mwh": 184.4,
+      "as": { "reg_up": 0, "reg_down": 0, "rrs": 0, "ecrs": 0, "non_spin": 85 },
+      "da_bid": null,
+      "notes": "Net load 48,246 MW; GR_WEST recovering to 2,141 MW (no heat wave floor)"
+    },
+    {
+      "he": 16,
+      "mode": "idle",
+      "energy_mw": 0,
+      "soc_end_mwh": 184.4,
+      "as": { "reg_up": 0, "reg_down": 0, "rrs": 0, "ecrs": 0, "non_spin": 85 },
+      "da_bid": null,
+      "notes": "Net load 50,420 MW; DA $22-48 est.; NS at full 85 MW"
+    },
+    {
+      "he": 17,
+      "mode": "idle",
+      "energy_mw": 0,
+      "soc_end_mwh": 184.4,
+      "as": { "reg_up": 0, "reg_down": 0, "rrs": 0, "ecrs": 0, "non_spin": 85 },
+      "da_bid": null,
+      "notes": "LOAD PEAK 82,779 MW; net load 52,429 MW; pre-cliff buildup; DA $40-65 est."
+    },
+    {
+      "he": 18,
+      "mode": "idle",
+      "energy_mw": 0,
+      "soc_end_mwh": 184.4,
+      "as": { "reg_up": 0, "reg_down": 0, "rrs": 0, "ecrs": 0, "non_spin": 85 },
+      "da_bid": null,
+      "notes": "Pre-cliff; solar 18,705 MW (rapid decline from HE12 peak); DA $40-65 est."
+    },
+    {
+      "he": 19,
+      "mode": "discharge",
+      "energy_mw": 70,
+      "soc_end_mwh": 108.5,
+      "as": { "reg_up": 0, "reg_down": 0, "rrs": 0, "ecrs": 0, "non_spin": 0 },
+      "da_bid": { "type": "discharge", "floor_mwh": 50.0 },
+      "notes": "SOLAR CLIFF ONSET - net load 59,430 MW; 70 MW (not 100 MW) to preserve SoC for HE20; ZERO AS (energy hour rule)"
+    },
+    {
+      "he": 20,
+      "mode": "discharge",
+      "energy_mw": 100,
+      "soc_end_mwh": 0.0,
+      "as": { "reg_up": 0, "reg_down": 0, "rrs": 0, "ecrs": 0, "non_spin": 0 },
+      "da_bid": { "type": "discharge", "floor_mwh": 70.0 },
+      "notes": "NET LOAD PEAK 64,987 MW; primary harvest hour; full 100 MW; ZERO AS (energy hour rule)"
+    },
+    {
+      "he": 21,
+      "mode": "idle",
+      "energy_mw": 0,
+      "soc_end_mwh": 0.0,
+      "as": { "reg_up": 0, "reg_down": 0, "rrs": 0, "ecrs": 0, "non_spin": 0 },
+      "da_bid": null,
+      "notes": "SoC EXHAUSTED - RT spike watch only; no ECRS (insufficient SoC); RT option if residual SoC > 20 MWh confirmed by operations"
+    },
+    {
+      "he": 22,
+      "mode": "idle",
+      "energy_mw": 0,
+      "soc_end_mwh": 0.0,
+      "as": { "reg_up": 0, "reg_down": 0, "rrs": 0, "ecrs": 0, "non_spin": 0 },
+      "da_bid": null,
+      "notes": "Wind recovery 13,279 MW; SoC = 0"
+    },
+    {
+      "he": 23,
+      "mode": "idle",
+      "energy_mw": 0,
+      "soc_end_mwh": 0.0,
+      "as": { "reg_up": 0, "reg_down": 0, "rrs": 0, "ecrs": 0, "non_spin": 0 },
+      "da_bid": null,
+      "notes": "OFFPEAK; wind 13,988 MW; SoC = 0"
+    },
+    {
+      "he": 24,
+      "mode": "idle",
+      "energy_mw": 0,
+      "soc_end_mwh": 0.0,
+      "as": { "reg_up": 0, "reg_down": 0, "rrs": 0, "ecrs": 0, "non_spin": 0 },
+      "da_bid": null,
+      "notes": "OFFPEAK; wind 14,163 MW (overnight max); SoC = 0"
+    }
+  ],
+  "revenue_forecast": {
+    "da_energy_charge_usd": -5000,
+    "da_energy_discharge_usd": 14050,
+    "da_energy_net_usd": 9050,
+    "rt_energy_usd": 0,
+    "as_non_spin_usd": 4800,
+    "as_ecrs_usd": 0,
+    "as_rrs_usd": 0,
+    "as_reg_usd": 0,
+    "total_usd": 13850,
+    "range_low_usd": 7500,
+    "range_high_usd": 18000,
+    "confidence": "LOW-MEDIUM",
+    "notes": "AS revenue highly uncertain without Smartbidder clearing data. Sep 2 actual NS = $857 all hours combined. $4,800 base estimate may be 2-5x too high. Energy side ($9,050 net) is the reliable portion."
+  },
+  "price_assumptions": {
+    "he03_charge_mwh": 25.0,
+    "he04_charge_mwh": 25.0,
+    "he19_discharge_mwh": 65.0,
+    "he20_discharge_mwh": 95.0,
+    "he19_range": [50, 85],
+    "he20_range": [70, 130],
+    "source": "market-analyst 2026-09-06.md (Yes Energy BidClose + structural regression)"
+  },
+  "soc_trajectory": {
+    "he01_start": 0.0,
+    "he03_end": 92.2,
+    "he04_end": 184.4,
+    "he18_end": 184.4,
+    "he19_end": 108.5,
+    "he20_end": 0.0,
+    "he24_end": 0.0,
+    "efficiency_model": "symmetric_sqrt_85pct_rte",
+    "charge_efficiency": 0.922,
+    "discharge_efficiency": 0.922
+  },
+  "operational_flags": {
+    "da_charge_execution_risk": "HIGH - 7+ consecutive failure cycles at HE09-12; shifted to HE03-04 confirmed window",
+    "as_energy_overlap_rule": "HARD ZERO - no AS MW in HE03, HE04, HE19, HE20",
+    "stack_b_trigger": "If HE03-04 DA charge not confirmed cleared by 10:30 CT, activate Stack B (RT-heavy)",
+    "ecrs_unavailable": "SoC = 0 at HE21-24; ECRS not offered this cycle (SoC insufficient)",
+    "smartbidder_status": "UNAVAILABLE Day 43 - AS allocation is structural judgment only"
+  },
+  "alternative_stack_b": {
+    "trigger": "DA charge bid non-execution at HE03-04 confirmed by 10:30 CT",
+    "charge_window": "RT opportunistic HE04-06 if RT <= $28/MWh",
+    "discharge_window": "HE19-20 RT float (no DA bid; capture negative spread RT > DA)",
+    "as_unchanged": true,
+    "expected_delta_vs_stack_c": "+$1,000 to +$1,700 if RT > DA by $10/MWh at HE19-20; risk of RT clearing below DA"
+  }
+}

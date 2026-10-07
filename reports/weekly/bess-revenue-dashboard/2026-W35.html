@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERCOT All BESS Energy+AS Revenue Dashboard — 2026-W35</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; margin: 0; padding: 20px; background: #f8fafc; color: #1e293b; }
+  .header { background: #1e3a5f; color: #fff; padding: 24px 28px; border-radius: 10px; margin-bottom: 24px; }
+  .header h1 { margin: 0 0 4px; font-size: 1.4em; }
+  .header .meta { opacity: 0.8; font-size: 0.85em; }
+  .badge-box { display: flex; gap: 12px; flex-wrap: wrap; margin: 12px 0 0; }
+  .badge { background: rgba(255,255,255,0.15); border-radius: 6px; padding: 6px 14px; font-size: 0.8em; }
+  .section { background: #fff; border-radius: 10px; padding: 20px 24px; margin-bottom: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .section h2 { margin: 0 0 16px; font-size: 1.1em; color: #1e3a5f; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.87em; }
+  th { background: #1e3a5f; color: #fff; padding: 8px 10px; text-align: left; font-weight: 600; white-space: nowrap; }
+  td { padding: 7px 10px; border-bottom: 1px solid #f1f5f9; }
+  tr:hover { background: #f8fafc; }
+  .row-production td { background: #f0fdf4; }
+  .row-partial td { background: #fffbeb; }
+  .row-degraded td { background: #fef2f2; opacity: 0.7; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; margin-bottom: 0; }
+  .kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 16px; }
+  .kpi-label { font-size: 0.75em; color: #64748b; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.04em; }
+  .kpi-value { font-size: 1.3em; font-weight: 700; color: #1e3a5f; }
+  .kpi-value.negative { color: #dc2626; }
+  .note { background: #fef9c3; border-left: 4px solid #f59e0b; padding: 10px 14px; border-radius: 0 6px 6px 0; font-size: 0.85em; margin: 12px 0; }
+  .gks-highlight { background: #fef9c3 !important; font-weight: 600; }
+  .data-quality { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 8px; padding: 12px 16px; font-size: 0.84em; }
+  .tfoot-row td { background: #e2e8f0; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>ERCOT All BESS — Energy + AS Revenue Dashboard</h1>
+  <div class="meta">Week: 2026-W35 (2026-08-24 Mon ~ 2026-08-30 Sun) &nbsp;|&nbsp; Generated: 2026-08-31 14:28 CT &nbsp;|&nbsp; By: pnl-manager</div>
+  <div class="badge-box">
+    <span class="badge">Fleet data: 2026-01-01 to 2026-07-13 (ESTIMATE)</span>
+    <span class="badge">GKS W35: 4/7 days available</span>
+    <span class="badge">Smartbidder benchmark: N/A (MSAL expired Day 37+)</span>
+    <span class="badge">Fleet: ~333 BESS resources</span>
+  </div>
+</div>
+
+<div class="section">
+  <h2>Data Quality</h2>
+  <div class="data-quality">
+    <strong>Fleet Energy+AS estimate</strong>: ERCOT 60-day disclosure estimate — 333 resources — 2026-01-01 to 2026-07-13<br>
+    <strong>GKS W35 actuals</strong>: Aug 24-26 DEGRADED (Tenaska PTP IP whitelist issue). Aug 27-29 PRODUCTION (Tenaska PTP). Aug 30 PARTIAL (DART not isolable).<br>
+    <strong>Smartbidder benchmark</strong>: MSAL AADSTS7000222 — client_secret expired 2026-07-25, Day 37+ consecutive. All benchmark fields N/A.<br>
+    <strong>DART virtual (GKS)</strong>: Not isolable from physical energy — DA bid/offer raw files returned 0 rows for all production days. DART = N/A except Aug 29 ($0.00 from explicit report).
+  </div>
+</div>
+
+<!-- GKS W35 Weekly KPIs -->
+<div class="section">
+  <h2>GKS W35 Weekly KPIs (Aug 27-30 only — Aug 24-26 DEGRADED)</h2>
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-label">W35 Total Revenue</div>
+      <div class="kpi-value ">$19,697</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">DA Energy</div>
+      <div class="kpi-value ">$27,402</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">RT Energy</div>
+      <div class="kpi-value negative">-$19,655</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Net Energy</div>
+      <div class="kpi-value ">$7,747</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">ECRS</div>
+      <div class="kpi-value">$2,896</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Non-Spin</div>
+      <div class="kpi-value">$8,776</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">RRS</div>
+      <div class="kpi-value">$278</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Days Available</div>
+      <div class="kpi-value">4/7</div>
+    </div>
+  </div>
+  <div class="note" style="margin-top:14px">
+    <strong>Note:</strong> Aug 24-26 data unavailable (Tenaska PTP IP whitelist). W35 totals represent Aug 27-30 only (4 days). Smartbidder benchmark N/A — delta vs benchmark cannot be computed.
+  </div>
+</div>
+
+<!-- GKS W35 Daily Breakdown -->
+<div class="section">
+  <h2>GKS Daily P&L — W35 (2026-08-24 to 2026-08-30)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th><th>Status</th><th>DA Energy</th><th>RT Energy</th>
+        <th>ECRS</th><th>Non-Spin</th><th>RRS</th><th>RegUp</th>
+        <th>DART Virtual</th><th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class='row-degraded'><td>08-24</td><td><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75em;font-weight:600">DEGRADED</span></td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td><strong>N/A</strong></td></tr>
+<tr class='row-degraded'><td>08-25</td><td><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75em;font-weight:600">DEGRADED</span></td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td><strong>N/A</strong></td></tr>
+<tr class='row-degraded'><td>08-26</td><td><span style="background:#ef4444;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75em;font-weight:600">DEGRADED</span></td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td>N/A</td><td><strong>N/A</strong></td></tr>
+<tr class='row-production'><td>08-27</td><td><span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75em;font-weight:600">PRODUCTION</span></td><td>$6,931</td><td>-$3,514</td><td>$859</td><td>$4,003</td><td>$0</td><td>$0</td><td>N/A</td><td><strong>$8,278</strong></td></tr>
+<tr class='row-production'><td>08-28</td><td><span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75em;font-weight:600">PRODUCTION</span></td><td>-$3,227</td><td>-$969</td><td>$1,438</td><td>$161</td><td>$0</td><td>$0</td><td>N/A</td><td><strong>-$2,596</strong></td></tr>
+<tr class='row-production'><td>08-29</td><td><span style="background:#22c55e;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75em;font-weight:600">PRODUCTION</span></td><td>$7,863</td><td>-$968</td><td>$599</td><td>$728</td><td>$0</td><td>$0</td><td>$0</td><td><strong>$8,222</strong></td></tr>
+<tr class='row-partial'><td>08-30</td><td><span style="background:#f59e0b;color:#fff;padding:2px 8px;border-radius:4px;font-size:0.75em;font-weight:600">PARTIAL</span></td><td>$15,834</td><td>-$14,203</td><td>$0</td><td>$3,884</td><td>$278</td><td>$0</td><td>N/A</td><td><strong>$5,792</strong></td></tr>
+    </tbody>
+    <tfoot>
+      <tr class="tfoot-row">
+        <td colspan="2"><strong>W35 Subtotal (4 days available)</strong></td>
+        <td>$27,402</td>
+        <td>-$19,655</td>
+        <td>$2,896</td>
+        <td>$8,776</td>
+        <td>$278</td>
+        <td>$0</td>
+        <td>N/A</td>
+        <td><strong>$19,697</strong></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<!-- GKS Fleet Position -->
+<div class="section">
+  <h2>GKS Fleet Position (2026-01-01 to 2026-07-13, ESTIMATE)</h2>
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-label">Fleet Rank</div>
+      <div class="kpi-value">90 / 333</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">YTD Total Revenue (est.)</div>
+      <div class="kpi-value ">$737,926</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">DA Energy (est.)</div>
+      <div class="kpi-value">$1,056</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">RT Energy (est.)</div>
+      <div class="kpi-value">$378,825</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Opt Rate</div>
+      <div class="kpi-value">1378.7%</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Capacity (est.)</div>
+      <div class="kpi-value">103.0 MW</div>
+    </div>
+  </div>
+  <div class="note">
+    <strong>ESTIMATE:</strong> Fleet revenues are computed from ERCOT 60-day disclosure data, not invoiced settlements. GKS actual revenue (Tenaska PTP) differs from this estimate. Source: summary_2026-01-01_2026-07-13 aggregated.
+  </div>
+</div>
+
+<!-- Top 30 Fleet Ranking -->
+<div class="section">
+  <h2>ERCOT BESS Fleet — Top 30 Energy+AS Revenue Ranking (2026-01-01 to 2026-07-13)</h2>
+  <p style="font-size:0.83em;color:#64748b;margin:0 0 12px">Sorted by total revenue (estimate). Yellow highlight = GKS. Blue highlight = Raven (if online).</p>
+  <div style="overflow-x:auto">
+  <table>
+    <thead>
+      <tr>
+        <th style="text-align:center">#</th>
+        <th>Resource</th>
+        <th style="text-align:right">DA Energy</th>
+        <th style="text-align:right">RT Energy</th>
+        <th style="text-align:right">ECRS</th>
+        <th style="text-align:right">Non-Spin</th>
+        <th style="text-align:right">RRS</th>
+        <th style="text-align:right">RegUp</th>
+        <th style="text-align:right">RegDn</th>
+        <th style="text-align:right">Total</th>
+        <th style="text-align:right">Opt%</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style=''><td style='text-align:center'>1</td><td><strong>ANOL_ESS_ESR1</strong><br><small style='color:#6b7280'>esVolta</small></td><td style='text-align:right'>$1,130,897</td><td style='text-align:right'>$2,250,294</td><td style='text-align:right'>$40,500</td><td style='text-align:right'>$381,649</td><td style='text-align:right'>$96,164</td><td style='text-align:right'>$0</td><td style='text-align:right'>$0</td><td style='text-align:right'><strong>$3,899,504</strong></td><td style='text-align:right'>2297.0%</td></tr>
+<tr style=''><td style='text-align:center'>2</td><td><strong>CNLY_ESS_ESR1</strong><br><small style='color:#6b7280'>YBTCOS</small></td><td style='text-align:right'>$2,112,633</td><td style='text-align:right'>$639,217</td><td style='text-align:right'>$73,811</td><td style='text-align:right'>$510,390</td><td style='text-align:right'>$117,886</td><td style='text-align:right'>$126,306</td><td style='text-align:right'>$167,293</td><td style='text-align:right'><strong>$3,747,537</strong></td><td style='text-align:right'>4770.5%</td></tr>
+<tr style=''><td style='text-align:center'>3</td><td><strong>BOCO_ESS_ESR1</strong><br><small style='color:#6b7280'>Aypa Power</small></td><td style='text-align:right'>$734,169</td><td style='text-align:right'>$1,924,586</td><td style='text-align:right'>$62,565</td><td style='text-align:right'>$275,632</td><td style='text-align:right'>$230,750</td><td style='text-align:right'>$823</td><td style='text-align:right'>$7,831</td><td style='text-align:right'><strong>$3,236,356</strong></td><td style='text-align:right'>2720.1%</td></tr>
+<tr style=''><td style='text-align:center'>4</td><td><strong>WAL_ESR1</strong><br><small style='color:#6b7280'>Tesla</small></td><td style='text-align:right'>$1,871,128</td><td style='text-align:right'>$43,759</td><td style='text-align:right'>$232,320</td><td style='text-align:right'>$781,068</td><td style='text-align:right'>$72,405</td><td style='text-align:right'>$112,799</td><td style='text-align:right'>$93,563</td><td style='text-align:right'><strong>$3,207,041</strong></td><td style='text-align:right'>3032.1%</td></tr>
+<tr style=''><td style='text-align:center'>5</td><td><strong>AVIL_ESS_ESR1</strong><br><small style='color:#6b7280'>ENGIE</small></td><td style='text-align:right'>$1,782,679</td><td style='text-align:right'>$482,917</td><td style='text-align:right'>$277,910</td><td style='text-align:right'>$216,422</td><td style='text-align:right'>$272,126</td><td style='text-align:right'>$114,946</td><td style='text-align:right'>$40,027</td><td style='text-align:right'><strong>$3,187,026</strong></td><td style='text-align:right'>2155.4%</td></tr>
+<tr style=''><td style='text-align:center'>6</td><td><strong>CACH_ESS_ESR1</strong><br><small style='color:#6b7280'>ENGIE</small></td><td style='text-align:right'>$1,326,246</td><td style='text-align:right'>$482,149</td><td style='text-align:right'>$335,945</td><td style='text-align:right'>$380,336</td><td style='text-align:right'>$249,762</td><td style='text-align:right'>$137,877</td><td style='text-align:right'>$50,961</td><td style='text-align:right'><strong>$2,963,276</strong></td><td style='text-align:right'>2478.3%</td></tr>
+<tr style=''><td style='text-align:center'>7</td><td><strong>BLVN_SLR_ESR1</strong><br><small style='color:#6b7280'>National Grid Renewables</small></td><td style='text-align:right'>$2,193,008</td><td style='text-align:right'>$290,973</td><td style='text-align:right'>$68,708</td><td style='text-align:right'>$318,461</td><td style='text-align:right'>$49,817</td><td style='text-align:right'>$371</td><td style='text-align:right'>$293</td><td style='text-align:right'><strong>$2,921,632</strong></td><td style='text-align:right'>2101.1%</td></tr>
+<tr style=''><td style='text-align:center'>8</td><td><strong>SHAMROCK_ESR1</strong><br><small style='color:#6b7280'>NextEra Energy Resources</small></td><td style='text-align:right'>$2,013,535</td><td style='text-align:right'>$832,064</td><td style='text-align:right'>$0</td><td style='text-align:right'>$0</td><td style='text-align:right'>$0</td><td style='text-align:right'>$0</td><td style='text-align:right'>$0</td><td style='text-align:right'><strong>$2,845,599</strong></td><td style='text-align:right'>2132.5%</td></tr>
+<tr style=''><td style='text-align:center'>9</td><td><strong>TURQBESS_ESR1</strong><br><small style='color:#6b7280'>YBTCUN</small></td><td style='text-align:right'>$1,344,232</td><td style='text-align:right'>$643,457</td><td style='text-align:right'>$151,480</td><td style='text-align:right'>$186,683</td><td style='text-align:right'>$286,047</td><td style='text-align:right'>$2,728</td><td style='text-align:right'>$3,823</td><td style='text-align:right'><strong>$2,618,449</strong></td><td style='text-align:right'>1861.0%</td></tr>
+<tr style=''><td style='text-align:center'>10</td><td><strong>BLSUMMIT_ESR2</strong><br><small style='color:#6b7280'>NextEra Energy Resources</small></td><td style='text-align:right'>$694,709</td><td style='text-align:right'>$1,702,780</td><td style='text-align:right'>$0</td><td style='text-align:right'>$0</td><td style='text-align:right'>$0</td><td style='text-align:right'>$0</td><td style='text-align:right'>$0</td><td style='text-align:right'><strong>$2,397,488</strong></td><td style='text-align:right'>97914.6%</td></tr>
+<tr style=''><td style='text-align:center'>11</td><td><strong>PINEFRST_ESR1</strong><br><small style='color:#6b7280'>YPFHYB</small></td><td style='text-align:right'>$104,459</td><td style='text-align:right'>$2,206,065</td><td style='text-align:right'>$1,025</td><td style='text-align:right'>$38,090</td><td style='text-align:right'>$16</td><td style='text-align:right'>$6,563</td><td style='text-align:right'>$8,847</td><td style='text-align:right'><strong>$2,365,065</strong></td><td style='text-align:right'>1648.8%</td></tr>
+<tr style=''><td style='text-align:center'>12</td><td><strong>CHIL_SLR_ESR1</strong><br><small style='color:#6b7280'>YSUEZ</small></td><td style='text-align:right'>$1,709,947</td><td style='text-align:right'>-$256,687</td><td style='text-align:right'>$244,729</td><td style='text-align:right'>$108,450</td><td style='text-align:right'>$330,290</td><td style='text-align:right'>$155,632</td><td style='text-align:right'>$66,584</td><td style='text-align:right'><strong>$2,358,946</strong></td><td style='text-align:right'>1961.7%</td></tr>
+<tr style=''><td style='text-align:center'>13</td><td><strong>JAG_SLR_ESR1</strong><br><small style='color:#6b7280'>SER Capital Partners</small></td><td style='text-align:right'>$688,527</td><td style='text-align:right'>$1,057,568</td><td style='text-align:right'>$39,244</td><td style='text-align:right'>$377,848</td><td style='text-align:right'>$12,444</td><td style='text-align:right'>$48,486</td><td style='text-align:right'>$86,632</td><td style='text-align:right'><strong>$2,310,750</strong></td><td style='text-align:right'>3825.2%</td></tr>
+<tr style=''><td style='text-align:center'>14</td><td><strong>DSWL_ESS_ESR1</strong><br><small style='color:#6b7280'>esVolta</small></td><td style='text-align:right'>$1,794,328</td><td style='text-align:right'>$239,626</td><td style='text-align:right'>$39,208</td><td style='text-align:right'>$146,209</td><td style='text-align:right'>$43,039</td><td style='text-align:right'>$19,034</td><td style='text-align:right'>$26,119</td><td style='text-align:right'><strong>$2,307,562</strong></td><td style='text-align:right'>2459.5%</td></tr>
+<tr style=''><td style='text-align:center'>15</td><td><strong>ANEM_ESS_ESR1</strong><br><small style='color:#6b7280'>Plus Power</small></td><td style='text-align:right'>$0</td><td style='text-align:right'>$1,612,693</td><td style='text-align:right'>$25,154</td><td style='text-align:right'>$136,219</td><td style='text-align:right'>$130,121</td><td style='text-align:right'>$337,758</td><td style='text-align:right'>$21,060</td><td style='text-align:right'><strong>$2,263,006</strong></td><td style='text-align:right'>1604.0%</td></tr>
+<tr style=''><td style='text-align:center'>16</td><td><strong>RRANCHES_ESR1</strong><br><small style='color:#6b7280'>Plus Power</small></td><td style='text-align:right'>$5,388</td><td style='text-align:right'>$2,006,833</td><td style='text-align:right'>$37,184</td><td style='text-align:right'>$97,958</td><td style='text-align:right'>$1,902</td><td style='text-align:right'>$88,680</td><td style='text-align:right'>$10,620</td><td style='text-align:right'><strong>$2,248,564</strong></td><td style='text-align:right'>1637.0%</td></tr>
+<tr style=''><td style='text-align:center'>17</td><td><strong>GIGA_ESS_ESR1</strong><br><small style='color:#6b7280'>Tesla</small></td><td style='text-align:right'>$1,384,406</td><td style='text-align:right'>$83,899</td><td style='text-align:right'>$183,756</td><td style='text-align:right'>$343,091</td><td style='text-align:right'>$107,880</td><td style='text-align:right'>$59,244</td><td style='text-align:right'>$58,301</td><td style='text-align:right'><strong>$2,220,577</strong></td><td style='text-align:right'>2807.5%</td></tr>
+<tr style=''><td style='text-align:center'>18</td><td><strong>ANDMDSLR_ESR2</strong><br><small style='color:#6b7280'>YIPLU2</small></td><td style='text-align:right'>$1,605,197</td><td style='text-align:right'>$53,361</td><td style='text-align:right'>$45,929</td><td style='text-align:right'>$337,507</td><td style='text-align:right'>$65,195</td><td style='text-align:right'>$20,255</td><td style='text-align:right'>$41,080</td><td style='text-align:right'><strong>$2,168,524</strong></td><td style='text-align:right'>3579.5%</td></tr>
+<tr style=''><td style='text-align:center'>19</td><td><strong>EBNY_ESS_ESR1</strong><br><small style='color:#6b7280'>Plus Power</small></td><td style='text-align:right'>$0</td><td style='text-align:right'>$1,945,613</td><td style='text-align:right'>$15,628</td><td style='text-align:right'>$77,857</td><td style='text-align:right'>$3,534</td><td style='text-align:right'>$89,179</td><td style='text-align:right'>$21,123</td><td style='text-align:right'><strong>$2,152,934</strong></td><td style='text-align:right'>1856.0%</td></tr>
+<tr style=''><td style='text-align:center'>20</td><td><strong>LON_ESR1</strong><br><small style='color:#6b7280'>Tokyo Gas America</small></td><td style='text-align:right'>$864,146</td><td style='text-align:right'>$398,974</td><td style='text-align:right'>$147,518</td><td style='text-align:right'>$338,146</td><td style='text-align:right'>$78,649</td><td style='text-align:right'>$180,690</td><td style='text-align:right'>$111,517</td><td style='text-align:right'><strong>$2,119,642</strong></td><td style='text-align:right'>2257.1%</td></tr>
+<tr style=''><td style='text-align:center'>21</td><td><strong>TBWF_ESS_ESR1</strong><br><small style='color:#6b7280'>Spearmint Energy</small></td><td style='text-align:right'>$0</td><td style='text-align:right'>$1,784,436</td><td style='text-align:right'>$36,026</td><td style='text-align:right'>$120,850</td><td style='text-align:right'>$83,744</td><td style='text-align:right'>$21,710</td><td style='text-align:right'>$18,792</td><td style='text-align:right'><strong>$2,065,558</strong></td><td style='text-align:right'>1443.2%</td></tr>
+<tr style=''><td style='text-align:center'>22</td><td><strong>RRANCHES_ESR2</strong><br><small style='color:#6b7280'>Plus Power</small></td><td style='text-align:right'>$0</td><td style='text-align:right'>$1,839,995</td><td style='text-align:right'>$39,630</td><td style='text-align:right'>$98,382</td><td style='text-align:right'>$1,497</td><td style='text-align:right'>$62,912</td><td style='text-align:right'>$10,535</td><td style='text-align:right'><strong>$2,052,951</strong></td><td style='text-align:right'>1494.6%</td></tr>
+<tr style=''><td style='text-align:center'>23</td><td><strong>CARN_ESS_ESR1</strong><br><small style='color:#6b7280'>ENGIE</small></td><td style='text-align:right'>$992,268</td><td style='text-align:right'>$39,118</td><td style='text-align:right'>$393,713</td><td style='text-align:right'>$32,789</td><td style='text-align:right'>$298,147</td><td style='text-align:right'>$211,074</td><td style='text-align:right'>$75,182</td><td style='text-align:right'><strong>$2,042,291</strong></td><td style='text-align:right'>2597.6%</td></tr>
+<tr style=''><td style='text-align:center'>24</td><td><strong>HYDR_ESS_ESR1</strong><br><small style='color:#6b7280'>ENGIE</small></td><td style='text-align:right'>$1,331,945</td><td style='text-align:right'>-$110,976</td><td style='text-align:right'>$249,467</td><td style='text-align:right'>$106,675</td><td style='text-align:right'>$325,237</td><td style='text-align:right'>$99,066</td><td style='text-align:right'>$28,502</td><td style='text-align:right'><strong>$2,029,916</strong></td><td style='text-align:right'>1921.1%</td></tr>
+<tr style=''><td style='text-align:center'>25</td><td><strong>BKSL_ESS_ESR1</strong><br><small style='color:#6b7280'>esVolta</small></td><td style='text-align:right'>$470,046</td><td style='text-align:right'>$1,230,603</td><td style='text-align:right'>$16,704</td><td style='text-align:right'>$172,325</td><td style='text-align:right'>$49,578</td><td style='text-align:right'>$2,853</td><td style='text-align:right'>$6,245</td><td style='text-align:right'><strong>$1,948,355</strong></td><td style='text-align:right'>2545.8%</td></tr>
+<tr style=''><td style='text-align:center'>26</td><td><strong>HMNG_ESS_ESR1</strong><br><small style='color:#6b7280'>Key Capture Energy</small></td><td style='text-align:right'>$97,665</td><td style='text-align:right'>$1,236,879</td><td style='text-align:right'>$147,691</td><td style='text-align:right'>$351,009</td><td style='text-align:right'>$48,754</td><td style='text-align:right'>$512</td><td style='text-align:right'>$2,369</td><td style='text-align:right'><strong>$1,884,879</strong></td><td style='text-align:right'>1986.7%</td></tr>
+<tr style=''><td style='text-align:center'>27</td><td><strong>JAG_SLR_ESR2</strong><br><small style='color:#6b7280'>SER Capital Partners</small></td><td style='text-align:right'>-$20,808</td><td style='text-align:right'>$1,788,487</td><td style='text-align:right'>$1,311</td><td style='text-align:right'>$2,297</td><td style='text-align:right'>$0</td><td style='text-align:right'>$0</td><td style='text-align:right'>$0</td><td style='text-align:right'><strong>$1,771,287</strong></td><td style='text-align:right'>2932.2%</td></tr>
+<tr style=''><td style='text-align:center'>28</td><td><strong>SGAL_BES_ESR2</strong><br><small style='color:#6b7280'>Jupiter Power</small></td><td style='text-align:right'>$0</td><td style='text-align:right'>$1,498,689</td><td style='text-align:right'>$35,994</td><td style='text-align:right'>$150,582</td><td style='text-align:right'>$60,085</td><td style='text-align:right'>$6,876</td><td style='text-align:right'>$7,493</td><td style='text-align:right'><strong>$1,759,718</strong></td><td style='text-align:right'>1888.8%</td></tr>
+<tr style=''><td style='text-align:center'>29</td><td><strong>PHO_ESR2</strong><br><small style='color:#6b7280'>Enel North America</small></td><td style='text-align:right'>$398,670</td><td style='text-align:right'>$707,563</td><td style='text-align:right'>$106,221</td><td style='text-align:right'>$375,936</td><td style='text-align:right'>$130,086</td><td style='text-align:right'>$242</td><td style='text-align:right'>$1,653</td><td style='text-align:right'><strong>$1,720,370</strong></td><td style='text-align:right'>2461.9%</td></tr>
+<tr style=''><td style='text-align:center'>30</td><td><strong>RRC_WIND_ESR2</strong><br><small style='color:#6b7280'>YNEXTE</small></td><td style='text-align:right'>$815,517</td><td style='text-align:right'>$897,136</td><td style='text-align:right'>$0</td><td style='text-align:right'>$0</td><td style='text-align:right'>$0</td><td style='text-align:right'>$0</td><td style='text-align:right'>$0</td><td style='text-align:right'><strong>$1,712,653</strong></td><td style='text-align:right'>2244.6%</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p style="font-size:0.83em;color:#64748b;margin:12px 0 0">Showing top 30 of 333 resources. GKS rank: 90.</p>
+</div>
+
+<div style="text-align:center;color:#94a3b8;font-size:0.8em;padding:20px 0">
+  pnl-manager / BESS_Biz &nbsp;|&nbsp; Generated 2026-08-31 14:28 CT &nbsp;|&nbsp;
+  Fleet data source: ERCOT 60-day disclosure (estimate, not invoiced settlement)
+</div>
+
+</body>
+</html>

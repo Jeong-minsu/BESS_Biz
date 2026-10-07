@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERCOT All-BESS DART Virtual Revenue — 2026-W36</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg-base:        #f7f8fa;
+  --bg-panel:       #ffffff;
+  --bg-panel-2:     #f0f2f5;
+  --bg-row-alt:     #fafbfc;
+  --border-soft:    #e0e3eb;
+  --border-strong:  #c8ccd4;
+  --text-primary:   #131722;
+  --text-secondary: #5d606b;
+  --text-muted:     #9598a1;
+  --accent-up:      #089981;
+  --accent-down:    #f23645;
+  --accent-blue:    #2962ff;
+  --accent-amber:   #ff9800;
+  --accent-gold:    #d4a017;
+  --accent-purple:  #9c27b0;
+  --grid-line:      #eceff3;
+  --shadow-card:    0 1px 2px rgba(16,24,40,0.04);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.page { max-width: 1400px; margin: 0 auto; padding: 24px; }
+
+.header {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 20px 24px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.header-left h1 {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+}
+.header-left .subtitle {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+.header-right {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+.pill-estimate { background: #fff3e0; color: #e65100; border: 1px solid #ffcc80; }
+.pill-week { background: #e3f2fd; color: #1565c0; border: 1px solid #90caf9; }
+.disclaimer {
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  border-radius: 4px;
+  padding: 8px 14px;
+  font-size: 11px;
+  color: #7c5900;
+  margin-bottom: 12px;
+}
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.kpi {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 16px 20px;
+  box-shadow: var(--shadow-card);
+}
+.kpi-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+.kpi-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+.kpi-sub { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+.kpi-up { color: var(--accent-up); }
+.kpi-down { color: var(--accent-down); }
+.kpi-amber { color: var(--accent-amber); }
+
+.charts-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 16px 20px;
+  box-shadow: var(--shadow-card);
+}
+.panel-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+.chart-wrap { position: relative; height: 220px; }
+
+.win-rate-chart-wrap { position: relative; height: 220px; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+thead th {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-secondary);
+  padding: 8px 10px;
+  text-align: right;
+  border-bottom: 1px solid var(--border-soft);
+  font-weight: 500;
+  white-space: nowrap;
+}
+thead th:first-child, thead th:nth-child(2) { text-align: left; }
+tbody tr {
+  border-bottom: 1px solid var(--grid-line);
+  transition: background 0.1s;
+}
+tbody tr:nth-child(even) { background: var(--bg-row-alt); }
+tbody tr:hover { background: var(--bg-panel-2); }
+tbody td {
+  padding: 7px 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+tbody td:first-child { text-align: center; color: var(--text-muted); font-size: 11px; }
+tbody td:nth-child(2) {
+  text-align: left;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+}
+.row-gks td {
+  background: #fffbeb !important;
+  color: var(--accent-gold) !important;
+  font-weight: 600;
+}
+.gks-badge {
+  display: inline-flex;
+  align-items: center;
+  background: #d4a017;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 3px;
+  margin-left: 5px;
+  letter-spacing: 0.05em;
+  font-family: 'Inter', sans-serif;
+}
+.positive { color: var(--accent-up); }
+.negative { color: var(--accent-down); }
+.win-bar {
+  display: inline-block;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--accent-blue);
+  opacity: 0.6;
+  vertical-align: middle;
+  margin-left: 3px;
+}
+.table-full { margin-bottom: 12px; }
+
+@media (max-width: 900px) {
+  .kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .charts-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <h1>ERCOT All-BESS DART Virtual Revenue Dashboard</h1>
+      <div class="subtitle">2026-W36 (Mon 2026-08-31 – Sun 2026-09-06) &nbsp;|&nbsp; Data: 2026-01-01 to 2026-07-09 (gaps in May 6-24) &nbsp;|&nbsp; 286 BESS nodes &nbsp;|&nbsp; Generated 2026-09-07</div>
+    </div>
+    <div class="header-right">
+      <span class="pill pill-week">2026-W36</span>
+      <span class="pill pill-estimate">ESTIMATE — Public 60-day Disclosure</span>
+    </div>
+  </div>
+
+  <!-- Disclaimer -->
+  <div class="disclaimer">
+    ⚠ All figures are <strong>estimates</strong> from ERCOT public NP3-966-ER 60-day DAM disclosure. Not invoiced settlement. Data gap: May 6-24 not available in cached daily files. Jun 23+ data ends at Jun 25. Estimation scripts ran on cached data (network fetch skipped — DEGRADED fetch, FULL cached data used). DART = Virtual Short (DA−RT)·MW + Virtual Long (RT−DA)·MW.
+  </div>
+
+  <!-- KPI Cards -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-label">Fleet DART Total</div>
+      <div class="kpi-value kpi-up">$3.77M</div>
+      <div class="kpi-sub">Jan–Jul 2026 (partial)</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Top Node</div>
+      <div class="kpi-value" style="font-size:14px;">RRANCHES_ALL</div>
+      <div class="kpi-sub kpi-up">$1.10M</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Avg Win Rate (Top 30)</div>
+      <div class="kpi-value">44.1%</div>
+      <div class="kpi-sub">hours +revenue ÷ total hours</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Avg P/L Ratio (Top 30)</div>
+      <div class="kpi-value">9.2x</div>
+      <div class="kpi-sub">avg win ÷ |avg loss|</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">GKS_BESS Rank</div>
+      <div class="kpi-value kpi-down">#286</div>
+      <div class="kpi-sub">of 286 &nbsp;|&nbsp; ($208,214)</div>
+    </div>
+  </div>
+
+  <!-- Charts row -->
+  <div class="charts-row">
+    <div class="panel">
+      <div class="panel-title">Monthly Fleet DART Virtual Revenue (2026) — Note: partial data, May gap</div>
+      <div class="chart-wrap">
+        <canvas id="dartMonthlyChart"></canvas>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Top 10 — Win Rate vs Net Revenue</div>
+      <div class="win-rate-chart-wrap">
+        <canvas id="winRateChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="panel table-full">
+    <div class="panel-title">Top 30 BESS Nodes by DART Virtual Net Revenue (2026-01-01 to 2026-07-09) &nbsp;·&nbsp; GKS rank #286 of 286</div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Node</th>
+          <th>Net Revenue</th>
+          <th>Offer Rev (Short)</th>
+          <th>Bid Rev (Long)</th>
+          <th>Offer MW</th>
+          <th>Bid MW</th>
+          <th>Win Rate</th>
+          <th>P/L Ratio</th>
+          <th>HSL (MW)</th>
+        </tr>
+      </thead>
+      <tbody id="dartTableBody"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+// Monthly bar
+const dartCtx = document.getElementById('dartMonthlyChart').getContext('2d');
+const dartLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun"];
+const dartValues = [6354743, 28628, -287094, -450357, -451603, -1362027];
+
+new Chart(dartCtx, {
+  type: 'bar',
+  data: {
+    labels: dartLabels,
+    datasets: [{
+      label: 'Fleet DART Revenue ($)',
+      data: dartValues,
+      backgroundColor: dartValues.map(v => v >= 0 ? 'rgba(8,153,129,0.75)' : 'rgba(242,54,69,0.55)'),
+      borderColor: dartValues.map(v => v >= 0 ? '#089981' : '#f23645'),
+      borderWidth: 1,
+      borderRadius: 3,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => {
+            const v = ctx.parsed.y;
+            const s = v < 0 ? '-$' : '$';
+            return s + Math.abs(v/1e3).toFixed(0) + 'K';
+          }
+        }
+      }
+    },
+    scales: {
+      x: { grid: { color: '#eceff3' }, ticks: { font: { family: 'Inter', size: 11 }, color: '#5d606b' } },
+      y: {
+        grid: { color: '#eceff3' },
+        ticks: {
+          font: { family: 'JetBrains Mono', size: 10 },
+          color: '#5d606b',
+          callback: v => (v >= 0 ? '$' : '-$') + (Math.abs(v)/1e3).toFixed(0) + 'K'
+        }
+      }
+    }
+  }
+});
+
+// Win rate horizontal bar
+const wrCtx = document.getElementById('winRateChart').getContext('2d');
+const top10Data = [{"rank": 1, "node": "RRANCHES_ALL", "net": 1098874.11695, "offer": 1129969.2136999995, "bid": -31095.09675000001, "offer_mw": 10998.4, "bid_mw": -113083.7, "win_rate": 44.53041666666667, "pl_ratio": 5.7752083333333335, "hsl": 150.0, "is_gks": false}, {"rank": 2, "node": "EBNY_ESS_RN", "net": 812531.08909, "offer": 812044.2930899999, "bid": 486.796, "offer_mw": 7519.0, "bid_mw": -1032.2, "win_rate": 44.09741666666667, "pl_ratio": 29.02735, "hsl": 200.0, "is_gks": false}, {"rank": 3, "node": "BLVN_RN", "net": 407817.08989, "offer": 414103.26464, "bid": -6286.17475, "offer_mw": 207664.4, "bid_mw": -6296.8, "win_rate": 45.00176767676768, "pl_ratio": 16.813838383838384, "hsl": 180.0, "is_gks": false}, {"rank": 4, "node": "SG_BES_BESS1", "net": 335689.43921, "offer": 356722.27096, "bid": -21032.83175, "offer_mw": 19227.7, "bid_mw": -38664.5, "win_rate": 44.5005, "pl_ratio": 6.629225, "hsl": 100.0, "is_gks": false}, {"rank": 5, "node": "RADN_SLR_ALL", "net": 295467.40518, "offer": 266087.27318, "bid": 29380.132, "offer_mw": 40357.3, "bid_mw": -48596.8, "win_rate": 43.15858458961474, "pl_ratio": 4.509882747068676, "hsl": 81.9, "is_gks": false}, {"rank": 6, "node": "GIGA_ESS_RN", "net": 246569.78609, "offer": 253032.33259, "bid": -6462.546500000001, "offer_mw": 6049.500000000001, "bid_mw": -10880.2, "win_rate": 47.11306532663317, "pl_ratio": 6.5703810720268, "hsl": 125.0, "is_gks": false}, {"rank": 7, "node": "PALACIOS_RN", "net": 229014.69059, "offer": 227739.07684, "bid": 1275.6137499999995, "offer_mw": 35674.700000000004, "bid_mw": -4951.1, "win_rate": 49.6995, "pl_ratio": 7.4528, "hsl": 3.0, "is_gks": false}, {"rank": 8, "node": "BCK_RN", "net": 206338.90259, "offer": 238568.93159, "bid": -32230.029, "offer_mw": 276809.80000000005, "bid_mw": -11771.1, "win_rate": 43.881281407035175, "pl_ratio": 9.423270519262982, "hsl": 126.5, "is_gks": false}, {"rank": 9, "node": "CORALSLR_ALL", "net": 181561.23251, "offer": 197631.28551, "bid": -16070.053, "offer_mw": 142837.89999999997, "bid_mw": -6218.7, "win_rate": 46.06733333333334, "pl_ratio": 7.679691666666667, "hsl": 51.4, "is_gks": false}, {"rank": 10, "node": "TBWF_ES_BES1", "net": 157639.16005, "offer": 155259.38430000003, "bid": 2379.77575, "offer_mw": 3335.1, "bid_mw": -3325.6, "win_rate": 35.74641666666667, "pl_ratio": 12.488433333333331, "hsl": 150.0, "is_gks": false}];
+const wrLabels = top10Data.map(r => r.node.length > 14 ? r.node.slice(0,14) : r.node);
+const wrValues = top10Data.map(r => r.win_rate);
+
+new Chart(wrCtx, {
+  type: 'bar',
+  data: {
+    labels: wrLabels,
+    datasets: [{
+      label: 'Win Rate (%)',
+      data: wrValues,
+      backgroundColor: 'rgba(41,98,255,0.65)',
+      borderColor: '#2962ff',
+      borderWidth: 1,
+      borderRadius: 3,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: {
+        grid: { color: '#eceff3' },
+        min: 0, max: 60,
+        ticks: { font: { family: 'JetBrains Mono', size: 10 }, color: '#5d606b', callback: v => v + '%' }
+      },
+      y: { grid: { display: false }, ticks: { font: { family: 'Inter', size: 10 }, color: '#5d606b' } }
+    }
+  }
+});
+
+// Table
+const dartTableData = [{"rank": 1, "node": "RRANCHES_ALL", "net": 1098874.11695, "offer": 1129969.2136999995, "bid": -31095.09675000001, "offer_mw": 10998.4, "bid_mw": -113083.7, "win_rate": 44.53041666666667, "pl_ratio": 5.7752083333333335, "hsl": 150.0, "is_gks": false}, {"rank": 2, "node": "EBNY_ESS_RN", "net": 812531.08909, "offer": 812044.2930899999, "bid": 486.796, "offer_mw": 7519.0, "bid_mw": -1032.2, "win_rate": 44.09741666666667, "pl_ratio": 29.02735, "hsl": 200.0, "is_gks": false}, {"rank": 3, "node": "BLVN_RN", "net": 407817.08989, "offer": 414103.26464, "bid": -6286.17475, "offer_mw": 207664.4, "bid_mw": -6296.8, "win_rate": 45.00176767676768, "pl_ratio": 16.813838383838384, "hsl": 180.0, "is_gks": false}, {"rank": 4, "node": "SG_BES_BESS1", "net": 335689.43921, "offer": 356722.27096, "bid": -21032.83175, "offer_mw": 19227.7, "bid_mw": -38664.5, "win_rate": 44.5005, "pl_ratio": 6.629225, "hsl": 100.0, "is_gks": false}, {"rank": 5, "node": "RADN_SLR_ALL", "net": 295467.40518, "offer": 266087.27318, "bid": 29380.132, "offer_mw": 40357.3, "bid_mw": -48596.8, "win_rate": 43.15858458961474, "pl_ratio": 4.509882747068676, "hsl": 81.9, "is_gks": false}, {"rank": 6, "node": "GIGA_ESS_RN", "net": 246569.78609, "offer": 253032.33259, "bid": -6462.546500000001, "offer_mw": 6049.500000000001, "bid_mw": -10880.2, "win_rate": 47.11306532663317, "pl_ratio": 6.5703810720268, "hsl": 125.0, "is_gks": false}, {"rank": 7, "node": "PALACIOS_RN", "net": 229014.69059, "offer": 227739.07684, "bid": 1275.6137499999995, "offer_mw": 35674.700000000004, "bid_mw": -4951.1, "win_rate": 49.6995, "pl_ratio": 7.4528, "hsl": 3.0, "is_gks": false}, {"rank": 8, "node": "BCK_RN", "net": 206338.90259, "offer": 238568.93159, "bid": -32230.029, "offer_mw": 276809.80000000005, "bid_mw": -11771.1, "win_rate": 43.881281407035175, "pl_ratio": 9.423270519262982, "hsl": 126.5, "is_gks": false}, {"rank": 9, "node": "CORALSLR_ALL", "net": 181561.23251, "offer": 197631.28551, "bid": -16070.053, "offer_mw": 142837.89999999997, "bid_mw": -6218.7, "win_rate": 46.06733333333334, "pl_ratio": 7.679691666666667, "hsl": 51.4, "is_gks": false}, {"rank": 10, "node": "TBWF_ES_BES1", "net": 157639.16005, "offer": 155259.38430000003, "bid": 2379.77575, "offer_mw": 3335.1, "bid_mw": -3325.6, "win_rate": 35.74641666666667, "pl_ratio": 12.488433333333331, "hsl": 150.0, "is_gks": false}, {"rank": 11, "node": "MUSTNGCK_ALL", "net": 152871.878, "offer": 151589.78196000002, "bid": 1282.0960399999997, "offer_mw": 18747.3, "bid_mw": -8449.0, "win_rate": 46.72033333333333, "pl_ratio": 13.307725, "hsl": 71.0, "is_gks": false}, {"rank": 12, "node": "CROSSETT_ALL", "net": 135943.75326, "offer": 166661.78241000004, "bid": -30718.02915, "offer_mw": 9854.0, "bid_mw": -29060.4, "win_rate": 44.0885, "pl_ratio": 7.717541666666666, "hsl": 100.0, "is_gks": false}, {"rank": 13, "node": "FIVEWSLR_ALL", "net": 123560.99025, "offer": 114431.95903, "bid": 9129.03122, "offer_mw": 176795.00000000003, "bid_mw": -3187.6, "win_rate": 45.27072864321608, "pl_ratio": 7.898764656616415, "hsl": 220.0, "is_gks": false}, {"rank": 14, "node": "VORT_ALL_RN", "net": 110190.37119, "offer": 112762.07336, "bid": -2571.7021700000005, "offer_mw": 81669.0, "bid_mw": -3784.0, "win_rate": 43.66116666666667, "pl_ratio": 7.800416666666667, "hsl": 121.8, "is_gks": false}, {"rank": 15, "node": "ROSELAND_ALL", "net": 91996.03003999998, "offer": 113455.03079, "bid": -21459.000750000003, "offer_mw": 91794.5, "bid_mw": -18697.8, "win_rate": 47.13433333333333, "pl_ratio": 4.996158333333333, "hsl": 50.0, "is_gks": false}, {"rank": 16, "node": "SUNVASLR_ALL", "net": 89471.35941, "offer": 83517.58621, "bid": 5953.7732000000005, "offer_mw": 60252.100000000006, "bid_mw": -6988.599999999999, "win_rate": 44.982, "pl_ratio": 4.906416666666667, "hsl": 53.0, "is_gks": false}, {"rank": 17, "node": "FLOWERII_RN", "net": 87678.34208999999, "offer": 99386.25234, "bid": -11707.910250000004, "offer_mw": 9131.6, "bid_mw": -26983.4, "win_rate": 44.381, "pl_ratio": 8.565291666666665, "hsl": 95.0, "is_gks": false}, {"rank": 18, "node": "PHO_ALL", "net": 79708.35661, "offer": 79008.68161, "bid": 699.675, "offer_mw": 13375.8, "bid_mw": -2904.7, "win_rate": 43.50034364261168, "pl_ratio": 10.47115120274914, "hsl": 150.0, "is_gks": false}, {"rank": 19, "node": "EUNICE_ALL", "net": 72220.22869999999, "offer": 84975.79282999999, "bid": -12755.56413, "offer_mw": 107042.5, "bid_mw": -35602.5, "win_rate": 44.42, "pl_ratio": 16.924358333333334, "hsl": 18.0, "is_gks": false}, {"rank": 20, "node": "ANCHOR_ALL", "net": 72043.56834, "offer": 71415.84087, "bid": 627.7274700000004, "offer_mw": 66875.6, "bid_mw": -12667.0, "win_rate": 46.36708333333333, "pl_ratio": 5.124991666666666, "hsl": 36.3, "is_gks": false}, {"rank": 21, "node": "DAN_ALL", "net": 71161.82399, "offer": 85246.95723999999, "bid": -14085.13325, "offer_mw": 19491.8, "bid_mw": -3744.9, "win_rate": 42.5719696969697, "pl_ratio": 8.25159090909091, "hsl": 76.3, "is_gks": false}, {"rank": 22, "node": "NF_BRP_RN", "net": 66362.47545, "offer": 7852.349749999999, "bid": 58510.1257, "offer_mw": 13306.2, "bid_mw": -13821.8, "win_rate": 47.12160804020101, "pl_ratio": 14.147110552763818, "hsl": 100.5, "is_gks": false}, {"rank": 23, "node": "RN_SOLC_SLR", "net": 63166.03575, "offer": 57256.32199999999, "bid": 5909.713749999999, "offer_mw": 59560.5, "bid_mw": -4478.1, "win_rate": 37.74787581699346, "pl_ratio": 9.060081699346403, "hsl": 0.0, "is_gks": false}, {"rank": 24, "node": "HOUSEMTN_RN", "net": 59041.40055999999, "offer": 59892.87870999999, "bid": -851.4781500000017, "offer_mw": 5858.499999999999, "bid_mw": -17790.0, "win_rate": 44.01491666666666, "pl_ratio": 8.249625, "hsl": 60.0, "is_gks": false}, {"rank": 25, "node": "MUENSTER_RN", "net": 58410.21425, "offer": 54821.223000000005, "bid": 3588.99125, "offer_mw": 13407.3, "bid_mw": -4432.9, "win_rate": 46.37927135678392, "pl_ratio": 8.517617252931322, "hsl": 9.9, "is_gks": false}, {"rank": 26, "node": "BATCAVE_RN", "net": 46367.52339, "offer": 39190.02518999999, "bid": 7177.4982, "offer_mw": 59101.0, "bid_mw": -13710.0, "win_rate": 41.29551926298157, "pl_ratio": 5.262956448911224, "hsl": 100.5, "is_gks": false}, {"rank": 27, "node": "ANG_ALL", "net": 42361.79099999999, "offer": 17078.5685, "bid": 25283.2225, "offer_mw": 169852.90000000002, "bid_mw": -12989.4, "win_rate": 29.779333333333334, "pl_ratio": 7.562666666666666, "hsl": 81.0, "is_gks": false}, {"rank": 28, "node": "STADIUM_RN", "net": 40121.0281, "offer": 20476.69735, "bid": 19644.33075, "offer_mw": 11799.1, "bid_mw": -4690.2, "win_rate": 43.93617424242424, "pl_ratio": 7.301505681818182, "hsl": 9.9, "is_gks": false}, {"rank": 29, "node": "RRC_WIND_ALL", "net": 35666.92127, "offer": 23363.26702, "bid": 12303.654249999996, "offer_mw": 35925.7, "bid_mw": -2818.0, "win_rate": 47.847166666666666, "pl_ratio": 5.471349999999999, "hsl": 75.0, "is_gks": false}, {"rank": 30, "node": "WOV_BESS_RN", "net": 34634.32683, "offer": 1302.9653300000011, "bid": 33331.36149999999, "offer_mw": 18406.0, "bid_mw": -20595.0, "win_rate": 46.70146566164154, "pl_ratio": 8.97931323283082, "hsl": 9.9, "is_gks": false}];
+const dtbody = document.getElementById('dartTableBody');
+
+function fmtRev(v) {
+  const abs = Math.abs(v);
+  const prefix = v < 0 ? '(' : '';
+  const suffix = v < 0 ? ')' : '';
+  if (abs >= 1e6) return prefix + '$' + (abs/1e6).toFixed(2) + 'M' + suffix;
+  if (abs >= 1e3) return prefix + '$' + (abs/1e3).toFixed(0) + 'K' + suffix;
+  return prefix + '$' + abs.toFixed(0) + suffix;
+}
+function fmtMW(v) {
+  return v === 0 ? '—' : (Math.abs(v) >= 1000 ? (v/1000).toFixed(1) + 'K' : v.toFixed(0));
+}
+
+dartTableData.forEach(r => {
+  const tr = document.createElement('tr');
+  if (r.is_gks) tr.className = 'row-gks';
+
+  const cls = r.net >= 0 ? 'positive' : 'negative';
+  const nameSuffix = r.is_gks ? ' <span class="gks-badge">GKS</span>' : '';
+  const wrBar = r.win_rate > 0 ? `<span class="win-bar" style="width:${(r.win_rate/60*60).toFixed(0)}px"></span>` : '';
+
+  tr.innerHTML = `
+    <td>${r.rank}</td>
+    <td>${r.node}${nameSuffix}</td>
+    <td class="${cls}"><strong>${fmtRev(r.net)}</strong></td>
+    <td>${fmtRev(r.offer)}</td>
+    <td class="${r.bid >= 0 ? 'positive' : 'negative'}">${fmtRev(r.bid)}</td>
+    <td>${fmtMW(r.offer_mw)}</td>
+    <td>${fmtMW(r.bid_mw)}</td>
+    <td>${r.win_rate > 0 ? r.win_rate.toFixed(1) + '%' : '—'}${wrBar}</td>
+    <td>${r.pl_ratio > 0 ? r.pl_ratio.toFixed(1) + 'x' : '—'}</td>
+    <td>${r.hsl > 0 ? r.hsl.toFixed(0) : '—'}</td>
+  `;
+  dtbody.appendChild(tr);
+});
+</script>
+</body>
+</html>

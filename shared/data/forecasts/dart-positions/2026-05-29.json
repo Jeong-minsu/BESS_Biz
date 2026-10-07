@@ -1,0 +1,222 @@
+{
+  "meta": {
+    "flow_date": "2026-05-29",
+    "issued_at_ct": "2026-05-28T07:30:00-05:00",
+    "issued_by": "dart-virtual-trader",
+    "spread_convention": "DA_minus_RT_positive_means_DA_expensive",
+    "node_primary": "HB_HOUSTON",
+    "node_secondary": "HB_NORTH",
+    "confidence_discount": 0.95,
+    "spread_bias_correction": 1.20,
+    "data_status": {
+      "smartbidder_p_csv": "PRESENT",
+      "smartbidder_price_csv": "PRESENT",
+      "yes_energy": "PRESENT",
+      "enverus": "PRESENT",
+      "ag2": "REFERENCED_NOT_PARSED",
+      "congestion_view": "STAGE_0_PROVISIONAL",
+      "tenaska_settlement": "UNAVAILABLE"
+    }
+  },
+  "positions": [
+    {
+      "he": 16,
+      "node": "HB_NORTH",
+      "direction": "SHORT_DA",
+      "size_mw": 25,
+      "da_bid_usd": 31.29,
+      "da_forecast_usd": 31.29,
+      "rt_forecast_usd": 27.90,
+      "spread_forecast_usd": 3.39,
+      "spread_forecast_bias_corrected_usd": 4.07,
+      "p_da_gt_rt": 0.620,
+      "p_da_lt_rt": 0.454,
+      "expected_gross_usd_raw": 84.8,
+      "expected_gross_usd_bias_corrected": 101.7,
+      "tier": "MED",
+      "conviction": "MEDIUM"
+    },
+    {
+      "he": 17,
+      "node": "HB_NORTH",
+      "direction": "SHORT_DA",
+      "size_mw": 25,
+      "da_bid_usd": 34.96,
+      "da_forecast_usd": 34.96,
+      "rt_forecast_usd": 32.04,
+      "spread_forecast_usd": 2.93,
+      "spread_forecast_bias_corrected_usd": 3.51,
+      "p_da_gt_rt": 0.601,
+      "p_da_lt_rt": 0.473,
+      "expected_gross_usd_raw": 73.3,
+      "expected_gross_usd_bias_corrected": 87.9,
+      "tier": "MED",
+      "conviction": "MEDIUM"
+    },
+    {
+      "he": 18,
+      "node": "HB_HOUSTON",
+      "direction": "SHORT_DA",
+      "size_mw": 25,
+      "da_bid_usd": 42.04,
+      "da_forecast_usd": 42.04,
+      "rt_forecast_usd": 35.71,
+      "spread_forecast_usd": 6.33,
+      "spread_forecast_bias_corrected_usd": 7.60,
+      "p_da_gt_rt": 0.587,
+      "p_da_lt_rt": 0.497,
+      "expected_gross_usd_raw": 79.1,
+      "expected_gross_usd_bias_corrected": 95.0,
+      "tier": "MED_HALF",
+      "conviction": "MEDIUM",
+      "note": "Ramp-onset uncertainty; half-size only. Stop-loss: drop if 500+ MW forced outage posted before 10:00 CT."
+    },
+    {
+      "he": 19,
+      "node": "HB_HOUSTON",
+      "direction": "SHORT_DA",
+      "size_mw": 50,
+      "da_bid_usd": 60.01,
+      "da_forecast_usd": 60.01,
+      "rt_forecast_usd": 40.19,
+      "spread_forecast_usd": 19.82,
+      "spread_forecast_bias_corrected_usd": 23.78,
+      "p_da_gt_rt": 0.748,
+      "p_da_lt_rt": 0.393,
+      "expected_gross_usd_raw": 990.8,
+      "expected_gross_usd_bias_corrected": 1188.9,
+      "tier": "HIGH",
+      "conviction": "HIGH"
+    },
+    {
+      "he": 20,
+      "node": "HB_HOUSTON",
+      "direction": "SHORT_DA",
+      "size_mw": 50,
+      "da_bid_usd": 53.42,
+      "da_forecast_usd": 53.42,
+      "rt_forecast_usd": 38.69,
+      "spread_forecast_usd": 14.73,
+      "spread_forecast_bias_corrected_usd": 17.68,
+      "p_da_gt_rt": 0.729,
+      "p_da_lt_rt": 0.417,
+      "expected_gross_usd_raw": 736.3,
+      "expected_gross_usd_bias_corrected": 883.5,
+      "tier": "HIGH",
+      "conviction": "HIGH"
+    },
+    {
+      "he": 21,
+      "node": "HB_HOUSTON",
+      "direction": "SHORT_DA",
+      "size_mw": 50,
+      "da_bid_usd": 44.96,
+      "da_forecast_usd": 44.96,
+      "rt_forecast_usd": 33.33,
+      "spread_forecast_usd": 11.63,
+      "spread_forecast_bias_corrected_usd": 13.96,
+      "p_da_gt_rt": 0.760,
+      "p_da_lt_rt": 0.407,
+      "expected_gross_usd_raw": 581.3,
+      "expected_gross_usd_bias_corrected": 697.5,
+      "tier": "HIGH",
+      "conviction": "HIGH",
+      "note": "Highest P(DA>RT) of day at 76.0%. DA below $50 — no bid cap required."
+    },
+    {
+      "he": 22,
+      "node": "HB_HOUSTON",
+      "direction": "SHORT_DA",
+      "size_mw": 50,
+      "da_bid_usd": 39.96,
+      "da_forecast_usd": 39.96,
+      "rt_forecast_usd": 31.16,
+      "spread_forecast_usd": 8.80,
+      "spread_forecast_bias_corrected_usd": 10.56,
+      "p_da_gt_rt": 0.731,
+      "p_da_lt_rt": 0.527,
+      "expected_gross_usd_raw": 439.8,
+      "expected_gross_usd_bias_corrected": 527.8,
+      "tier": "HIGH",
+      "conviction": "HIGH"
+    },
+    {
+      "he": 23,
+      "node": "HB_HOUSTON",
+      "direction": "SHORT_DA",
+      "size_mw": 25,
+      "da_bid_usd": 26.61,
+      "da_forecast_usd": 26.61,
+      "rt_forecast_usd": 24.72,
+      "spread_forecast_usd": 1.89,
+      "spread_forecast_bias_corrected_usd": 2.27,
+      "p_da_gt_rt": 0.686,
+      "p_da_lt_rt": 0.493,
+      "expected_gross_usd_raw": 47.2,
+      "expected_gross_usd_bias_corrected": 56.7,
+      "tier": "MED",
+      "conviction": "MEDIUM",
+      "note": "Strong P but thin spread. MED sizing. Friday late-night demand drop favorable for RT suppression."
+    },
+    {
+      "he": 24,
+      "node": "HB_NORTH",
+      "direction": "SHORT_DA",
+      "size_mw": 25,
+      "da_bid_usd": 26.61,
+      "da_forecast_usd": 26.61,
+      "rt_forecast_usd": 24.72,
+      "spread_forecast_usd": 1.89,
+      "spread_forecast_bias_corrected_usd": 2.27,
+      "p_da_gt_rt": 0.686,
+      "p_da_lt_rt": 0.493,
+      "expected_gross_usd_raw": 47.2,
+      "expected_gross_usd_bias_corrected": 56.7,
+      "tier": "MED",
+      "conviction": "MEDIUM",
+      "note": "HB_NORTH used for overnight hour to reduce HOUSTON congestion basis risk post-ramp."
+    }
+  ],
+  "summary": {
+    "total_positions": 9,
+    "total_notional_mw": 350,
+    "directions": {
+      "SHORT_DA": 9,
+      "LONG_DA": 0
+    },
+    "tiers": {
+      "HIGH": 4,
+      "MED": 4,
+      "MED_HALF": 1
+    },
+    "expected_gross_usd_raw": 3079.8,
+    "expected_gross_usd_bias_corrected": 3695.7,
+    "p_weighted_gross_usd": 2277.8,
+    "risk_adjusted_ev_usd": 2163.9,
+    "skipped_hours": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+  },
+  "stop_loss_triggers": [
+    {
+      "condition": "ERCOT reserves < 2500 MW projected HE19-21 at 09:00 CT",
+      "action": "Reduce HE20-21 to 25 MW; cancel HE18-19 if below 2000 MW"
+    },
+    {
+      "condition": "Forced outage 500+ MW added 07:30-10:00 CT",
+      "action": "Drop HE18 entirely; reduce HE19 to 25 MW"
+    },
+    {
+      "condition": "DAM clears HE20 above $75",
+      "action": "Cap HE19 bid at $65; do not chase DA spike"
+    },
+    {
+      "condition": "DAM clears HE23-24 below $22",
+      "action": "Cancel HE23-24 positions"
+    }
+  ],
+  "key_risks": [
+    "Forced outage HE19-21 could push RT above DA in the $42-60 window",
+    "GR_WEST STWPF overnight reliability: 1500 MW divergence between Enverus and Yes Energy",
+    "HOUSTON IMPORT congestion (30-40% binding probability) compresses HB_HOUSTON spread at nodal level",
+    "HE18 ramp-onset: P=58.7% borderline; thermal outage addition could invert short-DA thesis"
+  ]
+}

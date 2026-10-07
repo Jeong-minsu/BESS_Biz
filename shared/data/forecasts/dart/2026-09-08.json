@@ -1,0 +1,294 @@
+{
+  "meta": {
+    "flowday": "2026-09-08",
+    "filed": "2026-09-07T07:30:00-05:00",
+    "day_type": "WDPEAK",
+    "day_note": "Post-Labor Day return; first business Tuesday",
+    "model_version": "v3-no-SB-DEGRADED",
+    "advisory_only": true,
+    "data_quality": {
+      "yes_energy_bidclose": "PRODUCTION",
+      "smartbidder": "UNAVAILABLE",
+      "smartbidder_absent_days": 44,
+      "enverus": "ABSENT",
+      "ag2": "ABSENT",
+      "hub_pair_lmp": "ABSENT",
+      "hub_pair_lmp_absent_cycles": 110,
+      "degraded_penalty_ppt": -4,
+      "effective_raw_floor_pct": 59
+    }
+  },
+  "summary": {
+    "net_direction": "DEC",
+    "active_hours": 2,
+    "skip_hours": 22,
+    "total_dec_mw": 40,
+    "total_inc_mw": 0,
+    "net_exposure_mw": -40,
+    "expected_pnl_p50_gross_usd": 595,
+    "expected_pnl_confidence_weighted_usd": 339,
+    "trigger": "Scarcity Cliff DEC — NL HE20 67218 MW (+7218 MW above gate), NL HE21 66105 MW (+6105 MW above gate)"
+  },
+  "key_inputs": {
+    "nl_trough_mw": 31727,
+    "nl_trough_he": 10,
+    "duck_curve_tier": "MODERATE",
+    "duck_curve_note": "First MODERATE crossing in Sep 2026 WDPEAK series; 273 MW below 32000 MW boundary",
+    "nl_peak_mw": 67218,
+    "nl_peak_he": 20,
+    "duck_curve_amplitude_mw": 35491,
+    "solar_peak_mw": 32907,
+    "solar_peak_he": 12,
+    "solar_cliff_he19_to_he20_mw": -11922,
+    "wind_avg_24h_mw": 11844,
+    "wind_he20_mw": 14018,
+    "wind_he21_mw": 14973,
+    "gr_west_he01_mw": 10208,
+    "gr_west_he01_sci_proxy": 0.342,
+    "gr_west_he10_mw": 4768,
+    "gr_west_daytime_min_mw": 3722,
+    "gr_west_daytime_min_he": 13,
+    "gr_west_he24_mw": 10218,
+    "cap_out_he10_mw": 8864,
+    "cap_out_he20_21_mw": 8394,
+    "load_avg_24h_mw": 74082,
+    "load_peak_mw": 89007,
+    "load_peak_he": 17,
+    "nl_he20_mw": 67218,
+    "nl_he21_mw": 66105,
+    "nl_ramp_he18_to_he21_mw": 14789,
+    "nl_ramp_he18_to_he21_vs_nonbinding_floor_mw": -72,
+    "p_rt_spike_gt150_he20_21_pct_low": 15,
+    "p_rt_spike_gt150_he20_21_pct_high": 25
+  },
+  "trigger_evaluation": {
+    "scarcity_cliff_dec_he20": {
+      "status": "FIRED",
+      "nl_mw": 67218,
+      "gate_mw": 60000,
+      "gate_margin_mw": 7218,
+      "cap_out_mw": 8394,
+      "solar_mw": 2089,
+      "solar_cliff_preceding_mw": -11922
+    },
+    "scarcity_cliff_dec_he21": {
+      "status": "FIRED",
+      "nl_mw": 66105,
+      "gate_mw": 60000,
+      "gate_margin_mw": 6105,
+      "cap_out_mw": 8394,
+      "wind_mw": 14973
+    },
+    "scarcity_cliff_dec_he19": {
+      "status": "NOT_FIRED",
+      "nl_mw": 58557,
+      "gate_mw": 60000,
+      "gate_miss_mw": -1443
+    },
+    "inc_duck_belly_he10": {
+      "status": "BLOCKED",
+      "nl_mw": 31727,
+      "duck_tier": "MODERATE",
+      "blocker_1": "INC_VETO: GR_WEST 4768 MW < 5500 MW threshold",
+      "blocker_2": "P_adj: raw 57% - 4 ppt = 53% < 55% floor",
+      "direction_note": "INC signal (DA > RT expected when solar oversupply drives RT below near-zero DA); not DEC per current Sep 7 model framework"
+    },
+    "inc_overnight_w2n_he01": {
+      "status": "NOT_FIRED",
+      "gr_west_mw": 10208,
+      "gate_mw": 11000,
+      "gate_miss_mw": -792,
+      "sci_proxy": 0.342,
+      "w2n_p_binding_pct_low": 10,
+      "w2n_p_binding_pct_high": 16,
+      "hub_pair_lmp": "ABSENT_110th_cycle"
+    },
+    "south_houston_import_he19_21": {
+      "status": "INSUFFICIENT",
+      "p_binding_pct_low": 12,
+      "p_binding_pct_high": 20,
+      "e_lambda_usd": 30,
+      "nl_ramp_mw": 14789,
+      "nonbinding_floor_gap_mw": -72,
+      "impact": "Borderline signal — mild qualitative support for DEC evening thesis; insufficient for directional trade without Smartbidder confirmation"
+    }
+  },
+  "positions": [
+    {
+      "he": 20,
+      "direction": "DEC",
+      "label": "Long DA / Short RT",
+      "hub": "HB_NORTH",
+      "mw": 25,
+      "dec_bid_price_usd": 190,
+      "da_estimate_range_usd": "130-190",
+      "rt_forecast_range_usd": "160-220",
+      "p_win_raw_pct": 64,
+      "p_win_adj_pct": 60,
+      "conviction": "HIGH",
+      "e_spread_win_usd_mwh": 40,
+      "e_spread_lose_usd_mwh": 20,
+      "w_l_ratio": 2.0,
+      "e_p50_gross_usd": 400,
+      "trigger": "Scarcity Cliff DEC (NL 67218 MW, gate 60000 MW, margin +7218 MW)",
+      "risk_note": "WDPEAK DA over-pricing risk; wind 14018 MW partial RT buffer; SOUTH_HOUSTON borderline binding"
+    },
+    {
+      "he": 21,
+      "direction": "DEC",
+      "label": "Long DA / Short RT",
+      "hub": "HB_NORTH",
+      "mw": 15,
+      "dec_bid_price_usd": 90,
+      "da_estimate_range_usd": "70-110",
+      "rt_forecast_range_usd": "100-155",
+      "p_win_raw_pct": 60,
+      "p_win_adj_pct": 56,
+      "conviction": "MEDIUM",
+      "e_spread_win_usd_mwh": 35,
+      "e_spread_lose_usd_mwh": 15,
+      "w_l_ratio": 2.33,
+      "e_p50_gross_usd": 195,
+      "trigger": "Scarcity Cliff DEC (NL 66105 MW, gate 60000 MW, margin +6105 MW)",
+      "risk_note": "Wind 14973 MW (peak of day) building in RT — dominant suppression risk at HE21; borderline conviction"
+    }
+  ],
+  "skipped_signals": [
+    {
+      "hours": "01-06",
+      "type": "INC overnight W2N",
+      "reason": "GR_WEST max 10208 MW at HE01 < 11000 MW hard gate; SCI 0.342 < MEDIUM 0.350; hub-pair LMP absent; OFFPEAK"
+    },
+    {
+      "hours": "07-09",
+      "type": "INC morning ramp",
+      "reason": "Solar onset; morning ramp; no directional trigger"
+    },
+    {
+      "hours": "10-12",
+      "type": "INC duck belly MODERATE",
+      "reason": "NL trough 31727 MW FIRST MODERATE in Sep 2026 WDPEAK series. INC veto ACTIVE (GR_WEST 3853-4768 MW < 5500 MW). P_adj 49-53% < 55% floor. Direction: INC (DA > RT when solar oversupply; current model framework). Two blockers: veto + P_adj."
+    },
+    {
+      "hours": "13-18",
+      "type": "DEC afternoon",
+      "reason": "NL 41-52 GW; below 60000 MW DEC gate; no INC signal"
+    },
+    {
+      "he": 19,
+      "type": "DEC onset",
+      "reason": "NL 58557 MW — 1443 MW below 60000 MW DEC gate; solar 14011 MW still substantial"
+    },
+    {
+      "he": 22,
+      "type": "DEC late WDPEAK",
+      "reason": "Wind building ~15500 MW; RT suppression dominant at HE22; P_adj ~48% < 55% floor"
+    },
+    {
+      "hours": "23-24",
+      "type": "INC overnight W2N",
+      "reason": "GR_WEST 9608-10218 MW < 11000 MW gate; SCI 0.322-0.342 < MEDIUM 0.350; OFFPEAK"
+    }
+  ],
+  "congestion_overlay": {
+    "duck_curve_midday_he09_12": {
+      "p_binding_pct_low": 22,
+      "p_binding_pct_high": 32,
+      "e_lambda_usd": 22,
+      "gks_mcc_central_usd_mwh": -1.5,
+      "gks_mcc_p90_usd_mwh": -4.5,
+      "impact_on_positions": "No HE10-12 position held (INC blocked); MODERATE duck first Sep WDPEAK crossing — WATCHLIST for future calibration"
+    },
+    "south_houston_import_he19_21": {
+      "p_binding_pct_low": 12,
+      "p_binding_pct_high": 20,
+      "e_lambda_usd": 30,
+      "nl_ramp_he18_to_he21_mw": 14789,
+      "nonbinding_floor_deficit_mw": 72,
+      "gks_mcc_central_usd_mwh": 0.5,
+      "lz_houston_premium_usd_mwh": 1.5,
+      "impact_on_positions": "Borderline binding — mild support for DEC evening thesis at HB_NORTH; insufficient for directional adjustment at Stage 0"
+    },
+    "west_to_north_345_he01_02": {
+      "p_binding_pct_low": 10,
+      "p_binding_pct_high": 16,
+      "sci_proxy_he01": 0.342,
+      "gr_west_he01_mw": 10208,
+      "medium_threshold_mw": 10448,
+      "medium_gap_mw": 240,
+      "impact_on_positions": "No overnight position; GKS MCC -$1.0/MWh central — indirect; evening DEC positions unaffected"
+    },
+    "stage": "Stage 0 provisional",
+    "decision_weight": "MINIMUM"
+  },
+  "model_rules_applied": {
+    "dec_gate_nl_mw": 60000,
+    "inc_gr_west_overnight_gate_mw": 11000,
+    "inc_daytime_veto_gr_west_threshold_mw": 5500,
+    "full_size_mw": 25,
+    "half_size_mw": 15,
+    "p_win_threshold_pct": 55,
+    "high_conviction_p_pct": 60,
+    "high_conviction_wl_ratio": 1.5,
+    "degraded_penalty_ppt": 4,
+    "spread_sign_convention": "DA minus RT; positive = INC signal; negative = DEC signal"
+  },
+  "risks": [
+    {
+      "rank": 1,
+      "severity": "HIGH",
+      "description": "WDPEAK DA over-pricing at HE20-21: post-Labor Day return-to-work priced into DAM. DA clearing may overshoot RT actuals -> DEC loses (DA > RT, positive spread). Key structural risk unique to WDPEAK vs WEPEAK Labor Day.",
+      "probability_pct": "25-35"
+    },
+    {
+      "rank": 2,
+      "severity": "HIGH",
+      "description": "Wind build into HE21 (14973 MW = peak of day). +1500 MW RT overperform suppresses RT below DA -> DEC HE21 loss. Primary risk for half-size position at HE21.",
+      "probability_pct": "15-20"
+    },
+    {
+      "rank": 3,
+      "severity": "MEDIUM",
+      "description": "Solar cliff timing shift: if solar lingers into HE20 (actual 5000 MW vs 2089 MW BidClose), RT ramp at HE20 is muted -> smaller spread. Single-source inflates this uncertainty.",
+      "probability_pct": "10-15"
+    },
+    {
+      "rank": 4,
+      "severity": "MEDIUM",
+      "description": "SOUTH_HOUSTON_IMPORT binding (P 12-20%): NL ramp 14789 MW is 72 MW below non-binding floor. If binding, creates basis distortions; mixed impact on HB_NORTH DEC.",
+      "probability_pct": "12-20"
+    },
+    {
+      "rank": 5,
+      "severity": "MEDIUM",
+      "description": "Single-source data quality: Yes Energy only (no Enverus, AG2). NL and cap-out estimates +/-2-4% uncertainty. Not a gating concern at 67218 MW NL level.",
+      "probability_pct": "N/A (ongoing structural)"
+    },
+    {
+      "rank": 6,
+      "severity": "CRITICAL_ONGOING",
+      "description": "Smartbidder MSAL Day 44+ — -4 ppt DEGRADED penalty every cycle. INC duck belly blocked. SOUTH_HOUSTON Non-Spin right-tail 1.8x rule unverifiable. All P(win) carry +/-5 ppt structural uncertainty.",
+      "probability_pct": "100"
+    }
+  ],
+  "backtest_recent": {
+    "sep_2_win_rate": "2/2 DEC advisory",
+    "sep_2_advisory_e_pnl_usd": 257.90,
+    "sep_3_status": "TBD",
+    "sep_4_gross_pnl_usd": 0,
+    "sep_5_gross_pnl_usd": 0,
+    "sep_6_advisory_e_pnl_usd": 372,
+    "sep_6_dart_virtual_amt_settled_usd": 0,
+    "sep_7_advisory_e_pnl_usd": 588,
+    "sep_7_status": "TBD (T+2 Sep 9)",
+    "sep_8_advisory_e_pnl_usd": 595,
+    "cumulative_advisory_sep_usd": 1813,
+    "dart_virtual_revenue_field": "NULL (44+ flowdays) — advisory-only mode active"
+  },
+  "settlement": {
+    "t_plus_2_date": "2026-09-10",
+    "field": "dart_virtual_revenue in shared/data/pnl/gks/hourly/2026-09-08.parquet",
+    "expected_settled": 0,
+    "reason": "Advisory-only mode ACTIVE; no ERCOT submissions"
+  }
+}

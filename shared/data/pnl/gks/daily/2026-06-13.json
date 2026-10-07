@@ -1,0 +1,37 @@
+{
+  "flowday": "2026-06-13",
+  "generated_at_utc": "2026-06-14T12:07:00Z",
+  "source": "PRODUCTION",
+  "tenaska_rows": 391,
+  "revenue_usd": {
+    "da_energy": 4126.45,
+    "rt_energy": -2210.86,
+    "da_rrs": 0.00,
+    "da_ecrs": 215.60,
+    "da_nonspin": 3541.40,
+    "reg_up": 0.00,
+    "reg_down": 0.00,
+    "rt_ancillary_imbalance": 0.00,
+    "rt_reliability_deployment_imbalance": 0.00,
+    "dart_virtual_net": null,
+    "total_excl_virtual": 5672.59
+  },
+  "benchmark_usd": {
+    "smartbidder_blue_sky_rtc": 3023.68,
+    "strategy": "AA - Mount Blue Sky with Virtuals (RTC Version)"
+  },
+  "delta_vs_benchmark": {
+    "absolute_usd": 2648.91,
+    "pct": 87.6
+  },
+  "battery_state": {
+    "rt_injection_mwh": 82.7,
+    "rt_consumption_mwh": 57.7,
+    "net_mwh": 25.0,
+    "cycle_equivalent": 0.41
+  },
+  "notes": [
+    "DART Virtual not separately available: DA Energy Bid and DA Energy Only Offer endpoints returned 0 rows.",
+    "Delta vs benchmark excludes virtual on GKS side; Smartbidder benchmark includes virtual."
+  ]
+}

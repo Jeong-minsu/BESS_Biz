@@ -1,0 +1,89 @@
+{
+  "flowday": "2026-06-09",
+  "issued_at_ct": "2026-06-08T07:30:00",
+  "strategy": "Stack C Modified — Midday Charge HE09-10 + AS Bridge + 3-Hour Extended Discharge HE20-21",
+  "asset": "GKS_BESS_RN",
+  "capacity_mw": 100,
+  "capacity_mwh": 200,
+  "soc_start_mwh": 100.0,
+  "soc_min_mwh": 20.0,
+  "soc_max_mwh": 200.0,
+  "rte": 0.85,
+  "eta_per_side": 0.9220,
+  "data_status": "PRODUCTION",
+  "as_playbook_available": false,
+  "revenue": {
+    "energy_pnl_base": 3654,
+    "as_pnl_base": 1005,
+    "total_base": 4659,
+    "scenarios": {
+      "low_p15": 3500,
+      "base_p35": 4659,
+      "high_p35": 7200,
+      "very_high_p15": 10600
+    },
+    "probability_weighted_ev": 6189,
+    "mcc_weighted_total": 6290,
+    "charge_cost": -1832,
+    "discharge_revenue": 5486,
+    "as_breakdown": {
+      "rrs_he01_08": 18,
+      "nonspin_he01_08": 0,
+      "regdown_he10": 28,
+      "rrs_he11_18": 16,
+      "ecrs_he11_18": 172,
+      "nonspin_he11_18": 591,
+      "rrs_he19": 5,
+      "nonspin_he19": 175
+    }
+  },
+  "hours": [
+    {"he_ct": 1,  "energy_mw": 0,    "da_bid_dir": "none",    "da_bid_price": null,  "rrs_mw": 20, "ecrs_mw": 0,  "nonspin_mw": 50, "regdown_mw": 0,  "soc_end_mwh": 100.0, "confidence": "MEDIUM"},
+    {"he_ct": 2,  "energy_mw": 0,    "da_bid_dir": "none",    "da_bid_price": null,  "rrs_mw": 20, "ecrs_mw": 0,  "nonspin_mw": 50, "regdown_mw": 0,  "soc_end_mwh": 100.0, "confidence": "MEDIUM"},
+    {"he_ct": 3,  "energy_mw": 0,    "da_bid_dir": "none",    "da_bid_price": null,  "rrs_mw": 20, "ecrs_mw": 0,  "nonspin_mw": 50, "regdown_mw": 0,  "soc_end_mwh": 100.0, "confidence": "MEDIUM"},
+    {"he_ct": 4,  "energy_mw": 0,    "da_bid_dir": "none",    "da_bid_price": null,  "rrs_mw": 20, "ecrs_mw": 0,  "nonspin_mw": 50, "regdown_mw": 0,  "soc_end_mwh": 100.0, "confidence": "MEDIUM"},
+    {"he_ct": 5,  "energy_mw": 0,    "da_bid_dir": "none",    "da_bid_price": null,  "rrs_mw": 20, "ecrs_mw": 0,  "nonspin_mw": 50, "regdown_mw": 0,  "soc_end_mwh": 100.0, "confidence": "MEDIUM"},
+    {"he_ct": 6,  "energy_mw": 0,    "da_bid_dir": "none",    "da_bid_price": null,  "rrs_mw": 20, "ecrs_mw": 0,  "nonspin_mw": 50, "regdown_mw": 0,  "soc_end_mwh": 100.0, "confidence": "MEDIUM"},
+    {"he_ct": 7,  "energy_mw": 0,    "da_bid_dir": "none",    "da_bid_price": null,  "rrs_mw": 20, "ecrs_mw": 0,  "nonspin_mw": 50, "regdown_mw": 0,  "soc_end_mwh": 100.0, "confidence": "MEDIUM"},
+    {"he_ct": 8,  "energy_mw": 0,    "da_bid_dir": "none",    "da_bid_price": null,  "rrs_mw": 20, "ecrs_mw": 0,  "nonspin_mw": 50, "regdown_mw": 0,  "soc_end_mwh": 100.0, "confidence": "MEDIUM"},
+    {"he_ct": 9,  "energy_mw": -100, "da_bid_dir": "charge",  "da_bid_price": 17.00, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 0,  "regdown_mw": 0,  "soc_end_mwh": 192.2, "confidence": "HIGH"},
+    {"he_ct": 10, "energy_mw": -8.5, "da_bid_dir": "charge",  "da_bid_price": 15.56, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 0,  "regdown_mw": 30, "soc_end_mwh": 200.0, "confidence": "HIGH"},
+    {"he_ct": 11, "energy_mw": 0,    "da_bid_dir": "none",    "da_bid_price": null,  "rrs_mw": 10, "ecrs_mw": 20, "nonspin_mw": 70, "regdown_mw": 0,  "soc_end_mwh": 200.0, "confidence": "MEDIUM"},
+    {"he_ct": 12, "energy_mw": 0,    "da_bid_dir": "none",    "da_bid_price": null,  "rrs_mw": 10, "ecrs_mw": 20, "nonspin_mw": 70, "regdown_mw": 0,  "soc_end_mwh": 200.0, "confidence": "MEDIUM"},
+    {"he_ct": 13, "energy_mw": 0,    "da_bid_dir": "none",    "da_bid_price": null,  "rrs_mw": 10, "ecrs_mw": 20, "nonspin_mw": 70, "regdown_mw": 0,  "soc_end_mwh": 200.0, "confidence": "MEDIUM"},
+    {"he_ct": 14, "energy_mw": 0,    "da_bid_dir": "none",    "da_bid_price": null,  "rrs_mw": 10, "ecrs_mw": 20, "nonspin_mw": 70, "regdown_mw": 0,  "soc_end_mwh": 200.0, "confidence": "MEDIUM"},
+    {"he_ct": 15, "energy_mw": 0,    "da_bid_dir": "none",    "da_bid_price": null,  "rrs_mw": 10, "ecrs_mw": 20, "nonspin_mw": 70, "regdown_mw": 0,  "soc_end_mwh": 200.0, "confidence": "MEDIUM"},
+    {"he_ct": 16, "energy_mw": 0,    "da_bid_dir": "none",    "da_bid_price": null,  "rrs_mw": 10, "ecrs_mw": 20, "nonspin_mw": 70, "regdown_mw": 0,  "soc_end_mwh": 200.0, "confidence": "MEDIUM"},
+    {"he_ct": 17, "energy_mw": 0,    "da_bid_dir": "none",    "da_bid_price": null,  "rrs_mw": 10, "ecrs_mw": 20, "nonspin_mw": 70, "regdown_mw": 0,  "soc_end_mwh": 200.0, "confidence": "MEDIUM"},
+    {"he_ct": 18, "energy_mw": 0,    "da_bid_dir": "none",    "da_bid_price": null,  "rrs_mw": 10, "ecrs_mw": 20, "nonspin_mw": 70, "regdown_mw": 0,  "soc_end_mwh": 200.0, "confidence": "MEDIUM"},
+    {"he_ct": 19, "energy_mw": 0,    "da_bid_dir": "none",    "da_bid_price": null,  "rrs_mw": 10, "ecrs_mw": 0,  "nonspin_mw": 50, "regdown_mw": 0,  "soc_end_mwh": 200.0, "confidence": "MEDIUM"},
+    {"he_ct": 20, "energy_mw": 100,  "da_bid_dir": "discharge","da_bid_price": 34.24, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 0,  "regdown_mw": 0,  "soc_end_mwh": 91.5,  "confidence": "HIGH"},
+    {"he_ct": 21, "energy_mw": 66,   "da_bid_dir": "discharge","da_bid_price": 31.24, "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 0,  "regdown_mw": 0,  "soc_end_mwh": 20.0,  "confidence": "HIGH"},
+    {"he_ct": 22, "energy_mw": 0,    "da_bid_dir": "none",    "da_bid_price": null,  "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 0,  "regdown_mw": 0,  "soc_end_mwh": 20.0,  "confidence": "LOW"},
+    {"he_ct": 23, "energy_mw": 0,    "da_bid_dir": "none",    "da_bid_price": null,  "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 0,  "regdown_mw": 0,  "soc_end_mwh": 20.0,  "confidence": "LOW"},
+    {"he_ct": 24, "energy_mw": 0,    "da_bid_dir": "none",    "da_bid_price": null,  "rrs_mw": 0,  "ecrs_mw": 0,  "nonspin_mw": 0,  "regdown_mw": 0,  "soc_end_mwh": 20.0,  "confidence": "LOW"}
+  ],
+  "congestion_signals": {
+    "houston_import_345_he17_22_p_binding": "30-50% HIGH",
+    "west_to_north_345_he09_17_p_binding": "25-40% HIGH",
+    "gks_evening_mcc_unconditional": "+6 to +10 $/MWh",
+    "gks_evening_mcc_conditional": "+15 to +35 $/MWh",
+    "gks_midday_mcc_sign": "UNCERTAIN — systematic risk of RT above DA at GKS HE11-15",
+    "nl_ramp_he17_to_he21_mw": 22931,
+    "nl_ramp_note": "Cycle-high June 2026 — largest in tracked series"
+  },
+  "alternative_trigger": {
+    "name": "Stack B (front-shifted 2-hour HE19-20)",
+    "activate_if": "DAM HE19 >= $33 AND HE22 >= $30 at ~10:15 CT",
+    "expected_delta_vs_primary": -101,
+    "recommendation": "Do not activate unless HE22 >> $33 — primary plan superior"
+  },
+  "self_review_prior_cycle": {
+    "flowday": "2026-06-07",
+    "recommended_revenue": 3954,
+    "actual_revenue": 3148,
+    "delta": -806,
+    "primary_miss": "RT>DA at discharge HE18-21 (RTSPP $50-57 vs DA $28-33); RT charging HE09-13 (125 MWh RT consumption)",
+    "data_quality": "DEGRADED"
+  }
+}

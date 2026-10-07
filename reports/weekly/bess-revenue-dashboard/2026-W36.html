@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERCOT All-BESS Energy+AS Revenue — 2026-W36</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --bg-base:        #f7f8fa;
+  --bg-panel:       #ffffff;
+  --bg-panel-2:     #f0f2f5;
+  --bg-row-alt:     #fafbfc;
+  --border-soft:    #e0e3eb;
+  --border-strong:  #c8ccd4;
+  --text-primary:   #131722;
+  --text-secondary: #5d606b;
+  --text-muted:     #9598a1;
+  --accent-up:      #089981;
+  --accent-down:    #f23645;
+  --accent-blue:    #2962ff;
+  --accent-amber:   #ff9800;
+  --accent-gold:    #d4a017;
+  --accent-purple:  #9c27b0;
+  --grid-line:      #eceff3;
+  --shadow-card:    0 1px 2px rgba(16,24,40,0.04);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.page { max-width: 1400px; margin: 0 auto; padding: 24px; }
+
+/* Header */
+.header {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 20px 24px;
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.header-left h1 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+.header-left .subtitle {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+.header-right {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+.pill-estimate {
+  background: #fff3e0;
+  color: #e65100;
+  border: 1px solid #ffcc80;
+}
+.pill-week {
+  background: #e3f2fd;
+  color: #1565c0;
+  border: 1px solid #90caf9;
+}
+.disclaimer {
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  border-radius: 4px;
+  padding: 8px 14px;
+  font-size: 11px;
+  color: #7c5900;
+  margin-bottom: 12px;
+}
+
+/* KPI row */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.kpi {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 16px 20px;
+  box-shadow: var(--shadow-card);
+}
+.kpi-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+.kpi-value {
+  font-family: 'JetBrains Mono', 'SF Mono', monospace;
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+.kpi-sub {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+.kpi-up { color: var(--accent-up); }
+.kpi-down { color: var(--accent-down); }
+.kpi-amber { color: var(--accent-amber); }
+
+/* Chart + heatmap row */
+.charts-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 16px 20px;
+  box-shadow: var(--shadow-card);
+}
+.panel-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+.chart-wrap {
+  position: relative;
+  height: 220px;
+}
+
+/* Heatmap */
+.heatmap-container {
+  overflow: auto;
+}
+.heatmap-grid {
+  display: grid;
+  gap: 2px;
+}
+.heatmap-cell {
+  height: 28px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+.heatmap-header {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 2px 0;
+}
+.heatmap-row-label {
+  font-size: 10px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 6px;
+  display: flex;
+  align-items: center;
+}
+
+/* Table */
+.table-full { margin-bottom: 12px; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+thead th {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-secondary);
+  padding: 8px 10px;
+  text-align: right;
+  border-bottom: 1px solid var(--border-soft);
+  font-weight: 500;
+  white-space: nowrap;
+}
+thead th:first-child, thead th:nth-child(2) { text-align: left; }
+tbody tr {
+  border-bottom: 1px solid var(--grid-line);
+  transition: background 0.1s;
+}
+tbody tr:nth-child(even) { background: var(--bg-row-alt); }
+tbody tr:hover { background: var(--bg-panel-2); }
+tbody td {
+  padding: 7px 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-primary);
+}
+tbody td:first-child {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 11px;
+}
+tbody td:nth-child(2) {
+  text-align: left;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  max-width: 180px;
+}
+.row-gks td {
+  background: #fffbeb !important;
+  color: var(--accent-gold) !important;
+  font-weight: 600;
+}
+.row-gks td:nth-child(2) { color: var(--accent-gold) !important; }
+.gks-badge {
+  display: inline-flex;
+  align-items: center;
+  background: #d4a017;
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 3px;
+  margin-left: 5px;
+  letter-spacing: 0.05em;
+  font-family: 'Inter', sans-serif;
+}
+.opt-bar {
+  display: inline-block;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--accent-blue);
+  opacity: 0.7;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+.positive { color: var(--accent-up); }
+.negative { color: var(--accent-down); }
+
+@media (max-width: 900px) {
+  .kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .charts-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <h1>ERCOT All-BESS Energy + AS Revenue Dashboard</h1>
+      <div class="subtitle">2026-W36 (Mon 2026-08-31 – Sun 2026-09-06) &nbsp;|&nbsp; Data: 2026-01-01 to 2026-07-13 &nbsp;|&nbsp; 333 BESS resources &nbsp;|&nbsp; Generated 2026-09-07</div>
+    </div>
+    <div class="header-right">
+      <span class="pill pill-week">2026-W36</span>
+      <span class="pill pill-estimate">ESTIMATE — Public 60-day Disclosure</span>
+    </div>
+  </div>
+
+  <!-- Disclaimer -->
+  <div class="disclaimer">
+    ⚠ All figures are <strong>estimates</strong> from ERCOT public NP3-966-ER / SCED 60-day disclosure data. Not invoiced settlement. 60-day lag: data available through ~2026-07-13. Estimation scripts ran on cached data (network fetch skipped; API download timed out — DEGRADED fetch, FULL cached data used).
+  </div>
+
+  <!-- KPI Cards -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-label">Fleet Total Revenue</div>
+      <div class="kpi-value kpi-up">$183.6M</div>
+      <div class="kpi-sub">Jan 1 – Jul 13, 2026</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Median Opt Rate</div>
+      <div class="kpi-value">52.2%</div>
+      <div class="kpi-sub">actual ÷ theoretical best</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">#1 Resource</div>
+      <div class="kpi-value" style="font-size:16px;">ANOL_ESS_ESR1</div>
+      <div class="kpi-sub kpi-up">$3.90M</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">GKS_BESS Rank</div>
+      <div class="kpi-value kpi-amber">#90</div>
+      <div class="kpi-sub">of 333 &nbsp;|&nbsp; $738K</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Active Resources</div>
+      <div class="kpi-value">333</div>
+      <div class="kpi-sub">BESS fleet size</div>
+    </div>
+  </div>
+
+  <!-- Charts row -->
+  <div class="charts-row">
+    <div class="panel">
+      <div class="panel-title">Monthly Fleet Energy+AS Revenue (2026)</div>
+      <div class="chart-wrap">
+        <canvas id="monthlyChart"></canvas>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Product Mix — Top 10 Resources (% of total)</div>
+      <div id="heatmap"></div>
+    </div>
+  </div>
+
+  <!-- Table -->
+  <div class="panel table-full">
+    <div class="panel-title">Top 30 BESS by Energy+AS Revenue (2026-01-01 to 2026-07-13) &nbsp;·&nbsp; GKS rank #90 highlighted in gold</div>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Resource</th>
+          <th>DA Energy</th>
+          <th>RT Energy</th>
+          <th>RegUp</th>
+          <th>RegDn</th>
+          <th>RRS</th>
+          <th>ECRS</th>
+          <th>NonSpin</th>
+          <th>Total Rev</th>
+          <th>Opt Rate</th>
+          <th>MW</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+</div>
+
+<script>
+// ── Monthly bar chart ──
+const monthlyCtx = document.getElementById('monthlyChart').getContext('2d');
+const monthlyData = [60005704, 15691164, 25655941, 48980094, 20729948, 12553218];
+const monthlyLabels = ["Jan", "Feb", "Mar", "Apr", "May", "Jun/Jul"];
+
+new Chart(monthlyCtx, {
+  type: 'bar',
+  data: {
+    labels: monthlyLabels,
+    datasets: [{
+      label: 'Fleet Revenue ($)',
+      data: monthlyData,
+      backgroundColor: monthlyData.map(v => v >= 0 ? 'rgba(8,153,129,0.75)' : 'rgba(242,54,69,0.75)'),
+      borderColor: monthlyData.map(v => v >= 0 ? '#089981' : '#f23645'),
+      borderWidth: 1,
+      borderRadius: 3,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => '$' + (ctx.parsed.y / 1e6).toFixed(2) + 'M'
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: '#eceff3' },
+        ticks: { font: { family: 'Inter', size: 11 }, color: '#5d606b' }
+      },
+      y: {
+        grid: { color: '#eceff3' },
+        ticks: {
+          font: { family: 'JetBrains Mono', size: 10 },
+          color: '#5d606b',
+          callback: v => '$' + (v/1e6).toFixed(1) + 'M'
+        }
+      }
+    }
+  }
+});
+
+// ── Heatmap ──
+const heatmapResources = ["ANOL_ESS_ESR1", "CNLY_ESS_ESR1", "BOCO_ESS_ESR1", "WAL_ESR1", "AVIL_ESS_ESR1", "CACH_ESS_ESR1", "BLVN_SLR_ESR1", "SHAMROCK_ESR1", "TURQBESS_ESR1", "BLSUMMIT_ESR2"];
+const heatmapProducts = ["DA Energy", "RT Energy", "RegUp", "RegDn", "RRS", "ECRS", "NonSpin"];
+const heatmapData = [[29.0, 57.7, 0.0, 0.0, 2.5, 1.0, 9.8], [56.4, 17.1, 3.4, 4.5, 3.1, 2.0, 13.6], [22.7, 59.5, 0.0, 0.2, 7.1, 1.9, 8.5], [58.3, 1.4, 3.5, 2.9, 2.3, 7.2, 24.4], [55.9, 15.2, 3.6, 1.3, 8.5, 8.7, 6.8], [44.8, 16.3, 4.7, 1.7, 8.4, 11.3, 12.8], [75.1, 10.0, 0.0, 0.0, 1.7, 2.4, 10.9], [70.8, 29.2, 0.0, 0.0, 0.0, 0.0, 0.0], [51.3, 24.6, 0.1, 0.1, 10.9, 5.8, 7.1], [29.0, 71.0, 0.0, 0.0, 0.0, 0.0, 0.0]];
+
+function pctColor(v) {
+  // v is 0-100, map to green
+  const a = Math.min(v / 60, 1);
+  return `rgba(8,153,129,${(0.12 + a*0.75).toFixed(2)})`;
+}
+
+const hmDiv = document.getElementById('heatmap');
+const nProducts = heatmapProducts.length;
+const nResources = heatmapResources.length;
+
+// Header row
+const headerHtml = '<div style="display:grid;grid-template-columns:100px repeat(' + nProducts + ',1fr);gap:2px;margin-bottom:4px;">' +
+  '<div></div>' + heatmapProducts.map(p => '<div class="heatmap-header" style="font-size:8px;">' + p + '</div>').join('') + '</div>';
+
+let rowsHtml = '';
+for (let i = 0; i < nResources; i++) {
+  rowsHtml += '<div style="display:grid;grid-template-columns:100px repeat(' + nProducts + ',1fr);gap:2px;margin-bottom:2px;">';
+  rowsHtml += '<div class="heatmap-row-label" style="font-size:9px;">' + heatmapResources[i] + '</div>';
+  for (let j = 0; j < nProducts; j++) {
+    const v = heatmapData[i][j];
+    rowsHtml += '<div class="heatmap-cell" style="background:' + pctColor(v) + ';font-size:9px;">' + v.toFixed(0) + '%</div>';
+  }
+  rowsHtml += '</div>';
+}
+
+hmDiv.innerHTML = headerHtml + rowsHtml;
+
+// ── Table ──
+const tableData = [{"rank": 1, "name": "ANOL_ESS_ESR1", "da": 1130896.7903333332, "rt": 2250293.976690133, "regup": 0.0, "regdn": 0.0, "rrs": 96163.88875816134, "ecrs": 40500.1893008288, "nonspin": 381649.05952254473, "total": 3899503.904605001, "opt": 56.86456235405165, "cap": 247.1, "is_gks": false}, {"rank": 2, "name": "CNLY_ESS_ESR1", "da": 2112633.2945, "rt": 639217.3793927667, "regup": 126306.39560485315, "regdn": 167292.70570122314, "rrs": 117885.67825878708, "ecrs": 73811.45276890924, "nonspin": 510389.96743074193, "total": 3747536.8736572815, "opt": 163.7358796971233, "cap": 0, "is_gks": false}, {"rank": 3, "name": "BOCO_ESS_ESR1", "da": 734169.4313333334, "rt": 1924585.547776725, "regup": 822.9263155348901, "regdn": 7830.540184676707, "rrs": 230750.41202645295, "ecrs": 62565.26755655993, "nonspin": 275631.8910505439, "total": 3236356.0162438266, "opt": 91.2492758202095, "cap": 154.0, "is_gks": false}, {"rank": 4, "name": "WAL_ESR1", "da": 1871128.2299166664, "rt": 43759.40095646668, "regup": 112798.69275024113, "regdn": 93562.92168905548, "rrs": 72404.63537404187, "ecrs": 232319.76030521345, "nonspin": 781067.5604706347, "total": 3207041.20146232, "opt": 87.14215494287255, "cap": 200.0, "is_gks": false}, {"rank": 5, "name": "AVIL_ESS_ESR1", "da": 1782679.2001666669, "rt": 482916.61448345, "regup": 114945.65591157514, "regdn": 40026.55244357531, "rrs": 272125.9309193185, "ecrs": 277909.51853733463, "nonspin": 216422.28523399172, "total": 3187025.757695912, "opt": 82.99931618683702, "cap": 160.0, "is_gks": false}, {"rank": 6, "name": "CACH_ESS_ESR1", "da": 1326246.3506666666, "rt": 482148.9298844082, "regup": 137877.25251453544, "regdn": 50960.89368470873, "rrs": 249761.84543436905, "ecrs": 335945.37155357184, "nonspin": 380335.66202392254, "total": 2963276.3057621825, "opt": 77.54109994326376, "cap": 200.0, "is_gks": false}, {"rank": 7, "name": "BLVN_SLR_ESR1", "da": 2193007.6175, "rt": 290973.410259825, "regup": 370.5001511649821, "regdn": 293.4043177854674, "rrs": 49817.49845470202, "ecrs": 68707.84695865144, "nonspin": 318461.38951851835, "total": 2921631.6671606465, "opt": 61.0467289108295, "cap": 188.0, "is_gks": false}, {"rank": 8, "name": "SHAMROCK_ESR1", "da": 2013534.576, "rt": 832064.0364177583, "regup": 0.0, "regdn": 0.0, "rrs": 0.0, "ecrs": 0.0, "nonspin": 0.0, "total": 2845598.612417758, "opt": 48.596431418517575, "cap": 99.3, "is_gks": false}, {"rank": 9, "name": "TURQBESS_ESR1", "da": 1344231.8424999996, "rt": 643457.1933307499, "regup": 2728.180251572792, "regdn": 3822.671827082698, "rrs": 286046.9590068101, "ecrs": 151479.51686162764, "nonspin": 186682.82907588483, "total": 2618449.192853728, "opt": 64.86268339021674, "cap": 0, "is_gks": false}, {"rank": 10, "name": "BLSUMMIT_ESR2", "da": 694708.6413333333, "rt": 1702779.7250712248, "regup": 0.0, "regdn": 0.0, "rrs": 0.0, "ecrs": 0.0, "nonspin": 0.0, "total": 2397488.3664045576, "opt": 4602.706922633251, "cap": 15.0, "is_gks": false}, {"rank": 11, "name": "PINEFRST_ESR1", "da": 104458.54066666668, "rt": 2206064.7156955325, "regup": 6563.451151157133, "regdn": 8847.069838719464, "rrs": 16.43840966666667, "ecrs": 1024.6874057968032, "nonspin": 38090.10482494382, "total": 2365065.0079924827, "opt": 80.9278374329663, "cap": 0, "is_gks": false}, {"rank": 12, "name": "CHIL_SLR_ESR1", "da": 1709947.1742499997, "rt": -256687.0999757916, "regup": 155631.94681707595, "regdn": 66584.21338182053, "rrs": 330290.2674555683, "ecrs": 244729.2101605282, "nonspin": 108449.9755825362, "total": 2358945.6876717373, "opt": 40.5373162798399, "cap": 0, "is_gks": false}, {"rank": 13, "name": "JAG_SLR_ESR1", "da": 688527.4215833333, "rt": 1057567.8412792415, "regup": 48485.56813169476, "regdn": 86632.06885885543, "rrs": 12444.12850531317, "ecrs": 39244.34485941539, "nonspin": 377848.4669080187, "total": 2310749.8401258723, "opt": 170.64226327547306, "cap": 78.55, "is_gks": false}, {"rank": 14, "name": "DSWL_ESS_ESR1", "da": 1794328.039, "rt": 239625.98113710005, "regup": 19034.11917557061, "regdn": 26118.89663076637, "rrs": 43038.62192716773, "ecrs": 39207.70606968647, "nonspin": 146208.89300201222, "total": 2307562.2569423034, "opt": 88.01492390732841, "cap": 150.0, "is_gks": false}, {"rank": 15, "name": "ANEM_ESS_ESR1", "da": 0.0, "rt": 1612692.9257063416, "regup": 337758.41923043045, "regdn": 21060.44155498108, "rrs": 130121.49707747035, "ecrs": 25153.718106660606, "nonspin": 136218.83171570243, "total": 2263005.833391587, "opt": 58.70327468359885, "cap": 205.0, "is_gks": false}, {"rank": 16, "name": "RRANCHES_ESR1", "da": 5387.799999999999, "rt": 2006833.3502291, "regup": 88679.91127264164, "regdn": 10619.597878974711, "rrs": 1902.080823038801, "ecrs": 37184.003496032616, "nonspin": 97957.70146485257, "total": 2248564.44516464, "opt": 52.96297291170393, "cap": 150.0, "is_gks": false}, {"rank": 17, "name": "GIGA_ESS_ESR1", "da": 1384405.6307499998, "rt": 83898.84243548334, "regup": 59244.24835118356, "regdn": 58301.17659754772, "rrs": 107879.76209085836, "ecrs": 183756.04704859023, "nonspin": 343090.81321584224, "total": 2220576.520489505, "opt": 72.76983374215533, "cap": 128.0, "is_gks": false}, {"rank": 18, "name": "ANDMDSLR_ESR2", "da": 1605196.9940833335, "rt": 53360.88224162505, "regup": 20255.13662719474, "regdn": 41080.32452079245, "rrs": 65194.96688493953, "ecrs": 45929.00725655742, "nonspin": 337506.93830314, "total": 2168524.249917582, "opt": 112.45542741914116, "cap": 0, "is_gks": false}, {"rank": 19, "name": "EBNY_ESS_ESR1", "da": 0.0, "rt": 1945613.2851059, "regup": 89178.67629839224, "regdn": 21123.21510890357, "rrs": 3533.8405552960435, "ecrs": 15627.801960487335, "nonspin": 77857.39987979874, "total": 2152934.2189087784, "opt": 57.15811468858407, "cap": 203.5, "is_gks": false}, {"rank": 20, "name": "LON_ESR1", "da": 864146.3756666668, "rt": 398974.0080694499, "regup": 180689.80078069284, "regdn": 111517.47939716325, "rrs": 78649.47623729608, "ecrs": 147518.45688042612, "nonspin": 338146.3055581962, "total": 2119641.902589891, "opt": 94.76900957405957, "cap": 174.0, "is_gks": false}, {"rank": 21, "name": "TBWF_ESS_ESR1", "da": 0.0, "rt": 1784435.843907775, "regup": 21709.836401886954, "regdn": 18792.491703488435, "rrs": 83743.72403252896, "ecrs": 36026.295458486034, "nonspin": 120849.93324704804, "total": 2065558.124751213, "opt": 40.03634893103206, "cap": 150.0, "is_gks": false}, {"rank": 22, "name": "RRANCHES_ESR2", "da": 0.0, "rt": 1839995.1328366331, "regup": 62911.7116529698, "regdn": 10535.167126480454, "rrs": 1496.778281664655, "ecrs": 39629.59504976538, "nonspin": 98382.32222564076, "total": 2052950.7071731545, "opt": 47.08464510130244, "cap": 150.0, "is_gks": false}, {"rank": 23, "name": "CARN_ESS_ESR1", "da": 992267.8514166664, "rt": 39118.06073566667, "regup": 211073.72016764985, "regdn": 75182.45084825739, "rrs": 298147.2355196963, "ecrs": 393712.66438876686, "nonspin": 32788.61208302009, "total": 2042290.595159724, "opt": 65.37393871363344, "cap": 150.0, "is_gks": false}, {"rank": 24, "name": "HYDR_ESS_ESR1", "da": 1331944.7659999998, "rt": -110976.0408417, "regup": 99066.49165807616, "regdn": 28502.45226230376, "rrs": 325236.61698764126, "ecrs": 249467.17875511397, "nonspin": 106674.7341936508, "total": 2029916.1990150863, "opt": 58.58479305770621, "cap": 200.8, "is_gks": false}, {"rank": 25, "name": "BKSL_ESS_ESR1", "da": 470045.8565833333, "rt": 1230602.8685513914, "regup": 2852.7637466280084, "regdn": 6245.261884254389, "rrs": 49578.35424165559, "ecrs": 16704.420359057123, "nonspin": 172325.3929954085, "total": 1948354.9183617283, "opt": 74.57488621134797, "cap": 103.0, "is_gks": false}, {"rank": 26, "name": "HMNG_ESS_ESR1", "da": 97664.66991666664, "rt": 1236878.6817493082, "regup": 512.3965048410915, "regdn": 2369.131416048005, "rrs": 48754.3033026655, "ecrs": 147690.69899805996, "nonspin": 351008.63769266044, "total": 1884878.5195802497, "opt": 45.54704530223256, "cap": 103.8, "is_gks": false}, {"rank": 27, "name": "JAG_SLR_ESR2", "da": -20807.825000000004, "rt": 1788486.8315475166, "regup": 0.0001435646661238, "regdn": 2.698944216166859e-05, "rrs": 0.0001414922684147, "ecrs": 1311.2852562434368, "nonspin": 2296.8183442117643, "total": 1771287.1104600185, "opt": 39.75665830209081, "cap": 78.55, "is_gks": false}, {"rank": 28, "name": "SGAL_BES_ESR2", "da": 0.0, "rt": 1498688.579002808, "regup": 6876.364863551001, "regdn": 7493.359195089499, "rrs": 60084.50416737831, "ecrs": 35993.658777214514, "nonspin": 150581.88798379534, "total": 1759718.353989837, "opt": 64.18180850848591, "cap": 103.5, "is_gks": false}, {"rank": 29, "name": "PHO_ESR2", "da": 398669.55058333336, "rt": 707562.6730376916, "regup": 241.8605630946737, "regdn": 1652.524683210503, "rrs": 130086.49285875644, "ecrs": 106220.68193553992, "nonspin": 375936.3637094013, "total": 1720370.147371028, "opt": 63.894081126048974, "cap": 150.0, "is_gks": false}, {"rank": 30, "name": "RRC_WIND_ESR2", "da": 815516.6413333332, "rt": 897136.0347501416, "regup": 0.0, "regdn": 0.0, "rrs": 0.0, "ecrs": 0.0, "nonspin": 0.0, "total": 1712652.6760834751, "opt": 43.69059823896063, "cap": 0, "is_gks": false}];
+const tbody = document.getElementById('tableBody');
+
+function fmtRev(v) {
+  if (Math.abs(v) >= 1e6) return '$' + (v/1e6).toFixed(2) + 'M';
+  if (Math.abs(v) >= 1e3) return '$' + (v/1e3).toFixed(0) + 'K';
+  return '$' + v.toFixed(0);
+}
+
+tableData.forEach(r => {
+  const tr = document.createElement('tr');
+  if (r.is_gks) tr.className = 'row-gks';
+
+  const nameSuffix = r.is_gks ? ' <span class="gks-badge">GKS</span>' : '';
+  const optBar = r.opt > 0 ? `<span class="opt-bar" style="width:${Math.min(r.opt,150)/1.5}px"></span>` : '';
+
+  tr.innerHTML = `
+    <td>${r.rank}</td>
+    <td>${r.name}${nameSuffix}</td>
+    <td>${fmtRev(r.da)}</td>
+    <td>${fmtRev(r.rt)}</td>
+    <td>${fmtRev(r.regup)}</td>
+    <td>${fmtRev(r.regdn)}</td>
+    <td>${fmtRev(r.rrs)}</td>
+    <td>${fmtRev(r.ecrs)}</td>
+    <td>${fmtRev(r.nonspin)}</td>
+    <td><strong>${fmtRev(r.total)}</strong></td>
+    <td>${r.opt > 0 ? r.opt.toFixed(1) + '%' : '—'}${optBar}</td>
+    <td>${r.cap > 0 ? r.cap.toFixed(0) : '—'}</td>
+  `;
+  tbody.appendChild(tr);
+});
+</script>
+</body>
+</html>

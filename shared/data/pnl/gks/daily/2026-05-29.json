@@ -1,0 +1,65 @@
+{
+  "flowday": "2026-05-29",
+  "compiled_at_utc": "2026-05-30T12:10:50Z",
+  "data_status": "PRODUCTION",
+  "data_sources": {
+    "tenaska_endpoint": "Battery-Settlement-Details (ESR UUID query)",
+    "smartbidder_strategy": "Mount Blue Sky with Virtuals (RTC Version)"
+  },
+  "gks_actual": {
+    "da_energy_revenue": -2474.12,
+    "rt_energy_revenue": 3830.36,
+    "as_revenue_nonspin": 2615.20,
+    "as_revenue_rrs": 1140.30,
+    "as_revenue_ecrs": 0.00,
+    "as_revenue_regup": 0.00,
+    "as_revenue_regdown": 0.00,
+    "rt_ancillary_imbalance": 0.00,
+    "rt_reliability_deployment_imbalance": 0.00,
+    "dart_virtual_revenue": null,
+    "total_revenue": 5111.74,
+    "da_as_subtotal": 3755.50,
+    "note_rt_energy": "Tenaska RT_Energy_Amt bundles RT energy dispatch + RT AS deployment imbalances. RT AS products not broken out separately in this dataset."
+  },
+  "physical_quantities": {
+    "da_purchases_mwh": 323.90,
+    "da_sales_mwh": 100.20,
+    "rt_consumption_mwh": 115.72,
+    "rt_generation_mwh": 69.75,
+    "net_rt_mwh": -45.97,
+    "gen_ns_qty_mwh": 910.00,
+    "gen_rrs_qty_mwh": 280.00,
+    "gen_ecrs_qty_mwh": 0.00,
+    "rtspp_avg_sum": 603.72,
+    "hsl_availability_pct": null,
+    "note_hsl": "HSL file missing from fetch; availability cannot be computed."
+  },
+  "smartbidder_benchmark": {
+    "da_energy": -300.65,
+    "rt_energy_lmp5": 806.62,
+    "da_nonspin": 3069.38,
+    "rt_nonspin": 49.58,
+    "da_rrs": 342.54,
+    "rt_rrs": -59.53,
+    "rt_ecrs": 62.26,
+    "total": 3970.21,
+    "cumulative_eod": 3970.21
+  },
+  "vs_benchmark": {
+    "delta_total": 1141.53,
+    "delta_pct": 28.8,
+    "delta_da_energy": -2173.47,
+    "delta_rt_energy_combined": 3023.74,
+    "delta_nonspin": -454.18,
+    "delta_rrs": 797.76,
+    "delta_ecrs": -62.26
+  },
+  "data_quality_flags": {
+    "hsl_file_missing": true,
+    "da_energy_bid_file_missing": true,
+    "da_energy_offer_rows": 0,
+    "da_energy_bid_note": "Expected missing — bids submitted via Smartbidder, not Tenaska PTP",
+    "da_energy_offer_note": "Expected empty",
+    "energy_as_detail_rows": 376
+  }
+}

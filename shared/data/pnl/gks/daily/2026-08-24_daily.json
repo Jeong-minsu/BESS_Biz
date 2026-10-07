@@ -1,0 +1,34 @@
+{
+  "flowday": "2026-08-24",
+  "generated": "2026-08-25",
+  "status": "FULLY_DEGRADED",
+  "data_source": {
+    "tenaska_ptp": "FAILED — remote IP not on Ascend whitelist; fetch_pnl_data.py could not connect to api.ptp.energy",
+    "smartbidder_benchmark": "FAILED — MSAL AADSTS7000222 client_secret expired Day 31 consecutive (2026-07-25~)"
+  },
+  "actuals": {
+    "da_energy_revenue": null,
+    "rt_energy_revenue": null,
+    "as_revenue_regup": null,
+    "as_revenue_regdown": null,
+    "as_revenue_rrs": null,
+    "as_revenue_ecrs": null,
+    "as_revenue_nonspin": null,
+    "dart_virtual_revenue": null,
+    "energy_injection_mwh": null,
+    "energy_consumption_mwh": null,
+    "total_revenue": null
+  },
+  "benchmark": {
+    "da_energy_revenue": null,
+    "rt_energy_revenue": null,
+    "as_revenue_regup": null,
+    "as_revenue_regdown": null,
+    "as_revenue_rrs": null,
+    "as_revenue_ecrs": null,
+    "as_revenue_nonspin": null,
+    "dart_virtual_revenue": null,
+    "total_revenue": null
+  },
+  "notes": "No data fabricated. All fields null due to fetch failure. Re-run fetch_pnl_data.py from Ascend-whitelisted IP to backfill."
+}
