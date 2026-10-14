@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERCOT BESS Weekly Report — 2026-W41 (Oct 5–11)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg-base:        #f7f8fa;
+    --bg-panel:       #ffffff;
+    --bg-panel-2:     #f0f2f5;
+    --bg-row-alt:     #fafbfc;
+    --border-soft:    #e0e3eb;
+    --border-strong:  #c8ccd4;
+    --text-primary:   #131722;
+    --text-secondary: #5d606b;
+    --text-muted:     #9598a1;
+    --accent-up:      #089981;
+    --accent-down:    #f23645;
+    --accent-blue:    #2962ff;
+    --accent-amber:   #ff9800;
+    --accent-purple:  #9c27b0;
+    --accent-red-bg:  #fff0f0;
+    --accent-red-border: #ffcdd2;
+    --accent-amber-bg:#fff8e1;
+    --accent-amber-border:#ffe082;
+    --grid-line:      #eceff3;
+    --shadow-card:    0 1px 2px rgba(16,24,40,0.04);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 24px;
+  }
+  .dashboard { max-width: 1400px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+
+  /* HEADER */
+  .header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    padding-bottom: 16px; border-bottom: 1px solid var(--border-soft); margin-bottom: 8px;
+  }
+  .header h1 { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
+  .header .subtitle { color: var(--text-secondary); font-size: 12px; margin-top: 4px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 10px; border: 1px solid var(--border-soft); border-radius: 4px;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--text-secondary); background: var(--bg-panel);
+  }
+  .pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-up); }
+  .pill.warn::before { background: var(--accent-amber); }
+  .pill.err::before  { background: var(--accent-down); }
+
+  /* ALERTS */
+  .alert {
+    border-radius: 6px; padding: 12px 16px; font-size: 12px;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  .alert-icon { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+  .alert.critical { background: var(--accent-red-bg); border: 1px solid var(--accent-red-border); color: #7a0000; }
+  .alert.warn { background: var(--accent-amber-bg); border: 1px solid var(--accent-amber-border); color: #7a6000; }
+  .alert strong { display: block; margin-bottom: 4px; font-size: 13px; }
+  .alert ul { padding-left: 16px; margin-top: 4px; }
+  .alert li { margin-bottom: 3px; }
+
+  /* PANEL */
+  .panel { background: var(--bg-panel); border: 1px solid var(--border-soft); border-radius: 6px; overflow: hidden; box-shadow: var(--shadow-card); }
+  .panel-header { padding: 12px 16px; border-bottom: 1px solid var(--border-soft); display: flex; justify-content: space-between; align-items: center; }
+  .panel-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); font-weight: 500; }
+  .panel-body { padding: 16px; }
+
+  /* KPI */
+  .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: 12px; }
+  .kpi { background: var(--bg-panel); border: 1px solid var(--border-soft); border-radius: 6px; padding: 16px 18px; box-shadow: var(--shadow-card); }
+  .kpi-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary); margin-bottom: 8px; }
+  .kpi-value { font-family: 'JetBrains Mono', monospace; font-size: 26px; font-weight: 500; line-height: 1.1; }
+  .kpi-sub { font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-top: 5px; color: var(--text-secondary); }
+  .up { color: var(--accent-up); } .down { color: var(--accent-down); } .neu { color: var(--text-secondary); }
+
+  /* GRID */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+  @media (max-width: 960px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+  .chart-wrap { height: 260px; padding: 12px; }
+  .chart-wrap-sm { height: 200px; padding: 12px; }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  thead th { text-align: left; padding: 9px 14px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); font-weight: 500; border-bottom: 1px solid var(--border-soft); background: var(--bg-panel); }
+  thead th.r { text-align: right; }
+  tbody td { padding: 8px 14px; border-bottom: 1px solid var(--grid-line); }
+  tbody td.r { text-align: right; font-family: 'JetBrains Mono', monospace; }
+  tbody tr:nth-child(even) { background: var(--bg-row-alt); }
+  tbody tr:hover { background: var(--bg-panel-2); }
+  .rank { color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+  .bold { font-weight: 600; }
+  .gks-row { background: rgba(41,98,255,0.05) !important; }
+  .gks-row td { color: var(--accent-blue) !important; font-weight: 600; }
+  .table-wrap { max-height: 480px; overflow-y: auto; }
+
+  /* SCORECARD */
+  .score-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 10px; padding: 16px; }
+  .score-card { border: 1px solid var(--border-soft); border-radius: 6px; padding: 12px 14px; text-align: center; }
+  .score-name { font-size: 11px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .score-val { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 500; }
+  .score-trend { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+  .score-card.best { border-color: var(--accent-up); background: rgba(8,153,129,0.04); }
+  .score-card.crit { border-color: var(--accent-down); background: rgba(242,54,69,0.04); }
+
+  /* CYCLE HEATMAP */
+  .cycle-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 6px; padding: 16px; }
+  .day-cell { border-radius: 6px; padding: 10px 8px; text-align: center; }
+  .day-cell .day-label { font-size: 10px; color: var(--text-secondary); margin-bottom: 4px; }
+  .day-cell .day-status { font-size: 11px; font-weight: 600; }
+  .day-cell.production { background: rgba(8,153,129,0.12); border: 1px solid rgba(8,153,129,0.3); }
+  .day-cell.partial { background: rgba(255,152,0,0.12); border: 1px solid rgba(255,152,0,0.3); }
+  .day-cell.degraded { background: rgba(242,54,69,0.08); border: 1px solid rgba(242,54,69,0.25); }
+  .day-cell.gap { background: var(--bg-panel-2); border: 1px solid var(--border-soft); }
+
+  /* SECTION TITLE */
+  .section-title { font-size: 13px; font-weight: 600; color: var(--text-primary); padding: 0 0 8px 0; letter-spacing: -0.01em; }
+
+  /* DATA STATUS TABLE */
+  .status-table td:first-child { font-weight: 500; }
+  .status-ok { color: var(--accent-up); font-weight: 600; }
+  .status-warn { color: var(--accent-amber); font-weight: 600; }
+  .status-err { color: var(--accent-down); font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="dashboard">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <h1>ERCOT BESS Weekly Report — W41</h1>
+      <div class="subtitle">ISO Week 2026-41 &nbsp;·&nbsp; Oct 5–11, 2026 &nbsp;·&nbsp; Published 2026-10-12 07:30 CT (Houston)</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <span class="pill err">3 Critical</span>
+      <span class="pill warn">Data Partial</span>
+      <span class="pill">4/7 Cycle Days</span>
+    </div>
+  </div>
+
+  <!-- CRITICAL ACTION ITEMS -->
+  <div class="alert critical">
+    <div class="alert-icon">&#9888;</div>
+    <div>
+      <strong>3 CRITICAL ISSUES — USER ACTION REQUIRED (from Evaluator 2026-41)</strong>
+      <ul>
+        <li><strong>[C-1] dart-virtual-trader wrong directory — 16th consecutive week.</strong> Authorize hard-code of canonical path <code>reports/daily/dart-virtual-trader/</code> into agent definition + confirm/override suspension clause (triggered W36, unenforced 6 cycles).</li>
+        <li><strong>[C-2] Orchestration cycle gaps: Oct 5 (Mon) + Oct 7 (Wed).</strong> Oct 7 = all 5 front/middle agents absent simultaneously = orchestration-level trigger failure, not agent-level. Confirm cron/automation was active; if intentional, document policy.</li>
+        <li><strong>[C-3] Infrastructure P0: Tenaska Day 144+ / Smartbidder Day 79+.</strong> Contact Ascend rep: (1) whitelist cloud automation IP for Tenaska PTP; (2) renew Smartbidder client_secret. Zero GKS P&amp;L since Sep 17; zero benchmark since Jul 24; Rule 8 Jun 5 postmortem blocked.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- DATA STATUS -->
+  <div class="alert warn">
+    <div class="alert-icon">&#128275;</div>
+    <div>
+      <strong>DATA STATUS — W41</strong>
+      Tenaska PTP DOWN (Day 144+) &nbsp;|&nbsp; Smartbidder MSAL EXPIRED (Day 79+) &nbsp;|&nbsp; Yes Energy RESTORED Oct 7 (after Oct 1-6 gap) &nbsp;|&nbsp; Fleet Energy+AS: PARTIAL Jan 1–Jul 27 (NP3-965-ER 403 blocked Jul 28–Aug 11) &nbsp;|&nbsp; Fleet DART: FULL Jan 1–Aug 11 &nbsp;|&nbsp; GKS W41 actuals: UNAVAILABLE &nbsp;|&nbsp; W41 Fleet rankings: EMBARGOED (~Dec 10-11 unlock)
+    </div>
+  </div>
+
+  <!-- KPI ROW -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-label">GKS W41 Revenue</div>
+      <div class="kpi-value neu">N/A</div>
+      <div class="kpi-sub">Tenaska DOWN Day 144+</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">GKS YTD Energy+AS</div>
+      <div class="kpi-value">$790K</div>
+      <div class="kpi-sub">Jan 1–Jul 27 est. &nbsp;·&nbsp; #89/338</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">GKS Opt Rate</div>
+      <div class="kpi-value up">93.0%</div>
+      <div class="kpi-sub">vs fleet median 45.6%</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">GKS DART YTD</div>
+      <div class="kpi-value down">-$176K</div>
+      <div class="kpi-sub">#292/292 (LAST) &nbsp;·&nbsp; Jan–Aug 11</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Cycle Coverage</div>
+      <div class="kpi-value">4/7</div>
+      <div class="kpi-sub">Oct 5 + Oct 7: CRITICAL gaps</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Fleet Energy+AS YTD</div>
+      <div class="kpi-value">$198.8M</div>
+      <div class="kpi-sub">338 BESS &nbsp;·&nbsp; Jan–Jul 27 PARTIAL</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Fleet DART YTD</div>
+      <div class="kpi-value up">$5.68M</div>
+      <div class="kpi-sub">292 nodes &nbsp;·&nbsp; Jan–Aug 11 FULL</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Oct 11 NL Record</div>
+      <div class="kpi-value">979 MW</div>
+      <div class="kpi-sub">ALL-TIME LOW &nbsp;·&nbsp; 22× below EXTREME</div>
+    </div>
+  </div>
+
+  <!-- CYCLE COVERAGE HEATMAP -->
+  <div class="panel">
+    <div class="panel-header"><span class="panel-title">W41 Daily Cycle Coverage</span><span style="font-size:11px;color:var(--text-muted)">Green=Production &nbsp;·&nbsp; Amber=Degraded &nbsp;·&nbsp; Red=Critical Gap</span></div>
+    <div class="cycle-grid">
+      <div class="day-cell gap">
+        <div class="day-label">Mon Oct 5</div>
+        <div class="day-status" style="color:var(--accent-down)">NO OUTPUT</div>
+        <div style="font-size:10px;color:var(--text-muted);margin-top:4px">CRITICAL gap</div>
+      </div>
+      <div class="day-cell degraded">
+        <div class="day-label">Tue Oct 6</div>
+        <div class="day-status" style="color:var(--accent-amber)">DEGRADED</div>
+        <div style="font-size:10px;color:var(--text-muted);margin-top:4px">All srcs down</div>
+      </div>
+      <div class="day-cell gap">
+        <div class="day-label">Wed Oct 7</div>
+        <div class="day-status" style="color:var(--accent-down)">NO OUTPUT</div>
+        <div style="font-size:10px;color:var(--text-muted);margin-top:4px">Orch. failure</div>
+      </div>
+      <div class="day-cell production">
+        <div class="day-label">Thu Oct 8</div>
+        <div class="day-status" style="color:var(--accent-up)">PRODUCTION</div>
+        <div style="font-size:10px;color:var(--text-muted);margin-top:4px">Yes Energy live</div>
+      </div>
+      <div class="day-cell production">
+        <div class="day-label">Fri Oct 9</div>
+        <div class="day-status" style="color:var(--accent-up)">PRODUCTION</div>
+        <div style="font-size:10px;color:var(--text-muted);margin-top:4px">Solar Oct record</div>
+      </div>
+      <div class="day-cell gap">
+        <div class="day-label">Sat Oct 10</div>
+        <div class="day-status" style="color:var(--text-muted)">GAP</div>
+        <div style="font-size:10px;color:var(--text-muted);margin-top:4px">Weekend</div>
+      </div>
+      <div class="day-cell partial">
+        <div class="day-label">Sun Oct 11</div>
+        <div class="day-status" style="color:var(--accent-amber)">PARTIAL</div>
+        <div style="font-size:10px;color:var(--text-muted);margin-top:4px">NL 979 MW record</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLEET CHARTS -->
+  <div class="grid-2">
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">Fleet Energy+AS Monthly Revenue (Jan–Jul 2026)</span>
+        <span style="font-size:11px;color:var(--text-muted)">PARTIAL — Jan 1–Jul 27</span>
+      </div>
+      <div class="chart-wrap"><canvas id="energyMonthlyChart"></canvas></div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">Fleet DART Virtual Monthly Revenue (Jan–Aug 11)</span>
+        <span style="font-size:11px;color:var(--text-muted)">FULL — Jan 1–Aug 11</span>
+      </div>
+      <div class="chart-wrap"><canvas id="dartMonthlyChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- PRODUCT + TOP COMPANY -->
+  <div class="grid-2">
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">Fleet Revenue by Product (Jan–Jul 27)</span></div>
+      <div class="chart-wrap-sm"><canvas id="productChart"></canvas></div>
+    </div>
+    <div class="panel">
+      <div class="panel-header"><span class="panel-title">Top 10 Companies — Fleet Energy+AS Revenue</span></div>
+      <div class="chart-wrap-sm"><canvas id="companyChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- RANKING TABLES -->
+  <div class="grid-2">
+    <!-- Energy+AS Ranking -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">Energy+AS Ranking — Top 10 + GKS (#89)</span>
+        <span style="font-size:11px;color:var(--text-muted)">Jan 1–Jul 27, 2026 est.</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th class="rank">Rank</th><th>Resource</th><th>Company</th>
+            <th class="r">Total Rev</th><th class="r">Opt Rate</th>
+          </tr></thead>
+          <tbody id="energyRankBody"></tbody>
+        </table>
+      </div>
+    </div>
+    <!-- DART Ranking -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">DART Virtual Ranking — Top 10 + GKS (#292 LAST)</span>
+        <span style="font-size:11px;color:var(--text-muted)">Jan 1–Aug 11, 2026 est.</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th class="rank">Rank</th><th>Node</th>
+            <th class="r">Net Rev</th><th class="r">Win Rate</th><th class="r">P/L Ratio</th>
+          </tr></thead>
+          <tbody id="dartRankBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- EVALUATOR SCORECARD -->
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title">Evaluator Scorecard — W41</span>
+      <span style="font-size:11px;color:var(--text-muted)">Process / Approach / Resource / Overall (1–5)</span>
+    </div>
+    <div class="score-grid" id="scoreGrid"></div>
+  </div>
+
+  <!-- ISSUES TABLE -->
+  <div class="panel">
+    <div class="panel-header"><span class="panel-title">W41 Issues Summary</span></div>
+    <div class="panel-body" style="padding:0;">
+      <table>
+        <thead><tr><th>Severity</th><th>Agent</th><th>Issue</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td style="color:var(--accent-down);font-weight:700">CRITICAL</td><td>dart-virtual-trader</td><td>Wrong output directory — 16th consecutive week (Oct 8: dart-virtual/ vs canonical dart-virtual-trader/)</td><td style="color:var(--accent-down)">User auth required</td></tr>
+          <tr><td style="color:var(--accent-down);font-weight:700">CRITICAL</td><td>Orchestration</td><td>Dual weekday gaps Oct 5 (Mon) + Oct 7 (Wed). All 5 agents absent Oct 7 simultaneously.</td><td style="color:var(--accent-down)">Confirm trigger</td></tr>
+          <tr><td style="color:var(--accent-down);font-weight:700">CRITICAL</td><td>pnl-manager / all</td><td>Tenaska PTP HTTP 401 Day 144+ / Smartbidder MSAL expired Day 79+. 22 unconfirmed flowdays.</td><td style="color:var(--accent-down)">P0 Ascend rep</td></tr>
+          <tr style="background:var(--bg-row-alt)"><td style="color:var(--accent-amber);font-weight:700">MAJOR</td><td>congestion-analyst</td><td>stage-0-rules.md absent — 12th consecutive week. BEYOND_EXTREME tier needed post Oct 11.</td><td style="color:var(--accent-amber)">Agent-executable</td></tr>
+          <tr><td style="color:var(--accent-amber);font-weight:700">MAJOR</td><td>reporter</td><td>canonical-paths.md absent — 11th consecutive week.</td><td style="color:var(--accent-amber)">Agent-executable</td></tr>
+          <tr style="background:var(--bg-row-alt)"><td style="color:var(--accent-amber);font-weight:700">MAJOR</td><td>bess-optimizer</td><td>Rule 8 incident Jun 5 ($-4,520) — Day 129 unresolved. Gate implemented (positive); postmortem blocked by Tenaska.</td><td style="color:var(--accent-amber)">Blocked by C-3</td></tr>
+          <tr><td style="color:var(--accent-amber);font-weight:700">MAJOR</td><td>market-analyst</td><td>DEGRADED-mode estimate accuracy: Oct 6 solar -8~-11 GW, wind +9~+13 GW. AG2 4th consecutive miss.</td><td style="color:var(--accent-amber)">Agent plan filed</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- MARKET STRUCTURE -->
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title">W41 Market Structure Update (market-analyst — PARTIAL)</span>
+      <span style="font-size:11px;color:var(--text-muted)">Web/public sources only — Yes Energy BidClose W41 not fetched; Smartbidder expired</span>
+    </div>
+    <div class="panel-body">
+      <table class="status-table">
+        <thead><tr><th>Item</th><th>Status</th><th>BESS Implication</th></tr></thead>
+        <tbody>
+          <tr><td>Community Impact RFI (461 DC 25MW+)</td><td class="status-err">DEADLINE TODAY Oct 12</td><td>Non-response = Batch Zero ineligibility. Response rate = Dec 10 health signal.</td></tr>
+          <tr style="background:var(--bg-row-alt)"><td>16 TAC §25.194 ($50K/MW ≥75 MW new load)</td><td class="status-ok">IN EFFECT Oct 8</td><td>Two-layer barrier on new large load entry. Overnight baseload floor ~7.6 GW secured.</td></tr>
+          <tr><td>NPRR1328 Generation Firming Program</td><td class="status-warn">PUCT pending (Oct 15?)</td><td>BESS discharge during scarcity earns credits. Compliance Season: Mar 2028.</td></tr>
+          <tr style="background:var(--bg-row-alt)"><td>PUCT Oct 15 Open Meeting</td><td class="status-warn">TOMORROW</td><td>PCM vote possible; NPRR1328 possible. PCM may slip to 2027 (Commissioner Cobos concerns).</td></tr>
+          <tr><td>TCEQ Environmental Freeze</td><td class="status-warn">Oct 19 compliance report (7 days)</td><td>Freeze scope confirmation. Data center project delays secured through at least Dec 2026.</td></tr>
+          <tr style="background:var(--bg-row-alt)"><td>STEP Permian Northern/Middle</td><td class="status-err">STALLED (SOAH)</td><td>GR_WEST discount vs North/Houston persists through mid-2027.</td></tr>
+          <tr><td>BESS Oct-Nov commissioning wave</td><td class="status-warn">IN PROGRESS (~14 units, +1 GW)</td><td>HE18-20 competition intensifying. Fleet est. 18,500–19,000 MW end of W41.</td></tr>
+          <tr style="background:var(--bg-row-alt)"><td>Thermal cap-out</td><td class="status-warn">~19,000–20,400 MW (sustained)</td><td>Q4 AS procurement elevated. ECRS HE12-17 hold is primary revenue layer.</td></tr>
+          <tr><td>Smartbidder MSAL</td><td class="status-err">EXPIRED Day 79+</td><td>DART virtual suspended (advisory-only). P0 — all DART positions unvalidated.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- W41 NOTABLE CONDITIONS -->
+  <div class="panel">
+    <div class="panel-header"><span class="panel-title">W41 Notable Market Conditions</span></div>
+    <div class="panel-body">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+        <div style="border:1px solid var(--border-soft);border-radius:6px;padding:14px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-secondary);margin-bottom:8px;">Oct 8 (PRODUCTION)</div>
+          <div style="font-size:12px;line-height:1.6;">Solar HE12: <strong>30,472 MW</strong><br>Wind avg: <strong>4,132 MW</strong> (near-zero midday)<br>NL trough: <strong>25,380 MW</strong><br>NL peak: <strong>62,356 MW</strong><br>Swing: <strong>+36,976 MW</strong><br>HE18→HE19 ramp: <strong>+12,753 MW</strong></div>
+        </div>
+        <div style="border:1px solid var(--border-soft);border-radius:6px;padding:14px;">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-secondary);margin-bottom:8px;">Oct 9 (PRODUCTION)</div>
+          <div style="font-size:12px;line-height:1.6;">Solar HE12: <strong>31,554 MW</strong> (Oct record)<br>Wind avg: <strong>5,447 MW</strong> (HE24: 13,721 MW)<br>NL trough: <strong>24,251 MW</strong> (SEVERE)<br>EXTREME boundary: <strong>251 MW away</strong><br>HE18→HE19 ramp: <strong>+13,001 MW</strong><br>Thermal outage: <strong>~20,258 MW</strong></div>
+        </div>
+        <div style="border:1px solid rgba(242,54,69,0.4);border-radius:6px;padding:14px;background:rgba(242,54,69,0.03);">
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--accent-down);margin-bottom:8px;">Oct 11 — UNPRECEDENTED</div>
+          <div style="font-size:12px;line-height:1.6;">NL trough HE11: <strong style="color:var(--accent-down)">979 MW</strong> (ALL-TIME)<br>Wind 24h avg: <strong>24,082 MW</strong><br>GR_WEST: <strong>all-day &gt;15k MW</strong> (first ever)<br>Solar HE12: <strong>30,815 MW</strong><br>Charging = profit generation possible<br>Stage 0 calibration <strong>exceeded</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- W42 WATCH ITEMS -->
+  <div class="panel">
+    <div class="panel-header"><span class="panel-title">W42 Watch Items (Oct 12–18)</span></div>
+    <div class="panel-body" style="padding:0;">
+      <table>
+        <thead><tr><th>Item</th><th>Urgency</th><th>Horizon</th></tr></thead>
+        <tbody>
+          <tr><td>Ascend P0: Tenaska IP whitelist + Smartbidder client_secret renewal</td><td style="color:var(--accent-down);font-weight:700">P0 — IMMEDIATE</td><td>Day 144+ / Day 79+</td></tr>
+          <tr style="background:var(--bg-row-alt)"><td>PUCT Oct 15 Open Meeting — PCM vote + NPRR1328</td><td style="color:var(--accent-down);font-weight:600">HIGH — Tomorrow</td><td>Oct 15</td></tr>
+          <tr><td>TCEQ Oct 19 compliance report — environmental freeze scope</td><td style="color:var(--accent-amber);font-weight:600">HIGH</td><td>Oct 19 (7 days)</td></tr>
+          <tr style="background:var(--bg-row-alt)"><td>Community Impact RFI response rate public disclosure</td><td style="color:var(--accent-amber);font-weight:600">HIGH</td><td>Days–weeks</td></tr>
+          <tr><td>dart-virtual-trader path hard-code (authorize in agent definition)</td><td style="color:var(--accent-amber);font-weight:600">HIGH</td><td>W42 Day 1</td></tr>
+          <tr style="background:var(--bg-row-alt)"><td>congestion-analyst stage-0-rules.md creation (agent-executable)</td><td style="color:var(--accent-amber);font-weight:600">HIGH</td><td>W42 Day 1</td></tr>
+          <tr><td>BESS Oct-Nov commissioning wave — zone tracking (~14 units, +1 GW)</td><td style="color:var(--accent-amber);font-weight:600">HIGH</td><td>4 weeks</td></tr>
+          <tr style="background:var(--bg-row-alt)"><td>GR_WEST all-day >15k MW regime — strategy adaptation if recurs</td><td style="color:var(--accent-amber);font-weight:600">HIGH</td><td>Ongoing</td></tr>
+          <tr><td>Batch Zero Dec 10 PUCT report — single most important Q4 event</td><td style="color:var(--text-secondary)">MEDIUM</td><td>Dec 10</td></tr>
+          <tr style="background:var(--bg-row-alt)"><td>reporter canonical-paths.md creation (agent-executable)</td><td style="color:var(--text-secondary)">MEDIUM</td><td>W42</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div style="font-size:11px;color:var(--text-muted);text-align:center;padding:16px 0;">
+    reporter agent &nbsp;·&nbsp; reports/weekly/2026-41.html &nbsp;·&nbsp; 2026-10-12 07:30 CT &nbsp;·&nbsp; Aggregation only — no independent analysis added &nbsp;·&nbsp; All times CT (America/Chicago)
+  </div>
+
+</div>
+
+<script>
+Chart.defaults.color = '#5d606b';
+Chart.defaults.borderColor = '#eceff3';
+Chart.defaults.font.family = "'Inter', sans-serif";
+Chart.defaults.font.size = 11;
+
+// Fleet Energy+AS Monthly
+new Chart(document.getElementById('energyMonthlyChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul'],
+    datasets: [{
+      label: 'Fleet Energy+AS Revenue',
+      data: [61225491,15691164,25655941,49696324,22417966,12553218,15502713],
+      backgroundColor: v => v.raw >= 40000000 ? 'rgba(8,153,129,0.80)' : 'rgba(8,153,129,0.45)',
+      borderColor: 'rgba(8,153,129,0.9)', borderWidth: 1, borderRadius: 3,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => '$' + (ctx.parsed.y/1e6).toFixed(2) + 'M' } } },
+    scales: {
+      x: { grid: { display: false }, border: { display: false } },
+      y: { grid: { color: 'var(--grid-line)', drawTicks: false }, border: { display: false }, ticks: { callback: v => '$' + (v/1e6).toFixed(0) + 'M', padding: 8 } }
+    }
+  }
+});
+
+// Fleet DART Monthly
+const dartData = [12709485,57257,-640742,-450357,-451603,-1362027,2126337,-209032];
+new Chart(document.getElementById('dartMonthlyChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug 1-11'],
+    datasets: [{
+      label: 'Net DART Revenue',
+      data: dartData,
+      backgroundColor: dartData.map(v => v >= 0 ? 'rgba(8,153,129,0.70)' : 'rgba(242,54,69,0.65)'),
+      borderColor: dartData.map(v => v >= 0 ? 'rgba(8,153,129,0.9)' : 'rgba(242,54,69,0.9)'),
+      borderWidth: 1, borderRadius: 3,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => '$' + (ctx.parsed.y/1e3).toFixed(0) + 'K' } } },
+    scales: {
+      x: { grid: { display: false }, border: { display: false } },
+      y: { grid: { color: 'var(--grid-line)', drawTicks: false }, border: { display: false }, ticks: { callback: v => '$' + (v/1e3).toFixed(0) + 'K', padding: 8 } }
+    }
+  }
+});
+
+// Product chart
+new Chart(document.getElementById('productChart'), {
+  type: 'bar',
+  data: {
+    labels: ['RT Energy','DA Energy','NonSpin','RRS','ECRS','RegUp','RegDown'],
+    datasets: [{
+      data: [83378142,65522551,17796935,15384474,9954020,4439215,2364032],
+      backgroundColor: ['rgba(8,153,129,0.75)','rgba(41,98,255,0.75)','rgba(242,54,69,0.60)','rgba(255,152,0,0.75)','rgba(255,152,0,0.55)','rgba(156,39,176,0.75)','rgba(156,39,176,0.55)'],
+      borderRadius: 3, borderWidth: 0,
+    }]
+  },
+  options: {
+    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => '$' + (ctx.parsed.x/1e6).toFixed(2) + 'M' } } },
+    scales: {
+      x: { grid: { color: 'var(--grid-line)', drawTicks: false }, border: { display: false }, ticks: { callback: v => '$' + (v/1e6).toFixed(0) + 'M', padding: 8 } },
+      y: { grid: { display: false }, border: { display: false } }
+    }
+  }
+});
+
+// Company chart
+new Chart(document.getElementById('companyChart'), {
+  type: 'bar',
+  data: {
+    labels: ['ENGIE','Jupiter Power','Enel N. America','Plus Power','Key Capture','esVolta','YSUEZ','NextEra','Tesla','Natl Grid'],
+    datasets: [{
+      data: [24424120,15819430,13448800,9308415,8915096,8717183,6841790,6095016,5830018,5260349],
+      backgroundColor: 'rgba(41,98,255,0.65)', borderRadius: 3, borderWidth: 0,
+    }]
+  },
+  options: {
+    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => '$' + (ctx.parsed.x/1e6).toFixed(2) + 'M' } } },
+    scales: {
+      x: { grid: { color: 'var(--grid-line)', drawTicks: false }, border: { display: false }, ticks: { callback: v => '$' + (v/1e6).toFixed(1) + 'M', padding: 8 } },
+      y: { grid: { display: false }, border: { display: false } }
+    }
+  }
+});
+
+// Energy+AS Ranking Table
+const energyRows = [
+  [1,'ANOL_ESS_ESR1','esVolta',4146039,57.2],
+  [2,'CNLY_ESS_ESR1','YBTCOS',3906329,163.7],
+  [3,'WAL_ESR1','Tesla',3457276,87.1],
+  [4,'BOCO_ESS_ESR1','Aypa Power',3457096,91.2],
+  [5,'AVIL_ESS_ESR1','ENGIE',3377709,83.0],
+  [6,'CACH_ESS_ESR1','ENGIE',3215323,77.5],
+  [7,'BLVN_SLR_ESR1','National Grid Rnbl',3188203,61.0],
+  [8,'SHAMROCK_ESR1','NextEra Energy',3061296,49.1],
+  [9,'TURQBESS_ESR1','YBTCUN',2838585,64.8],
+  [10,'BLSUMMIT_ESR2','NextEra Energy',2713219,null],
+  [89,'GKS_BESS_ESR1','GKS',790583,93.0],
+];
+const eTbody = document.getElementById('energyRankBody');
+energyRows.forEach(([rank,name,company,total,opt]) => {
+  const isGks = rank === 89;
+  const tr = document.createElement('tr');
+  if (isGks) tr.className = 'gks-row';
+  tr.innerHTML = `<td class="rank r">${rank}</td><td class="bold">${name}</td><td style="color:var(--text-secondary)">${company}</td>
+    <td class="r bold">${total >= 1e6 ? '$' + (total/1e6).toFixed(2) + 'M' : '$' + (total/1e3).toFixed(0) + 'K'}</td>
+    <td class="r">${opt !== null ? opt.toFixed(1) + '%' : '—'}</td>`;
+  eTbody.appendChild(tr);
+});
+
+// DART Ranking Table
+const dartRows = [
+  [1,'RRANCHES_ALL',1192691,49.07,4.47],
+  [2,'EBNY_ESS_RN',898607,53.08,2.60],
+  [3,'BLVN_RN',490448,49.01,9.10],
+  [4,'SG_BES_BESS1',433300,51.22,1.85],
+  [5,'BCK_RN',318413,50.15,2.00],
+  [6,'RADN_SLR_ALL',298097,47.40,1.69],
+  [7,'GIGA_ESS_RN',253527,54.27,3.24],
+  [8,'PALACIOS_RN',236997,55.85,3.27],
+  [9,'CORALSLR_ALL',230773,50.46,4.14],
+  [10,'FIVEWSLR_ALL',209246,46.06,6.11],
+  [292,'GKS_BESS_RN',-176285,53.0,null],
+];
+const dTbody = document.getElementById('dartRankBody');
+dartRows.forEach(([rank,node,net,win,pl]) => {
+  const isGks = rank === 292;
+  const tr = document.createElement('tr');
+  if (isGks) tr.className = 'gks-row';
+  const netStr = net < 0 ? '-$' + Math.abs(net/1e3).toFixed(0) + 'K' : '$' + (net/1e3).toFixed(0) + 'K';
+  const netColor = !isGks && net >= 0 ? 'color:var(--accent-up)' : (net < 0 ? 'color:var(--accent-down)' : '');
+  tr.innerHTML = `<td class="rank r">${rank}</td><td class="bold">${node}</td>
+    <td class="r bold" style="${netColor}">${netStr}</td>
+    <td class="r">${win.toFixed(1)}%</td>
+    <td class="r">${pl !== null ? pl.toFixed(2) + 'x' : '—'}</td>`;
+  dTbody.appendChild(tr);
+});
+
+// Scorecard
+const scores = [
+  {name:'bess-optimizer', overall:4.2, label:'4.2 / 5.0', trend:'↑ Top performer', cls:'best'},
+  {name:'pnl-manager',    overall:3.8, label:'3.8 / 5.0', trend:'↑', cls:''},
+  {name:'market-analyst', overall:3.5, label:'3.5 / 5.0', trend:'→', cls:''},
+  {name:'congestion-analyst', overall:3.5, label:'3.5 / 5.0', trend:'→ Stage 0', cls:''},
+  {name:'reporter',       overall:3.2, label:'3.2 / 5.0', trend:'→', cls:''},
+  {name:'dart-virtual-trader', overall:3.3, label:'3.3 / 5.0', trend:'→ CRITICAL path', cls:'crit'},
+  {name:'crr-trader',     overall:null, label:'—', trend:'Inactive (no auction)', cls:''},
+];
+const sg = document.getElementById('scoreGrid');
+scores.forEach(s => {
+  const div = document.createElement('div');
+  div.className = 'score-card ' + (s.cls || '');
+  const color = s.overall === null ? 'var(--text-muted)' : s.overall >= 4.0 ? 'var(--accent-up)' : s.overall >= 3.5 ? 'var(--text-primary)' : 'var(--accent-amber)';
+  div.innerHTML = `<div class="score-name">${s.name}</div><div class="score-val" style="color:${color}">${s.label}</div><div class="score-trend">${s.trend}</div>`;
+  sg.appendChild(div);
+});
+</script>
+</body>
+</html>

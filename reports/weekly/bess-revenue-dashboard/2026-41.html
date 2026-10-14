@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERCOT All-BESS Energy + AS Revenue Dashboard — Week 2026-41</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg-base:        #f7f8fa;
+    --bg-panel:       #ffffff;
+    --bg-panel-2:     #f0f2f5;
+    --bg-row-alt:     #fafbfc;
+    --border-soft:    #e0e3eb;
+    --border-strong:  #c8ccd4;
+    --text-primary:   #131722;
+    --text-secondary: #5d606b;
+    --text-muted:     #9598a1;
+    --accent-up:      #089981;
+    --accent-down:    #f23645;
+    --accent-blue:    #2962ff;
+    --accent-amber:   #ff9800;
+    --accent-purple:  #9c27b0;
+    --grid-line:      #eceff3;
+    --shadow-card:    0 1px 2px rgba(16, 24, 40, 0.04);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 24px;
+    min-height: 100vh;
+  }
+  .dashboard {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* HEADER */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-soft);
+    margin-bottom: 8px;
+  }
+  .header h1 { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; }
+  .header .subtitle { color: var(--text-secondary); font-size: 12px; margin-top: 4px; }
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border: 1px solid var(--border-soft);
+    border-radius: 4px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    background: var(--bg-panel);
+  }
+  .status-pill::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent-up);
+  }
+  .status-pill.degraded::before { background: var(--accent-amber); }
+
+  /* ESTIMATE WARNING */
+  .estimate-banner {
+    background: #fff8e1;
+    border: 1px solid #ffe082;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-size: 12px;
+    color: #7a6000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .estimate-banner::before { content: '⚠'; font-size: 14px; }
+
+  /* PANEL */
+  .panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+  }
+  .panel-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .panel-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    font-weight: 500;
+  }
+  .panel-body { padding: 16px; }
+
+  /* KPI ROW */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .kpi {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+    border-radius: 6px;
+    padding: 16px 18px;
+    box-shadow: var(--shadow-card);
+  }
+  .kpi-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+  }
+  .kpi-value {
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+    font-size: 28px;
+    font-weight: 500;
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.1;
+  }
+  .kpi-change {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    margin-top: 6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .up { color: var(--accent-up); }
+  .down { color: var(--accent-down); }
+  .neutral { color: var(--text-secondary); }
+
+  /* MAIN GRID */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 1000px) { .main-grid { grid-template-columns: 1fr; } }
+  .chart-wrap { height: 320px; padding: 12px; }
+
+  /* PRODUCT BAR CHART */
+  .product-wrap { height: 220px; padding: 12px; }
+
+  /* HEATMAP */
+  .heatmap-wrap { padding: 12px; }
+  .heatmap-grid {
+    display: grid;
+    grid-template-columns: 100px repeat(7, 1fr);
+    gap: 2px;
+    font-size: 10px;
+  }
+  .heatmap-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    padding: 4px 2px;
+    text-align: center;
+  }
+  .heatmap-label {
+    font-size: 10px;
+    color: var(--text-secondary);
+    padding: 4px 6px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .heatmap-cell {
+    aspect-ratio: 1.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-variant-numeric: tabular-nums;
+    border-radius: 2px;
+    cursor: default;
+  }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th {
+    text-align: left;
+    padding: 10px 16px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    font-weight: 500;
+    border-bottom: 1px solid var(--border-soft);
+    background: var(--bg-panel);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  thead th.num { text-align: right; }
+  tbody td { padding: 9px 16px; border-bottom: 1px solid var(--grid-line); }
+  tbody td.num {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-variant-numeric: tabular-nums;
+  }
+  tbody tr:nth-child(even) { background: var(--bg-row-alt); }
+  tbody tr:hover { background: var(--bg-panel-2); }
+  .rank { color: var(--text-muted); font-family: 'JetBrains Mono', monospace; width: 36px; }
+  .resource-name { font-weight: 600; letter-spacing: 0.02em; }
+  .highlight-gks { background: rgba(41, 98, 255, 0.05) !important; }
+  .highlight-gks td { color: var(--accent-blue) !important; font-weight: 600; }
+  .opt-bar {
+    display: inline-block;
+    height: 6px;
+    border-radius: 2px;
+    background: var(--accent-up);
+    vertical-align: middle;
+    margin-right: 6px;
+  }
+  .table-wrap { max-height: 580px; overflow-y: auto; }
+</style>
+</head>
+<body>
+<div class="dashboard">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <h1>ERCOT All-BESS Energy + AS Revenue</h1>
+      <div class="subtitle">ISO Week 2026-41 &nbsp;·&nbsp; Data: Jan 1, 2026 – Jul 27, 2026 &nbsp;·&nbsp; 338 BESS resources &nbsp;·&nbsp; Published 2026-10-12</div>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <span class="status-pill">ESTIMATE</span>
+      <span class="status-pill">LIVE DATA</span>
+    </div>
+  </div>
+
+  <!-- ESTIMATE WARNING -->
+  <div class="estimate-banner">
+    PUBLIC-DATA ESTIMATE (ERCOT 60-day disclosure, not settled). Data coverage: 2026-01-01 through 2026-07-27 (60-day lag from today 2026-10-12). Gap 2026-07-28 to 2026-08-11: estimation run was in-progress at dashboard build time — gap data will be appended on next weekly cycle. Do not reconcile to invoiced settlement.
+  </div>
+
+  <!-- KPI ROW -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-label">Fleet Total Revenue</div>
+      <div class="kpi-value">$198.8M</div>
+      <div class="kpi-change neutral">Jan 1 – Jul 27, 2026</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Active BESS Resources</div>
+      <div class="kpi-value">338</div>
+      <div class="kpi-change neutral">unique resources</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Median Optimization Rate</div>
+      <div class="kpi-value">45.6%</div>
+      <div class="kpi-change neutral">actual ÷ theoretical-best</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">GKS Rank</div>
+      <div class="kpi-value">#89</div>
+      <div class="kpi-change neutral">$790K total &nbsp;·&nbsp; opt 93.0%</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">#1 Resource</div>
+      <div class="kpi-value">$4.15M</div>
+      <div class="kpi-change neutral">ANOL_ESS_ESR1 (esVolta)</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">RT Energy Share</div>
+      <div class="kpi-value">41.9%</div>
+      <div class="kpi-change neutral">$83.4M of fleet total</div>
+    </div>
+  </div>
+
+  <!-- MAIN GRID: Monthly trend + Product breakdown -->
+  <div class="main-grid">
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">Fleet Monthly Revenue Trend (Jan–Jul 2026)</span>
+        <span style="font-size:11px;color:var(--text-muted)">All 338 BESS resources · Energy + AS</span>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="monthlyChart"></canvas>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">Revenue by Product (Fleet Total)</span>
+      </div>
+      <div class="product-wrap">
+        <canvas id="productChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOP COMPANY + OPT RATE -->
+  <div class="main-grid">
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">Top 10 Companies by Fleet Revenue</span>
+      </div>
+      <div class="chart-wrap" style="height:280px;">
+        <canvas id="companyChart"></canvas>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">Revenue Product Heatmap — Top 15 Resources</span>
+        <span style="font-size:11px;color:var(--text-muted)">Green = high, Red = low relative to row max</span>
+      </div>
+      <div class="heatmap-wrap" id="heatmapContainer"></div>
+    </div>
+  </div>
+
+  <!-- RANKING TABLE -->
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title">All-BESS Energy + AS Revenue Ranking — Top 30</span>
+      <span style="font-size:11px;color:var(--text-muted)">Sorted by total revenue desc &nbsp;·&nbsp; GKS highlighted in blue (#89)</span>
+    </div>
+    <div class="table-wrap">
+      <table id="rankingTable">
+        <thead>
+          <tr>
+            <th class="rank">Rank</th>
+            <th>Resource</th>
+            <th>Company</th>
+            <th class="num">DA Energy</th>
+            <th class="num">RT Energy</th>
+            <th class="num">RegUp</th>
+            <th class="num">RRS</th>
+            <th class="num">ECRS</th>
+            <th class="num">NonSpin</th>
+            <th class="num">Total Rev</th>
+            <th class="num">Cap (MW)</th>
+            <th class="num">Opt Rate</th>
+          </tr>
+        </thead>
+        <tbody id="rankingBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- GKS DETAIL -->
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title">GKS BESS Position Detail</span>
+    </div>
+    <div class="panel-body">
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
+        <div>
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-secondary);margin-bottom:4px;">Resource</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-weight:600;">GKS_BESS_ESR1</div>
+        </div>
+        <div>
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-secondary);margin-bottom:4px;">Fleet Rank</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-weight:600;">#89 / 338</div>
+        </div>
+        <div>
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-secondary);margin-bottom:4px;">Total Revenue</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-weight:600;">$790,583</div>
+        </div>
+        <div>
+          <div style="font-size:10px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-secondary);margin-bottom:4px;">Optimization Rate</div>
+          <div style="font-family:'JetBrains Mono',monospace;font-weight:600;color:var(--accent-up);">93.0%</div>
+        </div>
+      </div>
+      <div style="margin-top:12px;font-size:12px;color:var(--text-secondary);">
+        GKS (100 MW / 200 MWh) ranks #89 of 338 active BESS resources. Optimization rate 93.0% is well above fleet median 45.6%, indicating strong dispatch efficiency relative to theoretical-best. Total revenue reflects physical energy + AS dispatch only; DART virtual is tracked separately.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+Chart.defaults.color = '#5d606b';
+Chart.defaults.borderColor = '#eceff3';
+Chart.defaults.font.family = "'Inter', sans-serif";
+Chart.defaults.font.size = 11;
+
+// --- Monthly Fleet Revenue Chart ---
+const monthlyLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
+const monthlyData = [61225491, 15691164, 25655941, 49696324, 22417966, 12553218, 15502713];
+new Chart(document.getElementById('monthlyChart'), {
+  type: 'bar',
+  data: {
+    labels: monthlyLabels,
+    datasets: [{
+      label: 'Fleet Revenue ($)',
+      data: monthlyData,
+      backgroundColor: monthlyData.map(v => v >= 40000000 ? 'rgba(8,153,129,0.80)' : 'rgba(8,153,129,0.45)'),
+      borderColor: 'rgba(8,153,129,0.9)',
+      borderWidth: 1,
+      borderRadius: 3,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => '$' + (ctx.parsed.y / 1e6).toFixed(2) + 'M'
+        }
+      }
+    },
+    scales: {
+      x: { grid: { display: false }, border: { display: false } },
+      y: {
+        grid: { color: 'var(--grid-line)', drawTicks: false },
+        border: { display: false },
+        ticks: {
+          padding: 8,
+          callback: v => '$' + (v/1e6).toFixed(0) + 'M'
+        }
+      }
+    }
+  }
+});
+
+// --- Product Breakdown Chart ---
+const productLabels = ['DA Energy', 'RT Energy', 'RegUp', 'RegDown', 'RRS', 'ECRS', 'NonSpin'];
+const productData = [65522551, 83378142, 4439215, 2364032, 15384474, 9954020, 17796935];
+const productColors = [
+  'rgba(41,98,255,0.75)',
+  'rgba(8,153,129,0.75)',
+  'rgba(156,39,176,0.75)',
+  'rgba(156,39,176,0.55)',
+  'rgba(255,152,0,0.75)',
+  'rgba(255,152,0,0.55)',
+  'rgba(242,54,69,0.60)',
+];
+new Chart(document.getElementById('productChart'), {
+  type: 'bar',
+  data: {
+    labels: productLabels,
+    datasets: [{
+      data: productData,
+      backgroundColor: productColors,
+      borderRadius: 3,
+      borderWidth: 0,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: { label: ctx => '$' + (ctx.parsed.x/1e6).toFixed(2) + 'M' }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: 'var(--grid-line)', drawTicks: false },
+        border: { display: false },
+        ticks: { callback: v => '$' + (v/1e6).toFixed(0) + 'M', padding: 8 }
+      },
+      y: { grid: { display: false }, border: { display: false } }
+    }
+  }
+});
+
+// --- Top Companies Chart ---
+const companyLabels = ['ENGIE','Jupiter Power','Enel North America','Plus Power','Key Capture Energy','esVolta','YSUEZ','NextEra Energy','Tesla','National Grid'];
+const companyData = [24424120, 15819430, 13448800, 9308415, 8915096, 8717183, 6841790, 6095016, 5830018, 5260349];
+new Chart(document.getElementById('companyChart'), {
+  type: 'bar',
+  data: {
+    labels: companyLabels,
+    datasets: [{
+      data: companyData,
+      backgroundColor: 'rgba(41,98,255,0.65)',
+      borderRadius: 3,
+      borderWidth: 0,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => '$' + (ctx.parsed.x/1e6).toFixed(2) + 'M' } }
+    },
+    scales: {
+      x: {
+        grid: { color: 'var(--grid-line)', drawTicks: false },
+        border: { display: false },
+        ticks: { callback: v => '$' + (v/1e6).toFixed(1) + 'M', padding: 8 }
+      },
+      y: { grid: { display: false }, border: { display: false } }
+    }
+  }
+});
+
+// --- Ranking Table ---
+const rankingData = [
+  [1,'ANOL_ESS_ESR1','esVolta',1182971,2411268,0,99489,45071,407239,4146039,247.1,57.2],
+  [2,'CNLY_ESS_ESR1','YBTCOS',2148978,733736,137245,119011,75684,516974,3906329,null,163.7],
+  [3,'WAL_ESR1','Tesla',1895288,241329,111708,74666,235070,797069,3457276,200.0,87.1],
+  [4,'BOCO_ESS_ESR1','Aypa Power',779658,2075340,1367,233055,67624,292106,3457096,154.0,91.2],
+  [5,'AVIL_ESS_ESR1','ENGIE',1916459,488911,116925,271463,295588,245140,3377709,160.0,83.0],
+  [6,'CACH_ESS_ESR1','ENGIE',1475845,529170,141490,249645,345485,420395,3215323,200.0,77.5],
+  [7,'BLVN_SLR_ESR1','National Grid Renewables',2301659,424976,715,50591,63018,346951,3188203,188.0,61.0],
+  [8,'SHAMROCK_ESR1','NextEra Energy Resources',2212208,849088,0,0,0,0,3061296,99.3,49.1],
+  [9,'TURQBESS_ESR1','YBTCUN',1543611,643841,2759,299032,153200,192316,2838585,null,64.8],
+  [10,'BLSUMMIT_ESR2','NextEra Energy Resources',982138,1731081,0,0,0,0,2713219,15.0,4599.7],
+  [11,'PINEFRST_ESR1','YPFHYB',247951,2278879,9203,40,1061,43634,2591905,null,80.9],
+  [12,'JAG_SLR_ESR1','SER Capital Partners',869106,1065628,52918,12459,40754,387650,2516196,78.6,170.7],
+  [13,'DSWL_ESS_ESR1','esVolta',2016433,208317,21015,43339,41342,156059,2515375,150.0,88.0],
+  [14,'CHIL_SLR_ESR1','YSUEZ',1797919,-218224,159084,330375,249212,120586,2507099,null,40.6],
+  [15,'ANEM_ESS_ESR1','Plus Power',0,1724605,345313,130268,27448,150490,2401935,205.0,58.7],
+  [16,'RRANCHES_ESR1','Plus Power',5388,2134419,95182,1967,38524,114561,2401331,150.0,53.0],
+  [17,'GIGA_ESS_ESR1','Tesla',1400083,200658,58371,114883,185272,350954,2372743,128.0,72.8],
+  [18,'EBNY_ESS_ESR1','Plus Power',0,2075316,97496,3821,21741,103037,2324119,203.5,57.1],
+  [19,'LON_ESR1','Tokyo Gas America',1016887,368277,188860,78804,151997,353095,2271350,174.0,94.7],
+  [20,'ANDMDSLR_ESR2','YIPLU2',1667634,80046,20135,65796,46175,342204,2267413,null,112.4],
+  [21,'TBWF_ESS_ESR1','Spearmint Energy',0,1878560,24551,83744,42434,135443,2184005,150.0,40.0],
+  [22,'RRANCHES_ESR2','Plus Power',0,1949040,66289,1571,40614,112347,2181031,150.0,47.2],
+  [23,'CARN_ESS_ESR1','ENGIE',1047564,65382,210451,299850,402238,39317,2143334,150.0,65.3],
+  [24,'HYDR_ESS_ESR1','ENGIE',1415883,-109289,97598,328909,254464,111042,2129228,200.8,58.7],
+  [25,'BKSL_ESS_ESR1','esVolta',499198,1288847,2853,53594,19738,185294,2055768,103.0,74.6],
+  [26,'HMNG_ESS_ESR1','Key Capture Energy',98762,1323738,512,51413,152886,360702,1990384,103.8,45.5],
+  [27,'JAG_SLR_ESR2','SER Capital Partners',-76008,1977332,0,0,1311,2297,1904932,78.6,39.8],
+  [28,'RRC_WIND_ESR2','YNEXTE',953695,934656,0,0,0,0,1888351,null,43.7],
+  [29,'BLACKSPR_ESR1','YBLKSP',1237627,555527,11286,0,9649,42878,1862385,null,55.3],
+  [30,'SGAL_BES_ESR2','Jupiter Power',0,1552153,7178,62547,39624,167034,1836231,103.5,64.2],
+];
+
+function fmt(v) {
+  if (v === null || v === undefined) return '—';
+  if (Math.abs(v) >= 1000000) return '$' + (v/1e6).toFixed(2) + 'M';
+  if (Math.abs(v) >= 1000) return '$' + (v/1e3).toFixed(0) + 'K';
+  return '$' + v.toFixed(0);
+}
+function fmtPct(v) { return v === null ? '—' : v.toFixed(1) + '%'; }
+function fmtMW(v) { return v === null ? '—' : v.toFixed(0); }
+
+const tbody = document.getElementById('rankingBody');
+rankingData.forEach(row => {
+  const [rank, name, company, da, rt, regup, rrs, ecrs, nonspin, total, cap, opt] = row;
+  const tr = document.createElement('tr');
+  const optBar = opt !== null ? `<span class='opt-bar' style='width:${Math.min(opt,150)/1.5}px;opacity:0.7'></span>` : '';
+  tr.innerHTML = `
+    <td class="rank num">${rank}</td>
+    <td class="resource-name">${name}</td>
+    <td style="color:var(--text-secondary)">${company}</td>
+    <td class="num">${fmt(da)}</td>
+    <td class="num">${fmt(rt)}</td>
+    <td class="num">${fmt(regup)}</td>
+    <td class="num">${fmt(rrs)}</td>
+    <td class="num">${fmt(ecrs)}</td>
+    <td class="num">${fmt(nonspin)}</td>
+    <td class="num" style="font-weight:600">${fmt(total)}</td>
+    <td class="num">${fmtMW(cap)}</td>
+    <td class="num">${optBar}${fmtPct(opt)}</td>
+  `;
+  tbody.appendChild(tr);
+});
+
+// --- Heatmap: Top 15 resources x 7 products ---
+const heatResources = rankingData.slice(0, 15);
+const products7 = ['DA Energy','RT Energy','RegUp','RRS','ECRS','NonSpin','Total'];
+const productIdx = [3, 4, 5, 6, 7, 8, 9]; // indices in row
+
+function heatColorLight(v) {
+  v = Math.max(-1, Math.min(1, v));
+  if (v >= 0) return `rgba(8, 153, 129, ${0.20 + v * 0.65})`;
+  return `rgba(242, 54, 69, ${0.20 + (-v) * 0.65})`;
+}
+
+const container = document.getElementById('heatmapContainer');
+const grid = document.createElement('div');
+grid.className = 'heatmap-grid';
+
+// Header row
+grid.innerHTML += `<div class="heatmap-header">Resource</div>`;
+products7.forEach(p => { grid.innerHTML += `<div class="heatmap-header">${p}</div>`; });
+
+heatResources.forEach(row => {
+  grid.innerHTML += `<div class="heatmap-label" title="${row[1]}">${row[1]}</div>`;
+  // For each product, normalize within each product column
+  productIdx.forEach((pi, j) => {
+    const val = row[pi] || 0;
+    const colVals = heatResources.map(r => r[pi] || 0);
+    const maxV = Math.max(...colVals);
+    const minV = Math.min(...colVals);
+    const norm = maxV === minV ? 0.5 : (val - minV) / (maxV - minV) * 2 - 1;
+    const bg = heatColorLight(norm);
+    let label = '';
+    if (Math.abs(val) >= 1e6) label = (val/1e6).toFixed(1) + 'M';
+    else if (Math.abs(val) >= 1e3) label = (val/1e3).toFixed(0) + 'K';
+    else label = val.toFixed(0);
+    grid.innerHTML += `<div class="heatmap-cell" style="background:${bg}" title="${products7[j]}: $${val.toLocaleString()}">${label}</div>`;
+  });
+});
+
+container.appendChild(grid);
+</script>
+</body>
+</html>

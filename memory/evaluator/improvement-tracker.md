@@ -1,6 +1,34 @@
 # Evaluator Improvement Tracker
 
-Last updated: 2026-10-05 (Week 2026-W40)
+Last updated: 2026-10-12 (Week 2026-41)
+
+---
+
+## Week 2026-41 Plans Registered
+
+| Plan File | Agent | Priority | Status | Description |
+|---|---|---|---|---|
+| `memory/dart-virtual-trader/plans/2026-41-directory-sixteenth-critical.md` | dart-virtual-trader | CRITICAL | OPEN — Oct 8 in `dart-virtual/` (WRONG); 16th consecutive critical; consequence clause triggered W36, unenforced 6 cycles; user authorization for hard-code pending W32 (10 weeks) | 3/4 correct in W41; Oct 8 wrong; user authorization for agent definition hard-code and suspension clause both pending |
+| `memory/pnl-manager/plans/2026-41-infrastructure-escalation.md` | pnl-manager | CRITICAL | OPEN — Tenaska PTP HTTP 401 Day 144+; Smartbidder MSAL expired Day 79+; 22 consecutive unconfirmed flowdays (Sep 18–Oct 9); Oct 8 flowday report not generated | P0 user action: contact Ascend for (1) Tenaska whitelist, (2) Smartbidder secret renewal. 6th+ CRITICAL escalation on Tenaska. |
+| `memory/congestion-analyst/plans/2026-41-stage0rules-twelfth-miss.md` | congestion-analyst | MAJOR | OPEN — stage-0-rules.md absent 12th consecutive week; suspension clause triggered W36, unenforced 6 cycles; new BEYOND_EXTREME tier needed (Oct 11 NL 979 MW) | Agent-executable, no external dependency. Create file immediately. Add BEYOND_EXTREME tier (NL < 5k MW). |
+| `memory/reporter/plans/2026-41-canonical-paths-eleventh-miss.md` | reporter | MAJOR | OPEN — canonical-paths.md absent 11th consecutive week; Cycle Health section NOW PRESENT (improvement); Oct 8 wrong-dir flagging present (improvement) | Create canonical-paths.md immediately. Continue Cycle Health section. Confirm W40 weekly report filing. |
+| `memory/bess-optimizer/plans/2026-41-rule8-incident-resolution.md` | bess-optimizer | MAJOR | OPEN — Rule 8 gate NOW operationally implemented (improvement); postmortem blocked by Tenaska 401 (Jun 5 in data gap); Day 129 since incident | Document Rule 8 gate logic in standing-rules.md (no external dependency). Postmortem awaits Tenaska restoration. |
+| `memory/market-analyst/plans/2026-41-degraded-estimate-accuracy.md` | market-analyst | MAJOR | OPEN — Oct 6 DEGRADED estimates: solar −8 to −11 GW, wind +9 to +13 GW, outage −7.5 to −9.5 GW errors; AG2 not called 4th+ consecutive run day | Add 4-tier DEGRADED fallback protocol to BRIEFING_TEMPLATE.md. Mandatory AG2/Enverus call every cycle. |
+
+---
+
+## Week 2026-41 W40 Plan Compliance Update
+
+| Plan | Agent | W40 Deadline | W41 Status |
+|---|---|---|---|
+| `2026-W40.md` — 7/7 directory | dart-virtual-trader | 7/7 dir | **FAILED — Oct 8 in `dart-virtual/`. 3/4 run days correct. 16th consecutive critical.** |
+| `2026-W40.md` — Rule 8 confirm + Oct seasonal params | bess-optimizer | First PRODUCTION day | **PARTIALLY MET — Rule 8 gate implemented in W41 reports. Oct ECRS trigger confirmed. Postmortem impossible (Tenaska still 401).** |
+| `2026-W40.md` — AG2 call + Oct seasonal anchor | market-analyst | W41 run days | **FAILED — AG2 not called on any W41 run day (4th consecutive miss).** |
+| `2026-W40.md` — stage-0-rules.md immediately | congestion-analyst | Before W41 Day 1 | **FAILED — stage-0-rules.md absent 12th consecutive week.** |
+| `2026-W40.md` — Ascend P0 + backfill priority | pnl-manager | User action | **OPEN — user action not confirmed. Tenaska 401 Day 144+. Smartbidder expired Day 79+.** |
+| `2026-W40.md` — W40 weekly + canonical-paths.md + Cycle Health | reporter | W41 all days | **PARTIALLY MET — Cycle Health present in W41 reports. W40 weekly filing status unconfirmed. canonical-paths.md absent (11th miss).** |
+
+**Resolved**: 0 | **Partially met**: 2 (bess-optimizer Rule 8 gate; reporter Cycle Health) | **Failed**: 3 | **Open (user)**: 1
 
 ---
 
