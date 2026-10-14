@@ -9,7 +9,7 @@
 | [`bess-optimizer`](./bess-optimizer.md) | Front | Daily | GKS BESS DA/RT Energy + AS revenue stack |
 | [`dart-virtual-trader`](./dart-virtual-trader.md) | Front | Daily | DART virtual short/long 포지션 추천 |
 | [`crr-trader`](./crr-trader.md) | Front | Auction cycle | CRR 트레이딩 기회 3개 발굴 |
-| [`pnl-manager`](./pnl-manager.md) | Back | Daily + Weekly | GKS 실적 + Smartbidder benchmark + 全 BESS 랭킹 |
+| [`pnl-manager`](./pnl-manager.md) | Back | Daily + Weekly | GKS 실적 (Tenaska) + 全 BESS 랭킹 |
 | [`evaluator`](./evaluator.md) | Back | Weekly | 7개 에이전트 점검 + 개선 plan 등록 |
 | [`reporter`](./reporter.md) | Back | Daily + Weekly | Daily/Weekly Report 생성 (취합·요약) |
 

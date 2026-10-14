@@ -14,8 +14,9 @@ comment line):
     ercot           ← "ercot"
     enverus         ← "enverus"
     ag2             ← "ag2"
-    smartbidder     ← "smartbidder" / "smartbid"
+    smartbidder     ← "smartbidder" / "smartbid"   (subscription ended 2026-10; legacy)
     tenaska         ← "tenaska"
+    tyba            ← "tyba"
 
 Lines before any header land in the special section "_default".
 
@@ -25,8 +26,7 @@ Usage:
     s = load_env_sections()                       # all sections
     yenv = s.get("yes_energy", {})
     ye_user = yenv["YES_ENERGY_USERNAME"]
-    sb = s.get("smartbidder", {})
-    sb_resource = sb.get("Resource") or sb.get("SMARTBIDDER_RESOURCE", "Kiskadee Storage")
+    tyba_token = s.get("tyba", {}).get("TOKEN")
 """
 from __future__ import annotations
 
@@ -43,6 +43,7 @@ _SECTION_RULES: list[tuple[str, str]] = [
     ("smartbidder",         "smartbidder"),
     ("smartbid",            "smartbidder"),
     ("tenaska",             "tenaska"),
+    ("tyba",                "tyba"),
 ]
 
 

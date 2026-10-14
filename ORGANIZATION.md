@@ -13,7 +13,7 @@
 | Front | **crr-trader** | CRR 트레이딩 기회 발굴 (지역간 basis 활용) |
 | Middle | **market-analyst** | 다음날 ERCOT 시황 브리핑 + 시장 구조/매크로 분석 |
 | Middle | **congestion-analyst** | Congestion / Constraint 분석 (CONGESTION_PROJECT 활용) |
-| Back | **pnl-manager** | GKS 전일 실적 / Smartbidder benchmark / ERCOT BESS 랭킹 |
+| Back | **pnl-manager** | GKS 전일 실적 / ERCOT BESS 랭킹 |
 | Back | **evaluator** | 전 에이전트 work process / approach / resource 점검 |
 | Back | **reporter** | Daily/Weekly 리포트 생성 (전 에이전트 결과 취합) |
 
@@ -34,7 +34,7 @@
 | 시장 구조·정책·발전소 mix 분석 | I | I | I | **R/A** | I | I | I | I |
 | Congestion / Constraint 분석 | C | C | C | C | **R/A** | I | I | I |
 | 전일 GKS 실적 (Tenaska) 정리 | I | I | – | I | I | **R/A** | I | I |
-| Smartbidder benchmark 비교 | I | I | – | I | I | **R/A** | I | I |
+| 벤치마크 비교 (현재 미운영 — Smartbidder 해지 2026-10, Tyba Shadow asset API 문의 중) | I | I | – | I | I | **R/A** | I | I |
 | ERCOT BESS 랭킹 (주 1회) | I | I | – | I | I | **R/A** | I | I |
 | 에이전트 효과성·효율성 점검 | I | I | I | I | I | I | **R/A** | I |
 | Daily / Weekly 리포트 생성 | C | C | C | C | C | C | C | **R/A** |

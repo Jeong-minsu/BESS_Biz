@@ -131,6 +131,6 @@ Self-review:
 
 ## 8. 충돌 회피 규칙
 
-- Nodal LMP **자체** 예측은 만들지 않음 (Yes Energy / Smartbidder / market-analyst가 담당)
+- Nodal LMP **자체** 예측은 만들지 않음 (Yes Energy / Tyba / market-analyst가 담당)
 - 본 에이전트는 LMP의 **MCC 컴포넌트만** 제공
 - GK 노드 가격 예측 LightGBM (별도 시스템)과 혼동 금지 — CONGESTION_PROJECT.md §2 참조

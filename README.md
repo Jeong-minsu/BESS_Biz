@@ -36,7 +36,7 @@ ERCOT ESS 기반 전력 트레이딩 사업의 수익 극대화 및 운영 최�
              ▼
    ┌────────────────────────────────────────────────────────────┐
    │                    BACK OFFICE                             │
-   │  • P&L Manager   (GKS 실적 / Smartbidder benchmark)        │
+   │  • P&L Manager   (GKS 실적 / 全 BESS 랭킹)                 │
    │  • Evaluator     (전 에이전트 효과성·효율성 점검)          │
    └────────────────────────────────────────────────────────────┘
 ```
@@ -50,13 +50,13 @@ ERCOT ESS 기반 전력 트레이딩 사업의 수익 극대화 및 운영 최�
 ```
 BESS_Biz/                              ← 작업 루트 (모든 path가 여기 기준)
 │
-├── .env                               ← 모든 벤더 인증 (Yes Energy, AG2, Enverus, Smartbidder, Tenaska)
+├── .env                               ← 모든 벤더 인증 (Yes Energy, AG2, Enverus, Tyba, Tenaska)
 │
 │  ─── 외부 자산 (skill/문서/모델 명세) ──────────────
-├── API Docs/                          ← AG2, Smartbidder, Tenaska, S3 Datalake 원문 (4개 .txt)
+├── API Docs/                          ← AG2, Tyba, Tenaska, S3 Datalake 원문 (Smartbidder 문서는 archive)
 ├── skills/                            ← 데이터 페치 + 대시보드 skill (4개)
 │   ├── fetch-ercot-data/
-│   ├── fetch-smartbidder-data/
+│   ├── fetch-tyba-data/               ← (fetch-smartbidder-data/ 는 deprecated — 2026-10 해지)
 │   ├── fetch-tenaska-ptp-data/
 │   └── dashboard-report.skill/
 ├── agensts/                           ← CONGESTION_PROJECT.md (오타 그대로 보존; congestion-analyst가 oversight)
@@ -95,9 +95,8 @@ BESS_Biz/                              ← 작업 루트 (모든 path가 여기 
 │   ├── data/
 │   │   ├── forecasts/{market-view,congestion}/
 │   │   ├── pnl/gks/{hourly,daily}/
-│   │   ├── benchmarks/smartbidder/{hourly,daily}/
 │   │   ├── crr/{auction-results,basis-history}/
-│   │   └── raw/{yes-energy,smartbidder,tenaska}/
+│   │   └── raw/{yes-energy,tyba,tenaska}/
 │   ├── prompts/
 │   └── schemas/
 │
@@ -129,7 +128,7 @@ BESS_Biz/                              ← 작업 루트 (모든 path가 여기 
 
 | 단계 | 시각(목표) | 담당 에이전트 | 산출물 |
 |---|---|---|---|
-| 1 | T-90m | P&L Manager | 전일 GKS 실적 + Smartbidder 벤치마크 산출 |
+| 1 | T-90m | P&L Manager | 전일 GKS 실적 산출 (벤치마크: 현재 미운영 — Smartbidder 해지 2026-10, Tyba Shadow asset API 문의 중) |
 | 2 | T-75m | Market Analyst | ERCOT 다음날 시황 브리핑 |
 | 3 | T-75m | Congestion Analyst | 다음날 혼잡 / Constraint 분석 |
 | 4 | T-60m | BESS Optimizer | 다음날 DA/RT Energy + AS revenue stack 제안 |
@@ -149,12 +148,12 @@ BESS_Biz/                              ← 작업 루트 (모든 path가 여기 
 | 자산 | 위치 | 용도 |
 |---|---|---|
 | **fetch-ercot-data** skill | `skills/fetch-ercot-data/SKILL.md` | Yes Energy / Enverus / AG2 / ERCOT API → ERCOT 시장 데이터 |
-| **fetch-smartbidder-data** skill | `skills/fetch-smartbidder-data/SKILL.md` | Smartbidder benchmark, DA/RT 가격 예측, P(DA<RT) |
+| **fetch-tyba-data** skill | `skills/fetch-tyba-data/SKILL.md` | Tyba D+1 GKS DA/RT 가격 예측, DA AS 예측, P(RT>DA) (Smartbidder 대체, 2026-10) |
 | **fetch-tenaska-ptp-data** skill | `skills/fetch-tenaska-ptp-data/SKILL.md` | GKS 실적 (Energy/AS, DA bid/offer, HSL) |
 | **dashboard-report** skill | `skills/dashboard-report.skill/SKILL.md` | TradingView-style 단일 HTML 리포트 |
 | **CONGESTION_PROJECT** | `agensts/CONGESTION_PROJECT.md` | Constraint-level shadow price 예측 모델 (Stage 0 진행 중) |
-| **API Docs** | `API Docs/*.txt` | AG2 / Smartbidder / Tenaska / S3 Datalake 원문 |
-| **`.env`** | `.env` | 모든 벤더 인증 정보 (Yes Energy, AG2, Enverus, Smartbidder, Tenaska, AWS) |
+| **API Docs** | `API Docs/*.txt` | AG2 / Tyba / Tenaska / S3 Datalake 원문 |
+| **`.env`** | `.env` | 모든 벤더 인증 정보 (Yes Energy, AG2, Enverus, Tyba, Tenaska, AWS) |
 
 데이터 소스 결정 규칙은 [`shared/config.md`](./shared/config.md), 데이터 우선순위·게터 결정표는 위 `fetch-ercot-data` skill 참고.
 

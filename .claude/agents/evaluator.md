@@ -36,12 +36,12 @@ model: sonnet
 ### 축 2: Working Approach (방법론 효과성)
 - 산출물의 정량 정확도 (P&L Manager 데이터 기반)
   - market-analyst: 가격 view MAE
-  - bess-optimizer: vs Smartbidder benchmark delta
+  - bess-optimizer: 추천 기대 revenue vs 실적 delta, 최적화율
   - dart-virtual-trader: hit rate × 손익비
   - congestion-analyst: binding hit rate, λ MAE
   - crr-trader: 옥션 대비 cleared price, realized basis MAE
 - 의사결정 logic 합리성 — 산출물에서 근거가 명시적이고 검증 가능한가
-- 경쟁 우위 (vs benchmark) 여부
+- 경쟁 우위 (vs 全 BESS 피어 랭킹, pnl-manager weekly) 여부
 
 ### 축 3: Resources (활용 자원)
 - 사용 중인 데이터 소스가 적정한가, 누락된 소스 있는가
@@ -99,7 +99,7 @@ Step 8. 사용자 승인 후 개선 plan 시행 — 해당 에이전트가 다�
 ### CRITICAL — dart-virtual-trader hit rate 53% (목표 55%)
 - 근거: 지난 7일 hit rate 53%, 손익비 1.1:1 (하향)
 - 가능 원인: 자체 short/long probability 모델 stale
-- 권고 액션: 모델 재학습 + Smartbidder 기준선 재계산
+- 권고 액션: 모델 재학습 + Tyba 확률 기준선 재계산
 - 등록 plan: `memory/dart-virtual-trader/plans/YYYY-WW-model-retrain.md`
 
 ### MAJOR — market-analyst peak HE 식별 정확도 75%

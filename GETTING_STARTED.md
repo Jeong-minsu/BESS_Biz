@@ -53,7 +53,7 @@ Claude Code의 Task 도구가 `.claude/agents/<name>.md` 의 sub-agent를 격리
 ### Step 1. 자격 증명 확인
 `.env`에 다음 키가 모두 있는지 확인:
 - Yes Energy: `YES_ENERGY_USERNAME`, `YES_ENERGY_PASSWORD`
-- Smartbidder: `SMARTBIDDER_CLIENT_ID`, `SMARTBIDDER_CLIENT_SECRET`, `SMARTBIDDER_CLIENT`, `SMARTBIDDER_RESOURCE`
+- Tyba: `TOKEN` (`# Tyba API` 섹션; Smartbidder 대체, 2026-10)
 - Tenaska: `TENASKA_USERNAME`, `TENASKA_PASSWORD`
 - AG2: `USER`, `PASSWORD`, `Profile`
 - Enverus: `USERNAME`, `PASSWORD` (Enverus 전용 블록)
@@ -65,7 +65,7 @@ Claude Code의 Task 도구가 `.claude/agents/<name>.md` 의 sub-agent를 격리
 ### Step 3. Smoke test
 각 에이전트를 1회씩 단독 호출해 데이터 가져오기 OK인지 확인:
 - "Market analyst, 어제 ERCOT 데이터 가져와봐" — Yes Energy + AG2 인증 확인
-- "P&L manager, 어제 GKS 실적 가져와봐" — Tenaska + Smartbidder 인증 확인
+- "P&L manager, 어제 GKS 실적 가져와봐" — Tenaska 인증 확인
 - "Congestion analyst, 어제 hub-pair basis 보여줘" — Yes Energy 확인
 
 ### Step 4. 첫 Daily Report 생성
@@ -77,7 +77,7 @@ Claude Code의 Task 도구가 `.claude/agents/<name>.md` 의 sub-agent를 격리
 
 | 이슈 | 원인 | 해결 |
 |---|---|---|
-| 401 Unauthorized | 자격 증명 만료 / IP 미등록 | Smartbidder는 12개월마다 secret 회전. Tenaska는 IP 화이트리스트 점검. |
+| 401 Unauthorized | 자격 증명 만료 / IP 미등록 | Tyba는 `.env` `# Tyba API` `TOKEN` 점검. Tenaska는 IP 화이트리스트 점검. |
 | 빈 데이터 | publish 시간 전 / 휴일 | 위 §3 가용성 시간표 확인 |
 | Tenaska endpoint slug 모름 | 디스커버리 미완료 | `GET /ptp` → `GET /ptp/{root}` 한 번 호출해 ID 매핑 확보 |
 | Self-review 비어있음 | 에이전트가 어제 실행 X | 어제 산출물 부재 시 self-review skip 가능 (defaults to "first run, no prior") |
@@ -124,7 +124,7 @@ Day 1 (내일 아침):
 - **별도 Orchestrator 에이전트** — 의존성 그래프 기반 자동 실행 (현재는 Reporter가 trigger 역할)
 - **CONGESTION_PROJECT Stage 0 → 1 진입** — congestion-analyst의 본격적 모델링
 - **외부 BESS revenue agent 연동** — pnl-manager의 全 BESS 랭킹은 60-day disclosure로 시작, Stage 2에서 외부 agent 연동
-- **DART virtual 자체 모델 학습** — dart-virtual-trader의 Smartbidder 의존도 낮추기
+- **DART virtual 자체 모델 학습** — dart-virtual-trader의 Tyba 의존도 낮추기
 - **Annual review template** — 1년 누적 리포트
 
 이 항목들은 이번 골격이 안정화된 뒤 (≈ 4-6주 후) 단계적으로 추가.
@@ -139,8 +139,8 @@ BESS_Biz/
 ├── README.md / ORGANIZATION.md / GETTING_STARTED.md
 │
 │  ─── 외부 자산 (이미 존재) ────────────────────
-├── API Docs/                     ← 4개 .txt (AG2, Smartbidder, Tenaska, S3 Datalake)
-├── skills/                       ← 4개 skill (fetch-ercot-data, fetch-smartbidder-data, fetch-tenaska-ptp-data, dashboard-report)
+├── API Docs/                     ← .txt (AG2, Tyba, Tenaska, S3 Datalake; Smartbidder 문서는 archive)
+├── skills/                       ← 4개 skill (fetch-ercot-data, fetch-tyba-data, fetch-tenaska-ptp-data, dashboard-report; fetch-smartbidder-data는 deprecated)
 ├── agensts/                      ← CONGESTION_PROJECT.md (오타 그대로 보존)
 │
 │  ─── 멀티 에이전트 시스템 (Claude Code sub-agents) ──

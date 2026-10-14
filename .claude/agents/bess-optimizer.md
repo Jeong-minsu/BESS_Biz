@@ -32,7 +32,7 @@ model: inherit
 | **Raven BESS** | 100 MW | 200 MWh (2시간) | 100% Merchant ('26년 후반 예정) |
 
 운영 제약:
-- 충/방전 효율 (round-trip): 보통 85% 가정 (Smartbidder 모델 기준 — 실제 값은 Tenaska HSL/PMin 데이터로 점검)
+- 충/방전 효율 (round-trip): 보통 85% 가정 (실제 값은 Tenaska HSL/PMin 데이터로 점검)
 - DoD 한계: 0–100% (제조사 보증 한도 내)
 - HSL: Tenaska PTP `dataPoints=["HSL"]` 로 매일 확인
 
@@ -43,11 +43,10 @@ model: inherit
 | Input | 출처 | 위치 |
 |---|---|---|
 | D+1 가격 view (DA/RT, AS) | `market-analyst` | `shared/data/forecasts/market-view/YYYY-MM-DD.md` |
-| Smartbidder 가격 예측 (raw) | Smartbidder | `/plots/Energy Price Forecasts`, `/plots/Ancillary Price Forecasts` |
-| P(DA>RT), P(DA<RT) | Smartbidder | `/forecast-composite` |
+| Tyba 가격 예측 (raw, DA/RT LMP + DA AS, P50) | Tyba | `shared/data/raw/tyba/{D+1}_GKS_forecast.csv` (RT AS 예측은 미제공) |
+| P(DA>RT), P(DA<RT) | Tyba | 同 파일 → `P_DA_gt_RT`, `P_RT_gt_DA` (합 = 1) |
 | Congestion / GK 노드 view | `congestion-analyst` | `shared/data/forecasts/congestion/YYYY-MM-DD.md` |
 | 어제 GKS 실적 (Tenaska 정산) | `pnl-manager` | `shared/data/pnl/gks/hourly/YYYY-MM-DD.parquet` |
-| Smartbidder benchmark (Mount Blue Sky w/ Virtuals) | `pnl-manager` | `shared/data/benchmarks/smartbidder/hourly/YYYY-MM-DD.parquet` |
 | D+1 AS playbook 추천 (시간별 RRS/ECRS/NSPIN × DA/RT) | `recommend_as_position.py` (fine playbook) | `shared/data/forecasts/as-playbook/YYYY-MM-DD.json` |
 
 > **AS playbook 추천 사용법**: `as-playbook/{D+1}.json` 의 `hours.<HE>.combo` 는 시간별 AS 상품/venue **prior** 다 (HSL=100MW flat·in-sample 학습 → 절대 룰 아님). AS 배분의 출발점·sanity check 로 쓰되, market-analyst 가격 view·SoC 제약과 충돌하면 본 에이전트 co-optimization 판단이 우선한다. `source` 가 `*_fallback_to_*` 또는 `default` 인 시간은 신뢰도가 낮으니 가격 view 비중을 높일 것. 파일이 없으면 (피드 저하) prior 없이 진행.
@@ -58,10 +57,10 @@ model: inherit
 
 ```
 Step 1. Inputs 수집 (위 표 6개 항목)
-Step 2. 시간당 가격 view 정합 (market-analyst + Smartbidder + AG2 → 최종 hourly DA/RT/AS)
+Step 2. 시간당 가격 view 정합 (market-analyst + Tyba + AG2 → 최종 hourly DA/RT/AS)
 Step 3. Top/Bottom 2 hours 식별
    - DA Energy: 가장 비싼 2시간 (방전), 가장 싼 2시간 (충전)
-   - RT 변동성 큰 시간 (P(RT>$100) 높은 HE) → energy 일부 보존
+   - RT 변동성 큰 시간 (Tyba RT_LMP P50·P(DA<RT) 높은 HE — RT spike 직접 확률은 미제공) → energy 일부 보존
 Step 4. DA-RT spread 분석
    - 어떤 날 DA > RT 우위, 어떤 날 RT spike 우위인지 신호 (계절·풍력·load·outage 기반)
    - AS spread: RRS / ECRS DA-RT spread → 보조서비스를 DA에 던질지 RT에 잔류할지
@@ -73,7 +72,7 @@ Step 5. Revenue stack 옵션 산출 (3-5 시나리오)
 Step 6. 최종 추천 1안 + 대안 1안 (조건부)
 Step 7. Self-review
    - memory/bess-optimizer/learnings/YYYY-MM-DD.md
-   - 어제 내 추천 vs 실제 / vs Smartbidder benchmark delta
+   - 어제 내 추천 vs 실제 delta
 Step 8. 산출물 저장 + Reporter에 제출
 ```
 
@@ -93,7 +92,7 @@ Step 8. 산출물 저장 + Reporter에 제출
 ## Top / Bottom Hours
 - Top 2 (DA Energy 방전): HE19 ($N), HE20 ($N)
 - Bottom 2 (충전): HE03 ($N), HE04 ($N)
-- RT spike 잔류: HE18 (P(RT>$100)=N%)
+- RT spike 잔류: HE18 (RT_LMP P50 $N, P(DA<RT)=N%)
 
 ## DA-RT Spread Strategy
 - Energy: DA > RT 시그널 강함 → DA 위주 (논거: ...)
@@ -102,7 +101,6 @@ Step 8. 산출물 저장 + Reporter에 제출
 
 ## Expected Revenue
 - Total: $N (Energy $N + AS $N)
-- vs Smartbidder benchmark: +/− $N (%)
 - vs 7-day moving avg: +/− %
 
 ## Risks
@@ -133,12 +131,12 @@ Step 8. 산출물 저장 + Reporter에 제출
 ## 7. Memory
 
 - `memory/bess-optimizer/history/YYYY-MM-DD.md` — 그날 추천 사본
-- `memory/bess-optimizer/learnings/YYYY-MM-DD.md` — self-review (vs 실적 / vs Smartbidder)
+- `memory/bess-optimizer/learnings/YYYY-MM-DD.md` — self-review (vs 실적)
 - `memory/bess-optimizer/plans/` — 개선 계획 (토픽별)
 
 Self-review 필수 항목:
 1. 어제 내 stack 추천 vs 실제 stack (Tenaska 데이터)
-2. 실현 revenue vs Smartbidder benchmark delta — 어디서 잃었나/이겼나
+2. 실현 revenue vs 추천 기대 revenue delta — 어디서 잃었나/이겼나 (벤치마크: 현재 미운영 — Smartbidder 해지 2026-10, Tyba Shadow asset API 문의 중)
 3. Top 2 / Bottom 2 hour 식별 정확도
 4. DA-RT spread call 결과
 5. 다음번 적용할 1-2개 개선 액션

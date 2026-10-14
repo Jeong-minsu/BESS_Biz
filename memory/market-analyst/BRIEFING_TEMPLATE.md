@@ -9,7 +9,7 @@
 ```
 # ERCOT D+1 (YYYY-MM-DD) Market Briefing
 **Data quality**: [PRODUCTION | PARTIAL | DEGRADED]
-**Smartbidder**: [OPERATIONAL | DEGRADED — Day N since expiry]
+**Tyba**: [OPERATIONAL | DEGRADED — fetch failed / empty file]
 **Filed**: YYYY-MM-DD HH:MM CT
 ```
 
@@ -40,7 +40,7 @@ Example: "Moderate load + strong GR_WEST wind → midday duck extreme, HE19-20 s
 
 ### Section D — Price View
 - DA Energy: 24h avg $N/MWh; peak HE N ($N), HE N ($N); off-peak HE N ($N)
-- RT outlook: P(RT spike >$100) HE18-20 = N% (Smartbidder) or [DEGRADED — heuristic]
+- RT outlook: RT_LMP P50 HE18-20 = $N, P(DA<RT) = N% (Tyba; direct RT spike probability not provided) or [DEGRADED — heuristic]
 - Spread: DA − RT = +$N (DA premium) or −$N (RT premium expected HE N-N)
 - AS: RRS DA $N; ECRS DA $N; Non-spin DA $N (or DEGRADED — heuristic only)
 
@@ -57,16 +57,14 @@ Example: "Moderate load + strong GR_WEST wind → midday duck extreme, HE19-20 s
 
 ## 3. DEGRADED Fallback Language
 
-When Smartbidder is unavailable, use this standard block in Section D:
+When Tyba is unavailable (`shared/data/raw/tyba/{D+1}_GKS_forecast.csv` missing or empty — Tyba fetch failure), use this standard block in Section D:
 
 ```
-**[DEGRADED — Smartbidder MSAL CLIENT_SECRET EXPIRED, Day N]**
-DA/RT price forecasts, P(DA>RT), and AS clearing prices from Smartbidder are UNAVAILABLE.
+**[DEGRADED — Tyba forecast fetch failed / file empty]**
+DA/RT price forecasts, P(DA>RT), and DA AS prices from Tyba are UNAVAILABLE.
 Price estimates below are heuristic-only, derived from Yes Energy BidClose + prior-day RT analog.
 Accuracy: ±$20-30/MWh for peak hours; ±$5-10/MWh for off-peak. Do not use for DA bid sizing.
 ```
-
-Day counter: Track from expiry date in session memory. As of 2026-09-28, expiry ~late July 2026 = Day 64+.
 
 ---
 
@@ -80,7 +78,7 @@ Day counter: Track from expiry date in session memory. As of 2026-09-28, expiry 
 1. Yes Energy BIDCLOSE — PRODUCTION if fetch succeeds
 2. Enverus STPF — PRODUCTION if fetch succeeds (secondary)
 3. AG2 WSI Trader — PRODUCTION if endpoint available
-4. Smartbidder — PRODUCTION (when MSAL operational)
+4. Tyba — PRODUCTION if fetch succeeds (replaced Smartbidder, 2026-10)
 5. Heuristic/analog — DEGRADED, clearly labeled
 
 ---

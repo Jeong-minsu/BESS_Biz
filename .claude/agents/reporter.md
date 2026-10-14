@@ -43,7 +43,7 @@ model: sonnet
 
 ## 1. Yesterday Lookback (전일 실적)
 [from pnl-manager — 핵심 5줄]
-- GKS Total Revenue: $N (vs Smartbidder benchmark $N, Δ +/-$N / +/-%)
+- GKS Total Revenue: $N
 - 가장 손실 컸던 부분: <product/HE>
 - 가장 outperform 한 부분: <product/HE>
 - 충방전: Inj N MWh, Cons N MWh
@@ -64,7 +64,7 @@ model: sonnet
 | HE | Mode | Energy | RegUp | RRS | ECRS | NonSpin |
 | ...
 
-- Expected Total: $N (vs Benchmark $N, +%)
+- Expected Total: $N
 - 핵심 risk: …
 
 ## 5. D+1 DART Virtual Position
@@ -93,7 +93,6 @@ model: sonnet
 
 ```
 - 지난 1주 GKS P&L (daily breakdown + 7일 합산)
-- 지난 1주 vs Smartbidder benchmark
 - ERCOT 全 BESS 랭킹 dashboard (pnl-manager 산출 인용)
 - ERCOT 全 BESS DART virtual 랭킹 (pnl-manager 산출)
 - 지난 주 시장 구조 업데이트 (market-analyst structural-update)
@@ -143,7 +142,7 @@ Step 7. memory/reporter/history/ 에 사본 저장
 ## 7. dashboard-report Skill 활용 가이드
 
 - 입력: 정형화된 KPI 5개 (P&L Δ, Top revenue product, Bottom hours, Confidence, Risk count)
-- Chart: 시간별 expected revenue stack bar chart (Energy + AS) + Smartbidder benchmark line overlay
+- Chart: 시간별 expected revenue stack bar chart (Energy + AS)
 - Heatmap: HE × revenue product 형태로 어제 / 내일 expected
 - Table: Position table (BESS + DART)
 - Theme: Light default (TradingView 라이트 모드)

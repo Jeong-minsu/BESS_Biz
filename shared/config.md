@@ -14,7 +14,7 @@
 from _env_loader import load_env_sections, first
 sec = load_env_sections()                     # {section: {KEY: VALUE}}
 ye  = sec["yes_energy"];  ye["YES_ENERGY_USERNAME"]
-sb  = sec["smartbidder"]; sb["CLIENT_ID"]
+ty  = sec["tyba"];        ty["TOKEN"]
 ```
 
 섹션별 필수 키 (optional 키 전체는 `_env_loader.py` docstring + 각 fetch skill 참조):
@@ -26,8 +26,8 @@ sb  = sec["smartbidder"]; sb["CLIENT_ID"]
 | `ercot` | ERCOT | `ERCOT_USERNAME`, `ERCOT_PASSWORD`, `ERCOT_SUBSCRIPTION_KEY` |
 | `ag2` | AG2 | `USER`, `PASSWORD`, `Profile` |
 | `enverus` | Enverus | `USERNAME`, `PASSWORD` |
-| `smartbidder` | Smartbidder | `CLIENT_ID`, `CLIENT_SECRET`, `APPLICATION_ID` |
 | `tenaska` | Tenaska | `TENASKA_USERNAME`, `TENASKA_PASSWORD` |
+| `tyba` | Tyba | `TOKEN` |
 
 ---
 
@@ -44,12 +44,13 @@ ERCOT 시장 데이터를 어디서 가져올지 결정 시:
 | DA/RT LMP | Yes Energy DataSignals | ERCOT Public API |
 | 시스템 load forecast | Yes Energy bidclose | AG2 WSI / ERCOT MTLF |
 | Wind / Solar forecast | Yes Energy STWPF/COPHSL | AG2 WindCast IQ |
-| 가격 forecast (DA/RT) | Smartbidder /plots/Energy Price Forecasts | (직접 모델 — bess-optimizer 영역 외) |
-| AS forecast | Smartbidder /plots/DA Ancillary Prices | /plots/RT Ancillary Prices (5-min) |
+| 가격 forecast (DA/RT) | Tyba `most_recent_probabilistic_forecast` (GKS_BESS_RN P50) | (직접 모델 — bess-optimizer 영역 외) |
+| AS forecast | Tyba DA AS (ERCOT 시스템 단일가, P50) | – (RT AS 예측은 Tyba rolling HE01–10만 제공 → 미수집) |
+| P(RT>DA) / P(DA>RT) | Tyba `most_recent_forecast` | – (RT spike 확률 직접 제공 X) |
 | Outages, PRC | Enverus Mosaic | – |
 | Weather | AG2 WSI Trader | NOAA HRRR (장기) |
 | GKS 실적 | Tenaska PTP | (없음, 단일 source) |
-| Smartbidder benchmark | Smartbidder /revenue | – |
+| 벤치마크 | 현재 미운영 (Smartbidder 해지 2026-10, Tyba Shadow asset API 문의 중) | – |
 
 ---
 
@@ -62,7 +63,7 @@ ERCOT 운영 native time. KST 또는 다른 타임존 사용 금지 — 보고�
 - **Daily cycle wall clock**: 매일 **07:30 CT** 시작 → DAM bid cutoff 10:00 CT 까지 2.5h 윈도우.
 - **모든 ERCOT API**: Central Prevailing Time (CPT) = `America/Chicago` (DST 자동, CST UTC−6 / CDT UTC−5).
 - **Yes Energy / ERCOT API**: `HOURENDING` (HE1 = 00:00–01:00). 변환: `dt.hour = HE - 1`.
-- **Smartbidder**: period-ending. ISO-8601 with tz offset. CPT 기준.
+- **Tyba**: UTC ISO timestamp, hour-beginning (00:00 CT = HE01). 스크립트에서 CT HE로 변환.
 - **Tenaska PTP**: `intervalStartUtc` / `intervalEndUtc` UTC. 로컬 변환 시 `America/Chicago`.
 - **DST 경고**: 봄 spring-forward 23 HE / 가을 fall-back 25 HE. `len(day) == 24` 가정 금지.
 - **AG2**: `timeutc=false` 기본 (local prevailing). 명시적으로 `false` 설정.
@@ -107,21 +108,17 @@ shared/data/
 │   └── all_bess/                    ← estimate-bess-* skill 산출 (pnl-manager 주 1회)
 │       ├── energy_as/               ← summary / revenue_hourly / tb_index parquet
 │       └── dart_virtual/            ← dart_daily / dart_hourly parquet
-├── benchmarks/
-│   └── smartbidder/
-│       ├── hourly/YYYY-MM-DD.parquet
-│       └── daily/YYYY-MM.parquet
 ├── crr/
 │   ├── auction-results/YYYY-MM/<auction-type>.parquet
 │   └── basis-history/YYYY-MM.parquet
 └── raw/                         ← 원본 캐시 (vendor cache, gitignore 권장)
     ├── yes-energy/
-    ├── smartbidder/
+    ├── tyba/                    ← {D+1}_GKS_forecast.csv (Smartbidder 대체, 2026-10)
     └── tenaska/
 ```
 
 쓰기/읽기 규칙:
-- `shared/data/forecasts/`, `shared/data/pnl/`, `shared/data/benchmarks/`, `shared/data/crr/` — **에이전트 산출물**, 정형 형식
+- `shared/data/forecasts/`, `shared/data/pnl/`, `shared/data/crr/` — **에이전트 산출물**, 정형 형식
 - `shared/data/raw/` — vendor cache. 재실행 비용 절감용. 형식 자유.
 
 ---

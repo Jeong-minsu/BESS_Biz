@@ -1,5 +1,5 @@
 """
-P&L Manager — yesterday's GKS actuals + Smartbidder benchmark fetch (production)
+P&L Manager — yesterday's GKS actuals fetch (production)
 
 Run from BESS_Biz/ root:
     python shared/scripts/fetch_pnl_data.py
@@ -7,17 +7,17 @@ Run from BESS_Biz/ root:
 
 Pulls (per agents/pnl-manager.md):
 - Tenaska PTP   — Energy & AS Details, HSL, DA Energy Bid, DA Energy-only Offer
-- Smartbidder   — `/plots/Revenue Summary` for
-                  "AA - Mount Blue Sky with Virtuals (RTC version)"
+
+The Smartbidder benchmark (Mount Blue Sky) was dropped when the subscription
+ended (2026-10). Tyba has no benchmark/shadow-asset API yet — no replacement.
 
 First run automatically discovers Tenaska PTP {ROOT} and {ENDPOINT} slugs and
 caches them to shared/scripts/.tenaska_endpoints.json so subsequent runs go
 straight to /query-columnar.
 
 Required .env keys:
-    TENASKA_USERNAME, TENASKA_PASSWORD
-    APPLICATION_ID, CLIENT_ID, CLIENT_SECRET    (Smartbidder MSAL)
-    SMARTBIDDER_CLIENT (default: apex), SMARTBIDDER_RESOURCE (default: Kiskadee Storage)
+    TENASKA_USERNAME, TENASKA_PASSWORD   (or USERNAME/PASSWORD under the Tenaska header)
+    TENASKA_RESOURCE_FILTER              (optional, default: Kiskadee)
 """
 from __future__ import annotations
 
@@ -45,17 +45,11 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]   # BESS_Biz/
 ENV_PATH     = PROJECT_ROOT / ".env"
 RAW_DIR      = PROJECT_ROOT / "shared" / "data"
 PNL_DIR      = RAW_DIR / "pnl" / "gks" / "hourly"
-BENCH_DIR    = RAW_DIR / "benchmarks" / "smartbidder" / "daily"
 CACHE_DIR    = Path(__file__).resolve().parent / ".cache"
 ENDPOINT_CACHE = CACHE_DIR / "tenaska_endpoints.json"
 TOKEN_CACHE    = CACHE_DIR / "tenaska_token.json"
 
 PTP_BASE         = "https://api.ptp.energy"
-SMARTBIDDER_BASE = "https://data.ascendanalytics.com"
-# Exact strategy string registered on the Ascend side for this account.
-# Verified against the SmartBidder UI URL: /plots/Revenue Summary?strategies=...
-# Note the 'AA - ' prefix and lowercase 'version'.
-BENCHMARK_NAME   = "AA - Mount Blue Sky with Virtuals (RTC version)"
 
 
 # ---------- Tenaska auth (Basic → Bearer, 24h cache) ----------
@@ -295,77 +289,11 @@ def flatten_query(j: dict[str, Any]) -> list[dict[str, Any]]:
     return rows
 
 
-# ---------- Smartbidder benchmark revenue ----------
-def smartbidder_token(sb_section: dict[str, str]) -> str:
-    """sb_section: 'smartbidder' section dict from load_env_sections()."""
-    try:
-        from msal import ConfidentialClientApplication
-    except ImportError:
-        sys.exit("❌ pip install msal — required for Smartbidder")
-
-    application_id = sb_section.get("APPLICATION_ID",
-                                    "https://dataascendanalyticscom.azurewebsites.net")
-    client_id     = sb_section.get("CLIENT_ID")
-    client_secret = sb_section.get("CLIENT_SECRET")
-    tenant        = sb_section.get("_TENANT", "onascend.com")
-    authority     = f"https://login.microsoftonline.com/{tenant}"
-    if not client_id or not client_secret:
-        sys.exit("❌ Smartbidder CLIENT_ID / CLIENT_SECRET missing in [smartbidder] section of .env")
-
-    app = ConfidentialClientApplication(client_id, client_secret, authority)
-    res = app.acquire_token_for_client([f"{application_id}/.default"])
-    if "access_token" not in res:
-        sys.exit(f"❌ Smartbidder token error: {res.get('error_description', res)}")
-    return res["access_token"]
-
-
-def smartbidder_revenue_summary(token: str, sb_section: dict[str, str],
-                                flowday: date) -> Any:
-    """Fetch the benchmark revenue summary from the Plots API.
-
-    Mirrors the SmartBidder UI URL exactly:
-      /plots/Revenue Summary?client=apex&iso=ERCOT&resource=Kiskadee Storage
-        &start_date=<flowday>T00:00:00-06:00&end_date=<flowday+1>T00:00:00-06:00
-        &node=GKS_BESS_RN&strategies=AA - Mount Blue Sky with Virtuals (RTC version)
-        &cache_bust=false
-
-    Returns the raw JSON response (plot endpoints aren't always {columns, data}-shaped).
-    """
-    client   = first(sb_section, "SMARTBIDDER_CLIENT", default="apex")
-    resource = first(sb_section, "Resource", "SMARTBIDDER_RESOURCE",
-                     default="Kiskadee Storage")
-    node     = first(sb_section, "SMARTBIDDER_NODE", default="GKS_BESS_RN")
-    next_day = flowday + timedelta(days=1)
-    params = {
-        "client":     client,
-        "iso":        "ERCOT",
-        "resource":   resource,
-        "start_date": f"{flowday.isoformat()}T00:00:00-06:00",
-        "end_date":   f"{next_day.isoformat()}T00:00:00-06:00",
-        "node":       node,
-        "strategies": BENCHMARK_NAME,
-        "cache_bust": "false",
-    }
-    plot_type = urllib.parse.quote("Revenue Summary")
-    url = f"{SMARTBIDDER_BASE}/plots/{plot_type}"
-    headers = {"Authorization": f"Bearer {token}", "Accept": "application/json"}
-    r = requests.get(url, params=params, headers=headers, timeout=120)
-    if r.status_code == 204:
-        print("   ⚠️ Smartbidder Revenue Summary 204 No Content — no data for this flowday")
-        return None
-    if r.status_code >= 400:
-        print(f"   ❌ {r.status_code} body: {r.text[:500]}")
-    r.raise_for_status()
-    return r.json()
-
-
 # ---------- main ----------
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--flowday", default=None,
                     help="Flowday to fetch (YYYY-MM-DD). Default = yesterday.")
-    ap.add_argument("--skip-smartbidder", action="store_true", default=False,
-                    help="Skip the Smartbidder /plots/Revenue Summary fetch.")
     ap.add_argument("--rediscover", action="store_true",
                     help="Force rediscovery of Tenaska endpoints")
     args = ap.parse_args()
@@ -376,15 +304,13 @@ def main() -> None:
 
     sections = load_env_sections(ENV_PATH)
     tk_section = sections.get("tenaska", {})
-    sb_section = sections.get("smartbidder", {})
     PNL_DIR.mkdir(parents=True, exist_ok=True)
-    BENCH_DIR.mkdir(parents=True, exist_ok=True)
 
     # Tenaska resource filter: friendly name (Tenaska Entity/Generator namespace),
     # NOT the ERCOT settlement point ('GKS_BESS_RN' is the settlement node, separate ns).
     # For GKS BESS this is 'Kiskadee' (matches: 'Great Kiskadee Storage, LLC',
     #   'Great Kiskadee Storage, LLC Gen', 'Great Kiskadee Storage - ESR').
-    resource_filter = first(sb_section, "TENASKA_RESOURCE_FILTER", default="Kiskadee")
+    resource_filter = first(tk_section, "TENASKA_RESOURCE_FILTER", default="Kiskadee")
     print(f"   Tenaska resource filter: contains {resource_filter!r}")
 
     # --- Tenaska ---
@@ -405,8 +331,8 @@ def main() -> None:
                              "ids":  [GKS_ESR_UUID]},
         "hsl":              {"def": "Generator", "filter": "Kiskadee",
                              "path": "query-columnar"},
-        # Submissions-* are populated only if WE submit bids via PTP (we use Smartbidder
-        # instead) — expected to be empty.
+        # Submissions-* are populated only if WE submit bids via PTP (bids are not
+        # submitted through PTP) — expected to be empty.
         "da_energy_bid":    {"def": "Generator", "filter": "154b78dbd0de",
                              "path": "query-columnar"},
         "da_energy_offer":  {"def": "Generator", "filter": "154b78dbd0de",
@@ -464,39 +390,6 @@ def main() -> None:
                 agg[row["datapoint"]] += v
         for k, v in sorted(agg.items()):
             print(f"   • {k:30s} sum={v:>12,.2f}")
-
-    # --- Smartbidder benchmark ---
-    if not args.skip_smartbidder:
-        print(f"\n📥 Smartbidder Revenue Summary ({BENCHMARK_NAME}) ...")
-        try:
-            sb_token = smartbidder_token(sb_section)
-            j = smartbidder_revenue_summary(sb_token, sb_section, flowday)
-            out = BENCH_DIR / f"{flowday.isoformat()}_revenue_summary.json"
-            out.write_text(json.dumps(j, indent=2, default=str), encoding="utf-8")
-            if j is None:
-                print(f"   saved → {out.relative_to(PROJECT_ROOT)}  (empty)")
-            elif isinstance(j, dict) and "Total" in j and isinstance(j["Total"], dict):
-                # Plot returns pandas to_dict() shape: {column: {row_idx: value}}
-                n_rows = len(j["Total"])
-                total_sum = sum(v for v in j["Total"].values()
-                                if isinstance(v, (int, float)))
-                print(f"   saved → {out.relative_to(PROJECT_ROOT)}  ({n_rows} rows, "
-                      f"{len(j)} cols)")
-                print(f"     Total sum:          ${total_sum:>12,.2f}")
-                # Cumulative Revenue last row, if present, is the running EOD value
-                cum = j.get("Cumulative Revenue")
-                if isinstance(cum, dict) and cum:
-                    last_key = max(cum.keys(), key=lambda k: int(k) if str(k).isdigit() else -1)
-                    print(f"     Cumulative @ EOD:   ${cum[last_key]:>12,.2f}")
-            else:
-                shape = (f"dict keys={list(j.keys())[:8]}" if isinstance(j, dict)
-                         else f"list len={len(j)}" if isinstance(j, list)
-                         else type(j).__name__)
-                print(f"   saved → {out.relative_to(PROJECT_ROOT)}  ({shape})")
-        except SystemExit:
-            raise
-        except Exception as e:
-            print(f"   ⚠️ Smartbidder fetch failed (non-fatal): {type(e).__name__}: {e}")
 
     # --- Summary ---
     summary = {

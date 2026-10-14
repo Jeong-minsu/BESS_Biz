@@ -11,7 +11,7 @@
 cd 'C:\Users\00904\ERCOT Projects\BESS_Biz'
 
 # 2. 의존성 설치
-pip install requests pandas msal
+pip install requests pandas truststore   # truststore: 사내 SSL 가로채기 대응 (선택)
 
 # 3. .env 점검 (아래 §3 참고)
 ```
@@ -33,8 +33,11 @@ python shared\scripts\fetch_market_data.py
 # 명시적 날짜
 python shared\scripts\fetch_market_data.py --target-date 2026-05-01
 
-# Smartbidder 건너뛰기 (Yes Energy만)
-python shared\scripts\fetch_market_data.py --skip-smartbidder
+# Tyba 건너뛰기 (Yes Energy만)
+python shared\scripts\fetch_market_data.py --skip-tyba
+
+# Tyba만 단독 실행 (default D+1)
+python shared\scripts\fetch_tyba_forecast.py [YYYY-MM-DD]
 ```
 
 ### 필요 .env 키
@@ -42,21 +45,20 @@ python shared\scripts\fetch_market_data.py --skip-smartbidder
 | 키 | 용도 | 필수? |
 |---|---|---|
 | `YES_ENERGY_USERNAME`, `YES_ENERGY_PASSWORD` | Yes Energy DataSignals | ✅ |
-| `APPLICATION_ID`, `CLIENT_ID`, `CLIENT_SECRET` | Smartbidder MSAL | (Smartbidder 사용 시) |
-| `SMARTBIDDER_CLIENT` (default `apex`), `SMARTBIDDER_RESOURCE` (default `Kiskadee Storage`) | account 식별 | 선택 |
+| `TOKEN` (`# Tyba API` 섹션) | Tyba REST (`Authorization: <TOKEN>`, Bearer 없음) | (Tyba 사용 시) |
 
 ### 산출물
 
 - `shared/data/raw/yes-energy/{date}.csv` — 9개 bidclose 항목 hourly
 - `shared/data/raw/yes-energy/{date}_summary.json` — 24h mean / top2 / bot2 HE
-- `shared/data/raw/smartbidder/{date}_Energy_Price_Forecasts.csv`
-- `shared/data/raw/smartbidder/{date}_Ancillary_Price_Forecasts.csv`
+- `shared/data/raw/tyba/{date}_GKS_forecast.csv` — HE 1–24 CT. `DA_LMP`, `RT_LMP` (GKS_BESS_RN, P50 $/MWh), `P_RT_gt_DA`, `P_DA_gt_RT` (합=1), `NSPIN`, `REGDN`, `REGUP`, `RRS`, `ECRS` (ERCOT 시스템 단일 DA AS, P50). `{date}_summary.json`의 `"tyba"` 키에도 경로 기록.
+  - Vintage: D-1 ~06:00 CT publish (10:00 CT bid close 이전 → leakage-free). Smartbidder 대체 (2026-10).
 
 ---
 
 ## 2. `fetch_pnl_data.py` — P&L Manager (전일 실적)
 
-매일 아침 사이클에서 self-review를 위해 필요. 어제(D-1) 정산 결과 + Smartbidder benchmark.
+매일 아침 사이클에서 self-review를 위해 필요. 어제(D-1) 정산 결과 (Tenaska only). 벤치마크: 현재 미운영 (Smartbidder 해지 2026-10, Tyba Shadow asset API 문의 중).
 
 ### 첫 실행 — Tenaska endpoint 디스커버리
 
@@ -94,9 +96,6 @@ python shared\scripts\fetch_pnl_data.py
 
 # 명시적 날짜
 python shared\scripts\fetch_pnl_data.py --flowday 2026-04-29
-
-# Smartbidder benchmark 건너뛰기
-python shared\scripts\fetch_pnl_data.py --skip-smartbidder
 ```
 
 ### 필요 .env 키
@@ -104,8 +103,7 @@ python shared\scripts\fetch_pnl_data.py --skip-smartbidder
 | 키 | 용도 | 필수? |
 |---|---|---|
 | `TENASKA_USERNAME`, `TENASKA_PASSWORD` | Tenaska PTP | ✅ |
-| `APPLICATION_ID`, `CLIENT_ID`, `CLIENT_SECRET` | Smartbidder MSAL | ✅ |
-| `SMARTBIDDER_CLIENT`, `SMARTBIDDER_RESOURCE` | account 식별 | 선택 |
+| `TENASKA_RESOURCE_FILTER` (default `Kiskadee`) | Tenaska resource filter | 선택 |
 
 > **현재 `.env`에 `TENASKA_USERNAME`/`TENASKA_PASSWORD`가 없음.** 추가 필요. (확인 결과 §3)
 
@@ -116,8 +114,6 @@ python shared\scripts\fetch_pnl_data.py --skip-smartbidder
 - `shared/data/pnl/gks/hourly/{flowday}_da_energy_bid.json`
 - `shared/data/pnl/gks/hourly/{flowday}_da_energy_offer.json`
 - `shared/data/pnl/gks/hourly/{flowday}_summary.json`
-- `shared/data/benchmarks/smartbidder/daily/{flowday}_daily.json`
-- `shared/data/benchmarks/smartbidder/daily/{flowday}_hourly.json`
 
 ---
 
@@ -132,8 +128,9 @@ USERNAME/PASSWORD가 여러 벤더에서 중복으로 쓰이므로, **섹션 헤
 | `ERCOT` | `ercot` |
 | `Enverus` | `enverus` |
 | `AG2` | `ag2` |
-| `Smartbidder` (또는 `smartbid`) | `smartbidder` |
 | `Tenaska` | `tenaska` |
+| `Tyba` | `tyba` |
+| `Smartbidder` (또는 `smartbid`) | `smartbidder` (legacy — 2026-10 해지, 미사용) |
 
 ### 권장 `.env` 레이아웃 (현재 구조 그대로 유지하면 됨)
 
@@ -160,17 +157,12 @@ USER=...
 PASSWORD=...
 Profile=...
 
-# Smartbidder API Credentials
-APPLICATION_ID=...
-CLIENT_ID=...
-CLIENT_SECRET=...
-_TENANT=...
-Resource=Kiskadee Storage
-Node=GKS_BESS_RN
-
 # Tenaska portal Credentials
 TENASKA_USERNAME=...
 TENASKA_PASSWORD=...
+
+# Tyba API
+TOKEN=...
 ```
 
 > 각 섹션 안의 `USERNAME`/`PASSWORD`는 그 섹션의 자격증명으로 인식됩니다. 명명을 바꿀 필요 없음.
@@ -180,11 +172,9 @@ TENASKA_PASSWORD=...
 | 코드가 찾는 키 | 섹션 | 우선순위 |
 |---|---|---|
 | Yes Energy creds | `yes_energy` | `YES_ENERGY_USERNAME`, `YES_ENERGY_PASSWORD` |
-| Smartbidder MSAL | `smartbidder` | `APPLICATION_ID`, `CLIENT_ID`, `CLIENT_SECRET`, `_TENANT` |
-| Smartbidder client (account name) | `smartbidder` | `SMARTBIDDER_CLIENT` → default `apex` |
-| Smartbidder resource | `smartbidder` | `Resource` → `SMARTBIDDER_RESOURCE` → default `Kiskadee Storage` |
+| Tyba token | `tyba` | `TOKEN` |
 | Tenaska creds | `tenaska` | `TENASKA_USERNAME`/`TENASKA_PASSWORD` → fallback to generic `USERNAME`/`PASSWORD` |
-| Tenaska resource filter | `smartbidder` (`Node`) | `Node` → `TENASKA_NODE` → default `GKS` substring |
+| Tenaska resource filter | `tenaska` | `TENASKA_RESOURCE_FILTER` → default `Kiskadee` |
 | Enverus creds | `enverus` | `USERNAME`, `PASSWORD` (섹션 분리로 AG2 PASSWORD와 충돌 없음) |
 | AG2 creds | `ag2` | `USER`, `PASSWORD`, `Profile` |
 
@@ -198,8 +188,8 @@ python shared\scripts\_env_loader.py
 
 ```
 [yes_energy]    2 keys (USERNAME, PASSWORD)
-[smartbidder]   6 keys (APPLICATION_ID, CLIENT_ID, CLIENT_SECRET, _TENANT, Resource, Node)
 [tenaska]       2 keys (TENASKA_USERNAME, TENASKA_PASSWORD)
+[tyba]          1 keys (TOKEN)
 [enverus]       2 keys
 [ag2]           3 keys
 [ercot]         3 keys
@@ -221,7 +211,7 @@ python shared\scripts\fetch_pnl_data.py
 python shared\scripts\fetch_market_data.py
 ```
 
-→ 산출물이 `shared/data/raw/`, `shared/data/pnl/`, `shared/data/benchmarks/` 에 저장됨.
+→ 산출물이 `shared/data/raw/`, `shared/data/pnl/` 에 저장됨.
 
 → 그 다음 Cowork에서 다음과 같이 호출:
 
@@ -256,9 +246,8 @@ python shared\scripts\fetch_market_data.py
 |---|---|
 | `ProxyError: Tunnel connection failed: 403` | 네트워크 환경의 proxy 정책. 회사 VPN / 다른 네트워크 시도. |
 | `401 Unauthorized` (Yes Energy / Tenaska) | 자격 증명 만료 또는 IP 미등록. 벤더에 갱신/등록 요청. |
-| Tenaska 403 (previously-working) | `client` / `resource` 문자열 정확 매칭 점검 + Ascend 측 IP 화이트리스트 |
-| Smartbidder 빈 응답 (204) | 해당 flowday에 데이터 없음. publish 시간 후 재시도. Smartbidder는 보통 D+1 새벽 publish. |
-| Smartbidder MSAL `secret expired` | client_secret이 12개월 만료. Ascend rep에 재발급 요청. |
+| Tenaska 403 (previously-working) | 실행 IP가 Tenaska 화이트리스트에 있는지 점검 (VPN/네트워크 변경 시) |
+| Tyba 401 / 422 / 빈 응답 | 401 → `# Tyba API` `TOKEN` 점검. 422 → 필수 파라미터(`start_time`/`end_time` UTC ISO 등) 점검. 빈 응답 → D-1 ~06:00 CT publish 이후 재시도. non-fatal (Yes Energy는 계속 저장). |
 | Tenaska validation `[Error 2106]` | over-filter — `elementFilter`에 'GKS' 매칭 안 됨. `--rediscover`로 endpoint 재선택. |
 | `.env` PASSWORD 충돌 (AG2 vs Enverus) | section-aware 파서 (`parse_env_sections()` in `fetch_market_data.py`) 사용 또는 `.env` 키 명 분리 (`AG2_PASSWORD`, `ENVERUS_PASSWORD` 등). |
 

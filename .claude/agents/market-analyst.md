@@ -36,15 +36,15 @@ model: inherit
 | GR_COASTAL WIND_STWPF_BIDCLOSE | Yes Energy | `WIND_STWPF_BIDCLOSE:GR_COASTAL` |
 | GR_SOUTH WIND_STWPF_BIDCLOSE | Yes Energy | `WIND_STWPF_BIDCLOSE:GR_SOUTH` |
 | ERCOT TOTAL_RESOURCE_CAP_OUT (Latest) | Yes Energy | `TOTAL_RESOURCE_CAP_OUT:ERCOT` |
-| DA / RT Energy 예측 가격 | Smartbidder | `/plots/Energy Price Forecasts` |
-| DA AS 예측 (RRS, ECRS, Non-spin) | Smartbidder | `/plots/Ancillary Price Forecasts` |
-| P(DA>RT), P(DA<RT) 예측 확률 | Smartbidder | `/forecast-composite` 또는 `/plots/DA-RT Forecast` |
+| DA / RT Energy 예측 가격 (GKS_BESS_RN, P50) | Tyba | `shared/data/raw/tyba/{D+1}_GKS_forecast.csv` → `DA_LMP`, `RT_LMP` |
+| DA AS 예측 (NSPIN, REGDN, REGUP, RRS, ECRS, P50) | Tyba | 同 파일 → `NSPIN`, `REGDN`, `REGUP`, `RRS`, `ECRS` (RT AS 예측은 미제공) |
+| P(DA>RT), P(DA<RT) 예측 확률 | Tyba | 同 파일 → `P_DA_gt_RT`, `P_RT_gt_DA` (합 = 1) |
 | AG2 자체 예측 (Load/Solar/Wind/Weather/가격) | AG2 (WSI Trader) | `GetHourlyLoadData`, `GetWindcastIQHourlyForecast`, `GetHourlyForecasts` |
 | Enverus 자체 예측 (Load/Net-load/Solar/Wind) | Enverus | Mosaic API (`env_forecast_load`, `env_forecast_net_load`, `env_forecast_generation_stpf`) |
 
 데이터 가져오는 방법: 다음 skill 호출
 - `skills/fetch-ercot-data/SKILL.md`
-- `skills/fetch-smartbidder-data/SKILL.md`
+- `skills/fetch-tyba-data/SKILL.md` (daily cycle에서는 `fetch_market_data.py` → `fetch_tyba_forecast.py` 가 위 CSV 생성. D-1 ~06:00 CT 발행 → leakage-free)
 
 ---
 
@@ -65,7 +65,7 @@ model: inherit
 
 ## Price View
 - DA Energy 평균 $X/MWh (top 2시: HE19, HE20 / bottom 2시: HE03, HE04)
-- RT spike 확률 (Smartbidder): HE18-20 P(RT>$100)=N%
+- RT 상방 view (Tyba RT_LMP P50): HE18-20 RT $N/MWh, P(DA<RT)=N% (RT spike 직접 확률은 미제공 → heuristic)
 - AS spread: RRS DA-RT spread −$N (RT 우위 가능성)
 
 ## Key Drivers
@@ -87,10 +87,10 @@ model: inherit
 ```
 Step 1. 데이터 수집
   - fetch-ercot-data skill → Yes Energy bidclose 항목 + AG2 + Enverus
-  - fetch-smartbidder-data skill → 가격 예측 + P(DA<RT) + AS 예측
+  - fetch-tyba-data skill (`shared/data/raw/tyba/`) → 가격 예측 + P(DA<RT) + DA AS 예측
 Step 2. 정량 요약
   - 24h 평균, peak/off-peak, top/bottom 2시간 추출
-  - Enverus & AG2 vs Yes Energy / Smartbidder vs ERCOT 자체 forecasts 갭 계산
+  - Enverus & AG2 vs Yes Energy / Tyba vs ERCOT 자체 forecasts 갭 계산
 Step 3. 정성 해석
   - 핵심 driver 식별 (날씨, outage, ramp, congestion 시그널)
   - 시장 구조·정책 변화 반영 (data center 신규 편입, 신규 발전소 commissioning, 정책 헤드라인)

@@ -8,7 +8,7 @@ description: ERCOT D+1 daily cycle 자동 실행 (페치 → 5개 에이전트 �
 
 ```bash
 python shared/scripts/fetch_pnl_data.py        # 어제 실적
-python shared/scripts/fetch_market_data.py     # 내일 시황 (yes-energy/{내일}.csv 생성)
+python shared/scripts/fetch_market_data.py     # 내일 시황 (yes-energy/{내일}.csv + tyba/{내일}_GKS_forecast.csv 생성)
 python shared/scripts/recommend_as_position.py # D+1 AS playbook 추천 (위 CSV 소비 → as-playbook/{내일}.json)
 ```
 
@@ -18,8 +18,8 @@ python shared/scripts/recommend_as_position.py # D+1 AS playbook 추천 (위 CSV
 ## Step 2. P&L 정리
 
 Task 도구로 `pnl-manager` 호출:
-- Input: Step 1의 `fetch_pnl_data.py` 출력 (`shared/data/raw/` — Tenaska + Smartbidder benchmark)
-- Expected output: `reports/daily/pnl/{어제}.md` + 정제 parquet (`shared/data/pnl/gks/{hourly,daily}/`, `shared/data/benchmarks/smartbidder/{hourly,daily}/`)
+- Input: Step 1의 `fetch_pnl_data.py` 출력 (`shared/data/raw/` — Tenaska only)
+- Expected output: `reports/daily/pnl/{어제}.md` + 정제 parquet (`shared/data/pnl/gks/{hourly,daily}/`)
 
 ## Step 3. 시황·혼잡 분석 (병렬)
 

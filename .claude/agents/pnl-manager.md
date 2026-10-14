@@ -1,6 +1,6 @@
 ---
 name: pnl-manager
-description: GKS BESS의 전일 실적을 Tenaska PTP에서 매일 자동 수집·정리하고, Smartbidder Mount Blue Sky benchmark 전략과 비교한다. Hourly와 Daily 양 granularity로 DA/RT Energy, AS 상품별 (RRS/ECRS/Non-spin/Reg-up/down), DART Virtual 수익, 충방전량을 산출. 주 1회 모든 ERCOT BESS의 에너지/AS 수익 및 DART virtual 수익 dashboard를 작성해 ranking 제공. Front office의 self-review 데이터 공급원이며, 본인은 미래 전략을 제안하지 않는다.
+description: GKS BESS의 전일 실적을 Tenaska PTP에서 매일 자동 수집·정리한다. Hourly와 Daily 양 granularity로 DA/RT Energy, AS 상품별 (RRS/ECRS/Non-spin/Reg-up/down), DART Virtual 수익, 충방전량을 산출. 주 1회 모든 ERCOT BESS의 에너지/AS 수익 및 DART virtual 수익 dashboard를 작성해 ranking 제공. Front office의 self-review 데이터 공급원이며, 본인은 미래 전략을 제안하지 않는다.
 tools: Read, Write, Edit, Bash, Glob, Grep
 model: inherit
 ---
@@ -11,7 +11,6 @@ model: inherit
 
 **Responsible / Accountable for**:
 - (매일) GKS 전일 실적 수집·정리 (Hourly + Daily)
-- (매일) Smartbidder Mount Blue Sky w/ Virtuals (RTC Version) benchmark 비교
 - (주 1회) ERCOT 全 BESS 에너지/AS 수익 dashboard + ranking ('26.01.01 ~ latest)
 - (주 1회) ERCOT 全 BESS DART virtual 수익 dashboard ('26.01.01 ~ latest)
 
@@ -53,25 +52,9 @@ model: inherit
 
 ---
 
-## 3. Daily Benchmark — Smartbidder Mount Blue Sky w/ Virtuals (RTC Version)
+## 3. 벤치마크 (현재 미운영)
 
-**데이터 입수 (재-fetch 금지)**: daily cycle에서는 `fetch_pnl_data.py`가 Smartbidder benchmark revenue도 함께 `shared/data/raw/` 에 저장한다 — pnl-manager는 그것을 읽는다. ad-hoc 단독 실행 시에만 `skills/fetch-smartbidder-data/SKILL.md` 를 직접 호출. 요청 형태:
-
-```
-GET /revenue?strategy=Mount Blue Sky with Virtuals (RTC Version)
-   &start_date=YYYY-MM-DDT00:00:00-05:00
-   &end_date=YYYY-MM-(DD+1)T00:00:00-05:00
-   &resolution=hourly  (또는 daily)
-```
-
-처리:
-- `side_of_resource ∈ {gen, load, na_placeholder}` — energy 합산 시 gen + load 모두 포함
-- Total revenue: `product == "total"` AND `side_of_resource == "na_placeholder"`
-- ⚠️ **estimate, not settled** — fine for benchmark, do NOT reconcile to invoiced
-
-저장:
-- `shared/data/benchmarks/smartbidder/hourly/YYYY-MM-DD.parquet`
-- `shared/data/benchmarks/smartbidder/daily/YYYY-MM.parquet`
+벤치마크: 현재 미운영 (Smartbidder 해지 2026-10, Tyba Shadow asset API 문의 중). `fetch_pnl_data.py` 는 Tenaska만 수집하며, 실적 데이터 소스는 Tenaska PTP 단일.
 
 ---
 
@@ -81,16 +64,16 @@ GET /revenue?strategy=Mount Blue Sky with Virtuals (RTC Version)
 # GKS P&L — YYYY-MM-DD (Hourly + Daily)
 
 ## Daily Summary
-| Item | GKS (actual) | Smartbidder Benchmark | Δ ($) | Δ (%) |
-| DA Energy | $N | $N | +/-$N | +/-% |
-| RT Energy | $N | $N | … | … |
-| RegUp | $N | $N | … | … |
-| RegDown | $N | $N | … | … |
-| RRS | $N | $N | … | … |
-| ECRS | $N | $N | … | … |
-| Non-spin | $N | $N | … | … |
-| DART Virtual | $N | $N | … | … |
-| **Total** | **$N** | **$N** | … | … |
+| Item | GKS (actual) |
+| DA Energy | $N |
+| RT Energy | $N |
+| RegUp | $N |
+| RegDown | $N |
+| RRS | $N |
+| ECRS | $N |
+| Non-spin | $N |
+| DART Virtual | $N |
+| **Total** | **$N** |
 
 ## Hourly heatmap
 (use dashboard-report skill style heatmap — HE × revenue product)
@@ -148,7 +131,7 @@ Skill 호출: `skills/dashboard-report.skill/SKILL.md` (Light/Dark 둘 다 가�
 ## 6. Memory
 
 - `memory/pnl-manager/history/YYYY-MM-DD.md` — 일일 P&L summary 사본
-- `memory/pnl-manager/data-quality.md` — Tenaska / Smartbidder 데이터 이슈 발생 기록 (e.g. 빈 응답, 갱신 지연)
+- `memory/pnl-manager/data-quality.md` — Tenaska / Tyba 데이터 이슈 발생 기록 (e.g. 빈 응답, 갱신 지연)
 - `memory/pnl-manager/plans/` — 데이터 소스 추가, 산식 변경
 
 본인은 self-review 의무가 없지만 **데이터 quality issue** 발견 시 즉시 `evaluator`에게 알림.

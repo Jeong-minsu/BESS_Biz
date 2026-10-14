@@ -8,7 +8,7 @@
 
 ## Rule 1: ECRS Inclusion (Summer Heat Season)
 
-- **Condition**: June 1 – September 30 AND DA Non-Spin or ECRS price signal exists (even without Smartbidder forecast, default to include during summer)
+- **Condition**: June 1 – September 30 AND DA Non-Spin or ECRS price signal exists (even without Tyba AS forecast, default to include during summer)
 - **Action**: Include ECRS as a co-offer product at 15-30 MW in HE20-24 (evening peak) and HE07-10 (morning ramp) unless capacity is fully committed to energy discharge
 - **Override**: Never exclude ECRS solely because it cleared $0 on prior day(s) during June–September. Pattern 14 (evaluator W24): ECRS cleared 4/7 weekdays in W24. The 2026-06-22 actual showed ECRS $756 at HE21-24 — significant missed revenue when not offered
 - **Exception**: If SoC at those hours is fully committed to energy discharge (SoC < 30 MWh), then ECRS offering is constrained by physical capacity; document as "ECRS excluded: SoC insufficient"
@@ -39,7 +39,7 @@
 
 - **Condition**: Before updating any multiplier (0.80x haircut, Non-Spin premium thresholds, charge window hours)
 - **Requirement**: 3+ new PRODUCTION-quality confirmed Tenaska data points required
-- **Do not update** based on 1-2 data points or Smartbidder benchmark-only (benchmark is PRODUCTION_ESTIMATE, not settled)
+- **Do not update** based on 1-2 data points or estimate-only (non-settled) data
 - **Exception**: User-confirmed structural change (e.g., Tenaska endpoint format change, new asset registration) may trigger immediate update with 1 data point
 
 ---
@@ -47,7 +47,7 @@
 ## Rule 5: DA Energy Row-Count Discrepancy
 
 - **Status**: UNRESOLVED — GKS DA Energy P&L frequently exists in Battery-Settlement-Details without matching DA bid/offer rows from Tenaska PTP Submissions endpoints (0 rows returned)
-- **Interim rule**: Do not adjust recommendations based on this discrepancy; flag in each report as "DA Energy bids submitted via Smartbidder/Ascend; Tenaska PTP Submissions endpoint returns 0 rows (expected)"
+- **Interim rule**: Do not adjust recommendations based on this discrepancy; flag in each report as "DA Energy bids are not submitted via Tenaska PTP; Tenaska PTP Submissions endpoint returns 0 rows (expected)"
 - **Escalate to user** if: Tenaska PTP returns 0 rows for Battery-Settlement-Details (the primary endpoint) for 3+ consecutive cycles
 - **Source**: W22 open issue; W23 plan; 2026-06-22 pnl report data quality note
 
@@ -80,7 +80,7 @@
 
 - **Status**: OPEN (since W23 plan — user action required; unresolved as of 2026-06-23)
 - **Action**: Include the following risk line in every recommendation until mechanism is confirmed by user:
-  "UNRESOLVED RISK: Involuntary RT dispatch at non-recommended hours observed on 2026-06-05 (estimated -$4,520 impact). Origin unconfirmed (Smartbidder RT layer override vs. ERCOT auto-dispatch vs. settlement artifact). Base-case revenue estimate does not account for this risk. Recommend confirming execution flow with Tenaska/Smartbidder."
+  "UNRESOLVED RISK: Involuntary RT dispatch at non-recommended hours observed on 2026-06-05 (estimated -$4,520 impact). Origin unconfirmed (bidding-platform RT layer override vs. ERCOT auto-dispatch vs. settlement artifact). Base-case revenue estimate does not account for this risk. Recommend confirming execution flow with Tenaska."
 - **Source**: W23 plan Issue 1; 2026-06-07 learnings
 
 ---
@@ -89,7 +89,7 @@
 
 | Parameter | Value | Source | Last confirmed |
 |---|---|---|---|
-| Round-trip efficiency (RTE) | 85% (0.85) | CLAUDE.md asset spec; Smartbidder default | Always |
+| Round-trip efficiency (RTE) | 85% (0.85) | CLAUDE.md asset spec | Always |
 | GKS capacity | 100 MW / 200 MWh | Asset spec | Always |
 | DA Energy projection haircut | 0.80x | W22 calibration | 2026-05-24 |
 | Non-Spin DA MW default | 88 MW (HE01-18) | 2026-06-22 actual: 75 MW avg cleared | 2026-06-22 |

@@ -3,6 +3,8 @@ name: fetch-smartbidder-data
 description: Use when fetching data from Ascend Analytics SmartBidder for ERCOT BESS — next-day DA/RT energy price forecasts, DA ancillary price forecasts, P(DA<RT)/P(DA>RT) spike probabilities, hourly state-of-charge for the prior day, and previous-day revenue summary for benchmark strategies (e.g., "Mount Blue Sky with Virtuals (RTC Version)"). Documents OAuth2 (MSAL) auth, the per-data-type endpoint, request schema, and ERCOT-side gotchas (load/gen sides, hour-ending semantics, plot vs data API).
 ---
 
+> ⛔ **DEPRECATED (2026-10)** — Smartbidder 구독 종료. 예측 데이터는 [`skills/fetch-tyba-data/SKILL.md`](../fetch-tyba-data/SKILL.md) 사용. 벤치마크(Mount Blue Sky)는 대체 소스 없음. 이 문서는 과거 데이터/스크립트 해석용 아카이브.
+
 # Fetch SmartBidder Data
 
 Ascend Analytics SmartBidder exposes operational data for a configured BESS / renewable resource: model-generated forecasts, generated bids, awards, SOC, and per-strategy revenue. This skill covers the read-only (GET) access pattern for downstream modeling.

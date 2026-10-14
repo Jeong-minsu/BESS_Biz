@@ -15,7 +15,6 @@
 Wall Clock (CT)    Agent                        Output
 ───────────────────────────────────────────────────────────────
 T-90m  (06:00)     pnl-manager                  shared/data/pnl/gks/{D-1}
-                                                shared/data/benchmarks/smartbidder/{D-1}
                                                 reports/daily/pnl/{D-1}.md
                        │
                        ▼
@@ -52,7 +51,7 @@ T-0    (07:30)     사용자에게 computer:// 링크 전달 ✅
 
 | 단계 | Time | Agent(s) | Depends on | Output 위치 |
 |---|---|---|---|---|
-| ① | T-90m | `pnl-manager` | — (Tenaska / Smartbidder 직접 호출) | `shared/data/pnl/`, `reports/daily/pnl/` |
+| ① | T-90m | `pnl-manager` | — (Tenaska 직접 호출) | `shared/data/pnl/`, `reports/daily/pnl/` |
 | ② | T-75m | `market-analyst` | (pnl-manager 결과는 self-review용으로 참조) | `shared/data/forecasts/market-view/`, `reports/daily/market-briefing/` |
 | ② | T-75m | `congestion-analyst` | — (market-analyst와 병렬) | `shared/data/forecasts/congestion/`, `reports/daily/congestion/` |
 | ③ | T-60m | `bess-optimizer` | ②(둘 다) + ① | `reports/daily/bess-stack/` |
@@ -87,7 +86,7 @@ T-0    (07:30)     사용자에게 computer:// 링크 전달 ✅
 | 데이터 | 가용성 시간 (CT, Houston) |
 |---|---|
 | Tenaska 전일 실적 (final) | D 04:00 CT (D-1 정산 마감 후) |
-| Smartbidder 전일 revenue | D 02:00 CT |
+| Tyba D+1 forecast (DA/RT energy, DA AS, P(RT>DA)) | D-1 ~06:00 CT (bid close 이전 → leakage-free) |
 | Yes Energy DAM bidclose | D-1 10:00 CT |
 | Yes Energy load/wind/solar bidclose | D-1 10:00 CT |
 | ERCOT 60-day disclosure (전전날) | D 00:00 CT |
@@ -103,7 +102,7 @@ Front/Middle 5개 에이전트가 각자 본인 memory에 self-review 파일 작
 ```
 memory/market-analyst/learnings/{D-1}.md         ← 어제 본인 view vs 실측
 memory/congestion-analyst/learnings/{D-1}.md     ← 어제 binding 예측 vs 실측
-memory/bess-optimizer/learnings/{D-1}.md         ← 어제 stack 추천 vs 실현 + vs Smartbidder
+memory/bess-optimizer/learnings/{D-1}.md         ← 어제 stack 추천 vs 실현
 memory/dart-virtual-trader/learnings/{D-1}.md    ← 어제 포지션 hit rate, 손익비
 memory/crr-trader/learnings/                     ← 옥션 후에만 (대부분 N/A)
 ```
@@ -194,7 +193,7 @@ schtasks /create /tn "ERCOT Daily Cycle" `
 | 실패 시나리오 | 대응 |
 |---|---|
 | Tenaska 전일 데이터 미게시 | pnl-manager가 `data-quality.md`에 기록 + `evaluator`에 알림. Daily Report 진행 (실적 N/A로 표기). |
-| Smartbidder 401 (인증 만료) | `.env`의 `SMARTBIDDER_CLIENT_SECRET` 재발급 필요. 사용자에 알림 후 일시 중단. |
+| Tyba 401 / 422 / 빈 응답 | 401 → `.env` `# Tyba API` `TOKEN` 점검, 422 → 요청 파라미터 점검. non-fatal — `fetch_market_data.py`는 Yes Energy 저장 후 계속, market-analyst가 Tyba 섹션 DEGRADED 표기. |
 | Yes Energy 429 (rate limit) | Skill 내장 backoff (5/10/15s) 시도. 5분 후 재시도. 그래도 실패 시 사용자에 알림. |
 | Reporter T-15m 도착 시 의존 산출물 누락 | 누락 에이전트 1회 retrigger. 두 번째 실패 시 partial report (누락 섹션 명시) + 사용자에 escalate. |
 | Self-review 미작성 | Daily Report에 "self-review pending" 표기. Evaluator weekly run에서 패널티 점수. |
@@ -206,7 +205,7 @@ schtasks /create /tn "ERCOT Daily Cycle" `
 **모든 wall-clock 시간은 CT (Central Time, America/Chicago, DST 자동)** = Houston 로컬 시간.
 - Standard (winter): CST = UTC−6
 - Daylight (summer): CDT = UTC−5
-- ERCOT 운영 native time. 모든 vendor (ERCOT API, Yes Energy, Smartbidder, Tenaska 의 로컬 변환) 도 동일 기준.
+- ERCOT 운영 native time. 모든 vendor (ERCOT API, Yes Energy, Tyba, Tenaska 의 로컬 변환) 도 동일 기준.
 
 **Cycle 타이밍**:
 - D 07:30 CT 사이클 시작

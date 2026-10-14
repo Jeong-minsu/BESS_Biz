@@ -17,7 +17,7 @@ Front Office (입찰·트레이딩)        Middle Office (시장 인텔리전스
        │ self-feedback                 │ 어제 실적
        ▼                               │
 Back Office
-├ pnl-manager   (Tenaska 실적 + Smartbidder benchmark)
+├ pnl-manager   (Tenaska 실적)
 ├ evaluator     (주 1회 7개 에이전트 점검)
 └ reporter      (07:30 CT Daily Report 통합)
 ```
@@ -35,7 +35,7 @@ Back Office
 | `bess-optimizer` | Front | GKS DA/RT Energy + AS revenue stack 최적 제안 |
 | `dart-virtual-trader` | Front | DART virtual short/long 포지션 + 승률·손익비 |
 | `crr-trader` | Front | CRR 옥션 트레이딩 기회 3개 (옥션 사이클별) |
-| `pnl-manager` | Back | 전일 GKS 실적 + Smartbidder benchmark + 全 BESS 랭킹 |
+| `pnl-manager` | Back | 전일 GKS 실적 + 全 BESS 랭킹 (벤치마크: 현재 미운영 — Smartbidder 해지 2026-10, Tyba Shadow asset API 문의 중) |
 | `evaluator` | Back | 주 1회 7개 에이전트 work process / approach / resource 점검 |
 | `reporter` | Back | Daily/Weekly 리포트 통합 (자체 분석 추가 X — 취합만) |
 
@@ -52,8 +52,8 @@ BESS_Biz/
 ├── .env                          ← 자격증명 (절대 commit 금지)
 ├── .env.example                  ← 템플릿
 ├── agensts/CONGESTION_PROJECT.md ← Congestion 모델 명세 (오타 폴더명 보존)
-├── API Docs/                     ← AG2 / Smartbidder / Tenaska / S3 원문
-├── skills/                       ← fetch-ercot-data, fetch-smartbidder-data,
+├── API Docs/                     ← AG2 / Tyba / Tenaska / S3 원문 (Smartbidder 문서는 archive)
+├── skills/                       ← fetch-ercot-data, fetch-tyba-data (fetch-smartbidder-data는 deprecated),
 │                                   fetch-tenaska-ptp-data, dashboard-report,
 │                                   estimate-bess-energy-as,     ← 全 BESS energy/AS 수익 추정 (vendored SCED)
 │                                   estimate-bess-dart-virtual   ← 全 BESS DART virtual 수익 추정 (vendored)
@@ -63,8 +63,9 @@ BESS_Biz/
 │   ├── data/{forecasts,pnl,benchmarks,crr,raw}/   ← 공유 데이터
 │   └── scripts/                  ← production fetch scripts (Python)
 │       ├── _env_loader.py        ← section-aware .env 파서
-│       ├── fetch_market_data.py  ← Yes Energy + Smartbidder
-│       └── fetch_pnl_data.py     ← Tenaska + Smartbidder benchmark
+│       ├── fetch_market_data.py  ← Yes Energy + Tyba
+│       ├── fetch_tyba_forecast.py ← Tyba D+1 GKS 가격·AS·P(RT>DA) forecast
+│       └── fetch_pnl_data.py     ← Tenaska
 ├── reports/{daily,weekly,monthly,ad-hoc}/
 └── orchestration/                ← 워크플로우 정의
 ```
@@ -75,13 +76,13 @@ BESS_Biz/
 
 ```bash
 # Python 의존성
-pip install requests pandas msal
+pip install requests pandas truststore
 
 # .env 검증 (7개 섹션 모두 정상 인식 확인)
 python shared/scripts/_env_loader.py
 ```
 
-**.env 형식 규약**: 섹션 헤더(`# Vendor Credentials`)로 그룹화 필수. USERNAME/PASSWORD가 여러 벤더에서 중복 — `_env_loader.py`가 헤더 기반으로 분리한다. 헤더 키워드: `Yes Energy Datalake`, `Yes Energy`, `ERCOT`, `Enverus`, `AG2`, `Smartbidder`, `Tenaska`. 자세한 매핑: [`shared/scripts/README.md`](./shared/scripts/README.md).
+**.env 형식 규약**: 섹션 헤더(`# Vendor Credentials`)로 그룹화 필수. USERNAME/PASSWORD가 여러 벤더에서 중복 — `_env_loader.py`가 헤더 기반으로 분리한다. 헤더 키워드: `Yes Energy Datalake`, `Yes Energy`, `ERCOT`, `Enverus`, `AG2`, `Tenaska`, `Tyba`. 자세한 매핑: [`shared/scripts/README.md`](./shared/scripts/README.md).
 
 ---
 
@@ -91,8 +92,8 @@ python shared/scripts/_env_loader.py
 > 07:30 CT 시작 → DAM bid cutoff 10:00 CT 까지 2.5h 검토 버퍼.
 
 ```
-1. python shared/scripts/fetch_pnl_data.py        ← 어제 실적 (Tenaska + Smartbidder)
-2. python shared/scripts/fetch_market_data.py     ← 내일 시황 (Yes Energy + Smartbidder)
+1. python shared/scripts/fetch_pnl_data.py        ← 어제 실적 (Tenaska)
+2. python shared/scripts/fetch_market_data.py     ← 내일 시황 (Yes Energy + Tyba)
 3. python shared/scripts/recommend_as_position.py ← D+1 AS playbook 추천 (fine, bess-optimizer prior)
 4. Task → pnl-manager   "어제 실적 정리"
 5. Task → market-analyst, congestion-analyst   (병렬)
@@ -132,8 +133,8 @@ python shared/scripts/_env_loader.py
 ## 외부 환경 제약
 
 - **ERCOT 데이터 벤더 도메인**: 일부 회사 네트워크/sandbox에서 차단될 수 있음. fetch 스크립트는 사용자 로컬 또는 회사 VPN에서 실행.
-- **Tenaska PTP**: 사용자 IP가 Ascend 화이트리스트에 있어야 함. 첫 실행은 endpoint 4개 인터랙티브 디스커버리.
-- **Smartbidder MSAL**: client_secret 12개월마다 만료 → Ascend rep에 갱신 요청.
+- **Tenaska PTP**: 사용자 IP가 Tenaska 화이트리스트에 등록돼 있어야 함 (클라우드 IP 불가). 첫 실행은 endpoint 4개 인터랙티브 디스커버리.
+- **Tyba**: `.env` `# Tyba API` TOKEN (PAT). 도메인 `dev.tybaenergy.com` — 클라우드 루틴 네트워크 allowlist에 추가 필요. (Smartbidder는 2026-10 해지)
 
 ---
 

@@ -5,13 +5,14 @@ Run from BESS_Biz/ root:
     python shared/scripts/fetch_market_data.py
     python shared/scripts/fetch_market_data.py --target-date 2026-05-01
 
-Reads .env from project root, calls Yes Energy DataSignals + Smartbidder,
+Reads .env from project root, calls Yes Energy DataSignals + Tyba,
 saves raw outputs to shared/data/raw/{vendor}/{date}.csv|json,
 prints quick 24h summary stats to stdout.
 
 Vendors covered:
 - Yes Energy: 9 bidclose items per market-analyst.md §2
-- Smartbidder: Energy + AS price forecasts, P(DA<RT)
+- Tyba: GKS_BESS_RN DA/RT energy + ERCOT DA AS price forecasts, P(RT>DA)/P(DA>RT)
+  (replaced Smartbidder 2026-10 — see fetch_tyba_forecast.py)
 - AG2 WSI Trader: weather + WindCast IQ wind + hourly load forecast
 - Enverus Mosaic: load / net-load / solar / wind forecasts
 
@@ -25,7 +26,6 @@ import json
 import os
 import sys
 import time
-import urllib.parse
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
@@ -33,7 +33,8 @@ from typing import Any
 import requests
 from requests.auth import HTTPBasicAuth
 
-from _env_loader import load_env_sections, first  # local helper
+from _env_loader import load_env_sections  # local helper
+from fetch_tyba_forecast import fetch_tyba_forecast, save as save_tyba
 
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
@@ -128,49 +129,6 @@ def quick_stats_yes(csv_text: str) -> dict[str, Any]:
             "bottom2_HE": bot2["HOURENDING"].tolist(),
         }
     return out
-
-
-# ---------- Smartbidder (MSAL) ----------
-SMARTBIDDER_BASE = "https://data.ascendanalytics.com"
-
-
-def smartbidder_token(sb_section: dict[str, str]) -> str:
-    """sb_section: the 'smartbidder' section dict from load_env_sections()."""
-    try:
-        from msal import ConfidentialClientApplication
-    except ImportError:
-        sys.exit("❌ pip install msal — required for Smartbidder")
-
-    application_id = sb_section.get("APPLICATION_ID",
-                                    "https://dataascendanalyticscom.azurewebsites.net")
-    client_id     = sb_section.get("CLIENT_ID")
-    client_secret = sb_section.get("CLIENT_SECRET")
-    tenant        = sb_section.get("_TENANT", "onascend.com")
-    authority     = f"https://login.microsoftonline.com/{tenant}"
-
-    if not client_id or not client_secret:
-        sys.exit("❌ Smartbidder CLIENT_ID / CLIENT_SECRET missing in [smartbidder] section of .env")
-
-    app = ConfidentialClientApplication(client_id, client_secret, authority)
-    res = app.acquire_token_for_client([f"{application_id}/.default"])
-    if "access_token" not in res:
-        sys.exit(f"❌ Smartbidder token error: {res.get('error_description', res)}")
-    return res["access_token"]
-
-
-def smartbidder_plot(token: str, plot_type: str, client: str, resource: str,
-                    start_dt: str, end_dt: str) -> str:
-    url = f"{SMARTBIDDER_BASE}/plots/{urllib.parse.quote(plot_type)}"
-    params = {
-        "client": client, "iso": "ERCOT", "resource": resource,
-        "start_date": start_dt, "end_date": end_dt,
-    }
-    headers = {"Authorization": f"Bearer {token}", "Accept": "text/csv"}
-    r = requests.get(url, params=params, headers=headers, timeout=60)
-    if r.status_code == 204:
-        return ""  # no data
-    r.raise_for_status()
-    return r.text
 
 
 # ---------- AG2 (WSI Trader) ----------
@@ -347,7 +305,7 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--target-date", default=None,
                     help="ERCOT operating day (YYYY-MM-DD). Default = tomorrow.")
-    ap.add_argument("--skip-smartbidder", action="store_true")
+    ap.add_argument("--skip-tyba", action="store_true")
     ap.add_argument("--skip-ag2", action="store_true")
     ap.add_argument("--skip-enverus", action="store_true")
     args = ap.parse_args()
@@ -358,7 +316,7 @@ def main() -> None:
 
     sections = load_env_sections(ENV_PATH)
     ye_section = sections.get("yes_energy", {})
-    sb_section = sections.get("smartbidder", {})
+    tyba_section = sections.get("tyba", {})
     RAW_DIR.mkdir(parents=True, exist_ok=True)
 
     # --- Yes Energy ---
@@ -376,36 +334,19 @@ def main() -> None:
             print(f"   • {item:55s} mean={st['mean']:>9.1f}  "
                   f"top2={st['top2_HE']}  bot2={st['bottom2_HE']}")
 
-    # --- Smartbidder ---
-    if not args.skip_smartbidder:
-        print("\n📥 Smartbidder forecasts ...")
+    # --- Tyba ---
+    tyba_result: Any = None
+    if not args.skip_tyba:
+        print("\n📥 Tyba forecasts (DA/RT energy + DA AS + P(RT>DA)) ...")
         try:
-            tok = smartbidder_token(sb_section)
-            # Smartbidder client default 'apex'; Resource key in [smartbidder] section
-            client   = first(sb_section, "SMARTBIDDER_CLIENT", default="apex")
-            resource = first(sb_section, "Resource", "SMARTBIDDER_RESOURCE",
-                             default="Kiskadee Storage")
-            start_dt = f"{target.isoformat()}T00:00:00-05:00"
-            end_dt   = f"{(target + timedelta(days=1)).isoformat()}T00:00:00-05:00"
-            print(f"   client={client!r}  resource={resource!r}")
-
-            # Verified 2026-05-04 against /swagger.json — the skill doc's
-            # 'Ancillary Price Forecasts' is a wrong/legacy name (404). The actual
-            # registered plot is 'DA Ancillary Prices' (cleared + forecasted prices
-            # per AS product: Non-Spin, RegDown, RegUp, RRS, ECRS).
-            for plot in ("Energy Price Forecasts",
-                         "DA Ancillary Prices",
-                         "RT Ancillary Prices",
-                         "DA-RT Forecast"):
-                csv = smartbidder_plot(tok, plot, client, resource, start_dt, end_dt)
-                p = RAW_DIR / "smartbidder" / f"{target.isoformat()}_{plot.replace(' ', '_')}.csv"
-                p.parent.mkdir(parents=True, exist_ok=True)
-                p.write_text(csv, encoding="utf-8")
-                print(f"   saved → {p.relative_to(PROJECT_ROOT)}  ({len(csv)} chars)")
-        except SystemExit:
-            raise
+            token = tyba_section.get("TOKEN")
+            if not token:
+                raise RuntimeError("TOKEN missing in '# Tyba API' section of .env")
+            tyba_result = save_tyba(fetch_tyba_forecast(token, target), target)
+            print(f"   saved → {tyba_result.relative_to(PROJECT_ROOT)}")
         except Exception as e:
-            print(f"   ⚠️ Smartbidder fetch failed (non-fatal): {type(e).__name__}: {e}")
+            tyba_result = f"ERROR: {e}"
+            print(f"   ⚠️ Tyba fetch failed (non-fatal): {type(e).__name__}: {e}")
 
     # --- AG2 (WSI Trader) ---
     ag2_results: dict[str, Any] = {}
@@ -435,6 +376,7 @@ def main() -> None:
         "target_date": target.isoformat(),
         "fetched_at_utc": datetime.utcnow().isoformat() + "Z",
         "yes_energy": yes_stats,
+        "tyba": _paths({"forecast": tyba_result}) if tyba_result else {},
         "ag2": _paths(ag2_results),
         "enverus": _paths(enverus_results),
     }

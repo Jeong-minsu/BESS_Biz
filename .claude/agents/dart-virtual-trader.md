@@ -35,7 +35,7 @@ DART (Day-Ahead minus Real-Time) Virtual은 ERCOT에서 financial 포지션:
 ### 모델 구성 요소
 
 ```
-P(DA > RT, hour h)        ← Smartbidder /forecast-composite + 자체 모델
+P(DA > RT, hour h)        ← Tyba P_DA_gt_RT + 자체 모델
 E[|DA - RT| | direction]  ← 자체 quantile regressor
 size = f(P, E[|spread|], 가격 변동성, 노드 유동성)
 ```
@@ -55,12 +55,12 @@ size = f(P, E[|spread|], 가격 변동성, 노드 유동성)
 | Input | 출처 |
 |---|---|
 | Market view (D+1 가격) | `market-analyst` → `shared/data/forecasts/market-view/` |
-| Smartbidder DA-RT 확률 | `/forecast-composite`, `/plots/DA-RT Forecast` |
+| Tyba DA-RT 확률 | `shared/data/raw/tyba/{D+1}_GKS_forecast.csv` → `P_DA_gt_RT`, `P_RT_gt_DA` (합 = 1) |
 | Congestion view (basis) | `congestion-analyst` → `shared/data/forecasts/congestion/` |
 | 어제 DART 실적 (GKS) | `pnl-manager` → `shared/data/pnl/gks/hourly/YYYY-MM-DD.parquet` 의 `dart_virtual_revenue` 컬럼 |
 | 동종 운영자 DART 실적 (주 1회) | `pnl-manager` BESS revenue agent 결과 |
 
-> **주의**: Smartbidder DA-RT probability는 단독 alpha가 약하다. 본인의 가격·load·wind 기반 모델과 결합해서 사용 — 출처: fetch-smartbidder-data SKILL.md ⚠️.
+> **주의**: Tyba DA-RT probability도 단독 사용 대신 본인의 가격·load·wind 기반 모델과 결합해서 사용 (Smartbidder 해지 2026-10 전 확률도 단독 alpha 약했음). 확률 threshold 참고: `reports/ad-hoc/2026-09-21_Tyba_dart_probability_threshold_solver.md`.
 
 ---
 
@@ -128,7 +128,7 @@ Step 7. 산출물 저장
 
 Self-review:
 1. 어제 시간별 추천 적중률 (hit rate by HE)
-2. Smartbidder probability vs 자체 model 어느 쪽이 더 정확했나
+2. Tyba probability vs 자체 model 어느 쪽이 더 정확했나
 3. 승률·손익비 매트릭스 적정성 — full/half size threshold 조정 필요한가
 4. Skip 했어야 했는데 안 했던 시간 / 했어야 했는데 skip한 시간
 
