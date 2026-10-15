@@ -1,0 +1,23 @@
+{
+  "flowday": "2026-10-14",
+  "generated": "2026-10-15",
+  "status": "DEGRADED",
+  "reason": "Tenaska PTP HTTP 401 Unauthorized — cloud IP not on Ascend whitelist",
+  "tenaska_fetch": "FAILED",
+  "smartbidder": "CANCELLED (해지 2026-10)",
+  "da_energy_revenue": null,
+  "rt_energy_revenue": null,
+  "as_revenue_regup": null,
+  "as_revenue_regdown": null,
+  "as_revenue_rrs": null,
+  "as_revenue_ecrs": null,
+  "as_revenue_nonspin": null,
+  "dart_virtual_revenue": null,
+  "energy_injection_mwh": null,
+  "energy_consumption_mwh": null,
+  "total_revenue": null,
+  "last_successful_fetch": {
+    "flowday": "2026-09-17",
+    "total_revenue": -2231.14
+  }
+}
