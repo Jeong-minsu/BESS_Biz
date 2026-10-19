@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERCOT BESS Weekly Report — 2026-W42 (Oct 12–18)</title>
+<style>
+  :root {
+    --bg-base:        #f7f8fa;
+    --bg-panel:       #ffffff;
+    --bg-panel-2:     #f0f2f5;
+    --bg-row-alt:     #fafbfc;
+    --border-soft:    #e0e3eb;
+    --border-strong:  #c8ccd4;
+    --text-primary:   #131722;
+    --text-secondary: #5d606b;
+    --text-muted:     #9598a1;
+    --accent-up:      #089981;
+    --accent-down:    #f23645;
+    --accent-blue:    #2962ff;
+    --accent-amber:   #ff9800;
+    --accent-purple:  #9c27b0;
+    --accent-red:     #d32f2f;
+    --grid-line:      #eceff3;
+    --shadow-card:    0 1px 3px rgba(16,24,40,0.06);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-family: -apple-system, 'Segoe UI', system-ui, sans-serif;
+    font-size: 13px;
+    line-height: 1.55;
+    padding: 24px;
+    min-height: 100vh;
+  }
+  .dashboard { max-width: 1300px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+
+  /* HEADER */
+  .header {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+    border-radius: 6px;
+    padding: 20px 24px;
+    box-shadow: var(--shadow-card);
+    display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px;
+  }
+  .header-left h1 { font-size: 21px; font-weight: 700; letter-spacing: -0.01em; color: var(--text-primary); }
+  .header-left .subtitle { color: var(--text-secondary); font-size: 12px; margin-top: 4px; }
+  .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 3px 10px; border-radius: 4px; font-size: 11px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.07em;
+  }
+  .pill-critical { background: #fff0f0; color: var(--accent-red); border: 1px solid #ffcccc; }
+  .pill-partial   { background: #fff8e0; color: #b45309; border: 1px solid #fde68a; }
+  .pill-live      { background: #e8f5e9; color: #1b5e20; border: 1px solid #a5d6a7; }
+  .pill-degraded  { background: #fff3e0; color: #e65100; border: 1px solid #ffcc80; }
+  .pill::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+
+  /* ALERT BOX */
+  .alert-box {
+    background: #fff5f5; border: 1.5px solid #f23645; border-radius: 6px; padding: 16px 20px;
+    box-shadow: var(--shadow-card);
+  }
+  .alert-box h2 { font-size: 13px; font-weight: 700; color: var(--accent-down); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.05em; }
+  .alert-item { display: flex; gap: 10px; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #fdd; }
+  .alert-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+  .alert-badge { flex-shrink: 0; background: var(--accent-down); color: white; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 3px; height: fit-content; margin-top: 1px; }
+  .alert-badge.major { background: var(--accent-amber); }
+  .alert-body { flex: 1; }
+  .alert-body strong { color: var(--text-primary); font-weight: 600; }
+
+  /* SECTION */
+  .section {
+    background: var(--bg-panel); border: 1px solid var(--border-soft);
+    border-radius: 6px; overflow: hidden; box-shadow: var(--shadow-card);
+  }
+  .section-header {
+    background: var(--bg-panel-2); border-bottom: 1px solid var(--border-soft);
+    padding: 10px 16px; display: flex; align-items: center; gap: 8px;
+  }
+  .section-header h2 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); }
+  .section-header .badge { font-size: 10px; padding: 2px 7px; border-radius: 10px; font-weight: 600; }
+  .badge-partial { background: #fff8e0; color: #b45309; }
+  .badge-live    { background: #e8f5e9; color: #1b5e20; }
+  .badge-degraded { background: #fff3e0; color: #e65100; }
+  .badge-production { background: #e3f2fd; color: #1565c0; }
+  .section-body { padding: 14px 16px; }
+
+  /* KPI GRID */
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 14px; }
+  .kpi-card {
+    background: var(--bg-panel-2); border: 1px solid var(--border-soft);
+    border-radius: 5px; padding: 12px 14px;
+  }
+  .kpi-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+  .kpi-value { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; color: var(--text-primary); }
+  .kpi-value.up   { color: var(--accent-up); }
+  .kpi-value.down { color: var(--accent-down); }
+  .kpi-value.warn { color: var(--accent-amber); }
+  .kpi-sub { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  thead th {
+    background: var(--bg-panel-2); padding: 7px 10px; text-align: left;
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--text-secondary); border-bottom: 1px solid var(--border-soft);
+  }
+  tbody tr { border-bottom: 1px solid var(--grid-line); }
+  tbody tr:hover { background: var(--bg-row-alt); }
+  tbody td { padding: 7px 10px; vertical-align: top; }
+  tbody tr.highlight-gks { background: #fffde7; font-weight: 600; }
+  tbody tr.critical { background: #fff5f5; }
+  tbody tr.major { background: #fff8e0; }
+  .tag { display: inline-block; font-size: 10px; font-weight: 600; padding: 1px 5px; border-radius: 3px; }
+  .tag-red { background: #ffebee; color: #c62828; }
+  .tag-amber { background: #fff8e0; color: #b45309; }
+  .tag-green { background: #e8f5e9; color: #2e7d32; }
+  .tag-blue { background: #e3f2fd; color: #1565c0; }
+  .tag-gray { background: #f5f5f5; color: #616161; }
+  .num-pos { color: var(--accent-up); font-weight: 600; }
+  .num-neg { color: var(--accent-down); font-weight: 600; }
+  .num-na  { color: var(--text-muted); }
+
+  /* TWO COLUMN */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 800px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* SCORE TABLE */
+  .score-cell { font-size: 15px; font-weight: 700; text-align: center; }
+  .score-high { color: var(--accent-up); }
+  .score-mid  { color: var(--accent-amber); }
+  .score-low  { color: var(--accent-down); }
+  .trend-up   { color: var(--accent-up); }
+  .trend-flat { color: var(--text-muted); }
+  .trend-down { color: var(--accent-down); }
+
+  /* DATA STATUS BAR */
+  .data-status-bar {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; padding: 10px 12px;
+    background: var(--bg-panel-2); border-radius: 5px; border: 1px solid var(--border-soft);
+  }
+  .ds-item { display: flex; align-items: center; gap: 5px; font-size: 11px; }
+  .ds-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .ds-dot.green { background: var(--accent-up); }
+  .ds-dot.amber { background: var(--accent-amber); }
+  .ds-dot.red   { background: var(--accent-down); }
+  .ds-label { color: var(--text-secondary); }
+
+  /* FOOTER */
+  .footer { text-align: center; font-size: 11px; color: var(--text-muted); padding: 8px; }
+
+  /* OBSERVATION NOTES */
+  .note { background: #f8f9fb; border-left: 3px solid var(--accent-blue); padding: 8px 12px; border-radius: 0 4px 4px 0; font-size: 12px; color: var(--text-secondary); margin-top: 10px; }
+  .note.warn { border-color: var(--accent-amber); }
+  .note.alert { border-color: var(--accent-down); }
+</style>
+</head>
+<body>
+<div class="dashboard">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <h1>ERCOT BESS Weekly Report — 2026-W42</h1>
+      <div class="subtitle">Oct 12–18, 2026 &nbsp;|&nbsp; Generated: 2026-10-19 07:30 CT &nbsp;|&nbsp; reporter agent &nbsp;|&nbsp; GKS_BESS_RN (100 MW / 200 MWh)</div>
+    </div>
+    <div class="header-right">
+      <span class="pill pill-degraded">GKS P&amp;L: FULLY DEGRADED</span>
+      <span class="pill pill-partial">Energy+AS Fleet: PARTIAL (Jul 28 cutoff)</span>
+      <span class="pill pill-live">DART Fleet: LIVE (Aug 11 cutoff)</span>
+      <span class="pill pill-critical">3 CRITICAL ISSUES — USER ACTION REQUIRED</span>
+    </div>
+  </div>
+
+  <!-- CRITICAL ALERT -->
+  <div class="alert-box">
+    <h2>Critical Issues Requiring Owner Decision</h2>
+    <div class="alert-item">
+      <div class="alert-badge">CRITICAL</div>
+      <div class="alert-body">
+        <strong>[C-1] dart-virtual-trader wrong output directory — 17th consecutive week.</strong>
+        Oct 15 filed to <code>reports/daily/dart/</code> (WRONG). Canonical: <code>reports/daily/dart-virtual-trader/</code>. Decision pending since W32 (11 weeks). Authorize agent-definition hard-code in <code>.claude/agents/dart-virtual-trader.md</code>, OR enforce suspension clause (triggered W36, unenforced 7 cycles).
+      </div>
+    </div>
+    <div class="alert-item">
+      <div class="alert-badge">CRITICAL</div>
+      <div class="alert-body">
+        <strong>[C-2] Tenaska 401 — 31 consecutive days of missing GKS P&amp;L (Sep 18–Oct 18).</strong>
+        Run <code>fetch_pnl_data.py</code> from whitelisted local/VPN IP. Contact Ascend rep for permanent cloud IP whitelist. Follow up on Tyba Shadow asset API as Smartbidder replacement benchmark. bess-optimizer SoC initialization degrading (Rule 7 default for 31+ days).
+      </div>
+    </div>
+    <div class="alert-item">
+      <div class="alert-badge">CRITICAL</div>
+      <div class="alert-body">
+        <strong>[C-3] congestion-analyst stage-0-rules.md absent — 13th consecutive week.</strong>
+        BEYOND_EXTREME tier (NL &lt; 5,000 MW) observed twice in W42 but cannot be encoded. Suspension clause triggered W36; unenforced 7 cycles. Enforce suspension OR explicitly deprioritize.
+      </div>
+    </div>
+    <div class="alert-item">
+      <div class="alert-badge major">MAJOR</div>
+      <div class="alert-body">
+        <strong>[M-3] Orchestration Monday/Tuesday gap — 2nd consecutive week (W41: Oct 5; W42: Oct 12–13).</strong>
+        All front/middle agents absent both days. Confirm daily automation trigger is active for Monday/Tuesday.
+      </div>
+    </div>
+  </div>
+
+  <!-- DATA STATUS -->
+  <div class="section">
+    <div class="section-header"><h2>Data Status — W42</h2></div>
+    <div class="section-body">
+      <div class="data-status-bar">
+        <div class="ds-item"><div class="ds-dot red"></div><div class="ds-label">Tenaska PTP: DOWN — HTTP 401 (Day 150+); 31 consecutive unconfirmed flowdays</div></div>
+        <div class="ds-item"><div class="ds-dot red"></div><div class="ds-label">Smartbidder: PERMANENTLY TERMINATED (2026-10)</div></div>
+        <div class="ds-item"><div class="ds-dot green"></div><div class="ds-label">Yes Energy BidClose: PRODUCTION (Oct 14, 15, 16, 18; Oct 17: schema error — AG2+Enverus fallback)</div></div>
+        <div class="ds-item"><div class="ds-dot green"></div><div class="ds-label">Tyba GKS D+1: PRODUCTION (first week — Oct 16, 17, 18 confirmed)</div></div>
+        <div class="ds-item"><div class="ds-dot green"></div><div class="ds-label">AG2 / Enverus: PRODUCTION (Oct 16–18; first multi-source week in ~82 days)</div></div>
+        <div class="ds-item"><div class="ds-dot amber"></div><div class="ds-label">Daily coverage: 5/7 (Oct 14–18; Oct 12–13 absent — orchestration gap)</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GKS P&L -->
+  <div class="section">
+    <div class="section-header">
+      <h2>1. GKS Weekly P&amp;L — W42</h2>
+      <span class="badge badge-degraded">FULLY DEGRADED</span>
+    </div>
+    <div class="section-body">
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">W42 Confirmed P&amp;L</div>
+          <div class="kpi-value warn">N/A</div>
+          <div class="kpi-sub">Tenaska 401 — 31 consecutive days</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Last Confirmed Actual</div>
+          <div class="kpi-value down">-$2,231</div>
+          <div class="kpi-sub">Sep 17, 2026 flowday</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">7-Day Rolling Avg (last 7 confirmed)</div>
+          <div class="kpi-value up">$4,305/day</div>
+          <div class="kpi-sub">Aug 31–Sep 17 (non-consecutive)</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Unconfirmed Flowdays</div>
+          <div class="kpi-value down">31 days</div>
+          <div class="kpi-sub">Sep 18 – Oct 18, 2026</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">W42 Cycles Executed</div>
+          <div class="kpi-value warn">5 / 7</div>
+          <div class="kpi-sub">Oct 14–18; Oct 12–13 absent</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">BESS Est. W42 Revenue (unverified)</div>
+          <div class="kpi-value">~$76K–$112K</div>
+          <div class="kpi-sub">5 cycles; ±35% DEGRADED confidence</div>
+        </div>
+      </div>
+      <table>
+        <thead><tr><th>Flowday</th><th>Total Revenue</th><th>DA Energy</th><th>RT Energy</th><th>AS</th><th>DART Virtual</th><th>Status</th><th>BESS Base Forecast</th></tr></thead>
+        <tbody>
+          <tr class="critical"><td>Oct 12 Mon</td><td class="num-na">N/A</td><td class="num-na">—</td><td class="num-na">—</td><td class="num-na">—</td><td class="num-na">—</td><td><span class="tag tag-red">NO CYCLE + DEGRADED</span></td><td class="num-na">—</td></tr>
+          <tr class="critical"><td>Oct 13 Tue</td><td class="num-na">N/A</td><td class="num-na">—</td><td class="num-na">—</td><td class="num-na">—</td><td class="num-na">—</td><td><span class="tag tag-red">NO CYCLE + DEGRADED</span></td><td class="num-na">—</td></tr>
+          <tr><td>Oct 14 Wed</td><td class="num-na">N/A</td><td class="num-na">—</td><td class="num-na">—</td><td class="num-na">—</td><td class="num-na">—</td><td><span class="tag tag-amber">DEGRADED</span></td><td>~$16,208 (HE19-20 DA discharge)</td></tr>
+          <tr><td>Oct 15 Thu</td><td class="num-na">N/A</td><td class="num-na">—</td><td class="num-na">—</td><td class="num-na">—</td><td class="num-na">—</td><td><span class="tag tag-amber">DEGRADED</span></td><td>~$17,200 (HE18-19 narrow window)</td></tr>
+          <tr><td>Oct 16 Fri</td><td class="num-na">N/A</td><td class="num-na">—</td><td class="num-na">—</td><td class="num-na">—</td><td class="num-na">—</td><td><span class="tag tag-amber">DEGRADED</span></td><td>~$11,249 (RT discharge; first full-data cycle)</td></tr>
+          <tr><td>Oct 17 Sat</td><td class="num-na">N/A</td><td class="num-na">—</td><td class="num-na">—</td><td class="num-na">—</td><td class="num-na">—</td><td><span class="tag tag-amber">DEGRADED</span></td><td>~$11,738 (DA lock-in HE19-20)</td></tr>
+          <tr><td>Oct 18 Sun</td><td class="num-na">N/A</td><td class="num-na">—</td><td class="num-na">—</td><td class="num-na">—</td><td class="num-na">—</td><td><span class="tag tag-amber">DEGRADED</span></td><td>~$19,294 (NSPIN HE01-11 + DA $83.58 HE19)</td></tr>
+          <tr class="highlight-gks"><td><strong>W42 Total</strong></td><td><strong class="num-na">UNAVAILABLE</strong></td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="tag tag-red">ALL DEGRADED</span></td><td><strong>~$76K–$112K est.</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FLEET BENCHMARKS -->
+  <div class="two-col">
+    <!-- Energy+AS -->
+    <div class="section">
+      <div class="section-header">
+        <h2>2A. Energy+AS Fleet Benchmark</h2>
+        <span class="badge badge-partial">PARTIAL — Jul 28 cutoff</span>
+      </div>
+      <div class="section-body">
+        <div class="kpi-grid" style="grid-template-columns: 1fr 1fr;">
+          <div class="kpi-card">
+            <div class="kpi-label">Fleet Total Revenue</div>
+            <div class="kpi-value">$199.5M</div>
+            <div class="kpi-sub">Jan 1–Jul 28, 2026</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">GKS Rank</div>
+            <div class="kpi-value">#89</div>
+            <div class="kpi-sub">of fleet resources</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">GKS Revenue YTD</div>
+            <div class="kpi-value up">$794K</div>
+            <div class="kpi-sub">Jan 1–Jul 28 est.</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">GKS Opt Rate</div>
+            <div class="kpi-value up">93%</div>
+            <div class="kpi-sub">vs fleet median ~45%</div>
+          </div>
+        </div>
+        <div class="note warn">PARTIAL: S3 unreachable from cloud blocked Jul 29–Aug 18 backfill. ~3 weeks of fleet revenue absent. Source: <code>reports/weekly/bess-revenue-dashboard/2026-W42.html</code></div>
+      </div>
+    </div>
+
+    <!-- DART Virtual -->
+    <div class="section">
+      <div class="section-header">
+        <h2>2B. DART Virtual Fleet Benchmark</h2>
+        <span class="badge badge-live">LIVE — Aug 11 cutoff</span>
+      </div>
+      <div class="section-body">
+        <div class="kpi-grid" style="grid-template-columns: 1fr 1fr;">
+          <div class="kpi-card">
+            <div class="kpi-label">Fleet DART Net</div>
+            <div class="kpi-value up">$5.7M</div>
+            <div class="kpi-sub">Jan 1–Aug 11, 2026 (292 nodes)</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">GKS DART Rank</div>
+            <div class="kpi-value down">#292 / 292</div>
+            <div class="kpi-sub">LAST in fleet</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">GKS DART Net Revenue</div>
+            <div class="kpi-value down">-$172,840</div>
+            <div class="kpi-sub">Jan 1–Aug 11 est.</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">GKS Win Rate</div>
+            <div class="kpi-value warn">53%</div>
+            <div class="kpi-sub">Above fleet avg ~51%; P/L ratio &lt;1 is key issue</div>
+          </div>
+        </div>
+        <div class="note warn">Positions ADVISORY-ONLY since W28 (Jul 13, 2026). Smartbidder permanently terminated. All positions unsubmitted. Source: <code>reports/weekly/bess-dart-virtual-dashboard/2026-W42.html</code></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARKET STRUCTURE UPDATE -->
+  <div class="section">
+    <div class="section-header">
+      <h2>3. Market Structure Update — W42</h2>
+      <span class="badge badge-partial">PARTIAL — WebSearch + Production data (Oct 14–18)</span>
+    </div>
+    <div class="section-body">
+      <div class="two-col">
+        <div>
+          <p style="font-size:12px; font-weight:600; margin-bottom:6px; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.04em;">Regulatory / Policy</p>
+          <table>
+            <thead><tr><th>Item</th><th>Status</th><th>BESS Implication</th></tr></thead>
+            <tbody>
+              <tr><td>Community Impact RFI (461 DCs)</td><td><span class="tag tag-blue">CLOSED Oct 12</span></td><td>Dec 10 PUCT path intact; response rate unpublished</td></tr>
+              <tr class="major"><td>TCEQ Oct 19 Compliance Report</td><td><span class="tag tag-amber">DUE TODAY</span></td><td>Freeze scope outcome; demand cap vs upside</td></tr>
+              <tr class="major"><td>PUCT Oct 15 Open Meeting (NPRR1328, PCM)</td><td><span class="tag tag-amber">OUTCOME UNCONFIRMED</span></td><td>W43 priority: confirm NPRR1328 + PCM decisions</td></tr>
+              <tr><td>16 TAC §25.194 ($50K/MW ≥75 MW)</td><td><span class="tag tag-green">FULLY OPERATIVE</span></td><td>Two-layer entry barrier; no new large-load possible Q4 2026</td></tr>
+              <tr><td>STEP Permian N/M segments</td><td><span class="tag tag-red">STALLED + POLITICAL PRESSURE</span></td><td>West Hub discount persists through mid-2027+</td></tr>
+              <tr><td>BESS fleet commissioning wave</td><td><span class="tag tag-amber">~18.5–19 GW est.</span></td><td>HE18-20 competition intensifying; AS/congestion critical</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <p style="font-size:12px; font-weight:600; margin-bottom:6px; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.04em;">Generation Mix — W42 Key Observations</p>
+          <table>
+            <thead><tr><th>Category</th><th>W42 Observation</th></tr></thead>
+            <tbody>
+              <tr><td>Solar duck curve</td><td>Oct 18: 31.8 GW peak; Oct 16: -345 MW NL (Stage 0 first-ever negative NL). Gross spread Oct 18: <strong>~$65/MWh</strong> (HE12 $18 → HE19 $84).</td></tr>
+              <tr><td>Wind variability</td><td>Range 8.6–26.5 GW daily avg. Oct 15: GR_WEST 2,090 MW HE14 (near SCI binding). Oct 16: synoptic 16.4 GW avg all-day.</td></tr>
+              <tr><td>Thermal outages</td><td>21,192 → 24,965 MW trajectory (+54% above MORA Oct baseline by Oct 18). Continued autumn maintenance surge.</td></tr>
+              <tr><td>Demand</td><td>Weekday 63–68 GW; Sunday 46.5 GW. Overnight floor 41.5 GW (AI data center baseload ~5–10 GW above pre-AI era).</td></tr>
+              <tr><td>AS market (NSPIN)</td><td>HE21-24 NSPIN $6–8/MWh (Tyba Oct 16 confirmed). NSPIN+ECRS+REGUP stack HE21-24: ~$10–13/MWh.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DAILY CYCLE SUMMARY -->
+  <div class="section">
+    <div class="section-header"><h2>4. W42 Daily Cycle Summary</h2></div>
+    <div class="section-body">
+      <table>
+        <thead><tr><th>Date</th><th>Cycle Status</th><th>Key D+1 Market Conditions</th><th>BESS Base Forecast</th><th>DART Advisory</th></tr></thead>
+        <tbody>
+          <tr class="critical"><td><strong>Oct 12 Mon</strong></td><td><span class="tag tag-red">NO OUTPUT</span></td><td colspan="3">Orchestration gap — [CRITICAL] 2nd consecutive Monday absent</td></tr>
+          <tr class="critical"><td><strong>Oct 13 Tue</strong></td><td><span class="tag tag-red">NO OUTPUT</span></td><td colspan="3">Orchestration gap — [CRITICAL]</td></tr>
+          <tr><td>Oct 14 Wed</td><td><span class="tag tag-blue">PRODUCTION (YE)</span></td><td>Wind avg 17,686 MW; Solar HE14 20,599 MW; NL avg 42,208 MW; Outage 21,192 MW</td><td class="num-pos">~$16,208</td><td>ALL NO_BID (DEGRADED -5 ppt, all gates sub-floor)</td></tr>
+          <tr><td>Oct 15 Thu</td><td><span class="tag tag-blue">PRODUCTION (YE)</span></td><td>Extreme wind U-shape: HE14 min 2,090 MW → HE24 24,701 MW ALL-TIME RECORD; NL avg 63,495 MW</td><td class="num-pos">~$17,200</td><td>INC HB_WEST HE22-24 — first INC direction; 40 MW, E[gross] ~$126</td></tr>
+          <tr><td>Oct 16 Fri</td><td><span class="tag tag-green">FULL (YE+Tyba+Env+AG2)</span></td><td><strong>EXTREME: NL -345 MW HE14 (Stage 0 first-ever negative NL)</strong>; GR_WEST synoptic 16.4 GW avg; Outage 23,122 MW</td><td class="num-pos">~$11,249</td><td>21 entries; INC+DEC; 335 MW notional; E[gross] ~$527</td></tr>
+          <tr><td>Oct 17 Sat</td><td><span class="tag tag-blue">PRODUCTION (AG2+Env; YE error)</span></td><td>Solar 31,580 MW; Wind HE19 2,660 MW (low); NL trough 2,565 MW EXTREME; DA-RT +$21.51 HE19</td><td class="num-pos">~$11,738</td><td>9 DEC + 2 INC; 135 MW notional; E[net] ~$820; overnight DEC Stage 0 record (adj P 63–88%)</td></tr>
+          <tr><td>Oct 18 Sun</td><td><span class="tag tag-green">FULL (YE restored+Tyba+Env)</span></td><td>Solar 31.8 GW HE12; NL trough 7,655 MW; Outage 24,965 MW; DA HE19 <strong>$83.58</strong>; Gross spread ~$65/MWh</td><td class="num-pos">~$19,294</td><td>Pure INC 19/24 hrs; 240 MW notional; E[gross] ~$4,456 (Oct 2026 advisory cumulative ~$6.6K)</td></tr>
+        </tbody>
+      </table>
+      <div class="note">Data quality inflection: Oct 16 was the first full multi-source cycle in ~82 days (since Smartbidder expiry). Tyba GKS D+1 operational. Oct 17 YE schema error successfully handled by AG2+Enverus fallback — first fallback stress test passed.</div>
+    </div>
+  </div>
+
+  <!-- AGENT SCORES -->
+  <div class="section">
+    <div class="section-header"><h2>5. Agent Evaluator Scorecard — W42</h2></div>
+    <div class="section-body">
+      <div style="font-size:12px; color:var(--text-secondary); margin-bottom:10px;">Source: reports/weekly/evaluator/2026-W42.md &nbsp;|&nbsp; Critical: 3 &nbsp;|&nbsp; Major: 4 &nbsp;|&nbsp; Minor: 3 &nbsp;|&nbsp; Top performer: market-analyst (4.2) &nbsp;|&nbsp; Most improvement needed: dart-virtual-trader (3.3 CRITICAL)</div>
+      <table>
+        <thead><tr><th>Agent</th><th style="text-align:center">Process</th><th style="text-align:center">Approach</th><th style="text-align:center">Resource</th><th style="text-align:center">Overall</th><th style="text-align:center">Trend</th><th>Key Note</th></tr></thead>
+        <tbody>
+          <tr><td>market-analyst</td><td class="score-cell score-high">4.0</td><td class="score-cell score-high">4.0</td><td class="score-cell score-high">4.5</td><td class="score-cell score-high">4.2</td><td class="trend-up" style="text-align:center">↑</td><td>Breakthrough week — first multi-source cycle in ~82 days; fallback stress test passed</td></tr>
+          <tr><td>bess-optimizer</td><td class="score-cell score-high">3.5</td><td class="score-cell score-high">4.0</td><td class="score-cell score-high">4.0</td><td class="score-cell score-high">3.8</td><td class="trend-flat" style="text-align:center">→</td><td>Oct 15 path violation (bess-strategy/); NSPIN-hold rule formalized; RT vs DA selection quantified</td></tr>
+          <tr><td>congestion-analyst</td><td class="score-cell score-high">3.5</td><td class="score-cell" style="color:var(--text-muted)">N/A</td><td class="score-cell score-high">4.0</td><td class="score-cell score-high">3.8</td><td class="trend-up" style="text-align:center">↑</td><td>Synoptic vs diurnal regime formally resolved; stage-0-rules.md absent 13th week <span class="tag tag-red">CRITICAL</span></td></tr>
+          <tr><td>pnl-manager</td><td class="score-cell score-high">3.5</td><td class="score-cell" style="color:var(--text-muted)">N/A</td><td class="score-cell score-high">3.5</td><td class="score-cell score-high">3.5</td><td class="trend-flat" style="text-align:center">→</td><td>6/7 reports filed; Oct 17 missing; 31 consecutive DEGRADED flowdays</td></tr>
+          <tr class="critical"><td>dart-virtual-trader</td><td class="score-cell score-low">2.5</td><td class="score-cell score-high">4.0</td><td class="score-cell score-mid">3.5</td><td class="score-cell score-low">3.3</td><td class="trend-flat" style="text-align:center">→ <span class="tag tag-red">CRITICAL</span></td><td>17th consecutive week with wrong-directory instance; Oct 15 → dart/ (WRONG)</td></tr>
+          <tr><td>reporter</td><td class="score-cell score-high">3.5</td><td class="score-cell score-high">4.0</td><td class="score-cell score-low">2.5</td><td class="score-cell score-low">3.3</td><td class="trend-flat" style="text-align:center">→</td><td>Best report quality of year (Oct 15 P0 alert, Oct 16 multi-source table); canonical-paths.md absent 12th week</td></tr>
+          <tr><td>crr-trader</td><td class="score-cell" style="color:var(--text-muted)">—</td><td class="score-cell" style="color:var(--text-muted)">—</td><td class="score-cell" style="color:var(--text-muted)">—</td><td class="score-cell" style="color:var(--text-muted)">—</td><td class="trend-flat" style="text-align:center; color:var(--text-muted)">—</td><td>Inactive (no auction cycle W42)</td></tr>
+        </tbody>
+      </table>
+
+      <p style="font-size:12px; font-weight:600; margin: 14px 0 6px; color:var(--text-secondary);">Major Issues</p>
+      <table>
+        <thead><tr><th>#</th><th>Issue</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr class="major"><td>M-1</td><td>bess-optimizer output path violation Oct 15 — filed to <code>bess-strategy/</code> (WRONG), canonical <code>bess-optimizer/</code></td><td>1/5 cycles wrong; recurrent pattern (W32, W35, W42)</td></tr>
+          <tr class="major"><td>M-2</td><td>dart-virtual-trader Block 2 INC HB_WEST offer floor gap (-$15/MWh static may miss scheduling when NL &lt; 5,000 MW EXTREME)</td><td>Fix filed in learnings (-$25 floor) but not yet in standing rule</td></tr>
+          <tr class="major"><td>M-3</td><td>Oct 12–13 dual cycle gap (all front/middle agents)</td><td>2nd consecutive Monday gap (W41: Oct 5; W42: Oct 12–13) — orchestration-level</td></tr>
+          <tr class="major"><td>M-4</td><td>reporter canonical-paths.md absent — 12th consecutive week</td><td>Oct 15 dart wrong-directory not flagged by reporter; file would enable systematic path verification</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FRONT/MIDDLE SELF-FEEDBACK -->
+  <div class="section">
+    <div class="section-header"><h2>6. Front/Middle Agent Weekly Self-Feedback</h2></div>
+    <div class="section-body">
+      <table>
+        <thead><tr><th>Agent</th><th>W42 Key Learnings</th><th>Actions Filed</th></tr></thead>
+        <tbody>
+          <tr><td><strong>market-analyst</strong></td><td>First multi-source briefing in ~82 cycles. Oct 16 miss: GR_WEST framed as diurnal when synoptic sustained (18 GW through HE14). October solar inter-source gap (YE vs Enverus 2–5 GW) is new primary uncertainty source.</td><td>SYNOPTIC_SUSTAINED regime label (HE01 &gt; 15 GW AND prior HE24 &gt; 15 GW); October solar bias-correction rule (-15% note when YE solar &gt; 22 GW in Oct–Mar; Enverus as central estimate)</td></tr>
+          <tr><td><strong>congestion-analyst</strong></td><td>Synoptic vs diurnal carry-in formally resolved: diurnal decays overnight, synoptic persists. BEYOND_EXTREME tier (NL &lt; 5,000 MW) observed twice — cannot encode without stage-0-rules.md.</td><td>Regime classifier rule (GR_WEST HE13-15 min / daily max ratio &gt; 0.90 = synoptic). Stage 1 prerequisites confirmed: hub-pair LMP absent ~150 cycles.</td></tr>
+          <tr><td><strong>bess-optimizer</strong></td><td>RT selection rule quantified (DA-RT &lt; -$10 AND RT P50 &gt; $50 → RT mandatory). NSPIN-hold rule formalized. HE21-24 NSPIN stranded gap quantified at ~$1,000–1,800/day structural — no fix within asset constraints.</td><td>Two-day SoC carry-in rule formalized; NSPIN override threshold (NSPIN &gt; 2x playbook AND cohort &lt; 30 hrs). ERCOT public data fallback flagged as P0.</td></tr>
+          <tr><td><strong>dart-virtual-trader</strong></td><td>Three new patterns: first INC HB_WEST (Oct 15 HE22-24); highest overnight DEC Stage 0 record (Oct 17 adj P 63–88%); first evening INC (Oct 17 HE19-20, spread +$21.51). Block 2 INC floor gap self-identified.</td><td>INC offer floor: use -$25/MWh when NL &lt; 5,000 MW EXTREME (filed; not yet in standing rule). Stage 1 P(DA&gt;RT) classifier flagged as P0.</td></tr>
+          <tr><td><strong>pnl-manager</strong></td><td>DEGRADED protocol consistently applied. 31 consecutive unconfirmed flowdays. Tyba Shadow asset API inquiry ongoing but no W42 progress.</td><td>P0 Tenaska whitelist — user action only path to P&amp;L recovery.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- W43 WATCH ITEMS -->
+  <div class="section">
+    <div class="section-header"><h2>7. W43 Watch Items</h2></div>
+    <div class="section-body">
+      <table>
+        <thead><tr><th>Item</th><th>Priority</th><th>Deadline</th></tr></thead>
+        <tbody>
+          <tr class="critical"><td>TCEQ Oct 19 Compliance Report outcome — freeze scope, permit inventory</td><td><span class="tag tag-red">HIGH</span></td><td>Today (Oct 19)</td></tr>
+          <tr class="major"><td>PUCT Oct 15 outcome confirmation — NPRR1328 PUCT approval + PCM scheduling decision</td><td><span class="tag tag-amber">HIGH</span></td><td>W43 (check interchange.puc.texas.gov)</td></tr>
+          <tr class="critical"><td>Tenaska P0 backfill (31 days) — run fetch_pnl_data.py from whitelisted IP before W43 first cycle</td><td><span class="tag tag-red">P0</span></td><td>Before W43 Day 1</td></tr>
+          <tr class="critical"><td>dart-virtual-trader directory hard-code — 17th consecutive week; user authorization needed</td><td><span class="tag tag-red">P0</span></td><td>W43 Day 1</td></tr>
+          <tr class="critical"><td>congestion-analyst stage-0-rules.md — 13th consecutive week; user direction needed</td><td><span class="tag tag-red">P0</span></td><td>W43 Day 1</td></tr>
+          <tr><td>ERCOT public data fallback (fetch_ercot_public_data.py) — P0 now that Smartbidder permanently gone</td><td><span class="tag tag-red">P0</span></td><td>Near-term W43</td></tr>
+          <tr><td>Oct 18 T+2 DART validation — dart-virtual-trader Block 2 INC HB_WEST offer floor confirmation</td><td><span class="tag tag-amber">P1</span></td><td>W43 Day 1</td></tr>
+          <tr><td>Thermal cap-out trajectory — near 25 GW; watch for plateau/decline; evening reserve margins</td><td><span class="tag tag-amber">HIGH</span></td><td>4 weeks</td></tr>
+          <tr><td>BESS commissioning wave — ~14 projects, ~1 GW; HE18-20 competition intensifying</td><td><span class="tag tag-amber">HIGH</span></td><td>4 weeks</td></tr>
+          <tr><td>Batch Zero Dec 10 PUCT Report — single most important Q4 2026 structural event</td><td><span class="tag tag-red">P0</span></td><td>Dec 10, 2026</td></tr>
+          <tr><td>reporter canonical-paths.md — 12th consecutive week absent; agent-executable</td><td><span class="tag tag-amber">P1</span></td><td>W43 Day 1</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    Generated: 2026-10-19 07:30 CT &nbsp;|&nbsp; reporter agent &nbsp;|&nbsp; reports/weekly/2026-W42.html &nbsp;|&nbsp; Aggregation only — no proprietary analysis added. All figures cited directly from source agent outputs. &nbsp;|&nbsp; Spread convention: DA − RT, positive = short DA signal.
+  </div>
+
+</div>
+</body>
+</html>
