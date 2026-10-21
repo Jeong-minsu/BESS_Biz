@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BESS_Biz Daily Report — 2026-10-22</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg-base:        #f7f8fa;
+    --bg-panel:       #ffffff;
+    --bg-panel-2:     #f0f2f5;
+    --bg-row-alt:     #fafbfc;
+    --border-soft:    #e0e3eb;
+    --border-strong:  #c8ccd4;
+    --text-primary:   #131722;
+    --text-secondary: #5d606b;
+    --text-muted:     #9598a1;
+    --accent-up:      #089981;
+    --accent-down:    #f23645;
+    --accent-blue:    #2962ff;
+    --accent-amber:   #ff9800;
+    --accent-purple:  #9c27b0;
+    --grid-line:      #eceff3;
+    --shadow-card:    0 1px 2px rgba(16, 24, 40, 0.04);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-family: 'Pretendard', 'Noto Sans KR', 'Inter', -apple-system, system-ui, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 24px;
+    min-height: 100vh;
+  }
+  .dashboard {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-soft);
+    margin-bottom: 4px;
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    font-family: 'Inter', sans-serif;
+  }
+  .header .subtitle {
+    color: var(--text-secondary);
+    font-size: 12px;
+    margin-top: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+  .header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+  .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border: 1px solid var(--border-soft);
+    border-radius: 4px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    background: var(--bg-panel);
+    font-family: 'Inter', sans-serif;
+  }
+  .status-pill.warn { border-color: var(--accent-amber); color: var(--accent-amber); }
+  .status-pill.warn::before { background: var(--accent-amber); }
+  .status-pill.ok::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-up); }
+  .status-pill.warn::before { content: ''; width: 6px; height: 6px; border-radius: 50%; }
+  .panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+  }
+  .panel-header {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border-soft);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-panel);
+  }
+  .panel-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+  }
+  .panel-badge {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.04em;
+  }
+  .badge-warn { background: rgba(255, 152, 0, 0.12); color: var(--accent-amber); }
+  .badge-ok { background: rgba(8, 153, 129, 0.12); color: var(--accent-up); }
+  .badge-err { background: rgba(242, 54, 69, 0.12); color: var(--accent-down); }
+  .badge-info { background: rgba(41, 98, 255, 0.10); color: var(--accent-blue); }
+  .panel-body { padding: 16px; }
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+  }
+  .kpi {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+    border-radius: 6px;
+    padding: 16px 18px;
+    box-shadow: var(--shadow-card);
+  }
+  .kpi-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.10em;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    font-family: 'Inter', sans-serif;
+  }
+  .kpi-value {
+    font-family: 'JetBrains Mono', 'SF Mono', monospace;
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--text-primary);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.1;
+  }
+  .kpi-change {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    margin-top: 6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .up { color: var(--accent-up); }
+  .down { color: var(--accent-down); }
+  .warn { color: var(--accent-amber); }
+  .neutral { color: var(--text-secondary); }
+  .main-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 1000px) { .main-grid { grid-template-columns: 1fr; } }
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 800px) { .two-col { grid-template-columns: 1fr; } }
+  .chart-wrap { height: 280px; padding: 12px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead th {
+    text-align: left;
+    padding: 9px 14px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    font-weight: 500;
+    border-bottom: 1px solid var(--border-soft);
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+  }
+  thead th.num { text-align: right; }
+  tbody td {
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--grid-line);
+  }
+  tbody td.num {
+    text-align: right;
+    font-family: 'JetBrains Mono', monospace;
+    font-variant-numeric: tabular-nums;
+  }
+  tbody tr:nth-child(even) { background: var(--bg-row-alt); }
+  tbody tr:hover { background: var(--bg-panel-2); }
+  .he-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .mode-tag {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.03em;
+  }
+  .mode-discharge { background: rgba(242, 54, 69, 0.10); color: var(--accent-down); }
+  .mode-charge { background: rgba(41, 98, 255, 0.10); color: var(--accent-blue); }
+  .mode-nspin { background: rgba(8, 153, 129, 0.12); color: var(--accent-up); }
+  .mode-ecrs { background: rgba(156, 39, 176, 0.10); color: var(--accent-purple); }
+  .mode-rrs { background: rgba(255, 152, 0, 0.12); color: var(--accent-amber); }
+  .mode-standby { background: var(--bg-panel-2); color: var(--text-muted); }
+  .dart-inc { color: var(--accent-down); font-weight: 600; }
+  .dart-dec { color: var(--accent-blue); font-weight: 600; }
+  .dart-skip { color: var(--text-muted); }
+  .alert-bar {
+    background: rgba(242, 54, 69, 0.07);
+    border: 1px solid rgba(242, 54, 69, 0.20);
+    border-radius: 6px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .alert-icon {
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .alert-title { font-weight: 600; color: var(--accent-down); font-size: 13px; }
+  .alert-text { font-size: 12px; color: var(--text-secondary); margin-top: 3px; }
+  .section-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.10em;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    font-family: 'Inter', sans-serif;
+  }
+  .flag-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .flag {
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 3px;
+    font-family: 'Inter', sans-serif;
+    border: 1px solid var(--border-soft);
+  }
+  .flag-red { background: rgba(242, 54, 69, 0.08); color: var(--accent-down); border-color: rgba(242,54,69,0.2); }
+  .flag-amber { background: rgba(255, 152, 0, 0.08); color: var(--accent-amber); border-color: rgba(255,152,0,0.2); }
+  .flag-green { background: rgba(8, 153, 129, 0.08); color: var(--accent-up); border-color: rgba(8,153,129,0.2); }
+  .hm-grid {
+    display: grid;
+    gap: 2px;
+    padding: 10px 12px 12px;
+  }
+  .hm-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    font-variant-numeric: tabular-nums;
+    border-radius: 2px;
+    height: 22px;
+    color: var(--text-primary);
+  }
+  .hm-label {
+    font-size: 9px;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .divider { height: 1px; background: var(--border-soft); margin: 4px 0; }
+  .text-mono { font-family: 'JetBrains Mono', monospace; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<div class="dashboard">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <h1>BESS_Biz Daily Report</h1>
+      <div class="subtitle">Flowday: Thursday 2026-10-22 (WDPEAK) &nbsp;|&nbsp; Generated: 2026-10-21 07:30 CT &nbsp;|&nbsp; GKS BESS 100 MW / 200 MWh</div>
+    </div>
+    <div class="header-right">
+      <span class="status-pill warn">P&amp;L DEGRADED — Tenaska 401 Day 33+</span>
+      <span class="status-pill ok">Market data: PRODUCTION</span>
+    </div>
+  </div>
+
+  <!-- ALERT -->
+  <div class="alert-bar">
+    <div class="alert-icon">!</div>
+    <div>
+      <div class="alert-title">Tenaska PTP 401 — 33 Consecutive Flowdays (Sep 18 – Oct 20)</div>
+      <div class="alert-text">Cloud IP not whitelisted. 어제(Oct 20) 포함 전체 P&amp;L N/A. Smartbidder 해지(2026-10) — 벤치마크 영구 종료. 조치: fetch_pnl_data.py를 사용자 로컬/VPN에서 실행하거나 Ascend에 IP whitelist 등록 요청.</div>
+    </div>
+  </div>
+
+  <!-- KPI ROW -->
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-label">어제 P&amp;L (Oct 20)</div>
+      <div class="kpi-value" style="font-size:20px; color:var(--text-muted);">N/A</div>
+      <div class="kpi-change warn">FULLY DEGRADED</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">D+1 DA 평균가</div>
+      <div class="kpi-value">$38.67</div>
+      <div class="kpi-change down">▼ $6.93 vs 어제 ($45.60)</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">D+1 DA 피크 (HE19)</div>
+      <div class="kpi-value">$69.50</div>
+      <div class="kpi-change down">▼ $67.23 vs 어제 HE19 ($136.73)</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">GKS BESS 예상 수익</div>
+      <div class="kpi-value up">$12,773</div>
+      <div class="kpi-change neutral">Base | Bear $8,500 / Bull $15,500</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">NSPIN HE21-22 (Rule 3)</div>
+      <div class="kpi-value up">$18.28</div>
+      <div class="kpi-change up">EXTREME — $17.85 / $18.28 (> $15 threshold)</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">DART Advisory (Conf-wt)</div>
+      <div class="kpi-value">$83</div>
+      <div class="kpi-change neutral">10 positions | 160 MW | ADVISORY-ONLY</div>
+    </div>
+  </div>
+
+  <!-- MAIN GRID: Chart + Heatmap -->
+  <div class="main-grid">
+    <!-- DA Price & Expected Revenue Chart -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">D+1 DA 가격 & GKS BESS 예상 시간별 수익 (2026-10-22)</span>
+        <span class="panel-badge badge-ok">Tyba GKS P50</span>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="mainChart"></canvas>
+      </div>
+    </div>
+
+    <!-- HE Heatmap: Mode & Revenue -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">시간대별 운용 모드 히트맵</span>
+        <span class="panel-badge badge-info">HE 01–24</span>
+      </div>
+      <div id="heatmapContainer" style="padding:10px 12px 12px;">
+        <!-- filled by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- TWO-COL: BESS Table + DART Table -->
+  <div class="two-col">
+    <!-- BESS Recommendation Table -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">GKS BESS Stack C — 핵심 시간대</span>
+        <span class="panel-badge badge-ok">예상 $12,773</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>HE</th>
+            <th>Mode</th>
+            <th class="num">Energy MW</th>
+            <th class="num">AS MW</th>
+            <th class="num">SoC (MWh)</th>
+            <th class="num">Est $/h</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="he-tag">01–06</td>
+            <td><span class="mode-tag mode-nspin">NSPIN_DA</span></td>
+            <td class="num">0</td>
+            <td class="num">88</td>
+            <td class="num">85.0</td>
+            <td class="num up">+$220</td>
+          </tr>
+          <tr>
+            <td class="he-tag">07–08</td>
+            <td><span class="mode-tag mode-ecrs">ECRS_DA</span></td>
+            <td class="num">0</td>
+            <td class="num">88</td>
+            <td class="num">85.0</td>
+            <td class="num up">+$220</td>
+          </tr>
+          <tr>
+            <td class="he-tag">09</td>
+            <td><span class="mode-tag mode-rrs">RRS_DA</span></td>
+            <td class="num">0</td>
+            <td class="num">88</td>
+            <td class="num">85.0</td>
+            <td class="num up">+$176</td>
+          </tr>
+          <tr>
+            <td class="he-tag">10</td>
+            <td><span class="mode-tag mode-charge">Charge DA</span></td>
+            <td class="num down">-80</td>
+            <td class="num">0</td>
+            <td class="num">153.0</td>
+            <td class="num down">-$1,832</td>
+          </tr>
+          <tr>
+            <td class="he-tag">11</td>
+            <td><span class="mode-tag mode-charge">Charge DA</span></td>
+            <td class="num down">-55</td>
+            <td class="num">0</td>
+            <td class="num">200.0</td>
+            <td class="num down">-$1,227</td>
+          </tr>
+          <tr>
+            <td class="he-tag">12–17</td>
+            <td><span class="mode-tag mode-nspin">NSPIN_DA</span></td>
+            <td class="num">0</td>
+            <td class="num">88</td>
+            <td class="num">200.0</td>
+            <td class="num up">+$264</td>
+          </tr>
+          <tr>
+            <td class="he-tag">18</td>
+            <td><span class="mode-tag mode-standby">Standby</span></td>
+            <td class="num">0</td>
+            <td class="num">0</td>
+            <td class="num">200.0</td>
+            <td class="num neutral">$0</td>
+          </tr>
+          <tr style="background:rgba(242,54,69,0.04);">
+            <td class="he-tag">19</td>
+            <td><span class="mode-tag mode-discharge">Discharge DA</span></td>
+            <td class="num up">+100</td>
+            <td class="num">0</td>
+            <td class="num">100.0</td>
+            <td class="num up">+$5,560</td>
+          </tr>
+          <tr>
+            <td class="he-tag">20</td>
+            <td><span class="mode-tag mode-discharge">Discharge DA</span></td>
+            <td class="num up">+60</td>
+            <td class="num">0</td>
+            <td class="num">40.0</td>
+            <td class="num up">+$2,860</td>
+          </tr>
+          <tr style="background:rgba(8,153,129,0.04);">
+            <td class="he-tag">21</td>
+            <td><span class="mode-tag mode-nspin">NSPIN_DA</span></td>
+            <td class="num">0</td>
+            <td class="num up">80</td>
+            <td class="num">40.0</td>
+            <td class="num up">+$1,428</td>
+          </tr>
+          <tr style="background:rgba(8,153,129,0.04);">
+            <td class="he-tag">22</td>
+            <td><span class="mode-tag mode-nspin">NSPIN_DA</span></td>
+            <td class="num">0</td>
+            <td class="num up">80</td>
+            <td class="num">40.0</td>
+            <td class="num up">+$1,462</td>
+          </tr>
+          <tr>
+            <td class="he-tag">23</td>
+            <td><span class="mode-tag mode-nspin">NSPIN_DA</span></td>
+            <td class="num">0</td>
+            <td class="num">80</td>
+            <td class="num">40.0</td>
+            <td class="num up">+$1,002</td>
+          </tr>
+          <tr>
+            <td class="he-tag">24</td>
+            <td><span class="mode-tag mode-charge">Recharge DA</span></td>
+            <td class="num down">-50</td>
+            <td class="num">0</td>
+            <td class="num">82.5</td>
+            <td class="num down">-$1,627</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="padding:10px 14px; border-top:1px solid var(--border-soft); display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size:11px; color:var(--text-secondary);">SoC init: ASSUMED 85 MWh (Rule 7) &nbsp;|&nbsp; 0.80x haircut 적용</span>
+        <span class="text-mono up" style="font-size:14px; font-weight:600;">Day Total: +$12,773</span>
+      </div>
+    </div>
+
+    <!-- DART Position Table -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">DART Virtual — 포지션 (Advisory-Only)</span>
+        <span class="panel-badge badge-warn">DEGRADED -5ppt</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>HE</th>
+            <th>방향</th>
+            <th class="num">MW</th>
+            <th class="num">Adj P</th>
+            <th class="num">Spread $/MWh</th>
+            <th class="num">E[net $]</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="he-tag">02</td>
+            <td class="dart-dec">DEC</td>
+            <td class="num">15</td>
+            <td class="num">56.3%</td>
+            <td class="num">-$2.62</td>
+            <td class="num up">$5.0</td>
+          </tr>
+          <tr>
+            <td class="he-tag">03</td>
+            <td class="dart-dec">DEC</td>
+            <td class="num">15</td>
+            <td class="num">56.9%</td>
+            <td class="num">-$2.53</td>
+            <td class="num up">$5.2</td>
+          </tr>
+          <tr>
+            <td class="he-tag">04</td>
+            <td class="dart-dec">DEC</td>
+            <td class="num">15</td>
+            <td class="num">55.4%</td>
+            <td class="num">-$2.21</td>
+            <td class="num up">$3.6</td>
+          </tr>
+          <tr>
+            <td class="he-tag">05</td>
+            <td class="dart-dec">DEC</td>
+            <td class="num">15</td>
+            <td class="num">55.2%</td>
+            <td class="num">-$2.00</td>
+            <td class="num up">$3.1</td>
+          </tr>
+          <tr style="background:rgba(41,98,255,0.04);">
+            <td class="he-tag">10</td>
+            <td class="dart-dec">DEC</td>
+            <td class="num">15</td>
+            <td class="num">57.7%</td>
+            <td class="num">-$2.80</td>
+            <td class="num up">$6.5</td>
+          </tr>
+          <tr>
+            <td class="he-tag">15</td>
+            <td class="dart-inc">INC</td>
+            <td class="num">15</td>
+            <td class="num">56.8%</td>
+            <td class="num">+$3.94</td>
+            <td class="num up">$8.0</td>
+          </tr>
+          <tr>
+            <td class="he-tag">16</td>
+            <td class="dart-inc">INC</td>
+            <td class="num">15</td>
+            <td class="num">59.9%</td>
+            <td class="num">+$5.72</td>
+            <td class="num up">$17.0</td>
+          </tr>
+          <tr>
+            <td class="he-tag">17</td>
+            <td class="dart-inc">INC</td>
+            <td class="num">15</td>
+            <td class="num">55.3%</td>
+            <td class="num">+$1.92</td>
+            <td class="num up">$3.1</td>
+          </tr>
+          <tr>
+            <td class="he-tag">21</td>
+            <td class="dart-inc">INC</td>
+            <td class="num">15</td>
+            <td class="num">58.2%</td>
+            <td class="num">+$4.53</td>
+            <td class="num up">$11.2</td>
+          </tr>
+          <tr style="background:rgba(242,54,69,0.04);">
+            <td class="he-tag">22</td>
+            <td class="dart-inc">INC</td>
+            <td class="num up">25</td>
+            <td class="num up">61.6%</td>
+            <td class="num">+$6.10</td>
+            <td class="num up">$35.4</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="padding:10px 14px; border-top:1px solid var(--border-soft); display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size:11px; color:var(--text-secondary);">10 positions | DEC 75 MW + INC 85 MW</span>
+        <span class="text-mono" style="font-size:13px; font-weight:600;">E[gross] ~$98 &nbsp;|&nbsp; Conf-wt ~$83</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONGESTION + MARKET VIEW -->
+  <div class="two-col">
+    <!-- Congestion -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">혼잡 전망 — Top 3 Constraints (Stage 0 Provisional)</span>
+        <span class="panel-badge badge-warn">Dual-Source</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Constraint</th>
+            <th>Hours</th>
+            <th class="num">P(binding)</th>
+            <th class="num">E[λ|binding]</th>
+            <th>비고</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background:rgba(242,54,69,0.04);">
+            <td style="font-weight:600;">SOUTH_HOUSTON_IMPORT</td>
+            <td class="he-tag">HE17-21</td>
+            <td class="num down">35–50%</td>
+            <td class="num">$30–60</td>
+            <td style="font-size:11px; color:var(--text-secondary);">NL 49,356 MW 신기록; WDPEAK</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">DUCK_CURVE_MIDDAY</td>
+            <td class="he-tag">HE10-14</td>
+            <td class="num warn">15–28%</td>
+            <td class="num">$15–25</td>
+            <td style="font-size:11px; color:var(--text-secondary);">YE EXTREME vs Enverus SEVERE 경계</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">WEST_TO_NORTH_345</td>
+            <td class="he-tag">HE24</td>
+            <td class="num neutral">10–20%</td>
+            <td class="num">$15–28</td>
+            <td style="font-size:11px; color:var(--text-secondary);">D+2 carry-in ACTIVATED</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="padding:10px 14px 12px; border-top:1px solid var(--border-soft);">
+        <div class="section-label">GKS_BESS_RN MCC 전망 (CI ±$2–3/MWh)</div>
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <span style="font-size:12px;"><span class="he-tag">HE10-14</span> <span class="text-mono down" style="font-size:11px;">-$0.5 ~ -$2.5</span></span>
+          <span style="font-size:12px;"><span class="he-tag">HE17-21</span> <span class="text-mono up" style="font-size:11px;">+$0.5 ~ +$3.0</span> (conditional)</span>
+          <span style="font-size:12px;"><span class="he-tag">일 평균</span> <span class="text-mono neutral" style="font-size:11px;">-$0.2 ~ +$0.8</span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Market View -->
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">D+1 시황 요약 — 2026-10-22</span>
+        <span class="panel-badge badge-ok">YE + Enverus + Tyba</span>
+      </div>
+      <div class="panel-body" style="display:flex; flex-direction:column; gap:10px;">
+        <div>
+          <div class="section-label">수급 구조</div>
+          <ul style="font-size:12px; color:var(--text-secondary); padding-left:14px; line-height:1.8;">
+            <li>Load 피크 HE17-18 <span class="text-mono">64,407 MW</span> | 24h avg <span class="text-mono">53,732 MW</span></li>
+            <li>태양광 피크 HE12 <span class="text-mono">28,625 MW</span> → HE18 이후 급소멸</li>
+            <li>풍력 avg <span class="text-mono">8,044 MW</span> (YE) / <span class="text-mono">10,358 MW</span> (Enverus) — 야간 HE23-24 <span class="text-mono warn">5 GW 갭</span></li>
+            <li>Net Load 피크 HE19 <span class="text-mono">49,356 MW</span> (Oct 신기록)</li>
+            <li>열원 강제정지 avg <span class="text-mono">24,760 MW</span> — reserve margin 압박</li>
+          </ul>
+        </div>
+        <div class="divider"></div>
+        <div>
+          <div class="section-label">DA-RT Spread 구조</div>
+          <ul style="font-size:12px; color:var(--text-secondary); padding-left:14px; line-height:1.8;">
+            <li>HE10-11: RT&gt;DA (<span class="text-mono">P=53-63%</span>) — Duck charge 우위</li>
+            <li>HE18-20: RT&gt;DA (<span class="text-mono">P=44-46%</span>, 과반 미달) — 저녁 ramp; 불확실</li>
+            <li>HE21-22: <span class="up">DA&gt;RT (P=63-67%)</span> — Post-peak; NSPIN $17-18/MWh</li>
+            <li>HE02-05: RT&gt;DA (<span class="text-mono">P=60-62%</span>) — 강풍 overnight</li>
+          </ul>
+        </div>
+        <div class="divider"></div>
+        <div>
+          <div class="section-label">핵심 리스크</div>
+          <ul style="font-size:12px; color:var(--text-secondary); padding-left:14px; line-height:1.8;">
+            <li>Enverus 야간 바람 21 GW 실현 시 overnight DA 추가 하락 ($32→$28)</li>
+            <li>HE18-20 RT spike 가능 (SOUTH_HOUSTON_IMPORT P=35-50%)</li>
+            <li>YE 태양광 보정 미적용 — 시황 gross spread 과대 추정 위험</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SELF-REVIEW ISSUES -->
+  <div class="panel">
+    <div class="panel-header">
+      <span class="panel-title">Self-Review 주요 이슈 — 2026-10-21 학습 (4 에이전트)</span>
+      <span class="panel-badge badge-err">P0×2 &nbsp;|&nbsp; P1×5</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>에이전트</th>
+          <th>우선순위</th>
+          <th>이슈</th>
+          <th>상태</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-weight:600;">market-analyst</td>
+          <td><span class="mode-tag badge-err">P0</span></td>
+          <td style="font-size:12px;">YE 태양광 +15% 과대추정 보정 3 사이클 연속 미적용 (bess-optimizer gross spread 과대 전달)</td>
+          <td style="font-size:11px; color:var(--accent-down);">미해결</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600;">market-analyst</td>
+          <td><span class="mode-tag badge-warn">P1</span></td>
+          <td style="font-size:12px;">HE19 $136.73 spike 단일값 제공 — 시나리오 범위 (downside ~$70-90) 미제시</td>
+          <td style="font-size:11px; color:var(--accent-amber);">미적용</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600;">market-analyst</td>
+          <td><span class="mode-tag badge-warn">P1</span></td>
+          <td style="font-size:12px;">ERCOT RTMIDP public fetch 미구현 — 5차 연속 이월</td>
+          <td style="font-size:11px; color:var(--accent-amber);">이월</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600;">congestion-analyst</td>
+          <td><span class="mode-tag badge-warn">P1</span></td>
+          <td style="font-size:12px;">fetch_hub_lmp.py Oct 27 deadline 미이행 (3일 경과) — Stage 0→1 전환 gate item</td>
+          <td style="font-size:11px; color:var(--accent-amber);">지연</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600;">congestion-analyst</td>
+          <td><span class="mode-tag badge-warn">P1</span></td>
+          <td style="font-size:12px;">Tyba DA/RT spread 2 사이클 연속 직접 확인 누락 — binding regime classifier 미작동</td>
+          <td style="font-size:11px; color:var(--accent-amber);">미적용</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600;">bess-optimizer</td>
+          <td><span class="mode-tag badge-ok">학습</span></td>
+          <td style="font-size:12px;">Oct 20-22 패턴: HE19 DA &lt; $100 + NSPIN HE21 &gt; $12 → HE20 부분 방전 + NSPIN 확보 전략 최적. Rule 3 EXTREME threshold 유효.</td>
+          <td style="font-size:11px; color:var(--accent-up);">Oct 22 적용</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600;">dart-virtual-trader</td>
+          <td><span class="mode-tag badge-err">P1↑</span></td>
+          <td style="font-size:12px;">ERCOT public LMP fetch 3차 에스컬레이션 — 34 flowdays 미검증. Oct 22 self-review에서 사용자 직접 에스컬레이션 예정.</td>
+          <td style="font-size:11px; color:var(--accent-down);">에스컬레이션</td>
+        </tr>
+        <tr>
+          <td style="font-weight:600;">dart-virtual-trader</td>
+          <td><span class="mode-tag badge-warn">P2</span></td>
+          <td style="font-size:12px;">Tier 2 DEGRADED rule (|spread|&gt;$5 → -3ppt) 구현 검토 중 — HE16에서 +10 MW 기회</td>
+          <td style="font-size:11px; color:var(--accent-amber);">검토 중</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CROSS-AGENT CONSISTENCY + OPS ALERTS -->
+  <div class="two-col">
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">교차 에이전트 일관성 검토</span>
+      </div>
+      <div class="panel-body" style="display:flex; flex-direction:column; gap:10px;">
+        <div style="display:flex; gap:8px; align-items:flex-start;">
+          <span class="mode-tag badge-ok" style="flex-shrink:0; margin-top:2px;">일관</span>
+          <div style="font-size:12px;"><strong>market-analyst HE19 peak vs bess-optimizer</strong><br><span style="color:var(--text-secondary);">market: HE19 $69.50 최고가 → optimizer: HE19 100 MW DA discharge. 방향·시간대 일치.</span></div>
+        </div>
+        <div style="display:flex; gap:8px; align-items:flex-start;">
+          <span class="mode-tag badge-ok" style="flex-shrink:0; margin-top:2px;">일관</span>
+          <div style="font-size:12px;"><strong>HE21-22 DA&gt;RT — market-analyst + dart-virtual-trader</strong><br><span style="color:var(--text-secondary);">P(DA&gt;RT) 63-67% — INC 방향 일치. NSPIN $17-18/MW로 post-peak reserve 타이트.</span></div>
+        </div>
+        <div style="display:flex; gap:8px; align-items:flex-start;">
+          <span class="mode-tag badge-err" style="flex-shrink:0; margin-top:2px;">불일치</span>
+          <div style="font-size:12px;"><strong>Rule 3 coordination: bess-optimizer 권고 vs dart-virtual-trader 미반영</strong><br><span style="color:var(--text-secondary);">bess-optimizer: HE21-22 INC virtual 50% 축소 권고. dart-virtual-trader: HE21 15 MW (medium), HE22 25 MW (full) — 50% 미적용. NSPIN adverse correlation 관리 필요.</span></div>
+        </div>
+        <div style="display:flex; gap:8px; align-items:flex-start;">
+          <span class="mode-tag badge-ok" style="flex-shrink:0; margin-top:2px;">일관</span>
+          <div style="font-size:12px;"><strong>HE18-20 congestion HIGH → DART SKIP</strong><br><span style="color:var(--text-secondary);">SOUTH_HOUSTON_IMPORT 35-50% binding → RT spike 가능 → INC adj P 49-52% → 올바르게 SKIP.</span></div>
+        </div>
+        <div style="display:flex; gap:8px; align-items:flex-start;">
+          <span class="mode-tag badge-warn" style="flex-shrink:0; margin-top:2px;">언어불일치</span>
+          <div style="font-size:12px;"><strong>market-analyst "저녁 RT&gt;DA 구조" — 실제 P(RT&gt;DA)=43-46%</strong><br><span style="color:var(--text-secondary);">P50 spread은 RT&gt;DA지만 확률은 과반 미달. market-analyst 자체 learning에서도 P2로 지적. 다음 briefing에서 표현 정밀화 필요.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">운영 알림 — 시스템 이슈</span>
+        <span class="panel-badge badge-err">P0×2 &nbsp;P1×5</span>
+      </div>
+      <div class="panel-body" style="display:flex; flex-direction:column; gap:8px;">
+        <div style="background:rgba(242,54,69,0.06); border:1px solid rgba(242,54,69,0.18); border-radius:4px; padding:10px 12px;">
+          <div style="font-size:11px; font-weight:600; color:var(--accent-down); margin-bottom:4px;">P0 — Tenaska PTP 401 (만성 장애)</div>
+          <div style="font-size:11px; color:var(--text-secondary);">Cloud IP not whitelisted. Sep 18–Oct 20 = 33 연속 flowday 미확인. 사용자 로컬/VPN 실행 또는 Ascend IP whitelist 등록 필요.</div>
+        </div>
+        <div style="background:rgba(242,54,69,0.06); border:1px solid rgba(242,54,69,0.18); border-radius:4px; padding:10px 12px;">
+          <div style="font-size:11px; font-weight:600; color:var(--accent-down); margin-bottom:4px;">P0 — YE 태양광 보정 3연속 미적용</div>
+          <div style="font-size:11px; color:var(--text-secondary);">bess-optimizer gross DA spread 체계적 과대 가능성. Solar Calibration Check 템플릿 항목으로 즉시 추가 필요.</div>
+        </div>
+        <div style="background:rgba(255,152,0,0.06); border:1px solid rgba(255,152,0,0.18); border-radius:4px; padding:10px 12px;">
+          <div style="font-size:11px; font-weight:600; color:var(--accent-amber); margin-bottom:4px;">P1 — ERCOT RTMIDP fetch / fetch_hub_lmp.py</div>
+          <div style="font-size:11px; color:var(--text-secondary);">RTMIDP: 5차 이월 — 가격 검증 루프 복구 최고 ROI 액션. hub_lmp: Oct 27 deadline 3일 경과 (Stage 0→1 gate).</div>
+        </div>
+        <div style="background:rgba(255,152,0,0.06); border:1px solid rgba(255,152,0,0.18); border-radius:4px; padding:10px 12px;">
+          <div style="font-size:11px; font-weight:600; color:var(--accent-amber); margin-bottom:4px;">P1 — DAM SoC 확인 (10:00 CT 전)</div>
+          <div style="font-size:11px; color:var(--text-secondary);">bess-optimizer SoC init = ASSUMED 85 MWh. DAM 제출 전 실제 SoC 반드시 확인. 실제 SoC 차이에 따라 HE10-11 charge MW 조정 필요.</div>
+        </div>
+        <div style="background:rgba(255,152,0,0.06); border:1px solid rgba(255,152,0,0.18); border-radius:4px; padding:10px 12px;">
+          <div style="font-size:11px; font-weight:600; color:var(--accent-amber); margin-bottom:4px;">P1 — Smartbidder 해지 → Tyba Shadow asset 대체 벤치마크</div>
+          <div style="font-size:11px; color:var(--text-secondary);">벤치마크 N/A (영구 종료). Tyba Shadow asset API 응답 대기. 확정 시 파이프라인 교체 필요.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  Chart.defaults.color = '#5d606b';
+  Chart.defaults.borderColor = '#eceff3';
+  Chart.defaults.font.family = "'Inter', sans-serif";
+  Chart.defaults.font.size = 11;
+
+  // DA price data (HE01-24) from Tyba GKS P50
+  const heLabels = ['HE01','HE02','HE03','HE04','HE05','HE06','HE07','HE08','HE09','HE10',
+                    'HE11','HE12','HE13','HE14','HE15','HE16','HE17','HE18','HE19','HE20',
+                    'HE21','HE22','HE23','HE24'];
+
+  const daPrice = [32.16, 30.45, 30.44, 31.27, 33.71, 37.92, 43.75, 49.75, 33.25, 22.90,
+                   22.30, 23.79, 25.99, 32.28, 36.02, 40.38, 45.42, 54.97, 69.50, 59.59,
+                   53.41, 47.45, 38.83, 32.54];
+
+  const rtPrice = [34.17, 33.07, 32.97, 33.48, 35.71, 39.03, 44.06, 46.78, 34.90, 25.70,
+                   25.12, 25.01, 26.33, 30.08, 32.08, 34.66, 43.49, 57.16, 71.28, 62.73,
+                   48.88, 41.36, 36.61, 32.39];
+
+  // Estimated hourly revenue contribution (positive = revenue, negative = cost)
+  const hourlyRev = [220, 220, 220, 220, 220, 220, 220, 220, 176, -1832,
+                     -1227, 264, 264, 264, 264, 264, 264, 0, 5560, 2860,
+                     1428, 1462, 1002, -1627];
+
+  const ctx = document.getElementById('mainChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: heLabels,
+      datasets: [
+        {
+          label: 'DA Price ($/MWh)',
+          data: daPrice,
+          borderColor: '#2962ff',
+          backgroundColor: 'rgba(41, 98, 255, 0.12)',
+          borderWidth: 1.5,
+          type: 'line',
+          fill: true,
+          tension: 0.2,
+          pointRadius: 0,
+          yAxisID: 'yPrice',
+          order: 1,
+        },
+        {
+          label: 'RT Price ($/MWh)',
+          data: rtPrice,
+          borderColor: '#ff9800',
+          backgroundColor: 'rgba(255, 152, 0, 0)',
+          borderWidth: 1,
+          type: 'line',
+          fill: false,
+          tension: 0.2,
+          pointRadius: 0,
+          borderDash: [3, 3],
+          yAxisID: 'yPrice',
+          order: 1,
+        },
+        {
+          label: 'GKS Revenue ($)',
+          data: hourlyRev,
+          backgroundColor: hourlyRev.map(v => v > 0 ? 'rgba(8, 153, 129, 0.70)' : 'rgba(242, 54, 69, 0.60)'),
+          borderColor: hourlyRev.map(v => v > 0 ? '#089981' : '#f23645'),
+          borderWidth: 0.5,
+          type: 'bar',
+          yAxisID: 'yRev',
+          order: 2,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top',
+          labels: { boxWidth: 12, font: { size: 10 }, padding: 12 }
+        },
+        tooltip: { mode: 'index', intersect: false }
+      },
+      scales: {
+        x: {
+          grid: { color: '#eceff3', drawTicks: false },
+          border: { display: false },
+          ticks: { maxRotation: 0, font: { size: 10 } }
+        },
+        yPrice: {
+          position: 'left',
+          grid: { color: '#eceff3', drawTicks: false },
+          border: { display: false },
+          ticks: { padding: 6, callback: v => '$' + v },
+          title: { display: true, text: '$/MWh', font: { size: 10 }, color: '#5d606b' }
+        },
+        yRev: {
+          position: 'right',
+          grid: { drawOnChartArea: false },
+          border: { display: false },
+          ticks: { padding: 6, callback: v => '$' + (v/1000).toFixed(1) + 'k' },
+          title: { display: true, text: '$/h', font: { size: 10 }, color: '#5d606b' }
+        }
+      },
+      interaction: { mode: 'index', intersect: false }
+    }
+  });
+
+  // Heatmap: HE × Mode × Revenue
+  function heatColorLight(v) {
+    v = Math.max(-1, Math.min(1, v));
+    if (v >= 0) return 'rgba(8, 153, 129, ' + (0.15 + v * 0.65) + ')';
+    return 'rgba(242, 54, 69, ' + (0.15 + (-v) * 0.65) + ')';
+  }
+
+  const hmData = [
+    { he: 'HE01-06', mode: 'NSPIN_DA', rev: 220, maxRev: 5560 },
+    { he: 'HE07-08', mode: 'ECRS_DA',  rev: 220, maxRev: 5560 },
+    { he: 'HE09',    mode: 'RRS_DA',   rev: 176, maxRev: 5560 },
+    { he: 'HE10',    mode: 'Charge',   rev: -1832, maxRev: 5560 },
+    { he: 'HE11',    mode: 'Charge',   rev: -1227, maxRev: 5560 },
+    { he: 'HE12-17', mode: 'NSPIN_DA', rev: 264, maxRev: 5560 },
+    { he: 'HE18',    mode: 'Standby',  rev: 0,   maxRev: 5560 },
+    { he: 'HE19',    mode: 'Discharge',rev: 5560, maxRev: 5560 },
+    { he: 'HE20',    mode: 'Discharge',rev: 2860, maxRev: 5560 },
+    { he: 'HE21',    mode: 'NSPIN_DA', rev: 1428, maxRev: 5560 },
+    { he: 'HE22',    mode: 'NSPIN_DA', rev: 1462, maxRev: 5560 },
+    { he: 'HE23',    mode: 'NSPIN_DA', rev: 1002, maxRev: 5560 },
+    { he: 'HE24',    mode: 'Recharge', rev: -1627, maxRev: 5560 },
+  ];
+
+  const hmContainer = document.getElementById('heatmapContainer');
+  hmContainer.innerHTML = '';
+
+  hmData.forEach(d => {
+    const row = document.createElement('div');
+    row.style.cssText = 'display:grid; grid-template-columns:56px 80px 1fr; gap:4px; margin-bottom:2px; align-items:center;';
+
+    const heEl = document.createElement('div');
+    heEl.style.cssText = 'font-family:JetBrains Mono,monospace; font-size:9px; color:#9598a1; text-align:right; padding-right:4px;';
+    heEl.textContent = d.he;
+
+    const modeEl = document.createElement('div');
+    modeEl.style.cssText = 'font-size:9px; font-family:Inter,sans-serif; color:#5d606b;';
+    modeEl.textContent = d.mode;
+
+    const cellEl = document.createElement('div');
+    const norm = d.rev / d.maxRev;
+    cellEl.style.cssText = 'height:18px; border-radius:2px; display:flex; align-items:center; justify-content:flex-end; padding-right:6px;';
+    cellEl.style.background = d.rev === 0 ? '#f0f2f5' : heatColorLight(norm);
+
+    const revEl = document.createElement('span');
+    revEl.style.cssText = "font-family:'JetBrains Mono',monospace; font-size:9px; font-variant-numeric:tabular-nums; color:" + (d.rev > 0 ? '#089981' : d.rev < 0 ? '#f23645' : '#9598a1') + ";";
+    revEl.textContent = d.rev === 0 ? '$0' : (d.rev > 0 ? '+$' + d.rev.toLocaleString() : '-$' + Math.abs(d.rev).toLocaleString());
+
+    cellEl.appendChild(revEl);
+    row.appendChild(heEl);
+    row.appendChild(modeEl);
+    row.appendChild(cellEl);
+    hmContainer.appendChild(row);
+  });
+</script>
+</body>
+</html>
