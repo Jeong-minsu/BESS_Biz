@@ -1,0 +1,21 @@
+{
+  "flowday": "2026-10-21",
+  "generated": "2026-10-22",
+  "resource": "GKS_BESS_ESR1",
+  "status": "DEGRADED",
+  "fetch_error": "Tenaska PTP HTTP 401 Unauthorized — cloud IP not on Ascend whitelist",
+  "da_energy_revenue": null,
+  "rt_energy_revenue": null,
+  "as_revenue_regup": null,
+  "as_revenue_regdown": null,
+  "as_revenue_rrs": null,
+  "as_revenue_ecrs": null,
+  "as_revenue_nonspin": null,
+  "dart_virtual_revenue": null,
+  "energy_injection_mwh": null,
+  "energy_consumption_mwh": null,
+  "total_revenue": null,
+  "last_successful_fetch": "2026-09-17",
+  "last_confirmed_total": -2231.14,
+  "note": "No source data available. Daily parquet not generated. Backfill required from whitelisted IP. Tenaska 401 chronic since 2026-05-21; 34 consecutive flowdays (Sep 18 – Oct 21) unconfirmed. Smartbidder 해지 (2026-10)."
+}
